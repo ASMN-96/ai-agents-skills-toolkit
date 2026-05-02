@@ -1,0 +1,37 @@
+# Design Interface
+
+## Purpose
+
+Explore interface shapes before committing to a module or API design.
+
+## When To Use
+
+Use when a module boundary, API, component interface, or developer experience is unclear.
+
+## When Not To Use
+
+Do not generate many alternatives when an established local pattern already fits.
+
+## Agent Roles That Should Embed It
+
+Architect Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
+
+## Operating Rules
+
+- Compare a few meaningful designs.
+- Evaluate ergonomics, future change, testability, and compatibility.
+- Choose the smallest interface that communicates intent.
+
+## Verification Requirements
+
+Include example usage and explain why the chosen shape wins.
+
+## Risks / Anti-Patterns
+
+Novelty for its own sake, premature abstraction, or hiding complexity behind a vague API.
+
+## Source Inspiration / License Status
+
+Inspired by `mattpocock/skills`, MIT visible during evaluation.
+
+This is normalized/paraphrased guidance, not raw upstream activation.
