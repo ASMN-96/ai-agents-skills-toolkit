@@ -1,0 +1,12 @@
+.env*
+node_modules/
+dist/
+build/
+.cache/
+.venv/
+__pycache__/
+*.log
+.DS_Store
+Thumbs.db
+scratch/
+temp/
