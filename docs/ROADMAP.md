@@ -14,14 +14,16 @@ Status: Completed as read-only evaluation. Summary lives in `PHASE_2_SOURCE_EVAL
 
 Extract approved concepts into modular methods after review. Keep extracted methods separate from raw external source files.
 
-Status: In progress on `phase3-method-extraction`. Outputs are normalized/paraphrased method files only, with source inspiration and license status documented in each method.
+Status: Completed and merged. Outputs are normalized/paraphrased method files only, with source inspiration and license status documented in each method.
 
 ## Phase 4: Agent Compilation
 
 Compile internal agents from approved methods, profiles, prompts, and governance rules. Record toolkit version metadata in compiled outputs.
 
-Phase 4 must not start until Phase 3 methods are reviewed and approved.
+Status: In progress on `phase4-agent-compilation`. This phase adds product-ready compiled agent documents and reusable profiles. It does not activate compiled agents globally, create project sync scripts, install external skills, or touch product repositories.
 
 ## Phase 5: Project Sync / Install Workflow
 
 Create intentional, version-pinned sync and install workflows for project repositories. Project repos consume compiled agents, not raw upstream files.
+
+Status: Not started. Phase 5 must wait until compiled agents and profiles are reviewed and approved.
