@@ -49,7 +49,6 @@ function Normalize-ProfileName {
     param([string]$Name)
     $normalized = [System.IO.Path]::GetFileName($Name.Trim())
     $normalized = $normalized -replace '\.md$', ''
-    if ($normalized -notlike '*-profile') { $normalized = "$normalized-profile" }
     return $normalized
 }
 
@@ -99,8 +98,8 @@ if ($failures.Count -eq 0) {
         if (!(Test-Path -LiteralPath $path)) { $failures += "Missing compiled agent: $name" }
     }
 
-    foreach ($profile in $selectedProfiles) {
-        $name = Normalize-ProfileName $profile
+    foreach ($profileEntry in $selectedProfiles) {
+        $name = Normalize-ProfileName $profileEntry
         $path = Join-Path $aiRoot "profiles\$name.md"
         if (!(Test-Path -LiteralPath $path)) { $failures += "Missing profile: $name" }
     }
@@ -113,9 +112,9 @@ if ($failures.Count -eq 0) {
 
     $unsafeFilePatterns = @('.env', '.env.*', 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'npm-shrinkwrap.json', '*.log')
     foreach ($pattern in $unsafeFilePatterns) {
-        $matches = @(Get-ChildItem -Recurse -Force -File -LiteralPath $aiRoot -Filter $pattern)
-        foreach ($match in $matches) {
-            $failures += "Unsafe artifact found: $($match.FullName)"
+        $foundFiles = @(Get-ChildItem -Recurse -Force -File -LiteralPath $aiRoot -Filter $pattern)
+        foreach ($foundFile in $foundFiles) {
+            $failures += "Unsafe artifact found: $($foundFile.FullName)"
         }
     }
 

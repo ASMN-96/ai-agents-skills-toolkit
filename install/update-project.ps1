@@ -163,8 +163,8 @@ foreach ($agent in $selectedAgents) {
     }
 }
 
-foreach ($profile in $selectedProfiles) {
-    $name = Normalize-ProfileName $profile
+foreach ($profileEntry in $selectedProfiles) {
+    $name = Normalize-ProfileName $profileEntry
     $source = Join-Path $ToolkitRoot "profiles\$name.md"
     if (!(Test-Path -LiteralPath $source)) { throw "Profile not found: $name" }
     $destination = Join-Path $aiRoot "profiles\$name.md"
