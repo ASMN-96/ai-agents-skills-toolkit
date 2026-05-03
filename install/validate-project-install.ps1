@@ -74,10 +74,20 @@ if (!(Test-Path -LiteralPath $versionPath)) { $failures += 'Missing .ai-toolkit/
 if (!(Test-Path -LiteralPath $configPath)) { $failures += 'Missing .ai-toolkit/.ai-toolkit.config.json.' }
 
 if ($failures.Count -eq 0) {
+    $versionRecord = Get-Content -Raw -LiteralPath $versionPath | ConvertFrom-Json
     $config = Get-Content -Raw -LiteralPath $configPath | ConvertFrom-Json
-    $selectedAgents = Convert-ToStringArray (Get-JsonProperty $config 'selectedAgents' @())
-    $selectedProfiles = Convert-ToStringArray (Get-JsonProperty $config 'selectedProfiles' @())
-    $allowOverwrite = [bool](Get-JsonProperty $config 'allowOverwriteProjectContext' $false)
+    $recordedToolkitVersion = [string](Get-JsonProperty -Object $versionRecord -Name 'toolkitVersion' -Default '')
+    $recordedToolkitCommit = [string](Get-JsonProperty -Object $versionRecord -Name 'toolkitCommit' -Default '')
+    $selectedAgents = Convert-ToStringArray (Get-JsonProperty -Object $config -Name 'selectedAgents' -Default @())
+    $selectedProfiles = Convert-ToStringArray (Get-JsonProperty -Object $config -Name 'selectedProfiles' -Default @())
+    $allowOverwrite = [bool](Get-JsonProperty -Object $config -Name 'allowOverwriteProjectContext' -Default $false)
+
+    if ([string]::IsNullOrWhiteSpace($recordedToolkitVersion)) {
+        $failures += 'Missing toolkitVersion in .ai-toolkit/.ai-toolkit-version.'
+    }
+    if ([string]::IsNullOrWhiteSpace($recordedToolkitCommit) -or $recordedToolkitCommit -eq 'unknown') {
+        $failures += 'Missing resolved toolkitCommit in .ai-toolkit/.ai-toolkit-version.'
+    }
 
     if ($allowOverwrite) {
         $failures += 'Config has allowOverwriteProjectContext:true, which is rejected in Phase 5 v1.'

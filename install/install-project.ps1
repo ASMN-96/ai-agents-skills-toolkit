@@ -35,10 +35,12 @@ Parameters:
 
 function Get-ToolkitCommit {
     try {
-        return (& git -C $ToolkitRoot rev-parse HEAD 2>$null).Trim()
+        $commit = & git -C $ToolkitRoot rev-parse HEAD 2>$null
+        if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($commit)) { return $null }
+        return $commit.Trim()
     }
     catch {
-        return 'unknown'
+        return $null
     }
 }
 
@@ -94,11 +96,15 @@ function Assert-TargetBranchPolicy {
     param([string]$TargetRoot, [string]$BranchPolicy)
     if ($BranchPolicy -ne 'no-direct-main') { return }
     try {
-        $branch = (& git -C $TargetRoot rev-parse --abbrev-ref HEAD 2>$null).Trim()
+        $branchRaw = & git -C $TargetRoot rev-parse --abbrev-ref HEAD 2>$null
     }
     catch {
         throw 'Confirm mode with branchPolicy=no-direct-main requires the target to be a Git repository with a detectable branch.'
     }
+    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($branchRaw)) {
+        throw 'Confirm mode with branchPolicy=no-direct-main requires the target to be a Git repository with a detectable branch.'
+    }
+    $branch = $branchRaw.Trim()
     if ($branch -in @('main', 'master')) {
         throw "Refusing confirm mode on target branch '$branch' because branchPolicy is no-direct-main."
     }
@@ -139,6 +145,9 @@ $branchPolicy = [string](Get-JsonProperty $config 'branchPolicy' 'no-direct-main
 $approvalMode = [string](Get-JsonProperty $config 'approvalMode' 'manual')
 $projectContextPath = [string](Get-JsonProperty $config 'projectContextPath' 'docs/ai/PROJECT_CONTEXT.md')
 $toolkitCommit = Get-ToolkitCommit
+if ($ConfirmWrite -and [string]::IsNullOrWhiteSpace($toolkitCommit)) {
+    throw 'Unable to determine toolkit Git commit. Confirm mode requires a Git checkout of the toolkit repository.'
+}
 $aiRoot = Join-Path $targetRoot '.ai-toolkit'
 $copyPlan = @()
 
