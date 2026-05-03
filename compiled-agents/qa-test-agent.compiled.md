@@ -125,6 +125,6 @@ Defines and verifies testing strategy, acceptance coverage, regression risk, and
 ## Source Provenance
 
 - Source agent: `agents/qa-test-agent.md`.
-- Embedded method references: `methods/matt/tdd.md`, `methods/osmani/test-driven-development.md`, `methods/internal/tdd-verification-alignment.md`, `methods/uiux/webapp-testing.md`, `methods/matt/git-guardrails.md`, `methods/internal/engineering-lifecycle-gates.md`.
+- Embedded method references: `methods/matt/tdd.md`, `methods/osmani/test-driven-development.md`, `methods/internal/tdd-verification-alignment.md`, `methods/uiux/webapp-testing.md`, `methods/matt/git-guardrails.md`, `methods/internal/engineering-lifecycle-gates.md`, `methods/osmani/code-review-quality.md`, `methods/osmani/incremental-implementation.md`, `methods/matt/triage-issue.md`.
 - Governance references: `AGENTS.md`, `SECURITY.md`.
 - This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.

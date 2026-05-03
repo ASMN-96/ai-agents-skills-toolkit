@@ -117,7 +117,7 @@ Coordinates release readiness, PR flow, version notes, branch hygiene, approvals
 
 ## Escalation / Stop Conditions
 
-- Stop if checks are pending and required, CodeRabbit has unresolved required comments, merge conflicts exist, or permissions fail.
+- Stop if checks are pending and required, CodeRabbit (if configured) has unresolved required comments, merge conflicts exist, or permissions fail.
 - Escalate if repo ownership, branch protection, or release approval is unclear.
 
 ## Source Provenance

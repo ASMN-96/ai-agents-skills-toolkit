@@ -132,6 +132,6 @@ Evaluates external skills, repositories, marketplaces, official docs, and commun
 ## Source Provenance
 
 - Source agent: `agents/skill-scout-agent.md`.
-- Embedded method references: `methods/internal/source-discovery-workflow.md`, `methods/internal/source-safety-scoring.md`, `methods/internal/skill-anatomy.md`, `methods/karpathy/assumption-surfacing.md`, `methods/osmani/security-hardening.md`.
+- Embedded method references: `methods/internal/source-discovery-workflow.md`, `methods/internal/source-safety-scoring.md`, `methods/internal/skill-anatomy.md`, `methods/karpathy/assumption-surfacing.md`, `methods/osmani/security-hardening.md`, `methods/osmani/code-review-quality.md`, `methods/matt/triage-issue.md`, `methods/matt/git-guardrails.md`.
 - Governance references: `AGENTS.md`, `SECURITY.md`.
 - This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.

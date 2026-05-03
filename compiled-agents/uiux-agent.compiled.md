@@ -127,6 +127,6 @@ Reviews and shapes user experience, interface quality, design systems, accessibi
 ## Source Provenance
 
 - Source agent: `agents/uiux-agent.md`.
-- Embedded method references: `methods/uiux/frontend-design.md`, `methods/uiux/design-system.md`, `methods/uiux/accessibility.md`, `methods/uiux/dashboard-ux.md`, `methods/uiux/premium-visual-quality.md`, `methods/uiux/interaction-motion.md`, `methods/matt/grill-me.md`.
+- Embedded method references: `methods/uiux/frontend-design.md`, `methods/uiux/design-system.md`, `methods/uiux/accessibility.md`, `methods/uiux/dashboard-ux.md`, `methods/uiux/premium-visual-quality.md`, `methods/uiux/interaction-motion.md`, `methods/uiux/webapp-testing.md`, `methods/matt/grill-me.md`, `methods/matt/design-interface.md`, `methods/matt/triage-issue.md`, `methods/osmani/incremental-implementation.md`, `methods/osmani/code-review-quality.md`.
 - Governance references: `AGENTS.md`, `SECURITY.md`.
 - This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.

@@ -124,6 +124,6 @@ Performs PR and change review with priority on correctness, regressions, safety,
 ## Source Provenance
 
 - Source agent: `agents/reviewer-agent.md`.
-- Embedded method references: `methods/osmani/code-review-quality.md`, `methods/karpathy/simplicity-surgical-changes.md`, `methods/matt/git-guardrails.md`, `methods/internal/source-safety-scoring.md`, `methods/internal/frontend-uiux-quality-gates.md`, `methods/internal/tdd-verification-alignment.md`.
+- Embedded method references: `methods/osmani/code-review-quality.md`, `methods/karpathy/simplicity-surgical-changes.md`, `methods/matt/git-guardrails.md`, `methods/internal/source-safety-scoring.md`, `methods/internal/frontend-uiux-quality-gates.md`, `methods/internal/tdd-verification-alignment.md`, `methods/osmani/security-hardening.md`, `methods/internal/engineering-lifecycle-gates.md`, `methods/matt/triage-issue.md`.
 - Governance references: `AGENTS.md`, `SECURITY.md`.
 - This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.
