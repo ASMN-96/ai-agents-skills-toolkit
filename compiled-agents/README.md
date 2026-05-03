@@ -25,6 +25,13 @@ This directory now contains the first normalized compiled agent set:
 
 Each compiled agent follows the Phase 4 section contract, including role, activation phrases, embedded method summaries, support tool triggers, allowed scope, forbidden actions, workflow, output format, verification, stop conditions, and source provenance.
 
+Each compiled agent starts with a metadata block containing:
+
+- `toolkit_name`
+- `toolkit_version`
+- `toolkit_pin`
+- `compiled_status`
+
 Compiled agents are documentation artifacts until a project intentionally syncs a pinned toolkit version. They do not activate skills, install external packs, overwrite project `AGENTS.md`, or change Codex global config.
 
 Superpowers is referenced only as an external Codex execution-discipline plugin. Context7, Playwright, and Figma are support triggers only when available, configured, and relevant.

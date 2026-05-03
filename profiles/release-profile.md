@@ -21,12 +21,12 @@ Review.
 ## Allowed Actions
 
 - Confirm branch, commit, PR, checks, review threads, changelog, and release gates.
-- Merge only after required gates are green or explicitly non-blocking and approval exists.
+- Merge only after required checks are green; gates explicitly designated as non-blocking in policy or configuration may be bypassed with documented approval.
 - Document post-merge status and next phase.
 
 ## Forbidden Actions
 
-- Merge with failed required checks, conflicts, unresolved required comments, or safety blockers.
+- Merge with failed blocking required checks, conflicts, unresolved required comments, or safety blockers.
 - Push directly to main.
 - Create project sync/install scripts before Phase 5 approval.
 - Install skills or modify global config.

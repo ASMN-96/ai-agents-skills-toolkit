@@ -1,3 +1,10 @@
+---
+toolkit_name: AI Agent Skills Toolkit
+toolkit_version: 0.4.0-draft
+toolkit_pin: ai-agents-skills-toolkit@0.4.0-draft
+compiled_status: review
+---
+
 # Frontend Agent Compiled
 
 ## Role
@@ -120,6 +127,6 @@ Builds and reviews frontend experiences, UI state, accessibility, responsive beh
 ## Source Provenance
 
 - Source agent: `agents/frontend-agent.md`.
-- Embedded method references: `methods/osmani/frontend-ui-engineering.md`, `methods/osmani/incremental-implementation.md`, `methods/osmani/test-driven-development.md`, `methods/uiux/frontend-design.md`, `methods/uiux/accessibility.md`, `methods/uiux/responsive-layout.md`, `methods/uiux/webapp-testing.md`.
+- Embedded method references: `methods/osmani/frontend-ui-engineering.md`, `methods/osmani/incremental-implementation.md`, `methods/osmani/test-driven-development.md`, `methods/uiux/frontend-design.md`, `methods/uiux/design-system.md`, `methods/uiux/accessibility.md`, `methods/uiux/responsive-layout.md`, `methods/uiux/premium-visual-quality.md`, `methods/uiux/interaction-motion.md`, `methods/uiux/dashboard-ux.md`, `methods/uiux/webapp-testing.md`.
 - Governance references: `AGENTS.md`, `SECURITY.md`.
 - This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.

@@ -1,3 +1,10 @@
+---
+toolkit_name: AI Agent Skills Toolkit
+toolkit_version: 0.4.0-draft
+toolkit_pin: ai-agents-skills-toolkit@0.4.0-draft
+compiled_status: review
+---
+
 # Product Agent Compiled
 
 ## Role
@@ -120,6 +127,6 @@ Clarifies product intent, converts ambiguous goals into scoped requirements, and
 ## Source Provenance
 
 - Source agent: `agents/product-agent.md`.
-- Embedded method references: `methods/matt/grill-me.md`, `methods/matt/to-prd.md`, `methods/matt/to-issues.md`, `methods/matt/triage-issue.md`, `methods/karpathy/goal-driven-execution.md`, `methods/uiux/dashboard-ux.md`, `methods/uiux/premium-visual-quality.md`.
+- Embedded method references: `methods/matt/grill-me.md`, `methods/matt/to-prd.md`, `methods/matt/to-issues.md`, `methods/matt/triage-issue.md`, `methods/karpathy/goal-driven-execution.md`, `methods/osmani/spec-driven-development.md`, `methods/internal/engineering-lifecycle-gates.md`, `methods/osmani/incremental-implementation.md`, `methods/uiux/dashboard-ux.md`, `methods/uiux/premium-visual-quality.md`, `methods/uiux/accessibility.md`, `methods/uiux/responsive-layout.md`.
 - Governance references: `AGENTS.md`, `SECURITY.md`.
 - This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.

@@ -1,3 +1,10 @@
+---
+toolkit_name: AI Agent Skills Toolkit
+toolkit_version: 0.4.0-draft
+toolkit_pin: ai-agents-skills-toolkit@0.4.0-draft
+compiled_status: review
+---
+
 # Architect Agent Compiled
 
 ## Role
@@ -119,6 +126,6 @@ Designs system structure, interfaces, boundaries, and implementation approach fo
 ## Source Provenance
 
 - Source agent: `agents/architect-agent.md`.
-- Embedded method references: `methods/osmani/spec-driven-development.md`, `methods/osmani/api-interface-design.md`, `methods/matt/design-interface.md`, `methods/matt/improve-architecture.md`, `methods/karpathy/assumption-surfacing.md`, `methods/karpathy/simplicity-surgical-changes.md`.
+- Embedded method references: `methods/osmani/spec-driven-development.md`, `methods/osmani/api-interface-design.md`, `methods/osmani/incremental-implementation.md`, `methods/matt/design-interface.md`, `methods/matt/improve-architecture.md`, `methods/matt/git-guardrails.md`, `methods/karpathy/assumption-surfacing.md`, `methods/karpathy/simplicity-surgical-changes.md`.
 - Governance references: `AGENTS.md`, `SECURITY.md`.
 - This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.

@@ -1,3 +1,10 @@
+---
+toolkit_name: AI Agent Skills Toolkit
+toolkit_version: 0.4.0-draft
+toolkit_pin: ai-agents-skills-toolkit@0.4.0-draft
+compiled_status: review
+---
+
 # Security Agent Compiled
 
 ## Role
@@ -117,6 +124,6 @@ Reviews code, source intake, architecture, configuration, and workflows for secu
 ## Source Provenance
 
 - Source agent: `agents/security-agent.md`.
-- Embedded method references: `methods/osmani/security-hardening.md`, `methods/internal/source-safety-scoring.md`, `methods/internal/source-discovery-workflow.md`, `methods/osmani/code-review-quality.md`, `methods/karpathy/assumption-surfacing.md`.
+- Embedded method references: `methods/osmani/security-hardening.md`, `methods/internal/source-safety-scoring.md`, `methods/internal/source-discovery-workflow.md`, `methods/osmani/code-review-quality.md`, `methods/matt/git-guardrails.md`, `methods/matt/triage-issue.md`, `methods/matt/design-interface.md`, `methods/karpathy/assumption-surfacing.md`.
 - Governance references: `AGENTS.md`, `SECURITY.md`.
 - This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.

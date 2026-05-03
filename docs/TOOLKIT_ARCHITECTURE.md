@@ -7,7 +7,7 @@ AI Agent Skills Toolkit separates source intake, method extraction, agent defini
 - `sources/` stores reviewed references and source evaluation records.
 - `methods/` stores approved reusable methods extracted from trusted sources. Method files are normalized and paraphrased; they are not raw upstream skills.
 - `agents/` stores internal agent specifications.
-- `profiles/` stores project-specific compilation context.
+- `profiles/` stores reusable operating-mode bundles that define included agents, support tools, allowed actions, forbidden actions, output format, and verification gates.
 - `skills/` stores reviewed skill metadata and toolkit-managed skill notes.
 - `compiled-agents/` stores intentional compiled outputs for project repositories.
 - `install/` will store future version-pinned project sync workflows.

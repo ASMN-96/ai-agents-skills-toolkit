@@ -1,3 +1,10 @@
+---
+toolkit_name: AI Agent Skills Toolkit
+toolkit_version: 0.4.0-draft
+toolkit_pin: ai-agents-skills-toolkit@0.4.0-draft
+compiled_status: review
+---
+
 # Release Manager Agent Compiled
 
 ## Role
