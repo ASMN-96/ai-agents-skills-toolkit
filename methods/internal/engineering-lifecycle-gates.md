@@ -8,14 +8,33 @@ Define the toolkit's internal lifecycle from idea to release.
 
 Use when compiling agents or reviewing whether a project workflow has enough gates.
 
-## Method
+## When Not To Use
+
+Do not require every gate for tiny documentation changes with no behavior or release impact.
+
+## Agent Roles That Should Embed It
+
+Product Agent, Architect Agent, QA Test Agent, Reviewer Agent, Release Manager Agent.
+
+## Operating Rules
 
 Apply these gates: define, plan, build, verify, review, release. Each gate must produce evidence before moving forward.
 
-## Verification
+## Verification Requirements
 
-Confirm that acceptance criteria, implementation plan, tests, review findings, and release notes are present when relevant.
+- Define: problem statement and acceptance criteria.
+- Plan: implementation plan and risk assessment.
+- Build: branch or commit reference and scoped implementation notes.
+- Verify: test results, check output, or documented manual validation.
+- Review: review summary and action items.
+- Release: release notes and rollback or recovery notes.
+
+## Risks / Anti-Patterns
+
+Skipping evidence, treating release as only a push, or applying heavy gates to trivial changes.
 
 ## Source Inspiration / License Status
 
-Inspired by Addy Osmani engineering workflow patterns. Normalized/paraphrased only; no raw upstream activation.
+Inspired by Addy Osmani engineering workflow patterns.
+
+This is normalized/paraphrased guidance, not raw upstream activation.

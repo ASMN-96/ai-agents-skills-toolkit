@@ -27,7 +27,10 @@ All internal agents, especially Product, Architect, QA Test, Reviewer, and Relea
 
 ## Verification Requirements
 
-Each gate produces an artifact or evidence note before the next gate.
+- Planning: planning brief or RFC with acceptance criteria.
+- Development / PR: unit or integration test results and code review approval.
+- Pre-merge / CI: passing CI result or documented check output and security review when relevant.
+- Release: release notes, rollback plan, and smoke test result.
 
 ## Risks / Anti-Patterns
 
@@ -36,5 +39,6 @@ Skipping planning, merging without tests, or treating release as only a push.
 ## Source Inspiration / License Status
 
 Inspired by `addyosmani/agent-skills`, MIT visible during evaluation.
+Evaluated commit: `19e49a094d79540e635b107cb3490926ddeac7a3`. Evaluated on: 2026-05-02. Source record: `sources/addy-osmani-agent-skills.md`.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

@@ -24,7 +24,7 @@ Product Agent, Architect Agent, Backend Contract Agent, Frontend Agent.
 
 ## Verification Requirements
 
-Confirm every planned task maps to a spec requirement.
+Confirm bidirectional traceability: every planned task maps to a spec requirement, and every spec requirement maps to at least one task and ideally one test. Maintain a traceability matrix or linked checklist so requirements cannot drop silently.
 
 ## Risks / Anti-Patterns
 

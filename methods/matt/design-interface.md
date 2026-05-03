@@ -26,6 +26,15 @@ Architect Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
 
 Include example usage and explain why the chosen shape wins.
 
+## Example
+
+Scenario: design a user profile update API.
+
+- Option A: `updateProfile({ userId, data })`
+- Option B: `updateProfile(userId, data)`
+
+Choice: Option B wins when the codebase already uses explicit IDs because it keeps the required `userId` visible, is easy to mock in tests, and preserves compatibility with existing call patterns.
+
 ## Risks / Anti-Patterns
 
 Novelty for its own sake, premature abstraction, or hiding complexity behind a vague API.

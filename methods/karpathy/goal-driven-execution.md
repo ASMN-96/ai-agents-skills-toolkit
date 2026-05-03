@@ -1,4 +1,4 @@
-# Goal Driven Execution
+# Goal-Driven Execution
 
 ## Purpose
 

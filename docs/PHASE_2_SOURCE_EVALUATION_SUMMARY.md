@@ -12,7 +12,7 @@ Use official and maintained sources first. Extract normalized methods from Anthr
 2. Engineering lifecycle gates.
 3. Intent clarification and domain modeling.
 4. Simplicity, assumption surfacing, and surgical change discipline.
-5. Frontend/UIUX quality, accessibility, responsive layout, and webapp testing.
+5. Frontend/UIUX quality, accessibility, responsive layout, and web app testing.
 6. Source discovery workflow with explicit no-install behavior.
 
 ## Safety Posture

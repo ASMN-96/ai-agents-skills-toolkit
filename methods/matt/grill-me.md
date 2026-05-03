@@ -33,6 +33,6 @@ Interrogating users unnecessarily, delaying simple work, or asking vague questio
 
 ## Source Inspiration / License Status
 
-Inspired by `mattpocock/skills`, MIT visible during evaluation.
+Inspired by `mattpocock/skills`, MIT visible during evaluation. Source record: `sources/matt-pocock-skills.md`.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

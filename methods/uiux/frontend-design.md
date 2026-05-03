@@ -25,7 +25,12 @@ UIUX Agent, Frontend Agent, Reviewer Agent, QA Test Agent.
 
 ## Verification Requirements
 
-Check desktop and mobile layout, states, accessibility basics, and screenshot quality.
+Check desktop and mobile layout, component states, screenshot quality, and accessibility minimums:
+
+- keyboard-only navigation with reachable interactive elements,
+- visible focus indicators,
+- semantic labels, alt text, or form labels for controls,
+- contrast of at least 4.5:1 for normal text and 3:1 for large text.
 
 ## Risks / Anti-Patterns
 

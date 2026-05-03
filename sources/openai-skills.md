@@ -4,7 +4,7 @@
 - Purpose: Official Codex skills catalog and examples.
 - Trust level: High.
 - License if visible: Per-skill license files.
-- Commit / update activity: `af9b54f235d0d56c6b4410be54d578b0fda4ddfc` from read-only remote HEAD check.
+- Commit / update activity: `af9b54f235d0d56c6b4410be54d578b0fda4ddfc (checked on 2026-05-02)` from read-only remote HEAD check.
 - Recommendation: Reference only.
 
 ## Useful Methods

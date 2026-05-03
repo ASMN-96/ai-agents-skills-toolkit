@@ -3,7 +3,7 @@
 - URL: https://skills.sh/
 - Purpose: Public agent skills directory, leaderboard, install counts, and discovery metadata.
 - Trust level: Medium.
-- License if visible: Not visible during evaluation.
+- License if visible: Unclear during evaluation.
 - Commit / update activity: Directory showed current ecosystem leaderboard and install counts during evaluation.
 - Recommendation: Reference only.
 

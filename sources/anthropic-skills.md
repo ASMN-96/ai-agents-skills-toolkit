@@ -9,7 +9,7 @@
 
 ## Useful Methods
 
-Skill anatomy, progressive disclosure, frontend design, theme factory, web artifacts, webapp testing, brand guidelines, skill creator, and skill template patterns.
+Skill anatomy, progressive disclosure, frontend design, theme factory, web artifacts, web app testing, brand guidelines, skill creator, and skill template patterns.
 
 ## Security Notes
 

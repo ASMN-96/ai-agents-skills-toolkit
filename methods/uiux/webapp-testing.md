@@ -34,6 +34,6 @@ Assuming compile success means UI works, testing only one viewport, or ignoring 
 
 ## Source Inspiration / License Status
 
-Inspired by Anthropic webapp-testing, Vercel/Playwright testing patterns, and toolkit verification rules.
+Inspired by Anthropic web app testing, Vercel/Playwright testing patterns, and toolkit verification rules.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

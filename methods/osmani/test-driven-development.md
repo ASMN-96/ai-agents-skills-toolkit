@@ -24,7 +24,7 @@ QA Test Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
 
 ## Verification Requirements
 
-Show the test command and result. For regressions, demonstrate that the test would fail without the fix when feasible.
+Record the test command, expected result, actual result, and any remaining gap or rationale. For regressions, demonstrate that the test would fail without the fix when feasible.
 
 ## Risks / Anti-Patterns
 
