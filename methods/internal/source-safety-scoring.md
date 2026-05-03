@@ -22,7 +22,14 @@ Score sources across license clarity, publisher trust, update activity, adoption
 
 ## Verification Requirements
 
-Classify each source as `Extract into methods`, `Reference only`, `Ignore`, or `Install later after approval`.
+Assign a 0-100 safety/usefulness score, then classify with rationale:
+
+- 0-30: `Ignore`.
+- 31-60: `Reference only`.
+- 61-85: `Extract into methods`.
+- 86-100: `Install later after approval`, only when installation is explicitly requested and all safety gates pass; otherwise keep as `Extract into methods`.
+
+Every classification must include a short rationale and any override reason.
 
 ## Risks / Anti-Patterns
 

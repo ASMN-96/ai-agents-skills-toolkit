@@ -18,7 +18,7 @@ QA Test Agent, Frontend Agent, UIUX Agent, Reviewer Agent.
 
 ## Operating Rules
 
-- Run the app when needed.
+- Run the app and verify UI and behavior locally for any change affecting UI/UX or behavior; static review alone is insufficient.
 - Inspect console and network errors.
 - Test key workflows.
 - Capture screenshots for visual changes.

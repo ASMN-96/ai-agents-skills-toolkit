@@ -22,7 +22,7 @@ Prefer red-green-refactor for risky behavior changes. Claims must be backed by f
 
 ## Verification Requirements
 
-Record the command run, expected result, actual result, and any remaining test gap.
+Record the command run, expected result, actual result, run timestamp, commit or PR reference, and any remaining test gap.
 
 ## Risks / Anti-Patterns
 

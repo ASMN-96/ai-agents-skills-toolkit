@@ -24,6 +24,14 @@ Check visual hierarchy, accessibility, responsive layout, interaction states, lo
 
 Use screenshots, browser checks, accessibility review, and target workflow testing when UI changes are implemented.
 
+Minimum evidence:
+
+- contrast meets WCAG 2.1 AA: 4.5:1 for normal text and 3:1 for large text,
+- all interactive elements are keyboard reachable with visible focus,
+- semantic controls have labels, roles, or accessible names,
+- mobile and desktop breakpoints plus interaction states are covered,
+- screenshots or automated reports from tools such as Axe, Lighthouse, or a color contrast checker are attached or summarized.
+
 ## Risks / Anti-Patterns
 
 Generic aesthetics, inaccessible controls, untested responsive states, or visual changes without workflow validation.

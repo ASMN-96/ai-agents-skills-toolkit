@@ -22,7 +22,7 @@ Skill Scout Agent, Architect Agent, Release Manager Agent.
 - Put operational instructions in the body.
 - Move long references into separate files.
 - Load deeper detail only when needed.
-- Keep scripts optional and reviewed.
+- Keep scripts non-default, explicitly opt-in, reviewed, and never auto-executed during discovery or extraction without human approval.
 
 ## Verification Requirements
 

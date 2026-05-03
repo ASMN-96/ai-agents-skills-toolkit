@@ -4,7 +4,7 @@
 - Purpose: Public agent skills directory, leaderboard, install counts, and discovery metadata.
 - Trust level: Medium.
 - License if visible: Unclear during evaluation.
-- Commit / update activity: Directory showed current ecosystem leaderboard and install counts during evaluation.
+- Commit / update activity: Checked 2026-05-02T18:00:00Z; dynamic directory page with leaderboard and install counts, no immutable snapshot available during evaluation.
 - Recommendation: Reference only.
 
 ## Useful Methods
