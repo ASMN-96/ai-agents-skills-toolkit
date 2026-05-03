@@ -31,3 +31,14 @@ Compiled agents should document their source toolkit version and any project pro
 - Do not run third-party scripts.
 - Keep raw external sources inactive.
 - Preserve source/license uncertainty in each method file.
+
+## Phase 4 Compilation Rules
+
+- Compile agents only from approved source agent specs, normalized method files, and toolkit governance.
+- Do not copy full upstream method or skill files into compiled agents.
+- Do not activate compiled agents globally.
+- Do not create project sync or install scripts during Phase 4.
+- Keep Superpowers as an external Codex plugin reference only.
+- Treat Context7, Playwright, and Figma as support triggers only when available, configured, and relevant.
+- Include source provenance in every compiled agent so downstream projects can audit the toolkit inputs.
+- Keep profiles free of secrets and project-specific credentials.
