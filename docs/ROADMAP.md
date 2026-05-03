@@ -20,10 +20,10 @@ Status: Completed and merged. Outputs are normalized/paraphrased method files on
 
 Compile internal agents from approved methods, profiles, prompts, and governance rules. Record toolkit version metadata in compiled outputs.
 
-Status: In progress on `phase4-agent-compilation`. This phase adds product-ready compiled agent documents and reusable profiles. It does not activate compiled agents globally, create project sync scripts, install external skills, or touch product repositories.
+Status: Completed and merged. This phase added product-ready compiled agent documents and reusable profiles. It did not activate compiled agents globally, create project sync scripts, install external skills, or touch product repositories.
 
 ## Phase 5: Project Sync / Install Workflow
 
 Create intentional, version-pinned sync and install workflows for project repositories. Project repos consume compiled agents, not raw upstream files.
 
-Status: Not started. Phase 5 must wait until compiled agents and profiles are reviewed and approved.
+Status: In progress on `phase5-project-sync-workflow`. This phase adds dry-run-first install, update, and validation scripts plus project sync safety documentation. No product repo install is performed in this phase.

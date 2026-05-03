@@ -1,0 +1,16 @@
+{
+  "toolkitVersion": "0.5.0-draft",
+  "selectedAgents": [
+    "skill-scout-agent",
+    "reviewer-agent",
+    "qa-test-agent",
+    "security-agent"
+  ],
+  "selectedProfiles": [
+    "audit-profile"
+  ],
+  "projectContextPath": "docs/ai/PROJECT_CONTEXT.md",
+  "approvalMode": "manual",
+  "branchPolicy": "no-direct-main",
+  "allowOverwriteProjectContext": false
+}
