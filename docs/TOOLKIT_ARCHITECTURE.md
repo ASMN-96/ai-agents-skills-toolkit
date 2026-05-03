@@ -10,7 +10,7 @@ AI Agent Skills Toolkit separates source intake, method extraction, agent defini
 - `profiles/` stores reusable operating-mode bundles that define included agents, support tools, allowed actions, forbidden actions, output format, and verification gates.
 - `skills/` stores reviewed skill metadata and toolkit-managed skill notes.
 - `compiled-agents/` stores intentional compiled outputs for project repositories.
-- `install/` will store future version-pinned project sync workflows.
+- `install/` stores dry-run-first, version-pinned project sync workflows for selected compiled agents and profiles.
 
 ## Boundaries
 
@@ -19,6 +19,8 @@ Raw external skills and repositories do not become active automatically. Project
 Phase 3 method extraction adds source records and normalized method documents only. It does not install skills, activate skills, clone external repositories, run third-party scripts, change global configuration, or create compiled agents.
 
 Phase 4 agent compilation adds normalized compiled agent documents and reusable profiles only. Compiled agents summarize approved method rules into practical role-specific operating instructions. They do not duplicate full upstream method files, activate skills, create project sync scripts, overwrite project `AGENTS.md`, or modify product repositories.
+
+Phase 5 project sync adds installer, updater, and validator scripts that manage selected files under a target project's `.ai-toolkit/` directory. These scripts are dry-run by default, require `-ConfirmWrite` for writes, preserve project-local context, and do not install external skills or activate compiled agents globally.
 
 ## Compilation Inputs
 
@@ -37,6 +39,12 @@ Compiled agents must include source provenance so projects can audit which toolk
 Profiles group compiled agents by operating mode such as audit, implementation, frontend, backend, UI/UX, security, SRE, or release. Profiles define included agents, support tools, allowed actions, forbidden actions, output format, and verification gates.
 
 Profiles are not project sync instructions. They are reusable selection guidance until Phase 5 creates version-pinned sync workflows.
+
+## Project Sync
+
+Target projects receive selected compiled agents and profiles under `.ai-toolkit/`. The toolkit writes `.ai-toolkit/.ai-toolkit-version` and `.ai-toolkit/.ai-toolkit.config.json` so each project can audit the toolkit version, commit, selected agents, and selected profiles.
+
+The sync workflow must never overwrite project-owned `AGENTS.md` or `docs/ai` context files. Phase 5 v1 reports unmanaged/stale files and does not delete them.
 
 ## Support Tools
 

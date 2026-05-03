@@ -42,3 +42,14 @@ Compiled agents should document their source toolkit version and any project pro
 - Treat Context7, Playwright, and Figma as support triggers only when available, configured, and relevant.
 - Include source provenance in every compiled agent so downstream projects can audit the toolkit inputs.
 - Keep profiles free of secrets and project-specific credentials.
+
+## Phase 5 Project Sync Rules
+
+- Project sync is dry-run by default.
+- `-ConfirmWrite` is required before writing to a target project.
+- Scripts may manage selected files only under `.ai-toolkit/`.
+- Project installs must pin toolkit version and toolkit commit.
+- Project-local `AGENTS.md`, `docs/ai/STATE.md`, `docs/ai/DECISIONS.md`, `docs/ai/PROJECT_CONTEXT.md`, and `docs/ai/RELEASE_GATES.md` must not be created or overwritten by toolkit sync scripts.
+- `allowOverwriteProjectContext:true` is rejected in Phase 5 v1.
+- Stale or unmanaged files are reported, not deleted.
+- No product repo install is performed from the toolkit Phase 5 PR.
