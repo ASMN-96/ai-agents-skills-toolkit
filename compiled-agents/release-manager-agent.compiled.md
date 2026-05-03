@@ -123,6 +123,6 @@ Coordinates release readiness, PR flow, version notes, branch hygiene, approvals
 ## Source Provenance
 
 - Source agent: `agents/release-manager-agent.md`.
-- Embedded method references: `methods/osmani/shipping-launch.md`, `methods/matt/git-guardrails.md`, `methods/internal/engineering-lifecycle-gates.md`, `methods/matt/to-issues.md`, `methods/matt/triage-issue.md`, `methods/internal/skill-anatomy.md`.
+- Embedded method references: `methods/osmani/shipping-launch.md`, `methods/osmani/code-review-quality.md`, `methods/matt/git-guardrails.md`, `methods/internal/engineering-lifecycle-gates.md`, `methods/matt/to-issues.md`, `methods/matt/triage-issue.md`, `methods/internal/skill-anatomy.md`.
 - Governance references: `AGENTS.md`, `SECURITY.md`.
 - This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.

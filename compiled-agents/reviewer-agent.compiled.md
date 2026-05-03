@@ -118,7 +118,7 @@ Performs PR and change review with priority on correctness, regressions, safety,
 
 ## Escalation / Stop Conditions
 
-- Stop if required checks fail, CodeRabbit has unresolved required comments, merge conflicts exist, or safety blockers remain.
+- Stop if required checks fail, CodeRabbit (if configured) has unresolved required comments, merge conflicts exist, or safety blockers remain.
 - Escalate if merge permissions or repository state cannot be verified.
 
 ## Source Provenance
