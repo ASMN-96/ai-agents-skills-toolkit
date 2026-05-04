@@ -32,4 +32,4 @@ Status: In progress on `phase5-project-sync-workflow`. This phase adds dry-run-f
 
 Add project-specific governance skills that help installed toolkit agents operate safely inside target repositories.
 
-Status: Started with `riss-governance`. Future work may intentionally reference project governance skills from compiled agents, profiles, or project sync guidance after review.
+Status: Started with `riss-governance`. Phase 6 adds project-managed skill sync so selected toolkit-owned skills can be copied into target repositories under `.ai-toolkit/skills/` without global activation.

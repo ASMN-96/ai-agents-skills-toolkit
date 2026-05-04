@@ -8,7 +8,7 @@ Automatic updates can change project agent behavior without project owner review
 
 ## Supply-Chain Safety
 
-The toolkit is the master source for compiled agents and profiles. Product projects consume selected compiled artifacts, not raw upstream sources or external skill packs.
+The toolkit is the master source for compiled agents, profiles, and reviewed toolkit-owned skills. Product projects consume selected managed artifacts, not raw upstream sources or external skill packs.
 
 Phase 5 scripts do not:
 
@@ -19,9 +19,11 @@ Phase 5 scripts do not:
 - modify Codex global config
 - delete unmanaged files
 
+Phase 6 project-managed skills are copied only under `.ai-toolkit/skills/`. Syncing a skill file does not activate it globally or install it into Codex.
+
 ## Prompt-Injection Risk
 
-External skills and prompt files can contain conflicting instructions. This workflow only syncs compiled toolkit artifacts that passed prior review phases.
+External skills and prompt files can contain conflicting instructions. This workflow only syncs compiled toolkit artifacts and toolkit-owned skills that passed prior review phases.
 
 Projects should still review diffs because agent instructions are executable guidance for future AI work.
 
@@ -29,7 +31,7 @@ Projects should still review diffs because agent instructions are executable gui
 
 Project-specific files remain local to the product repository. The installer and updater manage only `.ai-toolkit/`.
 
-The config field `allowOverwriteProjectContext` must be `false`. Phase 5 v1 rejects `true`.
+The config field `allowOverwriteProjectContext` must be `false`. The current sync workflow rejects `true`.
 
 ## Rollback Plan
 

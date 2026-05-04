@@ -1,6 +1,6 @@
 # Project Sync Workflow
 
-Phase 5 adds a controlled workflow for copying selected compiled agents and profiles into a project repository under `.ai-toolkit/`.
+Phase 5 adds a controlled workflow for copying selected compiled agents and profiles into a project repository under `.ai-toolkit/`. Phase 6 extends the same workflow to selected toolkit-owned skills.
 
 This workflow is manual, version-pinned, and dry-run by default. It does not activate skills globally, install external skills, clone repositories, or overwrite project-local context.
 
@@ -12,13 +12,15 @@ Run installs from the toolkit repository:
 pwsh -NoProfile -File install/install-project.ps1 `
   -TargetPath C:\path\to\project `
   -Agents skill-scout-agent,reviewer-agent,qa-test-agent,security-agent `
-  -Profiles audit-profile
+  -Profiles audit-profile `
+  -Skills riss-governance
 ```
 
 The command above is a dry-run. It shows the files that would be copied into:
 
 - `.ai-toolkit/compiled-agents/`
 - `.ai-toolkit/profiles/`
+- `.ai-toolkit/skills/`
 
 To write files, run the same command with `-ConfirmWrite`.
 
@@ -38,6 +40,7 @@ Confirm mode writes:
 - `.ai-toolkit/.ai-toolkit.config.json`
 - selected compiled agents
 - selected profiles
+- selected skills
 
 ## Update
 
@@ -47,7 +50,7 @@ Updates read the existing project config and version pin:
 pwsh -NoProfile -File install/update-project.ps1 -TargetPath C:\path\to\project
 ```
 
-The updater dry-run lists files as `MissingTarget`, `Update`, or `Unchanged`. It reports unmanaged files but does not delete them in Phase 5 v1.
+The updater dry-run lists files as `MissingTarget`, `Update`, or `Unchanged`. It reports unmanaged files but does not delete them in the current v1 workflow.
 
 To write selected updates:
 
@@ -63,7 +66,7 @@ After a confirm-mode install or update:
 pwsh -NoProfile -File install/validate-project-install.ps1 -TargetPath C:\path\to\project
 ```
 
-Validation confirms `.ai-toolkit/`, version/config files, selected compiled agents, selected profiles, and unsafe artifact absence.
+Validation confirms `.ai-toolkit/`, version/config files, selected compiled agents, selected profiles, selected skills, and unsafe artifact absence.
 
 ## Version Pinning
 
@@ -73,7 +76,7 @@ Updates are intentional. Projects should not auto-pull toolkit changes.
 
 ## Files That Must Never Be Overwritten
 
-The Phase 5 scripts only manage `.ai-toolkit/`. They do not create or overwrite:
+The sync scripts only manage selected files under `.ai-toolkit/`. They do not create or overwrite:
 
 - `AGENTS.md`
 - `docs/ai/STATE.md`
@@ -95,3 +98,11 @@ pwsh -NoProfile -File install/install-project.ps1 `
 ```
 
 Review the dry-run output before using `-ConfirmWrite`.
+
+## Project-Managed Skills
+
+Selected toolkit-owned skills are copied as project-managed artifacts under:
+
+- `.ai-toolkit/skills/<skill-name>/SKILL.md`
+
+Phase 6 v1 syncs single-file toolkit skills only. It does not support bundled skill resources, activate skills globally, install external skills, or change Codex global config.

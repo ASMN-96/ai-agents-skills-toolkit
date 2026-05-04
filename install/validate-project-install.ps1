@@ -52,6 +52,61 @@ function Normalize-ProfileName {
     return $normalized
 }
 
+function Normalize-SkillName {
+    param([string]$Name)
+    $trimmed = $Name.Trim()
+    if ($trimmed -match '[\\/]') {
+        throw "Invalid skill name '$Name'. Use skill folder names only."
+    }
+    $normalized = $trimmed -replace '\.md$', ''
+    if ($normalized -notmatch '^[a-z0-9]+(-[a-z0-9]+)*$') {
+        throw "Invalid skill name '$Name'. Use lowercase hyphen-case folder names only."
+    }
+    return $normalized
+}
+
+function Test-SkillFrontmatter {
+    param([string]$Path, [string]$ExpectedName)
+    $issues = @()
+    $lines = @(Get-Content -LiteralPath $Path)
+    if ($lines.Count -lt 4 -or $lines[0] -ne '---') {
+        return @("Skill $ExpectedName has invalid YAML frontmatter.")
+    }
+
+    $closingIndex = -1
+    for ($i = 1; $i -lt $lines.Count; $i++) {
+        if ($lines[$i] -eq '---') {
+            $closingIndex = $i
+            break
+        }
+    }
+    if ($closingIndex -lt 0) {
+        return @("Skill $ExpectedName is missing closing YAML frontmatter marker.")
+    }
+
+    if ($closingIndex -le 1) {
+        return @("Skill $ExpectedName frontmatter is empty.")
+    }
+
+    $values = @{}
+    foreach ($line in $lines[1..($closingIndex - 1)]) {
+        if ($line -match '^([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$') {
+            $values[$Matches[1]] = $Matches[2].Trim()
+        }
+    }
+
+    if (!$values.ContainsKey('name')) {
+        $issues += "Skill $ExpectedName frontmatter is missing name."
+    }
+    if (!$values.ContainsKey('description')) {
+        $issues += "Skill $ExpectedName frontmatter is missing description."
+    }
+    if ($values.ContainsKey('name') -and $values['name'] -ne $ExpectedName) {
+        $issues += "Skill $ExpectedName frontmatter name does not match selected skill."
+    }
+    return $issues
+}
+
 if ($Help) {
     Show-Help
     exit 0
@@ -77,8 +132,9 @@ if ($failures.Count -eq 0) {
     $config = Get-Content -Raw -LiteralPath $configPath | ConvertFrom-Json
     $recordedToolkitVersion = [string](Get-JsonProperty -Object $versionRecord -Name 'toolkitVersion' -Default '')
     $recordedToolkitCommit = [string](Get-JsonProperty -Object $versionRecord -Name 'toolkitCommit' -Default '')
-    $selectedAgents = Convert-ToStringArray (Get-JsonProperty -Object $config -Name 'selectedAgents' -Default @())
-    $selectedProfiles = Convert-ToStringArray (Get-JsonProperty -Object $config -Name 'selectedProfiles' -Default @())
+    $selectedAgents = @(Convert-ToStringArray (Get-JsonProperty -Object $config -Name 'selectedAgents' -Default @()))
+    $selectedProfiles = @(Convert-ToStringArray (Get-JsonProperty -Object $config -Name 'selectedProfiles' -Default @()))
+    $selectedSkills = @(Convert-ToStringArray (Get-JsonProperty -Object $config -Name 'selectedSkills' -Default @()))
     $allowOverwrite = [bool](Get-JsonProperty -Object $config -Name 'allowOverwriteProjectContext' -Default $false)
 
     if ([string]::IsNullOrWhiteSpace($recordedToolkitVersion)) {
@@ -89,7 +145,7 @@ if ($failures.Count -eq 0) {
     }
 
     if ($allowOverwrite) {
-        $failures += 'Config has allowOverwriteProjectContext:true, which is rejected in Phase 5 v1.'
+        $failures += 'Config has allowOverwriteProjectContext:true, which is rejected in Phase 6 v1.'
     }
 
     foreach ($agent in $selectedAgents) {
@@ -102,6 +158,24 @@ if ($failures.Count -eq 0) {
         $name = Normalize-ProfileName $profileEntry
         $path = Join-Path $aiRoot "profiles\$name.md"
         if (!(Test-Path -LiteralPath $path)) { $failures += "Missing profile: $name" }
+    }
+
+    foreach ($skillEntry in $selectedSkills) {
+        try {
+            $name = Normalize-SkillName $skillEntry
+        }
+        catch {
+            $failures += $_.Exception.Message
+            continue
+        }
+
+        $path = Join-Path $aiRoot "skills\$name\SKILL.md"
+        if (!(Test-Path -LiteralPath $path)) {
+            $failures += "Missing skill: $name"
+        }
+        else {
+            $failures += Test-SkillFrontmatter -Path $path -ExpectedName $name
+        }
     }
 
     $contextNames = @('AGENTS.md', 'STATE.md', 'DECISIONS.md', 'PROJECT_CONTEXT.md', 'RELEASE_GATES.md')
