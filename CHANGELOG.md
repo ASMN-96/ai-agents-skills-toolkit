@@ -15,3 +15,4 @@ All notable changes to AI Agent Skills Toolkit will be documented here.
 - Added Phase 5 dry-run-first project install, update, and validation workflow scripts.
 - Added Phase 5 project sync workflow and install safety documentation.
 - Added a `.ai-toolkit` config example for selected agent/profile installs.
+- Added `riss-governance` as a RISS-specific governance skill for serious project work.
