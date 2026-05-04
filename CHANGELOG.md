@@ -17,3 +17,4 @@ All notable changes to AI Agent Skills Toolkit will be documented here.
 - Added a `.ai-toolkit` config example for selected agent/profile installs.
 - Added `riss-governance` as a RISS-specific governance skill for serious project work.
 - Added Phase 6 project-managed skill sync for selected toolkit-owned skills under `.ai-toolkit/skills/`.
+- Added Phase 7 governance-only toolchain policy: GSD is an external core governance tool alongside Superpowers, not a vendored toolkit dependency.
