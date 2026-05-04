@@ -27,3 +27,9 @@ Status: Completed and merged. This phase added product-ready compiled agent docu
 Create intentional, version-pinned sync and install workflows for project repositories. Project repos consume compiled agents, not raw upstream files.
 
 Status: In progress on `phase5-project-sync-workflow`. This phase adds dry-run-first install, update, and validation scripts plus project sync safety documentation. No product repo install is performed in this phase.
+
+## Phase 6: Project Governance Skills
+
+Add project-specific governance skills that help installed toolkit agents operate safely inside target repositories.
+
+Status: Started with `riss-governance`. Future work may intentionally reference project governance skills from compiled agents, profiles, or project sync guidance after review.
