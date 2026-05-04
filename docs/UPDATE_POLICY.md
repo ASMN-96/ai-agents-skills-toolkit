@@ -50,6 +50,15 @@ Compiled agents should document their source toolkit version and any project pro
 - Scripts may manage selected files only under `.ai-toolkit/`.
 - Project installs must pin toolkit version and toolkit commit.
 - Project-local `AGENTS.md`, `docs/ai/STATE.md`, `docs/ai/DECISIONS.md`, `docs/ai/PROJECT_CONTEXT.md`, and `docs/ai/RELEASE_GATES.md` must not be created or overwritten by toolkit sync scripts.
-- `allowOverwriteProjectContext:true` is rejected in Phase 5 v1.
+- `allowOverwriteProjectContext:true` is rejected by the current sync workflow.
 - Stale or unmanaged files are reported, not deleted.
 - No product repo install is performed from the toolkit Phase 5 PR.
+
+## Phase 6 Project-Managed Skill Rules
+
+- Project-managed skill sync is dry-run by default.
+- `-ConfirmWrite` is required before writing selected skills to a target project.
+- Scripts may copy selected toolkit-owned single-file skills only under `.ai-toolkit/skills/<skill-name>/SKILL.md`.
+- Synced skills must be recorded in `selectedSkills`.
+- Syncing a skill file does not activate skills globally, install external skills, or modify Codex global config.
+- Bundled multi-file skill resources are not supported in Phase 6 v1.

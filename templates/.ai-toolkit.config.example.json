@@ -9,6 +9,9 @@
   "selectedProfiles": [
     "audit-profile"
   ],
+  "selectedSkills": [
+    "riss-governance"
+  ],
   "projectContextPath": "docs/ai/PROJECT_CONTEXT.md",
   "approvalMode": "manual",
   "branchPolicy": "no-direct-main",

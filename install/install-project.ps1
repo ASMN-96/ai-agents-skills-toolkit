@@ -2,6 +2,7 @@ param(
     [string]$TargetPath,
     [string[]]$Agents = @(),
     [string[]]$Profiles = @(),
+    [string[]]$Skills = @(),
     [string]$ConfigPath,
     [switch]$ConfirmWrite,
     [switch]$Help
@@ -18,7 +19,7 @@ function Show-Help {
 AI Agent Skills Toolkit project installer
 
 Usage:
-  pwsh -NoProfile -File install/install-project.ps1 -TargetPath <repo> -Agents <names> -Profiles <names>
+  pwsh -NoProfile -File install/install-project.ps1 -TargetPath <repo> -Agents <names> -Profiles <names> -Skills <names>
   pwsh -NoProfile -File install/install-project.ps1 -TargetPath <repo> -ConfigPath templates/.ai-toolkit.config.example.json
 
 Default behavior is dry-run. Add -ConfirmWrite to copy selected files into the target .ai-toolkit/ directory.
@@ -27,7 +28,8 @@ Parameters:
   -TargetPath     Target project repository path.
   -Agents         Agent names without extension, for example reviewer-agent,security-agent.
   -Profiles       Profile names without extension, for example audit-profile.
-  -ConfigPath     Optional JSON config with selectedAgents and selectedProfiles.
+  -Skills         Toolkit-owned skill names, for example riss-governance.
+  -ConfigPath     Optional JSON config with selectedAgents, selectedProfiles, and selectedSkills.
   -ConfirmWrite   Required to write files. Omit for dry-run.
   -Help           Show this help.
 '@ | Write-Host
@@ -83,6 +85,30 @@ function Normalize-ProfileName {
     return $normalized
 }
 
+function Normalize-SkillName {
+    param([string]$Name)
+    $trimmed = $Name.Trim()
+    if ($trimmed -match '[\\/]') {
+        throw "Invalid skill name '$Name'. Use skill folder names only."
+    }
+    $normalized = $trimmed -replace '\.md$', ''
+    if ($normalized -notmatch '^[a-z0-9]+(-[a-z0-9]+)*$') {
+        throw "Invalid skill name '$Name'. Use lowercase hyphen-case folder names only."
+    }
+    return $normalized
+}
+
+function Assert-SingleFileSkill {
+    param([string]$SkillRoot, [string]$SkillName)
+    $skillFile = Join-Path $SkillRoot 'SKILL.md'
+    if (!(Test-Path -LiteralPath $skillFile)) { throw "Skill not found: $SkillName" }
+    $skillFileItem = Get-Item -LiteralPath $skillFile
+    $extraItems = @(Get-ChildItem -Recurse -Force -LiteralPath $SkillRoot | Where-Object { $_.FullName -ne $skillFileItem.FullName })
+    if ($extraItems.Count -gt 0) {
+        throw "Skill '$SkillName' includes bundled resources. Phase 6 v1 syncs single-file skills only."
+    }
+}
+
 function Get-FileAction {
     param([string]$SourcePath, [string]$DestinationPath)
     if (!(Test-Path -LiteralPath $DestinationPath)) { return 'Add' }
@@ -110,6 +136,27 @@ function Assert-TargetBranchPolicy {
     }
 }
 
+function Write-CopyPlan {
+    param($Plan)
+
+    $sections = @(
+        @{ Type = 'compiled-agent'; Label = 'Planned copied agents' },
+        @{ Type = 'profile'; Label = 'Planned copied profiles' },
+        @{ Type = 'skill'; Label = 'Planned copied skills' }
+    )
+
+    foreach ($section in $sections) {
+        Write-Host "$($section.Label):"
+        $items = @($Plan | Where-Object { $_.Type -eq $section.Type })
+        if ($items.Count -eq 0) {
+            Write-Host '  (none)'
+        }
+        else {
+            $items | Select-Object Action, Type, Name, Destination | Format-Table -AutoSize | Out-String | Write-Host
+        }
+    }
+}
+
 function Resolve-Config {
     if ([string]::IsNullOrWhiteSpace($ConfigPath)) { return $null }
     $resolvedConfig = Resolve-Path -LiteralPath $ConfigPath
@@ -129,16 +176,17 @@ if ([string]::IsNullOrWhiteSpace($TargetPath)) {
 $targetRoot = (Resolve-Path -LiteralPath $TargetPath).Path
 $config = Resolve-Config
 
-$selectedAgents = if ($Agents.Count -gt 0) { Convert-ToStringArray $Agents } else { Convert-ToStringArray (Get-JsonProperty $config 'selectedAgents' @()) }
-$selectedProfiles = if ($Profiles.Count -gt 0) { Convert-ToStringArray $Profiles } else { Convert-ToStringArray (Get-JsonProperty $config 'selectedProfiles' @()) }
+$selectedAgents = @(if ($Agents.Count -gt 0) { Convert-ToStringArray $Agents } else { Convert-ToStringArray (Get-JsonProperty $config 'selectedAgents' @()) })
+$selectedProfiles = @(if ($Profiles.Count -gt 0) { Convert-ToStringArray $Profiles } else { Convert-ToStringArray (Get-JsonProperty $config 'selectedProfiles' @()) })
+$selectedSkills = @(if ($Skills.Count -gt 0) { Convert-ToStringArray $Skills } else { Convert-ToStringArray (Get-JsonProperty $config 'selectedSkills' @()) })
 
-if ($selectedAgents.Count -eq 0 -and $selectedProfiles.Count -eq 0) {
-    throw 'Select at least one compiled agent or profile through parameters or config. Broad installs are not allowed.'
+if ($selectedAgents.Count -eq 0 -and $selectedProfiles.Count -eq 0 -and $selectedSkills.Count -eq 0) {
+    throw 'Select at least one compiled agent, profile, or skill through parameters or config. Broad installs are not allowed.'
 }
 
 $allowOverwrite = [bool](Get-JsonProperty $config 'allowOverwriteProjectContext' $false)
 if ($allowOverwrite) {
-    throw 'allowOverwriteProjectContext:true is rejected in Phase 5 v1.'
+    throw 'allowOverwriteProjectContext:true is rejected in Phase 6 v1.'
 }
 
 $branchPolicy = [string](Get-JsonProperty $config 'branchPolicy' 'no-direct-main')
@@ -179,12 +227,27 @@ foreach ($profileEntry in $selectedProfiles) {
     }
 }
 
+foreach ($skill in $selectedSkills) {
+    $name = Normalize-SkillName $skill
+    $skillRoot = Join-Path $ToolkitRoot "skills\$name"
+    Assert-SingleFileSkill $skillRoot $name
+    $source = Join-Path $skillRoot 'SKILL.md'
+    $destination = Join-Path $aiRoot "skills\$name\SKILL.md"
+    $copyPlan += [pscustomobject]@{
+        Type = 'skill'
+        Name = $name
+        Action = Get-FileAction $source $destination
+        Source = $source
+        Destination = $destination
+    }
+}
+
 Write-Host "Toolkit version: $ToolkitVersion"
 Write-Host "Toolkit commit:  $toolkitCommit"
 Write-Host "Target path:     $targetRoot"
 Write-Host "Mode:            $(if ($ConfirmWrite) { 'confirm-write' } else { 'dry-run' })"
 Write-Host ''
-$copyPlan | Select-Object Action, Type, Name, Destination | Format-Table -AutoSize | Out-String | Write-Host
+Write-CopyPlan $copyPlan
 
 if (!$ConfirmWrite) {
     Write-Host 'Dry-run only. No files were written.'
@@ -195,9 +258,11 @@ Assert-TargetBranchPolicy $targetRoot $branchPolicy
 
 New-Item -ItemType Directory -Force -Path (Join-Path $aiRoot 'compiled-agents') | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $aiRoot 'profiles') | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $aiRoot 'skills') | Out-Null
 
 foreach ($item in $copyPlan) {
     if ($item.Action -ne 'Unchanged') {
+        New-Item -ItemType Directory -Force -Path (Split-Path -Parent $item.Destination) | Out-Null
         Copy-Item -LiteralPath $item.Source -Destination $item.Destination -Force
     }
 }
@@ -207,6 +272,7 @@ $writtenConfig = [ordered]@{
     toolkitCommit = $toolkitCommit
     selectedAgents = @($selectedAgents | ForEach-Object { Normalize-AgentName $_ })
     selectedProfiles = @($selectedProfiles | ForEach-Object { Normalize-ProfileName $_ })
+    selectedSkills = @($selectedSkills | ForEach-Object { Normalize-SkillName $_ })
     projectContextPath = $projectContextPath
     approvalMode = $approvalMode
     branchPolicy = $branchPolicy
@@ -219,6 +285,7 @@ $versionRecord = [ordered]@{
     installedAtUtc = (Get-Date).ToUniversalTime().ToString('o')
     selectedAgents = $writtenConfig.selectedAgents
     selectedProfiles = $writtenConfig.selectedProfiles
+    selectedSkills = $writtenConfig.selectedSkills
 }
 
 $versionRecord | ConvertTo-Json -Depth 5 | Set-Content -Encoding UTF8 -LiteralPath (Join-Path $aiRoot '.ai-toolkit-version')
