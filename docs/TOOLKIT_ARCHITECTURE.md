@@ -50,4 +50,11 @@ The sync workflow must never overwrite project-owned `AGENTS.md` or `docs/ai` co
 
 ## Support Tools
 
-Superpowers remains an external execution-discipline plugin. Context7, Playwright, and Figma are support tools used only when needed.
+GSD and Superpowers are external core governance tools, not vendored toolkit dependencies.
+
+- GSD handles phase/state/roadmap/release-gate tracking for serious multi-step work, audits, backend work, migrations, security/SRE audits, and release programs.
+- Superpowers handles execution discipline for systematic debugging, TDD, code review, and verification-before-completion.
+- `riss-governance` routes work across installed agents, profiles, and support tools.
+- Context7, Playwright, Browser Use, GitHub, Supabase, Cloudflare, Vercel, and Figma are support tools used only when needed and available.
+
+Agents and profiles remain role-specific workers. The toolkit must not activate every plugin, tool, agent, or profile by default.

@@ -33,3 +33,9 @@ Status: In progress on `phase5-project-sync-workflow`. This phase adds dry-run-f
 Add project-specific governance skills that help installed toolkit agents operate safely inside target repositories.
 
 Status: Started with `riss-governance`. Phase 6 adds project-managed skill sync so selected toolkit-owned skills can be copied into target repositories under `.ai-toolkit/skills/` without global activation.
+
+## Phase 7: Core Toolchain Governance
+
+Make GSD a core external governance layer alongside Superpowers.
+
+Status: Governance-only. GSD is treated as an external prerequisite/support tool for phase/state/roadmap/release-gate tracking. Superpowers remains the external execution-discipline plugin for debugging, TDD, code review, and verification-before-completion. GSD files are not vendored into the toolkit.

@@ -62,3 +62,13 @@ Compiled agents should document their source toolkit version and any project pro
 - Synced skills must be recorded in `selectedSkills`.
 - Syncing a skill file does not activate skills globally, install external skills, or modify Codex global config.
 - Bundled multi-file skill resources are not supported in Phase 6 v1.
+
+## Phase 7 Core Toolchain Governance Rules
+
+- GSD is treated as an external core governance tool, not a vendored toolkit dependency.
+- Superpowers remains the external core execution-discipline plugin.
+- Serious multi-step work must declare GSD phase/state usage, selected agents/profile, selected support tools, mode, scope, do-not-touch list, and validation plan before execution.
+- If GSD is unavailable for serious multi-phase work, stop and ask whether to install/configure GSD, continue with manual phase tracking, or stop.
+- Do not silently continue without GSD on serious multi-phase work unless the user explicitly approves manual phase tracking.
+- Do not install GSD globally, install other support tools, or modify Codex global config without explicit approval.
+- Use only the minimum required plugins/tools for the task.

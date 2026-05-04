@@ -7,10 +7,17 @@ description: Use when doing serious RISS work that needs repo governance, source
 
 ## Core Rule
 
-For serious RISS work, verify the source of truth, route narrowly, make small reversible changes, protect dependency chains, and validate before claiming completion.
+For serious RISS work, verify the source of truth, route narrowly, track phase/state explicitly, make small reversible changes, protect dependency chains, and validate before claiming completion.
+
+GSD and Superpowers are both core governance layers when available:
+
+- GSD is core for serious multi-step work, audits, backend work, migrations, security/SRE audits, release programs, and phase/state/roadmap/release-gate tracking.
+- Superpowers is core execution discipline for systematic debugging, TDD, code review, and verification-before-completion.
+- Treat GSD as an external prerequisite/support tool, not a vendored toolkit dependency.
 
 ## Start Every Task By Stating
 
+- GSD phase/state usage.
 - Selected agents.
 - Selected profile, if any.
 - Selected support tools.
@@ -22,6 +29,8 @@ For serious RISS work, verify the source of truth, route narrowly, make small re
 Use the minimum agents and tools required. Do not activate every agent, profile, plugin, or support tool by default.
 
 If a recommended agent, tool, or profile is not installed or not available in the target project, stop and report it clearly. Do not silently fall back to another agent or tool. Ask the user whether to continue with a specific closest available alternative, install or sync the missing agent/tool first, or stop the task. Only continue after the user chooses.
+
+For serious multi-phase work, do not silently continue without GSD. If GSD is unavailable, stop and ask whether to install or configure GSD, continue with manual phase tracking, or stop the task.
 
 ## Source Of Truth
 
@@ -46,8 +55,8 @@ If a recommended agent, tool, or profile is not installed or not available in th
 
 Use support tools only when the task requires them:
 
+- GSD for phase/state/roadmap/release-gate tracking in serious multi-step work, audits, backend work, migrations, security/SRE audits, and release programs.
 - Superpowers for systematic debugging, TDD, code review, verification-before-completion, and plan discipline.
-- GSD for long multi-phase work, release gates, state, roadmap, and phase planning if configured.
 - Context7 for current external library, framework, or API docs.
 - Playwright or browser tools for Viewer/Dashboard runtime UI, route, browser, cache, and interaction verification.
 - Supabase docs/tooling for database, RLS, Edge Functions, storage, realtime, generated types, and public/private contracts.
@@ -120,12 +129,14 @@ Stop and report instead of guessing when:
 - Backend, security, or public-data risk is detected.
 - Multiple valid interpretations exist and the choice changes behavior.
 - Required validation cannot be run.
+- GSD is required for serious multi-phase work but is unavailable and the user has not chosen a fallback.
 
 ## Completion Report
 
 Before claiming completion, state:
 
 - Remote baseline used.
+- GSD phase/state usage or approved manual tracking fallback.
 - Files changed.
 - Why each change was in scope.
 - Dependency-chain impact checked.
