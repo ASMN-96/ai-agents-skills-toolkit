@@ -19,6 +19,7 @@ GSD and Superpowers are both core governance layers when available:
 
 - GSD phase/state usage.
 - Selected agents.
+- Native custom-agent availability or compiled-agent fallback status.
 - Selected profile, if any.
 - Selected support tools.
 - Mode: read-only, plan, implementation, or review.
@@ -42,6 +43,13 @@ For serious multi-phase work, do not silently continue without GSD. If GSD is un
 - Do not silently choose between interpretations that change behavior.
 
 ## Routing
+
+Select the minimum necessary agents automatically from the task. Prefer native Codex custom agents when they are available and verified. Until runtime verification passes, treat global custom agents as registered but requiring Codex restart/new session verification.
+
+- Native custom agent preferred: spawn the matching toolkit custom agent by name when available.
+- Fallback path: if native spawn is unavailable or fails, report the failed agent and reason. For high-risk tasks, stop and ask before fallback. For explicitly pre-approved fallback tasks, use built-in `worker` or `explorer` with the matching compiled-agent instructions.
+- Never silently substitute a different agent or downgrade from native custom agent to compiled-agent fallback.
+- Stop if both the native custom agent and matching compiled-agent fallback are unavailable.
 
 - Source, skill, or tool safety: Skill Scout Agent + Reviewer Agent.
 - Frontend, runtime, or UI behavior: Frontend Agent + QA/Test Agent + Reviewer Agent.
@@ -137,6 +145,7 @@ Before claiming completion, state:
 
 - Remote baseline used.
 - GSD phase/state usage or approved manual tracking fallback.
+- Native custom agents used, or fallback path used with approval/status.
 - Files changed.
 - Why each change was in scope.
 - Dependency-chain impact checked.

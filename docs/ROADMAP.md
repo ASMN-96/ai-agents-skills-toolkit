@@ -39,3 +39,9 @@ Status: Started with `riss-governance`. Phase 6 adds project-managed skill sync 
 Make GSD a core external governance layer alongside Superpowers.
 
 Status: Governance-only. GSD is treated as an external prerequisite/support tool for phase/state/roadmap/release-gate tracking. Superpowers remains the external execution-discipline plugin for debugging, TDD, code review, and verification-before-completion. GSD files are not vendored into the toolkit.
+
+## Phase 8: Codex Custom Agents And Routing
+
+Register toolkit agents as global Codex custom agents while preserving compiled agents as the safe fallback path.
+
+Status: Global custom-agent TOML registration and governance routing. Native custom agents are preferred when available; until runtime smoke testing passes after Codex restart/new session, status is "registered, restart verification required."
