@@ -82,3 +82,12 @@ Compiled agents should document their source toolkit version and any project pro
 - If native custom-agent spawn is unavailable or fails, report it. High-risk tasks must stop and ask before using the compiled-agent fallback.
 - Compiled agents remain the canonical fallback source and must be regenerated intentionally before updating global custom agents.
 - Do not set custom model, sandbox, MCP server, or tool permissions in Phase 8 v1.
+
+## Phase 9 Global Governance Entrypoint Rules
+
+- The global `riss-governance` skill is scoped to RISS, RISS V2, AI Toolkit, Supabase/backend, security, release, repo governance, and related VD real estate platform work.
+- Do not apply `riss-governance` as a generic workflow for unrelated projects unless the user explicitly requests it.
+- The global `riss-governance-agent` router may coordinate native custom agents when runtime-visible.
+- Do not claim full runtime visibility until a new-session skill and router-agent visibility test passes.
+- If current-session hot-load fails, report: "Global riss-governance installed; restart/new session verification required."
+- High-risk fallback from native agents to compiled-agent instructions requires user approval.

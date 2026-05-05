@@ -45,3 +45,9 @@ Status: Governance-only. GSD is treated as an external prerequisite/support tool
 Register toolkit agents as global Codex custom agents while preserving compiled agents as the safe fallback path.
 
 Status: Global custom-agent TOML registration and governance routing. Native custom agents are preferred when available; until runtime smoke testing passes after Codex restart/new session, status is "registered, restart verification required."
+
+## Phase 9: Global riss-governance Entrypoint
+
+Install `riss-governance` globally as the one-command governance entrypoint for RISS, RISS V2, AI Toolkit, Supabase/backend, security, release, repo governance, and related VD real estate platform work.
+
+Status: Global skill and router-agent registration. Do not mark runtime visibility fully active until restart/new-session verification confirms both the skill and `riss-governance-agent` router are visible.

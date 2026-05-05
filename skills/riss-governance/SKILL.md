@@ -9,6 +9,8 @@ description: Use when doing serious RISS work that needs repo governance, source
 
 For serious RISS work, verify the source of truth, route narrowly, track phase/state explicitly, make small reversible changes, protect dependency chains, and validate before claiming completion.
 
+This skill is the governance entrypoint for RISS, RISS V2, AI Toolkit, Supabase/backend, security, release, repo governance, and related VD real estate platform work. Do not apply it automatically to unrelated projects unless the user explicitly requests it.
+
 GSD and Superpowers are both core governance layers when available:
 
 - GSD is core for serious multi-step work, audits, backend work, migrations, security/SRE audits, release programs, and phase/state/roadmap/release-gate tracking.
@@ -46,6 +48,7 @@ For serious multi-phase work, do not silently continue without GSD. If GSD is un
 
 Select the minimum necessary agents automatically from the task. Prefer native Codex custom agents when they are available and verified. Until runtime verification passes, treat global custom agents as registered but requiring Codex restart/new session verification.
 
+- Global entrypoint: when the user says "Use riss-governance," start with this skill, then use `riss-governance-agent` as the router when it is runtime-visible.
 - Native custom agent preferred: spawn the matching toolkit custom agent by name when available.
 - Fallback path: if native spawn is unavailable or fails, report the failed agent and reason. For high-risk tasks, stop and ask before fallback. For explicitly pre-approved fallback tasks, use built-in `worker` or `explorer` with the matching compiled-agent instructions.
 - Never silently substitute a different agent or downgrade from native custom agent to compiled-agent fallback.
