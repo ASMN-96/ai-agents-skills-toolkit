@@ -67,3 +67,11 @@ Agents and profiles remain role-specific workers. The toolkit must not activate 
 Toolkit-managed global custom agents are generated as TOML files under `~/.codex/agents/`. They contain concise role instructions derived from compiled agents and source provenance back to `compiled-agents/*.compiled.md`.
 
 If a native custom agent cannot be spawned, governance must report the failure. High-risk tasks require user approval before falling back to a built-in `worker` or `explorer` loaded with the matching compiled-agent instructions.
+
+## Global Governance Entrypoint
+
+Phase 9 adds a global `riss-governance` skill and `riss-governance-agent` router for RISS, RISS V2, AI Toolkit, Supabase/backend, security, release, repo governance, and related VD real estate platform work.
+
+The global skill is the user-facing one-command entrypoint. The router agent coordinates native custom agents when runtime-visible. If the router is not visible in the current Codex session, status is "Global riss-governance installed; restart/new session verification required."
+
+This entrypoint is intentionally domain-scoped and must not become a generic workflow for unrelated projects unless the user explicitly requests it.
