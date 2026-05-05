@@ -72,3 +72,13 @@ Compiled agents should document their source toolkit version and any project pro
 - Do not silently continue without GSD on serious multi-phase work unless the user explicitly approves manual phase tracking.
 - Do not install GSD globally, install other support tools, or modify Codex global config without explicit approval.
 - Use only the minimum required plugins/tools for the task.
+
+## Phase 8 Codex Custom-Agent Rules
+
+- Global Codex custom agents are generated only from reviewed compiled agents after explicit approval.
+- Custom-agent TOML files live under `~/.codex/agents/`; the toolkit must not create repo-local `.codex/agents/` unless project-local registration is explicitly approved.
+- TOML files must validate before use and must include `name`, `description`, `developer_instructions`, and source provenance to the matching compiled agent.
+- Native custom agents are preferred when available, but runtime status is not considered verified until a Codex restart/new-session smoke test succeeds.
+- If native custom-agent spawn is unavailable or fails, report it. High-risk tasks must stop and ask before using the compiled-agent fallback.
+- Compiled agents remain the canonical fallback source and must be regenerated intentionally before updating global custom agents.
+- Do not set custom model, sandbox, MCP server, or tool permissions in Phase 8 v1.

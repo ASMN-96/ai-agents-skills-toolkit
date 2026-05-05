@@ -10,6 +10,7 @@ AI Agent Skills Toolkit separates source intake, method extraction, agent defini
 - `profiles/` stores reusable operating-mode bundles that define included agents, support tools, allowed actions, forbidden actions, output format, and verification gates.
 - `skills/` stores reviewed toolkit-owned skills and skill metadata.
 - `compiled-agents/` stores intentional compiled outputs for project repositories.
+- Global Codex custom agents can be generated from compiled agents under `~/.codex/agents/` after explicit approval.
 - `install/` stores dry-run-first, version-pinned project sync workflows for selected compiled agents and profiles.
 
 ## Boundaries
@@ -23,6 +24,8 @@ Phase 4 agent compilation adds normalized compiled agent documents and reusable 
 Phase 5 project sync adds installer, updater, and validator scripts that manage selected files under a target project's `.ai-toolkit/` directory. These scripts are dry-run by default, require `-ConfirmWrite` for writes, preserve project-local context, and do not install external skills or activate compiled agents globally.
 
 Phase 6 project-managed skill sync copies selected toolkit-owned single-file skills into target projects under `.ai-toolkit/skills/<skill-name>/SKILL.md`. It does not activate skills globally, modify Codex global config, or support bundled multi-file skill resources.
+
+Phase 8 global custom-agent registration adds a Codex-native convenience layer above compiled agents. Native custom agents are preferred when available, but compiled agents remain the canonical fallback source. Global agent registration is not considered fully runtime-active until TOML validation and a Codex restart/new-session smoke test confirm visibility.
 
 ## Compilation Inputs
 
@@ -58,3 +61,9 @@ GSD and Superpowers are external core governance tools, not vendored toolkit dep
 - Context7, Playwright, Browser Use, GitHub, Supabase, Cloudflare, Vercel, and Figma are support tools used only when needed and available.
 
 Agents and profiles remain role-specific workers. The toolkit must not activate every plugin, tool, agent, or profile by default.
+
+## Global Codex Agents
+
+Toolkit-managed global custom agents are generated as TOML files under `~/.codex/agents/`. They contain concise role instructions derived from compiled agents and source provenance back to `compiled-agents/*.compiled.md`.
+
+If a native custom agent cannot be spawned, governance must report the failure. High-risk tasks require user approval before falling back to a built-in `worker` or `explorer` loaded with the matching compiled-agent instructions.
