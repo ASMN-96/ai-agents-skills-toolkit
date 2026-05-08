@@ -20,3 +20,5 @@ All notable changes to AI Agent Skills Toolkit will be documented here.
 - Added Phase 7 governance-only toolchain policy: GSD is an external core governance tool alongside Superpowers, not a vendored toolkit dependency.
 - Added Phase 8 global Codex custom-agent governance: native custom agents are preferred when runtime-visible, with compiled-agent fallback and restart verification requirements.
 - Added Phase 9 global `riss-governance` entrypoint policy for scoped RISS/AI Toolkit governance, router-agent coordination, and restart/new-session visibility verification.
+- Added Phase 10A/10B governance spine docs, registry contracts, external-source backlog, registries, routing/eval scaffolding, missing-skill discovery policy, token-efficiency policy, and runtime verification docs.
+- Reconciled toolkit docs to reflect existing evaluated source records, profiles, compiled agents, and external support-tool boundaries.

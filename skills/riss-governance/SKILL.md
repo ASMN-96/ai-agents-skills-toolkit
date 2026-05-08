@@ -31,6 +31,16 @@ GSD and Superpowers are both core governance layers when available:
 
 Use the minimum agents and tools required. Do not activate every agent, profile, plugin, or support tool by default.
 
+For Phase 10 governance-spine work, consult repo registries and policy docs when useful instead of expanding this skill inline:
+
+- `registries/*.json` for existing asset and routing metadata.
+- `docs/GOVERNANCE_SPINE.md` for the plain-language routing contract.
+- `docs/REGISTRY_CONTRACT.md` for status semantics.
+- `docs/TOKEN_EFFICIENCY_POLICY.md` for concise/standard/detailed output modes.
+- `docs/MISSING_SKILL_DISCOVERY_POLICY.md` for read-only missing-capability discovery.
+
+Start with a short routing summary by default. Expand only for high-risk work, missing capability, source-of-truth uncertainty, or explicit user request.
+
 If a recommended agent, tool, or profile is not installed or not available in the target project, stop and report it clearly. Do not silently fall back to another agent or tool. Ask the user whether to continue with a specific closest available alternative, install or sync the missing agent/tool first, or stop the task. Only continue after the user chooses.
 
 For serious multi-phase work, do not silently continue without GSD. If GSD is unavailable, stop and ask whether to install or configure GSD, continue with manual phase tracking, or stop the task.

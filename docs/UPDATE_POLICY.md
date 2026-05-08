@@ -91,3 +91,14 @@ Compiled agents should document their source toolkit version and any project pro
 - Do not claim full runtime visibility until a new-session skill and router-agent visibility test passes.
 - If current-session hot-load fails, report: "Global riss-governance installed; restart/new session verification required."
 - High-risk fallback from native agents to compiled-agent instructions requires user approval.
+
+## Phase 10A/10B Governance Spine Rules
+
+- Registries are metadata only and never imply activation.
+- Register existing assets before adding speculative assets.
+- `riss-governance` remains the normal user-facing entrypoint.
+- `riss-agent-governance` and `riss-skill-governance` remain planned helper contracts until separately approved and implemented.
+- Missing-skill discovery is read-only by default and may check local registries, source records, skills.sh, GitHub, GitLab, and official docs.
+- Discovery must not install, activate, clone, copy raw skills, run scripts, modify global config, or modify product repos.
+- External source scouting and method extraction happen in later approved batches.
+- Full runtime activation must not be claimed from repo files alone.

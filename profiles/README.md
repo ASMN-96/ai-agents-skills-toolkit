@@ -17,4 +17,4 @@ Profiles should not contain secrets.
 - `sre-profile.md`: reliability, performance, observability, and release-readiness review.
 - `release-profile.md`: PR, CI, changelog, release gate, and merge readiness review.
 
-Profiles do not install or activate anything. Project-specific profile composition and sync workflow are deferred to Phase 5.
+Profiles do not install or activate anything. Phase 5 added dry-run-first project sync workflows, and Phase 10A/10B indexes existing profiles in `registries/profiles.registry.json` for routing metadata only.

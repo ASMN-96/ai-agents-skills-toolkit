@@ -10,6 +10,8 @@ AI Agent Skills Toolkit separates source intake, method extraction, agent defini
 - `profiles/` stores reusable operating-mode bundles that define included agents, support tools, allowed actions, forbidden actions, output format, and verification gates.
 - `skills/` stores reviewed toolkit-owned skills and skill metadata.
 - `compiled-agents/` stores intentional compiled outputs for project repositories.
+- `registries/` stores machine-readable indexes for existing agents, skills, profiles, support tools, and plain-language routing scenarios.
+- `evals/` stores routing, skill trigger, stop-condition, token-efficiency, and runtime visibility evaluation scaffolds.
 - Global Codex custom agents can be generated from compiled agents under `~/.codex/agents/` after explicit approval.
 - `install/` stores dry-run-first, version-pinned project sync workflows for selected compiled agents and profiles.
 
@@ -27,6 +29,8 @@ Phase 6 project-managed skill sync copies selected toolkit-owned single-file ski
 
 Phase 8 global custom-agent registration adds a Codex-native convenience layer above compiled agents. Native custom agents are preferred when available, but compiled agents remain the canonical fallback source. Global agent registration is not considered fully runtime-active until TOML validation and a Codex restart/new-session smoke test confirm visibility.
 
+Phase 10A/10B adds a governance spine and registry contract. Registries are metadata only: they do not install, activate, approve, or execute anything. Phase 10A/10B registers existing assets first and preserves external-source scouting for later batches through `docs/EXTERNAL_SOURCE_BACKLOG.md`.
+
 ## Compilation Inputs
 
 Compiled agents are assembled from:
@@ -43,7 +47,7 @@ Compiled agents must include source provenance so projects can audit which toolk
 
 Profiles group compiled agents by operating mode such as audit, implementation, frontend, backend, UI/UX, security, SRE, or release. Profiles define included agents, support tools, allowed actions, forbidden actions, output format, and verification gates.
 
-Profiles are not project sync instructions. They are reusable selection guidance until Phase 5 creates version-pinned sync workflows.
+Profiles are reusable selection guidance for routing and version-pinned sync selection. Phase 5 added dry-run-first sync workflows that can copy selected profiles into target projects with approval.
 
 ## Project Sync
 
@@ -75,3 +79,14 @@ Phase 9 adds a global `riss-governance` skill and `riss-governance-agent` router
 The global skill is the user-facing one-command entrypoint. The router agent coordinates native custom agents when runtime-visible. If the router is not visible in the current Codex session, status is "Global riss-governance installed; restart/new session verification required."
 
 This entrypoint is intentionally domain-scoped and must not become a generic workflow for unrelated projects unless the user explicitly requests it.
+
+## Governance Spine
+
+The Phase 10 governance spine keeps `riss-governance` as the normal user-facing entrypoint. It translates plain-language requests into inferred intent, risk level, selected profile, selected agents, selected skills, support tools, validation gates, stop conditions, and token mode.
+
+Planned helper skills are documented as future contracts only:
+
+- `riss-agent-governance` for agent routing and native/fallback status.
+- `riss-skill-governance` for skill routing and missing-capability discovery.
+
+These helpers are not implemented in Phase 10A/10B and must not become broad user-facing skills without separate approval.
