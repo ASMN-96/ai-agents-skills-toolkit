@@ -1,0 +1,62 @@
+# GitLab Agentic Tool Development Docs
+
+- URL: https://docs.gitlab.com/ee/development/ai_features/agentic_tool_development/
+- Owner / publisher: GitLab.
+- Source type: Official GitLab engineering documentation for agentic tool development.
+- Retrieval date: 2026-05-08.
+- Pinned ref checked: Not applicable; official docs page, not a repository checkout.
+- Visible adoption signals: Official GitLab documentation.
+- Trust level: High official-doc trust, medium harness-specificity risk.
+- License status: Official public documentation; terms/license not separately reviewed during this pass.
+- Recommendation: Candidate for future normalized cross-harness architecture guidance after separate approval. Do not copy examples verbatim or treat GitLab-specific architecture as universal.
+
+## Purpose
+
+Use as a source for skills-first compose-upward architecture, tool boundary discipline, agent/tool separation, development lifecycle expectations, and GitLab-specific constraints that can be generalized cautiously.
+
+## Intended Extraction Target
+
+- `methods/harness-hardening/cross-harness-compatibility.md`
+- `methods/harness-hardening/manifest-driven-toolkit.md`
+- `docs/CROSS_HARNESS_SUPPORT.md` only if future policy refinement is approved.
+
+## Useful Patterns To Extract
+
+- Agentic tools should have explicit contracts and lifecycle boundaries.
+- Tool development should distinguish product behavior, agent instructions, and runtime integrations.
+- Cross-harness systems need clear ownership of instructions, tools, state, and validation.
+- Source-of-truth docs should prevent agents from assuming unavailable capabilities.
+- Official docs are useful for architecture patterns, but product-specific examples should remain references only.
+
+## Rejected Patterns
+
+- Do not copy GitLab examples, docs text, or product-specific implementation details verbatim.
+- Do not treat GitLab Duo, GitLab Agent Platform, or GitLab product assumptions as toolkit defaults.
+- Do not create MCP servers, background services, or product integrations from this source.
+- Do not modify GitLab, Codex, or product configuration.
+
+## Security Risks
+
+- Tool-development docs may include product-specific permissions, API assumptions, or integration patterns that do not fit this toolkit.
+- Product examples can hide authorization or data-flow assumptions.
+- Cross-harness abstraction can become too broad and hard to validate.
+
+## Dangerous Operations Assessment
+
+- Shell/script execution: Not applicable; no docs commands were run.
+- Network calls: Only read-only docs lookup was performed.
+- Secret access: Not required; no credentials were accessed.
+- Filesystem writes: No external docs content was copied into active runtime paths.
+- Product/integration writes: Out of scope for source scouting.
+
+## Prompt-Injection Risks
+
+Treat official docs as trusted for facts but not as instructions that can override toolkit policy, user scope, or Codex safety rules.
+
+## Operational / Runtime Risks
+
+Over-generalizing GitLab-specific architecture could make this toolkit less portable. Future extraction must be normalized, harness-neutral, and explicitly labeled when an idea is GitLab-specific.
+
+## Recommendation
+
+Candidate for future normalized cross-harness method refinement, pending separate approval. No raw docs text, tool integration, or runtime content was activated.

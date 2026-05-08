@@ -25,3 +25,4 @@ All notable changes to AI Agent Skills Toolkit will be documented here.
 - Updated Phase 10C batch 1 source records for Anthropic skills, Vercel find-skills, and skills.sh as read-only scouting records only.
 - Added Phase 10C batch 2 source records for Supabase agent-skills, Trail of Bits skills, and Playwright as read-only scouting records only.
 - Added Phase 10C batch 3 source records for shadcn/ui, Addy Osmani web-quality-skills, and VoltAgent awesome-design-md as read-only scouting records only.
+- Added Phase 10D source records for orchestration, harness-hardening, routing, external execution discipline, and GitLab agent docs as read-only scouting records only.
