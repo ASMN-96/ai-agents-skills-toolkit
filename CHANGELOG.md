@@ -23,3 +23,4 @@ All notable changes to AI Agent Skills Toolkit will be documented here.
 - Added Phase 10A/10B governance spine docs, registry contracts, external-source backlog, registries, routing/eval scaffolding, missing-skill discovery policy, token-efficiency policy, and runtime verification docs.
 - Reconciled toolkit docs to reflect existing evaluated source records, profiles, compiled agents, and external support-tool boundaries.
 - Updated Phase 10C batch 1 source records for Anthropic skills, Vercel find-skills, and skills.sh as read-only scouting records only.
+- Added Phase 10C batch 2 source records for Supabase agent-skills, Trail of Bits skills, and Playwright as read-only scouting records only.
