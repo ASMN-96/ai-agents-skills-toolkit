@@ -56,16 +56,18 @@ Status: Global skill and router-agent registration. Do not mark runtime visibili
 
 Build the governance spine, registry contract, token-efficiency policy, missing-skill discovery policy, runtime verification docs, and external-source backlog.
 
-Status: In progress on `codex/phase-10-governance-spine`. This phase registers existing assets only and does not install, activate, clone, copy, or extract new external sources.
+Status: Completed and merged via Phase 10A/10B PR. This phase registered existing assets only and did not install, activate, clone, copy, or extract new external sources.
 
 ## Phase 10B: Toolkit-State Reconciliation and Evals
 
 Reconcile stale documentation, add source-record quality rules, and add eval scaffolding for routing, skill triggers, stop conditions, token efficiency, and runtime visibility.
 
-Status: In progress on `codex/phase-10-governance-spine`. External source scouting and method extraction are deferred to Phase 10C+.
+Status: Completed and merged via Phase 10A/10B PR. External source scouting and method extraction were deferred to Phase 10C+.
 
-## Phase 10C: External Source Scouting Batch 1
+## Phase 10C: External Source Scouting
 
-Refresh source records for the safest high-leverage skill-quality and discovery sources before any extraction.
+Refresh source records for the safest high-leverage external sources before any extraction.
 
-Status: Started on `codex/phase-10c-source-scouting`. Batch 1 updates existing source records for Anthropic skills, Vercel find-skills, and skills.sh. No method extraction, install, activation, cloning, raw skill copying, or new skill directories are included.
+Status: Batch 1 completed and merged. Batch 2 started on `codex/phase-10c-batch-2-source-scouting`.
+
+Batch 1 updated existing source records for Anthropic skills, Vercel find-skills, and skills.sh. Batch 2 adds source records for Supabase agent-skills, Trail of Bits skills, and Playwright. No method extraction, install, activation, cloning, raw skill copying, or new skill directories are included.
