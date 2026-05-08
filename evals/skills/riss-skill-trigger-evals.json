@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0.0",
+  "evalSet": "riss-skill-trigger-evals",
+  "purpose": "Validate when riss-governance should trigger and when planned helper skills must remain internal/draft.",
+  "cases": [
+    {
+      "id": "explicit-riss-governance",
+      "userPrompt": "Use riss-governance. Check if this PR is safe to merge.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "The user explicitly requested the user-facing governance entrypoint. Helper skills are only documented contracts in Phase 10A/10B."
+    },
+    {
+      "id": "normal-language-professional-request",
+      "userPrompt": "I want this feature done professionally.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Plain-language engineering request should route through riss-governance when operating inside this toolkit/RISS governance context."
+    },
+    {
+      "id": "unrelated-simple-question",
+      "userPrompt": "What does this CSS property mean?",
+      "expectedTriggeredSkills": [],
+      "expectedNotTriggeredSkills": [
+        "riss-governance",
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "No repo governance, source-of-truth, routing, or toolkit context is needed."
+    },
+    {
+      "id": "missing-skill-discovery",
+      "userPrompt": "Do we have a local skill for secure browser automation review?",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Phase 10A/10B supports policy and registry-driven discovery through riss-governance; riss-skill-governance is planned, not implemented."
+    },
+    {
+      "id": "broad-activation-negative",
+      "userPrompt": "Activate every skill and plugin globally.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "The governance entrypoint should stop broad activation; helper skills must not be used to bypass safety."
+    }
+  ]
+}

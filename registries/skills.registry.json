@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "registryType": "skills",
+  "activationPolicy": "Registry presence never implies skill activation.",
+  "statusValues": [
+    "documented",
+    "available",
+    "native-visible",
+    "compiled-fallback",
+    "draft",
+    "approved",
+    "active"
+  ],
+  "skills": [
+    {
+      "name": "riss-governance",
+      "description": "User-facing governance entrypoint for scoped repo governance, source-of-truth checks, narrow agent/tool routing, safety gates, and completion verification.",
+      "ownerAgent": "reviewer-agent",
+      "secondaryAgents": [
+        "release-manager-agent",
+        "skill-scout-agent",
+        "security-agent",
+        "qa-test-agent"
+      ],
+      "triggerCases": [
+        "User explicitly says Use riss-governance.",
+        "Task involves AI Toolkit, RISS, Supabase/backend/security/release governance, source-of-truth checks, custom agent routing, or completion verification.",
+        "Plain-language request needs professional engineering routing."
+      ],
+      "negativeTriggerCases": [
+        "Unrelated projects where user did not request this governance layer.",
+        "Simple one-off questions where repo governance does not materially help.",
+        "Requests to install or activate every tool without review."
+      ],
+      "priority": "high",
+      "conflicts": [
+        "Do not duplicate Superpowers or Codex plugins.",
+        "Do not silently fall back from native agent to compiled instructions for high-risk work."
+      ],
+      "requiredSupportTools": [],
+      "optionalSupportTools": [
+        "Superpowers",
+        "GSD",
+        "GitHub/gh",
+        "Playwright/browser",
+        "Supabase tooling/docs",
+        "CodeRabbit"
+      ],
+      "riskLevel": "medium",
+      "evalStatus": "scaffolded",
+      "sourceProvenance": [
+        "skills/riss-governance/SKILL.md",
+        "docs/GOVERNANCE_SPINE.md",
+        "docs/REGISTRY_CONTRACT.md"
+      ],
+      "skillPath": "skills/riss-governance/SKILL.md",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ]
+    },
+    {
+      "name": "riss-agent-governance",
+      "description": "Planned internal helper skill for agent inventory, native visibility, compiled fallback status, routing, scorecards, and handoff governance.",
+      "ownerAgent": "reviewer-agent",
+      "secondaryAgents": [
+        "architect-agent",
+        "release-manager-agent"
+      ],
+      "triggerCases": [
+        "Future internal routing needs agent selection or fallback status."
+      ],
+      "negativeTriggerCases": [
+        "Direct user-facing entrypoint use.",
+        "Phase 10A/10B implementation before the registry contract is proven."
+      ],
+      "priority": "planned",
+      "conflicts": [
+        "Must not become a large user-facing governance skill.",
+        "Must not add new agents."
+      ],
+      "requiredSupportTools": [],
+      "optionalSupportTools": [],
+      "riskLevel": "medium",
+      "evalStatus": "not-implemented",
+      "sourceProvenance": [
+        "docs/GOVERNANCE_SPINE.md",
+        "docs/REGISTRY_CONTRACT.md"
+      ],
+      "skillPath": null,
+      "status": [
+        "documented",
+        "draft"
+      ]
+    },
+    {
+      "name": "riss-skill-governance",
+      "description": "Planned internal helper skill for skill inventory, trigger conditions, conflict resolution, missing-capability discovery, and skill safety.",
+      "ownerAgent": "skill-scout-agent",
+      "secondaryAgents": [
+        "security-agent",
+        "reviewer-agent"
+      ],
+      "triggerCases": [
+        "Future internal routing needs skill selection, trigger checks, or missing capability discovery."
+      ],
+      "negativeTriggerCases": [
+        "Direct user-facing entrypoint use.",
+        "Installing, activating, cloning, or copying external skills."
+      ],
+      "priority": "planned",
+      "conflicts": [
+        "Must not install or activate external skills.",
+        "Must not copy raw external SKILL.md content."
+      ],
+      "requiredSupportTools": [],
+      "optionalSupportTools": [
+        "skills.sh/find-skills discovery",
+        "web search/browser",
+        "GitHub/GitLab discovery sources"
+      ],
+      "riskLevel": "high",
+      "evalStatus": "not-implemented",
+      "sourceProvenance": [
+        "docs/MISSING_SKILL_DISCOVERY_POLICY.md",
+        "docs/REGISTRY_CONTRACT.md"
+      ],
+      "skillPath": null,
+      "status": [
+        "documented",
+        "draft"
+      ]
+    }
+  ]
+}

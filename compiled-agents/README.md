@@ -37,3 +37,7 @@ This metadata is required at the top of every `*.compiled.md` file for downstrea
 Compiled agents are documentation artifacts until a project intentionally syncs a pinned toolkit version. They do not activate skills, install external packs, overwrite project `AGENTS.md`, or change Codex global config.
 
 Superpowers is referenced only as an external Codex execution-discipline plugin. Context7, Playwright, and Figma are support triggers only when available, configured, and relevant.
+
+## Phase 10 Registry Status
+
+Compiled agents remain the canonical fallback source for the 12 core agents. Phase 10A/10B indexes them in `registries/agents.registry.json` with `compiled-fallback` status. That registry entry does not prove native custom-agent runtime visibility and does not activate compiled agents.

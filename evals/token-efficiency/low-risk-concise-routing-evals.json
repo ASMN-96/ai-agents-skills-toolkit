@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "evalSet": "low-risk-concise-routing",
+  "purpose": "Validate that low-risk work avoids unnecessary agent/tool expansion.",
+  "cases": [
+    {
+      "id": "readme-typo",
+      "userPrompt": "Use riss-governance. Fix one typo in README.md.",
+      "expectedTokenMode": "concise",
+      "expectedSelectedAgents": [
+        "reviewer-agent"
+      ],
+      "expectedSelectedToolsPlugins": [],
+      "expectedResponseShape": "Short routing summary, file changed, validation note."
+    },
+    {
+      "id": "small-doc-link",
+      "userPrompt": "Use riss-governance. Add a link to the roadmap in the docs README.",
+      "expectedTokenMode": "concise",
+      "expectedSelectedAgents": [
+        "reviewer-agent"
+      ],
+      "expectedSelectedToolsPlugins": [],
+      "expectedResponseShape": "Short summary and static validation."
+    },
+    {
+      "id": "explain-local-doc",
+      "userPrompt": "Use riss-governance. Explain what the audit profile is for.",
+      "expectedTokenMode": "concise",
+      "expectedSelectedAgents": [],
+      "expectedSelectedToolsPlugins": [],
+      "expectedResponseShape": "Direct explanation with file reference; no registry dump."
+    }
+  ]
+}

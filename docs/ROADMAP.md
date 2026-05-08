@@ -26,13 +26,13 @@ Status: Completed and merged. This phase added product-ready compiled agent docu
 
 Create intentional, version-pinned sync and install workflows for project repositories. Project repos consume compiled agents, not raw upstream files.
 
-Status: In progress on `phase5-project-sync-workflow`. This phase adds dry-run-first install, update, and validation scripts plus project sync safety documentation. No product repo install is performed in this phase.
+Status: Completed. This phase added dry-run-first install, update, and validation scripts plus project sync safety documentation. No product repo install was performed in this phase.
 
 ## Phase 6: Project Governance Skills
 
 Add project-specific governance skills that help installed toolkit agents operate safely inside target repositories.
 
-Status: Started with `riss-governance`. Phase 6 adds project-managed skill sync so selected toolkit-owned skills can be copied into target repositories under `.ai-toolkit/skills/` without global activation.
+Status: Completed for v1. Phase 6 added `riss-governance` and project-managed skill sync so selected toolkit-owned skills can be copied into target repositories under `.ai-toolkit/skills/` without global activation.
 
 ## Phase 7: Core Toolchain Governance
 
@@ -51,3 +51,15 @@ Status: Global custom-agent TOML registration and governance routing. Native cus
 Install `riss-governance` globally as the one-command governance entrypoint for RISS, RISS V2, AI Toolkit, Supabase/backend, security, release, repo governance, and related VD real estate platform work.
 
 Status: Global skill and router-agent registration. Do not mark runtime visibility fully active until restart/new-session verification confirms both the skill and `riss-governance-agent` router are visible.
+
+## Phase 10A: Governance Spine and Registry Contract
+
+Build the governance spine, registry contract, token-efficiency policy, missing-skill discovery policy, runtime verification docs, and external-source backlog.
+
+Status: In progress on `codex/phase-10-governance-spine`. This phase registers existing assets only and does not install, activate, clone, copy, or extract new external sources.
+
+## Phase 10B: Toolkit-State Reconciliation and Evals
+
+Reconcile stale documentation, add source-record quality rules, and add eval scaffolding for routing, skill triggers, stop conditions, token efficiency, and runtime visibility.
+
+Status: In progress on `codex/phase-10-governance-spine`. External source scouting and method extraction are deferred to Phase 10C+.
