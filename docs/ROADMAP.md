@@ -68,6 +68,6 @@ Status: Completed and merged via Phase 10A/10B PR. External source scouting and 
 
 Refresh source records for the safest high-leverage external sources before any extraction.
 
-Status: Batch 1 completed and merged. Batch 2 started on `codex/phase-10c-batch-2-source-scouting`.
+Status: Batches 1 and 2 completed and merged. Batch 3 started on `codex/phase-10c-batch-3-source-scouting`.
 
-Batch 1 updated existing source records for Anthropic skills, Vercel find-skills, and skills.sh. Batch 2 adds source records for Supabase agent-skills, Trail of Bits skills, and Playwright. No method extraction, install, activation, cloning, raw skill copying, or new skill directories are included.
+Batch 1 updated existing source records for Anthropic skills, Vercel find-skills, and skills.sh. Batch 2 added source records for Supabase agent-skills, Trail of Bits skills, and Playwright. Batch 3 adds source records for shadcn/ui, Addy Osmani web-quality-skills, and VoltAgent awesome-design-md. No method extraction, install, activation, cloning, raw skill copying, or new skill directories are included.
