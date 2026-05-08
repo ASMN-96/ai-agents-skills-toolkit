@@ -68,6 +68,14 @@ Status: Completed and merged via Phase 10A/10B PR. External source scouting and 
 
 Refresh source records for the safest high-leverage external sources before any extraction.
 
-Status: Batches 1 and 2 completed and merged. Batch 3 started on `codex/phase-10c-batch-3-source-scouting`.
+Status: Completed through batch 3. No method extraction, install, activation, cloning, raw skill copying, or new skill directories were included.
 
-Batch 1 updated existing source records for Anthropic skills, Vercel find-skills, and skills.sh. Batch 2 added source records for Supabase agent-skills, Trail of Bits skills, and Playwright. Batch 3 adds source records for shadcn/ui, Addy Osmani web-quality-skills, and VoltAgent awesome-design-md. No method extraction, install, activation, cloning, raw skill copying, or new skill directories are included.
+Batch 1 updated existing source records for Anthropic skills, Vercel find-skills, and skills.sh. Batch 2 added source records for Supabase agent-skills, Trail of Bits skills, and Playwright. Batch 3 added source records for shadcn/ui, Addy Osmani web-quality-skills, and VoltAgent awesome-design-md.
+
+## Phase 10D: Orchestration and Harness Source Scouting
+
+Refresh source records for orchestration, harness-hardening, routing, external execution discipline, and GitLab agent docs before any extraction.
+
+Status: Started on `codex/phase-10d-source-scouting`.
+
+Phase 10D adds source records for agency-agents, Superpowers, everything-claude-code, ruflo, vercel-labs/agent-skills, GitLab Agentic Tool Development docs, and GitLab Agent Skills docs. No method extraction, install, activation, cloning, raw skill copying, hooks, daemons, MCP servers, global config changes, product repo changes, or new skill directories are included.
