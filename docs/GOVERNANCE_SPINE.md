@@ -8,6 +8,8 @@ Phase 10A defines the governance spine for AI Agent Skills Toolkit. The spine tu
 
 The governance spine is not an execution engine and does not activate anything by itself. It coordinates documented assets, compiled-agent fallbacks, external support tools, and registry metadata.
 
+Methods under `methods/` are passive reference inputs. They improve agent guidance and review discipline, but they are not skills, plugins, agents, or runtime capabilities. Method presence must not be treated as activation; `riss-governance` remains the normal entrypoint that decides whether a method is relevant to the current task.
+
 ## Helper Skill Contracts
 
 Two internal helper skills are planned but not implemented in Phase 10A/10B:
