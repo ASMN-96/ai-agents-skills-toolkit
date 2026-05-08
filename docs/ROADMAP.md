@@ -76,6 +76,14 @@ Batch 1 updated existing source records for Anthropic skills, Vercel find-skills
 
 Refresh source records for orchestration, harness-hardening, routing, external execution discipline, and GitLab agent docs before any extraction.
 
-Status: Started on `codex/phase-10d-source-scouting`.
+Status: Completed and merged via Phase 10D PR.
 
 Phase 10D adds source records for agency-agents, Superpowers, everything-claude-code, ruflo, vercel-labs/agent-skills, GitLab Agentic Tool Development docs, and GitLab Agent Skills docs. No method extraction, install, activation, cloning, raw skill copying, hooks, daemons, MCP servers, global config changes, product repo changes, or new skill directories are included.
+
+## Phase 10E: Narrow Method Extraction
+
+Extract a small set of normalized, source-cited methods from already-reviewed Phase 10C/10D source records.
+
+Status: Started on `codex/phase-10e-method-extraction`.
+
+Phase 10E updates existing internal discovery, skill-anatomy, source-safety, and UI runtime testing methods, and adds narrow backend/database and differential security review gates. It does not add skills, agents, compiled agents, registries, hooks, daemons, MCP servers, global config, product repo changes, installs, activation, cloning, or raw upstream copying.
