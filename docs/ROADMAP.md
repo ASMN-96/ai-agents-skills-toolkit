@@ -63,3 +63,9 @@ Status: In progress on `codex/phase-10-governance-spine`. This phase registers e
 Reconcile stale documentation, add source-record quality rules, and add eval scaffolding for routing, skill triggers, stop conditions, token efficiency, and runtime visibility.
 
 Status: In progress on `codex/phase-10-governance-spine`. External source scouting and method extraction are deferred to Phase 10C+.
+
+## Phase 10C: External Source Scouting Batch 1
+
+Refresh source records for the safest high-leverage skill-quality and discovery sources before any extraction.
+
+Status: Started on `codex/phase-10c-source-scouting`. Batch 1 updates existing source records for Anthropic skills, Vercel find-skills, and skills.sh. No method extraction, install, activation, cloning, raw skill copying, or new skill directories are included.

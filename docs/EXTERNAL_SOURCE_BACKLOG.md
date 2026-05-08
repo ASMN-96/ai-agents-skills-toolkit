@@ -30,5 +30,5 @@ No source in this backlog has been newly scouted in Phase 10A/10B. Future batche
 
 ## Batch Recommendation
 
-Start Phase 10C with the safest high-leverage sources: Anthropic skill anatomy, Vercel find-skills discovery, and skills.sh metadata. Defer Superpowers extraction; keep it external and avoid duplication.
+Phase 10C batch 1 started with the safest high-leverage sources: Anthropic skill anatomy, Vercel find-skills discovery, and skills.sh metadata. Defer Superpowers extraction; keep it external and avoid duplication.
 
