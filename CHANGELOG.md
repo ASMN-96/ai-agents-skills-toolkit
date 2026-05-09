@@ -29,3 +29,4 @@ All notable changes to AI Agent Skills Toolkit will be documented here.
 - Added Phase 10E narrow method extraction for skill anatomy, source discovery, source safety scoring, Supabase/Postgres/RLS gates, differential security review, and webapp runtime testing without adding skills or agents.
 - Added Phase 10F passive method registry and routing/eval method references without turning methods into skills, tools, agents, or active runtime capabilities.
 - Added Phase 10G current-session runtime verification reporting without installing, activating, or modifying global runtime configuration.
+- Added Phase 10H real-project readiness gates for fresh-session verification, controlled pilot sync, and normal project-use criteria without changing runtime activation.
