@@ -26,7 +26,7 @@ Before the first real-project pilot, run a fresh-session smoke test and record a
 
 - The exact toolkit commit being certified.
 - `riss-governance` is visible in the new session.
-- Planned helper skills are reported as planned or unavailable, not silently assumed.
+- Helper skills are reported as planned, repo-available, unavailable, or runtime-visible as applicable, and are not silently assumed active.
 - The 12 core agents are either native-visible or have present compiled fallback files.
 - Superpowers, GSD, GitHub/gh, browser/Playwright, Supabase, CodeRabbit, and other support tools are reported as available, unavailable with fallback, or not needed.
 - No fallback from native agent to compiled instructions is hidden.
