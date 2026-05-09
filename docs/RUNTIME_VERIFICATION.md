@@ -31,6 +31,14 @@ Report each capability as:
 
 - `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09.md` records current-session visibility and fallback status. It does not claim durable fresh-session activation across future sessions.
 
+## Real Project Readiness
+
+Runtime verification feeds the real-project readiness gate in `docs/REAL_PROJECT_READINESS.md`.
+
+The toolkit is ready for one controlled real-project pilot only after a fresh-session smoke test confirms skill visibility, native-agent or compiled-fallback status, support-tool availability, clean repository state, JSON validity, unsafe artifact absence, and no silent fallback.
+
+Normal use in comparable real projects requires one successful feature-branch pilot with dry-run-first project sync, version pinning, validation, PR review, and no project-owned context overwrite.
+
 ## No Silent Fallback
 
 For high-risk work, do not silently downgrade from native agent to compiled fallback. Report the status and stop for approval unless fallback was pre-approved and safe.

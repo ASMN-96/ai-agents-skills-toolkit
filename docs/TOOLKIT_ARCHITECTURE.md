@@ -57,6 +57,8 @@ Target projects receive selected compiled agents, profiles, and toolkit-owned sk
 
 The sync workflow must never overwrite project-owned `AGENTS.md` or `docs/ai` context files. The current v1 workflow reports unmanaged/stale files and does not delete them.
 
+Real-project use is gated by `docs/REAL_PROJECT_READINESS.md`. The toolkit is pilot-ready only after fresh-session runtime verification passes, and normal project use requires at least one controlled feature-branch pilot with dry-run-first sync, version pinning, validation, and PR review.
+
 ## Support Tools
 
 GSD and Superpowers are external core governance tools, not vendored toolkit dependencies.

@@ -100,6 +100,14 @@ Phase 10F adds `registries/methods.registry.json` and passive `methodReferences`
 
 Record current-session runtime visibility, fallback status, and remaining fresh-session activation limits without modifying runtime state.
 
-Status: Started on `codex/phase-10g-runtime-verification`.
+Status: Completed and merged via Phase 10G PR.
 
 Phase 10G adds a dated runtime verification report and updates runtime documentation. It does not install, activate, clone, spawn every agent, change global Codex config, modify product repos, query live Supabase projects, or claim durable fresh-session activation.
+
+## Phase 10H: Real Project Readiness Gate
+
+Define when the toolkit can safely move from toolkit-only governance work into controlled real-project pilots.
+
+Status: Documentation-only readiness gate.
+
+Phase 10H adds real-project readiness levels, fresh-session smoke-test criteria, controlled pilot entry requirements, stop conditions, and rollout boundaries. It does not install, activate, clone, sync into product repos, change global Codex config, add skills, add agents, update registries, or claim durable activation.
