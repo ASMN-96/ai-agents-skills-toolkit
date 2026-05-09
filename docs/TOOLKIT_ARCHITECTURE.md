@@ -90,9 +90,9 @@ The Phase 10 governance spine keeps `riss-governance` as the normal user-facing 
 
 Method references are supporting metadata for this translation. They help explain why a route should use specific review discipline, but they do not bypass `riss-governance` or become executable capabilities.
 
-Planned helper skills are documented as future contracts only:
+Internal helper skills support the governance entrypoint:
 
 - `riss-agent-governance` for agent routing and native/fallback status.
 - `riss-skill-governance` for skill routing and missing-capability discovery.
 
-These helpers are not implemented in Phase 10A/10B and must not become broad user-facing skills without separate approval.
+These helpers must not become broad user-facing skills. Direct user calls redirect back through `riss-governance`, and repo availability does not imply runtime activation or native visibility.

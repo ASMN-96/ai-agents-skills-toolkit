@@ -8,6 +8,8 @@ After Phase 10I, the toolkit is Level 2 certified for one controlled real-projec
 
 Use in a real project is appropriate only for one approved pilot after the first target project uses a feature-branch, dry-run-first sync flow. The pilot must use the same verified temporary unelevated Codex CLI override or another fresh-session shell path that proves local checks before any product repository write.
 
+Phase 10L governance UX hardening does not upgrade this readiness level. New internal helper skill files are repo-available only until fresh-session verification confirms visibility and fallback behavior.
+
 ## Readiness Levels
 
 | Level | Name | Meaning | Allowed Use |
@@ -24,7 +26,7 @@ Before the first real-project pilot, run a fresh-session smoke test and record a
 
 - The exact toolkit commit being certified.
 - `riss-governance` is visible in the new session.
-- Planned helper skills are reported as planned or unavailable, not silently assumed.
+- Helper skills are reported as planned, repo-available, unavailable, or runtime-visible as applicable, and are not silently assumed active.
 - The 12 core agents are either native-visible or have present compiled fallback files.
 - Superpowers, GSD, GitHub/gh, browser/Playwright, Supabase, CodeRabbit, and other support tools are reported as available, unavailable with fallback, or not needed.
 - No fallback from native agent to compiled instructions is hidden.

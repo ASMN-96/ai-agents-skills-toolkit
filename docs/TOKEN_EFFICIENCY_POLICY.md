@@ -12,6 +12,14 @@ Token efficiency is part of toolkit quality. Governance should add judgment and 
 
 Start concise. Expand only when risk, uncertainty, missing capability, or user request justifies it.
 
+## Strict Response Budget
+
+- `concise`: one routing line plus the direct answer, action, or validation note.
+- `standard`: selected profile, agents/helpers, tools, stop conditions, and validation plan.
+- `detailed`: only for high-risk evidence, missing capability, release/security decisions, or explicit user request.
+
+Never paste full policies, registries, docs, checklists, source records, or compiled agents by default. Summarize the relevant decision and cite the file when stable detail exists.
+
 ## Tool Minimization
 
 Use tools only when they materially improve source truth, implementation, validation, or safety. Do not call every plugin or route every task to every agent.
@@ -38,4 +46,13 @@ Expand to detailed mode when:
 - external source discovery is needed
 - validation cannot be run
 - multiple interpretations would change behavior
+
+## Low-Risk Typo Guard
+
+For typo, wording, punctuation, small link, or small metadata edits:
+
+- keep routing to `riss-governance` plus at most `reviewer-agent`
+- avoid extra helpers, support tools, browser checks, and registry expansion unless the edit changes policy meaning or public behavior
+- validate by reviewing the target file and diff
+- report in one or two sentences
 

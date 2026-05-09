@@ -127,3 +127,11 @@ Plan the first controlled real-project pilot from the Level 2-certified toolkit 
 Status: Planned.
 
 Phase 10J should select one low-risk pilot repository, define the exact dry-run sync scope, preserve product-owned context, pin the toolkit version, and require PR review before any project write. It should not perform broad rollout or automatic sync.
+
+## Phase 10L: Governance UX and Skill-Selection Hardening
+
+Make the toolkit safer and easier for a non-technical user before live-project adoption.
+
+Status: In progress.
+
+Phase 10L adds plain-language routing, strict response-budget rules, internal helper skills for agent and skill governance, missing-skill preflight, sensitive-data examples, design-source approval, CodeRabbit triage, typo/token-efficiency, and dashboard performance scoping evals. It does not add core agents, regenerate compiled agents, install external skills, activate plugins, clone repositories, change global Codex config, modify product repos, run migrations, or upgrade real-project readiness.

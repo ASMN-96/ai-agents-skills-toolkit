@@ -97,7 +97,7 @@ Compiled agents should document their source toolkit version and any project pro
 - Registries are metadata only and never imply activation.
 - Register existing assets before adding speculative assets.
 - `riss-governance` remains the normal user-facing entrypoint.
-- `riss-agent-governance` and `riss-skill-governance` remain planned helper contracts until separately approved and implemented.
+- `riss-agent-governance` and `riss-skill-governance` are internal helper skills only when implemented and approved; direct user calls must redirect through `riss-governance`.
 - Missing-skill discovery is read-only by default and may check local registries, source records, skills.sh, GitHub, GitLab, and official docs.
 - Discovery must not install, activate, clone, copy raw skills, run scripts, modify global config, or modify product repos.
 - External source scouting and method extraction happen in later approved batches.

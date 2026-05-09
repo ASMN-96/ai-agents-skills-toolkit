@@ -12,14 +12,16 @@ Methods under `methods/` are passive reference inputs. They improve agent guidan
 
 `registries/methods.registry.json` indexes these methods for auditability and routing explanation. Routing may cite method IDs as passive references, but selected skills, agents, profiles, and support tools remain separate decisions.
 
-## Helper Skill Contracts
+## Internal Helper Skills
 
-Two internal helper skills are planned but not implemented in Phase 10A/10B:
+Two internal helper skills support the entrypoint:
 
 - `riss-agent-governance`: agent inventory, agent routing, native/custom-agent visibility, compiled fallback status, handoff rules, and no-silent-fallback policy.
 - `riss-skill-governance`: skill inventory, trigger quality, conflict rules, missing-capability discovery, and skill safety.
 
 These helpers must remain internal governance helpers. They should not become broad user-facing mega-skills.
+
+Direct user calls to either helper must be redirected back through `riss-governance`. Registry availability does not imply runtime activation or native visibility.
 
 ## Plain-Language Routing
 
@@ -32,6 +34,9 @@ The user may say things such as:
 - "The Supabase stuff feels risky."
 - "Fix the mobile layout."
 - "I want this done professionally."
+- "I don't know the technical words, just make it safer."
+- "Check the robot review comments."
+- "Use fake customer data for the example."
 
 The spine maps that language to:
 
@@ -46,9 +51,23 @@ The spine maps that language to:
 - stop conditions
 - token mode
 
+Translation rules:
+
+- Safety or launch language maps to security/release validation and stop conditions.
+- Slow, laggy, or stuck dashboard language maps to scoped runtime performance measurement before broad optimization.
+- Premium, easier to scan, or confusing UI language maps to UI/UX quality with design-source approval when external design material is involved.
+- PR review or automated-review language maps to CodeRabbit/CI triage when configured.
+- Customer, lead, tenant, payment, email, phone, address, or private business data language maps to sensitive-data handling and masked/synthetic examples.
+
 ## Minimum Effective Routing
 
 Select the smallest useful set of agents, skills, and tools. Do not activate every profile, plugin, or external capability by default. Prefer concise routing summaries for low-risk tasks and expand only for high-risk work, missing capabilities, or explicit user requests.
+
+Select an extra skill only when it materially improves context, safety, validation, or quality. Do not add skills for low-risk typo fixes, direct explanations, or cases where local file inspection is enough.
+
+## Response Budget
+
+The default response should be concise. Do not dump full policies, registries, docs, checklists, source records, or compiled agents unless the user explicitly asks or high-risk evidence requires detail. Prefer selected excerpts, file references, and brief rationale.
 
 ## Status Semantics
 
