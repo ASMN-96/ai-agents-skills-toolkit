@@ -27,6 +27,10 @@ Report each capability as:
 - unavailable with safe fallback
 - unavailable with no safe fallback
 
+## Current Reports
+
+- `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09.md` records current-session visibility and fallback status. It does not claim durable fresh-session activation across future sessions.
+
 ## No Silent Fallback
 
 For high-risk work, do not silently downgrade from native agent to compiled fallback. Report the status and stop for approval unless fallback was pre-approved and safe.

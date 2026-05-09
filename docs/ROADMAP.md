@@ -92,6 +92,14 @@ Phase 10E updates existing internal discovery, skill-anatomy, source-safety, and
 
 Index reviewed methods as passive registry metadata and add optional method references to routing/eval contracts.
 
-Status: Started on `codex/phase-10f-method-index-routing`.
+Status: Completed and merged via Phase 10F PR.
 
 Phase 10F adds `registries/methods.registry.json` and passive `methodReferences` for routing scenarios. It does not create skills, agents, compiled agents, profiles, active runtime behavior, install/sync flows, hooks, daemons, MCP servers, global config changes, product repo changes, cloning, activation, or raw upstream copying.
+
+## Phase 10G: Runtime Verification Report
+
+Record current-session runtime visibility, fallback status, and remaining fresh-session activation limits without modifying runtime state.
+
+Status: Started on `codex/phase-10g-runtime-verification`.
+
+Phase 10G adds a dated runtime verification report and updates runtime documentation. It does not install, activate, clone, spawn every agent, change global Codex config, modify product repos, query live Supabase projects, or claim durable fresh-session activation.
