@@ -41,6 +41,39 @@ For Phase 10 governance-spine work, consult repo registries and policy docs when
 
 Start with a short routing summary by default. Expand only for high-risk work, missing capability, source-of-truth uncertainty, or explicit user request.
 
+## Response Budget
+
+Default to concise output. Do not paste full policies, registries, docs, compiled agents, checklists, or source records unless the user explicitly asks for the full text or high-risk evidence requires a specific excerpt.
+
+Default output shape: decision, intent, risk, route, tools, stop conditions, and next safe action.
+
+- Low-risk tasks: one short routing line, scoped action, and validation note.
+- Standard tasks: selected profile, agents/helpers, tools, stop conditions, and validation plan.
+- High-risk tasks: include the evidence needed for safety, but summarize stable policy and link or cite files instead of dumping them.
+
+## Plain-Language Intent Translation
+
+Users do not need to know internal agent, profile, skill, or tool names. Translate normal language into technical routing:
+
+- "Make it safer" or "before this goes live" means review security, release, validation, and rollback risk.
+- "The dashboard is slow" means scope frontend runtime performance first, then backend only if evidence points there.
+- "Make this easier to use" or "feel more premium" means route UI/UX quality without assuming a redesign.
+- "Check the PR comments" means triage required vs optional review comments, checks, and merge blockers.
+- "Do this professionally" means clarify success criteria, protect existing behavior, and select the smallest useful validation path.
+
+Ask only when multiple interpretations would change behavior, scope, data exposure, or validation requirements.
+
+## Internal Helper Skills
+
+`riss-agent-governance` and `riss-skill-governance` are internal helpers only. Keep `riss-governance` as the normal user-facing entrypoint.
+
+- Use `riss-agent-governance` internally for agent selection, native/fallback status, handoff checks, and no-silent-fallback enforcement.
+- Use `riss-skill-governance` internally for skill selection, trigger conflicts, missing-skill preflight, and skill safety boundaries.
+- If a user directly asks to call either helper, redirect the request through `riss-governance` and do not treat the helper as a public entrypoint.
+- If a named helper is unavailable in a runtime where it is needed, refuse direct use and report the missing helper status instead of pretending it ran.
+
+Select an extra skill only when it materially improves context, safety, validation, or quality. Do not add extra skills for low-risk typo edits, direct explanations, or cases where file inspection is enough.
+
 If a recommended agent, tool, or profile is not installed or not available in the target project, stop and report it clearly. Do not silently fall back to another agent or tool. Ask the user whether to continue with a specific closest available alternative, install or sync the missing agent/tool first, or stop the task. Only continue after the user chooses.
 
 For serious multi-phase work, do not silently continue without GSD. If GSD is unavailable, stop and ask whether to install or configure GSD, continue with manual phase tracking, or stop the task.

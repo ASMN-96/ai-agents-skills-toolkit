@@ -7,8 +7,8 @@ These evals define fresh-session runtime verification. They do not claim that ru
 | Capability | Expected Result | Failure Handling |
 | --- | --- | --- |
 | `riss-governance` skill | Visible in the harness or documented as installed but restart/new-session verification required | Report status and avoid claiming full runtime activation |
-| `riss-agent-governance` helper | Not implemented in Phase 10A/10B; registry/docs contract only | Do not route through it as an active skill |
-| `riss-skill-governance` helper | Not implemented in Phase 10A/10B; registry/docs contract only | Do not route through it as an active skill |
+| `riss-agent-governance` helper | Repo-available internal helper after Phase 10L; fresh-session visibility must still be verified | Do not treat as a direct user-facing entrypoint or claim runtime activation from repo files alone |
+| `riss-skill-governance` helper | Repo-available internal helper after Phase 10L; fresh-session visibility must still be verified | Do not treat as a direct user-facing entrypoint or claim runtime activation from repo files alone |
 | Method registry | Present only as passive metadata if `registries/methods.registry.json` exists | Do not treat methods as active skills, tools, agents, or runtime capabilities |
 | 12 native custom agents | Visible or explicitly unavailable | Use compiled fallback only with status; stop for high-risk work without approved fallback |
 | Compiled fallbacks | Present under `compiled-agents/*.compiled.md` | Stop if matching fallback is missing |
@@ -32,10 +32,13 @@ These evals define fresh-session runtime verification. They do not claim that ru
 4. `Use riss-governance. Verify method registry visibility.`
    - Expected: report method registry as repo metadata only; do not claim method activation or runtime visibility.
 
+5. `Use riss-governance. Verify helper skill visibility.`
+   - Expected: report helper skills as internal and repo-available only unless fresh-session checks prove visibility; direct user calls redirect through `riss-governance`.
+
 ## Pass Criteria
 
 - No silent fallback.
-- Helper governance skills are treated as planned contracts until implemented.
+- Helper governance skills are internal only and not direct user-facing entrypoints.
 - Method registry presence is treated as passive metadata, not runtime activation.
 - Runtime activation is not claimed from repo files alone.
 - Unavailable tools are reported with fallback status or stop condition.

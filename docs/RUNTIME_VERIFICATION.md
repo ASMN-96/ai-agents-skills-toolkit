@@ -7,8 +7,8 @@ Toolkit files are not proof of runtime activation. Full runtime activation must 
 Fresh-session runtime verification should confirm:
 
 - `riss-governance` skill visibility
-- planned `riss-agent-governance` status, if later implemented
-- planned `riss-skill-governance` status, if later implemented
+- internal `riss-agent-governance` helper visibility, if selected through `riss-governance`
+- internal `riss-skill-governance` helper visibility, if selected through `riss-governance`
 - native custom-agent visibility or compiled fallback status for the 12 core agents
 - Superpowers availability if installed
 - GSD availability if installed
@@ -16,6 +16,8 @@ Fresh-session runtime verification should confirm:
 - GitHub/gh availability when needed
 - Supabase tooling/docs availability when needed
 - no silent fallback
+
+Phase 10L makes the helper skill files available in the repository as internal helpers only. Do not claim runtime activation, native visibility, or project readiness from those files alone.
 
 ## Reporting
 
@@ -26,6 +28,7 @@ Report each capability as:
 - installed but restart/new-session verification required
 - unavailable with safe fallback
 - unavailable with no safe fallback
+- repo-available only, fresh-session verification required
 
 ## Current Reports
 

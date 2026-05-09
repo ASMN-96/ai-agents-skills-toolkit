@@ -10,12 +10,14 @@ No external skills have been installed or activated by this toolkit.
 
 - `riss-governance`: RISS-specific governance/router guidance for source-of-truth checks, narrow agent/tool routing, dependency-chain safety, PR/CI/CodeRabbit discipline, and validation-before-completion.
 
-## Planned Helper Skill Contracts
+## Internal Helper Skills
 
-- `riss-agent-governance`: planned internal helper for agent routing, native visibility, compiled fallback status, scorecards, and handoff rules.
-- `riss-skill-governance`: planned internal helper for skill routing, trigger quality, conflicts, and read-only missing-capability discovery.
+- `riss-agent-governance`: internal helper for agent routing, native visibility, compiled fallback status, scorecards, and handoff rules.
+- `riss-skill-governance`: internal helper for skill routing, trigger quality, conflicts, and read-only missing-capability discovery.
 
-These helpers are not implemented as active skills in Phase 10A/10B. `riss-governance` remains the single normal user-facing entrypoint.
+These helpers are not normal user-facing entrypoints. Direct user calls to either helper must be redirected back through `riss-governance`.
+
+Registry entries may mark these helpers as documented, available, and approved, but not active or native-visible. Runtime activation still requires fresh-session verification.
 
 ## External Governance Tools
 

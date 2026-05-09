@@ -11,7 +11,8 @@
       "scenario": "plain-language-product-request",
       "userLanguageExamples": [
         "I want this feature done professionally.",
-        "Clean this up without breaking anything."
+        "Clean this up without breaking anything.",
+        "I don't know the technical words, just make it safer before it goes live."
       ],
       "inferredIntent": "Clarify scope, protect existing behavior, and route to implementation planning.",
       "riskLevel": "medium",
@@ -35,6 +36,7 @@
         "Required validation cannot run"
       ],
       "validationGates": [
+        "Plain-language intent translated into explicit scope",
         "Scope and non-goals stated",
         "Affected files reviewed",
         "Relevant tests/checks run"
@@ -185,7 +187,8 @@
       "scenario": "dashboard-ui-redesign",
       "userLanguageExamples": [
         "Make this page feel more premium.",
-        "Make this dashboard easier to scan."
+        "Make this dashboard easier to scan.",
+        "Use this mockup as the design direction."
       ],
       "inferredIntent": "Improve UI quality and workflow clarity while preserving product function.",
       "riskLevel": "medium",
@@ -207,9 +210,11 @@
       ],
       "stopConditions": [
         "Design source is required but unavailable",
+        "Design source approval is unclear",
         "Request conflicts with accessibility or product constraints"
       ],
       "validationGates": [
+        "Design source approved or classified as inspiration only",
         "Hierarchy, spacing, contrast, state coverage, and text fit checked",
         "Desktop/mobile behavior checked"
       ],
@@ -231,7 +236,8 @@
       "scenario": "frontend-performance-issue",
       "userLanguageExamples": [
         "The dashboard is slow.",
-        "This page feels laggy."
+        "This page feels laggy.",
+        "The screen takes forever and feels broken."
       ],
       "inferredIntent": "Investigate browser/runtime performance and user-perceived latency.",
       "riskLevel": "medium",
@@ -251,10 +257,13 @@
       ],
       "stopConditions": [
         "Performance cannot be measured but risk is material",
+        "Requested scope expands from dashboard symptom to broad optimization without evidence",
         "Backend bottleneck requires unapproved backend changes"
       ],
       "validationGates": [
+        "Smallest relevant route and viewport identified",
         "Baseline or reproduction captured",
+        "Frontend runtime checked before backend escalation unless evidence points elsewhere",
         "Relevant checks run",
         "Residual measurement limits reported"
       ],
@@ -537,7 +546,8 @@
       "scenario": "coderabbit-pr-triage",
       "userLanguageExamples": [
         "Address the CodeRabbit comments.",
-        "Triage the automated PR review comments."
+        "Triage the automated PR review comments.",
+        "Check the robot review comments."
       ],
       "inferredIntent": "Review PR checks/comments and resolve or report required blockers.",
       "riskLevel": "medium",
@@ -562,6 +572,7 @@
       ],
       "validationGates": [
         "PR status checked",
+        "Comments classified as required blocker, fix in scope, clarify, defer, or no action",
         "Required comments triaged",
         "Tests/checks reported"
       ],
@@ -654,6 +665,7 @@
       "validationGates": [
         "Local registry checked first",
         "Discovery stayed read-only",
+        "Candidate preflight summarized local status, source, license, maintenance, useful pattern, risks, boundary, and recommendation",
         "Candidate trust/license/safety summarized"
       ],
       "expectedCompletionReport": [
@@ -762,11 +774,13 @@
       "supportTools": [],
       "stopConditions": [
         "Requested edit changes policy meaning or scope",
-        "Target file is unclear"
+        "Target file is unclear",
+        "Edit expands beyond typo, wording, punctuation, small link, or small metadata scope"
       ],
       "validationGates": [
         "Target file checked",
-        "Diff reviewed"
+        "Diff reviewed",
+        "No policy, registry, or doc dump included unless explicitly requested"
       ],
       "expectedCompletionReport": [
         "File changed",
@@ -820,7 +834,8 @@
       "scenario": "high-risk-security-data-request",
       "userLanguageExamples": [
         "Expose this data publicly.",
-        "Disable this auth check temporarily."
+        "Disable this auth check temporarily.",
+        "Use the real customer list in the example."
       ],
       "inferredIntent": "Block or review high-risk security/data change before any implementation.",
       "riskLevel": "high",
@@ -846,6 +861,7 @@
       "validationGates": [
         "Data classification checked",
         "Authorization impact reviewed",
+        "Synthetic or masked data alternative offered for examples",
         "Safer alternative proposed when needed"
       ],
       "expectedCompletionReport": [
@@ -858,6 +874,42 @@
         "security.differential-security-review",
         "backend.supabase-postgres-rls-gates",
         "osmani.security-hardening"
+      ]
+    },
+    {
+      "scenario": "direct-helper-skill-call",
+      "userLanguageExamples": [
+        "Use riss-agent-governance directly.",
+        "Call riss-skill-governance instead of riss-governance."
+      ],
+      "inferredIntent": "Redirect direct helper-skill requests back to the riss-governance entrypoint.",
+      "riskLevel": "medium",
+      "selectedProfile": "implementation-profile",
+      "agents": [
+        "reviewer-agent"
+      ],
+      "skills": [
+        "riss-governance"
+      ],
+      "supportTools": [],
+      "stopConditions": [
+        "Helper skill is requested as a direct user-facing entrypoint",
+        "Requested helper is unavailable in the current runtime"
+      ],
+      "validationGates": [
+        "Direct helper use refused or redirected",
+        "No helper runtime activation claimed",
+        "riss-governance remains the normal entrypoint"
+      ],
+      "expectedCompletionReport": [
+        "Redirect status",
+        "Helper availability caveat",
+        "Next safe action"
+      ],
+      "tokenMode": "concise",
+      "methodReferences": [
+        "internal.skill-anatomy",
+        "internal.source-safety-scoring"
       ]
     }
   ]

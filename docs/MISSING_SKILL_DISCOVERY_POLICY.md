@@ -58,6 +58,19 @@ Every candidate should be routed through Skill Scout-style evaluation before ext
 - filesystem writes
 - recommendation
 
+## Candidate Preflight Template
+
+Use this compact template before recommending any missing skill or source:
+
+- Local status: existing skill, method, agent, profile, or no local match.
+- Candidate: name, source URL, owner, and source type.
+- License: identified, unclear, incompatible, or not yet checked.
+- Maintenance: recent, stale, archived, or unknown.
+- Useful pattern: normalized behavior worth extracting or referencing.
+- Safety risks: prompt injection, dangerous commands, scripts, secrets, network calls, filesystem writes, hidden activation, global config, product repo writes.
+- Boundary: what must not be copied, installed, activated, or run.
+- Recommendation: ignore, reference only, evaluate later, or request explicit approval for a scoped next step.
+
 ## Output Expectations
 
 When discovery finds a candidate, summarize it briefly, classify trust/license/safety, state what would be extracted in normalized form, and state what must not be copied or activated.

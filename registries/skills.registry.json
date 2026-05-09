@@ -62,57 +62,65 @@
     },
     {
       "name": "riss-agent-governance",
-      "description": "Planned internal helper skill for agent inventory, native visibility, compiled fallback status, routing, scorecards, and handoff governance.",
+      "description": "Internal helper skill for agent inventory, native visibility, compiled fallback status, routing, scorecards, handoff governance, and no-silent-fallback checks.",
       "ownerAgent": "reviewer-agent",
       "secondaryAgents": [
         "architect-agent",
         "release-manager-agent"
       ],
       "triggerCases": [
-        "Future internal routing needs agent selection or fallback status."
+        "riss-governance internally needs agent selection or fallback status.",
+        "riss-governance needs to decide whether extra agents materially improve context, safety, validation, or quality."
       ],
       "negativeTriggerCases": [
         "Direct user-facing entrypoint use.",
-        "Phase 10A/10B implementation before the registry contract is proven."
+        "Low-risk typo, wording, or metadata edits where one reviewer-style pass is enough.",
+        "Requests to add new core agents or regenerate compiled agents."
       ],
-      "priority": "planned",
+      "priority": "internal",
       "conflicts": [
         "Must not become a large user-facing governance skill.",
-        "Must not add new agents."
+        "Must not add new agents.",
+        "Must redirect direct user calls back to riss-governance."
       ],
       "requiredSupportTools": [],
       "optionalSupportTools": [],
       "riskLevel": "medium",
-      "evalStatus": "not-implemented",
+      "evalStatus": "scaffolded",
       "sourceProvenance": [
         "docs/GOVERNANCE_SPINE.md",
-        "docs/REGISTRY_CONTRACT.md"
+        "docs/REGISTRY_CONTRACT.md",
+        "skills/riss-agent-governance/SKILL.md"
       ],
-      "skillPath": null,
+      "skillPath": "skills/riss-agent-governance/SKILL.md",
       "status": [
         "documented",
-        "draft"
+        "available",
+        "approved"
       ]
     },
     {
       "name": "riss-skill-governance",
-      "description": "Planned internal helper skill for skill inventory, trigger conditions, conflict resolution, missing-capability discovery, and skill safety.",
+      "description": "Internal helper skill for skill inventory, trigger conditions, conflict resolution, missing-capability discovery, skill safety, and candidate preflight.",
       "ownerAgent": "skill-scout-agent",
       "secondaryAgents": [
         "security-agent",
         "reviewer-agent"
       ],
       "triggerCases": [
-        "Future internal routing needs skill selection, trigger checks, or missing capability discovery."
+        "riss-governance internally needs skill selection, trigger checks, or missing capability discovery.",
+        "An extra skill may materially improve context, safety, validation, or quality."
       ],
       "negativeTriggerCases": [
         "Direct user-facing entrypoint use.",
+        "Low-risk typo, wording, or metadata edits where repo inspection is enough.",
         "Installing, activating, cloning, or copying external skills."
       ],
-      "priority": "planned",
+      "priority": "internal",
       "conflicts": [
         "Must not install or activate external skills.",
-        "Must not copy raw external SKILL.md content."
+        "Must not copy raw external SKILL.md content.",
+        "Must redirect direct user calls back to riss-governance."
       ],
       "requiredSupportTools": [],
       "optionalSupportTools": [
@@ -121,15 +129,17 @@
         "GitHub/GitLab discovery sources"
       ],
       "riskLevel": "high",
-      "evalStatus": "not-implemented",
+      "evalStatus": "scaffolded",
       "sourceProvenance": [
         "docs/MISSING_SKILL_DISCOVERY_POLICY.md",
-        "docs/REGISTRY_CONTRACT.md"
+        "docs/REGISTRY_CONTRACT.md",
+        "skills/riss-skill-governance/SKILL.md"
       ],
-      "skillPath": null,
+      "skillPath": "skills/riss-skill-governance/SKILL.md",
       "status": [
         "documented",
-        "draft"
+        "available",
+        "approved"
       ]
     }
   ]

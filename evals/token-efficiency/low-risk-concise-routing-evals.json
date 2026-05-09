@@ -11,7 +11,13 @@
         "reviewer-agent"
       ],
       "expectedSelectedToolsPlugins": [],
-      "expectedResponseShape": "Short routing summary, file changed, validation note."
+      "expectedResponseShape": "Short routing summary, file changed, validation note.",
+      "expectedNoFullDumps": [
+        "policy",
+        "registry",
+        "docs",
+        "checklists"
+      ]
     },
     {
       "id": "small-doc-link",
@@ -30,6 +36,34 @@
       "expectedSelectedAgents": [],
       "expectedSelectedToolsPlugins": [],
       "expectedResponseShape": "Direct explanation with file reference; no registry dump."
+    },
+    {
+      "id": "small-policy-typo-guard",
+      "userPrompt": "Use riss-governance. Fix a misspelled word in the token efficiency policy.",
+      "expectedTokenMode": "concise",
+      "expectedSelectedAgents": [
+        "reviewer-agent"
+      ],
+      "expectedSelectedToolsPlugins": [],
+      "expectedStopConditions": [
+        "Edit changes policy meaning or scope",
+        "Target file is unclear"
+      ],
+      "expectedResponseShape": "One or two sentences with file changed and diff/static validation.",
+      "expectedNoFullDumps": [
+        "policy",
+        "registry",
+        "docs",
+        "compiled agents"
+      ]
+    },
+    {
+      "id": "user-asks-full-policy",
+      "userPrompt": "Use riss-governance. Show the full token efficiency policy.",
+      "expectedTokenMode": "detailed",
+      "expectedSelectedAgents": [],
+      "expectedSelectedToolsPlugins": [],
+      "expectedResponseShape": "Full policy content is allowed because the user explicitly asked for it."
     }
   ]
 }
