@@ -30,13 +30,13 @@ Report each capability as:
 ## Current Reports
 
 - `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09.md` records current-session visibility and fallback status. It does not claim durable fresh-session activation across future sessions.
-- `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09_FRESH_SESSION.md` records the Phase 10I fresh-session smoke-test attempt. It confirms fresh CLI skill/agent visibility, but it does not certify Level 2 readiness because local shell checks failed in the fresh CLI session.
+- `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09_FRESH_SESSION.md` records Phase 10I fresh-session smoke testing. The initial run exposed a WindowsApps PowerShell startup failure under the elevated Windows sandbox. A follow-up fresh run with a temporary per-command `windows.sandbox="unelevated"` override completed the required checks and certified Level 2 readiness for one controlled pilot, with the same override or another verified shell path required before pilot writes.
 
 ## Real Project Readiness
 
 Runtime verification feeds the real-project readiness gate in `docs/REAL_PROJECT_READINESS.md`.
 
-The toolkit is ready for one controlled real-project pilot only after a fresh-session smoke test confirms skill visibility, native-agent or compiled-fallback status, support-tool availability, clean repository state, JSON validity, unsafe artifact absence, and no silent fallback.
+The toolkit is ready for one controlled real-project pilot after the Phase 10I fresh-session smoke test confirmed skill visibility, native-agent visibility, compiled-fallback file presence, support-tool availability, clean repository state, JSON validity, unsafe artifact absence through follow-up validation, and no silent fallback.
 
 Normal use in comparable real projects requires one successful feature-branch pilot with dry-run-first project sync, version pinning, validation, PR review, and no project-owned context overwrite.
 

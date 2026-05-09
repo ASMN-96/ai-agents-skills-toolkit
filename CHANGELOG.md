@@ -30,4 +30,4 @@ All notable changes to AI Agent Skills Toolkit will be documented here.
 - Added Phase 10F passive method registry and routing/eval method references without turning methods into skills, tools, agents, or active runtime capabilities.
 - Added Phase 10G current-session runtime verification reporting without installing, activating, or modifying global runtime configuration.
 - Added Phase 10H real-project readiness gates for fresh-session verification, controlled pilot sync, and normal project-use criteria without changing runtime activation.
-- Added Phase 10I fresh-session smoke-test reporting, documenting a blocked Level 2 certification because the fresh CLI session could not run local shell checks.
+- Added Phase 10I fresh-session smoke-test reporting and follow-up Level 2 certification for one controlled real-project pilot. The first fresh run exposed a WindowsApps PowerShell startup failure under the elevated Windows sandbox; the passing run used a temporary per-command unelevated sandbox override without changing global Codex config.

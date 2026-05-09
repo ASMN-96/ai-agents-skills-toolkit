@@ -4,9 +4,9 @@ This document defines when the toolkit can be used in real product repositories.
 
 ## Current Classification
 
-After Phase 10G/10H, the toolkit is a pilot candidate. Phase 10I attempted fresh-session verification but did not fully certify Level 2 because the fresh CLI session could not run local shell checks. It is not yet ready for a real-project pilot.
+After Phase 10I, the toolkit is Level 2 certified for one controlled real-project pilot. The passing fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
 
-Use in a real project is appropriate only after a fresh-session runtime smoke test passes and the first target project uses a feature-branch, dry-run-first sync flow.
+Use in a real project is appropriate only for one approved pilot after the first target project uses a feature-branch, dry-run-first sync flow. The pilot must use the same verified temporary unelevated Codex CLI override or another fresh-session shell path that proves local checks before any product repository write.
 
 ## Readiness Levels
 
@@ -25,7 +25,7 @@ Before the first real-project pilot, run a fresh-session smoke test and record a
 - The exact toolkit commit being certified.
 - `riss-governance` is visible in the new session.
 - Planned helper skills are reported as planned or unavailable, not silently assumed.
-- The 12 core agents are either native-visible or have validated compiled fallback files.
+- The 12 core agents are either native-visible or have present compiled fallback files.
 - Superpowers, GSD, GitHub/gh, browser/Playwright, Supabase, CodeRabbit, and other support tools are reported as available, unavailable with fallback, or not needed.
 - No fallback from native agent to compiled instructions is hidden.
 - Repository state is clean and aligned with `origin/main`.
@@ -33,6 +33,8 @@ Before the first real-project pilot, run a fresh-session smoke test and record a
 - No unsafe generated or secret artifacts are present.
 
 Passing Level 2 means the toolkit is ready for one controlled pilot. It does not mean every future project can sync automatically.
+
+The current Level 2 evidence is recorded in `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09_FRESH_SESSION.md`.
 
 ## Level 3 Pilot Gate
 
