@@ -111,3 +111,11 @@ Define when the toolkit can safely move from toolkit-only governance work into c
 Status: Documentation-only readiness gate.
 
 Phase 10H adds real-project readiness levels, fresh-session smoke-test criteria, controlled pilot entry requirements, stop conditions, and rollout boundaries. It does not install, activate, clone, sync into product repos, change global Codex config, add skills, add agents, update registries, or claim durable activation.
+
+## Phase 10I: Fresh-Session Runtime Smoke Test
+
+Attempt to certify Level 2 readiness for one controlled real-project pilot using an independent fresh Codex CLI session.
+
+Status: Completed as blocked evidence. Level 2 readiness is not certified yet.
+
+Phase 10I records that the fresh CLI session could see `riss-governance` and native agent roles, while current-session checks confirmed repository state, JSON validity, support caches, and compiled fallbacks. The fresh CLI session could not run local shell checks because Windows sandbox process startup failed with `CreateProcessAsUserW failed: 5`, so source-of-truth verification remains incomplete. No product repos, global Codex config, skills, agents, registries, source records, install scripts, external installs, activation, hooks, daemons, or MCP servers were changed.

@@ -30,6 +30,7 @@ Report each capability as:
 ## Current Reports
 
 - `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09.md` records current-session visibility and fallback status. It does not claim durable fresh-session activation across future sessions.
+- `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09_FRESH_SESSION.md` records the Phase 10I fresh-session smoke-test attempt. It confirms fresh CLI skill/agent visibility, but it does not certify Level 2 readiness because local shell checks failed in the fresh CLI session.
 
 ## Real Project Readiness
 

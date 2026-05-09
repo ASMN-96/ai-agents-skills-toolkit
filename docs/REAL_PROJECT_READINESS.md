@@ -4,7 +4,7 @@ This document defines when the toolkit can be used in real product repositories.
 
 ## Current Classification
 
-After Phase 10G/10H, the toolkit is a pilot candidate. It is not yet a broad production rollout.
+After Phase 10G/10H, the toolkit is a pilot candidate. Phase 10I attempted fresh-session verification but did not fully certify Level 2 because the fresh CLI session could not run local shell checks. It is not yet ready for a real-project pilot.
 
 Use in a real project is appropriate only after a fresh-session runtime smoke test passes and the first target project uses a feature-branch, dry-run-first sync flow.
 
