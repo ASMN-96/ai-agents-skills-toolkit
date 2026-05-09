@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "evalSet": "riss-governance-routing",
-  "purpose": "Validate plain-language intent routing into profiles, agents, skills, tools, validation gates, stop conditions, and token mode.",
+  "purpose": "Validate plain-language intent routing into profiles, agents, skills, tools, passive method references, validation gates, stop conditions, and token mode.",
   "cases": [
     {
       "id": "frontend-mobile-layout",
@@ -30,7 +30,12 @@
         "Accessibility basics checked",
         "Browser verification run when possible"
       ],
-      "expectedTokenMode": "standard"
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "uiux.responsive-layout",
+        "uiux.webapp-testing",
+        "internal.frontend-uiux-quality-gates"
+      ]
     },
     {
       "id": "backend-supabase-risk",
@@ -63,7 +68,11 @@
         "Migration risk documented",
         "Generated type/consumer impact considered"
       ],
-      "expectedTokenMode": "detailed"
+      "expectedTokenMode": "detailed",
+      "expectedMethodReferences": [
+        "backend.supabase-postgres-rls-gates",
+        "security.differential-security-review"
+      ]
     },
     {
       "id": "premium-ui-quality",
@@ -94,7 +103,13 @@
         "Hierarchy, spacing, contrast, state coverage, and text fit checked",
         "Desktop/mobile behavior checked"
       ],
-      "expectedTokenMode": "standard"
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "uiux.premium-visual-quality",
+        "uiux.dashboard-ux",
+        "uiux.design-system",
+        "uiux.webapp-testing"
+      ]
     },
     {
       "id": "pr-release-readiness",
@@ -126,7 +141,12 @@
         "Changelog/release notes checked",
         "Forbidden artifacts checked"
       ],
-      "expectedTokenMode": "detailed"
+      "expectedTokenMode": "detailed",
+      "expectedMethodReferences": [
+        "osmani.shipping-launch",
+        "internal.engineering-lifecycle-gates",
+        "security.differential-security-review"
+      ]
     },
     {
       "id": "missing-capability",
@@ -156,7 +176,12 @@
         "Discovery stayed read-only",
         "Candidate trust/license/safety summarized"
       ],
-      "expectedTokenMode": "detailed"
+      "expectedTokenMode": "detailed",
+      "expectedMethodReferences": [
+        "internal.source-discovery-workflow",
+        "internal.source-safety-scoring",
+        "internal.skill-anatomy"
+      ]
     },
     {
       "id": "small-typo-doc-change",
@@ -179,7 +204,10 @@
         "Target file checked",
         "Diff reviewed"
       ],
-      "expectedTokenMode": "concise"
+      "expectedTokenMode": "concise",
+      "expectedMethodReferences": [
+        "internal.simplicity-surgical-change-discipline"
+      ]
     },
     {
       "id": "install-all-tools",
@@ -204,7 +232,11 @@
         "No install or activation occurs",
         "Minimal capability alternative offered"
       ],
-      "expectedTokenMode": "concise"
+      "expectedTokenMode": "concise",
+      "expectedMethodReferences": [
+        "internal.source-safety-scoring",
+        "internal.source-discovery-workflow"
+      ]
     },
     {
       "id": "dirty-stale-divergent-state",
@@ -230,7 +262,11 @@
         "Remote baseline checked when required",
         "User-owned changes preserved"
       ],
-      "expectedTokenMode": "concise"
+      "expectedTokenMode": "concise",
+      "expectedMethodReferences": [
+        "matt.git-guardrails",
+        "internal.engineering-lifecycle-gates"
+      ]
     },
     {
       "id": "ambiguous-behavior-choice",
@@ -256,7 +292,12 @@
         "Assumptions stated",
         "Scope locked before implementation"
       ],
-      "expectedTokenMode": "standard"
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "karpathy.assumption-surfacing",
+        "matt.design-interface",
+        "osmani.spec-driven-development"
+      ]
     },
     {
       "id": "high-risk-security-data",
@@ -287,7 +328,12 @@
         "Authorization impact reviewed",
         "Safer alternative proposed when needed"
       ],
-      "expectedTokenMode": "detailed"
+      "expectedTokenMode": "detailed",
+      "expectedMethodReferences": [
+        "security.differential-security-review",
+        "backend.supabase-postgres-rls-gates",
+        "osmani.security-hardening"
+      ]
     }
   ]
 }

@@ -10,7 +10,7 @@ AI Agent Skills Toolkit separates source intake, method extraction, agent defini
 - `profiles/` stores reusable operating-mode bundles that define included agents, support tools, allowed actions, forbidden actions, output format, and verification gates.
 - `skills/` stores reviewed toolkit-owned skills and skill metadata.
 - `compiled-agents/` stores intentional compiled outputs for project repositories.
-- `registries/` stores machine-readable indexes for existing agents, skills, profiles, support tools, and plain-language routing scenarios.
+- `registries/` stores machine-readable indexes for existing agents, skills, passive methods, profiles, support tools, and plain-language routing scenarios.
 - `evals/` stores routing, skill trigger, stop-condition, token-efficiency, and runtime visibility evaluation scaffolds.
 - Global Codex custom agents can be generated from compiled agents under `~/.codex/agents/` after explicit approval.
 - `install/` stores dry-run-first, version-pinned project sync workflows for selected compiled agents and profiles.
@@ -30,6 +30,8 @@ Phase 6 project-managed skill sync copies selected toolkit-owned single-file ski
 Phase 8 global custom-agent registration adds a Codex-native convenience layer above compiled agents. Native custom agents are preferred when available, but compiled agents remain the canonical fallback source. Global agent registration is not considered fully runtime-active until TOML validation and a Codex restart/new-session smoke test confirm visibility.
 
 Phase 10A/10B adds a governance spine and registry contract. Registries are metadata only: they do not install, activate, approve, or execute anything. Phase 10A/10B registers existing assets first and preserves external-source scouting for later batches through `docs/EXTERNAL_SOURCE_BACKLOG.md`.
+
+Phase 10F adds a passive method registry and optional routing `methodReferences`. Method references explain which reviewed methods can inform a route; they are not skills, tools, agents, support-tool requirements, install approval, or runtime activation.
 
 ## Compilation Inputs
 
@@ -83,6 +85,8 @@ This entrypoint is intentionally domain-scoped and must not become a generic wor
 ## Governance Spine
 
 The Phase 10 governance spine keeps `riss-governance` as the normal user-facing entrypoint. It translates plain-language requests into inferred intent, risk level, selected profile, selected agents, selected skills, support tools, validation gates, stop conditions, and token mode.
+
+Method references are supporting metadata for this translation. They help explain why a route should use specific review discipline, but they do not bypass `riss-governance` or become executable capabilities.
 
 Planned helper skills are documented as future contracts only:
 

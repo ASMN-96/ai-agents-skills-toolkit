@@ -84,6 +84,14 @@ Phase 10D adds source records for agency-agents, Superpowers, everything-claude-
 
 Extract a small set of normalized, source-cited methods from already-reviewed Phase 10C/10D source records.
 
-Status: Started on `codex/phase-10e-method-extraction`.
+Status: Completed and merged via Phase 10E PR.
 
 Phase 10E updates existing internal discovery, skill-anatomy, source-safety, and UI runtime testing methods, and adds narrow backend/database and differential security review gates. It does not add skills, agents, compiled agents, registries, hooks, daemons, MCP servers, global config, product repo changes, installs, activation, cloning, or raw upstream copying.
+
+## Phase 10F: Passive Method Index and Routing Alignment
+
+Index reviewed methods as passive registry metadata and add optional method references to routing/eval contracts.
+
+Status: Started on `codex/phase-10f-method-index-routing`.
+
+Phase 10F adds `registries/methods.registry.json` and passive `methodReferences` for routing scenarios. It does not create skills, agents, compiled agents, profiles, active runtime behavior, install/sync flows, hooks, daemons, MCP servers, global config changes, product repo changes, cloning, activation, or raw upstream copying.
