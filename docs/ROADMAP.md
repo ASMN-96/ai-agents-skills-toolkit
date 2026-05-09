@@ -116,6 +116,14 @@ Phase 10H adds real-project readiness levels, fresh-session smoke-test criteria,
 
 Attempt to certify Level 2 readiness for one controlled real-project pilot using an independent fresh Codex CLI session.
 
-Status: Completed as blocked evidence. Level 2 readiness is not certified yet.
+Status: Completed and Level 2 certified for one controlled pilot.
 
-Phase 10I records that the fresh CLI session could see `riss-governance` and native agent roles, while current-session checks confirmed repository state, JSON validity, support caches, and compiled fallbacks. The fresh CLI session could not run local shell checks because Windows sandbox process startup failed with `CreateProcessAsUserW failed: 5`, so source-of-truth verification remains incomplete. No product repos, global Codex config, skills, agents, registries, source records, install scripts, external installs, activation, hooks, daemons, or MCP servers were changed.
+Phase 10I records that the initial fresh CLI session could see `riss-governance` and native agent roles, but could not run local shell checks because Windows sandbox process startup failed with `CreateProcessAsUserW failed: 5`. A follow-up fresh CLI session used a temporary per-command `windows.sandbox="unelevated"` override, without changing global config, and verified source truth, JSON validity, helper-skill planned status, native role visibility, compiled fallback presence, support-tool visibility, and no silent fallback. No product repos, global Codex config, skills, agents, registries, source records, install scripts, external installs, activation, hooks, daemons, or MCP servers were changed.
+
+## Phase 10J: First Pilot Repo Dry-Run Sync Plan
+
+Plan the first controlled real-project pilot from the Level 2-certified toolkit state.
+
+Status: Planned.
+
+Phase 10J should select one low-risk pilot repository, define the exact dry-run sync scope, preserve product-owned context, pin the toolkit version, and require PR review before any project write. It should not perform broad rollout or automatic sync.

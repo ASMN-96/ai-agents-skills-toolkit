@@ -1,67 +1,63 @@
 # Runtime Verification Report - 2026-05-09 Fresh-Session Smoke Test
 
-This report records the Phase 10I attempt to certify Level 2 real-project readiness. It does not install, activate, configure, clone, sync, or modify global Codex state.
+This report records Phase 10I fresh-session runtime verification for Level 2 real-project readiness. It does not install, activate, configure, clone, sync, or modify global Codex state.
 
 ## Scope
 
-- Toolkit branch: `codex/phase-10i-fresh-session-smoke-test`
-- Toolkit commit under test: `21740a2d6441d19a0558a0899c0ed73c26ce7d79`
+- Toolkit branch for follow-up documentation: `codex/phase-10i-level2-certification`
+- Toolkit commit under test: `ffd7ef7504703a2e282208247c1a84233ef0b543`
 - Product repository changes: no
 - Global Codex config changes: no
 - External installs or activations: no
-- Runtime command used for independent fresh-session evidence: `codex exec --ephemeral`
+- Runtime command used for initial independent fresh-session evidence: `codex exec --ephemeral`
+- Runtime command used for passing independent fresh-session evidence: `codex exec --ephemeral -c 'windows.sandbox="unelevated"' --sandbox workspace-write`
 
 ## Result
 
-Level 2 one-controlled-pilot readiness is not fully certified by this report.
+Level 2 one-controlled-pilot readiness is certified by this report.
 
-The fresh Codex CLI session confirmed important runtime visibility signals, including `riss-governance` skill visibility and native agent-role visibility. However, the same fresh CLI session could not launch local shell commands because Windows sandbox process startup failed with `CreateProcessAsUserW failed: 5`. Because of that, the fresh session could not independently verify local git source truth, local JSON parsing, or local compiled fallback files.
+The initial fresh Codex CLI session confirmed important runtime visibility signals, including `riss-governance` skill visibility and native agent-role visibility. That first run could not launch local shell commands because the Windows elevated sandbox failed to start the WindowsApps PowerShell binary with `CreateProcessAsUserW failed: 5`.
 
-Current-session local checks did verify the repository state, JSON validity, support-tool cache presence, native-agent TOML presence, and compiled fallback files. Those checks are useful evidence, but they do not replace the missing fresh-session local shell verification required by `docs/REAL_PROJECT_READINESS.md`.
+A follow-up fresh Codex CLI session used a temporary per-command override, `windows.sandbox="unelevated"`, without changing global Codex config. That run completed the missing local shell checks, verified source truth, parsed repository JSON files, confirmed helper-skill boundaries, confirmed native role and compiled fallback status, and reported no silent fallback.
+
+This certifies the toolkit for Level 2: one controlled real-project pilot. It does not certify broad rollout, automatic project sync, external skill activation, plugin duplication, global config changes, or product repository changes.
 
 ## Evidence Summary
 
 | Check | Status | Evidence Boundary |
 | --- | --- | --- |
-| Exact toolkit commit | Verified in current session | `HEAD` and `origin/main` both resolved to `21740a2d6441d19a0558a0899c0ed73c26ce7d79` before report edits |
-| Current repo state | Verified in current session | `git status --short --branch` showed clean phase branch before report edits |
-| Fresh CLI session started | Verified | `codex exec --ephemeral` completed and returned a smoke-test report |
+| Exact toolkit commit | Verified in fresh CLI session | `HEAD` and `origin/main` both resolved to `ffd7ef7504703a2e282208247c1a84233ef0b543` |
+| Current repo state | Verified in fresh CLI session | `git status --short --branch` showed `## main...origin/main` |
+| Fresh CLI session started | Verified | `codex exec --ephemeral -c 'windows.sandbox="unelevated"' --sandbox workspace-write` completed and returned a smoke-test report |
 | `riss-governance` visibility | Verified in fresh CLI session | Fresh CLI reported `riss-governance` visible and usable as a skill |
-| `riss-agent-governance` helper skill | Planned/unimplemented | Local path absent; registry contract treats it as planned/draft |
-| `riss-skill-governance` helper skill | Planned/unimplemented | Local path absent; registry contract treats it as planned/draft |
+| `riss-agent-governance` helper skill | Planned/unimplemented | Registry marks it documented/draft/planned with no active `skillPath`; no active skill path was assumed |
+| `riss-skill-governance` helper skill | Planned/unimplemented | Registry marks it documented/draft/planned with no active `skillPath`; no active skill path was assumed |
 | 12 native core agent roles | Visible in fresh CLI session | Fresh CLI reported the 12 core roles visible in the available role surface |
-| 12 compiled fallback files | Verified in current session and no-history subagent | All expected `compiled-agents/*.compiled.md` files were present |
-| Native custom-agent TOML files | Verified in current session | All 12 expected TOML files were present under local Codex agent config |
-| Superpowers | Visible by local cache/current session | Plugin cache and skills are present; Superpowers remains external |
-| GSD | Visible by local cache/current session | Local GSD skills are present |
-| GitHub/gh | Verified in current session | GitHub CLI exists and reports authenticated status; token value not recorded |
-| Browser/Playwright | Partially visible | Local/browser-use and Playwright skill paths are present; no browser target was exercised |
-| Supabase | Partially visible | Supabase plugin cache is present; CLI/MCP project access was not exercised |
-| CodeRabbit | Partially visible | CodeRabbit plugin cache is present; PR review will verify live CodeRabbit behavior |
-| JSON validation | Verified in current session | PowerShell `ConvertFrom-Json` parsed repository JSON files successfully |
-| Fresh CLI local git/JSON checks | Blocked | Fresh CLI shell launch failed with `CreateProcessAsUserW failed: 5` |
-| No silent fallback | Verified by report behavior | Fallback boundaries and blocked shell state were reported explicitly |
+| 12 compiled fallback files | Verified in fresh CLI session | All expected `compiled-agents/*.compiled.md` files were present |
+| Native custom-agent status | Verified in fresh CLI session | Native roles were visible; compiled fallback files were present, but fallback execution was not exercised |
+| Superpowers | Visible in fresh CLI session | Superpowers skill and plugin were visible; Superpowers remains external |
+| GSD | Visible in fresh CLI session | GSD skills were visible as local support capabilities |
+| GitHub/gh | Verified in fresh CLI session | GitHub plugin was visible and `gh version 2.89.0` was available |
+| Browser/Playwright | Visible in fresh CLI session | Browser plugin and Playwright skill were visible; no browser target was exercised because none was required |
+| Supabase | Visible with environment caveat | Supabase plugin and skills were visible; Supabase MCP reported missing `SUPABASE_ACCESS_TOKEN`, so live project access was not claimed |
+| CodeRabbit | Visible in fresh CLI session | CodeRabbit plugin and review skill were visible; live PR behavior is still verified per PR |
+| JSON validation | Verified in fresh CLI session | 11 repository JSON files parsed successfully; 0 invalid |
+| Unsafe artifacts | Verified by follow-up validation | Repository scan excluding `.git` found no `.env`, `.env.*`, `node_modules`, `.cache`, `dist`, `build`, `temp`, `scratch`, `logs`, `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, or `npm-shrinkwrap.json` artifacts |
+| No silent fallback | Verified in fresh CLI session | Helper skills were reported as planned/unavailable, native roles were visible, compiled fallbacks were present, and no fallback was hidden |
 
-## Blocking Gap
+## Initial Blocking Gap
 
-The fresh CLI session could not run local shell commands. Until a fresh Codex session can run the required local checks, Level 2 readiness must remain blocked.
+The initial fresh CLI session could not run local shell commands. Diagnosis showed:
 
-The missing fresh-session evidence is:
+- WindowsApps PowerShell path failed under the elevated Windows sandbox: `CreateProcessAsUserW failed: 5`.
+- Classic Windows PowerShell could run through `codex sandbox windows`.
+- `codex exec --ephemeral --ignore-user-config --sandbox workspace-write` could run local checks, but that path ignored user config and therefore was not sufficient as the final certification path.
+- A temporary per-command override with `windows.sandbox="unelevated"` allowed the fresh session to run the required local checks without changing global config.
 
-- `git status --short --branch`
-- `git rev-parse HEAD`
-- `git rev-parse origin/main`
-- repository JSON parse
-- direct local file check for compiled fallbacks and helper skill paths
+The passing run resolves the Phase 10I blocking gap for Level 2 readiness. The elevated Windows sandbox and WindowsApps PowerShell compatibility issue remains an environment caveat, not a toolkit file blocker. The first pilot should use the same verified temporary unelevated override or another fresh-session shell path that proves the required local checks before any product repository write.
 
 ## Recommendation
 
-Do not start a real-project pilot yet. The next step should be a focused Phase 10I follow-up that fixes or bypasses the fresh-session shell startup issue, then reruns the same smoke test from a new session.
+The toolkit may proceed to Phase 10J: first pilot repo dry-run sync plan.
 
-Acceptable evidence paths:
-
-- a Codex Desktop fresh thread that can run local shell checks, or
-- a Codex CLI fresh session where shell startup succeeds, or
-- a manually captured fresh-session report with the exact commands and outputs above.
-
-Only after that report passes should the toolkit move to Level 2: one controlled real-project pilot.
+Phase 10J should remain planning-only until a specific pilot repository and exact dry-run scope are approved. The first pilot must use a feature branch, version pinning, dry-run-first project sync, explicit do-not-touch boundaries, PR review, and no broad rollout claim.
