@@ -10,6 +10,8 @@ The governance spine is not an execution engine and does not activate anything b
 
 Methods under `methods/` are passive reference inputs. They improve agent guidance and review discipline, but they are not skills, plugins, agents, or runtime capabilities. Method presence must not be treated as activation; `riss-governance` remains the normal entrypoint that decides whether a method is relevant to the current task.
 
+`registries/methods.registry.json` indexes these methods for auditability and routing explanation. Routing may cite method IDs as passive references, but selected skills, agents, profiles, and support tools remain separate decisions.
+
 ## Helper Skill Contracts
 
 Two internal helper skills are planned but not implemented in Phase 10A/10B:
@@ -39,6 +41,7 @@ The spine maps that language to:
 - selected agents
 - selected skills
 - selected external tools/plugins
+- passive method references when useful
 - validation gates
 - stop conditions
 - token mode

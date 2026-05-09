@@ -45,7 +45,11 @@
         "Validation evidence",
         "Residual risks"
       ],
-      "tokenMode": "standard"
+      "tokenMode": "standard",
+      "methodReferences": [
+        "internal.engineering-lifecycle-gates",
+        "internal.simplicity-surgical-change-discipline"
+      ]
     },
     {
       "scenario": "read-only-repo-audit",
@@ -83,7 +87,11 @@
         "Safety gates",
         "Recommended next action"
       ],
-      "tokenMode": "standard"
+      "tokenMode": "standard",
+      "methodReferences": [
+        "internal.source-safety-scoring",
+        "security.differential-security-review"
+      ]
     },
     {
       "scenario": "external-skill-source-audit",
@@ -123,7 +131,12 @@
         "Rejected patterns",
         "Recommendation"
       ],
-      "tokenMode": "detailed"
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "internal.source-discovery-workflow",
+        "internal.source-safety-scoring",
+        "internal.skill-anatomy"
+      ]
     },
     {
       "scenario": "frontend-ui-bug",
@@ -161,7 +174,12 @@
         "Browser/responsive validation",
         "Manual QA limits"
       ],
-      "tokenMode": "standard"
+      "tokenMode": "standard",
+      "methodReferences": [
+        "uiux.responsive-layout",
+        "uiux.webapp-testing",
+        "internal.frontend-uiux-quality-gates"
+      ]
     },
     {
       "scenario": "dashboard-ui-redesign",
@@ -201,7 +219,13 @@
         "Validation evidence",
         "Residual UX risks"
       ],
-      "tokenMode": "standard"
+      "tokenMode": "standard",
+      "methodReferences": [
+        "uiux.premium-visual-quality",
+        "uiux.dashboard-ux",
+        "uiux.design-system",
+        "uiux.webapp-testing"
+      ]
     },
     {
       "scenario": "frontend-performance-issue",
@@ -240,7 +264,12 @@
         "Validation limits",
         "Follow-up gates"
       ],
-      "tokenMode": "standard"
+      "tokenMode": "standard",
+      "methodReferences": [
+        "osmani.performance-optimization",
+        "uiux.webapp-testing",
+        "internal.frontend-uiux-quality-gates"
+      ]
     },
     {
       "scenario": "supabase-rls-migration",
@@ -282,7 +311,11 @@
         "Validation evidence",
         "Rollback notes"
       ],
-      "tokenMode": "detailed"
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "backend.supabase-postgres-rls-gates",
+        "security.differential-security-review"
+      ]
     },
     {
       "scenario": "postgres-query-performance",
@@ -321,7 +354,11 @@
         "Validation evidence",
         "Residual risks"
       ],
-      "tokenMode": "detailed"
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "backend.supabase-postgres-rls-gates",
+        "osmani.performance-optimization"
+      ]
     },
     {
       "scenario": "api-contract-change",
@@ -362,7 +399,11 @@
         "Validation evidence",
         "Risks"
       ],
-      "tokenMode": "detailed"
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "osmani.api-interface-design",
+        "security.differential-security-review"
+      ]
     },
     {
       "scenario": "security-review",
@@ -400,7 +441,11 @@
         "Coverage limits",
         "Required fixes"
       ],
-      "tokenMode": "detailed"
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "security.differential-security-review",
+        "osmani.security-hardening"
+      ]
     },
     {
       "scenario": "dependency-supply-chain-review",
@@ -439,7 +484,11 @@
         "Recommendation",
         "Approval required"
       ],
-      "tokenMode": "detailed"
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "security.differential-security-review",
+        "internal.source-safety-scoring"
+      ]
     },
     {
       "scenario": "performance-regression",
@@ -478,7 +527,11 @@
         "Validation",
         "Follow-up"
       ],
-      "tokenMode": "standard"
+      "tokenMode": "standard",
+      "methodReferences": [
+        "osmani.performance-optimization",
+        "internal.engineering-lifecycle-gates"
+      ]
     },
     {
       "scenario": "coderabbit-pr-triage",
@@ -518,7 +571,12 @@
         "Checks",
         "Merge recommendation"
       ],
-      "tokenMode": "standard"
+      "tokenMode": "standard",
+      "methodReferences": [
+        "osmani.code-review-quality",
+        "security.differential-security-review",
+        "matt.git-guardrails"
+      ]
     },
     {
       "scenario": "release-readiness",
@@ -560,7 +618,12 @@
         "Safety gates",
         "Next action"
       ],
-      "tokenMode": "detailed"
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "osmani.shipping-launch",
+        "internal.engineering-lifecycle-gates",
+        "security.differential-security-review"
+      ]
     },
     {
       "scenario": "missing-capability-skill-discovery",
@@ -599,7 +662,12 @@
         "Safety classification",
         "Approval needed for next step"
       ],
-      "tokenMode": "detailed"
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "internal.source-discovery-workflow",
+        "internal.source-safety-scoring",
+        "internal.skill-anatomy"
+      ]
     },
     {
       "scenario": "dirty-stale-divergent-repo-state",
@@ -633,7 +701,11 @@
         "Why it blocks or does not block",
         "Safe next action"
       ],
-      "tokenMode": "concise"
+      "tokenMode": "concise",
+      "methodReferences": [
+        "matt.git-guardrails",
+        "internal.engineering-lifecycle-gates"
+      ]
     },
     {
       "scenario": "install-all-tools-request",
@@ -666,7 +738,11 @@
         "Safe audited path",
         "Required approvals"
       ],
-      "tokenMode": "concise"
+      "tokenMode": "concise",
+      "methodReferences": [
+        "internal.source-safety-scoring",
+        "internal.source-discovery-workflow"
+      ]
     },
     {
       "scenario": "small-low-risk-typo-doc-change",
@@ -696,7 +772,10 @@
         "File changed",
         "Validation or reason static review was sufficient"
       ],
-      "tokenMode": "concise"
+      "tokenMode": "concise",
+      "methodReferences": [
+        "internal.simplicity-surgical-change-discipline"
+      ]
     },
     {
       "scenario": "ambiguous-behavior-changing-request",
@@ -730,7 +809,12 @@
         "Scope",
         "Validation"
       ],
-      "tokenMode": "standard"
+      "tokenMode": "standard",
+      "methodReferences": [
+        "karpathy.assumption-surfacing",
+        "matt.design-interface",
+        "osmani.spec-driven-development"
+      ]
     },
     {
       "scenario": "high-risk-security-data-request",
@@ -769,7 +853,12 @@
         "Evidence",
         "Allowed safe alternative or blocker"
       ],
-      "tokenMode": "detailed"
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "security.differential-security-review",
+        "backend.supabase-postgres-rls-gates",
+        "osmani.security-hardening"
+      ]
     }
   ]
 }
