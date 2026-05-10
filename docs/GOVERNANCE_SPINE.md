@@ -4,13 +4,23 @@ Phase 10A defines the governance spine for AI Agent Skills Toolkit. The spine tu
 
 ## Operating Model
 
-`riss-governance` is the normal user-facing entrypoint. It should infer intent, risk, profile, agents, skills, support tools, validation gates, and stop conditions without requiring the user to know internal agent or skill names.
+`riss-governance` is the normal user-facing entrypoint for its primary domains. It should infer intent, risk, profile, agents, skills, support tools, validation gates, and stop conditions without requiring the user to know internal agent or skill names.
 
 The governance spine is not an execution engine and does not activate anything by itself. It coordinates documented assets, compiled-agent fallbacks, external support tools, and registry metadata.
 
 Methods under `methods/` are passive reference inputs. They improve agent guidance and review discipline, but they are not skills, plugins, agents, or runtime capabilities. Method presence must not be treated as activation; `riss-governance` remains the normal entrypoint that decides whether a method is relevant to the current task.
 
 `registries/methods.registry.json` indexes these methods for auditability and routing explanation. Routing may cite method IDs as passive references, but selected skills, agents, profiles, and support tools remain separate decisions.
+
+## Explicit Opt-In Governance Mode
+
+RISS, RISS V2, AI Toolkit, VD projects, Supabase/backend, security, release, and repo-governance work remain the primary domain for `riss-governance`.
+
+For other repositories or projects, the governance spine applies only when the user explicitly invokes `Use riss-governance`. That opt-in makes `riss-governance` the active governance layer for the current thread or task, bounded by the selected mode, repo scope, runtime permissions, and user-approved boundaries.
+
+Explicit opt-in authorizes routing, planning, read-only checks, capability selection, agent/tool recommendations, and validation gates. It does not authorize writes, migrations, package or dependency changes, Supabase policy/RLS changes, auth changes, billing changes, deployment or release changes, global Codex config changes, external installs, or broad plugin/tool use. Those actions still require explicit scoped approval.
+
+Outside the primary domain, unrelated projects without explicit invocation must not trigger this governance layer from vague quality language alone.
 
 ## Internal Helper Skills
 
@@ -64,6 +74,10 @@ Translation rules:
 Select the smallest useful set of agents, skills, and tools. Do not activate every profile, plugin, or external capability by default. Prefer concise routing summaries for low-risk tasks and expand only for high-risk work, missing capabilities, or explicit user requests.
 
 Select an extra skill only when it materially improves context, safety, validation, or quality. Do not add skills for low-risk typo fixes, direct explanations, or cases where local file inspection is enough.
+
+Always select and report the needed agents. Spawn native sub-agents only when runtime rules allow and the user explicitly authorizes delegation, sub-agents, or parallel agent work. If spawning is not allowed, continue inline using the selected agent lenses and report that limitation. Never represent a selected agent as a spawned agent unless it actually ran.
+
+Support tools such as Superpowers, GSD, Playwright/browser, Supabase, GitHub/gh, CodeRabbit, Figma, and other tools may be selected only when useful. Invoking them must respect the selected mode, runtime availability, and approval boundaries. Report "available, not invoked" when that status is relevant.
 
 ## Response Budget
 

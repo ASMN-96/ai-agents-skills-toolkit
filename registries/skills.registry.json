@@ -14,7 +14,7 @@
   "skills": [
     {
       "name": "riss-governance",
-      "description": "User-facing governance entrypoint for scoped repo governance, source-of-truth checks, narrow agent/tool routing, safety gates, and completion verification.",
+      "description": "User-facing opt-in governance entrypoint for scoped serious-project routing, source-of-truth checks, narrow agent/tool selection, safety gates, and completion verification.",
       "ownerAgent": "reviewer-agent",
       "secondaryAgents": [
         "release-manager-agent",
@@ -23,19 +23,22 @@
         "qa-test-agent"
       ],
       "triggerCases": [
-        "User explicitly says Use riss-governance.",
+        "User explicitly says Use riss-governance in any repository or project thread.",
         "Task involves AI Toolkit, RISS, Supabase/backend/security/release governance, source-of-truth checks, custom agent routing, or completion verification.",
-        "Plain-language request needs professional engineering routing."
+        "Plain-language request needs professional engineering routing inside the primary RISS/AI Toolkit/VD governance context."
       ],
       "negativeTriggerCases": [
-        "Unrelated projects where user did not request this governance layer.",
+        "Unrelated projects where user did not explicitly invoke Use riss-governance.",
         "Simple one-off questions where repo governance does not materially help.",
-        "Requests to install or activate every tool without review."
+        "Requests to install or activate every tool without review.",
+        "Vague quality language in unrelated repositories without explicit governance opt-in."
       ],
       "priority": "high",
       "conflicts": [
         "Do not duplicate Superpowers or Codex plugins.",
-        "Do not silently fall back from native agent to compiled instructions for high-risk work."
+        "Do not silently fall back from native agent to compiled instructions for high-risk work.",
+        "Do not treat explicit opt-in as approval for writes, migrations, package changes, Supabase policy/auth/billing/deployment changes, global config changes, external installs, or broad plugin use.",
+        "Do not represent selected agents as spawned agents unless they actually ran."
       ],
       "requiredSupportTools": [],
       "optionalSupportTools": [
@@ -44,7 +47,8 @@
         "GitHub/gh",
         "Playwright/browser",
         "Supabase tooling/docs",
-        "CodeRabbit"
+        "CodeRabbit",
+        "Figma"
       ],
       "riskLevel": "medium",
       "evalStatus": "scaffolded",

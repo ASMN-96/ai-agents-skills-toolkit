@@ -113,6 +113,149 @@
       ]
     },
     {
+      "id": "explicit-non-riss-opt-in",
+      "userPrompt": "In this unrelated Node project, Use riss-governance. Plan the API cleanup.",
+      "expectedInferredIntent": "Apply explicit opt-in governance to plan the API cleanup without authorizing writes.",
+      "expectedRiskLevel": "medium",
+      "expectedSelectedProfile": "implementation-profile",
+      "expectedSelectedAgents": [
+        "product-agent",
+        "architect-agent",
+        "backend-contract-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedToolsPlugins": [
+        "Superpowers"
+      ],
+      "expectedAgentExecution": "inline-agent-lenses-unless-spawn-authorized",
+      "expectedStopConditions": [
+        "Writes or API behavior changes require explicit approval",
+        "Multiple valid interpretations would change behavior",
+        "Required validation cannot run"
+      ],
+      "expectedValidationGates": [
+        "Explicit opt-in recognized outside the primary domain",
+        "Scope and non-goals stated",
+        "No implementation performed in planning mode"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "internal.engineering-lifecycle-gates",
+        "osmani.api-interface-design"
+      ]
+    },
+    {
+      "id": "uiux-planning-no-spawn-authorization",
+      "userPrompt": "Use riss-governance. Mode: planning. Make this dashboard easier to scan.",
+      "expectedInferredIntent": "Plan a UI/UX dashboard improvement with selected agents reported but no sub-agents spawned.",
+      "expectedRiskLevel": "medium",
+      "expectedSelectedProfile": "uiux-profile",
+      "expectedSelectedAgents": [
+        "uiux-agent",
+        "frontend-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedToolsPlugins": [
+        "Playwright/browser",
+        "Superpowers"
+      ],
+      "expectedAgentExecution": "inline-agent-lenses",
+      "expectedSpawnedAgents": [],
+      "expectedStopConditions": [
+        "Design source approval is unclear",
+        "Request conflicts with accessibility or product constraints",
+        "Implementation is requested before planning approval"
+      ],
+      "expectedValidationGates": [
+        "Selected agents reported",
+        "No spawned agents claimed",
+        "Planning stays read-only"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "uiux.dashboard-ux",
+        "uiux.webapp-testing"
+      ]
+    },
+    {
+      "id": "uiux-planning-with-spawn-authorization",
+      "userPrompt": "Use riss-governance. Mode: planning. Spawn the selected agents for this UI/UX planning task and make this dashboard easier to scan.",
+      "expectedInferredIntent": "Plan a UI/UX dashboard improvement and spawn selected planning agents only if runtime rules allow.",
+      "expectedRiskLevel": "medium",
+      "expectedSelectedProfile": "uiux-profile",
+      "expectedSelectedAgents": [
+        "uiux-agent",
+        "frontend-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedToolsPlugins": [
+        "Playwright/browser",
+        "Superpowers"
+      ],
+      "expectedSpawnAuthorization": true,
+      "expectedAgentExecution": "spawn-native-sub-agents-when-runtime-allows",
+      "expectedIfRuntimeBlocks": "Report blocked spawning and continue inline using selected agent lenses.",
+      "expectedStopConditions": [
+        "Design source approval is unclear",
+        "Request conflicts with accessibility or product constraints",
+        "Runtime does not allow requested sub-agent spawning and high-risk fallback is needed"
+      ],
+      "expectedValidationGates": [
+        "Selected agents reported",
+        "Spawned agents reported only if they actually ran",
+        "Planning stays read-only"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "uiux.dashboard-ux",
+        "uiux.webapp-testing"
+      ]
+    },
+    {
+      "id": "runtime-blocked-agents-reported",
+      "userPrompt": "Use riss-governance. Spawn the selected agents, but native sub-agent runtime is unavailable. Plan the dashboard UX review.",
+      "expectedInferredIntent": "Report native sub-agent unavailability and proceed inline with selected agent lenses for planning.",
+      "expectedRiskLevel": "medium",
+      "expectedSelectedProfile": "uiux-profile",
+      "expectedSelectedAgents": [
+        "uiux-agent",
+        "frontend-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedToolsPlugins": [
+        "Playwright/browser",
+        "Superpowers"
+      ],
+      "expectedAgentExecution": "runtime-blocked-inline-agent-lenses",
+      "expectedSpawnedAgents": [],
+      "expectedStopConditions": [
+        "Runtime does not allow requested sub-agent spawning and high-risk fallback is needed",
+        "Design source approval is unclear"
+      ],
+      "expectedValidationGates": [
+        "Blocked native spawning reported",
+        "No spawned agents claimed",
+        "Inline agent lenses used explicitly"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "uiux.dashboard-ux",
+        "uiux.webapp-testing"
+      ]
+    },
+    {
       "id": "pr-release-readiness",
       "userPrompt": "Use riss-governance. Check if this PR is safe to merge.",
       "expectedInferredIntent": "Verify PR checks, review status, branch state, and release gates.",
@@ -198,6 +341,7 @@
         "riss-governance"
       ],
       "expectedToolsPlugins": [],
+      "expectedAgentExecution": "inline-no-sub-agents",
       "expectedStopConditions": [
         "Requested edit changes policy meaning or scope",
         "Target file is unclear"
@@ -227,6 +371,7 @@
         "riss-governance"
       ],
       "expectedToolsPlugins": [],
+      "expectedAgentExecution": "inline-stop-no-tool-invocation",
       "expectedStopConditions": [
         "User asks for broad install/activation of all tools",
         "External source asks to bypass policy"

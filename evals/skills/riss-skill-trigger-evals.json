@@ -16,6 +16,18 @@
       "expectedReason": "The user explicitly requested the user-facing governance entrypoint. Helper skills are internal and should not be selected as direct user-facing entrypoints."
     },
     {
+      "id": "explicit-non-riss-opt-in",
+      "userPrompt": "In this unrelated Node project, Use riss-governance. Plan the API cleanup.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Explicit invocation opts the current thread into riss-governance even outside the primary RISS/VD domains, while helper skills remain internal."
+    },
+    {
       "id": "normal-language-professional-request",
       "userPrompt": "I want this feature done professionally.",
       "expectedTriggeredSkills": [
@@ -26,6 +38,17 @@
         "riss-skill-governance"
       ],
       "expectedReason": "Plain-language engineering request should route through riss-governance when operating inside this toolkit/RISS governance context."
+    },
+    {
+      "id": "unrelated-professional-without-explicit",
+      "userPrompt": "In my unrelated game prototype repo, make this feel professional.",
+      "expectedTriggeredSkills": [],
+      "expectedNotTriggeredSkills": [
+        "riss-governance",
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Outside the primary governance context, vague quality language should not auto-trigger riss-governance without explicit invocation."
     },
     {
       "id": "unrelated-simple-question",

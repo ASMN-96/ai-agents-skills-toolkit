@@ -65,7 +65,7 @@ GSD and Superpowers are external core governance tools, not vendored toolkit dep
 
 - GSD handles phase/state/roadmap/release-gate tracking for serious multi-step work, audits, backend work, migrations, security/SRE audits, and release programs.
 - Superpowers handles execution discipline for systematic debugging, TDD, code review, and verification-before-completion.
-- `riss-governance` routes work across installed agents, profiles, and support tools.
+- `riss-governance` routes work across installed agents, profiles, and support tools for primary domains and explicitly opted-in serious project threads.
 - Context7, Playwright, Browser Use, GitHub, Supabase, Cloudflare, Vercel, and Figma are support tools used only when needed and available.
 
 Agents and profiles remain role-specific workers. The toolkit must not activate every plugin, tool, agent, or profile by default.
@@ -74,7 +74,7 @@ Agents and profiles remain role-specific workers. The toolkit must not activate 
 
 Toolkit-managed global custom agents are generated as TOML files under `~/.codex/agents/`. They contain concise role instructions derived from compiled agents and source provenance back to `compiled-agents/*.compiled.md`.
 
-If a native custom agent cannot be spawned, governance must report the failure. High-risk tasks require user approval before falling back to a built-in `worker` or `explorer` loaded with the matching compiled-agent instructions.
+Governance always selects and reports the needed agents. Native sub-agents are spawned only when runtime rules allow and the user explicitly authorizes delegation, sub-agents, or parallel agent work. If spawning is not allowed, governance proceeds inline using the selected agent lenses and reports that no sub-agent ran. If an authorized native custom-agent spawn fails, governance must report the failure. High-risk tasks require user approval before falling back to a built-in `worker` or `explorer` loaded with the matching compiled-agent instructions.
 
 ## Global Governance Entrypoint
 
@@ -82,11 +82,11 @@ Phase 9 adds a global `riss-governance` skill and `riss-governance-agent` router
 
 The global skill is the user-facing one-command entrypoint. The router agent coordinates native custom agents when runtime-visible. If the router is not visible in the current Codex session, status is "Global riss-governance installed; restart/new session verification required."
 
-This entrypoint is intentionally domain-scoped and must not become a generic workflow for unrelated projects unless the user explicitly requests it.
+This entrypoint is primarily domain-scoped, but it may be used in any repository or project thread when the user explicitly invokes `Use riss-governance`. Explicit opt-in makes it the active governance layer for that thread or task only; it does not authorize writes, migrations, package changes, Supabase policy/auth/billing/deployment changes, global Codex config changes, external installs, or broad plugin/tool use.
 
 ## Governance Spine
 
-The Phase 10 governance spine keeps `riss-governance` as the normal user-facing entrypoint. It translates plain-language requests into inferred intent, risk level, selected profile, selected agents, selected skills, support tools, validation gates, stop conditions, and token mode.
+The Phase 10 governance spine keeps `riss-governance` as the normal user-facing entrypoint for primary domains and explicit opt-in serious project threads. It translates plain-language requests into inferred intent, risk level, selected profile, selected agents, selected skills, support tools, validation gates, stop conditions, and token mode.
 
 Method references are supporting metadata for this translation. They help explain why a route should use specific review discipline, but they do not bypass `riss-governance` or become executable capabilities.
 
