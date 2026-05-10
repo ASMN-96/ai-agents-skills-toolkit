@@ -33,6 +33,8 @@ Phase 10A/10B adds a governance spine and registry contract. Registries are meta
 
 Phase 10F adds a passive method registry and optional routing `methodReferences`. Method references explain which reviewed methods can inform a route; they are not skills, tools, agents, support-tool requirements, install approval, or runtime activation.
 
+Phase 10O adds read-only/report-only source freshness monitoring for tracked GitHub sources. It detects upstream change signals and may generate a local Markdown report, but it does not approve source import, install or activate external skills, extract methods, update source records automatically, change global configuration, or modify product repositories.
+
 ## Compilation Inputs
 
 Compiled agents are assembled from:

@@ -132,6 +132,28 @@ Phase 10J should select one low-risk pilot repository, define the exact dry-run 
 
 Make the toolkit safer and easier for a non-technical user before live-project adoption.
 
-Status: In progress.
+Status: Completed and merged.
 
 Phase 10L adds plain-language routing, strict response-budget rules, internal helper skills for agent and skill governance, missing-skill preflight, sensitive-data examples, design-source approval, CodeRabbit triage, typo/token-efficiency, and dashboard performance scoping evals. It does not add core agents, regenerate compiled agents, install external skills, activate plugins, clone repositories, change global Codex config, modify product repos, run migrations, or upgrade real-project readiness.
+
+## Phase 10N: Explicit Opt-In Governance
+
+Clarify that `riss-governance` can be explicitly opted into for serious project threads outside the primary RISS/VD domain without weakening safety.
+
+Status: Completed and merged.
+
+Phase 10N adds explicit opt-in governance mode, a permission matrix, agent-spawn boundaries, support-tool invocation boundaries, and eval coverage. It does not authorize writes by itself, broadly activate tools, install external sources, change global Codex config, modify product repos, or upgrade real-project readiness.
+
+## Phase 10O: Read-Only Source Freshness Monitor
+
+Add a minimal source freshness monitor for external GitHub repositories already tracked through the backlog or local source records.
+
+Status: Implemented in this PR; Phase 10O is complete only after this PR is reviewed and merged.
+
+Phase 10O adds a read-only/report-only watchlist, a dependency-free source freshness script, and a sample generated report. It detects upstream change signals only and does not approve source import, install external skills, activate plugins, clone repositories, copy raw upstream files, extract methods, update source records automatically, change global Codex config, modify product repos, add schedulers, add daemons, add CI, or upgrade real-project readiness.
+
+## Phase 10 Closure
+
+Phase 10 is ready to close after this Phase 10O PR is reviewed and merged. The closed Phase 10 scope will include governance spine, source scouting, method indexing, runtime/readiness gates, Level 2 certification, governance UX hardening, explicit opt-in governance, and read-only source freshness monitoring.
+
+Future work after Phase 10 should be planned in a separate phase and must keep the same review, safety, and approval boundaries.
