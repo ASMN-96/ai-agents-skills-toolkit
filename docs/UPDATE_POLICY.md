@@ -86,8 +86,13 @@ Compiled agents should document their source toolkit version and any project pro
 ## Phase 9 Global Governance Entrypoint Rules
 
 - The global `riss-governance` skill is scoped to RISS, RISS V2, AI Toolkit, Supabase/backend, security, release, repo governance, and related VD real estate platform work.
-- Do not apply `riss-governance` as a generic workflow for unrelated projects unless the user explicitly requests it.
+- Other repositories and projects may use `riss-governance` only when the user explicitly invokes `Use riss-governance`.
+- Explicit invocation authorizes routing, planning, read-only checks, capability selection, and validation gates within the selected mode, repo scope, runtime permissions, and user-approved boundaries.
+- Explicit invocation does not authorize writes, migrations, package or dependency changes, Supabase policy/RLS changes, auth changes, billing changes, deployment or release changes, global Codex config changes, external installs, or broad plugin/tool use.
+- Do not infer `riss-governance` for unrelated projects from vague quality language alone.
 - The global `riss-governance-agent` router may coordinate native custom agents when runtime-visible.
+- Always select and report needed agents. Spawn native sub-agents only when runtime rules allow and the user explicitly authorizes delegation, sub-agents, or parallel agent work.
+- If spawning is not allowed, proceed inline using the selected agent lenses and report that limitation. Never claim a spawned agent ran unless it actually ran.
 - Do not claim full runtime visibility until a new-session skill and router-agent visibility test passes.
 - If current-session hot-load fails, report: "Global riss-governance installed; restart/new session verification required."
 - High-risk fallback from native agents to compiled-agent instructions requires user approval.
@@ -100,5 +105,6 @@ Compiled agents should document their source toolkit version and any project pro
 - `riss-agent-governance` and `riss-skill-governance` are internal helper skills only when implemented and approved; direct user calls must redirect through `riss-governance`.
 - Missing-skill discovery is read-only by default and may check local registries, source records, skills.sh, GitHub, GitLab, and official docs.
 - Discovery must not install, activate, clone, copy raw skills, run scripts, modify global config, or modify product repos.
+- Support tools may be selected only when useful, and physical invocation must respect mode, runtime availability, and approval boundaries.
 - External source scouting and method extraction happen in later approved batches.
 - Full runtime activation must not be claimed from repo files alone.

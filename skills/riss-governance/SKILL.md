@@ -1,15 +1,36 @@
 ---
 name: riss-governance
-description: Use when doing serious RISS work that needs repo governance, source-of-truth checks, task routing, dependency-chain safety, branch/PR/CI/CodeRabbit discipline, Supabase/backend/security caution, UI/runtime validation, or completion verification.
+description: Use when doing serious RISS work, or when explicitly invoked as an opt-in governance layer for a serious project thread, that needs repo governance, source-of-truth checks, task routing, dependency-chain safety, branch/PR/CI/CodeRabbit discipline, Supabase/backend/security caution, UI/runtime validation, or completion verification.
 ---
 
 # RISS Governance
 
 ## Core Rule
 
-For serious RISS work, verify the source of truth, route narrowly, track phase/state explicitly, make small reversible changes, protect dependency chains, and validate before claiming completion.
+For serious governed work, verify the source of truth, route narrowly, track phase/state explicitly, make small reversible changes, protect dependency chains, and validate before claiming completion.
 
-This skill is the governance entrypoint for RISS, RISS V2, AI Toolkit, Supabase/backend, security, release, repo governance, and related VD real estate platform work. Do not apply it automatically to unrelated projects unless the user explicitly requests it.
+This skill is the governance entrypoint for RISS, RISS V2, AI Toolkit, Supabase/backend, security, release, repo governance, and related VD real estate platform work. Do not apply it automatically to unrelated projects unless the user explicitly invokes it.
+
+## Explicit Opt-In Governance Mode
+
+RISS, RISS V2, AI Toolkit, VD projects, Supabase/backend, security, release, and repo-governance work remain the primary domain.
+
+Other repositories and projects are allowed only when the user explicitly invokes `Use riss-governance`. Explicit invocation makes this skill the active governance layer for that thread or task, within the selected mode, repo scope, runtime permissions, and user-approved boundaries.
+
+Explicit invocation authorizes routing, planning, read-only checks, capability selection, agent/tool recommendations, and validation gates. It does not authorize writes, migrations, package or dependency changes, Supabase policy/RLS changes, auth changes, billing changes, deployment or release changes, global Codex config changes, external installs, or broad plugin/tool use. Those actions still require explicit approval, scoped execution mode, and normal runtime permissions.
+
+Outside the primary domain, do not infer governance opt-in from vague quality language alone. If the user does not explicitly invoke `Use riss-governance`, unrelated projects should proceed under normal Codex behavior unless another active instruction requires this skill.
+
+## Permission Matrix
+
+| Request or mode | Permission granted |
+| --- | --- |
+| `Use riss-governance` | Authorizes routing, planning, read-only checks, capability selection, and validation gates only. It does not authorize writes by itself. |
+| `Mode: read-only` | No writes. Inspect, audit, summarize, and recommend only. |
+| `Mode: planning` | No writes unless separately approved. Produce plans, specs, risk reviews, and validation strategy only. |
+| `Mode: controlled implementation` | Allows only the explicitly approved scope. Stop before migrations, package changes, Supabase policy/RLS changes, auth/billing/deployment changes, global config changes, external installs, or broad plugin/tool use unless separately approved. |
+| Native sub-agent spawning | Requires runtime permission and explicit delegation, sub-agent, or parallel-agent authorization. |
+| Spawning not authorized or blocked | Use inline agent lenses and report the limitation. Never pretend a spawned agent ran. |
 
 GSD and Superpowers are both core governance layers when available:
 
@@ -20,10 +41,10 @@ GSD and Superpowers are both core governance layers when available:
 ## Start Every Task By Stating
 
 - GSD phase/state usage.
-- Selected agents.
-- Native custom-agent availability or compiled-agent fallback status.
+- Selected agents, including whether they are only inline lenses or authorized sub-agents.
+- Native custom-agent availability, sub-agent spawn authorization, or compiled-agent fallback status.
 - Selected profile, if any.
-- Selected support tools.
+- Selected support tools and invocation status when relevant, such as "available, not invoked."
 - Mode: read-only, plan, implementation, or review.
 - Scope.
 - Do-not-touch list.
@@ -89,12 +110,14 @@ For serious multi-phase work, do not silently continue without GSD. If GSD is un
 
 ## Routing
 
-Select the minimum necessary agents automatically from the task. Prefer native Codex custom agents when they are available and verified. Until runtime verification passes, treat global custom agents as registered but requiring Codex restart/new session verification.
+Select the minimum necessary agents automatically from the task and report them. Agent selection is governance routing; spawning a sub-agent is a separate runtime action. Prefer native Codex custom agents when they are available, verified, allowed by runtime rules, and the user has explicitly authorized delegation, sub-agents, or parallel agent work. Until runtime verification passes, treat global custom agents as registered but requiring Codex restart/new session verification.
 
 - Global entrypoint: when the user says "Use riss-governance," start with this skill, then use `riss-governance-agent` as the router when it is runtime-visible.
-- Native custom agent preferred: spawn the matching toolkit custom agent by name when available.
-- Fallback path: if native spawn is unavailable or fails, report the failed agent and reason. For high-risk tasks, stop and ask before fallback. For explicitly pre-approved fallback tasks, use built-in `worker` or `explorer` with the matching compiled-agent instructions.
+- Native custom agent preferred: spawn the matching toolkit custom agent by name only when runtime rules allow it and the user explicitly authorizes delegation, sub-agents, or parallel agent work.
+- Inline agent lenses: if spawning is not allowed or not authorized, proceed inline using the selected agent lenses and report that no sub-agent ran.
+- Fallback path: if spawning is authorized but native spawn is unavailable or fails, report the failed agent and reason. For high-risk tasks, stop and ask before fallback. For explicitly pre-approved fallback tasks, use built-in `worker` or `explorer` with the matching compiled-agent instructions.
 - Never silently substitute a different agent or downgrade from native custom agent to compiled-agent fallback.
+- Never pretend a spawned agent ran. Report selected agents separately from agents actually spawned.
 - Stop if both the native custom agent and matching compiled-agent fallback are unavailable.
 
 - Source, skill, or tool safety: Skill Scout Agent + Reviewer Agent.
@@ -107,7 +130,7 @@ Select the minimum necessary agents automatically from the task. Prefer native C
 
 ## Support Tools
 
-Use support tools only when the task requires them:
+Use support tools only when the task requires them. Selecting a support tool is not the same as invoking it; physical invocation must respect the selected mode, runtime availability, tool permissions, and user-approved boundaries. When a relevant tool is available but not invoked, report "available, not invoked" if that status affects the task.
 
 - GSD for phase/state/roadmap/release-gate tracking in serious multi-step work, audits, backend work, migrations, security/SRE audits, and release programs.
 - Superpowers for systematic debugging, TDD, code review, verification-before-completion, and plan discipline.
@@ -192,6 +215,7 @@ Before claiming completion, state:
 - Remote baseline used.
 - GSD phase/state usage or approved manual tracking fallback.
 - Native custom agents used, or fallback path used with approval/status.
+- Selected inline agent lenses and any sub-agents actually spawned.
 - Files changed.
 - Why each change was in scope.
 - Dependency-chain impact checked.
