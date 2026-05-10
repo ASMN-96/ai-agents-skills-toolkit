@@ -4,6 +4,10 @@ This backlog preserves future source-scouting intent for Phase 10C and later. It
 
 No source in this backlog has been newly scouted in Phase 10A/10B. Future batches must create or update source records before method extraction.
 
+## Source Freshness Monitor
+
+Phase 10O adds read-only source freshness monitoring for tracked GitHub sources. The monitor only detects upstream change signals; it does not approve, copy, install, activate, extract, or update source records. Any source refresh still requires a separate reviewed phase and PR.
+
 ## Backlog
 
 | Source | Priority | Intended Extraction Target | What To Take | What Not To Copy | Safety Concerns | License Status | Future Batch |
