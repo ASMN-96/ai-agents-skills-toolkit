@@ -111,10 +111,9 @@
       "sourceProvenance": [
         "sources/addy-osmani-agent-skills.md",
         "sources/anthropic-skills.md",
-        "sources/vercel-agent-skills.md",
         "sources/bencium-marketplace.md"
       ],
-      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only. Vercel Agent Skills README claims MIT, but root license/API metadata did not align during scouting; keep license-caveated. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -220,11 +219,9 @@
       ],
       "sourceProvenance": [
         "sources/anthropic-skills.md",
-        "sources/vercel-find-skills.md",
-        "sources/skills-sh.md",
-        "sources/vercel-agent-skills.md"
+        "sources/skills-sh.md"
       ],
-      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Vercel find-skills had repository-level license uncertainty; use discovery patterns only. skills.sh is a dynamic discovery index with per-source license review required. Vercel Agent Skills README claims MIT, but root license/API metadata did not align during scouting; keep license-caveated.",
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. skills.sh is a dynamic discovery index with per-source license review required.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -259,13 +256,11 @@
         "Assign a 0-100 safety/usefulness score, then classify with rationale: - 0-30: `Ignore`. - 31-60: `Reference only`. - 61-85: `Extract into methods`. - 86-100: `Potential future install review`, only when installation is explicitly requested in a separate approved phase and all safety gates pass; otherwise keep as `Extract into methods`. Every classification must include a short rationale, rejected operation list, license confidence, and any override reason. A source with high usefulness but high execution risk should usually be `Reference only` or `Extract into methods`, not installable."
       ],
       "sourceProvenance": [
-        "sources/vercel-find-skills.md",
         "sources/everything-claude-code.md",
         "sources/ruflo.md",
-        "sources/superpowers.md",
-        "sources/vercel-agent-skills.md"
+        "sources/superpowers.md"
       ],
-      "licenseStatus": "Vercel find-skills had repository-level license uncertainty; use discovery patterns only. Everything Claude Code source record reports MIT but high config/hook/MCP mutation risk; use governance patterns only. RuFlo source record reports MIT but high daemon/runtime risk; use static governance patterns only. Superpowers source record reports MIT; Superpowers remains external and must not be duplicated. Vercel Agent Skills README claims MIT, but root license/API metadata did not align during scouting; keep license-caveated.",
+      "licenseStatus": "Everything Claude Code source record reports MIT but high config/hook/MCP mutation risk; use governance patterns only. RuFlo source record reports MIT but high daemon/runtime risk; use static governance patterns only. Superpowers source record reports MIT; Superpowers remains external and must not be duplicated.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -1069,10 +1064,9 @@
       ],
       "sourceProvenance": [
         "sources/addy-osmani-agent-skills.md",
-        "sources/anthropic-skills.md",
-        "sources/vercel-agent-skills.md"
+        "sources/anthropic-skills.md"
       ],
-      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only. Vercel Agent Skills README claims MIT, but root license/API metadata did not align during scouting; keep license-caveated.",
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -1139,10 +1133,9 @@
       ],
       "sourceProvenance": [
         "sources/anthropic-skills.md",
-        "sources/vercel-agent-skills.md",
         "sources/bencium-marketplace.md"
       ],
-      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Vercel Agent Skills README claims MIT, but root license/API metadata did not align during scouting; keep license-caveated. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -1205,10 +1198,9 @@
         "Check interaction timing, reduced-motion behavior, and visual stability during state changes."
       ],
       "sourceProvenance": [
-        "sources/anthropic-skills.md",
-        "sources/vercel-agent-skills.md"
+        "sources/anthropic-skills.md"
       ],
-      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Vercel Agent Skills README claims MIT, but root license/API metadata did not align during scouting; keep license-caveated.",
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -1274,10 +1266,9 @@
         "Capture or inspect representative mobile and desktop views."
       ],
       "sourceProvenance": [
-        "sources/anthropic-skills.md",
-        "sources/vercel-agent-skills.md"
+        "sources/anthropic-skills.md"
       ],
-      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Vercel Agent Skills README claims MIT, but root license/API metadata did not align during scouting; keep license-caveated.",
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -1312,11 +1303,10 @@
       ],
       "sourceProvenance": [
         "sources/addy-osmani-agent-skills.md",
-        "sources/vercel-agent-skills.md",
         "sources/playwright.md",
         "sources/addyosmani-web-quality-skills.md"
       ],
-      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Vercel Agent Skills README claims MIT, but root license/API metadata did not align during scouting; keep license-caveated. Playwright source record reports Apache-2.0; no framework source or docs text copied. Addy Osmani Web Quality source record reports MIT; no raw skill bodies copied.",
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Playwright source record reports Apache-2.0; no framework source or docs text copied. Addy Osmani Web Quality source record reports MIT; no raw skill bodies copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",

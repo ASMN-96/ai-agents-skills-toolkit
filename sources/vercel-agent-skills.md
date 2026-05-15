@@ -3,12 +3,13 @@
 - URL: https://github.com/vercel-labs/agent-skills
 - Owner / publisher: Vercel Labs.
 - Source type: Web/frontend agent skills repository with React, deployment, design, and Vercel-oriented skill packages.
+- Source authority level: Historical/reference-only. Not active authority for toolkit methods or runtime.
 - Retrieval date: 2026-05-08.
 - Pinned repo ref checked: `b9c8ee0643d87d3c5a953d1e22382ff2ead39229` on `main`, committed 2026-05-05.
 - Visible adoption signals: about 26.3k GitHub stars, 2.4k forks, and visible React/web-design/deployment skill folders.
 - Trust level: Medium-high source trust, high install/package risk.
 - License status: README claims MIT. GitHub API did not expose a root license, and no root SPDX `LICENSE` file was found through the contents API during this pass.
-- Recommendation: Candidate for future normalized frontend/web-quality method extraction after separate approval. Do not unzip packages, install skills, copy raw skill bodies, or run Vercel-specific commands.
+- Recommendation: Historical/reference-only. Candidate for future normalized frontend/web-quality method extraction after separate approval. Do not unzip packages, install skills, copy raw skill bodies, or run Vercel-specific commands.
 
 ## Purpose
 

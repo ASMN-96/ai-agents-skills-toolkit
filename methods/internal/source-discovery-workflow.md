@@ -38,6 +38,6 @@ Blind installation, popularity-based trust, treating discovery directories as au
 
 ## Source Inspiration / License Status
 
-Inspired by reviewed source records for skills.sh, Vercel find-skills, and Anthropic Skills. These sources are used as discovery-pattern inspiration only; license status varies by source and does not authorize raw skill copying.
+Inspired by reviewed source records for skills.sh and Anthropic Skills plus local Skill Scout governance. These sources are used as discovery-pattern inspiration only; license status varies by source and does not authorize raw skill copying.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

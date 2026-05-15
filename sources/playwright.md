@@ -5,7 +5,7 @@
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
 - Retrieval date: 2026-05-15.
-- Pinned repo ref checked: `e67f2a3f9ba0251eff1f83dc14251429cfc772d5` on `main`, committed 2026-05-15.
+- Pinned repo ref checked: `409d6d0d9bfeb03f55321ca61582219a8395fb76` on `main`, committed 2026-05-15.
 - Visible adoption signals: about 88.3k GitHub stars, 5.6k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.

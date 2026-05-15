@@ -38,6 +38,6 @@ Generic aesthetics, inaccessible controls, untested responsive states, or visual
 
 ## Source Inspiration / License Status
 
-Inspired by Anthropic frontend-design, Addy frontend UI engineering, Vercel web-design guidelines, and Bencium design audit ideas.
+Inspired by Addy frontend UI engineering, Bencium design audit ideas, and local UI/UX governance.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

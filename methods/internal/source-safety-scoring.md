@@ -46,6 +46,6 @@ Letting high stars override safety findings, missing license uncertainty, ignori
 
 ## Source Inspiration / License Status
 
-Inspired by Skill Scout rules and reviewed records for Vercel find-skills, Everything Claude Code, RuFlo, Superpowers, and Vercel Agent Skills. Vercel find-skills had repository-level license uncertainty, and Vercel Agent Skills had a README MIT claim without matching root license/API metadata during source scouting, so both remain caveated references only. These sources are used for normalized safety scoring only. Superpowers and Codex/Vercel plugin behavior remain external and must not be duplicated.
+Inspired by Skill Scout rules and reviewed records for Everything Claude Code, RuFlo, and Superpowers. These sources are used for normalized safety scoring only. Superpowers and external plugin behavior remain external and must not be duplicated.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

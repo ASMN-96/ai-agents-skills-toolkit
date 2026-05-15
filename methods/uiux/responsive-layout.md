@@ -33,6 +33,6 @@ Overlapping text, clipped buttons, horizontal scroll, or controls resizing on ho
 
 ## Source Inspiration / License Status
 
-Inspired by Anthropic frontend-design, Vercel web-design guidelines, and toolkit frontend rules.
+Inspired by toolkit frontend rules and local UI/UX governance.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

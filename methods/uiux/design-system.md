@@ -33,6 +33,6 @@ Token sprawl, nested cards, arbitrary palettes, or design rules that cannot be i
 
 ## Source Inspiration / License Status
 
-Inspired by Anthropic theme and frontend design patterns, Vercel web design guidance, and Bencium design audit ideas.
+Inspired by Bencium design audit ideas and local UI/UX governance.
 
 This is normalized/paraphrased guidance, not raw upstream activation.
