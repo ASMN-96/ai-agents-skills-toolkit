@@ -287,8 +287,7 @@
       "registrySurface": "user-facing",
       "visibility": [
         "repo",
-        "project-sync",
-        "global"
+        "project-sync"
       ]
     }
   ]
