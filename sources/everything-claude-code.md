@@ -3,8 +3,8 @@
 - URL: https://github.com/affaan-m/everything-claude-code
 - Owner / publisher: affaan-m.
 - Source type: Cross-harness Claude Code ecosystem repository with skills, agents, commands, hooks, manifests, MCP config, plugins, rules, and install scripts.
-- Retrieval date: 2026-05-08.
-- Pinned repo ref checked: `841beea45cb25ba51f29fa45b7e272938d19b80a` on `main`, committed 2026-04-30.
+- Retrieval date: 2026-05-15.
+- Pinned repo ref checked: `5b617787d87482c205c2dc1eae3b525ac08890bd` on `main`, committed 2026-05-15.
 - Visible adoption signals: about 175.8k GitHub stars, 27.2k forks, and large multi-harness surface area.
 - Trust level: Medium source trust, very high execution/config-mutation risk.
 - License status: GitHub API reports MIT.

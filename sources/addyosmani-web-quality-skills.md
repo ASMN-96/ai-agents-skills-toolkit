@@ -3,8 +3,8 @@
 - URL: https://github.com/addyosmani/web-quality-skills
 - Owner / publisher: Addy Osmani.
 - Source type: Unofficial Agent Skills collection for web quality, Lighthouse-style auditing, Core Web Vitals, accessibility, SEO, and best-practices review.
-- Retrieval date: 2026-05-08.
-- Pinned repo ref checked: `eca4d5bfa0a43db65498d12f19ea2268b77ad5e2` on `main`, committed 2026-05-07.
+- Retrieval date: 2026-05-15.
+- Pinned repo ref checked: `7b59d48aaf1f793935002f4998dfccc656f40839` on `main`, committed 2026-05-15.
 - Visible adoption signals: about 1.9k GitHub stars, 165 forks, active updates on 2026-05-07, and six visible skill folders.
 - Trust level: Medium-high author trust, medium-high execution and raw-skill-copying risk.
 - License status: GitHub API reports MIT.
