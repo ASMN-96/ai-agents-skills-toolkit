@@ -1,6 +1,7 @@
 # Skills
 
 This directory is reserved for reviewed skill metadata and toolkit-managed skill notes.
+Skill artifacts are file-backed markdown records in `skills/<name>/SKILL.md`.
 
 Raw external skills must not become active automatically. Treat all skills as supply-chain artifacts requiring source evaluation, approval, and intentional activation or compilation.
 

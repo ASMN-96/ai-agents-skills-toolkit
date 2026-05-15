@@ -11,14 +11,14 @@ Registries are machine-readable indexes of reviewed toolkit assets, planned asse
 - `registries/tools.registry.json`
 - `registries/routing-matrix.json`
 
-## Status Values
+## Registry State Fields
 
-Use explicit status arrays where more than one state applies:
+Tool status remains an array so multiple states can be represented explicitly when applicable.
 
 - `documented`
 - `available`
-- `native-visible`
-- `compiled-fallback`
+- `native-visible` (agents/skills only)
+- `compiled-fallback` (agents/skills only)
 - `draft`
 - `approved`
 - `active`
@@ -26,6 +26,55 @@ Use explicit status arrays where more than one state applies:
 Do not infer `active` from `available`. Runtime visibility must be checked separately.
 
 Method registry entries must not use `active`, `native-visible`, or `compiled-fallback`. Methods are passive reference material, so their normal reviewed state is `documented`, `available`, and optionally `approved`.
+
+## Source Provenance Contract
+
+`sourceProvenance` is a machine-readable list used by registries to separate provenance from authority.
+
+- Must be an array of objects with `path` and `category`.
+- Allowed categories:
+  - `internal-artifact`
+  - `external-source`
+  - `historical-reference`
+  - `restricted-source`
+  - `local-vd-authored`
+
+Interpretation:
+
+- `internal-artifact` : toolkit-owned repo paths used as internal design/ops evidence.
+- `external-source` : active authority source records for external, non-restricted inputs.
+- `historical-reference` : caution/reference-only sources that are not active authority.
+- `restricted-source` : sources that should not provide method/skill authority by default.
+- `local-vd-authored` : local toolkit authorship context for internal process metadata.
+
+Rules:
+
+- External GitHub sources with active authority must also have a corresponding source-watchlist record.
+- Non-GitHub manual-source records are allowed as explicit `sourceRecordPath`-class entries or explicit restricted/historical source references, and should remain explicitly categorized.
+- Historical/restricted sources must not be interpreted as activation authority.
+
+## Cross-Registry Metadata Fields
+
+If the schema allows it, the following visibility and provenance fields are expected:
+
+- `visibility`: machine-readable artifact visibility.
+  - `repo`, `global`, `project-sync`, `internal-only`.
+- `registrySurface`:
+  - `user-facing`
+  - `internal-helper`
+  - `compiled-fallback`
+  - `passive-reference`
+  - `historical-reference`
+- `activationStatus`: machine-readable activation state for this artifact category.
+  - `documented`, `available`, `approved`, `active`, `native-visible`, `compiled-fallback`.
+- `provenanceType`:
+  - `external-source`
+  - `internal-artifact`
+  - `historical-reference`
+  - `restricted-source`
+  - `local-vd-authored`
+
+Presence does not imply runtime activation.
 
 ## Agent Entries
 
@@ -48,6 +97,10 @@ Each agent entry must include:
 - `riskDomains`
 - `sourceProvenance`
 - `status`
+- `provenanceType`
+- `activationStatus`
+- `registrySurface`
+- `visibility`
 
 ## Skill Entries
 
@@ -68,6 +121,10 @@ Each skill entry must include:
 - `sourceProvenance`
 - `skillPath`
 - `status`
+- `provenanceType`
+- `activationStatus`
+- `registrySurface`
+- `visibility`
 
 ## Method Entries
 
@@ -88,6 +145,10 @@ Each method entry must include:
 - `licenseStatus`
 - `rawCopyPolicy`
 - `status`
+- `provenanceType`
+- `activationStatus`
+- `registrySurface`
+- `visibility`
 
 Method entries are metadata only. They must not define trigger cases, required tools, runtime visibility, install behavior, activation behavior, or hidden routing. `riss-governance` may cite method IDs as passive reference inputs, but methods are never selected as skills, plugins, tools, agents, or active runtime capabilities.
 

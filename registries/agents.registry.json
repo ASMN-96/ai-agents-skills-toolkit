@@ -60,14 +60,33 @@
         "product-quality"
       ],
       "sourceProvenance": [
-        "agents/product-agent.md",
-        "compiled-agents/product-agent.compiled.md"
+        {
+          "path": "agents/product-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/product-agent.compiled.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     },
     {
@@ -121,14 +140,33 @@
         "migration"
       ],
       "sourceProvenance": [
-        "agents/architect-agent.md",
-        "compiled-agents/architect-agent.compiled.md"
+        {
+          "path": "agents/architect-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/architect-agent.compiled.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     },
     {
@@ -182,14 +220,33 @@
         "runtime-ui"
       ],
       "sourceProvenance": [
-        "agents/frontend-agent.md",
-        "compiled-agents/frontend-agent.compiled.md"
+        {
+          "path": "agents/frontend-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/frontend-agent.compiled.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     },
     {
@@ -242,14 +299,33 @@
         "design-system"
       ],
       "sourceProvenance": [
-        "agents/uiux-agent.md",
-        "compiled-agents/uiux-agent.compiled.md"
+        {
+          "path": "agents/uiux-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/uiux-agent.compiled.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     },
     {
@@ -302,14 +378,33 @@
         "backend"
       ],
       "sourceProvenance": [
-        "agents/backend-contract-agent.md",
-        "compiled-agents/backend-contract-agent.compiled.md"
+        {
+          "path": "agents/backend-contract-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/backend-contract-agent.compiled.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     },
     {
@@ -363,14 +458,33 @@
         "data-isolation"
       ],
       "sourceProvenance": [
-        "agents/database-rls-agent.md",
-        "compiled-agents/database-rls-agent.compiled.md"
+        {
+          "path": "agents/database-rls-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/database-rls-agent.compiled.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     },
     {
@@ -423,14 +537,33 @@
         "supply-chain"
       ],
       "sourceProvenance": [
-        "agents/security-agent.md",
-        "compiled-agents/security-agent.compiled.md"
+        {
+          "path": "agents/security-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/security-agent.compiled.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     },
     {
@@ -484,14 +617,33 @@
         "runtime-verification"
       ],
       "sourceProvenance": [
-        "agents/qa-test-agent.md",
-        "compiled-agents/qa-test-agent.compiled.md"
+        {
+          "path": "agents/qa-test-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/qa-test-agent.compiled.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     },
     {
@@ -546,15 +698,37 @@
         "merge-safety"
       ],
       "sourceProvenance": [
-        "agents/reviewer-agent.md",
-        "compiled-agents/reviewer-agent.compiled.md",
-        "skills/riss-governance/SKILL.md"
+        {
+          "path": "agents/reviewer-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/reviewer-agent.compiled.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "skills/riss-governance/SKILL.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     },
     {
@@ -607,14 +781,33 @@
         "ci"
       ],
       "sourceProvenance": [
-        "agents/release-manager-agent.md",
-        "compiled-agents/release-manager-agent.compiled.md"
+        {
+          "path": "agents/release-manager-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/release-manager-agent.compiled.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     },
     {
@@ -667,14 +860,33 @@
         "observability"
       ],
       "sourceProvenance": [
-        "agents/sre-performance-agent.md",
-        "compiled-agents/sre-performance-agent.compiled.md"
+        {
+          "path": "agents/sre-performance-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/sre-performance-agent.compiled.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     },
     {
@@ -729,14 +941,33 @@
         "license"
       ],
       "sourceProvenance": [
-        "agents/skill-scout-agent.md",
-        "compiled-agents/skill-scout-agent.compiled.md"
+        {
+          "path": "agents/skill-scout-agent.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "compiled-agents/skill-scout-agent.compiled.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "compiled-fallback",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "compiled-fallback",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "global",
+        "project-sync"
       ]
     }
   ]

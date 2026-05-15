@@ -19,3 +19,11 @@ External sources are reviewed references until approved.
 - Ignored.
 - Quarantined.
 - Install later after approval.
+
+## Source Reference Classification
+
+- `external-source`: reviewed external sources with standard authority posture and tracked in `sources/source-watchlist.json` for freshness.
+- `historical-reference`: sources kept for context and comparison but not active authority.
+- `restricted-source`: sources that are read-only/reference-only until explicit governance review clears scope and restrictions.
+- `internal-artifact`: local or internal toolkit-owned process artifacts.
+- `local-vd-authored`: normal local authorship context for internal process metadata.
