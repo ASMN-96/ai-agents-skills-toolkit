@@ -4,8 +4,8 @@
 - Related docs: https://ui.shadcn.com/docs
 - Owner / publisher: shadcn-ui.
 - Source type: Open component code, registry, documentation, CLI, and AI-oriented UI composition source.
-- Retrieval date: 2026-05-08.
-- Pinned repo ref checked: `fc1ca40af4053770c58306a35978537af9dffabb` on `main`, committed 2026-05-08.
+- Retrieval date: 2026-05-15.
+- Pinned repo ref checked: `36139f6200d9c2684ef7695fce5f3d9787378e26` on `main`, committed 2026-05-15.
 - Visible adoption signals: about 113.8k GitHub stars, 8.7k forks, active repository updates on 2026-05-08, and official docs at `ui.shadcn.com`.
 - Trust level: High UI ecosystem trust, medium-high execution risk if CLI or registry behavior is followed blindly.
 - License status: GitHub API reports MIT.
