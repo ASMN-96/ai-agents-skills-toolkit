@@ -33,7 +33,12 @@ Phase 10A/10B adds a governance spine and registry contract. Registries are meta
 
 Phase 10F adds a passive method registry and optional routing `methodReferences`. Method references explain which reviewed methods can inform a route; they are not skills, tools, agents, support-tool requirements, install approval, or runtime activation.
 
-Phase 10O adds read-only/report-only source freshness monitoring for tracked GitHub sources. It detects upstream change signals and may generate a local Markdown report, but it does not approve source import, install or activate external skills, extract methods, update source records automatically, change global configuration, or modify product repositories.
+Phase 10O adds read-only/report-only source freshness monitoring for tracked GitHub sources. It detects upstream change signals and may generate a local Markdown report, but it does not approve source import, install or activate external skills, extract methods, update source records automatically, change global configuration, or modify product repositories. This behavior is governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.md`.
+
+Freshness and extraction are separated by timeline:
+- `last checked` = monitored signal only (freshness script/report),
+- `last reviewed` = human Skill Scout review,
+- `last extracted` = signed toolkit method/skill update through PR.
 
 ## Compilation Inputs
 
@@ -91,6 +96,12 @@ This entrypoint is primarily domain-scoped, but it may be used in any repository
 The Phase 10 governance spine keeps `riss-governance` as the normal user-facing entrypoint for primary domains and explicit opt-in serious project threads. It translates plain-language requests into inferred intent, risk level, selected profile, selected agents, selected skills, support tools, validation gates, stop conditions, and token mode.
 
 Method references are supporting metadata for this translation. They help explain why a route should use specific review discipline, but they do not bypass `riss-governance` or become executable capabilities.
+
+Phase 2 separates UI/UX execution from governance routing:
+
+- `riss-governance` remains the router/safety/source-of-truth layer.
+- `vd-premium-uiux` executes UI/UX quality workflow for frontend premium polish, dashboard UX, responsive layout, and visual QA.
+- Governance remains responsible for scope, risk, and stop conditions; UI/UX execution lives in the direct skill.
 
 Internal helper skills support the governance entrypoint:
 
