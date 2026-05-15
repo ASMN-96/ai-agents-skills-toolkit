@@ -9,6 +9,10 @@ No external skills have been installed or activated by this toolkit.
 ## Toolkit-Owned Skills
 
 - `riss-governance`: RISS-specific governance/router guidance for source-of-truth checks, narrow agent/tool routing, dependency-chain safety, PR/CI/CodeRabbit discipline, and validation-before-completion.
+- `vd-premium-uiux`: Direct UI/UX execution skill for premium frontend visual quality, dashboard UX, responsive layouts, accessibility checks, visual QA, browser/screenshot validation, and real-estate SaaS interface polish.
+
+`riss-governance` remains the routing/safety and source-of-truth governance layer.
+`vd-premium-uiux` executes the UI/UX workflow once governance routes a qualifying frontend quality task.
 
 ## Internal Helper Skills
 

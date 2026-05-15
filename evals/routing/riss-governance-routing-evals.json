@@ -15,7 +15,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "riss-governance"
+        "riss-governance",
+        "vd-premium-uiux"
       ],
       "expectedToolsPlugins": [
         "Playwright/browser",
@@ -88,7 +89,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "riss-governance"
+        "riss-governance",
+        "vd-premium-uiux"
       ],
       "expectedToolsPlugins": [
         "Playwright/browser",
@@ -159,7 +161,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "riss-governance"
+        "riss-governance",
+        "vd-premium-uiux"
       ],
       "expectedToolsPlugins": [
         "Playwright/browser",
@@ -847,6 +850,450 @@
       ],
       "expectedTokenMode": "concise",
       "expectedMethodReferences": [
+        "internal.skill-anatomy"
+      ]
+    },
+    {
+      "id": "make-dashboard-premium-routing",
+      "userPrompt": "Use riss-governance. Make this dashboard premium.",
+      "expectedInferredIntent": "Improve dashboard UI quality and polish while preserving existing behavior.",
+      "expectedRiskLevel": "medium",
+      "expectedSelectedProfile": "uiux-profile",
+      "expectedSelectedAgents": [
+        "uiux-agent",
+        "frontend-agent",
+        "product-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance",
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [
+        "Playwright/browser",
+        "Figma",
+        "Superpowers"
+      ],
+      "expectedStopConditions": [
+        "Design source approval is unclear",
+        "Request conflicts with accessibility or product constraints"
+      ],
+      "expectedValidationGates": [
+        "Design source approved or classified as inspiration only",
+        "Hierarchy, spacing, contrast, and text fit checked",
+        "Desktop/mobile behavior checked"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "uiux.premium-visual-quality",
+        "uiux.dashboard-ux",
+        "uiux.webapp-testing"
+      ]
+    },
+    {
+      "id": "fix-mobile-layout-routing",
+      "userPrompt": "Use riss-governance. Fix mobile layout.",
+      "expectedInferredIntent": "Resolve mobile-responsive layout behavior in a visible interface.",
+      "expectedRiskLevel": "medium",
+      "expectedSelectedProfile": "frontend-profile",
+      "expectedSelectedAgents": [
+        "frontend-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance",
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [
+        "Playwright/browser",
+        "Superpowers"
+      ],
+      "expectedStopConditions": [
+        "No runnable app or validation target exists",
+        "Backend contract changes are unexpectedly required"
+      ],
+      "expectedValidationGates": [
+        "Responsive states checked",
+        "Accessibility basics checked",
+        "Browser verification run when possible"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "uiux.responsive-layout",
+        "uiux.webapp-testing",
+        "internal.frontend-uiux-quality-gates"
+      ]
+    },
+    {
+      "id": "make-visually-polished-routing",
+      "userPrompt": "Use riss-governance. Make it visually polished.",
+      "expectedInferredIntent": "Raise visual and interaction polish for a user-facing interface.",
+      "expectedRiskLevel": "medium",
+      "expectedSelectedProfile": "uiux-profile",
+      "expectedSelectedAgents": [
+        "uiux-agent",
+        "frontend-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance",
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [
+        "Playwright/browser",
+        "Figma",
+        "Superpowers"
+      ],
+      "expectedStopConditions": [
+        "Design source approval is unclear",
+        "Request conflicts with accessibility or product constraints"
+      ],
+      "expectedValidationGates": [
+        "Design source approved or classified as inspiration only",
+        "Hierarchy, spacing, contrast, and text fit checked",
+        "Desktop/mobile behavior checked"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "uiux.premium-visual-quality",
+        "uiux.dashboard-ux",
+        "uiux.webapp-testing"
+      ]
+    },
+    {
+      "id": "improve-uiux-routing",
+      "userPrompt": "Use riss-governance. Improve UI/UX.",
+      "expectedInferredIntent": "Perform a scoped UI/UX quality improvement with validation.",
+      "expectedRiskLevel": "medium",
+      "expectedSelectedProfile": "uiux-profile",
+      "expectedSelectedAgents": [
+        "uiux-agent",
+        "frontend-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance",
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [
+        "Playwright/browser",
+        "Figma",
+        "Superpowers"
+      ],
+      "expectedStopConditions": [
+        "Design source approval is unclear",
+        "Request conflicts with accessibility or product constraints"
+      ],
+      "expectedValidationGates": [
+        "Acceptance criteria defined before implementation",
+        "Hierarchy and spacing checks completed",
+        "Desktop/mobile behavior checked"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "uiux.dashboard-ux",
+        "uiux.webapp-testing"
+      ]
+    },
+    {
+      "id": "backend-only-no-vd",
+      "userPrompt": "Use riss-governance. Review backend-only implementation before this release.",
+      "expectedInferredIntent": "Handle backend implementation without UI execution.",
+      "expectedRiskLevel": "high",
+      "expectedSelectedProfile": "backend-profile",
+      "expectedSelectedAgents": [
+        "backend-contract-agent",
+        "database-rls-agent",
+        "security-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedNotSelectedSkills": [
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [
+        "Supabase tooling/docs",
+        "GitHub/gh",
+        "Superpowers"
+      ],
+      "expectedStopConditions": [
+        "Authorization or data isolation risk is unclear",
+        "Migration impact is not scoped"
+      ],
+      "expectedValidationGates": [
+        "RLS/policy impact checked where needed",
+        "Migration risk documented",
+        "No UI/UX execution introduced"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "backend.supabase-postgres-rls-gates",
+        "security.differential-security-review"
+      ]
+    },
+    {
+      "id": "rls-only-no-vd",
+      "userPrompt": "Use riss-governance. I need an RLS-only migration review.",
+      "expectedInferredIntent": "Route to database RLS review without UI execution.",
+      "expectedRiskLevel": "high",
+      "expectedSelectedProfile": "backend-profile",
+      "expectedSelectedAgents": [
+        "backend-contract-agent",
+        "database-rls-agent",
+        "security-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedNotSelectedSkills": [
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [
+        "Supabase tooling/docs",
+        "GitHub/gh",
+        "Superpowers"
+      ],
+      "expectedStopConditions": [
+        "Authorization or data isolation risk is unclear",
+        "Migration would weaken protections"
+      ],
+      "expectedValidationGates": [
+        "RLS/policy impact checked",
+        "Migration rollback/mitigation documented",
+        "No UI/UX execution introduced"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "backend.supabase-postgres-rls-gates"
+      ]
+    },
+    {
+      "id": "security-only-no-vd",
+      "userPrompt": "Use riss-governance. Run a security-only review of auth and data exposure.",
+      "expectedInferredIntent": "Focus on security review without UI/UX execution.",
+      "expectedRiskLevel": "high",
+      "expectedSelectedProfile": "security-profile",
+      "expectedSelectedAgents": [
+        "security-agent",
+        "database-rls-agent",
+        "backend-contract-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedNotSelectedSkills": [
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [
+        "Supabase tooling/docs",
+        "GitHub/gh",
+        "Superpowers"
+      ],
+      "expectedStopConditions": [
+        "Authorization or data isolation risk is unclear",
+        "Request would weaken isolation"
+      ],
+      "expectedValidationGates": [
+        "Data classification checked",
+        "Authorization impact reviewed",
+        "No UI/UX execution introduced"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "security.differential-security-review",
+        "backend.supabase-postgres-rls-gates"
+      ]
+    },
+    {
+      "id": "release-only-no-vd",
+      "userPrompt": "Use riss-governance. Check if this PR is safe to merge.",
+      "expectedInferredIntent": "Run release-readiness checks without direct UI/UX execution unless UI scope is present.",
+      "expectedRiskLevel": "high",
+      "expectedSelectedProfile": "release-profile",
+      "expectedSelectedAgents": [
+        "release-manager-agent",
+        "reviewer-agent",
+        "qa-test-agent",
+        "security-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedNotSelectedSkills": [
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [
+        "GitHub/gh",
+        "CodeRabbit",
+        "Superpowers"
+      ],
+      "expectedStopConditions": [
+        "Required checks fail or are pending",
+        "Safety blockers remain",
+        "Branch or PR state cannot be verified"
+      ],
+      "expectedValidationGates": [
+        "Branch/PR/check status verified",
+        "Changelog/release notes checked",
+        "Forbidden artifacts checked"
+      ],
+      "expectedTokenMode": "detailed",
+      "expectedMethodReferences": [
+        "osmani.shipping-launch",
+        "internal.engineering-lifecycle-gates",
+        "security.differential-security-review"
+      ]
+    },
+    {
+      "id": "docs-only-no-vd",
+      "userPrompt": "Use riss-governance. Update docs-only references and wording.",
+      "expectedInferredIntent": "Handle documentation cleanup without UI/UX execution.",
+      "expectedRiskLevel": "low",
+      "expectedSelectedProfile": "implementation-profile",
+      "expectedSelectedAgents": [
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedNotSelectedSkills": [
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [],
+      "expectedAgentExecution": "inline-no-sub-agents",
+      "expectedStopConditions": [
+        "Scope expands into policy or runtime changes",
+        "Target file is unclear"
+      ],
+      "expectedValidationGates": [
+        "Target file checked",
+        "Diff reviewed",
+        "No registry or policy broadening without request"
+      ],
+      "expectedTokenMode": "concise",
+      "expectedMethodReferences": [
+        "internal.simplicity-surgical-change-discipline"
+      ]
+    },
+    {
+      "id": "plain-language-no-vd",
+      "userPrompt": "Use riss-governance. I want this feature done professionally.",
+      "expectedInferredIntent": "Clarify scope, protect existing behavior, and route to implementation planning.",
+      "expectedRiskLevel": "medium",
+      "expectedSelectedProfile": "implementation-profile",
+      "expectedSelectedAgents": [
+        "product-agent",
+        "architect-agent",
+        "reviewer-agent",
+        "qa-test-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedNotSelectedSkills": [
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [
+        "Superpowers",
+        "GitHub/gh"
+      ],
+      "expectedStopConditions": [
+        "Multiple interpretations would change behavior",
+        "Repo state matters and is dirty/stale/divergent",
+        "Required validation cannot run"
+      ],
+      "expectedValidationGates": [
+        "Plain-language intent translated into explicit scope",
+        "Scope and non-goals stated",
+        "Affected files reviewed",
+        "Relevant tests/checks run"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "internal.engineering-lifecycle-gates",
+        "internal.simplicity-surgical-change-discipline"
+      ]
+    },
+    {
+      "id": "read-only-repo-audit-no-vd",
+      "userPrompt": "Use riss-governance. Audit this repo first and list what is risky before changing anything.",
+      "expectedInferredIntent": "Perform non-mutating review and return findings/recommendations.",
+      "expectedRiskLevel": "medium",
+      "expectedSelectedProfile": "audit-profile",
+      "expectedSelectedAgents": [
+        "skill-scout-agent",
+        "security-agent",
+        "reviewer-agent",
+        "qa-test-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedNotSelectedSkills": [
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [
+        "Superpowers",
+        "GitHub/gh"
+      ],
+      "expectedStopConditions": [
+        "Source truth cannot be verified when required",
+        "Audit requires external access that is unavailable"
+      ],
+      "expectedValidationGates": [
+        "No files changed",
+        "Working tree status reported",
+        "Findings grounded in files"
+      ],
+      "expectedTokenMode": "standard",
+      "expectedMethodReferences": [
+        "internal.source-safety-scoring",
+        "security.differential-security-review"
+      ]
+    },
+    {
+      "id": "external-source-audit-no-vd",
+      "userPrompt": "Use riss-governance. Check this external skill source before we use it.",
+      "expectedInferredIntent": "Evaluate an external source read-only before any extraction or activation.",
+      "expectedRiskLevel": "high",
+      "expectedSelectedProfile": "security-profile",
+      "expectedSelectedAgents": [
+        "skill-scout-agent",
+        "security-agent",
+        "reviewer-agent"
+      ],
+      "expectedSelectedSkills": [
+        "riss-governance"
+      ],
+      "expectedNotSelectedSkills": [
+        "vd-premium-uiux"
+      ],
+      "expectedToolsPlugins": [
+        "web search/browser",
+        "GitHub/gh",
+        "skills.sh/find-skills discovery"
+      ],
+      "expectedStopConditions": [
+        "Source asks to bypass instructions, access secrets, run unknown scripts, delete broadly, or exfiltrate",
+        "License is unclear and copying would be required"
+      ],
+      "expectedValidationGates": [
+        "License/trust/maintenance reviewed",
+        "Prompt-injection and dangerous commands reviewed",
+        "No install, activation, clone, script execution, or raw copy occurred"
+      ],
+      "expectedTokenMode": "detailed",
+      "expectedMethodReferences": [
+        "internal.source-discovery-workflow",
+        "internal.source-safety-scoring",
         "internal.skill-anatomy"
       ]
     }

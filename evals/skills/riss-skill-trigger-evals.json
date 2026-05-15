@@ -121,6 +121,162 @@
         "riss-skill-governance"
       ],
       "expectedReason": "An internal helper may be used when an extra skill or checklist materially improves context, safety, validation, or quality."
+    },
+    {
+      "id": "vd-premium-uiux-dashboard-premium",
+      "userPrompt": "Use riss-governance. Make this dashboard premium.",
+      "expectedTriggeredSkills": [
+        "riss-governance",
+        "vd-premium-uiux"
+      ],
+      "expectedNotTriggeredSkills": [
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Premium dashboard quality is a direct UI/UX execution request handled by vd-premium-uiux, while riss-governance remains the entrypoint."
+    },
+    {
+      "id": "vd-premium-uiux-fix-mobile-layout",
+      "userPrompt": "Use riss-governance. Fix mobile layout.",
+      "expectedTriggeredSkills": [
+        "riss-governance",
+        "vd-premium-uiux"
+      ],
+      "expectedNotTriggeredSkills": [
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Responsive UI work is direct scope for vd-premium-uiux under riss-governance routing."
+    },
+    {
+      "id": "vd-premium-uiux-visual-polish",
+      "userPrompt": "Use riss-governance. Make it visually polished.",
+      "expectedTriggeredSkills": [
+        "riss-governance",
+        "vd-premium-uiux"
+      ],
+      "expectedNotTriggeredSkills": [
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Visual polish is direct UI/UX execution and should trigger the dedicated vd-premium-uiux skill."
+    },
+    {
+      "id": "vd-premium-uiux-improve-uiux",
+      "userPrompt": "Use riss-governance. Improve UI/UX.",
+      "expectedTriggeredSkills": [
+        "riss-governance",
+        "vd-premium-uiux"
+      ],
+      "expectedNotTriggeredSkills": [
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "General UI/UX improvement should map to the dedicated UI/UX execution skill for frontend-visible quality."
+    },
+    {
+      "id": "vd-premium-uiux-negative-backend-only",
+      "userPrompt": "Use riss-governance. Review backend-only SQL optimization.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "vd-premium-uiux",
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Backend-only work should route through governance but not the UI/UX execution skill."
+    },
+    {
+      "id": "vd-premium-uiux-negative-rls-only",
+      "userPrompt": "Use riss-governance. Do an RLS-only migration.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "vd-premium-uiux",
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "RLS-only scope is governed through backend/release channels, not direct UI/UX execution."
+    },
+    {
+      "id": "vd-premium-uiux-negative-security-only",
+      "userPrompt": "Use riss-governance. Perform a security-only audit of token handling.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "vd-premium-uiux",
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Security-only tasks remain governance-driven and do not require the UI/UX execution skill."
+    },
+    {
+      "id": "vd-premium-uiux-negative-release-only",
+      "userPrompt": "Use riss-governance. Check if this PR is safe to merge.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "vd-premium-uiux",
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Release-readiness routing does not auto-select UI/UX execution unless UI behavior is in scope."
+    },
+    {
+      "id": "vd-premium-uiux-negative-docs-only",
+      "userPrompt": "Use riss-governance. Update docs wording only.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "vd-premium-uiux",
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Docs-only updates should not trigger the direct UI/UX execution skill."
+    },
+    {
+      "id": "vd-premium-uiux-negative-plain-language",
+      "userPrompt": "Use riss-governance. I want this feature done professionally.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "vd-premium-uiux",
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Professional, non-technical request language is clarification/scoping, not a direct UI/UX execution request."
+    },
+    {
+      "id": "vd-premium-uiux-negative-read-only-audit",
+      "userPrompt": "Use riss-governance. Audit this repo first before changing anything.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "vd-premium-uiux",
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "Read-only repo audits should go through governance/audit paths, not UI/UX execution."
+    },
+    {
+      "id": "vd-premium-uiux-negative-external-source",
+      "userPrompt": "Use riss-governance. Evaluate external skill source safety before extraction.",
+      "expectedTriggeredSkills": [
+        "riss-governance"
+      ],
+      "expectedNotTriggeredSkills": [
+        "vd-premium-uiux",
+        "riss-agent-governance",
+        "riss-skill-governance"
+      ],
+      "expectedReason": "External source safety audits should remain in governance/safety workflows without direct UI/UX execution."
     }
   ]
 }

@@ -317,7 +317,7 @@ function nextStepFor(status) {
   }
 }
 
-async function buildResults(watchlist, useMock) {
+async function buildResults(watchlist, useMock, checkedAt) {
   const results = [];
   for (let index = 0; index < watchlist.sources.length; index += 1) {
     const source = watchlist.sources[index];
@@ -328,6 +328,7 @@ async function buildResults(watchlist, useMock) {
     results.push({
       ...source,
       ...inspection,
+      lastCheckedDate: checkedAt,
       nextStep: nextStepFor(inspection.status)
     });
   }
@@ -338,8 +339,8 @@ function shortSha(sha) {
   return sha ? sha.slice(0, 12) : "n/a";
 }
 
-function renderReport(results, useMock) {
-  const generatedAt = new Date().toISOString();
+function renderReport(results, useMock, checkedAt) {
+  const generatedAt = checkedAt || new Date().toISOString();
   const counts = new Map();
   for (const status of STATUSES) {
     counts.set(status, 0);
@@ -367,19 +368,19 @@ function renderReport(results, useMock) {
     "",
     "## Sources",
     "",
-    "| Source | Repo | Status | Reviewed | Latest | Reviewed date | Latest date | License signal | Next step | Notes |",
-    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+    "| Source | Repo | Status | Reviewed | Checked | Latest | Reviewed date | Latest date | License signal | Next step | Notes |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
   ];
 
   for (const result of results) {
     lines.push(
-      `| ${escapeCell(result.name)} | ${escapeCell(`${result.repoOwner}/${result.repoName}`)} | ${result.status} | ${shortSha(result.lastReviewedCommit)} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
+      `| ${escapeCell(result.name)} | ${escapeCell(`${result.repoOwner}/${result.repoName}`)} | ${result.status} | ${shortSha(result.lastReviewedCommit)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
     );
 
     if (result.watchedPathSignals.length > 0) {
       for (const signal of result.watchedPathSignals) {
         lines.push(
-          `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | ${shortSha(signal.sha)} | n/a | ${escapeCell(signal.date || "n/a")} | path commit signal only | ${escapeCell(result.nextStep)} | watched-path signal only |`
+          `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | ${escapeCell(signal.date || "n/a")} | n/a | path commit signal only | ${escapeCell(result.nextStep)} | watched-path signal only |`
         );
       }
     }
@@ -397,6 +398,8 @@ function renderReport(results, useMock) {
     "",
     "## Caveats",
     "",
+    "- `Last checked` is the freshness scan timestamp and is not persisted back into source records automatically.",
+    "- Freshness signals only select review priority; they do not authorize source-record edits, extraction, activation, installation, or runtime writes.",
     "- License metadata is a signal only, not approval.",
     "- Watched-path changes are signals only, not approval.",
     "- CHECK_FAILED is per source and does not authorize fallback import or activation.",
@@ -421,9 +424,10 @@ async function main() {
     }
 
     const outputPath = resolveOutputPath(args.output);
+    const checkedAt = new Date().toISOString();
     const watchlist = await readWatchlist();
-    const results = await buildResults(watchlist, args.mock);
-    const report = renderReport(results, args.mock);
+    const results = await buildResults(watchlist, args.mock, checkedAt);
+    const report = renderReport(results, args.mock, checkedAt);
 
     if (outputPath) {
       await writeFile(outputPath, report, "utf8");

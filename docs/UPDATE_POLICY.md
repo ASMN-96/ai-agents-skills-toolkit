@@ -23,6 +23,17 @@ Toolkit updates are versioned, reviewed, and intentional.
 
 Compiled agents should document their source toolkit version and any project profile assumptions.
 
+## Source Freshness and Extraction Gate
+
+External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.md`.
+
+- Freshness checks are evidence-only and may only propose re-review.
+- `last checked` is a monitoring signal.
+- `last reviewed` is Skill Scout human review + explicit approval.
+- `last extracted` is a PR-delimited method/skill update in this toolkit.
+- Freshness signals never auto-apply source-record updates, method extraction, or skill creation.
+- Any detected upstream change requires explicit Skill Scout review before extraction or scope expansion.
+
 ## Phase 3 Extraction Rules
 
 - Do not copy full upstream skill files.

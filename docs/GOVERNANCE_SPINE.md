@@ -22,6 +22,12 @@ Explicit opt-in authorizes routing, planning, read-only checks, capability selec
 
 Outside the primary domain, unrelated projects without explicit invocation must not trigger this governance layer from vague quality language alone.
 
+UI/UX separation currently means:
+
+- `riss-governance` routes UI/UX requests and applies governance checks.
+- `vd-premium-uiux` executes premium frontend/UI work when visual behavior is in scope.
+- `riss-governance` keeps a router/safety role and does not become the owner of UI/UX execution content.
+
 ## Internal Helper Skills
 
 Two internal helper skills support the entrypoint:

@@ -145,6 +145,64 @@
         "available",
         "approved"
       ]
+    },
+    {
+      "name": "vd-premium-uiux",
+      "description": "Direct UI/UX execution skill for premium frontend visual quality, dashboard UX, responsive layout, visual QA, screenshots/browser verification, accessibility, and real estate platform UI.",
+      "ownerAgent": "uiux-agent",
+      "secondaryAgents": [
+        "frontend-agent",
+        "qa-test-agent",
+        "reviewer-agent",
+        "product-agent"
+      ],
+      "triggerCases": [
+        "User asks for premium UI polish.",
+        "Dashboard UX improvement request.",
+        "Frontend visual redesign request.",
+        "Mobile/responsive layout fix request.",
+        "Visual QA or screenshot request.",
+        "Accessibility and UI state review request.",
+        "Luxury SaaS / real estate interface quality request."
+      ],
+      "negativeTriggerCases": [
+        "Backend-only work.",
+        "RLS/database-only work.",
+        "Security-only review.",
+        "Release-only review.",
+        "Docs-only change.",
+        "Package/dependency change.",
+        "Unrelated product strategy."
+      ],
+      "priority": "high",
+      "conflicts": [
+        "Must not replace riss-governance for safety/release/backend/security governance.",
+        "Must not install packages.",
+        "Must not claim browser QA passed without rendered evidence.",
+        "Must not copy raw external design/skill content."
+      ],
+      "requiredSupportTools": [],
+      "optionalSupportTools": [
+        "Playwright/browser",
+        "Figma",
+        "Superpowers",
+        "Context7"
+      ],
+      "riskLevel": "medium",
+      "evalStatus": "scaffolded",
+      "sourceProvenance": [
+        "skills/vd-premium-uiux/SKILL.md",
+        ".agents/skills/vd-premium-uiux/SKILL.md",
+        "docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.md",
+        "docs/GOVERNANCE_SPINE.md",
+        "registries/routing-matrix.json"
+      ],
+      "skillPath": "skills/vd-premium-uiux/SKILL.md",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ]
     }
   ]
 }
