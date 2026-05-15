@@ -34,6 +34,6 @@ Clickable divs, hidden focus, icon-only controls without labels, or motion that 
 
 ## Source Inspiration / License Status
 
-Inspired by Addy frontend/accessibility references, Vercel web-design guidelines, and Anthropic frontend-design.
+Inspired by Addy frontend/accessibility references and local UI/UX governance.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

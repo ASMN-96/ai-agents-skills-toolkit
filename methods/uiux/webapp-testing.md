@@ -37,6 +37,6 @@ Assuming compile success means UI works, testing only one viewport, ignoring con
 
 ## Source Inspiration / License Status
 
-Inspired by reviewed Playwright, Addy Osmani Web Quality Skills, and Vercel Agent Skills source records plus toolkit verification rules. Vercel Agent Skills remains license-caveated because its README MIT claim did not align with root license/API metadata during source scouting. Tooling and raw upstream skill text were not activated or copied.
+Inspired by reviewed Playwright and Addy Osmani Web Quality Skills source records plus toolkit verification rules. Tooling and raw upstream skill text were not activated or copied.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

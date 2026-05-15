@@ -33,6 +33,6 @@ Janky animations, layout-thrashing transitions, infinite distractions, or motion
 
 ## Source Inspiration / License Status
 
-Inspired by Anthropic frontend-design and Vercel web-design guidelines.
+Inspired by local UI/UX governance and interaction-quality rules.
 
 This is normalized/paraphrased guidance, not raw upstream activation.
