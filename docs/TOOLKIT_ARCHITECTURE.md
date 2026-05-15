@@ -7,7 +7,7 @@ AI Agent Skills Toolkit separates source intake, method extraction, agent defini
 - `sources/` stores reviewed references and source evaluation records.
 - `methods/` stores approved reusable methods extracted from trusted sources. Method files are normalized and paraphrased; they are not raw upstream skills.
 - `agents/` stores internal agent specifications.
-- `profiles/` stores reusable operating-mode bundles that define included agents, support tools, allowed actions, forbidden actions, output format, and verification gates.
+- `profiles/` stores reusable operating-mode bundles as file-backed markdown specs.
 - `skills/` stores reviewed toolkit-owned skills and skill metadata.
 - `compiled-agents/` stores intentional compiled outputs for project repositories.
 - `registries/` stores machine-readable indexes for existing agents, skills, passive methods, profiles, support tools, and plain-language routing scenarios.
@@ -44,11 +44,12 @@ Freshness and extraction are separated by timeline:
 
 Compiled agents are assembled from:
 
-- `agents/*.md` modular source agent specs.
+- `agents/*.md` modular source agent specs (file-backed markdown).
 - `methods/internal/*` governance and safety methods.
 - `methods/karpathy/*`, `methods/osmani/*`, `methods/matt/*`, and `methods/uiux/*` normalized method libraries.
 - Toolkit governance in `AGENTS.md` and `SECURITY.md`.
 - Reusable profiles under `profiles/`.
+- Profile artifacts are file-backed markdown documents in the repo, not directories.
 
 Compiled agents must include source provenance so projects can audit which toolkit files informed the output.
 
@@ -80,6 +81,13 @@ Agents and profiles remain role-specific workers. The toolkit must not activate 
 ## Global Codex Agents
 
 Toolkit-managed global custom agents are generated as TOML files under `~/.codex/agents/`. They contain concise role instructions derived from compiled agents and source provenance back to `compiled-agents/*.compiled.md`.
+
+Global availability model:
+
+- Repository-discoverable: any toolkit artifact present in this repo.
+- Globally available: artifacts listed in `~/.codex/agents` TOML set when global registration is run and confirmed.
+- Compiled-fallback available: built `compiled-agents/*.compiled.md` files used when native global visibility is unavailable.
+- Intentionally not global: helper skills beyond minimal runtime entrypoints (`riss-agent-governance`, `riss-skill-governance`) and non-approved external source artifacts.
 
 Governance always selects and reports the needed agents. Native sub-agents are spawned only when runtime rules allow and the user explicitly authorizes delegation, sub-agents, or parallel agent work. If spawning is not allowed, governance proceeds inline using the selected agent lenses and reports that no sub-agent ran. If an authorized native custom-agent spawn fails, governance must report the failure. High-risk tasks require user approval before falling back to a built-in `worker` or `explorer` loaded with the matching compiled-agent instructions.
 

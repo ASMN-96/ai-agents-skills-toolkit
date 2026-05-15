@@ -1,6 +1,7 @@
 # Profiles
 
 Profiles describe reusable operating bundles used when selecting compiled agents for a project or review context.
+Profile artifacts are file-backed markdown documents under `profiles/*.md`.
 
 Profiles may include agent selection, default mode, allowed actions, forbidden actions, support tools, output expectations, and verification gates.
 

@@ -44,12 +44,26 @@
         "Recommended next action"
       ],
       "sourceProvenance": [
-        "profiles/audit-profile.md"
+        {
+          "path": "profiles/audit-profile.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -97,12 +111,26 @@
         "Risks and deferred work"
       ],
       "sourceProvenance": [
-        "profiles/implementation-profile.md"
+        {
+          "path": "profiles/implementation-profile.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -148,12 +176,26 @@
         "Remaining manual QA"
       ],
       "sourceProvenance": [
-        "profiles/frontend-profile.md"
+        {
+          "path": "profiles/frontend-profile.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -198,12 +240,26 @@
         "Rollback notes"
       ],
       "sourceProvenance": [
-        "profiles/backend-profile.md"
+        {
+          "path": "profiles/backend-profile.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -248,12 +304,26 @@
         "Validation notes"
       ],
       "sourceProvenance": [
-        "profiles/uiux-profile.md"
+        {
+          "path": "profiles/uiux-profile.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -298,12 +368,26 @@
         "Required approvals"
       ],
       "sourceProvenance": [
-        "profiles/security-profile.md"
+        {
+          "path": "profiles/security-profile.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -348,12 +432,26 @@
         "Rollback and monitoring notes"
       ],
       "sourceProvenance": [
-        "profiles/sre-profile.md"
+        {
+          "path": "profiles/sre-profile.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -396,12 +494,26 @@
         "Next action"
       ],
       "sourceProvenance": [
-        "profiles/release-profile.md"
+        {
+          "path": "profiles/release-profile.md",
+          "category": "internal-artifact"
+        }
       ],
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     }
   ]

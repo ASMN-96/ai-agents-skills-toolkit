@@ -36,7 +36,10 @@
         "Report the data surface, files or migrations reviewed, RLS/auth/storage implications, docs freshness status, validation command or reason it could not run, and remaining manual checks. For implementation work, include migration/test evidence and any rollback or recovery notes."
       ],
       "sourceProvenance": [
-        "sources/supabase-agent-skills.md"
+        {
+          "path": "sources/supabase-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Supabase source record reports MIT; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -44,6 +47,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -74,7 +88,10 @@
         "- Define: problem statement and acceptance criteria. - Plan: implementation plan and risk assessment. - Build: branch or commit reference and scoped implementation notes. - Verify: test results, check output, or documented manual validation. - Review: review summary and action items. - Release: release notes and rollback or recovery notes."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -82,6 +99,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -109,9 +137,18 @@
         "Use screenshots, browser checks, accessibility review, and target workflow testing when UI changes are implemented. Minimum evidence: - contrast meets WCAG 2.1 AA: 4.5:1 for normal text and 3:1 for large text, - all interactive elements are keyboard reachable with visible focus, - semantic controls have labels, roles, or accessible names, - mobile and desktop breakpoints plus interaction states are covered, - screenshots or automated reports from tools such as Axe, Lighthouse, or a color contrast checker are attached or summarized."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md",
-        "sources/anthropic-skills.md",
-        "sources/bencium-marketplace.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/bencium-marketplace.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -119,6 +156,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -147,8 +195,14 @@
         "Every changed line should trace to the request, the plan, or a verification fix."
       ],
       "sourceProvenance": [
-        "sources/karpathy-inspired-skills.md",
-        "sources/matt-pocock-skills.md"
+        {
+          "path": "sources/karpathy-inspired-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated. Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -156,6 +210,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -182,8 +247,14 @@
         "Check that every method or future skill has a clear purpose, trigger, negative trigger, operating boundary, verification requirement, and source/license note. Confirm references and scripts are optional support material rather than hidden execution requirements."
       ],
       "sourceProvenance": [
-        "sources/anthropic-skills.md",
-        "sources/gitlab-agent-skills.md"
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/gitlab-agent-skills.md",
+          "category": "restricted-source"
+        }
       ],
       "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. GitLab docs terms were not separately reviewed; use as caveated normalized reference only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -191,6 +262,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -218,8 +300,14 @@
         "Every candidate must have a source record before extraction. The source record must identify accepted patterns, rejected patterns, license status, prompt-injection risks, dangerous operations, and whether any runtime behavior was activated. No install, clone, activation, sync, copy, update, repair, or script execution is part of discovery."
       ],
       "sourceProvenance": [
-        "sources/anthropic-skills.md",
-        "sources/skills-sh.md"
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/skills-sh.md",
+          "category": "restricted-source"
+        }
       ],
       "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. skills.sh is a dynamic discovery index with per-source license review required.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -227,6 +315,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -256,9 +355,18 @@
         "Assign a 0-100 safety/usefulness score, then classify with rationale: - 0-30: `Ignore`. - 31-60: `Reference only`. - 61-85: `Extract into methods`. - 86-100: `Potential future install review`, only when installation is explicitly requested in a separate approved phase and all safety gates pass; otherwise keep as `Extract into methods`. Every classification must include a short rationale, rejected operation list, license confidence, and any override reason. A source with high usefulness but high execution risk should usually be `Reference only` or `Extract into methods`, not installable."
       ],
       "sourceProvenance": [
-        "sources/everything-claude-code.md",
-        "sources/ruflo.md",
-        "sources/superpowers.md"
+        {
+          "path": "sources/everything-claude-code.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/ruflo.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/superpowers.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Everything Claude Code source record reports MIT but high config/hook/MCP mutation risk; use governance patterns only. RuFlo source record reports MIT but high daemon/runtime risk; use static governance patterns only. Superpowers source record reports MIT; Superpowers remains external and must not be duplicated.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -266,6 +374,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -290,9 +409,18 @@
         "Record the command run, expected result, actual result, run timestamp, commit or PR reference, and any remaining test gap."
       ],
       "sourceProvenance": [
-        "sources/matt-pocock-skills.md",
-        "sources/addy-osmani-agent-skills.md",
-        "sources/superpowers.md"
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/superpowers.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied. Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Superpowers source record reports MIT; Superpowers remains external and must not be duplicated.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -300,6 +428,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -326,7 +465,10 @@
         "Check that the final plan names assumptions and locks a default when proceeding."
       ],
       "sourceProvenance": [
-        "sources/karpathy-inspired-skills.md"
+        {
+          "path": "sources/karpathy-inspired-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -334,6 +476,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -359,7 +512,10 @@
         "Report what proves the goal was met and what remains unproven."
       ],
       "sourceProvenance": [
-        "sources/karpathy-inspired-skills.md"
+        {
+          "path": "sources/karpathy-inspired-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -367,6 +523,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -392,7 +559,10 @@
         "Review the diff and confirm each changed line has a direct reason."
       ],
       "sourceProvenance": [
-        "sources/karpathy-inspired-skills.md"
+        {
+          "path": "sources/karpathy-inspired-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -400,6 +570,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -426,7 +607,10 @@
         "Include example usage and explain why the chosen shape wins."
       ],
       "sourceProvenance": [
-        "sources/matt-pocock-skills.md"
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -434,6 +618,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -460,7 +655,10 @@
         "Confirm branch, commit hash, remote, PR URL, and clean or expected worktree status."
       ],
       "sourceProvenance": [
-        "sources/matt-pocock-skills.md"
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -468,6 +666,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -492,7 +701,10 @@
         "The final plan must be decision-complete for the next worker."
       ],
       "sourceProvenance": [
-        "sources/matt-pocock-skills.md"
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -500,6 +712,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -524,7 +747,10 @@
         "Show before/after behavior remains compatible and tests cover the moved boundary."
       ],
       "sourceProvenance": [
-        "sources/matt-pocock-skills.md"
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -532,6 +758,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -556,7 +793,10 @@
         "Record red/green evidence when feasible, or explain why not."
       ],
       "sourceProvenance": [
-        "sources/matt-pocock-skills.md"
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -564,6 +804,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -588,7 +839,10 @@
         "Each issue should be implementable and testable without guessing."
       ],
       "sourceProvenance": [
-        "sources/matt-pocock-skills.md"
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -596,6 +850,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -619,7 +884,10 @@
         "Check that each requirement has a corresponding acceptance signal."
       ],
       "sourceProvenance": [
-        "sources/matt-pocock-skills.md"
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -627,6 +895,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -651,7 +930,10 @@
         "Every triaged item must have a recommended next state."
       ],
       "sourceProvenance": [
-        "sources/matt-pocock-skills.md"
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -659,6 +941,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -685,7 +978,10 @@
         "Confirm examples, tests, and docs match the contract."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -693,6 +989,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -719,7 +1026,10 @@
         "Findings must cite files or behavior and include severity."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -727,6 +1037,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -753,7 +1074,10 @@
         "- Planning: planning brief or RFC with acceptance criteria. - Development / PR: unit or integration test results and code review approval. - Pre-merge / CI: passing CI result or documented check output and security review when relevant. - Release: release notes, rollback plan, and smoke test result."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -761,6 +1085,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -785,7 +1120,10 @@
         "Check viewport behavior, keyboard access, contrast-sensitive states, and browser runtime issues."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -793,6 +1131,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -817,7 +1166,10 @@
         "Run focused tests or checks after each meaningful slice."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -825,6 +1177,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -853,7 +1216,10 @@
         "Record baseline, change, and post-change measurement when feasible."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -861,6 +1227,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -889,7 +1266,10 @@
         "Run relevant security checks or document why no check exists."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -897,6 +1277,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -923,7 +1314,10 @@
         "Confirm tests, review status, release notes, and rollback notes."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -931,6 +1325,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -957,7 +1362,10 @@
         "Confirm bidirectional traceability: every planned task maps to a spec requirement, and every spec requirement maps to at least one task and ideally one test. Maintain a traceability matrix or linked checklist so requirements cannot drop silently."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -965,6 +1373,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -989,7 +1408,10 @@
         "Record the test command, expected result, actual result, and any remaining gap or rationale. For regressions, demonstrate that the test would fail without the fix when feasible."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -997,6 +1419,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -1031,7 +1464,10 @@
         "Report changed surfaces reviewed, high-risk triggers found or absent, findings ordered by severity, evidence references, confidence, tests or checks run, and coverage limits. If no issues are found, state residual risk and any validation that could not run."
       ],
       "sourceProvenance": [
-        "sources/trailofbits-skills.md"
+        {
+          "path": "sources/trailofbits-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Trail of Bits source record reports CC-BY-SA-4.0; method text must remain paraphrased and not copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -1039,6 +1475,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -1063,8 +1510,14 @@
         "Check keyboard navigation, focus states, labels, contrast-sensitive elements, and responsive readability."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md",
-        "sources/anthropic-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -1072,6 +1525,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -1098,8 +1562,14 @@
         "Check scan paths, sorting/filtering affordances, responsive density, and empty/error states."
       ],
       "sourceProvenance": [
-        "sources/anthropic-skills.md",
-        "sources/bencium-marketplace.md"
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/bencium-marketplace.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -1107,6 +1577,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -1132,8 +1613,14 @@
         "Check consistency across repeated elements and states."
       ],
       "sourceProvenance": [
-        "sources/anthropic-skills.md",
-        "sources/bencium-marketplace.md"
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/bencium-marketplace.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -1141,6 +1628,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -1165,9 +1663,18 @@
         "Check desktop and mobile layout, component states, screenshot quality, and accessibility minimums: - keyboard-only navigation with reachable interactive elements, - visible focus indicators, - semantic labels, alt text, or form labels for controls, - contrast of at least 4.5:1 for normal text and 3:1 for large text."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md",
-        "sources/anthropic-skills.md",
-        "sources/bencium-marketplace.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/bencium-marketplace.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -1175,6 +1682,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -1198,7 +1716,10 @@
         "Check interaction timing, reduced-motion behavior, and visual stability during state changes."
       ],
       "sourceProvenance": [
-        "sources/anthropic-skills.md"
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        }
       ],
       "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -1206,6 +1727,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -1232,8 +1764,14 @@
         "Review screenshots across viewports and inspect for overlap, low contrast, and generic composition."
       ],
       "sourceProvenance": [
-        "sources/anthropic-skills.md",
-        "sources/bencium-marketplace.md"
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/bencium-marketplace.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -1241,6 +1779,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -1266,7 +1815,10 @@
         "Capture or inspect representative mobile and desktop views."
       ],
       "sourceProvenance": [
-        "sources/anthropic-skills.md"
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        }
       ],
       "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -1274,6 +1826,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -1302,9 +1865,18 @@
         "Report browser target, workflow tested, viewport coverage, errors found, screenshots or observations, artifact handling, and remaining gaps. When using traces, videos, Lighthouse-style reports, or accessibility reports, summarize the evidence and avoid committing private artifacts."
       ],
       "sourceProvenance": [
-        "sources/addy-osmani-agent-skills.md",
-        "sources/playwright.md",
-        "sources/addyosmani-web-quality-skills.md"
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/playwright.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/addyosmani-web-quality-skills.md",
+          "category": "external-source"
+        }
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Playwright source record reports Apache-2.0; no framework source or docs text copied. Addy Osmani Web Quality source record reports MIT; no raw skill bodies copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
@@ -1312,6 +1884,17 @@
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     }
   ]

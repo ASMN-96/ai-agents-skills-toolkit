@@ -53,15 +53,35 @@
       "riskLevel": "medium",
       "evalStatus": "scaffolded",
       "sourceProvenance": [
-        "skills/riss-governance/SKILL.md",
-        "docs/GOVERNANCE_SPINE.md",
-        "docs/REGISTRY_CONTRACT.md"
+        {
+          "path": "skills/riss-governance/SKILL.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "docs/GOVERNANCE_SPINE.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "docs/REGISTRY_CONTRACT.md",
+          "category": "internal-artifact"
+        }
       ],
       "skillPath": "skills/riss-governance/SKILL.md",
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "user-facing",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -92,15 +112,35 @@
       "riskLevel": "medium",
       "evalStatus": "scaffolded",
       "sourceProvenance": [
-        "docs/GOVERNANCE_SPINE.md",
-        "docs/REGISTRY_CONTRACT.md",
-        "skills/riss-agent-governance/SKILL.md"
+        {
+          "path": "docs/GOVERNANCE_SPINE.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "docs/REGISTRY_CONTRACT.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "skills/riss-agent-governance/SKILL.md",
+          "category": "internal-artifact"
+        }
       ],
       "skillPath": "skills/riss-agent-governance/SKILL.md",
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -135,15 +175,35 @@
       "riskLevel": "high",
       "evalStatus": "scaffolded",
       "sourceProvenance": [
-        "docs/MISSING_SKILL_DISCOVERY_POLICY.md",
-        "docs/REGISTRY_CONTRACT.md",
-        "skills/riss-skill-governance/SKILL.md"
+        {
+          "path": "docs/MISSING_SKILL_DISCOVERY_POLICY.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "docs/REGISTRY_CONTRACT.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "skills/riss-skill-governance/SKILL.md",
+          "category": "internal-artifact"
+        }
       ],
       "skillPath": "skills/riss-skill-governance/SKILL.md",
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
       ]
     },
     {
@@ -191,17 +251,44 @@
       "riskLevel": "medium",
       "evalStatus": "scaffolded",
       "sourceProvenance": [
-        "skills/vd-premium-uiux/SKILL.md",
-        ".agents/skills/vd-premium-uiux/SKILL.md",
-        "docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.md",
-        "docs/GOVERNANCE_SPINE.md",
-        "registries/routing-matrix.json"
+        {
+          "path": "skills/vd-premium-uiux/SKILL.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": ".agents/skills/vd-premium-uiux/SKILL.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "docs/GOVERNANCE_SPINE.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "registries/routing-matrix.json",
+          "category": "internal-artifact"
+        }
       ],
       "skillPath": "skills/vd-premium-uiux/SKILL.md",
       "status": [
         "documented",
         "available",
         "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "user-facing",
+      "visibility": [
+        "repo",
+        "project-sync",
+        "global"
       ]
     }
   ]
