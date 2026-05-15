@@ -59,3 +59,17 @@ Following install commands can modify user or project agent state. Phase 10C use
 ## Recommendation
 
 Reference only. Use skills.sh to find candidates, then evaluate each original source independently before extraction. No raw skill/plugin/repo content was activated.
+
+## Freshness and Monitoring Metadata
+
+- Source type: `public directory/discovery index`
+- Publisher: `skills.sh / Open Agent Skills ecosystem`
+- URL: `https://skills.sh/`
+- Last checked date: `2026-05-15`
+- Last reviewed date: `2026-05-15`
+- Snapshot/freshness status: `dynamic index; no immutable snapshot or commit baseline`
+- License review status: `directory-level license not visible; per-entry licenses unresolved`
+- Safety status: `medium-high; install-oriented platform, install counts are not proof of safety`
+- Monitoring method: `manual quarterly review of discovery page + per-source follow-up before any extraction`
+- Reason not in source-watchlist.json: `non-GitHub source URL is not supported by current watchlist schema`
+- Recommendation: `reference-only for discovery ordering; full source review required before any extraction`

@@ -10,6 +10,20 @@
 - License status: Official public documentation; terms/license not separately reviewed during this pass.
 - Recommendation: Candidate for future normalized AGENTS/SKILL style guidance after separate approval. Do not copy docs examples verbatim or adopt GitLab-specific structure as a default.
 
+## Freshness and Monitoring Metadata
+
+- Source type: `docs` (official external documentation)
+- Publisher: `GitLab`
+- URL: `https://docs.gitlab.com/ee/development/ai_features/agent_skills/`
+- Last checked date: `2026-05-15`
+- Last reviewed date: `2026-05-15`
+- Snapshot/freshness status: `dynamic page; no immutable commit checkpoint`
+- License review status: `official docs terms not separately reviewed`
+- Safety status: `medium; harness-specific recommendations, docs examples could over-select on trigger behavior if copied blindly`
+- Monitoring method: `manual periodic review of URL + source-of-truth page diff notes + checklist-based safety gating in the method registry`
+- Reason not in source-watchlist.json: `non-GitHub source URL is not supported by current watchlist schema`
+- Recommendation: `reference-only, no raw-copy, no install/activation, extract only normalized guidance as needed`
+
 ## Purpose
 
 Use as a source for agent/skill/process separation, skill metadata discipline, trigger clarity, local instruction organization, and docs-first skill governance.
