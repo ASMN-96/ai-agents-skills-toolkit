@@ -182,6 +182,36 @@
       "neverAutoImport": true
     },
     {
+      "id": "impeccable",
+      "name": "Impeccable",
+      "sourceUrl": "https://github.com/pbakaus/impeccable",
+      "repoOwner": "pbakaus",
+      "repoName": "impeccable",
+      "defaultBranch": "main",
+      "lastReviewedCommit": "4af581e23f17d112d8f9d6b7a5b7ff37823494e1",
+      "lastReviewedDate": "2026-05-16",
+      "sourceRecordPath": "sources/impeccable.md",
+      "watchedPaths": [],
+      "licenseConcern": "clear",
+      "reviewPriority": "Medium",
+      "neverAutoImport": true
+    },
+    {
+      "id": "uncodixfy",
+      "name": "Uncodixfy",
+      "sourceUrl": "https://github.com/cyxzdev/Uncodixfy",
+      "repoOwner": "cyxzdev",
+      "repoName": "Uncodixfy",
+      "defaultBranch": "main",
+      "lastReviewedCommit": "e0e028058b5259debdd94b78147c6d6c77bf7da2",
+      "lastReviewedDate": "2026-05-16",
+      "sourceRecordPath": "sources/uncodixfy.md",
+      "watchedPaths": [],
+      "licenseConcern": "clear",
+      "reviewPriority": "Medium",
+      "neverAutoImport": true
+    },
+    {
       "id": "agency-agents",
       "name": "Agency Agents",
       "sourceUrl": "https://github.com/msitarzewski/agency-agents",
