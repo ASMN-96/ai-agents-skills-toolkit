@@ -3,8 +3,8 @@
 - URL: https://github.com/affaan-m/everything-claude-code
 - Owner / publisher: affaan-m.
 - Source type: Cross-harness Claude Code ecosystem repository with skills, agents, commands, hooks, manifests, MCP config, plugins, rules, and install scripts.
-- Retrieval date: 2026-05-15.
-- Pinned repo ref checked: `5b617787d87482c205c2dc1eae3b525ac08890bd` on `main`, committed 2026-05-15.
+- Retrieval date: 2026-05-16.
+- Pinned repo ref checked: `0df46ec870a2c86b41f2da7a4bb46836704d3952` on `main`, committed 2026-05-16.
 - Visible adoption signals: about 175.8k GitHub stars, 27.2k forks, and large multi-harness surface area.
 - Trust level: Medium source trust, very high execution/config-mutation risk.
 - License status: GitHub API reports MIT.
@@ -62,3 +62,7 @@ Blind adoption would create a sprawling, hard-to-audit toolkit with hidden runti
 ## Recommendation
 
 Candidate for future normalized harness-hardening methods, pending separate approval. No raw skill/plugin/repo content was activated.
+
+## Freshness Review 2026-05-16
+
+Skill Scout read-only review refreshed the source record from `5b617787d87482c205c2dc1eae3b525ac08890bd` to `0df46ec870a2c86b41f2da7a4bb46836704d3952`. The compare showed broad changes across plugin manifests, CI workflows, release docs, scripts, tests, and a newly added skill. MIT license metadata remained present, but the source continues to carry very high execution/config-mutation risk because it includes install, hook, workflow, plugin, skill, command, and cross-harness surfaces. This refresh updates source tracking only and does not approve installs, hooks, skills, commands, MCP config, plugin activation, script execution, source copying, method extraction, or global config changes.

@@ -4,8 +4,8 @@
 - Related docs: https://playwright.dev/docs/trace-viewer
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
-- Retrieval date: 2026-05-15.
-- Pinned repo ref checked: `409d6d0d9bfeb03f55321ca61582219a8395fb76` on `main`, committed 2026-05-15.
+- Retrieval date: 2026-05-16.
+- Pinned repo ref checked: `72bbd1d964a87855c4b067b135458535c825712f` on `main`, committed 2026-05-16.
 - Visible adoption signals: about 88.3k GitHub stars, 5.6k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
@@ -64,3 +64,7 @@ Playwright verification can be high-value but noisy if overused. It should be se
 ## Recommendation
 
 Candidate for future normalized runtime-verification method extraction, pending separate approval. Keep future extraction focused on evidence gates, artifact hygiene, and when browser validation is required. No raw tool/plugin/repo content was activated.
+
+## Freshness Review 2026-05-16
+
+Skill Scout read-only review refreshed the source record from `409d6d0d9bfeb03f55321ca61582219a8395fb76` to `72bbd1d964a87855c4b067b135458535c825712f`. The compare showed documentation, WebAuthn examples, package source, protocol/type, agent-generation, and test changes. Apache-2.0 license metadata remained present. This refresh updates source tracking only and does not approve Playwright installs, browser downloads, MCP activation, runtime automation, source copying, method extraction, or product-repo changes.
