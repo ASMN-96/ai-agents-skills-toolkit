@@ -8,8 +8,8 @@
 - Last checked date: 2026-05-16.
 - Last reviewed date: 2026-05-16.
 - Last reviewed commit: `4af581e23f17d112d8f9d6b7a5b7ff37823494e1`.
-- Last extracted date: 2026-05-16.
-- Last extracted commit: `4af581e23f17d112d8f9d6b7a5b7ff37823494e1`.
+- Normalization review date: 2026-05-16.
+- Normalization review commit: `4af581e23f17d112d8f9d6b7a5b7ff37823494e1`.
 - Visible adoption signals: 28,106 GitHub stars, 1,517 forks, and repository push activity on 2026-05-15 from read-only GitHub metadata.
 - Trust level: Medium-high design-source trust, with medium-high execution risk if CLI, install, detector, or live workflow guidance is followed.
 - License status: GitHub API reports Apache-2.0.
@@ -25,7 +25,7 @@ Use as a pattern source for design-system context, project design source-of-trut
 - `.agents/skills/vd-premium-uiux/SKILL.md`
 - `docs/VD_PREMIUM_UIUX_SOURCE_MAP.md`
 
-Extraction is limited to toolkit-owned normalized guidance. Raw upstream skill text, commands, scripts, detector behavior, browser extension workflows, examples, and install instructions are not copied or activated.
+Normalization is limited to toolkit-owned guidance. Raw upstream skill text, commands, scripts, detector behavior, browser extension workflows, examples, and install instructions are not copied, extracted, or activated.
 
 ## Useful Patterns To Extract
 

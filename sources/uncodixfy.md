@@ -8,8 +8,8 @@
 - Last checked date: 2026-05-16.
 - Last reviewed date: 2026-05-16.
 - Last reviewed commit: `e0e028058b5259debdd94b78147c6d6c77bf7da2`.
-- Last extracted date: 2026-05-16.
-- Last extracted commit: `e0e028058b5259debdd94b78147c6d6c77bf7da2`.
+- Normalization review date: 2026-05-16.
+- Normalization review commit: `e0e028058b5259debdd94b78147c6d6c77bf7da2`.
 - Visible adoption signals: 2,434 GitHub stars, 165 forks, and repository push activity on 2026-03-18 from read-only GitHub metadata.
 - Trust level: Medium UI critique trust, with medium execution/copying risk if treated as a full design system or copied wholesale.
 - License status: GitHub API reports MIT.
@@ -25,7 +25,7 @@ Use as a pattern source for detecting repeated AI-generated UI cliches, especial
 - `.agents/skills/vd-premium-uiux/SKILL.md`
 - `docs/VD_PREMIUM_UIUX_SOURCE_MAP.md`
 
-Extraction is limited to toolkit-owned normalized guidance. Raw upstream instructions, wording, examples, commands, and install guidance are not copied or activated.
+Normalization is limited to toolkit-owned guidance. Raw upstream instructions, wording, examples, commands, and install guidance are not copied, extracted, or activated.
 
 ## Useful Patterns To Extract
 
