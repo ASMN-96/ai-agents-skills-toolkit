@@ -276,6 +276,10 @@
           "category": "internal-artifact"
         },
         {
+          "path": "docs/UI_UX_PRO_MAX_AUDIT.md",
+          "category": "internal-artifact"
+        },
+        {
           "path": "sources/impeccable.md",
           "category": "external-source"
         },

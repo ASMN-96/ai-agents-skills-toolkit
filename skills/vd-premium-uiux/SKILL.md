@@ -10,6 +10,7 @@ description: Use for premium UI/UX, frontend visual polish, dashboard UX, mobile
 - `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.md`
 - `sources/source-watchlist.json`
 - `docs/VD_PREMIUM_UIUX_SOURCE_MAP.md`
+- `docs/UI_UX_PRO_MAX_AUDIT.md`
 - `sources/impeccable.md`
 - `sources/uncodixfy.md`
 - `docs/SOURCE_FRESHNESS_REPORT.md` (if generated later)
@@ -22,6 +23,7 @@ description: Use for premium UI/UX, frontend visual polish, dashboard UX, mobile
 - This is toolkit-owned normalized guidance, not a raw upstream skill copy.
 - Do not add volatile weekly timestamps to this file; freshness signals are owned by source-watchlist and freshness reports.
 - Do not run Impeccable, Uncodixfy, external detectors, browser extensions, install commands, copy commands, or upstream scripts.
+- Treat global/local skill candidates as audit inputs only when represented by repo-owned audit notes; do not run their CLI/search/persist workflows or treat them as source authority.
 
 ## Role boundary
 
@@ -59,6 +61,7 @@ description: Use for premium UI/UX, frontend visual polish, dashboard UX, mobile
 - Accessibility basics (focus order, labels, landmarks, motion tolerance, screen-reader clarity).
 - Existing CSS/design tokens and their scope.
 - Data/API dependencies that can alter rendered states.
+- Media, list, and fixed-element behavior that can cause layout shift, hidden content, or slow perceived interaction.
 
 ## 4. RISS stack adapter
 
@@ -66,6 +69,7 @@ description: Use for premium UI/UX, frontend visual polish, dashboard UX, mobile
 - When the target verifies a shadcn-style stack, use existing `@/components/ui` primitives and local variants first.
 - Preserve Radix accessibility, focus, layering, portal, dismiss, roving-focus, and keyboard semantics.
 - Use Tailwind/RISS design tokens, CSS variables, and existing component variants instead of arbitrary one-off styles.
+- Keep structural icons from one established icon family/style when the project has one; do not use emojis as functional controls or navigation symbols.
 - Use Framer Motion or similar project-verified motion only for purposeful feedback, continuity, loading, or state transitions.
 - For dashboards, consider Recharts/data UI behavior, responsive containers, legends, tooltips, empty/error states, and table fallbacks.
 - Do not introduce HeroUI or a new component system unless explicitly approved.
@@ -96,12 +100,19 @@ Anti-generic guardrails:
 - Keep operational dashboards dense but readable; avoid marketing hero composition for work surfaces.
 - Validate chart/table behavior across empty, loading, error, long-label, many-series, and narrow-viewport states.
 - Ensure charts do not rely on color alone and that important metrics have readable labels or tabular alternatives.
+- For interactive charts, provide a text summary or tabular fallback and keep interactive marks keyboard and screen-reader reachable where the underlying chart library supports it.
+- For large data sets, prefer aggregation, pagination, or virtualization over rendering unbounded lists or chart marks.
 
 ## 7. Accessibility, interaction, and motion
 
 - Preserve semantic controls, labels, visible focus, keyboard reachability, screen-reader names, contrast, and touch targets.
 - Check forms, dialogs, dropdowns, popovers, sheets, menus, tabs, tooltips, and command surfaces for focus and escape behavior.
+- Keep pointer and touch targets large enough for reliable use; icon visuals may be smaller only when the actual hit area is expanded.
+- Provide visible alternatives for gesture-only actions and avoid gesture conflicts with scrolling, back navigation, safe areas, and fixed system chrome.
+- Forms should keep labels visible, place recovery near the problem, focus the first invalid field after failed submit when practical, and announce errors without stealing focus.
+- Navigation should preserve user context where practical, including active location, back behavior, scroll/filter state, and route-change focus.
 - Motion must explain state, hierarchy, continuity, or feedback; avoid decorative or blocking animation.
+- Prefer transform and opacity for motion, avoid layout-shifting pressed states, and keep interaction feedback fast enough to feel responsive.
 - Respect reduced-motion preferences and avoid layout-shifting animation.
 
 ## 8. Acceptance criteria and frontend handoff
