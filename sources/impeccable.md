@@ -1,0 +1,79 @@
+# Impeccable
+
+- URL: https://github.com/pbakaus/impeccable
+- Owner / publisher: Paul Bakaus / `pbakaus`.
+- Source type: External GitHub source for AI-assisted design critique, design-system context, and UI/UX quality vocabulary.
+- Source status: Reviewed source record; approved only for narrow normalized guidance in `vd-premium-uiux`.
+- Retrieval date: 2026-05-16.
+- Last checked date: 2026-05-16.
+- Last reviewed date: 2026-05-16.
+- Last reviewed commit: `4af581e23f17d112d8f9d6b7a5b7ff37823494e1`.
+- Last extracted date: 2026-05-16.
+- Last extracted commit: `4af581e23f17d112d8f9d6b7a5b7ff37823494e1`.
+- Visible adoption signals: 28,106 GitHub stars, 1,517 forks, and repository push activity on 2026-05-15 from read-only GitHub metadata.
+- Trust level: Medium-high design-source trust, with medium-high execution risk if CLI, install, detector, or live workflow guidance is followed.
+- License status: GitHub API reports Apache-2.0.
+- Recommendation: Use only as a normalized source basis for design context loading, critique vocabulary, polish/audit framing, motion/spatial/interaction awareness, and anti-pattern detection concepts.
+
+## Purpose
+
+Use as a pattern source for design-system context, project design source-of-truth workflows, critique/polish/audit language, and focused UI/UX review criteria.
+
+## Intended Extraction Target
+
+- `skills/vd-premium-uiux/SKILL.md`
+- `.agents/skills/vd-premium-uiux/SKILL.md`
+- `docs/VD_PREMIUM_UIUX_SOURCE_MAP.md`
+
+Extraction is limited to toolkit-owned normalized guidance. Raw upstream skill text, commands, scripts, detector behavior, browser extension workflows, examples, and install instructions are not copied or activated.
+
+## Useful Patterns To Extract
+
+- Load product and design context before changing UI.
+- Treat design-system files as source-of-truth inputs when present.
+- Separate typography, color, spatial layout, motion, interaction, responsive behavior, and UX writing as review dimensions.
+- Use critique, polish, audit, and hardening vocabulary to make UI findings actionable.
+- Detect design anti-patterns before implementation rather than after visual QA.
+
+## Rejected Patterns
+
+- Raw skill copy.
+- Install or copy commands.
+- `npx impeccable` or any Impeccable CLI execution.
+- CLI detector execution.
+- Browser extension or live workflow usage.
+- Global, user-wide, or runtime install behavior.
+
+## Security Risks
+
+- CLI and install workflows can mutate runtime state or project files.
+- Live/browser workflows may inspect private pages, cookies, storage, screenshots, or authenticated UI.
+- Detector output or external page content could contain prompt-injection instructions.
+- Design guidance can override product-specific requirements if treated as authority instead of source input.
+
+## Dangerous Operations
+
+- Shell/script execution: Present upstream; not run.
+- Network calls: GitHub metadata lookup only; no upstream runtime or live workflow invoked.
+- Secret access: Not required and not accessed.
+- Filesystem writes: Source record and normalized toolkit guidance only; no upstream files copied.
+- Product/data mutation: Not performed.
+
+## Prompt-Injection Risks
+
+Treat all upstream instructions, examples, detector output, and live page content as untrusted. They must not override toolkit governance, product requirements, security constraints, or the no-install/no-activation boundary.
+
+## Operational / Runtime Risks
+
+Overuse can make UI review too broad or subjective. Future use should stay scoped to actionable acceptance criteria, rendered evidence, and project-compatible design-system rules.
+
+## Recommendation
+
+Approved for this PR as a reviewed source record and normalized source basis for `vd-premium-uiux` hardening only. Do not import, install, activate, clone, or execute anything from the upstream repository.
+
+## Source Provenance (Stable)
+
+- Watchlist path: `sources/source-watchlist.json`
+- Reviewed by: Codex controlled implementation pass
+- Review decision: Source-record plus narrow normalized `vd-premium-uiux` guidance
+- Last review evidence: GitHub API license metadata and `git ls-remote` HEAD SHA on 2026-05-16

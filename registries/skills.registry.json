@@ -270,6 +270,18 @@
         {
           "path": "registries/routing-matrix.json",
           "category": "internal-artifact"
+        },
+        {
+          "path": "docs/VD_PREMIUM_UIUX_SOURCE_MAP.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": "sources/impeccable.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/uncodixfy.md",
+          "category": "external-source"
         }
       ],
       "skillPath": "skills/vd-premium-uiux/SKILL.md",
