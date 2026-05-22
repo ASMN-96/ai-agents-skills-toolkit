@@ -1,8 +1,8 @@
 # Source Freshness Report
 
-Generated report / sample report from mock data.
+Generated report from live GitHub metadata.
 
-Generated at: 2026-05-10T08:29:48.419Z
+Generated at: 2026-05-22T12:08:18.569Z
 
 Read-only freshness signal only. No source import approval, activation approval, extraction approval, source-record update, or runtime configuration approval is granted.
 
@@ -12,32 +12,39 @@ Read-only freshness signal only. No source import approval, activation approval,
 
 | Status | Count |
 | --- | ---: |
-| UNCHANGED | 10 |
-| CHANGED_LOW_RISK | 2 |
+| UNCHANGED | 21 |
+| CHANGED_LOW_RISK | 0 |
 | CHANGED_REVIEW_REQUIRED | 0 |
-| CHANGED_HIGH_RISK | 1 |
+| CHANGED_HIGH_RISK | 0 |
 | REVIEW_METADATA_MISSING | 0 |
 | UNSUPPORTED_SOURCE_TYPE | 0 |
 | CHECK_FAILED | 0 |
 
 ## Sources
 
-| Source | Repo | Status | Reviewed | Latest | Reviewed date | Latest date | License signal | Next step | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Anthropic Skills | anthropics/skills | UNCHANGED | d211d437443a | d211d437443a | 2026-05-08 | 2026-05-08 | mock: mixed-license | no action | Mock: default branch commit is unchanged. |
-| Anthropic Skills watched path | skills/skill-creator | signal | n/a | d211d437443a | n/a | 2026-05-08 | path commit signal only | no action | watched-path signal only |
-| Vercel Labs Skills | vercel-labs/skills | CHANGED_HIGH_RISK | 8d571eb986e9 | feed1eb986e9 | 2026-05-08 | 2026-05-10T00:00:00Z | mock: license-unclear | reject/hold due to safety or license concern | Mock: upstream changed since review. |
-| Supabase Agent Skills | supabase/agent-skills | UNCHANGED | fa9911ac26eb | fa9911ac26eb | 2026-05-08 | 2026-05-08 | mock: license metadata present | no action | Mock: default branch commit is unchanged. |
-| Trail of Bits Skills | trailofbits/skills | UNCHANGED | a56045e9ae00 | a56045e9ae00 | 2026-05-08 | 2026-05-08 | mock: cc-by-sa | no action | Mock: default branch commit is unchanged. |
-| Microsoft Playwright | microsoft/playwright | UNCHANGED | 3d541acbe274 | 3d541acbe274 | 2026-05-08 | 2026-05-08 | mock: license metadata present | no action | Mock: default branch commit is unchanged. |
-| shadcn/ui | shadcn-ui/ui | CHANGED_LOW_RISK | fc1ca40af405 | feeda40af405 | 2026-05-08 | 2026-05-10T00:00:00Z | mock: license metadata present | refresh source record | Mock: upstream changed since review. |
-| Addy Osmani Web Quality Skills | addyosmani/web-quality-skills | UNCHANGED | eca4d5bfa0a4 | eca4d5bfa0a4 | 2026-05-08 | 2026-05-08 | mock: license metadata present | no action | Mock: default branch commit is unchanged. |
-| VoltAgent Awesome Design.md | VoltAgent/awesome-design-md | UNCHANGED | beec066d6ad1 | beec066d6ad1 | 2026-05-08 | 2026-05-08 | mock: license metadata present | no action | Mock: default branch commit is unchanged. |
-| Agency Agents | msitarzewski/agency-agents | UNCHANGED | 783f6a72bfd7 | 783f6a72bfd7 | 2026-05-08 | 2026-05-08 | mock: license metadata present | no action | Mock: default branch commit is unchanged. |
-| Superpowers | obra/superpowers | CHANGED_LOW_RISK | f2cbfbefebbf | feedfbefebbf | 2026-05-08 | 2026-05-10T00:00:00Z | mock: license metadata present | refresh source record | Mock: upstream changed since review. |
-| Everything Claude Code | affaan-m/everything-claude-code | UNCHANGED | 841beea45cb2 | 841beea45cb2 | 2026-05-08 | 2026-05-08 | mock: license metadata present | no action | Mock: default branch commit is unchanged. |
-| RuFlo | ruvnet/ruflo | UNCHANGED | 66f7f644d84e | 66f7f644d84e | 2026-05-08 | 2026-05-08 | mock: license metadata present | no action | Mock: default branch commit is unchanged. |
-| Vercel Agent Skills | vercel-labs/agent-skills | UNCHANGED | b9c8ee0643d8 | b9c8ee0643d8 | 2026-05-08 | 2026-05-08 | mock: license-unclear | no action | Mock: default branch commit is unchanged. |
+| Source | Repo | Status | Reviewed | Checked | Latest | Reviewed date | Latest date | License signal | Next step | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Anthropic Skills | anthropics/skills | UNCHANGED | 690f15cac7f7 | 2026-05-22T12:08:18.569Z | 690f15cac7f7 | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: mixed-license) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| OpenAI Skills | openai/skills | UNCHANGED | b0401f07213a | 2026-05-22T12:08:18.569Z | b0401f07213a | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: mixed-license) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Addy Osmani Agent Skills | addyosmani/agent-skills | UNCHANGED | 539a78574773 | 2026-05-22T12:08:18.569Z | 539a78574773 | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Supabase Agent Skills | supabase/agent-skills | UNCHANGED | 4e69c80e213f | 2026-05-22T12:08:18.569Z | 4e69c80e213f | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Trail of Bits Skills | trailofbits/skills | UNCHANGED | a56045e9ae00 | 2026-05-22T12:08:18.569Z | a56045e9ae00 | 2026-05-08 | not checked (git ls-remote fallback) | not checked (source record: cc-by-sa) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Microsoft Playwright | microsoft/playwright | UNCHANGED | 4cd7f685f902 | 2026-05-22T12:08:18.569Z | 4cd7f685f902 | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Bencium Marketplace | bencium/bencium-marketplace | UNCHANGED | 20077d3e396e | 2026-05-22T12:08:18.569Z | 20077d3e396e | 2026-05-15 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Karpathy-Inspired Skills | forrestchang/andrej-karpathy-skills | UNCHANGED | 2c606141936f | 2026-05-22T12:08:18.569Z | 2c606141936f | 2026-05-15 | not checked (git ls-remote fallback) | not checked (source record: license-unclear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Matt Pocock Skills | mattpocock/skills | UNCHANGED | b8be62ffacb0 | 2026-05-22T12:08:18.569Z | b8be62ffacb0 | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| shadcn/ui | shadcn-ui/ui | UNCHANGED | d60e8b6ce393 | 2026-05-22T12:08:18.569Z | d60e8b6ce393 | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Vercel Agent Skills | vercel-labs/agent-skills | UNCHANGED | da22a4c9e85b | 2026-05-22T12:08:18.569Z | da22a4c9e85b | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: license-unclear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Vercel find-skills | vercel-labs/skills | UNCHANGED | d23509536baf | 2026-05-22T12:08:18.569Z | d23509536baf | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: license-unclear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Addy Osmani Web Quality Skills | addyosmani/web-quality-skills | UNCHANGED | 7b59d48aaf1f | 2026-05-22T12:08:18.569Z | 7b59d48aaf1f | 2026-05-15 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| VoltAgent Awesome Design.md | VoltAgent/awesome-design-md | UNCHANGED | 3883984baf05 | 2026-05-22T12:08:18.569Z | 3883984baf05 | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| VoltAgent Awesome Agent Skills | VoltAgent/awesome-agent-skills | UNCHANGED | 95fa85de2b80 | 2026-05-22T12:08:18.569Z | 95fa85de2b80 | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Impeccable | pbakaus/impeccable | UNCHANGED | 642f03d5a10e | 2026-05-22T12:08:18.569Z | 642f03d5a10e | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Uncodixfy | cyxzdev/Uncodixfy | UNCHANGED | e0e028058b52 | 2026-05-22T12:08:18.569Z | e0e028058b52 | 2026-05-16 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Agency Agents | msitarzewski/agency-agents | UNCHANGED | 783f6a72bfd7 | 2026-05-22T12:08:18.569Z | 783f6a72bfd7 | 2026-05-08 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Superpowers | obra/superpowers | UNCHANGED | f2cbfbefebbf | 2026-05-22T12:08:18.569Z | f2cbfbefebbf | 2026-05-08 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| Everything Claude Code | affaan-m/everything-claude-code | UNCHANGED | 1e8c7e799422 | 2026-05-22T12:08:18.569Z | 1e8c7e799422 | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
+| RuFlo | ruvnet/ruflo | UNCHANGED | a75d733f0fdc | 2026-05-22T12:08:18.569Z | a75d733f0fdc | 2026-05-22 | not checked (git ls-remote fallback) | not checked (source record: clear) | no action | Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403) |
 
 ## Next Step Meanings
 
@@ -49,7 +56,10 @@ Read-only freshness signal only. No source import approval, activation approval,
 
 ## Caveats
 
+- `Last checked` is the freshness scan timestamp and is not persisted back into source records automatically.
+- Freshness signals only select review priority; they do not authorize source-record edits, extraction, activation, installation, or runtime writes.
 - License metadata is a signal only, not approval.
 - Watched-path changes are signals only, not approval.
 - CHECK_FAILED is per source and does not authorize fallback import or activation.
+- GitHub API 403/429 fallback is limited to `git ls-remote` default-branch commit checks.
 - This monitor never clones repositories, runs external scripts, copies raw files, installs skills, activates plugins, or updates source records.

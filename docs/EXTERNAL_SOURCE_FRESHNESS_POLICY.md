@@ -21,6 +21,7 @@ This policy defines how the toolkit tracks external sources without auto-importi
   - changing Codex global config,
   - changing product repositories.
 - Freshness signals may propose that a source is worth re-review; they are not execution permissions.
+- If GitHub API metadata returns `403` or `429`, the only allowed fallback is a read-only `git ls-remote` default-branch commit check. Fallback must not clone, checkout, fetch raw files, install, execute scripts, activate anything, or update source records automatically.
 
 ## 2) Required source data model
 
@@ -87,6 +88,7 @@ For toolkit skills, each `SKILL.md` should keep a stable `Source Provenance` sec
 `scripts/check-source-freshness.mjs` is the default monitoring entrypoint and should continue to:
 
 - run against GitHub metadata without cloning,
+- limit GitHub API `403`/`429` fallback to `git ls-remote` default-branch commit checks,
 - avoid runtime writes outside `docs/SOURCE_FRESHNESS_REPORT.md`,
 - keep `neverAutoImport` behavior,
 - emit a report explicitly stating that no approval is granted.

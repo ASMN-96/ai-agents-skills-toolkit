@@ -1,10 +1,13 @@
 #!/usr/bin/env node
+import { execFile } from "node:child_process";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { promisify } from "node:util";
 
 const WATCHLIST_PATH = "sources/source-watchlist.json";
 const ALLOWED_OUTPUT = "docs/SOURCE_FRESHNESS_REPORT.md";
+const execFileAsync = promisify(execFile);
 const DISCLAIMER =
   "Changed upstream source is not approved for import. This report does not authorize copying, installing, activating, extracting methods, updating source records, or changing runtime configuration.";
 
@@ -56,6 +59,7 @@ Usage:
 Behavior:
   - Reads ${WATCHLIST_PATH}
   - Checks GitHub repository metadata without cloning, installing, activating, or copying external files
+  - Falls back to read-only git ls-remote default-branch checks for GitHub API 403/429 responses
   - Prints a Markdown report to stdout by default
   - Writes only to ${ALLOWED_OUTPUT} when --output is provided
   - Uses GITHUB_TOKEN only as an Authorization header for GitHub API rate limits and never prints it
@@ -154,10 +158,14 @@ async function githubJson(endpoint) {
     return null;
   }
   if (response.status === 403 || response.status === 429) {
-    throw new Error(`GitHub API rate limit or access failure (${response.status})`);
+    const error = new Error(`GitHub API rate limit or access failure (${response.status})`);
+    error.status = response.status;
+    throw error;
   }
   if (!response.ok) {
-    throw new Error(`GitHub API request failed (${response.status})`);
+    const error = new Error(`GitHub API request failed (${response.status})`);
+    error.status = response.status;
+    throw error;
   }
   return response.json();
 }
@@ -227,6 +235,9 @@ async function inspectGithubSource(source) {
       notes: changed ? "Upstream default branch changed since last reviewed commit." : "Default branch commit matches last reviewed commit."
     };
   } catch (error) {
+    if (error.status === 403 || error.status === 429) {
+      return inspectGithubSourceWithLsRemoteFallback(source, error.message);
+    }
     return {
       status: "CHECK_FAILED",
       latestCommit: null,
@@ -235,6 +246,44 @@ async function inspectGithubSource(source) {
       licenseSignal: "check failed",
       watchedPathSignals: [],
       notes: error.message
+    };
+  }
+}
+
+async function inspectGithubSourceWithLsRemoteFallback(source, reason) {
+  try {
+    const branch = source.defaultBranch || "main";
+    const ref = `refs/heads/${branch}`;
+    const { stdout } = await execFileAsync("git", ["ls-remote", source.sourceUrl, ref], {
+      timeout: 30_000,
+      maxBuffer: 1024 * 1024
+    });
+    const line = stdout.trim().split(/\r?\n/).find(Boolean);
+    const latestCommit = line ? line.split(/\s+/)[0] : null;
+    const changed = Boolean(latestCommit && latestCommit !== source.lastReviewedCommit);
+
+    if (!latestCommit) {
+      throw new Error(`git ls-remote returned no default-branch ref for ${ref}`);
+    }
+
+    return {
+      status: classifyStatus(source, changed),
+      latestCommit,
+      latestCommitDate: "not checked (git ls-remote fallback)",
+      releaseSignal: "not checked (git ls-remote fallback)",
+      licenseSignal: `not checked (source record: ${source.licenseConcern})`,
+      watchedPathSignals: [],
+      notes: `${changed ? "Upstream default branch changed since last reviewed commit." : "Default branch commit matches last reviewed commit."} GitHub API fallback used after: ${reason}`
+    };
+  } catch (fallbackError) {
+    return {
+      status: "CHECK_FAILED",
+      latestCommit: null,
+      latestCommitDate: null,
+      releaseSignal: "check failed",
+      licenseSignal: "check failed",
+      watchedPathSignals: [],
+      notes: `GitHub API failed (${reason}); git ls-remote fallback failed: ${fallbackError.message}`
     };
   }
 }
@@ -403,6 +452,7 @@ function renderReport(results, useMock, checkedAt) {
     "- License metadata is a signal only, not approval.",
     "- Watched-path changes are signals only, not approval.",
     "- CHECK_FAILED is per source and does not authorize fallback import or activation.",
+    "- GitHub API 403/429 fallback is limited to `git ls-remote` default-branch commit checks.",
     "- This monitor never clones repositories, runs external scripts, copies raw files, installs skills, activates plugins, or updates source records."
   );
 

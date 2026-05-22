@@ -1,8 +1,8 @@
 # AI Agent Skills Toolkit
 
-AI Agent Skills Toolkit is a central workspace for managing reusable agents, reviewed methods, skill evaluations, profiles, prompts, and install or update workflows that can later be synced intentionally into software projects.
+AI Agent Skills Toolkit is a central workspace for production-grade software governance: reusable agents, reviewed methods, source-safety records, skill evaluations, profiles, prompts, and install or update workflows that can later be synced intentionally into software projects.
 
-This repository is not a product repo. It is a governance and preparation layer for agent-system assets.
+This repository is not a product repo and not a second Codex runtime. It is a governance, provenance, source-safety, routing, quality-control, and release-discipline layer for serious software projects across SaaS, internal tools, infrastructure platforms, mobile apps, AI products, enterprise software, backend systems, frontend products, and data platforms.
 
 ## Core Model
 
@@ -14,6 +14,8 @@ This repository is not a product repo. It is a governance and preparation layer 
 - Registries index existing agents, skills, passive methods, profiles, tools, and routing scenarios. Registry presence does not imply activation.
 
 Superpowers is already available in Codex and is treated as an external execution-discipline plugin. This toolkit does not duplicate it. Context7, Playwright, and Figma are support tools used only when needed.
+
+Codex-native execution remains primary. This toolkit sets the governance bar, source-of-truth checks, source-safety gates, project-specific standards, and release discipline while selecting the minimum useful agents, skills, profiles, and support tools for the task.
 
 ## Why Skill Scout Comes First
 
@@ -43,3 +45,5 @@ The high-level workflow is:
 Phases 1-9 established the toolkit foundation, source records, normalized methods, 12 compiled agents, profiles, dry-run project sync, project-managed skill sync, external GSD/Superpowers governance, Codex custom-agent governance, and the `riss-governance` entrypoint.
 
 Phase 10A/10B adds the governance spine contract, registries, token-efficiency policy, missing-skill discovery policy, runtime verification docs, external-source backlog, and eval scaffolding. Phase 10C/10D refreshes external source records only. Phase 10E adds narrow normalized methods. Phase 10F indexes reviewed methods as passive metadata and routing references. These phases do not install tools, activate skills, clone repositories, copy raw external skills, modify global Codex config, or touch product repositories.
+
+Phase 10 source-refresh slimming adds the production-grade software governance model, runtime activation boundary, overlap classification, and live source freshness refresh while preserving Codex/plugin execution authority.

@@ -3,12 +3,12 @@
 - URL: https://github.com/mattpocock/skills
 - Owner / publisher: Matt Pocock.
 - Source type: GitHub repository of personal engineering workflow skills.
-- Retrieval date: 2026-05-15.
+- Retrieval date: 2026-05-22.
 - Purpose: Personal engineering skills focused on planning, domain language, TDD, QA, triage, and refactoring.
 - Trust level: Medium-high.
 - License if visible: MIT.
-- Commit / update activity: `e74f0061bb67222181640effa98c675bdb2fdaa7` from read-only remote HEAD check.
-- Recommendation: Extract into methods.
+- Commit / update activity: `b8be62ffacb0118fa3eaa29a0923c87c8c11985c` from read-only remote HEAD check on 2026-05-22.
+- Recommendation: Passive reference for normalized TypeScript/code-quality patterns. Do not copy raw skill bodies or duplicate Codex/Superpowers execution discipline.
 
 ## Summary
 

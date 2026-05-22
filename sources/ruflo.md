@@ -3,8 +3,8 @@
 - URL: https://github.com/ruvnet/ruflo
 - Owner / publisher: ruvnet.
 - Source type: Agent orchestration/runtime framework with daemon, plugins, workers, state, and verification materials.
-- Retrieval date: 2026-05-16.
-- Pinned repo ref checked: `ca0a6fa5cb1678b5c57c9289bc09a036f7308c61` on `main`, committed 2026-05-16.
+- Retrieval date: 2026-05-22.
+- Pinned repo ref checked: `a75d733f0fdc8fbab15a7cec06451936842fb711` on `main`, checked by read-only remote HEAD on 2026-05-22.
 - Visible adoption signals: about 46.8k GitHub stars, 5.2k forks, and active alpha release work.
 - Trust level: Medium source trust, very high runtime/daemon risk.
 - License status: GitHub API reports MIT.

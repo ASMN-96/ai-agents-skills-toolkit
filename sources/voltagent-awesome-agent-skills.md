@@ -4,8 +4,8 @@
 - Purpose: Curated directory of official and community agent skills.
 - Trust level: Medium.
 - License if visible: MIT.
-- Commit / update activity: `fd4f0e980e2d0bebf2916f849276586946d95540` from read-only remote HEAD check.
-- Recommendation: Reference only.
+- Commit / update activity: `95fa85de2b8044984d8ee790d0a4c1884ff2cf0b` from read-only remote HEAD check on 2026-05-22.
+- Recommendation: Reference only. Do not treat the directory as install approval, activation authority, or proof of source safety.
 
 ## Useful Methods
 

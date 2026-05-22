@@ -4,8 +4,8 @@
 - Related docs: https://playwright.dev/docs/trace-viewer
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
-- Retrieval date: 2026-05-16.
-- Pinned repo ref checked: `72bbd1d964a87855c4b067b135458535c825712f` on `main`, committed 2026-05-16.
+- Retrieval date: 2026-05-22.
+- Pinned repo ref checked: `4cd7f685f902b2f9783ea8a3af8a78a1b9c5fdb2` on `main`, checked by read-only remote HEAD on 2026-05-22.
 - Visible adoption signals: about 88.3k GitHub stars, 5.6k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.

@@ -4,8 +4,8 @@
 - Owner / publisher: Vercel Labs.
 - Source type: Web/frontend agent skills repository with React, deployment, design, and Vercel-oriented skill packages.
 - Source authority level: Historical/reference-only. Not active authority for toolkit methods or runtime.
-- Retrieval date: 2026-05-08.
-- Pinned repo ref checked: `b9c8ee0643d87d3c5a953d1e22382ff2ead39229` on `main`, committed 2026-05-05.
+- Retrieval date: 2026-05-22.
+- Pinned repo ref checked: `da22a4c9e85b3a3f6f4b4e8cd415016117643bb2` on `main`, checked by read-only remote HEAD on 2026-05-22.
 - Visible adoption signals: about 26.3k GitHub stars, 2.4k forks, and visible React/web-design/deployment skill folders.
 - Trust level: Medium-high source trust, high install/package risk.
 - License status: README claims MIT. GitHub API did not expose a root license, and no root SPDX `LICENSE` file was found through the contents API during this pass.
