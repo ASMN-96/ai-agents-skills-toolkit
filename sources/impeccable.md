@@ -4,12 +4,12 @@
 - Owner / publisher: Paul Bakaus / `pbakaus`.
 - Source type: External GitHub source for AI-assisted design critique, design-system context, and UI/UX quality vocabulary.
 - Source status: Reviewed source record; approved only for narrow normalized guidance in `vd-premium-uiux`.
-- Retrieval date: 2026-05-16.
-- Last checked date: 2026-05-16.
-- Last reviewed date: 2026-05-16.
-- Last reviewed commit: `4af581e23f17d112d8f9d6b7a5b7ff37823494e1`.
-- Normalization review date: 2026-05-16.
-- Normalization review commit: `4af581e23f17d112d8f9d6b7a5b7ff37823494e1`.
+- Retrieval date: 2026-05-22.
+- Last checked date: 2026-05-22.
+- Last reviewed date: 2026-05-22.
+- Last reviewed commit: `642f03d5a10eb3deb91bd511241e387e23b9aa39`.
+- Normalization review date: 2026-05-22.
+- Normalization review commit: `642f03d5a10eb3deb91bd511241e387e23b9aa39`.
 - Visible adoption signals: 28,106 GitHub stars, 1,517 forks, and repository push activity on 2026-05-15 from read-only GitHub metadata.
 - Trust level: Medium-high design-source trust, with medium-high execution risk if CLI, install, detector, or live workflow guidance is followed.
 - License status: GitHub API reports Apache-2.0.

@@ -4,12 +4,12 @@
 - Related docs: https://supabase.com/docs/guides/getting-started/ai-skills
 - Owner / publisher: Supabase.
 - Source type: Official Agent Skills repository and official Supabase AI Skills documentation.
-- Retrieval date: 2026-05-15.
-- Pinned repo ref checked: `daaed4afe2c78cbdbf92a98f43540cb0293b512d` on `main`, committed 2026-05-15.
+- Retrieval date: 2026-05-22.
+- Pinned repo ref checked: `4e69c80e213f315c02c9ebef9c28dd6e43a4707e` on `main`, checked by read-only remote HEAD on 2026-05-22.
 - Visible adoption signals: about 2.1k GitHub stars, 134 forks, and an official `v0.1.1` release on 2026-05-06.
 - Trust level: High publisher trust, high execution and data-risk if applied blindly to live Supabase projects.
 - License status: GitHub API reports MIT.
-- Recommendation: Refresh source record only. No method extraction or skill updates until separately approved. Do not run install commands, activate skills, copy raw `SKILL.md`, or change Supabase projects during source scouting.
+- Recommendation: Refresh source record only. Delegate Supabase implementation behavior to the installed Supabase plugin/official docs when needed. No method extraction or skill updates until separately approved. Do not run install commands, activate skills, copy raw `SKILL.md`, or change Supabase projects during source scouting.
 
 ## Purpose
 

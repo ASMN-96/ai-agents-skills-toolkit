@@ -1,6 +1,8 @@
 # Toolkit Architecture
 
-AI Agent Skills Toolkit separates source intake, method extraction, agent definition, compilation, and project sync.
+AI Agent Skills Toolkit separates production-grade governance, source intake, method extraction, agent definition, compilation, runtime-boundary documentation, and project sync.
+
+The toolkit is a governance, provenance, source-safety, routing, quality-control, and release-discipline layer for serious software projects. It is not a second Codex runtime and must not duplicate Codex-native capabilities, installed plugins, official OpenAI/Codex docs, or external skill/plugin behavior.
 
 ## Layers
 
@@ -12,12 +14,17 @@ AI Agent Skills Toolkit separates source intake, method extraction, agent defini
 - `compiled-agents/` stores intentional compiled outputs for project repositories.
 - `registries/` stores machine-readable indexes for existing agents, skills, passive methods, profiles, support tools, and plain-language routing scenarios.
 - `evals/` stores routing, skill trigger, stop-condition, token-efficiency, and runtime visibility evaluation scaffolds.
+- `docs/PRODUCTION_GRADE_SOFTWARE_GOVERNANCE.md` defines the universal quality bar and first-pilot usage model.
+- `docs/RUNTIME_ACTIVATION_MODEL.md` separates `.ai-toolkit/` governance storage from Codex runtime activation surfaces.
+- `docs/OVERLAP_REDUCTION.md` classifies duplicated authority as keep-active, delegate-to-codex-plugin, passive-reference, or candidate-removal.
 - Global Codex custom agents can be generated from compiled agents under `~/.codex/agents/` after explicit approval.
 - `install/` stores dry-run-first, version-pinned project sync workflows for selected compiled agents and profiles.
 
 ## Boundaries
 
 Raw external skills and repositories do not become active automatically. Project repositories consume compiled agents, not upstream source files. Every project sync pins a toolkit version.
+
+Codex-native execution remains primary. Toolkit governance selects only the minimum useful agents, skills, profiles, and support tools for the work; it must not activate every plugin, tool, agent, or profile by default.
 
 Phase 3 method extraction adds source records and normalized method documents only. It does not install skills, activate skills, clone external repositories, run third-party scripts, change global configuration, or create compiled agents.
 

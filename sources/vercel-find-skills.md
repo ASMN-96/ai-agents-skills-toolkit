@@ -5,8 +5,8 @@
 - Owner / publisher: Vercel Labs.
 - Source type: Skills directory entry plus open skills CLI repository.
 - Source authority level: Historical/reference-only. Not active authority for toolkit methods or runtime.
-- Retrieval date: 2026-05-08.
-- Pinned repo ref checked: `8d571eb986e933e67c8e04e80e7ff57deb790e58` on `main`, committed 2026-05-08.
+- Retrieval date: 2026-05-22.
+- Pinned repo ref checked: `d23509536baf5adadd53f707cd8d6fd287dea581` on `main`, checked by read-only remote HEAD on 2026-05-22.
 - Visible adoption signals: about 17.5k GitHub stars, 1.4k forks, and about 1.4M skills.sh installs for `find-skills`.
 - Trust level: Medium-high source trust, high execution risk if CLI install/update behavior is followed.
 - License status: GitHub API did not expose a root repo license. `package.json` declares MIT. Per-skill license status should remain unclear until a dedicated license review confirms repository-level applicability.
