@@ -4,7 +4,7 @@
 - Owner / publisher: ruvnet.
 - Source type: Agent orchestration/runtime framework with daemon, plugins, workers, state, and verification materials.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `313f2f88e0d12426cc1fb2f1a1b92d1ca3730f4b` on `main`, checked by read-only remote HEAD on 2026-05-29.
+- Pinned repo ref checked: `6198abfab7491bece4bc23ad85fa7551e2c1f749` on `main`, checked by read-only remote HEAD on 2026-05-29.
 - Visible adoption signals: about 46.8k GitHub stars, 5.2k forks, and active alpha release work.
 - Trust level: Medium source trust, very high runtime/daemon risk.
 - License status: GitHub API reports MIT.
@@ -67,3 +67,7 @@ Candidate for future normalized orchestration method refinement, pending separat
 ## Freshness Review 2026-05-16
 
 Skill Scout read-only review refreshed the source record from `455f0b17be2c445b95e6d74203da8702bfb0bd4b` to `ca0a6fa5cb1678b5c57c9289bc09a036f7308c61`. The compare showed changes across hook handlers, CI, package metadata, browser plugin docs/skills/scripts, witness verification, CLI/memory/security package areas, and added smoke/audit scripts. MIT license metadata remained present, but the source continues to carry very high runtime/daemon/config risk. This refresh updates source tracking only and does not approve daemon, worker, hook, MCP, memory, plugin, script, smoke-test, source-copying, method-extraction, or global configuration use.
+
+## Freshness Review 2026-05-29
+
+Skill Scout deep safety refresh reviewed the upstream default-branch movement from `313f2f88e0d12426cc1fb2f1a1b92d1ca3730f4b` to `6198abfab7491bece4bc23ad85fa7551e2c1f749` using read-only `git ls-remote` and GitHub compare metadata only. The compare was 3 commits ahead and touched package metadata, package lock data, plugin smoke scripts, a new `.claude/workflows/full-system-test.js`, v3 CLI test/tool-loop/MCP tooling files, hook tooling, and provider types. The runtime, daemon, plugin, hook, MCP, package-script, and smoke-test risks remain high; the recommendation is unchanged. This refresh updates source tracking only and does not approve daemon, worker, hook, MCP, memory, plugin, script, smoke-test, package-lock import, source-copying, method-extraction, or global configuration use.

@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
 
 jobs:
   validate:
@@ -23,3 +26,18 @@ jobs:
 
       - name: Check source freshness mock
         run: node scripts/check-source-freshness.mjs --mock
+
+  live-source-freshness:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check source freshness live advisory
+        run: node scripts/check-source-freshness.mjs --fail-on-change

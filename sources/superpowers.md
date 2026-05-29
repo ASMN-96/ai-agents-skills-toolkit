@@ -4,7 +4,10 @@
 - Owner / publisher: obra / Superpowers.
 - Source type: External execution-discipline plugin and skill framework.
 - Retrieval date: 2026-05-08.
-- Pinned repo ref checked: `f2cbfbefebbfef77321e4c9abc9e949826bea9d7` on `main`, committed 2026-05-04.
+- Last checked date: 2026-05-29.
+- Last reviewed date: 2026-05-29.
+- Last reviewed commit: `6fd4507659784c351abbd2bc264c7162cfd386dc`.
+- Pinned repo ref checked: `6fd4507659784c351abbd2bc264c7162cfd386dc` on `main`, checked by read-only remote HEAD on 2026-05-29.
 - Visible adoption signals: about 183.1k GitHub stars, 16.3k forks, active release work, and an installed external Codex plugin in this environment.
 - Trust level: High execution-discipline trust, high duplication risk.
 - License status: GitHub API reports MIT.
@@ -61,3 +64,7 @@ Superpowers is already available as an external plugin in this Codex environment
 ## Recommendation
 
 Candidate for a future integration map only, pending separate approval. Keep Superpowers external. No raw skill/plugin/repo content was activated or duplicated.
+
+## Freshness Review 2026-05-29
+
+Skill Scout deep safety refresh reviewed the upstream default-branch movement from `f2cbfbefebbfef77321e4c9abc9e949826bea9d7` to `6fd4507659784c351abbd2bc264c7162cfd386dc` using read-only `git ls-remote` and GitHub compare metadata only. The compare was 1 commit ahead and touched GitHub issue templates, a pull request template, a platform support template, and `CLAUDE.md`. The change set does not reduce the duplication/runtime risks already documented. The recommendation is unchanged: keep Superpowers external and do not vendor, duplicate, install, activate, or globally reconfigure it from this toolkit.

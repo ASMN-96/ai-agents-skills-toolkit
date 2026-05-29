@@ -112,22 +112,78 @@ function Get-FileAction {
     return 'Update'
 }
 
-function Assert-TargetBranchPolicy {
-    param([string]$TargetRoot, [string]$BranchPolicy)
-    if ($BranchPolicy -ne 'no-direct-main') { return }
+function Invoke-GitOutput {
+    param([string]$TargetRoot, [string[]]$Arguments)
+    $output = & git -C $TargetRoot @Arguments 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        throw ($output -join "`n")
+    }
+    return ($output -join "`n").Trim()
+}
+
+function Test-TargetGitSafety {
+    param([string]$TargetRoot, [string]$BranchPolicy, [switch]$RefreshRemote)
     try {
-        $branchRaw = & git -C $TargetRoot rev-parse --abbrev-ref HEAD 2>$null
+        if ($BranchPolicy -ne 'no-direct-main') {
+            return [pscustomobject]@{ Safe = $false; Message = "Unsupported branchPolicy '$BranchPolicy'. Confirm mode requires no-direct-main." }
+        }
+
+        $inside = Invoke-GitOutput $TargetRoot @('rev-parse', '--is-inside-work-tree')
+        if ($inside -ne 'true') {
+            return [pscustomobject]@{ Safe = $false; Message = 'Target is not a Git work tree.' }
+        }
+
+        $branch = Invoke-GitOutput $TargetRoot @('rev-parse', '--abbrev-ref', 'HEAD')
+        if ($branch -eq 'HEAD') {
+            return [pscustomobject]@{ Safe = $false; Message = 'Target repository is in detached HEAD state.' }
+        }
+        if ($branch -in @('main', 'master')) {
+            return [pscustomobject]@{ Safe = $false; Message = "Refusing confirm mode on target branch '$branch' because branchPolicy is no-direct-main." }
+        }
+
+        $status = Invoke-GitOutput $TargetRoot @('status', '--porcelain')
+        if (![string]::IsNullOrWhiteSpace($status)) {
+            return [pscustomobject]@{ Safe = $false; Message = 'Target repository has dirty or uncommitted changes.' }
+        }
+
+        $upstream = Invoke-GitOutput $TargetRoot @('rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{u}')
+        if ([string]::IsNullOrWhiteSpace($upstream)) {
+            return [pscustomobject]@{ Safe = $false; Message = "Target branch '$branch' is missing an upstream." }
+        }
+        if ($RefreshRemote) {
+            Invoke-GitOutput $TargetRoot @('fetch') | Out-Null
+        }
+
+        $counts = Invoke-GitOutput $TargetRoot @('rev-list', '--left-right', '--count', 'HEAD...@{u}')
+        $parts = @($counts -split '\s+')
+        if ($parts.Count -lt 2) {
+            return [pscustomobject]@{ Safe = $false; Message = 'Unable to compare target branch with upstream.' }
+        }
+        $ahead = [int]$parts[0]
+        $behind = [int]$parts[1]
+        if ($ahead -ne 0 -or $behind -ne 0) {
+            return [pscustomobject]@{ Safe = $false; Message = "Target branch '$branch' is not aligned with upstream '$upstream' (ahead $ahead, behind $behind)." }
+        }
+
+        return [pscustomobject]@{ Safe = $true; Message = "Target branch '$branch' is clean and aligned with upstream '$upstream'." }
     }
     catch {
-        throw 'Confirm mode with branchPolicy=no-direct-main requires the target to be a Git repository with a detectable branch.'
+        return [pscustomobject]@{ Safe = $false; Message = "Target Git safety check failed: $($_.Exception.Message)" }
     }
-    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($branchRaw)) {
-        throw 'Confirm mode with branchPolicy=no-direct-main requires the target to be a Git repository with a detectable branch.'
+}
+
+function Assert-TargetGitSafety {
+    param([string]$TargetRoot, [string]$BranchPolicy)
+    $status = Test-TargetGitSafety $TargetRoot $BranchPolicy -RefreshRemote
+    if (!$status.Safe) {
+        throw $status.Message
     }
-    $branch = $branchRaw.Trim()
-    if ($branch -in @('main', 'master')) {
-        throw "Refusing confirm mode on target branch '$branch' because branchPolicy is no-direct-main."
-    }
+}
+
+function Write-TargetGitSafetyStatus {
+    param([string]$TargetRoot, [string]$BranchPolicy)
+    $status = Test-TargetGitSafety $TargetRoot $BranchPolicy
+    Write-Host "Target Git safety:       $(if ($status.Safe) { 'pass' } else { 'not ready' }) - $($status.Message)"
 }
 
 function Write-CopyPlan {
@@ -156,6 +212,26 @@ function Get-RelativeManagedPath {
     $rootFull = [System.IO.Path]::GetFullPath($Root).TrimEnd('\', '/')
     $pathFull = [System.IO.Path]::GetFullPath($Path)
     return ($pathFull.Substring($rootFull.Length).TrimStart('\', '/') -replace '/', '\')
+}
+
+function New-ToolkitManifest {
+    param($Plan, [string]$ToolkitVersion, [string]$ToolkitCommit)
+    $assets = @($Plan | Sort-Object RelativePath | ForEach-Object {
+        [ordered]@{
+            type = $_.Type
+            name = $_.Name
+            path = ($_.RelativePath -replace '\\', '/')
+            sha256 = (Get-FileHash -Algorithm SHA256 -LiteralPath $_.Destination).Hash.ToLowerInvariant()
+        }
+    })
+
+    return [ordered]@{
+        schemaVersion = '1.0.0'
+        toolkitVersion = $ToolkitVersion
+        toolkitCommit = $ToolkitCommit
+        generatedAtUtc = (Get-Date).ToUniversalTime().ToString('o')
+        assets = $assets
+    }
 }
 
 if ($Help) {
@@ -266,6 +342,7 @@ Write-Host "Installed toolkit commit:  $(Get-JsonProperty $installedVersion 'too
 Write-Host "Current toolkit version:   $ToolkitVersion"
 Write-Host "Current toolkit commit:    $toolkitCommit"
 Write-Host "Mode:                      $(if ($ConfirmWrite) { 'confirm-write' } else { 'dry-run' })"
+Write-TargetGitSafetyStatus $targetRoot $branchPolicy
 Write-Host ''
 Write-CopyPlan $copyPlan
 
@@ -279,7 +356,7 @@ if (!$ConfirmWrite) {
     exit 0
 }
 
-Assert-TargetBranchPolicy $targetRoot $branchPolicy
+Assert-TargetGitSafety $targetRoot $branchPolicy
 
 New-Item -ItemType Directory -Force -Path (Join-Path $aiRoot 'compiled-agents') | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $aiRoot 'profiles') | Out-Null
@@ -315,5 +392,6 @@ $versionRecord = [ordered]@{
 
 $versionRecord | ConvertTo-Json -Depth 5 | Set-Content -Encoding UTF8 -LiteralPath $versionPath
 $writtenConfig | ConvertTo-Json -Depth 5 | Set-Content -Encoding UTF8 -LiteralPath $defaultConfigPath
+New-ToolkitManifest $copyPlan $ToolkitVersion $toolkitCommit | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 -LiteralPath (Join-Path $aiRoot '.ai-toolkit-manifest.json')
 
 Write-Host 'Update complete. Managed files were written only under .ai-toolkit/.'

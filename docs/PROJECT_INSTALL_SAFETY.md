@@ -35,10 +35,15 @@ The config field `allowOverwriteProjectContext` must be `false`. The current syn
 
 ## Rollback Plan
 
+Confirm-write installs and updates must run only on a clean, upstream-aligned feature branch. The sync scripts reject target repositories that are on `main`/`master`, detached, dirty, missing upstream, ahead, behind, or divergent. Dry-run mode does not block, but it reports target Git safety status when available.
+
+Every confirm-write install/update writes `.ai-toolkit/.ai-toolkit-manifest.json` with SHA256 hashes for managed copied artifacts. Validation fails if the manifest is missing or a managed file no longer matches its recorded hash.
+
 Project installs should happen on a feature branch. To roll back:
 
 1. Revert the project PR that introduced or updated `.ai-toolkit/`.
 2. Confirm `.ai-toolkit/.ai-toolkit-version` returns to the prior pinned version.
-3. Re-run `install/validate-project-install.ps1` against the project path.
+3. Confirm `.ai-toolkit/.ai-toolkit-manifest.json` returns to the prior pinned manifest.
+4. Re-run `install/validate-project-install.ps1` against the project path.
 
 Do not manually overwrite project `AGENTS.md` or `docs/ai` context files as part of rollback.

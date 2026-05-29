@@ -20,6 +20,11 @@ const PROVENANCE_CATEGORIES = new Set([
   "local-vd-authored"
 ]);
 
+const COMMIT_SHA_PATTERN = /^[0-9a-f]{40}$/i;
+const GITHUB_OWNER_PATTERN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/;
+const GITHUB_REPO_PATTERN = /^[A-Za-z0-9._-]+$/;
+const SAFE_BRANCH_PATTERN = /^[A-Za-z0-9._/-]+$/;
+
 function rel(filePath) {
   return path.relative(ROOT, filePath).split(path.sep).join("/");
 }
@@ -98,6 +103,45 @@ function byName(items, field = "name") {
 
 function hasExactVisibility(value) {
   return Array.isArray(value) && value.length === 2 && value[0] === "repo" && value[1] === "project-sync";
+}
+
+function validateGithubSourceIdentity(source, location) {
+  if (typeof source.repoOwner !== "string" || !GITHUB_OWNER_PATTERN.test(source.repoOwner)) {
+    fail("source-watchlist", location, "repoOwner must be a GitHub owner name");
+  }
+  if (typeof source.repoName !== "string" || !GITHUB_REPO_PATTERN.test(source.repoName)) {
+    fail("source-watchlist", location, "repoName must be a GitHub repository name");
+  }
+  if (typeof source.defaultBranch !== "string" || !SAFE_BRANCH_PATTERN.test(source.defaultBranch)) {
+    fail("source-watchlist", location, "defaultBranch must use safe branch characters only");
+  } else if (source.defaultBranch.includes("..") || source.defaultBranch.startsWith("/") || source.defaultBranch.endsWith("/")) {
+    fail("source-watchlist", location, "defaultBranch must not contain path traversal or leading/trailing slashes");
+  }
+
+  let parsed;
+  try {
+    parsed = new URL(source.sourceUrl);
+  } catch {
+    fail("source-watchlist", location, "sourceUrl must be an https://github.com/<owner>/<repo> URL");
+    return;
+  }
+
+  if (
+    parsed.protocol !== "https:" ||
+    parsed.hostname !== "github.com" ||
+    parsed.username ||
+    parsed.password ||
+    parsed.search ||
+    parsed.hash
+  ) {
+    fail("source-watchlist", location, "sourceUrl must be an https://github.com/<owner>/<repo> URL without credentials, query, or fragment");
+    return;
+  }
+
+  const segments = parsed.pathname.split("/").filter(Boolean);
+  if (segments.length !== 2 || segments[0] !== source.repoOwner || segments[1] !== source.repoName) {
+    fail("source-watchlist", location, "sourceUrl must match repoOwner/repoName exactly");
+  }
 }
 
 async function validateJsonParsing() {
@@ -372,6 +416,10 @@ async function validateSourcePolicy(watchlist, registryState) {
     ids.add(source.id);
     if (source.neverAutoImport !== true) {
       fail("source policy", location, "neverAutoImport must be true");
+    }
+    validateGithubSourceIdentity(source, location);
+    if (source.lastReviewedCommit !== null && (typeof source.lastReviewedCommit !== "string" || !COMMIT_SHA_PATTERN.test(source.lastReviewedCommit))) {
+      fail("source-watchlist", location, "lastReviewedCommit must be null or a 40-character Git commit SHA");
     }
     if (source.sourceRecordPath && !(await exists(source.sourceRecordPath))) {
       fail("source-watchlist", location, `sourceRecordPath does not exist: ${source.sourceRecordPath}`);

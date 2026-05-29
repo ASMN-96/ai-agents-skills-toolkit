@@ -21,9 +21,24 @@ const STATUSES = new Set([
   "CHECK_FAILED"
 ]);
 
+const ACTIONABLE_STATUSES = new Set([
+  "CHANGED_LOW_RISK",
+  "CHANGED_REVIEW_REQUIRED",
+  "CHANGED_HIGH_RISK",
+  "REVIEW_METADATA_MISSING",
+  "UNSUPPORTED_SOURCE_TYPE",
+  "CHECK_FAILED"
+]);
+
+const COMMIT_SHA_PATTERN = /^[0-9a-f]{40}$/i;
+const GITHUB_OWNER_PATTERN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/;
+const GITHUB_REPO_PATTERN = /^[A-Za-z0-9._-]+$/;
+const SAFE_BRANCH_PATTERN = /^[A-Za-z0-9._/-]+$/;
+
 function parseArgs(argv) {
   const args = {
     help: false,
+    failOnChange: false,
     mock: false,
     output: null
   };
@@ -32,6 +47,8 @@ function parseArgs(argv) {
     const arg = argv[i];
     if (arg === "--help" || arg === "-h") {
       args.help = true;
+    } else if (arg === "--fail-on-change") {
+      args.failOnChange = true;
     } else if (arg === "--mock") {
       args.mock = true;
     } else if (arg === "--output") {
@@ -53,7 +70,7 @@ function printHelp() {
   console.log(`Read-only source freshness monitor.
 
 Usage:
-  node scripts/check-source-freshness.mjs [--mock] [--output docs/SOURCE_FRESHNESS_REPORT.md]
+  node scripts/check-source-freshness.mjs [--mock] [--fail-on-change] [--output docs/SOURCE_FRESHNESS_REPORT.md]
   node scripts/check-source-freshness.mjs --help
 
 Behavior:
@@ -61,6 +78,7 @@ Behavior:
   - Checks GitHub repository metadata without cloning, installing, activating, or copying external files
   - Falls back to read-only git ls-remote default-branch checks for GitHub API 403/429 responses
   - Prints a Markdown report to stdout by default
+  - With --fail-on-change, exits non-zero after reporting actionable statuses
   - Writes only to ${ALLOWED_OUTPUT} when --output is provided
   - Uses GITHUB_TOKEN only as an Authorization header for GitHub API rate limits and never prints it
 `);
@@ -131,15 +149,58 @@ function validateWatchlist(watchlist) {
     if (source.neverAutoImport !== true) {
       throw new Error(`Source ${source.id} must set neverAutoImport: true`);
     }
+    validateGithubSourceIdentity(source);
     if (!Array.isArray(source.watchedPaths)) {
       throw new Error(`Source ${source.id} watchedPaths must be an array`);
     }
     if (source.lastReviewedCommit !== null && typeof source.lastReviewedCommit !== "string") {
       throw new Error(`Source ${source.id} lastReviewedCommit must be string or null`);
     }
+    if (typeof source.lastReviewedCommit === "string" && !COMMIT_SHA_PATTERN.test(source.lastReviewedCommit)) {
+      throw new Error(`Source ${source.id} lastReviewedCommit must be a 40-character Git commit SHA`);
+    }
     if (source.lastReviewedDate !== null && typeof source.lastReviewedDate !== "string") {
       throw new Error(`Source ${source.id} lastReviewedDate must be string or null`);
     }
+  }
+}
+
+function validateGithubSourceIdentity(source) {
+  const location = `Source ${source.id || "<unknown>"}`;
+  if (typeof source.repoOwner !== "string" || !GITHUB_OWNER_PATTERN.test(source.repoOwner)) {
+    throw new Error(`${location} repoOwner must be a GitHub owner name`);
+  }
+  if (typeof source.repoName !== "string" || !GITHUB_REPO_PATTERN.test(source.repoName)) {
+    throw new Error(`${location} repoName must be a GitHub repository name`);
+  }
+  if (typeof source.defaultBranch !== "string" || !SAFE_BRANCH_PATTERN.test(source.defaultBranch)) {
+    throw new Error(`${location} defaultBranch must use safe branch characters only`);
+  }
+  if (source.defaultBranch.includes("..") || source.defaultBranch.startsWith("/") || source.defaultBranch.endsWith("/")) {
+    throw new Error(`${location} defaultBranch must not contain path traversal or leading/trailing slashes`);
+  }
+
+  let parsed;
+  try {
+    parsed = new URL(source.sourceUrl);
+  } catch {
+    throw new Error(`${location} sourceUrl must be an https://github.com/<owner>/<repo> URL`);
+  }
+
+  if (
+    parsed.protocol !== "https:" ||
+    parsed.hostname !== "github.com" ||
+    parsed.username ||
+    parsed.password ||
+    parsed.search ||
+    parsed.hash
+  ) {
+    throw new Error(`${location} sourceUrl must be an https://github.com/<owner>/<repo> URL without credentials, query, or fragment`);
+  }
+
+  const segments = parsed.pathname.split("/").filter(Boolean);
+  if (segments.length !== 2 || segments[0] !== source.repoOwner || segments[1] !== source.repoName) {
+    throw new Error(`${location} sourceUrl must match repoOwner/repoName exactly`);
   }
 }
 
@@ -384,6 +445,10 @@ async function buildResults(watchlist, useMock, checkedAt) {
   return results;
 }
 
+function actionableResults(results) {
+  return results.filter((result) => ACTIONABLE_STATUSES.has(result.status));
+}
+
 function shortSha(sha) {
   return sha ? sha.slice(0, 12) : "n/a";
 }
@@ -484,6 +549,15 @@ async function main() {
       console.log(`Wrote ${ALLOWED_OUTPUT}`);
     } else {
       process.stdout.write(report);
+    }
+
+    if (args.failOnChange) {
+      const actionable = actionableResults(results);
+      if (actionable.length > 0) {
+        const summary = actionable.map((result) => `${result.id}:${result.status}`).join(", ");
+        console.error(`Fatal: actionable source freshness status detected: ${summary}`);
+        process.exitCode = 1;
+      }
     }
   } catch (error) {
     console.error(`Fatal: ${error.message}`);

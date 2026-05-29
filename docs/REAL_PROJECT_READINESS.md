@@ -6,7 +6,7 @@ This document defines when the toolkit can be used in real product repositories.
 
 After Phase 10I, the toolkit is Level 2 certified for one controlled real-project pilot. The passing fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
 
-Use in a real project is appropriate only for one approved pilot after the first target project uses a feature-branch, dry-run-first sync flow. The pilot must use the same verified temporary unelevated Codex CLI override or another fresh-session shell path that proves local checks before any product repository write.
+Use in a real project is appropriate only for one approved pilot after the first target project uses a clean, upstream-aligned feature branch and dry-run-first sync flow. The pilot must use the same verified temporary unelevated Codex CLI override or another fresh-session shell path that proves local checks before any product repository write.
 
 Phase 10L governance UX hardening does not upgrade this readiness level. New internal helper skill files are repo-available only until fresh-session verification confirms visibility and fallback behavior.
 
@@ -62,6 +62,7 @@ The pilot PR must show:
 
 - `.ai-toolkit/.ai-toolkit-version` pins the toolkit commit.
 - `.ai-toolkit/.ai-toolkit.config.json` contains only the selected assets.
+- `.ai-toolkit/.ai-toolkit-manifest.json` records SHA256 hashes for every managed copied artifact and passes validation.
 - Project `AGENTS.md`, `docs/ai`, product code, package files, and global Codex config are not overwritten.
 - The first project use is read-only or planning mode unless the project owner approves a narrow implementation task.
 - Project checks and review comments are clean or explicitly accepted as non-blocking.
@@ -73,7 +74,7 @@ Passing Level 3 means the toolkit is ready for normal use in comparable real pro
 Stop before project use if:
 
 - Fresh-session visibility is not verified.
-- The target project has dirty, stale, divergent, or detached state and the task depends on source truth.
+- The target project is on `main`/`master`, dirty, stale, ahead, behind, divergent, detached, or missing an upstream and the task depends on source truth.
 - A required agent, skill, or support tool is missing and no safe fallback exists.
 - The dry run would overwrite project-owned context.
 - The selected sync set is broad or unclear.
