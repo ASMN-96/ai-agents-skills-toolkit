@@ -4,12 +4,12 @@
 - Related URL: https://github.com/anthropics/skills/tree/main/skills/skill-creator
 - Owner / publisher: Anthropic.
 - Source type: Official GitHub repository for Claude/Agent Skills examples and templates.
-- Retrieval date: 2026-05-22.
-- Pinned ref checked: `690f15cac7f7b4c055c5ab109c79ed9259934081` on `main`, checked by read-only remote HEAD on 2026-05-22.
+- Retrieval date: 2026-05-29.
+- Pinned ref checked: `da20c92503b2e8ff1cf28ca81a0df4673debdbf7` on `main`, checked by read-only remote HEAD on 2026-05-29.
 - Visible adoption signals: about 130k stars, 15.3k forks, high skills.sh install counts for several Anthropic skills.
 - Trust level: High publisher trust, medium extraction risk.
 - License status: mixed. `skills/skill-creator/LICENSE.txt` is Apache-2.0; `skills/docx`, `skills/pdf`, `skills/pptx`, and `skills/xlsx` are source-available / restricted.
-- Recommendation: Allowed only for specific open-pattern use-cases; keep restricted paths as reference-only. The 2026-05-22 refresh does not authorize raw copying, extraction from restricted paths, installation, or activation.
+- Recommendation: Allowed only for specific open-pattern use-cases; keep restricted paths as reference-only. The 2026-05-29 refresh does not authorize raw copying, extraction from restricted paths, installation, or activation.
 
 ## Allowed Active Reference Scope
 

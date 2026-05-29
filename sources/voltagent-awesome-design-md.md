@@ -4,8 +4,8 @@
 - Related directory: https://getdesign.md
 - Owner / publisher: VoltAgent.
 - Source type: Curated DESIGN.md collection inspired by popular brand and product design systems.
-- Retrieval date: 2026-05-22.
-- Pinned repo ref checked: `3883984baf05226208a5dae15730a3593548b808` on `main`, checked by read-only remote HEAD on 2026-05-22.
+- Retrieval date: 2026-05-29.
+- Pinned repo ref checked: `4a8c23122c04929fc6df13545b6d1525a473fdfd` on `main`, checked by read-only remote HEAD on 2026-05-29.
 - Visible adoption signals: about 73.5k GitHub stars, 9.0k forks, active repository updates on 2026-05-08, and a large `design-md` catalog.
 - Trust level: Medium source trust, high brand/trade-dress and copy-paste risk.
 - License status: GitHub API reports MIT.

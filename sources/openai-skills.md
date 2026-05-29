@@ -4,7 +4,7 @@
 - Purpose: Official Codex skills catalog and examples.
 - Trust level: High.
 - License if visible: Per-skill license files.
-- Commit / update activity: `b0401f07213a66414d84a65cb50c1d226f99485a (checked on 2026-05-22)` from read-only remote HEAD check.
+- Commit / update activity: `a8924c2a35cfa290458852c4fad17c9133054c2e (checked on 2026-05-29)` from read-only remote HEAD check.
 - Recommendation: Reference only. Do not copy official OpenAI/Codex docs, raw skill bodies, plugin behavior, or runtime configuration into this toolkit.
 
 ## Useful Methods

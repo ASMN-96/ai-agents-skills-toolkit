@@ -4,8 +4,8 @@
 - Related docs: https://supabase.com/docs/guides/getting-started/ai-skills
 - Owner / publisher: Supabase.
 - Source type: Official Agent Skills repository and official Supabase AI Skills documentation.
-- Retrieval date: 2026-05-22.
-- Pinned repo ref checked: `4e69c80e213f315c02c9ebef9c28dd6e43a4707e` on `main`, checked by read-only remote HEAD on 2026-05-22.
+- Retrieval date: 2026-05-29.
+- Pinned repo ref checked: `577e626421fdb691902f158181e467a3dbf99410` on `main`, checked by read-only remote HEAD on 2026-05-29.
 - Visible adoption signals: about 2.1k GitHub stars, 134 forks, and an official `v0.1.1` release on 2026-05-06.
 - Trust level: High publisher trust, high execution and data-risk if applied blindly to live Supabase projects.
 - License status: GitHub API reports MIT.
