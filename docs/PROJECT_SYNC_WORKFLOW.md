@@ -22,7 +22,7 @@ The command above is a dry-run. It shows the files that would be copied into:
 - `.ai-toolkit/profiles/`
 - `.ai-toolkit/skills/`
 
-To write files, run the same command with `-ConfirmWrite`.
+To write files, run the same command with `-ConfirmWrite`. Confirm mode requires the target repository to be on a clean, upstream-aligned feature branch; it refuses `main`/`master`, detached HEAD, missing upstream, dirty, ahead, behind, or divergent target states.
 
 ## Config-Based Install
 
@@ -38,6 +38,7 @@ Confirm mode writes:
 
 - `.ai-toolkit/.ai-toolkit-version`
 - `.ai-toolkit/.ai-toolkit.config.json`
+- `.ai-toolkit/.ai-toolkit-manifest.json`
 - selected compiled agents
 - selected profiles
 - selected skills
@@ -66,11 +67,11 @@ After a confirm-mode install or update:
 pwsh -NoProfile -File install/validate-project-install.ps1 -TargetPath C:\path\to\project
 ```
 
-Validation confirms `.ai-toolkit/`, version/config files, selected compiled agents, selected profiles, selected skills, and unsafe artifact absence.
+Validation confirms `.ai-toolkit/`, version/config/manifest files, selected compiled agents, selected profiles, selected skills, manifest SHA256 integrity, and unsafe artifact absence. Existing installs without `.ai-toolkit/.ai-toolkit-manifest.json` must be refreshed with `install/update-project.ps1 -ConfirmWrite` from a clean aligned feature branch before they are considered valid.
 
 ## Version Pinning
 
-Every project install records the toolkit version and toolkit commit in `.ai-toolkit/.ai-toolkit-version`. Projects should review this file in the same PR that introduces or updates `.ai-toolkit/`.
+Every project install records the toolkit version and toolkit commit in `.ai-toolkit/.ai-toolkit-version`. It also records a SHA256 manifest for every managed artifact in `.ai-toolkit/.ai-toolkit-manifest.json`. Projects should review both files in the same PR that introduces or updates `.ai-toolkit/`.
 
 Updates are intentional. Projects should not auto-pull toolkit changes.
 

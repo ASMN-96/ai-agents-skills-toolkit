@@ -107,6 +107,67 @@ function Test-SkillFrontmatter {
     return $issues
 }
 
+function Normalize-ManifestPath {
+    param([string]$Path)
+    return (($Path -replace '\\', '/') -replace '^/+', '')
+}
+
+function Get-ManifestAssetMap {
+    param($Manifest)
+    $map = @{}
+    foreach ($asset in @(Get-JsonProperty -Object $Manifest -Name 'assets' -Default @())) {
+        $path = Normalize-ManifestPath ([string](Get-JsonProperty -Object $asset -Name 'path' -Default ''))
+        if ([string]::IsNullOrWhiteSpace($path)) {
+            continue
+        }
+        $map[$path] = $asset
+    }
+    return $map
+}
+
+function Test-ManifestAsset {
+    param(
+        [string]$AiRoot,
+        [hashtable]$ManifestAssets,
+        [string]$RelativePath,
+        [string]$Type,
+        [string]$Name
+    )
+
+    $issues = @()
+    $normalizedPath = Normalize-ManifestPath $RelativePath
+    $fullPath = Join-Path $AiRoot ($normalizedPath -replace '/', [System.IO.Path]::DirectorySeparatorChar)
+    if (!(Test-Path -LiteralPath $fullPath)) {
+        return @("Missing $Type`: $Name")
+    }
+    if (!$ManifestAssets.ContainsKey($normalizedPath)) {
+        return @("Manifest is missing $Type asset: $normalizedPath")
+    }
+
+    $asset = $ManifestAssets[$normalizedPath]
+    $expectedHash = [string](Get-JsonProperty -Object $asset -Name 'sha256' -Default '')
+    if ($expectedHash -notmatch '^[0-9a-fA-F]{64}$') {
+        $issues += "Manifest asset $normalizedPath has invalid sha256."
+    }
+    else {
+        $actualHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $fullPath).Hash.ToLowerInvariant()
+        if ($actualHash -ne $expectedHash.ToLowerInvariant()) {
+            $issues += "Manifest hash mismatch for $normalizedPath."
+        }
+    }
+
+    $assetType = [string](Get-JsonProperty -Object $asset -Name 'type' -Default '')
+    $assetName = [string](Get-JsonProperty -Object $asset -Name 'name' -Default '')
+    if ($assetType -ne $Type) {
+        $issues += "Manifest asset $normalizedPath has type '$assetType', expected '$Type'."
+    }
+    if ($assetName -ne $Name) {
+        $issues += "Manifest asset $normalizedPath has name '$assetName', expected '$Name'."
+    }
+
+    return $issues
+}
+
 if ($Help) {
     Show-Help
     exit 0
@@ -121,21 +182,35 @@ $targetRoot = (Resolve-Path -LiteralPath $TargetPath).Path
 $aiRoot = Join-Path $targetRoot '.ai-toolkit'
 $versionPath = Join-Path $aiRoot '.ai-toolkit-version'
 $configPath = Join-Path $aiRoot '.ai-toolkit.config.json'
+$manifestPath = Join-Path $aiRoot '.ai-toolkit-manifest.json'
 $failures = @()
 
 if (!(Test-Path -LiteralPath $aiRoot)) { $failures += 'Missing .ai-toolkit/ directory.' }
 if (!(Test-Path -LiteralPath $versionPath)) { $failures += 'Missing .ai-toolkit/.ai-toolkit-version.' }
 if (!(Test-Path -LiteralPath $configPath)) { $failures += 'Missing .ai-toolkit/.ai-toolkit.config.json.' }
+if (!(Test-Path -LiteralPath $manifestPath)) { $failures += 'Missing .ai-toolkit/.ai-toolkit-manifest.json. Rerun update-project.ps1 -ConfirmWrite from a clean aligned feature branch.' }
 
 if ($failures.Count -eq 0) {
     $versionRecord = Get-Content -Raw -LiteralPath $versionPath | ConvertFrom-Json
     $config = Get-Content -Raw -LiteralPath $configPath | ConvertFrom-Json
+    $manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
     $recordedToolkitVersion = [string](Get-JsonProperty -Object $versionRecord -Name 'toolkitVersion' -Default '')
     $recordedToolkitCommit = [string](Get-JsonProperty -Object $versionRecord -Name 'toolkitCommit' -Default '')
     $selectedAgents = @(Convert-ToStringArray (Get-JsonProperty -Object $config -Name 'selectedAgents' -Default @()))
     $selectedProfiles = @(Convert-ToStringArray (Get-JsonProperty -Object $config -Name 'selectedProfiles' -Default @()))
     $selectedSkills = @(Convert-ToStringArray (Get-JsonProperty -Object $config -Name 'selectedSkills' -Default @()))
     $allowOverwrite = [bool](Get-JsonProperty -Object $config -Name 'allowOverwriteProjectContext' -Default $false)
+    $manifestAssets = Get-ManifestAssetMap $manifest
+
+    if ([string](Get-JsonProperty -Object $manifest -Name 'schemaVersion' -Default '') -ne '1.0.0') {
+        $failures += 'Manifest schemaVersion must be 1.0.0.'
+    }
+    if ([string](Get-JsonProperty -Object $manifest -Name 'toolkitCommit' -Default '') -ne $recordedToolkitCommit) {
+        $failures += 'Manifest toolkitCommit must match .ai-toolkit-version.'
+    }
+    if ([string](Get-JsonProperty -Object $manifest -Name 'toolkitVersion' -Default '') -ne $recordedToolkitVersion) {
+        $failures += 'Manifest toolkitVersion must match .ai-toolkit-version.'
+    }
 
     if ([string]::IsNullOrWhiteSpace($recordedToolkitVersion)) {
         $failures += 'Missing toolkitVersion in .ai-toolkit/.ai-toolkit-version.'
@@ -150,14 +225,12 @@ if ($failures.Count -eq 0) {
 
     foreach ($agent in $selectedAgents) {
         $name = Normalize-AgentName $agent
-        $path = Join-Path $aiRoot "compiled-agents\$name.compiled.md"
-        if (!(Test-Path -LiteralPath $path)) { $failures += "Missing compiled agent: $name" }
+        $failures += Test-ManifestAsset -AiRoot $aiRoot -ManifestAssets $manifestAssets -RelativePath "compiled-agents/$name.compiled.md" -Type 'compiled-agent' -Name $name
     }
 
     foreach ($profileEntry in $selectedProfiles) {
         $name = Normalize-ProfileName $profileEntry
-        $path = Join-Path $aiRoot "profiles\$name.md"
-        if (!(Test-Path -LiteralPath $path)) { $failures += "Missing profile: $name" }
+        $failures += Test-ManifestAsset -AiRoot $aiRoot -ManifestAssets $manifestAssets -RelativePath "profiles/$name.md" -Type 'profile' -Name $name
     }
 
     foreach ($skillEntry in $selectedSkills) {
@@ -169,11 +242,13 @@ if ($failures.Count -eq 0) {
             continue
         }
 
-        $path = Join-Path $aiRoot "skills\$name\SKILL.md"
+        $relativePath = "skills/$name/SKILL.md"
+        $path = Join-Path $aiRoot ($relativePath -replace '/', [System.IO.Path]::DirectorySeparatorChar)
         if (!(Test-Path -LiteralPath $path)) {
             $failures += "Missing skill: $name"
         }
         else {
+            $failures += Test-ManifestAsset -AiRoot $aiRoot -ManifestAssets $manifestAssets -RelativePath $relativePath -Type 'skill' -Name $name
             $failures += Test-SkillFrontmatter -Path $path -ExpectedName $name
         }
     }
