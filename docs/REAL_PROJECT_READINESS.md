@@ -4,11 +4,11 @@ This document defines when the toolkit can be used in real product repositories.
 
 ## Current Classification
 
-After Phase 10I, the toolkit is Level 2 certified for one controlled real-project pilot. The passing fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
+After the 2026-05-30 RISS v2 pilot, the toolkit is Level 3 certified for normal use in comparable real projects that follow the same governed PR sync flow. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
 
-Use in a real project is appropriate only for one approved pilot after the first target project uses a clean, upstream-aligned feature branch and dry-run-first sync flow. The pilot must use the same verified temporary unelevated Codex CLI override or another fresh-session shell path that proves local checks before any product repository write.
+Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project checks, PR review, and passing CI. This does not authorize automatic rollout or runtime/global activation.
 
-Phase 10L governance UX hardening does not upgrade this readiness level. New internal helper skill files are repo-available only until fresh-session verification confirms visibility and fallback behavior.
+Phase 10L governance UX hardening did not upgrade readiness by itself. The Level 3 upgrade is based on the merged RISS v2 project-sync pilot recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`. Internal helper skill files remain repo-available artifacts unless a fresh-session runtime check confirms visibility and fallback behavior.
 
 ## Readiness Levels
 
@@ -68,6 +68,8 @@ The pilot PR must show:
 - Project checks and review comments are clean or explicitly accepted as non-blocking.
 
 Passing Level 3 means the toolkit is ready for normal use in comparable real projects with the same phase-gated PR discipline.
+
+The current Level 3 project-sync evidence is recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`.
 
 ## Stop Conditions
 
