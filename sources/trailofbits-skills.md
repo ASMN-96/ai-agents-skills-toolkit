@@ -4,8 +4,8 @@
 - Related directory entry: https://skills.sh/trailofbits/skills/differential-review
 - Owner / publisher: Trail of Bits.
 - Source type: Security-focused Claude Code plugin marketplace with Codex sidecar skill support.
-- Retrieval date: 2026-05-08.
-- Pinned repo ref checked: `a56045e9ae00b3506cacefea0f672aab0a1a6e3c` on `main`, committed 2026-05-05.
+- Retrieval date: 2026-05-29.
+- Pinned repo ref checked: `c94841be3deae8a880fa1a9078979adac7ca3dbc` on `main`, checked by read-only remote HEAD on 2026-05-29.
 - Visible adoption signals: about 5.1k GitHub stars, 443 forks, active repository updates on 2026-05-08, and a broad security plugin catalog.
 - Trust level: High security-domain trust, high execution and workflow-overreach risk if imported blindly.
 - License status: GitHub API reports CC-BY-SA-4.0.

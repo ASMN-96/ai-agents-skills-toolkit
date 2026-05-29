@@ -3,11 +3,11 @@
 - URL: https://github.com/addyosmani/agent-skills
 - Owner / publisher: Addy Osmani.
 - Source type: GitHub repository of engineering workflow skills for AI coding agents.
-- Retrieval date: 2026-05-22.
+- Retrieval date: 2026-05-29.
 - Purpose: Production engineering workflow skills for AI coding agents.
 - Trust level: High-medium.
 - License if visible: MIT.
-- Commit / update activity: `539a78574773fe7e46cf8bbf9c67bcc9db63c335` from read-only remote HEAD check on 2026-05-22.
+- Commit / update activity: `6ce029897d2b794940325fc7148774a6ec51111c` from read-only remote HEAD check on 2026-05-29.
 - Recommendation: Passive reference for normalized governance and method-quality patterns. Do not copy raw skill bodies or duplicate Codex/plugin behavior.
 
 ## Summary
