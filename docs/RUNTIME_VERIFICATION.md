@@ -41,7 +41,9 @@ Runtime verification feeds the real-project readiness gate in `docs/REAL_PROJECT
 
 The toolkit is ready for one controlled real-project pilot after the Phase 10I fresh-session smoke test confirmed skill visibility, native-agent visibility, compiled-fallback file presence, support-tool availability, clean repository state, JSON validity, unsafe artifact absence through follow-up validation, and no silent fallback.
 
-Normal use in comparable real projects requires one successful feature-branch pilot with dry-run-first project sync, version pinning, validation, PR review, and no project-owned context overwrite.
+Normal use in comparable real projects is now gated by the Level 3 project-sync evidence in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`: clean feature branch, dry-run-first project sync, version pinning, manifest validation, project checks, PR review, passing CI, and no project-owned context overwrite.
+
+This Level 3 project-sync evidence does not change the runtime activation boundary. Future fresh-session runtime claims still require the checks listed above.
 
 ## No Silent Fallback
 
