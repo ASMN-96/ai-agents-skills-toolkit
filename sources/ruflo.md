@@ -3,9 +3,9 @@
 - URL: https://github.com/ruvnet/ruflo
 - Owner / publisher: ruvnet.
 - Source type: Agent orchestration/runtime framework with daemon, plugins, workers, state, and verification materials.
-- Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `6198abfab7491bece4bc23ad85fa7551e2c1f749` on `main`, checked by read-only remote HEAD on 2026-05-29.
-- Visible adoption signals: about 46.8k GitHub stars, 5.2k forks, and active alpha release work.
+- Retrieval date: 2026-05-30.
+- Pinned repo ref checked: `0403a34279ff5f498f8c5880f72c20666c3a509b` on `main`, checked by read-only remote HEAD on 2026-05-30.
+- Visible adoption signals: about 56.4k GitHub stars, 6.4k forks, and active alpha release work.
 - Trust level: Medium source trust, very high runtime/daemon risk.
 - License status: GitHub API reports MIT.
 - Recommendation: Candidate for future normalized orchestration-method inspiration after separate approval. Do not import daemon, supervisor, worker, MCP, memory, hooks, federation, swarm, or plugin runtime behavior.
@@ -71,3 +71,7 @@ Skill Scout read-only review refreshed the source record from `455f0b17be2c445b9
 ## Freshness Review 2026-05-29
 
 Skill Scout deep safety refresh reviewed the upstream default-branch movement from `313f2f88e0d12426cc1fb2f1a1b92d1ca3730f4b` to `6198abfab7491bece4bc23ad85fa7551e2c1f749` using read-only `git ls-remote` and GitHub compare metadata only. The compare was 3 commits ahead and touched package metadata, package lock data, plugin smoke scripts, a new `.claude/workflows/full-system-test.js`, v3 CLI test/tool-loop/MCP tooling files, hook tooling, and provider types. The runtime, daemon, plugin, hook, MCP, package-script, and smoke-test risks remain high; the recommendation is unchanged. This refresh updates source tracking only and does not approve daemon, worker, hook, MCP, memory, plugin, script, smoke-test, package-lock import, source-copying, method-extraction, or global configuration use.
+
+## Freshness Review 2026-05-30
+
+Skill Scout read-only follow-up reviewed the upstream default-branch movement from `6198abfab7491bece4bc23ad85fa7551e2c1f749` to `0403a34279ff5f498f8c5880f72c20666c3a509b` using read-only `git ls-remote`, GitHub repository metadata, license metadata, compare metadata, and added-line risk keyword review only. The compare was 3 commits ahead and touched `CLAUDE.md` guidance, cost-tracker benchmark run data and trend filtering, deterministic codemod tests/corpus/benchmark scripts, hook command and MCP tool files, deterministic codemod engine and scope analysis files, enhanced model routing, and ADR-143 documentation. MIT license metadata remained present. Added-line risk review found no network-fetch signal, but it did identify executable MCP/hook/codemod guidance, file/glob batch rewrite paths, filesystem read/write behavior, benchmark output writes, and environment-controlled benchmark/trend switches. Prompt guidance that tells agents to call `hooks_codemod` remains untrusted source material. The runtime, daemon, plugin, hook, MCP, package-script, file-write, and benchmark-script risks remain high; the recommendation is unchanged. This refresh updates source tracking only and does not approve daemon, worker, hook, MCP, memory, plugin, script, benchmark, codemod, glob/file rewrite, source-copying, method-extraction, or global configuration use.

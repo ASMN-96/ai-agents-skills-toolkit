@@ -4,9 +4,9 @@
 - Related docs: https://playwright.dev/docs/trace-viewer
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
-- Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `c27ccc4362ddadf9a03e6961069f8300f78d90ff` on `main`, checked by read-only remote HEAD on 2026-05-29.
-- Visible adoption signals: about 88.3k GitHub stars, 5.6k forks, very active repository history, and official docs at `playwright.dev`.
+- Retrieval date: 2026-05-30.
+- Pinned repo ref checked: `bc2960793c05285244cdcc65d46f2b2b409a1373` on `main`, checked by read-only remote HEAD on 2026-05-30.
+- Visible adoption signals: about 89.8k GitHub stars, 5.8k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
 - Recommendation: Candidate for future normalized runtime-verification method extraction after separate approval. Do not install browsers, run tests, start MCP servers, copy source code, or activate Playwright tooling during source scouting.
@@ -68,3 +68,7 @@ Candidate for future normalized runtime-verification method extraction, pending 
 ## Freshness Review 2026-05-16
 
 Skill Scout read-only review refreshed the source record from `409d6d0d9bfeb03f55321ca61582219a8395fb76` to `72bbd1d964a87855c4b067b135458535c825712f`. The compare showed documentation, WebAuthn examples, package source, protocol/type, agent-generation, and test changes. Apache-2.0 license metadata remained present. This refresh updates source tracking only and does not approve Playwright installs, browser downloads, MCP activation, runtime automation, source copying, method extraction, or product-repo changes.
+
+## Freshness Review 2026-05-30
+
+Skill Scout read-only follow-up reviewed the upstream default-branch movement from `c27ccc4362ddadf9a03e6961069f8300f78d90ff` to `bc2960793c05285244cdcc65d46f2b2b409a1373` using read-only GitHub compare, repository, license metadata, and added-line risk keyword review only. The compare was 2 commits ahead and touched Playwright core bootstrap/index loading, extension and trace-viewer Vite build configuration, removed separate service-worker Vite config files, and updated build utility invocation. Apache-2.0 license metadata remained present. Added-line risk review found Node-version/runtime bootstrap checks and Vite build references, but no new network-fetch, credential, MCP, browser automation, or destructive shell signal in the added lines. The install, browser-download, trace artifact, runtime automation, and build-script risks remain; the recommendation is unchanged. This refresh updates source tracking only and does not approve package install, browser download, MCP activation, runtime automation, build-script execution, source-copying, method-extraction, or product-repo changes.
