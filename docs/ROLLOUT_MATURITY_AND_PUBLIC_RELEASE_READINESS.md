@@ -30,6 +30,7 @@ Evidence:
 
 Current blockers for Level 4:
 
+- Level 4 evidence is tracked in `docs/LEVEL_4_PROMOTION_EVIDENCE.md` and `docs/LEVEL_4_PROMOTION_EVIDENCE.json`; the current gate status is blocked.
 - Enterprise external-tool metadata now has owner buckets, but most evidence fields remain `unknown-review-required` and no tool has enterprise approval.
 - Multiple project-type pilots have not been completed.
 - Warning thresholds for Level 4 are not yet owner-approved.
@@ -60,6 +61,7 @@ Level 3 requires:
 
 Level 4 additionally requires:
 
+- `node scripts/validate-level4-readiness.mjs --require-ready`,
 - project-sync install/update/validate evidence from multiple representative projects,
 - documented owner review for enterprise tool metadata,
 - no unreviewed `unknown-review-required` values in tools approved for enterprise use,
@@ -87,6 +89,7 @@ Proposed Level 4 threshold:
 - No WARN may be ignored.
 - Compiled-agent drift WARN must either be resolved by deterministic compilation or explicitly accepted by owner as a temporary rollout exception.
 - Enterprise tool metadata WARN or unknown fields block enterprise approval for that tool.
+- `node scripts/validate-level4-readiness.mjs` may report blocked in normal Level 3 work; `--require-ready` must pass before any Level 4 promotion claim.
 
 Proposed Level 5 threshold:
 

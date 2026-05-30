@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0.0",
+  "lastUpdated": "2026-05-30",
+  "currentLevel": "Level 3",
+  "targetLevel": "Level 4",
+  "status": "blocked",
+  "minimumPassedProjectPilots": 3,
+  "minimumProjectTypes": 2,
+  "projectPilots": [
+    {
+      "id": "pilot-1-controlled-webapp",
+      "projectType": "production-webapp-governance-sync",
+      "status": "passed",
+      "countsTowardLevel4": true,
+      "report": "docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md",
+      "notes": "First controlled project-sync pilot. Counts as one pilot only; it does not approve broad rollout."
+    },
+    {
+      "id": "held-target-1",
+      "projectType": "second-product-repo",
+      "status": "held",
+      "countsTowardLevel4": false,
+      "report": "docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md",
+      "notes": "Held because a pre-existing target-project formatting gate failed outside toolkit-managed files."
+    }
+  ],
+  "warningThresholds": {
+    "status": "owner-approval-required",
+    "ownerDecisionDocument": null,
+    "requiredDecision": "Owner must approve Level 4 WARN handling, accepted temporary exceptions, and fail/hold thresholds."
+  },
+  "rollbackRehearsal": {
+    "status": "not-recorded",
+    "report": null,
+    "minimumRequired": "Record at least one project update rollback rehearsal or equivalent revert drill before Level 4."
+  },
+  "enterpriseToolMetadataReview": {
+    "status": "blocked",
+    "reviewDocument": "docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md",
+    "minimumRequired": "Owner-reviewed enterprise metadata must exist for tools used or described as approved in Level 4."
+  },
+  "promotionDecision": {
+    "approved": false,
+    "approvedBy": null,
+    "decisionDate": null,
+    "notes": "Promotion requires evidence and owner approval. Intent, passing validators, or metadata-only records are not enough."
+  }
+}

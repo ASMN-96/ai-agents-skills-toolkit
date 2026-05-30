@@ -72,6 +72,24 @@ Passing Level 3 means the toolkit is ready for normal use in comparable real pro
 
 The current Level 3 project-sync evidence is recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`.
 
+## Level 4 Broad Rollout Gate
+
+Level 4 requires evidence from multiple representative project pilots, owner-approved warning thresholds, rollback rehearsal evidence, and enterprise tool metadata review. Track this evidence in `docs/LEVEL_4_PROMOTION_EVIDENCE.json` and summarize it in `docs/LEVEL_4_PROMOTION_EVIDENCE.md`.
+
+Audit the current state with:
+
+```powershell
+node scripts/validate-level4-readiness.mjs
+```
+
+Before any Level 4 promotion claim, the strict gate must pass:
+
+```powershell
+node scripts/validate-level4-readiness.mjs --require-ready
+```
+
+Templates for missing evidence live under `templates/level4-*.template.md`.
+
 ## Stop Conditions
 
 Stop before project use if:

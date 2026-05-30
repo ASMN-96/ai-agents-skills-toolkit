@@ -1,6 +1,6 @@
 # Stale and Unverified Data Classification
 
-Generated at: 2026-05-30T15:28:51.366Z
+Generated at: 2026-05-30T19:06:30.477Z
 
 Report-only classification. No files were deleted, renamed, relocated, activated, installed, or approved by this report.
 
@@ -18,9 +18,9 @@ Report-only classification. No files were deleted, renamed, relocated, activated
 | Classification | Count |
 | --- | ---: |
 | keep-active | 228 |
-| metadata-only | 197 |
+| metadata-only | 204 |
 | historical | 34 |
-| review-required | 1553 |
+| review-required | 1555 |
 | remove-later | 0 |
 | private-overlay-only | 885 |
 
@@ -29,10 +29,10 @@ Report-only classification. No files were deleted, renamed, relocated, activated
 | Signal | Count |
 | --- | ---: |
 | old-version-metadata | 0 |
-| unknown-review-required | 1197 |
+| unknown-review-required | 1199 |
 | project-private-naming | 1166 |
 | local-path | 0 |
-| unverified-metadata | 534 |
+| unverified-metadata | 541 |
 | non-https-url | 0 |
 
 ## Review Samples
@@ -73,31 +73,31 @@ Samples are capped to keep the report reviewable. Re-run the script for the curr
 
 | Signal | File | Line | Value | Context |
 | --- | --- | ---: | --- | --- |
+| unverified-metadata | docs/LEVEL_4_PROMOTION_EVIDENCE.json | 46 | metadata-only | "notes": "Promotion requires evidence and owner approval. Intent, passing validators, or metadata-only records are not enough." |
+| unverified-metadata | docs/LEVEL_4_PROMOTION_EVIDENCE.md | 43 | metadata-only | - Unreviewed tools must remain metadata-only and blocked from enterprise approval. |
+| unverified-metadata | docs/LEVEL_4_PROMOTION_EVIDENCE.md | 48 | Metadata-only | - Metadata-only tool entries are not enterprise-approved. |
+| unverified-metadata | scripts/test-level4-readiness.mjs | 32 | metadata-only | id: "metadata-only-tool", |
+| unverified-metadata | scripts/test-level4-readiness.mjs | 34 | metadata-only | defaultEnterpriseStatus: "metadata-only; blocked from enterprise approval until owner review records evidence", |
+| unverified-metadata | scripts/test-level4-readiness.mjs | 35 | metadata-only | securityReviewStatus: "metadata-only-owner-review-required", |
+| unverified-metadata | templates/level4-enterprise-tool-review.template.md | 38 | metadata-only | If evidence is incomplete, keep the tool metadata-only and blocked from enterprise approval. |
 | unverified-metadata | .agents/skills/app-security-review/SKILL.md | 17 | Metadata-only | - Metadata-only tool records, skipped scans, dry-runs, unavailable scanners, and partial reviews are labeled honestly. |
-| unverified-metadata | .agents/skills/webapp-code-quality/SKILL.md | 22 | metadata-only | - Dry-run or metadata-only quality gates are not reported as real execution. |
-| unverified-metadata | .ai-toolkit/skills/app-security-review/SKILL.md | 17 | Metadata-only | - Metadata-only tool records, skipped scans, dry-runs, unavailable scanners, and partial reviews are labeled honestly. |
-| unverified-metadata | .ai-toolkit/skills/webapp-code-quality/SKILL.md | 22 | metadata-only | - Dry-run or metadata-only quality gates are not reported as real execution. |
-| unverified-metadata | CODE_OF_CONDUCT.md | 17 | metadata-only | - Misrepresenting skipped, mock, dry-run, metadata-only, or unavailable checks as real execution. |
-| unverified-metadata | CONTRIBUTING.md | 12 | metadata-only | - Report dry-run, skipped, metadata-only, mock, planned, partial, or unavailable checks honestly. |
-| unverified-metadata | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 11 | metadata-only | \| `quality-tool-owner-required` \| type-safety, linting, React correctness, fast lint/format, cleanup, testing, browser/component testing, accessibility, web performance, React scanner \| `metadata-only-owner-review-required` \| |
-| unverified-metadata | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 12 | metadata-only | \| `architecture-tool-owner-required` \| architecture-boundary, duplication \| `metadata-only-owner-review-required` \| |
-| unverified-metadata | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 13 | metadata-only | \| `security-tool-owner-required` \| SAST, secrets, dependency security, supply chain, IaC/container security, DAST, source trust \| `metadata-only-owner-review-required` \| |
-| unverified-metadata | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 14 | metadata-only | \| `platform-security-owner-required` \| CI security, CI runtime security \| `metadata-only-owner-review-required` \| |
-| unverified-metadata | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 15 | metadata-only | \| `dependency-automation-owner-required` \| dependency bots \| `metadata-only-owner-review-required` \| |
-| unverified-metadata | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 16 | metadata-only | \| `release-tool-owner-required` \| PR feedback, PR review, repo operations \| `metadata-only-delegated-service-review-required` or `metadata-only-repo-permission-review-required` \| |
-| unverified-metadata | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 16 | metadata-only | \| `release-tool-owner-required` \| PR feedback, PR review, repo operations \| `metadata-only-delegated-service-review-required` or `metadata-only-repo-permission-review-required` \| |
-| unverified-metadata | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 17 | metadata-only | \| `source-intelligence-owner-required` \| source intelligence tools \| `metadata-only-source-review-required` \| |
-| unverified-metadata | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 17 | source-review-required | \| `source-intelligence-owner-required` \| source intelligence tools \| `metadata-only-source-review-required` \| |
-| unverified-metadata | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 18 | metadata-only | \| `product-design-tool-owner-required` \| UI/UX reference tools \| `metadata-only-reference-review-required` \| |
-| unverified-metadata | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 22 | metadata-only | Every tool stays metadata-only until its owner records evidence for license, SaaS/local behavior, telemetry behavior, network behavior, repository permissions, CI permissions, GitHub app permissions, secret access risk, authentication model, commercial dependency, and maintenance signal. |
-| unverified-metadata | skills/app-security-review/SKILL.md | 17 | Metadata-only | - Metadata-only tool records, skipped scans, dry-runs, unavailable scanners, and partial reviews are labeled honestly. |
-| unverified-metadata | skills/webapp-code-quality/SKILL.md | 22 | metadata-only | - Dry-run or metadata-only quality gates are not reported as real execution. |
 | unverified-metadata | .agents/skills/riss-code-quality/SKILL.md | 33 | metadata-only | React Doctor, Knip, Biome, Oxlint, dependency-cruiser, Madge, jscpd, and similar tools are metadata-only candidates unless already configured by the project. |
 | unverified-metadata | .agents/skills/riss-code-quality/SKILL.md | 43 | metadata-only | - Dry-run or metadata-only quality gates are not reported as real quality execution. |
 | unverified-metadata | .agents/skills/riss-code-quality/SKILL.md | 48 | metadata-only | Report commands run, results, skipped checks, missing project scripts, WARN output, and remaining manual QA. Do not claim quality gates passed unless the relevant command output was actually observed. Follow `docs/NO_FAKE_VALIDATION_POLICY.md` for dry-run, mock, skipped, partial, fallback, and metadata-only states. |
 | unverified-metadata | .agents/skills/riss-governance/SKILL.md | 107 | metadata-only | - Report support tools as available, unavailable, selected, invoked, skipped, or metadata-only; do not blur those states. |
 | unverified-metadata | .agents/skills/riss-release-gate/SKILL.md | 48 | metadata-only | Report branch state, PR URL if created, checks run, check results, review status, skipped gates, WARN output, blockers, missing evidence, and the exact next action before any merge request. Follow `docs/NO_FAKE_VALIDATION_POLICY.md`; do not claim merge readiness from metadata-only records, dry-runs, skipped CI jobs, unavailable review status, or unobserved tool output. |
 | unverified-metadata | .agents/skills/riss-security-review/SKILL.md | 33 | metadata-only | Socket, TruffleHog, ZAP, Harden-Runner, Trivy, Checkov, Semgrep, CodeQL, and similar tools are metadata-only candidates unless already approved and configured in the project. |
+| unverified-metadata | .agents/skills/riss-security-review/SKILL.md | 43 | Metadata-only | - Metadata-only tool records, skipped scans, dry-runs, unavailable scanners, and partial reviews are labeled honestly. |
+| unverified-metadata | .agents/skills/riss-security-review/SKILL.md | 48 | metadata-only | Report findings by severity, files or artifacts reviewed, commands run, skipped checks, WARN output, and residual risk. If security coverage is partial, say exactly what remains unverified. Follow `docs/NO_FAKE_VALIDATION_POLICY.md` for mock, dry-run, unavailable, fallback, metadata-only, and unverified security evidence. |
+| unverified-metadata | .agents/skills/webapp-code-quality/SKILL.md | 22 | metadata-only | - Dry-run or metadata-only quality gates are not reported as real execution. |
+| unverified-metadata | .ai-toolkit/integrations/coderabbit.md | 31 | metadata-only | - Default enterprise status: metadata-only unless explicitly approved. |
+| unverified-metadata | .ai-toolkit/registries/routing-matrix.json | 1089 | metadata-only | "inferredIntent": "Represent external tools as metadata-only source intelligence before any activation or extraction.", |
+| unverified-metadata | .ai-toolkit/skills/app-security-review/SKILL.md | 17 | Metadata-only | - Metadata-only tool records, skipped scans, dry-runs, unavailable scanners, and partial reviews are labeled honestly. |
+| unverified-metadata | .ai-toolkit/skills/riss-code-quality/SKILL.md | 33 | metadata-only | React Doctor, Knip, Biome, Oxlint, dependency-cruiser, Madge, jscpd, and similar tools are metadata-only candidates unless already configured by the project. |
+| unverified-metadata | .ai-toolkit/skills/riss-code-quality/SKILL.md | 43 | metadata-only | - Dry-run or metadata-only quality gates are not reported as real quality execution. |
+| unverified-metadata | .ai-toolkit/skills/riss-code-quality/SKILL.md | 48 | metadata-only | Report commands run, results, skipped checks, missing project scripts, WARN output, and remaining manual QA. Do not claim quality gates passed unless the relevant command output was actually observed. Follow `docs/NO_FAKE_VALIDATION_POLICY.md` for dry-run, mock, skipped, partial, fallback, and metadata-only states. |
+| unverified-metadata | .ai-toolkit/skills/riss-governance/SKILL.md | 107 | metadata-only | - Report support tools as available, unavailable, selected, invoked, skipped, or metadata-only; do not blur those states. |
+| unverified-metadata | .ai-toolkit/skills/riss-release-gate/SKILL.md | 48 | metadata-only | Report branch state, PR URL if created, checks run, check results, review status, skipped gates, WARN output, blockers, missing evidence, and the exact next action before any merge request. Follow `docs/NO_FAKE_VALIDATION_POLICY.md`; do not claim merge readiness from metadata-only records, dry-runs, skipped CI jobs, unavailable review status, or unobserved tool output. |
 
 ### historical
 
@@ -133,15 +133,9 @@ Samples are capped to keep the report reviewable. Re-run the script for the curr
 
 | Signal | File | Line | Value | Context |
 | --- | --- | ---: | --- | --- |
-| unknown-review-required | docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md | 24 | unknown-review-required | Unknown fields remain explicit as `unknown-review-required`. Owner assignment means there is now an accountable review bucket; it does not mean enterprise approval. |
-| unknown-review-required | scripts/compile-agents.mjs | 61 | unknown-review-required | return "unknown-review-required"; |
-| unknown-review-required | scripts/compile-agents.mjs | 90 | unknown-review-required | if (!match) return ["unknown-review-required"]; |
-| unknown-review-required | scripts/compile-agents.mjs | 92 | unknown-review-required | if (!sourceLine) return ["unknown-review-required"]; |
-| unknown-review-required | scripts/compile-agents.mjs | 97 | unknown-review-required | return Array.isArray(parsed) ? parsed.map(String) : ["unknown-review-required"]; |
-| unknown-review-required | scripts/compile-agents.mjs | 99 | unknown-review-required | return ["unknown-review-required"]; |
-| unknown-review-required | scripts/compile-agents.mjs | 194 | unknown-review-required | - Inherited sourceRef IDs: ${inheritedSourceRefs.size > 0 ? [...inheritedSourceRefs].sort().map((ref) => `\`${ref}\``).join(", ") : "`unknown-review-required`"} |
-| unknown-review-required | scripts/test-compile-agents.mjs | 40 | unknown-review-required | writeFileSync(path.join(fixture, "methods", "internal", "review.md"), "---\nsourceRef: [\"unknown-review-required\"]\nlastExtracted: unknown-review-required\nstatus: approved\n---\n\n# Review Method\n\nCheck correctness.\n", "utf8"); |
-| unknown-review-required | scripts/test-compile-agents.mjs | 40 | unknown-review-required | writeFileSync(path.join(fixture, "methods", "internal", "review.md"), "---\nsourceRef: [\"unknown-review-required\"]\nlastExtracted: unknown-review-required\nstatus: approved\n---\n\n# Review Method\n\nCheck correctness.\n", "utf8"); |
+| unknown-review-required | scripts/test-level4-readiness.mjs | 36 | unknown-review-required | license: "unknown-review-required" |
+| unknown-review-required | scripts/validate-level4-readiness.mjs | 96 | unknown-review-required | return value.some((entry) => String(entry).includes("unknown-review-required")); |
+| unknown-review-required | scripts/validate-level4-readiness.mjs | 98 | unknown-review-required | return String(value).includes("unknown-review-required"); |
 | unknown-review-required | .ai-toolkit/compiled-agents/release-manager-agent.compiled.md | 198 | unknown-review-required | - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `karpathy-inspired-skills`, `matt-pocock-skills`, `trailofbits-skills`, `unknown-review-required` |
 | unknown-review-required | .ai-toolkit/compiled-agents/reviewer-agent.compiled.md | 539 | unknown-review-required | - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `everything-claude-code`, `karpathy-inspired-skills`, `matt-pocock-skills`, `microsoft-playwright`, `ruflo`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required` |
 | unknown-review-required | .ai-toolkit/compiled-agents/security-agent.compiled.md | 166 | unknown-review-required | - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `everything-claude-code`, `ruflo`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required` |
@@ -158,6 +152,12 @@ Samples are capped to keep the report reviewable. Re-run the script for the curr
 | unknown-review-required | .ai-toolkit/registries/tools.registry.json | 47 | unknown-review-required | "ciPermissionsRequired": "unknown-review-required", |
 | unknown-review-required | .ai-toolkit/registries/tools.registry.json | 48 | unknown-review-required | "githubAppPermissionsRequired": "unknown-review-required", |
 | unknown-review-required | .ai-toolkit/registries/tools.registry.json | 49 | unknown-review-required | "authenticationModel": "unknown-review-required", |
+| unknown-review-required | .ai-toolkit/registries/tools.registry.json | 50 | unknown-review-required | "telemetryBehavior": "unknown-review-required", |
+| unknown-review-required | .ai-toolkit/registries/tools.registry.json | 51 | unknown-review-required | "commercialVendorDependency": "unknown-review-required", |
+| unknown-review-required | .ai-toolkit/registries/tools.registry.json | 52 | unknown-review-required | "maintenanceSignal": "unknown-review-required", |
+| unknown-review-required | .ai-toolkit/registries/tools.registry.json | 53 | unknown-review-required | "lastReviewedCommit": "unknown-review-required", |
+| unknown-review-required | .ai-toolkit/registries/tools.registry.json | 54 | unknown-review-required | "lastReviewedDate": "unknown-review-required", |
+| unknown-review-required | .ai-toolkit/registries/tools.registry.json | 107 | unknown-review-required | "license": "unknown-review-required", |
 
 ### remove-later
 
@@ -167,19 +167,6 @@ No samples.
 
 | Signal | File | Line | Value | Context |
 | --- | --- | ---: | --- | --- |
-| project-private-naming | .ai-toolkit/private-overlays/riss-v2/checklists/riss-v2-ai-generated-code-risk-gate.md | 1 | RISS | # RISS V2 AI-Generated Code Risk Gate |
-| project-private-naming | .ai-toolkit/private-overlays/riss-v2/checklists/riss-v2-critical-flow-gate.md | 1 | RISS | # RISS V2 Critical Flow Gate |
-| project-private-naming | .ai-toolkit/private-overlays/riss-v2/checklists/riss-v2-publish-release-gate.md | 1 | RISS | # RISS V2 Publish Release Gate |
-| project-private-naming | .ai-toolkit/private-overlays/riss-v2/checklists/riss-v2-security-tenant-gate.md | 1 | RISS | # RISS V2 Security Tenant Gate |
-| project-private-naming | .ai-toolkit/private-overlays/riss-v2/tool-packs/riss-v2-quality-security.json | 22 | riss | "id": "riss-critical-flow", |
-| project-private-naming | .ai-toolkit/private-overlays/riss-v2/tool-packs/riss-v2-quality-security.json | 23 | RISS | "purpose": "RISS critical buyer, wizard, dashboard, lead, and publish flow review.", |
-| project-private-naming | .ai-toolkit/private-overlays/riss-v2/tool-packs/riss-v2-quality-security.json | 25 | RISS | "RISS flow change", |
-| project-private-naming | .ai-toolkit/private-overlays/riss-v2/tool-packs/riss-v2-quality-security.json | 53 | riss | "id": "riss-security-tenant", |
-| project-private-naming | .ai-toolkit/private-overlays/riss-v2/tool-packs/riss-v2-quality-security.json | 54 | RISS | "purpose": "RISS tenant, auth, lead data, and public payload review.", |
-| project-private-naming | .ai-toolkit/private-overlays/riss-v2/tool-packs/riss-v2-quality-security.json | 89 | riss | "id": "riss-release", |
-| project-private-naming | .ai-toolkit/private-overlays/riss-v2/tool-packs/riss-v2-quality-security.json | 90 | RISS | "purpose": "RISS publish and release readiness gate.", |
-| project-private-naming | scripts/test-public-package-validator.mjs | 62 | RISS | "Internal path C:\\Users\\Example and ASMN-96 plus RISS", |
-| project-private-naming | scripts/validate-public-package.mjs | 50 | vd | regex: /\bRISS\b\|\briss-[a-z0-9-]+\b\|\bVD\b\|\bvd-[a-z0-9-]+\b\|\bVDTwin\b\|\bVisual\s+Twin\b\|\blocal-vd-authored\b/gi |
 | project-private-naming | .ai-toolkit/evals/skills/generic-naming-compatibility-evals.json | 8 | riss | "userPrompt": "Use riss-governance for this governed toolkit task.", |
 | project-private-naming | .ai-toolkit/evals/skills/generic-naming-compatibility-evals.json | 9 | riss | "expectedCurrentSkill": "riss-governance", |
 | project-private-naming | .ai-toolkit/evals/skills/generic-naming-compatibility-evals.json | 17 | riss | "expectedDeprecatedCompatibilitySkill": "riss-governance", |
@@ -192,6 +179,19 @@ No samples.
 | project-private-naming | .ai-toolkit/evals/skills/premium-uiux-review-evals.json | 5 | vd | "currentCompatibilitySkill": "vd-premium-uiux", |
 | project-private-naming | .ai-toolkit/evals/skills/premium-uiux-review-evals.json | 11 | vd | "expectedCurrentSkill": "vd-premium-uiux", |
 | project-private-naming | .ai-toolkit/evals/skills/premium-uiux-review-evals.json | 26 | vd | "expectedCurrentSkill": "vd-premium-uiux", |
+| project-private-naming | .ai-toolkit/evals/skills/premium-uiux-review-evals.json | 40 | vd | "expectedCurrentSkill": "vd-premium-uiux", |
+| project-private-naming | .ai-toolkit/evals/skills/premium-uiux-review-evals.json | 54 | vd | "expectedCurrentSkill": "vd-premium-uiux", |
+| project-private-naming | .ai-toolkit/evals/skills/premium-uiux-review-evals.json | 70 | vd | "expectedCurrentSkill": "vd-premium-uiux", |
+| project-private-naming | .ai-toolkit/evals/skills/premium-uiux-review-evals.json | 98 | vd | "expectedCurrentSkill": "vd-premium-uiux", |
+| project-private-naming | .ai-toolkit/manifest.json | 8 | riss | "riss-governance", |
+| project-private-naming | .ai-toolkit/manifest.json | 10 | vd | "vd-premium-uiux", |
+| project-private-naming | .ai-toolkit/manifest.json | 12 | riss | "riss-code-quality", |
+| project-private-naming | .ai-toolkit/manifest.json | 14 | riss | "riss-security-review", |
+| project-private-naming | .ai-toolkit/manifest.json | 16 | riss | "riss-release-gate" |
+| project-private-naming | .ai-toolkit/manifest.json | 19 | riss | "riss-agent-governance", |
+| project-private-naming | .ai-toolkit/manifest.json | 20 | riss | "riss-skill-governance" |
+| project-private-naming | .ai-toolkit/manifest.json | 55 | riss | "source": "skills/riss-governance/SKILL.md", |
+| project-private-naming | .ai-toolkit/manifest.json | 56 | riss | "target": ".agents/skills/riss-governance/SKILL.md", |
 
 ## Required Follow-Up
 
