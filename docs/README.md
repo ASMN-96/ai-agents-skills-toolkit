@@ -15,3 +15,5 @@ External sources have been evaluated in prior phases and are recorded under `sou
 Method files include `sourceRef`, `lastExtracted`, and `status` frontmatter so source freshness reports can identify affected methods without approving imports or extraction.
 
 `scripts/sync-runtime.mjs` is the dry-run-first helper for syncing canonical active skills into repo runtime and embedded package skill copies. It refuses unknown/internal-helper skills unless the active allowlist changes in a reviewed PR.
+
+`docs/OPERATOR_GUIDE.md` defines the normal operator prompts for planning-only mode, controlled implementation, release review, and quality-gate honesty.

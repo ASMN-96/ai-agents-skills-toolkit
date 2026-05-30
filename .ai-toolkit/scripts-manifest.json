@@ -40,7 +40,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-quality-gate.mjs",
-      "sha256": "856d311a038064680d81373d253f864e9fc4d4e4b01d054a09963b965b94c57e"
+      "sha256": "6dcf9cc6aaa1b9c23ac1121e7c02cb5d46f0713ea9282f6d97bed4895a79d919"
     }
   ]
 }
