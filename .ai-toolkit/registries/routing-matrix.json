@@ -24,7 +24,8 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "Superpowers",
@@ -69,7 +70,8 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "Superpowers",
@@ -110,7 +112,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "web search/browser",
@@ -156,7 +159,9 @@
       ],
       "skills": [
         "riss-governance",
-        "vd-premium-uiux"
+        "ai-project-governance",
+        "vd-premium-uiux",
+        "premium-uiux-review"
       ],
       "supportTools": [
         "Playwright/browser",
@@ -203,7 +208,9 @@
       ],
       "skills": [
         "riss-governance",
-        "vd-premium-uiux"
+        "ai-project-governance",
+        "vd-premium-uiux",
+        "premium-uiux-review"
       ],
       "supportTools": [
         "Playwright/browser",
@@ -251,7 +258,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "Playwright/browser",
@@ -299,7 +307,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "Supabase tooling/docs",
@@ -344,7 +353,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "Supabase tooling/docs",
@@ -388,7 +398,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "GitHub/gh",
@@ -431,7 +442,8 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "GitHub/gh",
@@ -473,7 +485,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "web search/browser",
@@ -516,7 +529,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "GitHub/gh",
@@ -560,7 +574,8 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "GitHub/gh",
@@ -608,7 +623,8 @@
         "security-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "GitHub/gh",
@@ -653,7 +669,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "skills.sh/find-skills discovery",
@@ -697,7 +714,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "GitHub/gh"
@@ -736,7 +754,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [],
       "stopConditions": [
@@ -771,7 +790,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [],
       "stopConditions": [
@@ -808,7 +828,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "Superpowers"
@@ -849,7 +870,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [
         "Supabase tooling/docs",
@@ -891,7 +913,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
       "supportTools": [],
       "stopConditions": [
@@ -931,7 +954,9 @@
       ],
       "skills": [
         "riss-governance",
-        "riss-code-quality"
+        "ai-project-governance",
+        "riss-code-quality",
+        "webapp-code-quality"
       ],
       "supportTools": [
         "Superpowers",
@@ -975,7 +1000,9 @@
       ],
       "skills": [
         "riss-governance",
-        "riss-security-review"
+        "ai-project-governance",
+        "riss-security-review",
+        "app-security-review"
       ],
       "supportTools": [
         "Superpowers",
@@ -1020,7 +1047,9 @@
       ],
       "skills": [
         "riss-governance",
-        "riss-release-gate"
+        "ai-project-governance",
+        "riss-release-gate",
+        "pr-release-gate"
       ],
       "supportTools": [
         "GitHub/gh",
@@ -1067,7 +1096,9 @@
       ],
       "skills": [
         "riss-governance",
-        "riss-security-review"
+        "ai-project-governance",
+        "riss-security-review",
+        "app-security-review"
       ],
       "supportTools": [
         "web search/browser",
@@ -1112,9 +1143,13 @@
       ],
       "skills": [
         "riss-governance",
+        "ai-project-governance",
         "riss-code-quality",
+        "webapp-code-quality",
         "riss-security-review",
-        "riss-release-gate"
+        "app-security-review",
+        "riss-release-gate",
+        "pr-release-gate"
       ],
       "supportTools": [
         "Superpowers",

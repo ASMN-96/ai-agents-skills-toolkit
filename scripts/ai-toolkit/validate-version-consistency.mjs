@@ -56,7 +56,7 @@ async function main() {
     ".ai-toolkit/source-of-truth-map.json",
     ".ai-toolkit/sources/watchlist.json",
     ".ai-toolkit/tool-packs/webapp-quality-security.json",
-    ".ai-toolkit/tool-packs/riss-v2-quality-security.json",
+    ".ai-toolkit/private-overlays/riss-v2/tool-packs/riss-v2-quality-security.json",
     ".ai-toolkit/evals/runtime-activation/runtime-boundary-evals.json",
     ".ai-toolkit/evals/routing/toolkit-routing-evals.json"
   ]) {

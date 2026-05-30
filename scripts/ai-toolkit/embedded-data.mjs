@@ -1,10 +1,15 @@
 export const TOOLKIT_VERSION = "0.6.0-draft";
 
 export const ACTIVE_SKILLS = [
+  "ai-project-governance",
   "riss-governance",
+  "premium-uiux-review",
   "vd-premium-uiux",
+  "webapp-code-quality",
   "riss-code-quality",
+  "app-security-review",
   "riss-security-review",
+  "pr-release-gate",
   "riss-release-gate"
 ];
 
@@ -25,7 +30,7 @@ export const SOURCE_OF_TRUTH_MAP = [
   {
     domain: "skills",
     canonicalSource: "skills/<skill>/SKILL.md",
-    runtimeCopy: ".agents/skills/<skill>/SKILL.md for the five active runtime skills only",
+    runtimeCopy: ".agents/skills/<skill>/SKILL.md for active runtime skills and public-safe aliases only",
     distributionCopy: ".ai-toolkit/skills/<skill>/SKILL.md for packaged active skills",
     historicalArchive: "None in this pass unless a file is explicitly marked historical",
     driftControl: "byte identity between canonical, runtime, and distribution copies"

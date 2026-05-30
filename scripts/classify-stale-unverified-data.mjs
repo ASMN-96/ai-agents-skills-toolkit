@@ -163,6 +163,10 @@ function classify(hit) {
     if (file.startsWith("docs/RUNTIME_") || file === "docs/ROADMAP.md" || file.includes("REPORT_")) {
       return "historical";
     }
+    if (file.startsWith(".ai-toolkit/private-overlays/")) {
+      return "private-overlay-only";
+    }
+
     if (file.startsWith(".ai-toolkit/checklists/riss-v2") || file.startsWith(".ai-toolkit/tool-packs/riss-v2")) {
       return "remove-later";
     }

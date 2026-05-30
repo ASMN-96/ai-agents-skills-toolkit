@@ -85,10 +85,11 @@
       ],
       "futurePublicName": "ai-project-governance",
       "deprecatedAliases": [
-        "riss-governance"
+        "riss-governance",
+        "ai-project-governance"
       ],
-      "namingMigrationStatus": "active-current-name",
-      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
+      "namingMigrationStatus": "deprecated",
+      "publicNamingNotes": "Deprecated compatibility name. Prefer ai-project-governance for public-safe use; keep this name active until the migration window closes."
     },
     {
       "name": "riss-agent-governance",
@@ -313,10 +314,11 @@
       ],
       "futurePublicName": "premium-uiux-review",
       "deprecatedAliases": [
-        "vd-premium-uiux"
+        "vd-premium-uiux",
+        "premium-uiux-review"
       ],
-      "namingMigrationStatus": "active-current-name",
-      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified.",
+      "namingMigrationStatus": "deprecated",
+      "publicNamingNotes": "Deprecated compatibility name. Prefer premium-uiux-review for public-safe use; keep this name active until the migration window closes.",
       "evalSuites": [
         "evals/skills/premium-uiux-review-evals.json"
       ]
@@ -383,10 +385,11 @@
       ],
       "futurePublicName": "webapp-code-quality",
       "deprecatedAliases": [
-        "riss-code-quality"
+        "riss-code-quality",
+        "webapp-code-quality"
       ],
-      "namingMigrationStatus": "active-current-name",
-      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
+      "namingMigrationStatus": "deprecated",
+      "publicNamingNotes": "Deprecated compatibility name. Prefer webapp-code-quality for public-safe use; keep this name active until the migration window closes."
     },
     {
       "name": "riss-security-review",
@@ -448,10 +451,11 @@
       ],
       "futurePublicName": "app-security-review",
       "deprecatedAliases": [
-        "riss-security-review"
+        "riss-security-review",
+        "app-security-review"
       ],
-      "namingMigrationStatus": "active-current-name",
-      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
+      "namingMigrationStatus": "deprecated",
+      "publicNamingNotes": "Deprecated compatibility name. Prefer app-security-review for public-safe use; keep this name active until the migration window closes."
     },
     {
       "name": "riss-release-gate",
@@ -513,10 +517,363 @@
       ],
       "futurePublicName": "pr-release-gate",
       "deprecatedAliases": [
+        "riss-release-gate",
+        "pr-release-gate"
+      ],
+      "namingMigrationStatus": "deprecated",
+      "publicNamingNotes": "Deprecated compatibility name. Prefer pr-release-gate for public-safe use; keep this name active until the migration window closes."
+    },
+    {
+      "name": "ai-project-governance",
+      "description": "Governed software work: source-of-truth checks, routing, validation honesty, branch/PR/CI discipline, security caution, and release readiness.",
+      "ownerAgent": "reviewer-agent",
+      "secondaryAgents": [
+        "release-manager-agent",
+        "skill-scout-agent",
+        "security-agent",
+        "qa-test-agent"
+      ],
+      "triggerCases": [
+        "User explicitly says Use riss-governance in any repository or project thread.",
+        "Task involves AI Toolkit, RISS, Supabase/backend/security/release governance, source-of-truth checks, custom agent routing, or completion verification.",
+        "Plain-language request needs professional engineering routing inside the primary RISS/AI Toolkit/VD governance context."
+      ],
+      "negativeTriggerCases": [
+        "Unrelated projects where user did not explicitly invoke Use riss-governance.",
+        "Simple one-off questions where repo governance does not materially help.",
+        "Requests to install or activate every tool without review.",
+        "Vague quality language in unrelated repositories without explicit governance opt-in."
+      ],
+      "priority": "high",
+      "conflicts": [
+        "Do not duplicate Superpowers or Codex plugins.",
+        "Do not silently fall back from native agent to compiled instructions for high-risk work.",
+        "Do not treat explicit opt-in as approval for writes, migrations, package changes, Supabase policy/auth/billing/deployment changes, global config changes, external installs, or broad plugin use.",
+        "Do not represent selected agents as spawned agents unless they actually ran."
+      ],
+      "requiredSupportTools": [],
+      "optionalSupportTools": [
+        "Superpowers",
+        "GSD",
+        "GitHub/gh",
+        "Playwright/browser",
+        "Supabase tooling/docs",
+        "CodeRabbit",
+        "Figma"
+      ],
+      "riskLevel": "medium",
+      "evalStatus": "scaffolded",
+      "sourceProvenance": [
+        {
+          "path": "skills/ai-project-governance/SKILL.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": ".agents/skills/ai-project-governance/SKILL.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "skillPath": "skills/ai-project-governance/SKILL.md",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "internal-artifact",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "user-facing",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ],
+      "futurePublicName": "ai-project-governance",
+      "deprecatedAliases": [
+        "riss-governance"
+      ],
+      "namingMigrationStatus": "alias-active",
+      "publicNamingNotes": "Public-safe alias active. riss-governance remains as a deprecated compatibility name during the migration window."
+    },
+    {
+      "name": "premium-uiux-review",
+      "description": "Premium UI/UX review: visual polish, responsive behavior, accessibility, design-system consistency, workflow clarity, and browser-visible quality.",
+      "ownerAgent": "uiux-agent",
+      "secondaryAgents": [
+        "frontend-agent",
+        "qa-test-agent",
+        "reviewer-agent",
+        "product-agent"
+      ],
+      "triggerCases": [
+        "User asks for premium UI polish.",
+        "Dashboard UX improvement request.",
+        "Frontend visual redesign request.",
+        "Mobile/responsive layout fix request.",
+        "Visual QA or screenshot request.",
+        "Accessibility and UI state review request.",
+        "Luxury SaaS / real estate interface quality request."
+      ],
+      "negativeTriggerCases": [
+        "Backend-only work.",
+        "RLS/database-only work.",
+        "Security-only review.",
+        "Release-only review.",
+        "Docs-only change.",
+        "Package/dependency change.",
+        "Unrelated product strategy."
+      ],
+      "priority": "high",
+      "conflicts": [
+        "Must not replace riss-governance for safety/release/backend/security governance.",
+        "Must not install packages.",
+        "Must not claim browser QA passed without rendered evidence.",
+        "Must not copy raw external design/skill content."
+      ],
+      "requiredSupportTools": [],
+      "optionalSupportTools": [
+        "Playwright/browser",
+        "Figma",
+        "Superpowers",
+        "Context7"
+      ],
+      "riskLevel": "medium",
+      "evalStatus": "covered",
+      "sourceProvenance": [
+        {
+          "path": "skills/premium-uiux-review/SKILL.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": ".agents/skills/premium-uiux-review/SKILL.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "skillPath": "skills/premium-uiux-review/SKILL.md",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "internal-artifact",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "user-facing",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ],
+      "futurePublicName": "premium-uiux-review",
+      "deprecatedAliases": [
+        "vd-premium-uiux"
+      ],
+      "namingMigrationStatus": "alias-active",
+      "publicNamingNotes": "Public-safe alias active. vd-premium-uiux remains as a deprecated compatibility name during the migration window.",
+      "evalSuites": [
+        "evals/skills/premium-uiux-review-evals.json"
+      ]
+    },
+    {
+      "name": "webapp-code-quality",
+      "description": "Web application code quality: React, TypeScript, hooks, tests, build readiness, maintainability, and AI-generated code risk.",
+      "ownerAgent": "reviewer-agent",
+      "secondaryAgents": [
+        "frontend-agent",
+        "qa-test-agent"
+      ],
+      "priority": "high",
+      "requiredSupportTools": [],
+      "optionalSupportTools": [
+        "Superpowers",
+        "GitHub/gh"
+      ],
+      "riskLevel": "medium",
+      "evalStatus": "scaffolded",
+      "sourceProvenance": [
+        {
+          "path": "skills/webapp-code-quality/SKILL.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": ".agents/skills/webapp-code-quality/SKILL.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "skillPath": "skills/webapp-code-quality/SKILL.md",
+      "status": [
+        "documented",
+        "available",
+        "approved",
+        "active"
+      ],
+      "provenanceType": "internal-artifact",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved",
+        "active"
+      ],
+      "registrySurface": "user-facing",
+      "visibility": [
+        "repo",
+        "runtime",
+        "project-sync"
+      ],
+      "triggerCases": [
+        "React or TypeScript code changes.",
+        "Hooks, lint, tests, build, or AI-generated code risk is in scope."
+      ],
+      "negativeTriggerCases": [
+        "Security-only review.",
+        "Release-only review.",
+        "Requests to add packages or change package manager."
+      ],
+      "conflicts": [
+        "Must not install packages.",
+        "Must not reformat broadly.",
+        "Must not change architecture solely for scanner output."
+      ],
+      "futurePublicName": "webapp-code-quality",
+      "deprecatedAliases": [
+        "riss-code-quality"
+      ],
+      "namingMigrationStatus": "alias-active",
+      "publicNamingNotes": "Public-safe alias active. riss-code-quality remains as a deprecated compatibility name during the migration window."
+    },
+    {
+      "name": "app-security-review",
+      "description": "Application security review: auth, authorization, tenant isolation, public/private payloads, secrets, supply-chain, and source safety.",
+      "ownerAgent": "security-agent",
+      "secondaryAgents": [
+        "reviewer-agent",
+        "qa-test-agent"
+      ],
+      "priority": "high",
+      "requiredSupportTools": [],
+      "optionalSupportTools": [
+        "Superpowers",
+        "GitHub/gh"
+      ],
+      "riskLevel": "high",
+      "evalStatus": "scaffolded",
+      "sourceProvenance": [
+        {
+          "path": "skills/app-security-review/SKILL.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": ".agents/skills/app-security-review/SKILL.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "skillPath": "skills/app-security-review/SKILL.md",
+      "status": [
+        "documented",
+        "available",
+        "approved",
+        "active"
+      ],
+      "provenanceType": "internal-artifact",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved",
+        "active"
+      ],
+      "registrySurface": "user-facing",
+      "visibility": [
+        "repo",
+        "runtime",
+        "project-sync"
+      ],
+      "triggerCases": [
+        "Security, privacy, tenant, public payload, auth, RLS, secrets, or supply-chain risk is in scope."
+      ],
+      "negativeTriggerCases": [
+        "Pure UI polish with no data/security impact.",
+        "Release-only work with no security question."
+      ],
+      "conflicts": [
+        "Must not weaken auth or RLS.",
+        "Must not read secrets unnecessarily.",
+        "Must not run approval-required tools without approval."
+      ],
+      "futurePublicName": "app-security-review",
+      "deprecatedAliases": [
+        "riss-security-review"
+      ],
+      "namingMigrationStatus": "alias-active",
+      "publicNamingNotes": "Public-safe alias active. riss-security-review remains as a deprecated compatibility name during the migration window."
+    },
+    {
+      "name": "pr-release-gate",
+      "description": "PR and release gate: branch hygiene, checks, review feedback, release gates, publish readiness, and post-merge handoff.",
+      "ownerAgent": "release-manager-agent",
+      "secondaryAgents": [
+        "reviewer-agent",
+        "qa-test-agent"
+      ],
+      "priority": "high",
+      "requiredSupportTools": [],
+      "optionalSupportTools": [
+        "Superpowers",
+        "GitHub/gh"
+      ],
+      "riskLevel": "high",
+      "evalStatus": "scaffolded",
+      "sourceProvenance": [
+        {
+          "path": "skills/pr-release-gate/SKILL.md",
+          "category": "internal-artifact"
+        },
+        {
+          "path": ".agents/skills/pr-release-gate/SKILL.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "skillPath": "skills/pr-release-gate/SKILL.md",
+      "status": [
+        "documented",
+        "available",
+        "approved",
+        "active"
+      ],
+      "provenanceType": "internal-artifact",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved",
+        "active"
+      ],
+      "registrySurface": "user-facing",
+      "visibility": [
+        "repo",
+        "runtime",
+        "project-sync"
+      ],
+      "triggerCases": [
+        "PR, CI, checks, CodeRabbit, reviewdog, publish, release, merge, or post-merge readiness is in scope."
+      ],
+      "negativeTriggerCases": [
+        "Primary code implementation without release posture.",
+        "Requests to merge with pending blockers."
+      ],
+      "conflicts": [
+        "Must not push to main.",
+        "Must not merge with pending required checks.",
+        "Must not mark release ready without evidence."
+      ],
+      "futurePublicName": "pr-release-gate",
+      "deprecatedAliases": [
         "riss-release-gate"
       ],
-      "namingMigrationStatus": "active-current-name",
-      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
+      "namingMigrationStatus": "alias-active",
+      "publicNamingNotes": "Public-safe alias active. riss-release-gate remains as a deprecated compatibility name during the migration window."
     }
   ]
 }

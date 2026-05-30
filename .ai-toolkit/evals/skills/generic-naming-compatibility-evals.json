@@ -1,28 +1,49 @@
 {
   "schemaVersion": "1.0.0",
   "evalSet": "generic-naming-compatibility",
-  "purpose": "Validate that public-safe future names are planned without breaking current runtime skill names.",
+  "purpose": "Validate that public-safe aliases are active without breaking deprecated compatibility skill names.",
   "cases": [
     {
       "id": "current-governance-name-still-active",
       "userPrompt": "Use riss-governance for this governed toolkit task.",
       "expectedCurrentSkill": "riss-governance",
-      "expectedFuturePublicName": "ai-project-governance",
-      "expectedBehavior": "current-name-routes-during-migration"
+      "expectedAliasSkill": "ai-project-governance",
+      "expectedBehavior": "deprecated-name-routes-during-migration"
     },
     {
-      "id": "future-governance-name-reserved-not-active",
+      "id": "public-governance-alias-active",
       "userPrompt": "Use ai-project-governance.",
-      "expectedCurrentSkill": "riss-governance",
-      "expectedFuturePublicName": "ai-project-governance",
-      "expectedBehavior": "report-future-name-as-reserved-until-alias-exists"
+      "expectedAliasSkill": "ai-project-governance",
+      "expectedDeprecatedCompatibilitySkill": "riss-governance",
+      "expectedBehavior": "public-alias-routes"
     },
     {
-      "id": "premium-uiux-future-name-reserved",
+      "id": "premium-uiux-public-alias-active",
       "userPrompt": "Use premium-uiux-review for visual QA.",
-      "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
-      "expectedBehavior": "report-future-name-as-reserved-until-alias-exists"
+      "expectedAliasSkill": "premium-uiux-review",
+      "expectedDeprecatedCompatibilitySkill": "vd-premium-uiux",
+      "expectedBehavior": "public-alias-routes"
+    },
+    {
+      "id": "quality-public-alias-active",
+      "userPrompt": "Use webapp-code-quality.",
+      "expectedAliasSkill": "webapp-code-quality",
+      "expectedDeprecatedCompatibilitySkill": "riss-code-quality",
+      "expectedBehavior": "public-alias-routes"
+    },
+    {
+      "id": "security-public-alias-active",
+      "userPrompt": "Use app-security-review.",
+      "expectedAliasSkill": "app-security-review",
+      "expectedDeprecatedCompatibilitySkill": "riss-security-review",
+      "expectedBehavior": "public-alias-routes"
+    },
+    {
+      "id": "release-public-alias-active",
+      "userPrompt": "Use pr-release-gate.",
+      "expectedAliasSkill": "pr-release-gate",
+      "expectedDeprecatedCompatibilitySkill": "riss-release-gate",
+      "expectedBehavior": "public-alias-routes"
     },
     {
       "id": "old-names-not-deleted",

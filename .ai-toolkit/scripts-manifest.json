@@ -8,11 +8,11 @@
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
-      "sha256": "2b2b707f66942ce46e1afc2212c0fb42d6cd6990a848e8b449a8e070a7c398f5"
+      "sha256": "1073aa5a527c4e9355a352e0f6264e3f613e0bca5c8b12887cdcb8a583f8d561"
     },
     {
       "path": "scripts/classify-stale-unverified-data.mjs",
-      "sha256": "5c288cb150e9774d187c9ef56937baf8bc739b06221a328583d6c7456547e570"
+      "sha256": "fa70b7bb65ac63ddde39fc39f7fe1373e08f1cb4ef5902faed0a03f411089210"
     },
     {
       "path": "scripts/report-registry-generation-readiness.mjs",
@@ -20,11 +20,19 @@
     },
     {
       "path": "scripts/sync-runtime.mjs",
-      "sha256": "c3e6a67cf645bf050bb5039117daa6fd1a04fde9013fb43cd10868af3e0a6efc"
+      "sha256": "d9070184601c55f04e6076871b28721215103d820109485ceee42d0ca0adc22d"
     },
     {
       "path": "scripts/check-source-freshness.mjs",
       "sha256": "4ddb8c1a1887401853d19cb73770648d3113d3fece27cdb364b39c24a1cdbd5d"
+    },
+    {
+      "path": "scripts/compile-agents.mjs",
+      "sha256": "110a3e1521c041b9cb6e6e4cb8e0d98a420c60de6194770acea3681fccb4c8a8"
+    },
+    {
+      "path": "scripts/validate-public-package.mjs",
+      "sha256": "89d3cfe67699385caa70e65779ad489c43177250cb6957ca96bb6cff2b21a679"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
@@ -36,11 +44,11 @@
     },
     {
       "path": "scripts/ai-toolkit/validate-version-consistency.mjs",
-      "sha256": "ec86bd57e64b14c2f1450a49b39251cfeeae115a76330ba2d0be74b5beda4af4"
+      "sha256": "d624bca3cf594b790dc4c4f6db4b227b56421fef4f9782ffe1779dd4cc4009fd"
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "de3756b35fc2f5a9421178d1ee538ff549b860170dbbda25fe8d638a58a65755"
+      "sha256": "6981a97012c07cb307fa4ce10c00bcc813558d3776939b88baff9d6d73436c55"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",

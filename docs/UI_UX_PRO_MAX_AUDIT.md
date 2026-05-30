@@ -8,7 +8,7 @@ This audit inspected the existing `ui-ux-pro-max` skill candidate read-only. No 
 
 ## Inspected Path
 
-- `C:\Users\Abdal\.codex\skills\ui-ux-pro-max`
+- `<codex-home>/skills/ui-ux-pro-max`
 
 ## Current Status
 

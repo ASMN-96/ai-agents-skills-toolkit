@@ -4,7 +4,7 @@
 
 - Scope is read-only verification of current global availability expectations for this toolkit repository.
 - Repository-only checks: no writes to global configuration or global runtime state are performed by this audit.
-- Source of global state evidence: `C:\\Users\\Abdal\\.codex\\agents\\ai-toolkit-agents-manifest.json` and `~/.codex/agents/*.toml`.
+- Source of global state evidence: `<codex-home>/agents/ai-toolkit-agents-manifest.json` and `~/.codex/agents/*.toml`.
 
 ## What is Repo-Discoverable
 
@@ -32,7 +32,7 @@
   - `sre-performance-agent`
   - `uiux-agent`
 - Generated global manifest:
-  - `C:\\Users\\Abdal\\.codex\\agents\\ai-toolkit-agents-manifest.json`
+  - `<codex-home>/agents/ai-toolkit-agents-manifest.json`
 
 ## What is Compiled-Fallback Only
 

@@ -1,129 +1,289 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.4.0-draft
-toolkit_pin: ai-agents-skills-toolkit@0.4.0-draft
+toolkit_version: 0.6.0-draft
+toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
 compiled_status: review
+compiled_at: deterministic-not-recorded
+source_commit: 217fd0555ff5a69500c2bda930df916d01b6d58b
+source_agent: agents/backend-contract-agent.md
+source_profile_refs: ["profiles/backend-profile.md", "profiles/implementation-profile.md", "profiles/security-profile.md"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.api-interface-design", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.security-hardening", "osmani.spec-driven-development", "osmani.test-driven-development", "security.differential-security-review"]
+compile_contract_version: 1.0.0
 ---
 
-# Backend Contract Agent Compiled
+# Backend Contract Agent
 
+This compiled fallback is generated from reviewed repo-owned inputs. It does not activate native custom agents, plugins, browser checks, MCP servers, global config, external installs, or product-repository writes.
+
+## Source Agent
+
+Source: `agents/backend-contract-agent.md`
+
+# Backend Contract Agent
 ## Role
+Defines and reviews backend APIs, request and response contracts, validation behavior, error models, and compatibility expectations.
+## Status
+Stub. This agent will be compiled later from approved methods and project profiles.
 
-Designs and reviews backend API contracts, service boundaries, validation behavior, and integration expectations.
+## Profiles
 
-## Activation Phrase
+### backend-profile
 
-- "Act as Backend Contract Agent and design this API contract."
-- "Use Backend Contract Agent to review request and response shapes."
-- "Act as Backend Contract Agent and verify this endpoint behavior plan."
+# Backend Profile
+## Included Agents
+- Backend Contract Agent
+- Database RLS Agent
+- Security Agent
+- QA Test Agent
+- Reviewer Agent
+- Architect Agent
+## Recommended Support Tools
+- Superpowers as an external Codex execution-discipline plugin.
 
-## Primary Responsibilities
+### implementation-profile
 
-- Define request, response, error, auth, validation, and compatibility contracts.
-- Align backend interfaces with frontend and product requirements.
-- Identify security, data integrity, and versioning risks.
-- Specify tests and verification gates for contract behavior.
+# Implementation Profile
+## Included Agents
+- Product Agent
+- Architect Agent
+- Frontend Agent
+- Backend Contract Agent
+- Database RLS Agent
+- QA Test Agent
+- Reviewer Agent
+## Recommended Support Tools
 
+### security-profile
+
+# Security Profile
+## Included Agents
+- Security Agent
+- Skill Scout Agent
+- Database RLS Agent
+- Backend Contract Agent
+- Reviewer Agent
+## Recommended Support Tools
+- Superpowers as an external Codex execution-discipline plugin.
+- Context7 when available/configured for current security, auth, platform, or API guidance.
+
+## Methods
+
+### backend.supabase-postgres-rls-gates
+
+Source: `methods/backend/supabase-postgres-rls-gates.md`
+
+# Supabase Postgres RLS Gates
+## Purpose
+Define the minimum safety gates for Supabase, Postgres, auth, RLS, query, and migration work before implementation or review claims.
 ## When To Use
-
-- Before implementing or changing API endpoints, service boundaries, webhooks, or integration schemas.
-- When frontend and backend expectations need alignment.
-- When behavior depends on validation, auth, permissions, or error handling.
-
+Use when a task touches Supabase projects, Postgres schema or queries, RLS policies, auth/session behavior, storage access, migrations, generated database types, public payloads, or database performance.
 ## When Not To Use
+Do not use for frontend-only changes, static docs changes, or backend work that does not touch data access, auth, persistence, or database behavior.
+## Agent Roles That Should Embed It
+Backend Contract Agent, Database RLS Agent, Security Agent, QA Test Agent, Reviewer Agent.
+## Operating Rules
 
-- Do not use for database RLS policy design as the primary owner.
-- Do not use for visual frontend decisions.
-- Do not use for source intake or release approval.
+### internal.simplicity-surgical-change-discipline
 
-## Embedded Common Rules
+Source: `methods/internal/simplicity-surgical-change-discipline.md`
 
-- Audit interfaces before implementation.
-- Keep contracts explicit, testable, and reviewable.
-- Do not install skills, change global config, or touch product repos from this toolkit.
+# Simplicity Surgical Change Discipline
+## Purpose
+Keep agent changes focused, understandable, and proportional to the user request.
+## When To Use
+Use before implementing, reviewing, or refactoring code.
+## When Not To Use
+Do not use to block necessary migrations or architecture work when the requirement justifies it.
+## Agent Roles That Should Embed It
+Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
+## Operating Rules
 
-## Embedded Karpathy Behavior Baseline
+### internal.tdd-verification-alignment
 
-- Surface assumptions about callers, data shape, and failure cases.
-- Keep changes surgical and compatible unless a breaking change is approved.
-- Focus on goal-aligned contract behavior.
+Source: `methods/internal/tdd-verification-alignment.md`
 
-## Embedded Selected Osmani Methods
+# TDD Verification Alignment
+## Purpose
+Align test-first development and proof-before-completion behavior across agents.
+## When To Use
+Use when an agent changes behavior, fixes bugs, or claims a task is complete.
+## When Not To Use
+Do not force executable tests for pure reference documents with no behavior.
+## Agent Roles That Should Embed It
+QA Test Agent, Reviewer Agent, Backend Contract Agent, Frontend Agent.
+## Operating Rules
 
-- Use API/interface design for schemas, errors, auth, and compatibility.
-- Use security hardening for validation, permission checks, and sensitive data handling.
-- Use incremental implementation and TDD to reduce contract regression risk.
+### karpathy.simplicity-surgical-changes
 
-## Embedded Selected Matt Pocock Methods
+Source: `methods/karpathy/simplicity-surgical-changes.md`
 
-- Use design-interface to define typed boundaries and integration expectations.
-- Use TDD for contract tests and edge cases.
-- Use improve-architecture when boundaries are leaking or duplicated.
+# Simplicity And Surgical Changes
+## Purpose
+Keep agent edits small, direct, and proportionate.
+## When To Use
+Use for code changes, refactors, bug fixes, and reviews where scope can drift.
+## When Not To Use
+Do not use to block necessary architecture work when complexity is justified by clear requirements.
+## Agent Roles That Should Embed It
+Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
+## Operating Rules
 
-## Embedded UI/UX Methods
+### matt.design-interface
 
-- Include UI/UX considerations only for response latency, error messaging support, empty states, and frontend workflow requirements.
+Source: `methods/matt/design-interface.md`
 
-## Superpowers Usage Triggers
+# Design Interface
+## Purpose
+Explore interface shapes before committing to a module or API design.
+## When To Use
+Use when a module boundary, API, component interface, or developer experience is unclear.
+## When Not To Use
+Do not generate many alternatives when an established local pattern already fits.
+## Agent Roles That Should Embed It
+Architect Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
+## Operating Rules
 
-- Use Superpowers only as an external Codex execution-discipline plugin.
-- Trigger test-driven-development for contract changes with clear expected behavior.
-- Trigger systematic-debugging when endpoint behavior differs from contract assumptions.
+### matt.improve-architecture
 
-## Context7 Usage Triggers
+Source: `methods/matt/improve-architecture.md`
 
-- Use Context7 when available/configured to verify current framework, auth, API, or validation library docs.
+# Improve Architecture
+## Purpose
+Plan architecture improvements without drifting into rewrite enthusiasm.
+## When To Use
+Use when existing structure blocks a requested change or creates clear risk.
+## When Not To Use
+Do not refactor unrelated code just because it could be cleaner.
+## Agent Roles That Should Embed It
+Architect Agent, Reviewer Agent, Backend Contract Agent, Frontend Agent.
+## Operating Rules
 
-## Playwright Usage Triggers
+### matt.tdd
 
-- Use Playwright only when backend contract changes must be verified through a browser-facing flow.
+Source: `methods/matt/tdd.md`
 
-## Figma Usage Trigger
+# TDD
+## Purpose
+Drive implementation through a failing test, passing implementation, and cleanup loop.
+## When To Use
+Use for behavior changes, bugs, contracts, and risky refactors.
+## When Not To Use
+Do not force a test loop where the artifact has no executable behavior.
+## Agent Roles That Should Embed It
+QA Test Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
+## Operating Rules
 
-- Do not use Figma from this agent; route design-dependent API needs through Product, Frontend, or UIUX Agent.
+### osmani.api-interface-design
 
-## Allowed Scope
+Source: `methods/osmani/api-interface-design.md`
 
-- API contract proposals, schema changes, validation rules, error models, and contract verification plans.
-- Coordination notes for frontend, database, security, and QA agents.
+# API Interface Design
+## Purpose
+Create clear and stable contracts between systems.
+## When To Use
+Use when designing APIs, module boundaries, public types, or integration contracts.
+## When Not To Use
+Do not over-design internal helpers that have one local caller and no stable contract.
+## Agent Roles That Should Embed It
+Architect Agent, Backend Contract Agent, Database RLS Agent, Reviewer Agent.
+## Operating Rules
 
-## Forbidden Actions
+### osmani.incremental-implementation
 
-- Activate external skills.
-- Run third-party scripts.
-- Modify global config.
-- Make breaking changes without explicit approval.
+Source: `methods/osmani/incremental-implementation.md`
 
-## Required Workflow
+# Incremental Implementation
+## Purpose
+Reduce risk by building in small verified slices.
+## When To Use
+Use when a change touches multiple files, user workflows, or shared behavior.
+## When Not To Use
+Do not split so finely that verification becomes meaningless or fragmented.
+## Agent Roles That Should Embed It
+Frontend Agent, Backend Contract Agent, Database RLS Agent, QA Test Agent.
+## Operating Rules
 
-1. Identify callers, data flow, auth context, and compatibility constraints.
-2. Define schemas, validation, errors, permissions, and failure modes.
-3. Specify tests for success, edge, and failure cases.
-4. Coordinate frontend/database/security implications.
-5. Verify contract behavior before completion.
+### osmani.performance-optimization
 
-## Output Format
+Source: `methods/osmani/performance-optimization.md`
 
-- Contract summary.
-- Request/response/error model.
-- Auth and validation rules.
-- Compatibility and migration notes.
-- Verification checklist.
+# Performance Optimization
+## Purpose
+Improve performance through measurement and targeted changes.
+## When To Use
+Use when performance requirements exist, regressions are suspected, or user experience depends on speed.
+## When Not To Use
+Do not optimize speculative bottlenecks without measurement.
+## Agent Roles That Should Embed It
+SRE Performance Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent.
+## Operating Rules
 
-## Verification Requirements
+### osmani.security-hardening
 
-- Confirm success and failure paths are testable.
-- Confirm sensitive fields are not exposed.
-- Confirm consumers have clear migration or compatibility guidance.
+Source: `methods/osmani/security-hardening.md`
 
-## Escalation / Stop Conditions
+# Security Hardening
+## Purpose
+Make security review part of normal engineering work.
+## When To Use
+Use when handling auth, user input, storage, external integrations, secrets, deployment, or automation.
+## When Not To Use
+Do not block low-risk docs work with unrelated security review.
+## Agent Roles That Should Embed It
+Security Agent, Backend Contract Agent, Database RLS Agent, Reviewer Agent, Skill Scout Agent.
+## Operating Rules
 
-- Stop if the contract requires unapproved auth, billing, secrets, or destructive data behavior.
-- Escalate if caller expectations conflict or compatibility cannot be preserved.
+### osmani.spec-driven-development
 
-## Source Provenance
+Source: `methods/osmani/spec-driven-development.md`
 
-- Source agent: `agents/backend-contract-agent.md`.
-- Embedded method references: `methods/osmani/api-interface-design.md`, `methods/osmani/security-hardening.md`, `methods/osmani/incremental-implementation.md`, `methods/matt/design-interface.md`, `methods/matt/tdd.md`, `methods/internal/tdd-verification-alignment.md`.
-- Governance references: `AGENTS.md`, `SECURITY.md`.
-- This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.
+# Spec Driven Development
+## Purpose
+Turn intent into implementation-ready requirements before coding.
+## When To Use
+Use for new features, cross-module work, architectural changes, and unclear requests.
+## When Not To Use
+Do not require a full spec for a clearly bounded typo or tiny doc correction.
+## Agent Roles That Should Embed It
+Product Agent, Architect Agent, Backend Contract Agent, Frontend Agent.
+## Operating Rules
+
+### osmani.test-driven-development
+
+Source: `methods/osmani/test-driven-development.md`
+
+# Test-Driven Development
+## Purpose
+Use tests to define and protect expected behavior.
+## When To Use
+Use for bug fixes, behavior changes, business logic, contracts, and regression-prone UI flows.
+## When Not To Use
+Do not force TDD for static text-only edits where no behavior changes.
+## Agent Roles That Should Embed It
+QA Test Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
+## Operating Rules
+
+### security.differential-security-review
+
+Source: `methods/security/differential-security-review.md`
+
+# Differential Security Review
+## Purpose
+Review changed code by risk first, focusing security effort where the diff can alter trust boundaries, access control, secrets, public payloads, or supply-chain behavior.
+## When To Use
+Use for PR review, dependency changes, auth/security-sensitive diffs, public API changes, database policy changes, external calls, validation changes, payment/value-transfer logic, cryptography, file upload/download paths, or configuration that changes runtime exposure.
+## When Not To Use
+Do not use as a full audit of unrelated code when the user asked for a narrow typo, formatting, or docs-only change with no security surface. Do not use it to run external scanners or install security tooling unless separately approved.
+## Agent Roles That Should Embed It
+Security Agent, Reviewer Agent, Backend Contract Agent, Database RLS Agent, Release Manager Agent.
+## Operating Rules
+
+## Provenance
+
+- Source agent path: `agents/backend-contract-agent.md`
+- Profile paths: `profiles/backend-profile.md`, `profiles/implementation-profile.md`, `profiles/security-profile.md`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.improve-architecture`, `matt.tdd`, `osmani.api-interface-design`, `osmani.incremental-implementation`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.spec-driven-development`, `osmani.test-driven-development`, `security.differential-security-review`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `karpathy-inspired-skills`, `matt-pocock-skills`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`
+- Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
+
+External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

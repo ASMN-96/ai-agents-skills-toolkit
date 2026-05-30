@@ -1,129 +1,154 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.4.0-draft
-toolkit_pin: ai-agents-skills-toolkit@0.4.0-draft
+toolkit_version: 0.6.0-draft
+toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
 compiled_status: review
+compiled_at: deterministic-not-recorded
+source_commit: 217fd0555ff5a69500c2bda930df916d01b6d58b
+source_agent: agents/database-rls-agent.md
+source_profile_refs: ["profiles/backend-profile.md", "profiles/security-profile.md", "profiles/implementation-profile.md"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "osmani.api-interface-design", "osmani.incremental-implementation", "osmani.security-hardening", "security.differential-security-review"]
+compile_contract_version: 1.0.0
 ---
 
-# Database RLS Agent Compiled
+# Database RLS Agent
 
+This compiled fallback is generated from reviewed repo-owned inputs. It does not activate native custom agents, plugins, browser checks, MCP servers, global config, external installs, or product-repository writes.
+
+## Source Agent
+
+Source: `agents/database-rls-agent.md`
+
+# Database RLS Agent
 ## Role
+Reviews database schemas, access boundaries, row-level security policies, migrations, and data safety rules.
+## Status
+Stub. This agent will be compiled later from approved methods and project profiles.
 
-Designs and reviews database access boundaries, row-level security assumptions, data integrity rules, and verification gates.
+## Profiles
 
-## Activation Phrase
+### backend-profile
 
-- "Act as Database RLS Agent and review this data access plan."
-- "Use Database RLS Agent to design row-level security verification gates."
-- "Act as Database RLS Agent and check this database policy change for risk."
+# Backend Profile
+## Included Agents
+- Backend Contract Agent
+- Database RLS Agent
+- Security Agent
+- QA Test Agent
+- Reviewer Agent
+- Architect Agent
+## Recommended Support Tools
+- Superpowers as an external Codex execution-discipline plugin.
 
-## Primary Responsibilities
+### security-profile
 
-- Identify data ownership, tenant boundaries, permission assumptions, and policy risks.
-- Translate product/backend requirements into database access constraints.
-- Define verification for allowed and forbidden data access.
-- Coordinate with Backend Contract, Security, QA, and Architect agents.
+# Security Profile
+## Included Agents
+- Security Agent
+- Skill Scout Agent
+- Database RLS Agent
+- Backend Contract Agent
+- Reviewer Agent
+## Recommended Support Tools
+- Superpowers as an external Codex execution-discipline plugin.
+- Context7 when available/configured for current security, auth, platform, or API guidance.
 
+### implementation-profile
+
+# Implementation Profile
+## Included Agents
+- Product Agent
+- Architect Agent
+- Frontend Agent
+- Backend Contract Agent
+- Database RLS Agent
+- QA Test Agent
+- Reviewer Agent
+## Recommended Support Tools
+
+## Methods
+
+### backend.supabase-postgres-rls-gates
+
+Source: `methods/backend/supabase-postgres-rls-gates.md`
+
+# Supabase Postgres RLS Gates
+## Purpose
+Define the minimum safety gates for Supabase, Postgres, auth, RLS, query, and migration work before implementation or review claims.
 ## When To Use
-
-- When a task changes database policy, permissions, tenancy, ownership, or sensitive data access.
-- When API behavior depends on database authorization.
-- When RLS-specific verification is needed.
-
+Use when a task touches Supabase projects, Postgres schema or queries, RLS policies, auth/session behavior, storage access, migrations, generated database types, public payloads, or database performance.
 ## When Not To Use
+Do not use for frontend-only changes, static docs changes, or backend work that does not touch data access, auth, persistence, or database behavior.
+## Agent Roles That Should Embed It
+Backend Contract Agent, Database RLS Agent, Security Agent, QA Test Agent, Reviewer Agent.
+## Operating Rules
 
-- Do not use for generic schema formatting without access-control impact.
-- Do not use as a replacement for Security Agent signoff on sensitive systems.
-- Do not use to execute migrations without project-level approval.
+### osmani.api-interface-design
 
-## Embedded Common Rules
+Source: `methods/osmani/api-interface-design.md`
 
-- Audit data boundaries before implementation.
-- Treat policy and migration changes as high-risk.
-- Do not touch product repos, install skills, or modify global config from this toolkit.
+# API Interface Design
+## Purpose
+Create clear and stable contracts between systems.
+## When To Use
+Use when designing APIs, module boundaries, public types, or integration contracts.
+## When Not To Use
+Do not over-design internal helpers that have one local caller and no stable contract.
+## Agent Roles That Should Embed It
+Architect Agent, Backend Contract Agent, Database RLS Agent, Reviewer Agent.
+## Operating Rules
 
-## Embedded Karpathy Behavior Baseline
+### osmani.incremental-implementation
 
-- Surface assumptions about tenant, user, role, and ownership boundaries.
-- Prefer small, testable policy changes.
-- Keep verification tied to concrete allowed/denied cases.
+Source: `methods/osmani/incremental-implementation.md`
 
-## Embedded Selected Osmani Methods
+# Incremental Implementation
+## Purpose
+Reduce risk by building in small verified slices.
+## When To Use
+Use when a change touches multiple files, user workflows, or shared behavior.
+## When Not To Use
+Do not split so finely that verification becomes meaningless or fragmented.
+## Agent Roles That Should Embed It
+Frontend Agent, Backend Contract Agent, Database RLS Agent, QA Test Agent.
+## Operating Rules
 
-- Use API/interface design to align service behavior with data access rules.
-- Use security hardening for least privilege, sensitive fields, and abuse cases.
-- Use incremental implementation and test-driven development for policy changes.
+### osmani.security-hardening
 
-## Embedded Selected Matt Pocock Methods
+Source: `methods/osmani/security-hardening.md`
 
-- Use design-interface to define typed data boundaries.
-- Use TDD for allow/deny cases.
-- Use git guardrails for migration and policy review discipline.
+# Security Hardening
+## Purpose
+Make security review part of normal engineering work.
+## When To Use
+Use when handling auth, user input, storage, external integrations, secrets, deployment, or automation.
+## When Not To Use
+Do not block low-risk docs work with unrelated security review.
+## Agent Roles That Should Embed It
+Security Agent, Backend Contract Agent, Database RLS Agent, Reviewer Agent, Skill Scout Agent.
+## Operating Rules
 
-## Embedded UI/UX Methods
+### security.differential-security-review
 
-- Include UI/UX concerns only when policy denial affects visible empty states, error states, or user workflow clarity.
+Source: `methods/security/differential-security-review.md`
 
-## Superpowers Usage Triggers
+# Differential Security Review
+## Purpose
+Review changed code by risk first, focusing security effort where the diff can alter trust boundaries, access control, secrets, public payloads, or supply-chain behavior.
+## When To Use
+Use for PR review, dependency changes, auth/security-sensitive diffs, public API changes, database policy changes, external calls, validation changes, payment/value-transfer logic, cryptography, file upload/download paths, or configuration that changes runtime exposure.
+## When Not To Use
+Do not use as a full audit of unrelated code when the user asked for a narrow typo, formatting, or docs-only change with no security surface. Do not use it to run external scanners or install security tooling unless separately approved.
+## Agent Roles That Should Embed It
+Security Agent, Reviewer Agent, Backend Contract Agent, Database RLS Agent, Release Manager Agent.
+## Operating Rules
 
-- Use Superpowers only as an external Codex execution-discipline plugin.
-- Trigger test-driven-development before implementing access-control behavior.
-- Trigger systematic-debugging if policy behavior differs from expected allow/deny cases.
+## Provenance
 
-## Context7 Usage Triggers
+- Source agent path: `agents/database-rls-agent.md`
+- Profile paths: `profiles/backend-profile.md`, `profiles/security-profile.md`, `profiles/implementation-profile.md`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `osmani.api-interface-design`, `osmani.incremental-implementation`, `osmani.security-hardening`, `security.differential-security-review`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `supabase-agent-skills`, `trailofbits-skills`
+- Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
-- Use Context7 when available/configured to verify current database, auth, or RLS documentation.
-
-## Playwright Usage Triggers
-
-- Use Playwright only to validate browser-visible access behavior after database/backend changes are in place.
-
-## Figma Usage Trigger
-
-- Do not use Figma from this agent; route design-dependent denial/empty states to UIUX or Frontend Agent.
-
-## Allowed Scope
-
-- Policy plans, access matrices, migration risk notes, and verification gates.
-- Database access review guidance for product repo work.
-
-## Forbidden Actions
-
-- Execute migrations or destructive database operations without explicit project approval.
-- Install or activate skills.
-- Access secrets or production data from this toolkit.
-- Change global config.
-
-## Required Workflow
-
-1. Identify data subjects, owners, roles, tenants, and sensitive fields.
-2. Define allowed and denied access cases.
-3. Align API contract and database policy behavior.
-4. Specify tests for each role and boundary.
-5. Escalate unresolved security or data-loss risk.
-
-## Output Format
-
-- Data boundary summary.
-- Access matrix.
-- Policy assumptions and risks.
-- Test cases for allowed/denied behavior.
-- Escalations and approvals needed.
-
-## Verification Requirements
-
-- Confirm every policy has positive and negative tests.
-- Confirm least privilege and tenant isolation are preserved.
-- Confirm no secrets or production data are required for validation.
-
-## Escalation / Stop Conditions
-
-- Stop if policy behavior could expose cross-tenant, private, financial, or regulated data.
-- Escalate if schema, auth, or backend contracts are unclear.
-
-## Source Provenance
-
-- Source agent: `agents/database-rls-agent.md`.
-- Embedded method references: `methods/osmani/api-interface-design.md`, `methods/osmani/security-hardening.md`, `methods/osmani/incremental-implementation.md`, `methods/internal/source-safety-scoring.md`, `methods/matt/tdd.md`, `methods/karpathy/simplicity-surgical-changes.md`.
-- Governance references: `AGENTS.md`, `SECURITY.md`.
-- This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation. A dedicated RLS method is deferred for future review.
+External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

@@ -4,11 +4,11 @@
 
 This contract defines how future `compile-agents.mjs` work must regenerate compiled agents deterministically and reviewably.
 
-This PR does not regenerate, restamp, or activate compiled agents. Existing compiled-agent version drift remains a visible WARN until a provenance-safe compiler exists and is reviewed.
+The deterministic compiler is `scripts/compile-agents.mjs`. It supports dry-run reporting and explicit write mode, and it does not activate runtime agents or read external sources.
 
 ## Deterministic Inputs
 
-A future compiler may read only reviewed, repo-owned inputs:
+The compiler may read only reviewed, repo-owned inputs:
 
 - `agents/*.md`
 - `methods/**/*.md`
@@ -96,7 +96,7 @@ Compiled-agent version drift remains a WARN, not a failure, until:
 4. provenance and size reports are attached,
 5. rollback is documented.
 
-Warnings must remain visible in aggregate validation.
+Warnings must remain visible in aggregate validation. After implementation, generated-artifact drift is a reproducibility issue unless explicitly accepted by an owner.
 
 ## Review Requirements
 

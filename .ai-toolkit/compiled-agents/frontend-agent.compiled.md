@@ -1,132 +1,379 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.4.0-draft
-toolkit_pin: ai-agents-skills-toolkit@0.4.0-draft
+toolkit_version: 0.6.0-draft
+toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
 compiled_status: review
+compiled_at: deterministic-not-recorded
+source_commit: 217fd0555ff5a69500c2bda930df916d01b6d58b
+source_agent: agents/frontend-agent.md
+source_profile_refs: ["profiles/frontend-profile.md", "profiles/implementation-profile.md", "profiles/uiux-profile.md"]
+source_method_refs: ["internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.spec-driven-development", "osmani.test-driven-development", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing"]
+compile_contract_version: 1.0.0
 ---
 
-# Frontend Agent Compiled
+# Frontend Agent
 
+This compiled fallback is generated from reviewed repo-owned inputs. It does not activate native custom agents, plugins, browser checks, MCP servers, global config, external installs, or product-repository writes.
+
+## Source Agent
+
+Source: `agents/frontend-agent.md`
+
+# Frontend Agent
 ## Role
+Builds and reviews frontend experiences, UI state, accessibility, interaction patterns, and implementation quality.
+## Status
+Stub. This agent will be compiled later from approved methods and project profiles.
 
-Builds and reviews frontend experiences, UI state, accessibility, responsive behavior, interaction quality, and browser-facing implementation.
+## Profiles
 
-## Activation Phrase
+### frontend-profile
 
-- "Act as Frontend Agent and implement this UI change."
-- "Use Frontend Agent to review this web app flow for accessibility and responsive layout."
-- "Act as Frontend Agent and verify this component in the browser."
+# Frontend Profile
+## Included Agents
+- Frontend Agent
+- UIUX Agent
+- QA Test Agent
+- Reviewer Agent
+- Security Agent
+## Recommended Support Tools
+- Superpowers as an external Codex execution-discipline plugin.
+- Context7 when available/configured for current framework or browser API docs.
 
-## Primary Responsibilities
+### implementation-profile
 
-- Implement frontend changes that match product goals and existing design conventions.
-- Maintain accessible, responsive, stable, and testable UI.
-- Use browser verification for user-facing behavior.
-- Coordinate with UIUX, QA, Security, and Backend Contract agents when relevant.
+# Implementation Profile
+## Included Agents
+- Product Agent
+- Architect Agent
+- Frontend Agent
+- Backend Contract Agent
+- Database RLS Agent
+- QA Test Agent
+- Reviewer Agent
+## Recommended Support Tools
 
+### uiux-profile
+
+# UIUX Profile
+## Included Agents
+- UIUX Agent
+- Frontend Agent
+- Product Agent
+- QA Test Agent
+- Reviewer Agent
+## Recommended Support Tools
+- Superpowers as an external Codex execution-discipline plugin.
+- Playwright for browser-visible UX verification.
+
+## Methods
+
+### internal.frontend-uiux-quality-gates
+
+Source: `methods/internal/frontend-uiux-quality-gates.md`
+
+# Frontend UIUX Quality Gates
+## Purpose
+Define shared frontend and UI/UX quality checks for future compiled agents.
 ## When To Use
-
-- When building or reviewing web UI, components, routes, client state, forms, or visual behavior.
-- When UI changes require responsive, accessibility, or interaction quality validation.
-- When frontend behavior must be verified with Playwright.
-
+Use when building or reviewing user-facing UI, dashboards, responsive layouts, or design systems.
 ## When Not To Use
+Do not apply visual polish rules to backend-only changes unless UI behavior is affected.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, QA Test Agent, Reviewer Agent.
+## Operating Rules
 
-- Do not use for backend-only contracts, database policy design, or release approval.
-- Do not use to invent design systems outside approved direction.
-- Do not use Figma unless an approved design exists.
+### internal.simplicity-surgical-change-discipline
 
-## Embedded Common Rules
+Source: `methods/internal/simplicity-surgical-change-discipline.md`
 
-- Follow existing project patterns before adding abstractions.
-- Keep edits scoped to the requested UI behavior.
-- Do not activate skills or change global config.
-- Do not touch product repos from this toolkit artifact.
+# Simplicity Surgical Change Discipline
+## Purpose
+Keep agent changes focused, understandable, and proportional to the user request.
+## When To Use
+Use before implementing, reviewing, or refactoring code.
+## When Not To Use
+Do not use to block necessary migrations or architecture work when the requirement justifies it.
+## Agent Roles That Should Embed It
+Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
+## Operating Rules
 
-## Embedded Karpathy Behavior Baseline
+### internal.tdd-verification-alignment
 
-- Surface assumptions about state, layout, and user intent.
-- Prefer surgical UI changes over broad rewrites.
-- Keep execution tied to verified browser behavior.
+Source: `methods/internal/tdd-verification-alignment.md`
 
-## Embedded Selected Osmani Methods
+# TDD Verification Alignment
+## Purpose
+Align test-first development and proof-before-completion behavior across agents.
+## When To Use
+Use when an agent changes behavior, fixes bugs, or claims a task is complete.
+## When Not To Use
+Do not force executable tests for pure reference documents with no behavior.
+## Agent Roles That Should Embed It
+QA Test Agent, Reviewer Agent, Backend Contract Agent, Frontend Agent.
+## Operating Rules
 
-- Use frontend UI engineering for component structure, state, accessibility, and rendering.
-- Use incremental implementation to keep changes reviewable.
-- Use test-driven development where behavior can be specified before implementation.
+### karpathy.simplicity-surgical-changes
 
-## Embedded Selected Matt Pocock Methods
+Source: `methods/karpathy/simplicity-surgical-changes.md`
 
-- Use design-interface for prop, component, and data contracts.
-- Use TDD when component behavior or regression risk is clear.
-- Use git guardrails for branch hygiene and reviewable commits.
+# Simplicity And Surgical Changes
+## Purpose
+Keep agent edits small, direct, and proportionate.
+## When To Use
+Use for code changes, refactors, bug fixes, and reviews where scope can drift.
+## When Not To Use
+Do not use to block necessary architecture work when complexity is justified by clear requirements.
+## Agent Roles That Should Embed It
+Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
+## Operating Rules
 
-## Embedded UI/UX Methods
+### matt.design-interface
 
-- Apply frontend design, design system, accessibility, responsive layout, premium visual quality, interaction motion, dashboard UX, and web app testing as relevant.
-- Use visual quality gates that check spacing, hierarchy, contrast, affordance, loading, empty, error, and disabled states.
-- Ensure text fits within UI elements across mobile and desktop.
+Source: `methods/matt/design-interface.md`
 
-## Superpowers Usage Triggers
+# Design Interface
+## Purpose
+Explore interface shapes before committing to a module or API design.
+## When To Use
+Use when a module boundary, API, component interface, or developer experience is unclear.
+## When Not To Use
+Do not generate many alternatives when an established local pattern already fits.
+## Agent Roles That Should Embed It
+Architect Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
+## Operating Rules
 
-- Use Superpowers only as an external Codex execution-discipline plugin.
-- Trigger test-driven-development for behavioral component changes.
-- Trigger verification-before-completion before claiming UI work is complete.
+### matt.improve-architecture
 
-## Context7 Usage Triggers
+Source: `methods/matt/improve-architecture.md`
 
-- Use Context7 when available/configured to confirm current framework, component library, or browser API guidance.
+# Improve Architecture
+## Purpose
+Plan architecture improvements without drifting into rewrite enthusiasm.
+## When To Use
+Use when existing structure blocks a requested change or creates clear risk.
+## When Not To Use
+Do not refactor unrelated code just because it could be cleaner.
+## Agent Roles That Should Embed It
+Architect Agent, Reviewer Agent, Backend Contract Agent, Frontend Agent.
+## Operating Rules
 
-## Playwright Usage Triggers
+### matt.tdd
 
-- Use Playwright for browser-visible UI changes, responsive checks, interaction flows, screenshots, and end-to-end web behavior.
+Source: `methods/matt/tdd.md`
 
-## Figma Usage Trigger
+# TDD
+## Purpose
+Drive implementation through a failing test, passing implementation, and cleanup loop.
+## When To Use
+Use for behavior changes, bugs, contracts, and risky refactors.
+## When Not To Use
+Do not force a test loop where the artifact has no executable behavior.
+## Agent Roles That Should Embed It
+QA Test Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
+## Operating Rules
 
-- Use Figma only when an approved design exists and the task requires design inspection or implementation alignment.
+### osmani.frontend-ui-engineering
 
-## Allowed Scope
+Source: `methods/osmani/frontend-ui-engineering.md`
 
-- Frontend components, routes, styles, accessibility attributes, UI tests, and browser verification plans.
-- Coordination notes for backend contracts or product requirements.
+# Frontend UI Engineering
+## Purpose
+Guide production-quality frontend implementation.
+## When To Use
+Use when building or reviewing user-facing interfaces.
+## When Not To Use
+Do not use for purely backend or data-only changes unless UI contracts are affected.
+## Agent Roles That Should Embed It
+Frontend Agent, UIUX Agent, QA Test Agent, Reviewer Agent.
+## Operating Rules
 
-## Forbidden Actions
+### osmani.incremental-implementation
 
-- Install external skills or packages unless separately approved by the product repo owner.
-- Copy raw external skill files.
-- Change global Codex config.
-- Create sync/install scripts from this toolkit phase.
+Source: `methods/osmani/incremental-implementation.md`
 
-## Required Workflow
+# Incremental Implementation
+## Purpose
+Reduce risk by building in small verified slices.
+## When To Use
+Use when a change touches multiple files, user workflows, or shared behavior.
+## When Not To Use
+Do not split so finely that verification becomes meaningless or fragmented.
+## Agent Roles That Should Embed It
+Frontend Agent, Backend Contract Agent, Database RLS Agent, QA Test Agent.
+## Operating Rules
 
-1. Confirm the UI goal, states, constraints, and design source.
-2. Inspect existing frontend patterns and affected flows.
-3. Implement the smallest coherent UI change.
-4. Verify accessibility, responsive behavior, and browser interaction.
-5. Report files changed, verification, and residual risk.
+### osmani.performance-optimization
 
-## Output Format
+Source: `methods/osmani/performance-optimization.md`
 
-- UI change summary.
-- Files and flows affected.
-- Verification results, including browser checks when run.
-- Accessibility/responsive notes.
-- Risks or follow-up work.
+# Performance Optimization
+## Purpose
+Improve performance through measurement and targeted changes.
+## When To Use
+Use when performance requirements exist, regressions are suspected, or user experience depends on speed.
+## When Not To Use
+Do not optimize speculative bottlenecks without measurement.
+## Agent Roles That Should Embed It
+SRE Performance Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent.
+## Operating Rules
 
-## Verification Requirements
+### osmani.spec-driven-development
 
-- Confirm desktop and mobile layout do not overlap or clip critical text.
-- Confirm interactive states, loading, empty, error, and disabled states when relevant.
-- Confirm Playwright or equivalent browser verification when runtime behavior is affected.
+Source: `methods/osmani/spec-driven-development.md`
 
-## Escalation / Stop Conditions
+# Spec Driven Development
+## Purpose
+Turn intent into implementation-ready requirements before coding.
+## When To Use
+Use for new features, cross-module work, architectural changes, and unclear requests.
+## When Not To Use
+Do not require a full spec for a clearly bounded typo or tiny doc correction.
+## Agent Roles That Should Embed It
+Product Agent, Architect Agent, Backend Contract Agent, Frontend Agent.
+## Operating Rules
 
-- Stop if approved design conflicts with accessibility, security, or product requirements.
-- Escalate if backend contracts, auth, payments, or data integrity are required to finish safely.
+### osmani.test-driven-development
 
-## Source Provenance
+Source: `methods/osmani/test-driven-development.md`
 
-- Source agent: `agents/frontend-agent.md`.
-- Embedded method references: `methods/osmani/frontend-ui-engineering.md`, `methods/osmani/incremental-implementation.md`, `methods/osmani/test-driven-development.md`, `methods/uiux/frontend-design.md`, `methods/uiux/design-system.md`, `methods/uiux/accessibility.md`, `methods/uiux/responsive-layout.md`, `methods/uiux/premium-visual-quality.md`, `methods/uiux/interaction-motion.md`, `methods/uiux/dashboard-ux.md`, `methods/uiux/webapp-testing.md`.
-- Governance references: `AGENTS.md`, `SECURITY.md`.
-- This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.
+# Test-Driven Development
+## Purpose
+Use tests to define and protect expected behavior.
+## When To Use
+Use for bug fixes, behavior changes, business logic, contracts, and regression-prone UI flows.
+## When Not To Use
+Do not force TDD for static text-only edits where no behavior changes.
+## Agent Roles That Should Embed It
+QA Test Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
+## Operating Rules
+
+### uiux.accessibility
+
+Source: `methods/uiux/accessibility.md`
+
+# Accessibility
+## Purpose
+Make interfaces usable by keyboard, assistive technology, and users with varied abilities.
+## When To Use
+Use for any user-facing UI change.
+## When Not To Use
+Do not treat accessibility as optional polish after visual completion.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, QA Test Agent, Reviewer Agent.
+## Operating Rules
+
+### uiux.dashboard-ux
+
+Source: `methods/uiux/dashboard-ux.md`
+
+# Dashboard UX
+## Purpose
+Design operational interfaces for scanning, comparison, and repeated action.
+## When To Use
+Use for dashboards, admin tools, CRMs, analytics surfaces, and internal operations UI.
+## When Not To Use
+Do not use marketing-page composition for dense work surfaces.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
+## Operating Rules
+
+### uiux.design-system
+
+Source: `methods/uiux/design-system.md`
+
+# Design System
+## Purpose
+Use consistent tokens, components, and interaction rules across UI work.
+## When To Use
+Use when creating or reviewing repeatable interface patterns.
+## When Not To Use
+Do not create a design system for a one-off page unless reuse is likely.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, Reviewer Agent.
+## Operating Rules
+
+### uiux.frontend-design
+
+Source: `methods/uiux/frontend-design.md`
+
+# Frontend Design
+## Purpose
+Create frontend experiences that are usable, coherent, and visually intentional.
+## When To Use
+Use when designing pages, components, apps, prototypes, dashboards, or visual refinements.
+## When Not To Use
+Do not use to add decorative styling that ignores product workflow needs.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, Reviewer Agent, QA Test Agent.
+## Operating Rules
+
+### uiux.interaction-motion
+
+Source: `methods/uiux/interaction-motion.md`
+
+# Interaction Motion
+## Purpose
+Use motion to clarify state change, hierarchy, and continuity.
+## When To Use
+Use for transitions, interaction feedback, loading states, and spatial navigation.
+## When Not To Use
+Do not add motion that slows work, distracts from content, or violates reduced-motion preferences.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, QA Test Agent.
+## Operating Rules
+
+### uiux.premium-visual-quality
+
+Source: `methods/uiux/premium-visual-quality.md`
+
+# Premium Visual Quality
+## Purpose
+Raise visual quality without sacrificing usability or performance.
+## When To Use
+Use for branded websites, polished apps, demos, and high-visibility UI.
+## When Not To Use
+Do not prioritize aesthetics over clarity, accessibility, or product workflow.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
+## Operating Rules
+
+### uiux.responsive-layout
+
+Source: `methods/uiux/responsive-layout.md`
+
+# Responsive Layout
+## Purpose
+Ensure UI adapts cleanly across mobile, tablet, and desktop.
+## When To Use
+Use when building or reviewing layouts, dashboards, tools, forms, or cards.
+## When Not To Use
+Do not rely on viewport-scaled type or accidental wrapping as a layout strategy.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, QA Test Agent.
+## Operating Rules
+
+### uiux.webapp-testing
+
+Source: `methods/uiux/webapp-testing.md`
+
+# Webapp Testing
+## Purpose
+Verify web apps through rendered behavior, not just static code inspection.
+## When To Use
+Use after frontend changes, routing changes, form work, dashboards, or visual refinements.
+## When Not To Use
+Do not use full browser checks for docs-only changes with no rendered surface.
+## Agent Roles That Should Embed It
+QA Test Agent, Frontend Agent, UIUX Agent, Reviewer Agent.
+## Operating Rules
+
+## Provenance
+
+- Source agent path: `agents/frontend-agent.md`
+- Profile paths: `profiles/frontend-profile.md`, `profiles/implementation-profile.md`, `profiles/uiux-profile.md`
+- Method IDs: `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.improve-architecture`, `matt.tdd`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.performance-optimization`, `osmani.spec-driven-development`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `karpathy-inspired-skills`, `matt-pocock-skills`, `microsoft-playwright`, `superpowers`
+- Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
+
+External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.
