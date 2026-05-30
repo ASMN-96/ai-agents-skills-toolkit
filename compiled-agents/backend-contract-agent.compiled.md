@@ -4,7 +4,7 @@ toolkit_version: 0.6.0-draft
 toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 217fd0555ff5a69500c2bda930df916d01b6d58b
+source_commit: deterministic-not-recorded
 source_agent: agents/backend-contract-agent.md
 source_profile_refs: ["profiles/backend-profile.md", "profiles/implementation-profile.md", "profiles/security-profile.md"]
 source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.api-interface-design", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.security-hardening", "osmani.spec-driven-development", "osmani.test-driven-development", "security.differential-security-review"]

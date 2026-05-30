@@ -4,7 +4,7 @@ toolkit_version: 0.6.0-draft
 toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 217fd0555ff5a69500c2bda930df916d01b6d58b
+source_commit: deterministic-not-recorded
 source_agent: agents/skill-scout-agent.md
 source_profile_refs: ["profiles/audit-profile.md", "profiles/security-profile.md"]
 source_method_refs: ["internal.skill-anatomy", "internal.source-discovery-workflow", "internal.source-safety-scoring", "karpathy.assumption-surfacing", "osmani.security-hardening"]

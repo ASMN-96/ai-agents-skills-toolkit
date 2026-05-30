@@ -4,7 +4,7 @@ toolkit_version: 0.6.0-draft
 toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 217fd0555ff5a69500c2bda930df916d01b6d58b
+source_commit: deterministic-not-recorded
 source_agent: agents/frontend-agent.md
 source_profile_refs: ["profiles/frontend-profile.md", "profiles/implementation-profile.md", "profiles/uiux-profile.md"]
 source_method_refs: ["internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.spec-driven-development", "osmani.test-driven-development", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing"]

@@ -4,7 +4,7 @@ toolkit_version: 0.6.0-draft
 toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 217fd0555ff5a69500c2bda930df916d01b6d58b
+source_commit: deterministic-not-recorded
 source_agent: agents/security-agent.md
 source_profile_refs: ["profiles/security-profile.md", "profiles/audit-profile.md", "profiles/backend-profile.md"]
 source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.source-discovery-workflow", "internal.source-safety-scoring", "osmani.code-review-quality", "osmani.security-hardening", "security.differential-security-review"]

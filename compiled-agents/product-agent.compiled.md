@@ -4,7 +4,7 @@ toolkit_version: 0.6.0-draft
 toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 217fd0555ff5a69500c2bda930df916d01b6d58b
+source_commit: deterministic-not-recorded
 source_agent: agents/product-agent.md
 source_profile_refs: ["profiles/implementation-profile.md", "profiles/uiux-profile.md"]
 source_method_refs: ["internal.engineering-lifecycle-gates", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "matt.grill-me", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.spec-driven-development", "uiux.dashboard-ux", "uiux.premium-visual-quality"]

@@ -1,16 +1,14 @@
 #!/usr/bin/env node
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { execFile } from "node:child_process";
 import path from "node:path";
 import process from "node:process";
-import { promisify } from "node:util";
 
-const execFileAsync = promisify(execFile);
 const ROOT = process.cwd();
 const TOOLKIT_VERSION = "0.6.0-draft";
 const COMPILE_CONTRACT_VERSION = "1.0.0";
 const GENERATED_ROOT = "compiled-agents";
 const HARD_WORD_WARNING = 30000;
+const SOURCE_COMMIT = "deterministic-not-recorded";
 
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
@@ -53,13 +51,8 @@ async function readText(relativePath, fallback = "") {
   }
 }
 
-async function sourceCommit() {
-  try {
-    const result = await execFileAsync("git", ["rev-parse", "HEAD"], { cwd: ROOT });
-    return result.stdout.trim();
-  } catch {
-    return "unknown-review-required";
-  }
+function sourceCommit() {
+  return SOURCE_COMMIT;
 }
 
 function asArray(value) {

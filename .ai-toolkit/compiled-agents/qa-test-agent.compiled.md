@@ -4,7 +4,7 @@ toolkit_version: 0.6.0-draft
 toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 217fd0555ff5a69500c2bda930df916d01b6d58b
+source_commit: deterministic-not-recorded
 source_agent: agents/qa-test-agent.md
 source_profile_refs: ["profiles/audit-profile.md", "profiles/frontend-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md"]
 source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.git-guardrails", "matt.tdd", "matt.to-issues", "matt.triage-issue", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.shipping-launch", "osmani.test-driven-development", "uiux.accessibility", "uiux.frontend-design", "uiux.interaction-motion", "uiux.responsive-layout", "uiux.webapp-testing"]
