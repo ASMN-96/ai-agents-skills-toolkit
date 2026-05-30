@@ -4,17 +4,17 @@ This report records the first completed real-project sync pilot for the AI Agent
 
 ## Toolkit State
 
-- Toolkit repository: `ASMN-96/ai-agents-skills-toolkit`
+- Toolkit repository: `<owner>/ai-agents-skills-toolkit`
 - Toolkit commit used for target sync: `34e3f162ce7dacdb235c9f1471a64d8d6e37ad85`
 - Source freshness gate before target merge: `node scripts\check-source-freshness.mjs --fail-on-change` passed with 21 unchanged sources and 0 actionable statuses.
-- Source-refresh PR completed during this closeout: https://github.com/ASMN-96/ai-agents-skills-toolkit/pull/37
+- Source-refresh PR completed during this closeout: `<toolkit-pr-url>`
 
 ## Passed Pilot
 
 ### RISS v2
 
-- Target repository: `ASMN-96/riss-v2`
-- Target PR: https://github.com/ASMN-96/riss-v2/pull/90
+- Target repository: `<owner>/<pilot-project>`
+- Target PR: `<pilot-project-pr-url>`
 - Target merge commit: `2f952ca822e350d1a5708d7cb564d3fc678f6d5d`
 - Target branch flow: clean feature branch, PR review, GitHub checks, squash merge, remote branch deletion.
 - Changed files:
@@ -56,7 +56,7 @@ GitHub checks before merge:
 
 ### TwinOps / DT
 
-- Target repository: `ASMN-96/twinops`
+- Target repository: `<owner>/<held-target>`
 - Sync worktree was created from `origin/main` and used only for the planned `.ai-toolkit` sync.
 - Dry-run, confirm-write, and manifest validation reached `.ai-toolkit`-only scope, but the target was not merged because `corepack pnpm format:check` failed on pre-existing non-`.ai-toolkit` product and docs files from `origin/main`.
 - No TwinOps PR was opened or merged.

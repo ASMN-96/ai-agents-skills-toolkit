@@ -36,7 +36,18 @@ async function main() {
   const premiumUiuxEvals = await readJson("evals/skills/premium-uiux-review-evals.json");
   const embeddedPremiumUiuxEvals = await readJson(".ai-toolkit/evals/skills/premium-uiux-review-evals.json");
 
-  for (const name of ["riss-governance", "vd-premium-uiux", "riss-code-quality", "riss-security-review", "riss-release-gate"]) {
+  for (const name of [
+    "ai-project-governance",
+    "riss-governance",
+    "premium-uiux-review",
+    "vd-premium-uiux",
+    "webapp-code-quality",
+    "riss-code-quality",
+    "app-security-review",
+    "riss-security-review",
+    "pr-release-gate",
+    "riss-release-gate"
+  ]) {
     if (!skills.skills.some((skill) => skill.name === name)) {
       fail(`skill-${name}`, "expected skill missing from registry");
     }
@@ -54,8 +65,14 @@ async function main() {
     if (skill?.futurePublicName !== futureName) {
       fail(`future-name-${currentName}`, `expected futurePublicName ${futureName}`);
     }
-    if (skill?.namingMigrationStatus !== "active-current-name") {
-      fail(`naming-status-${currentName}`, "current runtime skill must remain active-current-name during compatibility phase");
+    if (skill?.namingMigrationStatus !== "deprecated") {
+      fail(`naming-status-${currentName}`, "current compatibility skill must be deprecated while remaining active during migration");
+    }
+    const alias = skills.skills.find((entry) => entry.name === futureName);
+    if (!alias) {
+      fail(`public-alias-${futureName}`, "public-safe alias skill must exist");
+    } else if (alias.namingMigrationStatus !== "alias-active") {
+      fail(`public-alias-status-${futureName}`, "public-safe alias skill must be alias-active");
     }
   }
 
@@ -118,8 +135,11 @@ async function main() {
   const namingEvalIds = new Set((namingEvals.cases || []).map((evalCase) => evalCase.id));
   for (const required of [
     "current-governance-name-still-active",
-    "future-governance-name-reserved-not-active",
-    "premium-uiux-future-name-reserved",
+    "public-governance-alias-active",
+    "premium-uiux-public-alias-active",
+    "quality-public-alias-active",
+    "security-public-alias-active",
+    "release-public-alias-active",
     "old-names-not-deleted"
   ]) {
     if (!namingEvalIds.has(required)) {

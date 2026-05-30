@@ -43,5 +43,8 @@ Each tool entry must include:
 
 1. Add the schema and unknown-review-required defaults.
 2. Validate that every tool entry has the required fields.
-3. Later, review individual tools with evidence before changing any unknown field.
-4. Only after review may a tool receive scoped allowed environments, owner approval, or CI/project usage language.
+3. Assign an accountable owner bucket for every tool category without granting execution approval.
+4. Later, review individual tools with evidence before changing any unknown field.
+5. Only after review may a tool receive scoped allowed environments, owner approval, or CI/project usage language.
+
+See `docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md` for the current owner-bucket mapping.

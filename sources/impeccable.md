@@ -75,9 +75,13 @@ Approved for this PR as a reviewed source record and normalized source basis for
 
 Skill Scout deep safety refresh reviewed the upstream default-branch movement from `c8e973b32452fa72eb095613852c7c06415b126b` to `e10cff397b1dc20f941a77b29d15ed0cf94416d2` using read-only `git ls-remote` and GitHub compare metadata only. The compare was 3 commits ahead and touched live-browser skill scripts across agent harness folders, `DESIGN.md`, site pages, and site styles. This reinforces the existing execution risk around live/browser workflows and detector-style scripts, but does not change the recommendation: keep Impeccable as a normalized design-review reference only. No upstream files, scripts, browser workflows, detector behavior, installs, skill bodies, or runtime configuration were copied, executed, activated, or extracted.
 
+## Freshness Review 2026-05-30
+
+Skill Scout read-only follow-up reviewed the upstream default-branch movement from `e10cff397b1dc20f941a77b29d15ed0cf94416d2` to `b913668ba4d25b95c4a62278d3637837e9d2c6d9` using read-only `git ls-remote` and GitHub compare metadata only. The compare was 1 commit ahead and touched CLI skill-command code, package metadata, site skill documentation, changelog/FAQ pages, and CLI tests. Apache-2.0 license metadata remained present from the reviewed source record. The source continues to carry execution risk around CLI and live/browser workflows; the recommendation is unchanged. This refresh updates source tracking only and does not approve CLI execution, package install, detector use, browser workflow use, source-copying, skill-body import, or runtime configuration changes.
+
 ## Source Provenance (Stable)
 
 - Watchlist path: `sources/source-watchlist.json`
 - Reviewed by: Codex controlled implementation pass
 - Review decision: Source-record plus narrow normalized `vd-premium-uiux` guidance
-- Last review evidence: Source freshness report, GitHub compare metadata, and `git ls-remote` HEAD SHA on 2026-05-29
+- Last review evidence: Source freshness report, GitHub compare metadata, and `git ls-remote` HEAD SHA on 2026-05-30

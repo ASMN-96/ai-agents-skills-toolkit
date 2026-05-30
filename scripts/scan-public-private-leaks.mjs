@@ -31,6 +31,7 @@ const INCLUDE_ROOTS = [
 const SKIP_DIRS = new Set([".git", "node_modules", "dist", "build", ".cache", "temp", "scratch"]);
 const SKIP_FILES = new Set([
   "docs/PUBLIC_PRIVATE_LEAK_REPORT.md",
+  "docs/PUBLIC_PRIVATE_LEAK_REPORT.json",
   "docs/STALE_UNVERIFIED_DATA_CLASSIFICATION.md"
 ]);
 const TEXT_EXTENSIONS = new Set([
@@ -172,7 +173,9 @@ function isCompatibilitySurface(relativePath, match) {
 
 function isScannerRuleReference(relativePath) {
   return relativePath === "scripts/scan-public-private-leaks.mjs" ||
-    relativePath === "scripts/classify-stale-unverified-data.mjs";
+    relativePath === "scripts/classify-stale-unverified-data.mjs" ||
+    relativePath === "scripts/validate-public-package.mjs" ||
+    relativePath === "scripts/test-public-package-validator.mjs";
 }
 
 function isHistoricalDoc(relativePath) {
@@ -184,6 +187,13 @@ function isAllowedExampleEmail(match) {
 }
 
 function classify(finding) {
+  if (finding.file.startsWith(".ai-toolkit/private-overlays/")) {
+    return {
+      classification: "private-overlay-only",
+      action: "Keep out of public package output; review separately before any public release."
+    };
+  }
+
   if (isScannerRuleReference(finding.file)) {
     return {
       classification: "allowed-scanner-rule-reference",

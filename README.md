@@ -42,7 +42,7 @@ The high-level workflow is:
 
 ## Current Status
 
-Phases 1-9 established the toolkit foundation, source records, normalized methods, 12 compiled agents, profiles, dry-run project sync, project-managed skill sync, external GSD/Superpowers governance, Codex custom-agent governance, and the `riss-governance` entrypoint.
+Phases 1-9 established the toolkit foundation, source records, normalized methods, 12 compiled agents, profiles, dry-run project sync, project-managed skill sync, external GSD/Superpowers governance, Codex custom-agent governance, and the governed project entrypoint.
 
 Phase 10A/10B adds the governance spine contract, registries, token-efficiency policy, missing-skill discovery policy, runtime verification docs, external-source backlog, and eval scaffolding. Phase 10C/10D refreshes external source records only. Phase 10E adds narrow normalized methods. Phase 10F indexes reviewed methods as passive metadata and routing references. These phases do not install tools, activate skills, clone repositories, copy raw external skills, modify global Codex config, or touch product repositories.
 

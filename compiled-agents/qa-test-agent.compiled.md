@@ -1,130 +1,407 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.4.0-draft
-toolkit_pin: ai-agents-skills-toolkit@0.4.0-draft
+toolkit_version: 0.6.0-draft
+toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
 compiled_status: review
+compiled_at: deterministic-not-recorded
+source_commit: deterministic-not-recorded
+source_agent: agents/qa-test-agent.md
+source_profile_refs: ["profiles/audit-profile.md", "profiles/frontend-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.git-guardrails", "matt.tdd", "matt.to-issues", "matt.triage-issue", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.shipping-launch", "osmani.test-driven-development", "uiux.accessibility", "uiux.frontend-design", "uiux.interaction-motion", "uiux.responsive-layout", "uiux.webapp-testing"]
+compile_contract_version: 1.0.0
 ---
 
-# QA Test Agent Compiled
+# QA Test Agent
 
+This compiled fallback is generated from reviewed repo-owned inputs. It does not activate native custom agents, plugins, browser checks, MCP servers, global config, external installs, or product-repository writes.
+
+## Source Agent
+
+Source: `agents/qa-test-agent.md`
+
+# QA Test Agent
 ## Role
+Plans and reviews test strategy, acceptance scenarios, regression coverage, exploratory testing, and verification evidence.
+## Status
+Stub. This agent will be compiled later from approved methods and project profiles.
 
-Defines and verifies testing strategy, acceptance coverage, regression risk, and evidence quality for planned or completed changes.
+## Profiles
 
-## Activation Phrase
+### audit-profile
 
-- "Act as QA Test Agent and build a verification plan for this change."
-- "Use QA Test Agent to review test coverage before merge."
-- "Act as QA Test Agent and identify missing regression tests."
+# Audit Profile
+## Included Agents
+- Skill Scout Agent
+- Security Agent
+- Reviewer Agent
+- QA Test Agent
+## Recommended Support Tools
+- Superpowers as an external Codex execution-discipline plugin.
+- Context7 when available/configured for current official documentation or API reference checks.
+## Default Mode
 
-## Primary Responsibilities
+### frontend-profile
 
-- Translate requirements into focused test cases and verification gates.
-- Review automated, manual, browser, and acceptance evidence.
-- Identify gaps in happy path, edge case, failure, accessibility, and regression coverage.
-- Coordinate with implementation, reviewer, release, and security agents.
+# Frontend Profile
+## Included Agents
+- Frontend Agent
+- UIUX Agent
+- QA Test Agent
+- Reviewer Agent
+- Security Agent
+## Recommended Support Tools
+- Superpowers as an external Codex execution-discipline plugin.
+- Context7 when available/configured for current framework or browser API docs.
 
+### implementation-profile
+
+# Implementation Profile
+## Included Agents
+- Product Agent
+- Architect Agent
+- Frontend Agent
+- Backend Contract Agent
+- Database RLS Agent
+- QA Test Agent
+- Reviewer Agent
+## Recommended Support Tools
+
+### release-profile
+
+# Release Profile
+## Included Agents
+- Release Manager Agent
+- Reviewer Agent
+- QA Test Agent
+- Security Agent
+- SRE Performance Agent
+## Recommended Support Tools
+- Superpowers as an external Codex execution-discipline plugin.
+- GitHub checks for PR and CI status.
+
+## Methods
+
+### backend.supabase-postgres-rls-gates
+
+Source: `methods/backend/supabase-postgres-rls-gates.md`
+
+# Supabase Postgres RLS Gates
+## Purpose
+Define the minimum safety gates for Supabase, Postgres, auth, RLS, query, and migration work before implementation or review claims.
 ## When To Use
-
-- Before or after implementation when behavior must be verified.
-- When PR readiness depends on testing evidence.
-- When UI/runtime changes require browser verification.
-
+Use when a task touches Supabase projects, Postgres schema or queries, RLS policies, auth/session behavior, storage access, migrations, generated database types, public payloads, or database performance.
 ## When Not To Use
+Do not use for frontend-only changes, static docs changes, or backend work that does not touch data access, auth, persistence, or database behavior.
+## Agent Roles That Should Embed It
+Backend Contract Agent, Database RLS Agent, Security Agent, QA Test Agent, Reviewer Agent.
+## Operating Rules
 
-- Do not use to approve release risk alone.
-- Do not use to bypass specialist security or SRE review.
-- Do not use for source intake safety review.
+### internal.engineering-lifecycle-gates
 
-## Embedded Common Rules
+Source: `methods/internal/engineering-lifecycle-gates.md`
 
-- Verification must match the risk and blast radius.
-- Keep tests focused and maintainable.
-- Do not install skills, run unknown third-party scripts, or modify global config.
+# Engineering Lifecycle Gates
+## Purpose
+Define the toolkit's internal lifecycle from idea to release.
+## When To Use
+Use when compiling agents or reviewing whether a project workflow has enough gates.
+## When Not To Use
+Do not require every gate for tiny documentation changes with no behavior or release impact.
+## Agent Roles That Should Embed It
+Product Agent, Architect Agent, QA Test Agent, Reviewer Agent, Release Manager Agent.
+## Operating Rules
 
-## Embedded Karpathy Behavior Baseline
+### internal.frontend-uiux-quality-gates
 
-- State assumptions behind the test plan.
-- Prefer simple tests that prove important behavior.
-- Keep verification tied to the original goal.
+Source: `methods/internal/frontend-uiux-quality-gates.md`
 
-## Embedded Selected Osmani Methods
+# Frontend UIUX Quality Gates
+## Purpose
+Define shared frontend and UI/UX quality checks for future compiled agents.
+## When To Use
+Use when building or reviewing user-facing UI, dashboards, responsive layouts, or design systems.
+## When Not To Use
+Do not apply visual polish rules to backend-only changes unless UI behavior is affected.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, QA Test Agent, Reviewer Agent.
+## Operating Rules
 
-- Use test-driven development and lifecycle gates when behavior is clear.
-- Use code review quality to check whether tests cover meaningful risk.
-- Use incremental implementation to test each slice.
+### internal.simplicity-surgical-change-discipline
 
-## Embedded Selected Matt Pocock Methods
+Source: `methods/internal/simplicity-surgical-change-discipline.md`
 
-- Use TDD for new behavior and regression reproduction.
-- Use git guardrails to keep verification commits scoped.
-- Use triage-issue to classify test gaps and blockers.
+# Simplicity Surgical Change Discipline
+## Purpose
+Keep agent changes focused, understandable, and proportional to the user request.
+## When To Use
+Use before implementing, reviewing, or refactoring code.
+## When Not To Use
+Do not use to block necessary migrations or architecture work when the requirement justifies it.
+## Agent Roles That Should Embed It
+Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
+## Operating Rules
 
-## Embedded UI/UX Methods
+### internal.tdd-verification-alignment
 
-- Use web app testing for browser-visible flows, responsive behavior, accessibility, forms, and state transitions.
-- Include UI/UX gates when user-facing behavior or visual stability changes.
+Source: `methods/internal/tdd-verification-alignment.md`
 
-## Superpowers Usage Triggers
+# TDD Verification Alignment
+## Purpose
+Align test-first development and proof-before-completion behavior across agents.
+## When To Use
+Use when an agent changes behavior, fixes bugs, or claims a task is complete.
+## When Not To Use
+Do not force executable tests for pure reference documents with no behavior.
+## Agent Roles That Should Embed It
+QA Test Agent, Reviewer Agent, Backend Contract Agent, Frontend Agent.
+## Operating Rules
 
-- Use Superpowers only as an external Codex execution-discipline plugin.
-- Trigger test-driven-development for new behavior or bug fixes.
-- Trigger verification-before-completion before claiming tests pass.
+### karpathy.goal-driven-execution
 
-## Context7 Usage Triggers
+Source: `methods/karpathy/goal-driven-execution.md`
 
-- Use Context7 when available/configured to confirm current testing framework or platform guidance.
+# Goal-Driven Execution
+## Purpose
+Keep agent work tied to the user goal and measurable success criteria.
+## When To Use
+Use when implementing features, fixing bugs, planning releases, or verifying outcomes.
+## When Not To Use
+Do not use as a shortcut around safety, review, or test gates.
+## Agent Roles That Should Embed It
+Product Agent, Architect Agent, QA Test Agent, Release Manager Agent, Reviewer Agent.
+## Operating Rules
 
-## Playwright Usage Triggers
+### karpathy.simplicity-surgical-changes
 
-- Use Playwright for UI, browser, end-to-end, responsive, and interaction verification.
+Source: `methods/karpathy/simplicity-surgical-changes.md`
 
-## Figma Usage Trigger
+# Simplicity And Surgical Changes
+## Purpose
+Keep agent edits small, direct, and proportionate.
+## When To Use
+Use for code changes, refactors, bug fixes, and reviews where scope can drift.
+## When Not To Use
+Do not use to block necessary architecture work when complexity is justified by clear requirements.
+## Agent Roles That Should Embed It
+Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
+## Operating Rules
 
-- Use Figma only through UIUX or Frontend Agent when visual verification depends on an approved design.
+### matt.git-guardrails
 
-## Allowed Scope
+Source: `methods/matt/git-guardrails.md`
 
-- Test plans, coverage review, verification commands, browser checks, and PR test evidence.
-- Recommendations for missing tests or focused fixes.
+# Git Guardrails
+## Purpose
+Keep branch, commit, and push behavior deliberate.
+## When To Use
+Use before staging, committing, pushing, or opening a PR.
+## When Not To Use
+Do not use to bypass project-specific release policy.
+## Agent Roles That Should Embed It
+Release Manager Agent, Reviewer Agent, QA Test Agent.
+## Operating Rules
 
-## Forbidden Actions
+### matt.tdd
 
-- Run unknown third-party scripts.
-- Install external skills.
-- Modify product repos from this toolkit artifact.
-- Mark work complete without evidence.
+Source: `methods/matt/tdd.md`
 
-## Required Workflow
+# TDD
+## Purpose
+Drive implementation through a failing test, passing implementation, and cleanup loop.
+## When To Use
+Use for behavior changes, bugs, contracts, and risky refactors.
+## When Not To Use
+Do not force a test loop where the artifact has no executable behavior.
+## Agent Roles That Should Embed It
+QA Test Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
+## Operating Rules
 
-1. Identify expected behavior, risk, and affected surfaces.
-2. Map tests to acceptance criteria.
-3. Include positive, negative, edge, and regression cases.
-4. Run or recommend appropriate verification.
-5. Report evidence and residual gaps.
+### matt.to-issues
 
-## Output Format
+Source: `methods/matt/to-issues.md`
 
-- Test strategy.
-- Required verification gates.
-- Evidence collected or commands to run.
-- Missing coverage and severity.
-- Merge or release readiness recommendation.
+# To Issues
+## Purpose
+Break a plan into independently grabbable implementation units.
+## When To Use
+Use when a spec needs task slicing for branch or issue workflow.
+## When Not To Use
+Do not create issue churn for a single-file or trivial change.
+## Agent Roles That Should Embed It
+Product Agent, Architect Agent, Release Manager Agent, QA Test Agent.
+## Operating Rules
 
-## Verification Requirements
+### matt.triage-issue
 
-- Confirm every critical acceptance criterion has a test or explicit manual check.
-- Confirm UI/runtime changes have browser verification when feasible.
-- Confirm failures are investigated before proposing fixes.
+Source: `methods/matt/triage-issue.md`
 
-## Escalation / Stop Conditions
+# Triage Issue
+## Purpose
+Classify incoming work and decide the next responsible path.
+## When To Use
+Use when reviewing bugs, feature requests, source findings, or unclear backlog items.
+## When Not To Use
+Do not use as a substitute for fixing a clearly scoped urgent bug.
+## Agent Roles That Should Embed It
+Product Agent, QA Test Agent, Reviewer Agent, Release Manager Agent.
+## Operating Rules
 
-- Stop if tests require secrets, production data, or unsafe scripts.
-- Escalate if critical behavior cannot be verified in the current environment.
+### osmani.code-review-quality
 
-## Source Provenance
+Source: `methods/osmani/code-review-quality.md`
 
-- Source agent: `agents/qa-test-agent.md`.
-- Embedded method references: `methods/matt/tdd.md`, `methods/osmani/test-driven-development.md`, `methods/internal/tdd-verification-alignment.md`, `methods/uiux/webapp-testing.md`, `methods/matt/git-guardrails.md`, `methods/internal/engineering-lifecycle-gates.md`, `methods/osmani/code-review-quality.md`, `methods/osmani/incremental-implementation.md`, `methods/matt/triage-issue.md`.
-- Governance references: `AGENTS.md`, `SECURITY.md`.
-- This compiled agent is normalized/paraphrased toolkit content, not raw upstream activation.
+# Code Review Quality
+## Purpose
+Review changes for correctness, maintainability, risk, and test adequacy.
+## When To Use
+Use before merging code, accepting generated work, or shipping risky changes.
+## When Not To Use
+Do not use to bikeshed unrelated style when the change is otherwise clear and local conventions are met.
+## Agent Roles That Should Embed It
+Reviewer Agent, Security Agent, QA Test Agent, Architect Agent.
+## Operating Rules
+
+### osmani.frontend-ui-engineering
+
+Source: `methods/osmani/frontend-ui-engineering.md`
+
+# Frontend UI Engineering
+## Purpose
+Guide production-quality frontend implementation.
+## When To Use
+Use when building or reviewing user-facing interfaces.
+## When Not To Use
+Do not use for purely backend or data-only changes unless UI contracts are affected.
+## Agent Roles That Should Embed It
+Frontend Agent, UIUX Agent, QA Test Agent, Reviewer Agent.
+## Operating Rules
+
+### osmani.incremental-implementation
+
+Source: `methods/osmani/incremental-implementation.md`
+
+# Incremental Implementation
+## Purpose
+Reduce risk by building in small verified slices.
+## When To Use
+Use when a change touches multiple files, user workflows, or shared behavior.
+## When Not To Use
+Do not split so finely that verification becomes meaningless or fragmented.
+## Agent Roles That Should Embed It
+Frontend Agent, Backend Contract Agent, Database RLS Agent, QA Test Agent.
+## Operating Rules
+
+### osmani.shipping-launch
+
+Source: `methods/osmani/shipping-launch.md`
+
+# Shipping And Launch
+## Purpose
+Prepare changes for controlled release.
+## When To Use
+Use when a feature, migration, or workflow is ready for production or project sync.
+## When Not To Use
+Do not use for local-only drafts that are not ready for review.
+## Agent Roles That Should Embed It
+Release Manager Agent, SRE Performance Agent, QA Test Agent, Reviewer Agent.
+## Operating Rules
+
+### osmani.test-driven-development
+
+Source: `methods/osmani/test-driven-development.md`
+
+# Test-Driven Development
+## Purpose
+Use tests to define and protect expected behavior.
+## When To Use
+Use for bug fixes, behavior changes, business logic, contracts, and regression-prone UI flows.
+## When Not To Use
+Do not force TDD for static text-only edits where no behavior changes.
+## Agent Roles That Should Embed It
+QA Test Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
+## Operating Rules
+
+### uiux.accessibility
+
+Source: `methods/uiux/accessibility.md`
+
+# Accessibility
+## Purpose
+Make interfaces usable by keyboard, assistive technology, and users with varied abilities.
+## When To Use
+Use for any user-facing UI change.
+## When Not To Use
+Do not treat accessibility as optional polish after visual completion.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, QA Test Agent, Reviewer Agent.
+## Operating Rules
+
+### uiux.frontend-design
+
+Source: `methods/uiux/frontend-design.md`
+
+# Frontend Design
+## Purpose
+Create frontend experiences that are usable, coherent, and visually intentional.
+## When To Use
+Use when designing pages, components, apps, prototypes, dashboards, or visual refinements.
+## When Not To Use
+Do not use to add decorative styling that ignores product workflow needs.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, Reviewer Agent, QA Test Agent.
+## Operating Rules
+
+### uiux.interaction-motion
+
+Source: `methods/uiux/interaction-motion.md`
+
+# Interaction Motion
+## Purpose
+Use motion to clarify state change, hierarchy, and continuity.
+## When To Use
+Use for transitions, interaction feedback, loading states, and spatial navigation.
+## When Not To Use
+Do not add motion that slows work, distracts from content, or violates reduced-motion preferences.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, QA Test Agent.
+## Operating Rules
+
+### uiux.responsive-layout
+
+Source: `methods/uiux/responsive-layout.md`
+
+# Responsive Layout
+## Purpose
+Ensure UI adapts cleanly across mobile, tablet, and desktop.
+## When To Use
+Use when building or reviewing layouts, dashboards, tools, forms, or cards.
+## When Not To Use
+Do not rely on viewport-scaled type or accidental wrapping as a layout strategy.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, QA Test Agent.
+## Operating Rules
+
+### uiux.webapp-testing
+
+Source: `methods/uiux/webapp-testing.md`
+
+# Webapp Testing
+## Purpose
+Verify web apps through rendered behavior, not just static code inspection.
+## When To Use
+Use after frontend changes, routing changes, form work, dashboards, or visual refinements.
+## When Not To Use
+Do not use full browser checks for docs-only changes with no rendered surface.
+## Agent Roles That Should Embed It
+QA Test Agent, Frontend Agent, UIUX Agent, Reviewer Agent.
+## Operating Rules
+
+## Provenance
+
+- Source agent path: `agents/qa-test-agent.md`
+- Profile paths: `profiles/audit-profile.md`, `profiles/frontend-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.git-guardrails`, `matt.tdd`, `matt.to-issues`, `matt.triage-issue`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.shipping-launch`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.responsive-layout`, `uiux.webapp-testing`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `karpathy-inspired-skills`, `matt-pocock-skills`, `microsoft-playwright`, `supabase-agent-skills`, `superpowers`
+- Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
+
+External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

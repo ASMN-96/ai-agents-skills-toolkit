@@ -52,8 +52,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -66,7 +66,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -118,8 +118,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -132,7 +132,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -184,8 +184,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -198,7 +198,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -250,8 +250,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -264,7 +264,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -316,8 +316,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -330,7 +330,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -382,8 +382,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -396,7 +396,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -448,8 +448,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -462,7 +462,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -514,8 +514,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -528,7 +528,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -580,8 +580,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -594,7 +594,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -646,8 +646,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -660,7 +660,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -712,8 +712,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -726,7 +726,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -778,8 +778,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -792,7 +792,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -844,8 +844,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -858,7 +858,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -910,8 +910,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -924,7 +924,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -976,8 +976,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -990,7 +990,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1042,8 +1042,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1056,7 +1056,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1108,8 +1108,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1122,7 +1122,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1174,8 +1174,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "dependency-automation-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1188,7 +1188,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1240,8 +1240,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "dependency-automation-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1254,7 +1254,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1306,8 +1306,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1320,7 +1320,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1372,8 +1372,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1386,7 +1386,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1438,8 +1438,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1452,7 +1452,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1504,8 +1504,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1518,7 +1518,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1570,8 +1570,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "platform-security-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1584,7 +1584,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1636,8 +1636,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "platform-security-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1650,7 +1650,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1702,8 +1702,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "platform-security-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1716,7 +1716,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1768,8 +1768,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-delegated-service-review-required",
+        "approvalOwner": "release-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1782,7 +1782,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1833,18 +1833,25 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-delegated-service-review-required",
+        "approvalOwner": "release-tool-owner-required",
         "allowedEnvironments": [
-          "already-connected PR review workflows after repository owner approval"
+          "metadata-only"
         ],
         "forbiddenEnvironments": [
           "install or configuration from registry presence",
           "credential changes",
           "permission changes",
-          "merge authority by itself"
+          "merge authority by itself",
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1896,8 +1903,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-repo-permission-review-required",
+        "approvalOwner": "release-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1910,7 +1917,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -1962,8 +1969,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-source-review-required",
+        "approvalOwner": "source-intelligence-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -1976,7 +1983,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -2028,8 +2035,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-reference-review-required",
+        "approvalOwner": "product-design-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -2042,7 +2049,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -2094,8 +2101,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-source-trust-review-required",
+        "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -2108,7 +2115,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -2160,8 +2167,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "architecture-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -2174,7 +2181,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -2226,8 +2233,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "architecture-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -2240,7 +2247,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -2292,8 +2299,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "architecture-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -2306,7 +2313,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     },
     {
@@ -2358,8 +2365,8 @@
         "maintenanceSignal": "unknown-review-required",
         "lastReviewedCommit": "unknown-review-required",
         "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "unknown-review-required",
-        "approvalOwner": "owner-decision-required",
+        "securityReviewStatus": "metadata-only-owner-review-required",
+        "approvalOwner": "architecture-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -2372,7 +2379,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       }
     }
   ]

@@ -26,10 +26,35 @@ AI Agent Skills Toolkit treats agent instructions, skills, prompts, and methods 
 
 Reject or quarantine any source that asks an agent to ignore higher-priority instructions, read secrets, bypass tests, push directly, force-push, delete files, exfiltrate data, or hide behavior from the user.
 
+## Supported Scope
+
+Supported security scope for public reporting includes toolkit-owned scripts, validators, registries, source records, skills, compiled-agent generation, package allowlist behavior, and public/core release artifacts.
+
+Out of scope unless separately authorized:
+
+- unrelated product repositories,
+- production systems,
+- third-party services,
+- external source repositories,
+- global user configuration,
+- local credential stores,
+- social engineering, spam, denial-of-service, or destructive testing.
+
 ## Reporting
+
+Report security concerns without including secrets, tokens, cookies, credentials, private data, or exploit payloads that affect systems outside the approved scope.
+
+Use a private maintainer/security contact when available. If no private channel is configured yet, open a minimal public issue that requests a private disclosure path and does not include sensitive details.
+
+## Response Expectations
+
+- Acknowledge valid reports when a maintainer/security owner is available.
+- Triage impact, affected scope, exploitability, and release-blocking status.
+- Fix through reviewed pull requests and normal validation.
+- Preserve public/private boundaries in advisories and release notes.
 
 Record security concerns in source evaluation notes before any extraction or installation decision.
 
 ## Public Release Gap
 
-This policy is sufficient for current internal governance use, but it is not yet a complete public vulnerability disclosure policy. Before Level 5 public release, define supported scope, reporting channel, expected response timeline, advisory process, and maintainer/security owner in `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md` or a revised `SECURITY.md`.
+Before Level 5 public release, assign a maintainer/security owner and private reporting channel. Until those owner decisions are recorded, this policy is sufficient for public-safe repository hygiene but not a complete managed vulnerability disclosure program.
