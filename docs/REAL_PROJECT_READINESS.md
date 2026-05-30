@@ -4,7 +4,7 @@ This document defines when the toolkit can be used in real product repositories.
 
 ## Current Classification
 
-After the 2026-05-30 RISS v2 pilot, the toolkit is Level 3 certified for normal use in comparable real projects that follow the same governed PR sync flow. Level 4 enterprise rollout and Level 5 public release are not approved; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
+After the 2026-05-30 first representative pilot, the toolkit is Level 3 certified and the current controlled-pilot milestone is closed. It is ready for normal use in comparable real projects that follow the same governed PR sync flow. Level 4 enterprise rollout is deferred and Level 5 public release is not approved; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
 
 Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project checks, PR review, and passing CI. This does not authorize automatic rollout or runtime/global activation.
 
@@ -72,9 +72,15 @@ Passing Level 3 means the toolkit is ready for normal use in comparable real pro
 
 The current Level 3 project-sync evidence is recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`.
 
+## Level 3 Closeout
+
+The current Level 3 milestone is complete on the first successful representative pilot. Additional pilots remain useful and are still required for Level 4, but they are future evidence backlog rather than blockers for today's Level 3 closeout.
+
+Level 3 closeout evidence is recorded in `docs/LEVEL_3_CONTROLLED_PILOT_CLOSEOUT.md`.
+
 ## Level 4 Broad Rollout Gate
 
-Level 4 requires evidence from multiple representative project pilots, owner-approved warning thresholds, rollback rehearsal evidence, and enterprise tool metadata review. Track this evidence in `docs/LEVEL_4_PROMOTION_EVIDENCE.json` and summarize it in `docs/LEVEL_4_PROMOTION_EVIDENCE.md`.
+Level 4 requires evidence from multiple representative project pilots, owner-approved warning thresholds, rollback rehearsal evidence, and enterprise tool metadata review. This work is intentionally deferred until the toolkit and target projects are stable enough for additional pilots. Track the future evidence in `docs/LEVEL_4_PROMOTION_EVIDENCE.json` and summarize it in `docs/LEVEL_4_PROMOTION_EVIDENCE.md`.
 
 Audit the current state with:
 

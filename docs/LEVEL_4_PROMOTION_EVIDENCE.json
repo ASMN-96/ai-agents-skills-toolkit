@@ -3,7 +3,13 @@
   "lastUpdated": "2026-05-30",
   "currentLevel": "Level 3",
   "targetLevel": "Level 4",
-  "status": "blocked",
+  "status": "deferred",
+  "level3Closeout": {
+    "status": "closed",
+    "decisionDate": "2026-05-30",
+    "report": "docs/LEVEL_3_CONTROLLED_PILOT_CLOSEOUT.md",
+    "notes": "Level 3 controlled-pilot milestone is complete on the first successful representative pilot. Level 4 evidence remains deferred."
+  },
   "minimumPassedProjectPilots": 3,
   "minimumProjectTypes": 2,
   "projectPilots": [
@@ -43,6 +49,6 @@
     "approved": false,
     "approvedBy": null,
     "decisionDate": null,
-    "notes": "Promotion requires evidence and owner approval. Intent, passing validators, or metadata-only records are not enough."
+    "notes": "Promotion requires future Level 4 evidence and owner approval. Intent, passing validators, or metadata-only records are not enough."
   }
 }
