@@ -16,13 +16,23 @@ pwsh -NoProfile -File install/install-project.ps1 `
   -Skills riss-governance
 ```
 
+macOS/Linux/Git Bash equivalent:
+
+```bash
+bash install/install-project.sh \
+  --target /path/to/project \
+  --agents skill-scout-agent,reviewer-agent,qa-test-agent,security-agent \
+  --profiles audit-profile \
+  --skills riss-governance
+```
+
 The command above is a dry-run. It shows the files that would be copied into:
 
 - `.ai-toolkit/compiled-agents/`
 - `.ai-toolkit/profiles/`
 - `.ai-toolkit/skills/`
 
-To write files, run the same command with `-ConfirmWrite`. Confirm mode requires the target repository to be on a clean, upstream-aligned feature branch; it refuses `main`/`master`, detached HEAD, missing upstream, dirty, ahead, behind, or divergent target states.
+To write files, run the same command with `-ConfirmWrite` for PowerShell or `--confirm-write` for Bash. Confirm mode requires the target repository to be on a clean, upstream-aligned feature branch; it refuses `main`/`master`, detached HEAD, missing upstream, dirty, ahead, behind, or divergent target states.
 
 ## Config-Based Install
 
@@ -32,6 +42,14 @@ Use `templates/.ai-toolkit.config.example.json` as the starting point for a proj
 pwsh -NoProfile -File install/install-project.ps1 `
   -TargetPath C:\path\to\project `
   -ConfigPath templates\.ai-toolkit.config.example.json
+```
+
+Bash equivalent:
+
+```bash
+bash install/install-project.sh \
+  --target /path/to/project \
+  --config templates/.ai-toolkit.config.example.json
 ```
 
 Confirm mode writes:
@@ -51,12 +69,24 @@ Updates read the existing project config and version pin:
 pwsh -NoProfile -File install/update-project.ps1 -TargetPath C:\path\to\project
 ```
 
+Bash equivalent:
+
+```bash
+bash install/update-project.sh --target /path/to/project
+```
+
 The updater dry-run lists files as `MissingTarget`, `Update`, or `Unchanged`. It reports unmanaged files but does not delete them in the current v1 workflow.
 
 To write selected updates:
 
 ```powershell
 pwsh -NoProfile -File install/update-project.ps1 -TargetPath C:\path\to\project -ConfirmWrite
+```
+
+Bash equivalent:
+
+```bash
+bash install/update-project.sh --target /path/to/project --confirm-write
 ```
 
 ## Validate
@@ -67,7 +97,15 @@ After a confirm-mode install or update:
 pwsh -NoProfile -File install/validate-project-install.ps1 -TargetPath C:\path\to\project
 ```
 
+Bash equivalent:
+
+```bash
+bash install/validate-project-install.sh --target /path/to/project
+```
+
 Validation confirms `.ai-toolkit/`, version/config/manifest files, selected compiled agents, selected profiles, selected skills, manifest SHA256 integrity, and unsafe artifact absence. Existing installs without `.ai-toolkit/.ai-toolkit-manifest.json` must be refreshed with `install/update-project.ps1 -ConfirmWrite` from a clean aligned feature branch before they are considered valid.
+
+The Bash entrypoints call `install/project-sync-core.mjs` and require `node` plus `git`. They do not install dependencies, alter package files, change CI, touch global Codex config, activate runtime skills, or write outside the target `.ai-toolkit/` directory.
 
 ## Version Pinning
 
@@ -96,6 +134,15 @@ pwsh -NoProfile -File install/install-project.ps1 `
   -TargetPath C:\path\to\vt-or-riss `
   -Agents skill-scout-agent,reviewer-agent,qa-test-agent,security-agent `
   -Profiles audit-profile
+```
+
+Bash equivalent:
+
+```bash
+bash install/install-project.sh \
+  --target /path/to/project \
+  --agents skill-scout-agent,reviewer-agent,qa-test-agent,security-agent \
+  --profiles audit-profile
 ```
 
 Review the dry-run output before using `-ConfirmWrite`.

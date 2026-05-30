@@ -59,13 +59,14 @@ External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.m
 ## Phase 5 Project Sync Rules
 
 - Project sync is dry-run by default.
-- `-ConfirmWrite` is required before writing to a target project.
+- `-ConfirmWrite` for PowerShell or `--confirm-write` for Bash is required before writing to a target project.
 - Scripts may manage selected files only under `.ai-toolkit/`.
 - Project installs must pin toolkit version and toolkit commit.
 - Project-local `AGENTS.md`, `docs/ai/STATE.md`, `docs/ai/DECISIONS.md`, `docs/ai/PROJECT_CONTEXT.md`, and `docs/ai/RELEASE_GATES.md` must not be created or overwritten by toolkit sync scripts.
 - `allowOverwriteProjectContext:true` is rejected by the current sync workflow.
 - Stale or unmanaged files are reported, not deleted.
 - No product repo install is performed from the toolkit Phase 5 PR.
+- Bash project-sync entrypoints are Node-backed for JSON, hashing, manifests, and Git checks. They require existing `node` and `git`, and they must not install dependencies, change package or lockfiles, change CI, activate global skills, or touch files outside the target `.ai-toolkit/` directory.
 
 ## Phase 6 Project-Managed Skill Rules
 
