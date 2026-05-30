@@ -109,54 +109,57 @@ function mirrorTargetsFor(skill) {
   ];
 }
 
-async function updateManifestHashes(skillTargets, dryRun) {
+async function readManifest() {
   const manifestRaw = await readFile(rootPath(MANIFEST_PATH), "utf8");
-  const manifest = JSON.parse(manifestRaw);
+  return JSON.parse(manifestRaw);
+}
+
+function validateManifestCoverage(manifest, actions) {
   const mirrors = manifest.mirrors || [];
   const mirrorByTarget = new Map(mirrors.map((mirror) => [mirror.target, mirror]));
-  const missing = [];
-
-  for (const target of skillTargets) {
-    const mirror = mirrorByTarget.get(target);
-    if (!mirror) {
-      missing.push(target);
-      continue;
-    }
-    const targetText = await readFile(rootPath(target), "utf8");
-    const hash = sha256Text(targetText);
-    if (!dryRun) {
-      mirror.sha256 = hash;
-    }
-  }
+  const missing = actions.filter((action) => !mirrorByTarget.has(action.target)).map((action) => action.target);
 
   if (missing.length > 0) {
     throw new Error(`Manifest missing mirror entries for: ${missing.join(", ")}`);
   }
 
-  if (!dryRun) {
-    await writeFile(rootPath(MANIFEST_PATH), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
-  }
+  return mirrorByTarget;
 }
 
-async function syncSkill(skill, dryRun) {
+function actionStatus(action, dryRun) {
+  if (!action.needsWrite) {
+    return "up-to-date";
+  }
+  if (dryRun) {
+    return action.targetExists ? "would-update" : "would-create";
+  }
+  return action.targetExists ? "updated" : "created";
+}
+
+async function updateManifestHashes(manifest, mirrorByTarget, actions) {
+  for (const action of actions) {
+    mirrorByTarget.get(action.target).sha256 = action.expectedHash;
+  }
+  await writeFile(rootPath(MANIFEST_PATH), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+}
+
+async function planSkill(skill) {
   const source = `skills/${skill}/SKILL.md`;
   const sourceText = await readFile(rootPath(source), "utf8");
+  const expectedHash = sha256Text(sourceText);
   const actions = [];
 
   for (const target of mirrorTargetsFor(skill)) {
     assertInside(target, TARGET_ROOTS);
     const targetText = await readTextIfPresent(target);
-    if (targetText === sourceText) {
-      actions.push({ target, status: "up-to-date" });
-      continue;
-    }
-
-    if (dryRun) {
-      actions.push({ target, status: targetText === null ? "would-create" : "would-update" });
-    } else {
-      await writeText(target, sourceText);
-      actions.push({ target, status: targetText === null ? "created" : "updated" });
-    }
+    actions.push({
+      skill,
+      target,
+      sourceText,
+      expectedHash,
+      targetExists: targetText !== null,
+      needsWrite: targetText !== sourceText
+    });
   }
 
   return actions;
@@ -171,20 +174,30 @@ async function main() {
 
   const dryRun = !args.confirmWrite;
   const skills = selectSkills(args.skills);
-  const allTargets = skills.flatMap(mirrorTargetsFor);
   const mode = dryRun ? "dry-run" : "confirm-write";
+  const allActions = [];
+  for (const skill of skills) {
+    allActions.push(...await planSkill(skill));
+  }
+  const manifest = await readManifest();
+  const mirrorByTarget = validateManifestCoverage(manifest, allActions);
 
   console.log(`sync-runtime mode: ${mode}`);
   console.log(`skills: ${skills.join(", ")}`);
 
-  for (const skill of skills) {
-    const actions = await syncSkill(skill, dryRun);
-    for (const action of actions) {
-      console.log(`- ${skill}: ${action.target}: ${action.status}`);
+  if (!dryRun) {
+    for (const action of allActions) {
+      if (action.needsWrite) {
+        await writeText(action.target, action.sourceText);
+      }
     }
+    await updateManifestHashes(manifest, mirrorByTarget, allActions);
   }
 
-  await updateManifestHashes(allTargets, dryRun);
+  for (const action of allActions) {
+    console.log(`- ${action.skill}: ${action.target}: ${actionStatus(action, dryRun)}`);
+  }
+
   console.log(dryRun ? "manifest: checked; hashes not written" : "manifest: hashes updated");
 }
 
