@@ -1,6 +1,6 @@
 # Stale and Unverified Data Classification
 
-Generated at: 2026-05-30T12:29:31.988Z
+Generated at: 2026-05-30T12:33:55.166Z
 
 Report-only classification. No files were deleted, renamed, relocated, activated, installed, or approved by this report.
 
@@ -20,7 +20,7 @@ Report-only classification. No files were deleted, renamed, relocated, activated
 | keep-active | 196 |
 | metadata-only | 179 |
 | historical | 36 |
-| review-required | 1567 |
+| review-required | 1569 |
 | remove-later | 11 |
 | private-overlay-only | 858 |
 
@@ -29,7 +29,7 @@ Report-only classification. No files were deleted, renamed, relocated, activated
 | Signal | Count |
 | --- | ---: |
 | old-version-metadata | 38 |
-| unknown-review-required | 1250 |
+| unknown-review-required | 1252 |
 | project-private-naming | 1119 |
 | local-path | 1 |
 | unverified-metadata | 439 |
@@ -73,21 +73,6 @@ Samples are capped to keep the report reviewable. Re-run the script for the curr
 
 | Signal | File | Line | Value | Context |
 | --- | --- | ---: | --- | --- |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 10 | metadata-only | "metadata-only", |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 40 | Metadata-only | description: "Metadata-only, not-yet-verified, or source-review-required signal.", |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 40 | not-yet-verified | description: "Metadata-only, not-yet-verified, or source-review-required signal.", |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 40 | source-review-required | description: "Metadata-only, not-yet-verified, or source-review-required signal.", |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 41 | metadata-only | pattern: /metadata-only\|not-yet-verified\|source-review-required\|REVIEW_METADATA_MISSING/gi |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 41 | not-yet-verified | pattern: /metadata-only\|not-yet-verified\|source-review-required\|REVIEW_METADATA_MISSING/gi |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 41 | source-review-required | pattern: /metadata-only\|not-yet-verified\|source-review-required\|REVIEW_METADATA_MISSING/gi |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 41 | REVIEW_METADATA_MISSING | pattern: /metadata-only\|not-yet-verified\|source-review-required\|REVIEW_METADATA_MISSING/gi |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 130 | metadata-only | return "metadata-only"; |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 138 | metadata-only | return "metadata-only"; |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 161 | metadata-only | return "metadata-only"; |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 169 | metadata-only | return value.includes("riss") \|\| value.includes("vd") ? "private-overlay-only" : "metadata-only"; |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 180 | metadata-only | return "metadata-only"; |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 187 | metadata-only | return "metadata-only"; |
-| unverified-metadata | scripts/classify-stale-unverified-data.mjs | 254 | metadata-only | "- metadata-only: registry, template, policy, or scanner metadata that does not imply approval or runtime activation.", |
 | unverified-metadata | .agents/skills/riss-code-quality/SKILL.md | 33 | metadata-only | React Doctor, Knip, Biome, Oxlint, dependency-cruiser, Madge, jscpd, and similar tools are metadata-only candidates unless already configured by the project. |
 | unverified-metadata | .agents/skills/riss-code-quality/SKILL.md | 43 | metadata-only | - Dry-run or metadata-only quality gates are not reported as real quality execution. |
 | unverified-metadata | .agents/skills/riss-code-quality/SKILL.md | 48 | metadata-only | Report commands run, results, skipped checks, missing project scripts, WARN output, and remaining manual QA. Do not claim quality gates passed unless the relevant command output was actually observed. Follow `docs/NO_FAKE_VALIDATION_POLICY.md` for dry-run, mock, skipped, partial, fallback, and metadata-only states. |
@@ -98,6 +83,21 @@ Samples are capped to keep the report reviewable. Re-run the script for the curr
 | unverified-metadata | .agents/skills/riss-security-review/SKILL.md | 48 | metadata-only | Report findings by severity, files or artifacts reviewed, commands run, skipped checks, WARN output, and residual risk. If security coverage is partial, say exactly what remains unverified. Follow `docs/NO_FAKE_VALIDATION_POLICY.md` for mock, dry-run, unavailable, fallback, metadata-only, and unverified security evidence. |
 | unverified-metadata | .ai-toolkit/integrations/coderabbit.md | 31 | metadata-only | - Default enterprise status: metadata-only unless explicitly approved. |
 | unverified-metadata | .ai-toolkit/registries/routing-matrix.json | 1060 | metadata-only | "inferredIntent": "Represent external tools as metadata-only source intelligence before any activation or extraction.", |
+| unverified-metadata | .ai-toolkit/skills/riss-code-quality/SKILL.md | 33 | metadata-only | React Doctor, Knip, Biome, Oxlint, dependency-cruiser, Madge, jscpd, and similar tools are metadata-only candidates unless already configured by the project. |
+| unverified-metadata | .ai-toolkit/skills/riss-code-quality/SKILL.md | 43 | metadata-only | - Dry-run or metadata-only quality gates are not reported as real quality execution. |
+| unverified-metadata | .ai-toolkit/skills/riss-code-quality/SKILL.md | 48 | metadata-only | Report commands run, results, skipped checks, missing project scripts, WARN output, and remaining manual QA. Do not claim quality gates passed unless the relevant command output was actually observed. Follow `docs/NO_FAKE_VALIDATION_POLICY.md` for dry-run, mock, skipped, partial, fallback, and metadata-only states. |
+| unverified-metadata | .ai-toolkit/skills/riss-governance/SKILL.md | 107 | metadata-only | - Report support tools as available, unavailable, selected, invoked, skipped, or metadata-only; do not blur those states. |
+| unverified-metadata | .ai-toolkit/skills/riss-release-gate/SKILL.md | 48 | metadata-only | Report branch state, PR URL if created, checks run, check results, review status, skipped gates, WARN output, blockers, missing evidence, and the exact next action before any merge request. Follow `docs/NO_FAKE_VALIDATION_POLICY.md`; do not claim merge readiness from metadata-only records, dry-runs, skipped CI jobs, unavailable review status, or unobserved tool output. |
+| unverified-metadata | .ai-toolkit/skills/riss-security-review/SKILL.md | 33 | metadata-only | Socket, TruffleHog, ZAP, Harden-Runner, Trivy, Checkov, Semgrep, CodeQL, and similar tools are metadata-only candidates unless already approved and configured in the project. |
+| unverified-metadata | .ai-toolkit/skills/riss-security-review/SKILL.md | 43 | Metadata-only | - Metadata-only tool records, skipped scans, dry-runs, unavailable scanners, and partial reviews are labeled honestly. |
+| unverified-metadata | .ai-toolkit/skills/riss-security-review/SKILL.md | 48 | metadata-only | Report findings by severity, files or artifacts reviewed, commands run, skipped checks, WARN output, and residual risk. If security coverage is partial, say exactly what remains unverified. Follow `docs/NO_FAKE_VALIDATION_POLICY.md` for mock, dry-run, unavailable, fallback, metadata-only, and unverified security evidence. |
+| unverified-metadata | .ai-toolkit/sources/records/actionlint.md | 10 | not-yet-verified | - Maintenance signal: not-yet-verified |
+| unverified-metadata | .ai-toolkit/sources/records/actionlint.md | 20 | metadata-only | This record is metadata-only for source intelligence. A future Skill Scout review must verify license, trust, maintenance, dangerous operations, secret access, network behavior, and prompt-injection risk before this source can influence active methods, skills, scripts, or runtime configuration. |
+| unverified-metadata | .ai-toolkit/sources/records/axe-playwright.md | 10 | not-yet-verified | - Maintenance signal: not-yet-verified |
+| unverified-metadata | .ai-toolkit/sources/records/axe-playwright.md | 20 | metadata-only | This record is metadata-only for source intelligence. A future Skill Scout review must verify license, trust, maintenance, dangerous operations, secret access, network behavior, and prompt-injection risk before this source can influence active methods, skills, scripts, or runtime configuration. |
+| unverified-metadata | .ai-toolkit/sources/records/biome.md | 10 | not-yet-verified | - Maintenance signal: not-yet-verified |
+| unverified-metadata | .ai-toolkit/sources/records/biome.md | 20 | metadata-only | This record is metadata-only for source intelligence. A future Skill Scout review must verify license, trust, maintenance, dangerous operations, secret access, network behavior, and prompt-injection risk before this source can influence active methods, skills, scripts, or runtime configuration. |
+| unverified-metadata | .ai-toolkit/sources/records/checkov.md | 10 | not-yet-verified | - Maintenance signal: not-yet-verified |
 
 ### historical
 
@@ -133,9 +133,8 @@ Samples are capped to keep the report reviewable. Re-run the script for the curr
 
 | Signal | File | Line | Value | Context |
 | --- | --- | ---: | --- | --- |
-| unknown-review-required | scripts/classify-stale-unverified-data.mjs | 24 | unknown-review-required | id: "unknown-review-required", |
-| unknown-review-required | scripts/classify-stale-unverified-data.mjs | 26 | unknown-review-required | pattern: /unknown-review-required/g |
-| unknown-review-required | scripts/classify-stale-unverified-data.mjs | 133 | unknown-review-required | if (hit.patternId === "unknown-review-required") { |
+| unknown-review-required | docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md | 33 | unknown-review-required | - Enterprise external-tool metadata remains mostly `unknown-review-required`. |
+| unknown-review-required | docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md | 64 | unknown-review-required | - no unreviewed `unknown-review-required` values in tools approved for enterprise use, |
 | old-version-metadata | .ai-toolkit/compiled-agents/frontend-agent.compiled.md | 3 | 0.4.0-draft | toolkit_version: 0.4.0-draft |
 | old-version-metadata | .ai-toolkit/compiled-agents/frontend-agent.compiled.md | 4 | 0.4.0-draft | toolkit_pin: ai-agents-skills-toolkit@0.4.0-draft |
 | old-version-metadata | .ai-toolkit/compiled-agents/qa-test-agent.compiled.md | 3 | 0.4.0-draft | toolkit_version: 0.4.0-draft |
@@ -158,6 +157,7 @@ Samples are capped to keep the report reviewable. Re-run the script for the curr
 | unknown-review-required | .ai-toolkit/registries/tools.registry.json | 46 | unknown-review-required | "repositoryPermissionsRequired": "unknown-review-required", |
 | unknown-review-required | .ai-toolkit/registries/tools.registry.json | 47 | unknown-review-required | "ciPermissionsRequired": "unknown-review-required", |
 | unknown-review-required | .ai-toolkit/registries/tools.registry.json | 48 | unknown-review-required | "githubAppPermissionsRequired": "unknown-review-required", |
+| unknown-review-required | .ai-toolkit/registries/tools.registry.json | 49 | unknown-review-required | "authenticationModel": "unknown-review-required", |
 
 ### remove-later
 
@@ -179,14 +179,6 @@ Samples are capped to keep the report reviewable. Re-run the script for the curr
 
 | Signal | File | Line | Value | Context |
 | --- | --- | ---: | --- | --- |
-| project-private-naming | scripts/classify-stale-unverified-data.mjs | 145 | riss | file.startsWith("skills/riss-") \|\| |
-| project-private-naming | scripts/classify-stale-unverified-data.mjs | 146 | vd | file.startsWith("skills/vd-") \|\| |
-| project-private-naming | scripts/classify-stale-unverified-data.mjs | 147 | riss | file.startsWith(".agents/skills/riss-") \|\| |
-| project-private-naming | scripts/classify-stale-unverified-data.mjs | 148 | vd | file.startsWith(".agents/skills/vd-") \|\| |
-| project-private-naming | scripts/classify-stale-unverified-data.mjs | 166 | riss | if (file.startsWith(".ai-toolkit/checklists/riss-v2") \|\| file.startsWith(".ai-toolkit/tool-packs/riss-v2")) { |
-| project-private-naming | scripts/classify-stale-unverified-data.mjs | 166 | riss | if (file.startsWith(".ai-toolkit/checklists/riss-v2") \|\| file.startsWith(".ai-toolkit/tool-packs/riss-v2")) { |
-| project-private-naming | scripts/classify-stale-unverified-data.mjs | 169 | riss | return value.includes("riss") \|\| value.includes("vd") ? "private-overlay-only" : "metadata-only"; |
-| project-private-naming | scripts/classify-stale-unverified-data.mjs | 169 | vd | return value.includes("riss") \|\| value.includes("vd") ? "private-overlay-only" : "metadata-only"; |
 | project-private-naming | .ai-toolkit/evals/skills/generic-naming-compatibility-evals.json | 8 | riss | "userPrompt": "Use riss-governance for this governed toolkit task.", |
 | project-private-naming | .ai-toolkit/evals/skills/generic-naming-compatibility-evals.json | 9 | riss | "expectedCurrentSkill": "riss-governance", |
 | project-private-naming | .ai-toolkit/evals/skills/generic-naming-compatibility-evals.json | 16 | riss | "expectedCurrentSkill": "riss-governance", |
@@ -204,6 +196,14 @@ Samples are capped to keep the report reviewable. Re-run the script for the curr
 | project-private-naming | .ai-toolkit/manifest.json | 8 | vd | "vd-premium-uiux", |
 | project-private-naming | .ai-toolkit/manifest.json | 9 | riss | "riss-code-quality", |
 | project-private-naming | .ai-toolkit/manifest.json | 10 | riss | "riss-security-review", |
+| project-private-naming | .ai-toolkit/manifest.json | 11 | riss | "riss-release-gate" |
+| project-private-naming | .ai-toolkit/manifest.json | 14 | riss | "riss-agent-governance", |
+| project-private-naming | .ai-toolkit/manifest.json | 15 | riss | "riss-skill-governance" |
+| project-private-naming | .ai-toolkit/manifest.json | 38 | riss | "source": "skills/riss-governance/SKILL.md", |
+| project-private-naming | .ai-toolkit/manifest.json | 39 | riss | "target": ".agents/skills/riss-governance/SKILL.md", |
+| project-private-naming | .ai-toolkit/manifest.json | 44 | riss | "source": "skills/riss-governance/SKILL.md", |
+| project-private-naming | .ai-toolkit/manifest.json | 45 | riss | "target": ".ai-toolkit/skills/riss-governance/SKILL.md", |
+| project-private-naming | .ai-toolkit/manifest.json | 50 | vd | "source": "skills/vd-premium-uiux/SKILL.md", |
 
 ## Required Follow-Up
 

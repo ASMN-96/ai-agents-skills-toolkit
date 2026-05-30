@@ -169,3 +169,5 @@ The hardening sprint improves validation honesty, public/private release safety,
 `docs/SOURCE_FRESHNESS_ISSUE_WORKFLOW.md` defines dry-run source freshness issue drafts with dedupe keys, labels, affected methods, and explicit no-import/no-activation language. Live issue creation remains unapproved future work.
 
 `docs/STALE_UNVERIFIED_DATA_CLASSIFICATION.md` classifies stale, unverified, historical, private-overlay-only, and remove-later signals as report-only cleanup input. It does not authorize deletion, renaming, relocation, or public release readiness.
+
+`docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md` formalizes maturity Levels 0-5. The sprint leaves the toolkit at Level 3; Level 4 enterprise rollout and Level 5 public release require separate owner decisions and evidence.

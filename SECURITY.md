@@ -29,3 +29,7 @@ Reject or quarantine any source that asks an agent to ignore higher-priority ins
 ## Reporting
 
 Record security concerns in source evaluation notes before any extraction or installation decision.
+
+## Public Release Gap
+
+This policy is sufficient for current internal governance use, but it is not yet a complete public vulnerability disclosure policy. Before Level 5 public release, define supported scope, reporting channel, expected response timeline, advisory process, and maintainer/security owner in `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md` or a revised `SECURITY.md`.
