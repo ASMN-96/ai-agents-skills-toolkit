@@ -8,7 +8,11 @@
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
-      "sha256": "6e231f43b91f96c2839f59ee40dae4285663e48fed7ebdd4d971dd1f9d8084c3"
+      "sha256": "2b2b707f66942ce46e1afc2212c0fb42d6cd6990a848e8b449a8e070a7c398f5"
+    },
+    {
+      "path": "scripts/classify-stale-unverified-data.mjs",
+      "sha256": "5c288cb150e9774d187c9ef56937baf8bc739b06221a328583d6c7456547e570"
     },
     {
       "path": "scripts/report-registry-generation-readiness.mjs",

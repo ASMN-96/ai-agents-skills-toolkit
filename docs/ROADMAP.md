@@ -167,3 +167,5 @@ The hardening sprint improves validation honesty, public/private release safety,
 `docs/PUBLIC_PRIVATE_OVERLAY_ARCHITECTURE_ADR.md` defines the future `core/`, `runtimes/`, `private-overlays/`, and distribution architecture. It is documentation-only and does not authorize folder relocation, runtime expansion, CI changes, package changes, or public release readiness claims.
 
 `docs/SOURCE_FRESHNESS_ISSUE_WORKFLOW.md` defines dry-run source freshness issue drafts with dedupe keys, labels, affected methods, and explicit no-import/no-activation language. Live issue creation remains unapproved future work.
+
+`docs/STALE_UNVERIFIED_DATA_CLASSIFICATION.md` classifies stale, unverified, historical, private-overlay-only, and remove-later signals as report-only cleanup input. It does not authorize deletion, renaming, relocation, or public release readiness.

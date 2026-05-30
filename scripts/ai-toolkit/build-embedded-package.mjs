@@ -664,6 +664,7 @@ async function writeManifest(mirrors) {
   const scripts = [
     "scripts/validate-toolkit.mjs",
     "scripts/scan-public-private-leaks.mjs",
+    "scripts/classify-stale-unverified-data.mjs",
     "scripts/report-registry-generation-readiness.mjs",
     "scripts/sync-runtime.mjs",
     "scripts/check-source-freshness.mjs",

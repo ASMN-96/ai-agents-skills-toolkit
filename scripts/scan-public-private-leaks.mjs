@@ -29,7 +29,10 @@ const INCLUDE_ROOTS = [
 ];
 
 const SKIP_DIRS = new Set([".git", "node_modules", "dist", "build", ".cache", "temp", "scratch"]);
-const SKIP_FILES = new Set(["docs/PUBLIC_PRIVATE_LEAK_REPORT.md"]);
+const SKIP_FILES = new Set([
+  "docs/PUBLIC_PRIVATE_LEAK_REPORT.md",
+  "docs/STALE_UNVERIFIED_DATA_CLASSIFICATION.md"
+]);
 const TEXT_EXTENSIONS = new Set([
   ".json",
   ".md",
@@ -168,7 +171,8 @@ function isCompatibilitySurface(relativePath, match) {
 }
 
 function isScannerRuleReference(relativePath) {
-  return relativePath === "scripts/scan-public-private-leaks.mjs";
+  return relativePath === "scripts/scan-public-private-leaks.mjs" ||
+    relativePath === "scripts/classify-stale-unverified-data.mjs";
 }
 
 function isHistoricalDoc(relativePath) {
