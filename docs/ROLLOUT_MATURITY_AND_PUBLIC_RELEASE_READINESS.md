@@ -26,6 +26,8 @@ Evidence:
 - Level 2 fresh-session verification is recorded in `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09_FRESH_SESSION.md`.
 - Level 3 project-sync pilot evidence is recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`.
 - Level 3 milestone closeout is recorded in `docs/LEVEL_3_CONTROLLED_PILOT_CLOSEOUT.md`.
+- Level 3 operator checklist is recorded in `docs/LEVEL_3_OPERATOR_CHECKLIST.md`.
+- Level 3 mock sync rehearsal is recorded in `docs/LEVEL_3_MOCK_SYNC_REHEARSAL_2026-05-30.md`.
 - Aggregate validation reports WARN output instead of hiding it.
 - Public/private leak scan, stale/unverified classification, sourceRef traceability, enterprise tool metadata, and dry-run issue drafts now exist as governance evidence.
 

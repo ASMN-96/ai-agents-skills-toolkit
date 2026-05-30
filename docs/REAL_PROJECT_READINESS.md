@@ -78,6 +78,8 @@ The current Level 3 milestone is complete on the first successful representative
 
 Level 3 closeout evidence is recorded in `docs/LEVEL_3_CONTROLLED_PILOT_CLOSEOUT.md`.
 
+For repeatable Level 3 internal use, follow `docs/LEVEL_3_OPERATOR_CHECKLIST.md`. The fixture rehearsal in `docs/LEVEL_3_MOCK_SYNC_REHEARSAL_2026-05-30.md` confirms the dry-run, confirm-write, and validation path without changing a real product repository.
+
 ## Level 4 Broad Rollout Gate
 
 Level 4 requires evidence from multiple representative project pilots, owner-approved warning thresholds, rollback rehearsal evidence, and enterprise tool metadata review. This work is intentionally deferred until the toolkit and target projects are stable enough for additional pilots. Track the future evidence in `docs/LEVEL_4_PROMOTION_EVIDENCE.json` and summarize it in `docs/LEVEL_4_PROMOTION_EVIDENCE.md`.
