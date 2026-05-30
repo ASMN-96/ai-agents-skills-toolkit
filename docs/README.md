@@ -27,3 +27,5 @@ Method files include `sourceRef`, `lastExtracted`, and `status` frontmatter so s
 `docs/COMPILED_AGENT_COMPILE_CONTRACT.md` defines the deterministic compile contract required before compiled-agent regeneration or version restamping.
 
 `docs/PUBLIC_PRIVATE_OVERLAY_ARCHITECTURE_ADR.md` defines the future public/private folder architecture for `core/`, `runtimes/`, `private-overlays/`, and distribution output. It is documentation-only and does not authorize folder moves.
+
+`docs/SOURCE_FRESHNESS_ISSUE_WORKFLOW.md` documents the dry-run-only source freshness issue draft workflow. `docs/SOURCE_FRESHNESS_ISSUES_DRY_RUN.md` is the generated sample fixture.

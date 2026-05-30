@@ -165,3 +165,5 @@ Status: in progress on a local hardening branch.
 The hardening sprint improves validation honesty, public/private release safety, enterprise tool metadata, sourceRef traceability, sync automation, operator guidance, eval coverage, registry generation design, compile-contract governance, cross-platform project sync, and future public/private architecture boundaries.
 
 `docs/PUBLIC_PRIVATE_OVERLAY_ARCHITECTURE_ADR.md` defines the future `core/`, `runtimes/`, `private-overlays/`, and distribution architecture. It is documentation-only and does not authorize folder relocation, runtime expansion, CI changes, package changes, or public release readiness claims.
+
+`docs/SOURCE_FRESHNESS_ISSUE_WORKFLOW.md` defines dry-run source freshness issue drafts with dedupe keys, labels, affected methods, and explicit no-import/no-activation language. Live issue creation remains unapproved future work.

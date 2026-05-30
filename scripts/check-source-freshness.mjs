@@ -8,9 +8,12 @@ import { promisify } from "node:util";
 const WATCHLIST_PATH = "sources/source-watchlist.json";
 const METHODS_REGISTRY_PATH = "registries/methods.registry.json";
 const ALLOWED_OUTPUT = "docs/SOURCE_FRESHNESS_REPORT.md";
+const ALLOWED_ISSUES_OUTPUT = "docs/SOURCE_FRESHNESS_ISSUES_DRY_RUN.md";
 const execFileAsync = promisify(execFile);
 const DISCLAIMER =
   "Changed upstream source is not approved for import. This report does not authorize copying, installing, activating, extracting methods, updating source records, or changing runtime configuration.";
+const ISSUE_DRAFT_DISCLAIMER =
+  "This is a dry-run issue draft only. No GitHub issue was created, and no source import, install, activation, extraction, source-record update, runtime configuration, CI change, package change, or product-repository change is authorized.";
 
 const STATUSES = new Set([
   "UNCHANGED",
@@ -41,7 +44,9 @@ function parseArgs(argv) {
     help: false,
     failOnChange: false,
     mock: false,
-    output: null
+    output: null,
+    createIssues: false,
+    issuesOutput: null
   };
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -52,12 +57,21 @@ function parseArgs(argv) {
       args.failOnChange = true;
     } else if (arg === "--mock") {
       args.mock = true;
+    } else if (arg === "--create-issues") {
+      args.createIssues = true;
     } else if (arg === "--output") {
       const value = argv[i + 1];
       if (!value) {
         throw new Error("--output requires a path");
       }
       args.output = value;
+      i += 1;
+    } else if (arg === "--issues-output") {
+      const value = argv[i + 1];
+      if (!value) {
+        throw new Error("--issues-output requires a path");
+      }
+      args.issuesOutput = value;
       i += 1;
     } else {
       throw new Error(`Unknown argument: ${arg}`);
@@ -72,6 +86,7 @@ function printHelp() {
 
 Usage:
   node scripts/check-source-freshness.mjs [--mock] [--fail-on-change] [--output docs/SOURCE_FRESHNESS_REPORT.md]
+  node scripts/check-source-freshness.mjs --mock --create-issues [--issues-output docs/SOURCE_FRESHNESS_ISSUES_DRY_RUN.md]
   node scripts/check-source-freshness.mjs --help
 
 Behavior:
@@ -81,6 +96,8 @@ Behavior:
   - Prints a Markdown report to stdout by default
   - With --fail-on-change, exits non-zero after reporting actionable statuses
   - Writes only to ${ALLOWED_OUTPUT} when --output is provided
+  - With --create-issues, renders local dry-run issue drafts only; it never calls GitHub issue APIs or gh
+  - Writes issue drafts only to ${ALLOWED_ISSUES_OUTPUT} when --issues-output is provided
   - Uses GITHUB_TOKEN only as an Authorization header for GitHub API rate limits and never prints it
 `);
 }
@@ -101,6 +118,26 @@ function resolveOutputPath(outputArg) {
   const allowed = path.resolve(cwd, ALLOWED_OUTPUT);
   if (resolved !== allowed) {
     throw new Error(`Unsafe output path. Only ${ALLOWED_OUTPUT} is allowed.`);
+  }
+  return resolved;
+}
+
+function resolveIssuesOutputPath(outputArg) {
+  if (!outputArg) {
+    return null;
+  }
+  if (outputArg !== ALLOWED_ISSUES_OUTPUT) {
+    throw new Error(`Unsafe issues output path. Only ${ALLOWED_ISSUES_OUTPUT} is allowed.`);
+  }
+  if (path.isAbsolute(outputArg)) {
+    throw new Error("Unsafe issues output path. Absolute paths are not allowed.");
+  }
+
+  const cwd = process.cwd();
+  const resolved = path.resolve(cwd, outputArg);
+  const allowed = path.resolve(cwd, ALLOWED_ISSUES_OUTPUT);
+  if (resolved !== allowed) {
+    throw new Error(`Unsafe issues output path. Only ${ALLOWED_ISSUES_OUTPUT} is allowed.`);
   }
   return resolved;
 }
@@ -527,6 +564,121 @@ function actionableResults(results) {
   return results.filter((result) => ACTIONABLE_STATUSES.has(result.status));
 }
 
+function issueDedupeKey(result) {
+  const commitSignal = shortSha(result.latestCommit || result.lastReviewedCommit || "metadata-missing");
+  return `source-freshness/${result.id}/${result.status}/${commitSignal}`;
+}
+
+function issueLabels(result) {
+  const labels = ["source-freshness", "review-required", "no-import-no-activation"];
+  if (result.status === "CHANGED_HIGH_RISK") {
+    labels.push("risk-high");
+  } else if (result.status === "CHANGED_REVIEW_REQUIRED") {
+    labels.push("risk-review-required");
+  } else if (result.status === "CHANGED_LOW_RISK") {
+    labels.push("risk-low");
+  } else if (result.status === "REVIEW_METADATA_MISSING") {
+    labels.push("metadata-missing");
+  } else if (result.status === "UNSUPPORTED_SOURCE_TYPE") {
+    labels.push("unsupported-source");
+  } else if (result.status === "CHECK_FAILED") {
+    labels.push("check-failed");
+  }
+  return labels;
+}
+
+function issueTitle(result) {
+  return `Source freshness review: ${result.name} (${result.status})`;
+}
+
+function renderIssueBody(result) {
+  const lines = [
+    `# ${issueTitle(result)}`,
+    "",
+    `> ${ISSUE_DRAFT_DISCLAIMER}`,
+    "",
+    "## Source",
+    "",
+    `- Source ID: ${result.id}`,
+    `- Source name: ${result.name}`,
+    `- Repository: ${result.repoOwner}/${result.repoName}`,
+    `- Source URL: ${result.sourceUrl}`,
+    `- Source record: ${result.sourceRecordPath}`,
+    "",
+    "## Freshness Signal",
+    "",
+    `- Status: ${result.status}`,
+    `- Last reviewed commit: ${result.lastReviewedCommit || "n/a"}`,
+    `- Latest checked commit: ${result.latestCommit || "n/a"}`,
+    `- Last reviewed date: ${result.lastReviewedDate || "n/a"}`,
+    `- Latest checked date: ${result.latestCommitDate || "n/a"}`,
+    `- License signal: ${result.licenseSignal}`,
+    `- Notes: ${result.notes}`,
+    "",
+    "## Affected Methods",
+    "",
+    result.affectedMethods,
+    "",
+    "## Required Review",
+    "",
+    "- Verify trust, license, maintenance, prompt-injection risk, dangerous commands, secret access, network behavior, filesystem writes, and approval owner.",
+    "- Decide whether to refresh the source record, hold the source, or plan a separate reviewed extraction PR.",
+    "- Keep sourceRef traceability intact if a later reviewed extraction changes methods.",
+    "",
+    "## Explicitly Forbidden From This Issue",
+    "",
+    "- Do not import, clone, copy raw source files, install dependencies, activate skills/plugins/tools, update source records, extract methods, change CI, change MCP/global config, or modify product repositories from this issue alone.",
+    "- Do not treat this issue draft as license approval, security approval, enterprise approval, or runtime support."
+  ];
+
+  return lines.join("\n");
+}
+
+function renderIssueDrafts(results, useMock, checkedAt) {
+  const actionable = actionableResults(results);
+  const lines = [
+    "# Source Freshness Issue Drafts",
+    "",
+    useMock ? "Generated from mock data." : "Generated from live freshness metadata.",
+    "",
+    `Generated at: ${checkedAt}`,
+    "",
+    `> ${ISSUE_DRAFT_DISCLAIMER}`,
+    "",
+    "No live GitHub issues were created. These drafts are local review artifacts only.",
+    "",
+    "## Draft Summary",
+    "",
+    "| Dedupe key | Title | Labels | Affected methods |",
+    "| --- | --- | --- | --- |"
+  ];
+
+  if (actionable.length === 0) {
+    lines.push("| n/a | No actionable source freshness issues | n/a | n/a |");
+  } else {
+    for (const result of actionable) {
+      lines.push(
+        `| ${escapeCell(issueDedupeKey(result))} | ${escapeCell(issueTitle(result))} | ${escapeCell(issueLabels(result).join(", "))} | ${escapeCell(result.affectedMethods)} |`
+      );
+    }
+  }
+
+  for (const result of actionable) {
+    lines.push(
+      "",
+      "## Issue Draft",
+      "",
+      `Dedupe key: \`${issueDedupeKey(result)}\``,
+      "",
+      `Labels: ${issueLabels(result).map((label) => `\`${label}\``).join(", ")}`,
+      "",
+      renderIssueBody(result)
+    );
+  }
+
+  return `${lines.join("\n")}\n`;
+}
+
 function shortSha(sha) {
   return sha ? sha.slice(0, 12) : "n/a";
 }
@@ -604,6 +756,7 @@ function renderReport(results, useMock, checkedAt) {
     "- CHECK_FAILED is per source and does not authorize fallback import or activation.",
     "- GitHub API 403/429 fallback is limited to `git ls-remote` default-branch commit checks.",
     "- Affected methods are derived from method `sourceRef` frontmatter and are review-routing hints only.",
+    "- `--create-issues` generates local dry-run issue drafts with dedupe keys and labels; it does not call GitHub or create issues.",
     "- This monitor never clones repositories, runs external scripts, copies raw files, installs skills, activates plugins, or updates source records."
   );
 
@@ -624,7 +777,12 @@ async function main() {
       return;
     }
 
+    if (args.issuesOutput && !args.createIssues) {
+      throw new Error("--issues-output requires --create-issues");
+    }
+
     const outputPath = resolveOutputPath(args.output);
+    const issuesOutputPath = resolveIssuesOutputPath(args.issuesOutput);
     const checkedAt = new Date().toISOString();
     const watchlist = await readWatchlist();
     const methodImpactIndex = await buildMethodImpactIndex();
@@ -636,6 +794,18 @@ async function main() {
       console.log(`Wrote ${ALLOWED_OUTPUT}`);
     } else {
       process.stdout.write(report);
+    }
+
+    if (args.createIssues) {
+      const issueDrafts = renderIssueDrafts(results, args.mock, checkedAt);
+      if (issuesOutputPath) {
+        await writeFile(issuesOutputPath, issueDrafts, "utf8");
+        console.log(`Wrote ${ALLOWED_ISSUES_OUTPUT}`);
+      } else if (!outputPath) {
+        process.stdout.write(`\n${issueDrafts}`);
+      } else {
+        process.stdout.write(issueDrafts);
+      }
     }
 
     if (args.failOnChange) {

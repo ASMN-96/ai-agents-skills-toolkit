@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -130,5 +130,72 @@ test("mock report includes affected methods from method sourceRef frontmatter", 
     assert.equal(result.code, 0);
     assert.match(result.stdout, /Affected methods/);
     assert.match(result.stdout, /internal\.traceability \(Traceability\)/);
+  });
+});
+
+test("--create-issues writes dry-run issue drafts with dedupe labels and no-import language", async () => {
+  await withWatchlist([
+    source({ id: "first-source", name: "First Source", lastReviewedCommit: null, lastReviewedDate: null }),
+    source({ id: "second-source", name: "Second Source" })
+  ], async (cwd) => {
+    await mkdir(path.join(cwd, "docs"));
+    await mkdir(path.join(cwd, "registries"));
+    await mkdir(path.join(cwd, "methods", "internal"), { recursive: true });
+    await writeFile(
+      path.join(cwd, "methods", "internal", "traceability.md"),
+      [
+        "---",
+        "sourceRef: [\"first-source\"]",
+        "lastExtracted: unknown-review-required",
+        "status: approved",
+        "---",
+        "",
+        "# Traceability"
+      ].join("\n")
+    );
+    await writeFile(
+      path.join(cwd, "registries", "methods.registry.json"),
+      `${JSON.stringify({
+        schemaVersion: "1.0.0",
+        methods: [
+          {
+            id: "internal.traceability",
+            displayName: "Traceability",
+            methodPath: "methods/internal/traceability.md"
+          }
+        ]
+      }, null, 2)}\n`
+    );
+
+    const result = await runFreshness(cwd, [
+      "--mock",
+      "--create-issues",
+      "--issues-output",
+      "docs/SOURCE_FRESHNESS_ISSUES_DRY_RUN.md"
+    ]);
+
+    assert.equal(result.code, 0, result.stderr);
+    assert.match(result.stdout, /Wrote docs\/SOURCE_FRESHNESS_ISSUES_DRY_RUN\.md/);
+    const draft = await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_ISSUES_DRY_RUN.md"), "utf8");
+    assert.match(draft, /Source Freshness Issue Drafts/);
+    assert.match(draft, /source-freshness\/first-source\/REVIEW_METADATA_MISSING/);
+    assert.match(draft, /no-import-no-activation/);
+    assert.match(draft, /internal\.traceability \(Traceability\)/);
+    assert.match(draft, /No live GitHub issues were created/);
+    assert.match(draft, /Do not import, clone, copy raw source files/);
+  });
+});
+
+test("--issues-output is rejected without --create-issues", async () => {
+  await withWatchlist([source()], async (cwd) => {
+    await mkdir(path.join(cwd, "docs"));
+    const result = await runFreshness(cwd, [
+      "--mock",
+      "--issues-output",
+      "docs/SOURCE_FRESHNESS_ISSUES_DRY_RUN.md"
+    ]);
+
+    assert.notEqual(result.code, 0);
+    assert.match(result.stderr, /--issues-output requires --create-issues/);
   });
 });

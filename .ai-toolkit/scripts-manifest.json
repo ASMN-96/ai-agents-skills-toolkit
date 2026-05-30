@@ -20,7 +20,7 @@
     },
     {
       "path": "scripts/check-source-freshness.mjs",
-      "sha256": "77c58273d251080a625ca272a09de08530241d1b53b1dd40ecdc4f08785ea17d"
+      "sha256": "4ddb8c1a1887401853d19cb73770648d3113d3fece27cdb364b39c24a1cdbd5d"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
@@ -40,7 +40,7 @@
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",
-      "sha256": "e14fb17e283e38934ea60c3f45cbc9159a190d71408939b16501d63c50d85cf6"
+      "sha256": "e202d8675e788868a1f91529478aa270e798a788d567dcf13d052f13a4a50a3e"
     },
     {
       "path": "scripts/ai-toolkit/run-quality-gate.mjs",

@@ -21,6 +21,7 @@ This policy defines how the toolkit tracks external sources without auto-importi
   - changing Codex global config,
   - changing product repositories.
 - Freshness signals may propose that a source is worth re-review; they are not execution permissions.
+- Freshness issue drafts generated with `--create-issues` are local dry-run review artifacts only. They do not create GitHub issues and do not authorize import, activation, extraction, source-record updates, CI changes, package changes, global config changes, or product-repository changes.
 - If GitHub API metadata returns `403` or `429`, the only allowed fallback is a read-only `git ls-remote` default-branch commit check. Fallback must not clone, checkout, fetch raw files, install, execute scripts, activate anything, or update source records automatically.
 - Pull request CI may use mock freshness checks to avoid flaky rate-limit failures. A scheduled/manual advisory workflow may run live freshness with `--fail-on-change`; failures are review signals and do not authorize import, activation, extraction, or runtime changes.
 
@@ -97,6 +98,7 @@ For toolkit methods, each method file must keep stable `sourceRef`, `lastExtract
 - avoid runtime writes outside `docs/SOURCE_FRESHNESS_REPORT.md`,
 - keep `neverAutoImport` behavior,
 - include affected-method hints derived from method `sourceRef` frontmatter,
+- generate dry-run issue drafts with dedupe keys, labels, affected methods, and no-import/no-activation language when `--create-issues` is supplied,
 - emit a report explicitly stating that no approval is granted.
 
 This policy is the normative control; scripts may enforce and reinforce it.
