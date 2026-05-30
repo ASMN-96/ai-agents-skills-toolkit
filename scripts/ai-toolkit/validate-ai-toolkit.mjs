@@ -47,8 +47,8 @@ async function readJson(relativePath) {
 }
 
 async function sha256(relativePath) {
-  const content = await readFile(rootPath(relativePath));
-  return createHash("sha256").update(content).digest("hex");
+  const content = await readFile(rootPath(relativePath), "utf8");
+  return createHash("sha256").update(content.replace(/\r\n/g, "\n")).digest("hex");
 }
 
 async function walk(relativeDir, output = []) {

@@ -38,25 +38,25 @@
       "source": "skills/riss-governance/SKILL.md",
       "target": ".agents/skills/riss-governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "e7be5acdfcd53f727ec1218681b6a0575ced9c0e6cabf847a8bac61fbd418fb3"
+      "sha256": "549cf366f9302ba36d9b08a7b658648af7edb141151c698a8c429b0490f3e4a4"
     },
     {
       "source": "skills/riss-governance/SKILL.md",
       "target": ".ai-toolkit/skills/riss-governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "e7be5acdfcd53f727ec1218681b6a0575ced9c0e6cabf847a8bac61fbd418fb3"
+      "sha256": "549cf366f9302ba36d9b08a7b658648af7edb141151c698a8c429b0490f3e4a4"
     },
     {
       "source": "skills/vd-premium-uiux/SKILL.md",
       "target": ".agents/skills/vd-premium-uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "b7ea8feb796f6e8b28840359ea03db8e2e87956658b50b7797eb317b57fb0693"
+      "sha256": "02c5345215186e2457e9bd2ddcbdda0490df1bfdaf7592c21cc73ceec8d355dd"
     },
     {
       "source": "skills/vd-premium-uiux/SKILL.md",
       "target": ".ai-toolkit/skills/vd-premium-uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "b7ea8feb796f6e8b28840359ea03db8e2e87956658b50b7797eb317b57fb0693"
+      "sha256": "02c5345215186e2457e9bd2ddcbdda0490df1bfdaf7592c21cc73ceec8d355dd"
     },
     {
       "source": "skills/riss-code-quality/SKILL.md",
@@ -158,19 +158,19 @@
       "source": "registries/agents.registry.json",
       "target": ".ai-toolkit/registries/agents.registry.json",
       "mode": "byte-identical",
-      "sha256": "e41f597fbfdb930e512403f398a2b5f54c4619fa6ddd975eb57619a670375c8e"
+      "sha256": "299b7c8a3fb08c0542cbf02e925ecffa58fc8efa692455d0880b09f2173f3040"
     },
     {
       "source": "registries/methods.registry.json",
       "target": ".ai-toolkit/registries/methods.registry.json",
       "mode": "byte-identical",
-      "sha256": "5ca075477c21ed9aca4ab11758641e19850cc2cabe971033af441d6e5304855c"
+      "sha256": "d7c387d409e6722f55956482da0ea24e71398c111342293ad855866317fab401"
     },
     {
       "source": "registries/profiles.registry.json",
       "target": ".ai-toolkit/registries/profiles.registry.json",
       "mode": "byte-identical",
-      "sha256": "e51f30e5fcbd8c894a16d145ae90175db752e1861c14d8d2840e8a85801e5b6b"
+      "sha256": "ae618ca3b949ee85a240cfb3d967079ec8883aecc7d2f33db7e8757a1dfa0100"
     },
     {
       "source": "registries/routing-matrix.json",
@@ -194,31 +194,31 @@
       "source": "compiled-agents/reviewer-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/reviewer-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "7240f871fa17d1d5e21aed1b2e69f96d34799cc5bcc3e82c26d7278fd53ea625"
+      "sha256": "ebd5c3a3a4bf1069fb603d46031014911f77a01fa2eac916eb2c0c76eac79299"
     },
     {
       "source": "compiled-agents/frontend-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/frontend-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "b86123b5777a6c0e5a71d3b3f0024a10602dad0ce40033ce8b9a43d8b4172723"
+      "sha256": "9b2b28dfa0db32f2ad71f11a853c7b0bc3465b1a08b2fe82df496c7e26b3fc32"
     },
     {
       "source": "compiled-agents/security-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/security-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "2c84c65f4c62538c2bbe20a25852704d0b2e8d2e61fb896547398c1fc9a7a764"
+      "sha256": "348d7971fde27a8ce554da0eb6d9d36d9db60630c2f77628619eaf0df192d7b8"
     },
     {
       "source": "compiled-agents/qa-test-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/qa-test-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "2b42eb14b1ddc5c5607314b901d4109ca06f47e5d52c8312ebc3b2b823f17bc9"
+      "sha256": "731d93455e17a7dbd98a428a6475ecb7c54254cfdf856393ba4699103a1a5a2b"
     },
     {
       "source": "compiled-agents/release-manager-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/release-manager-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "2be57f5c4eeb286cc916081d89dd08ea47de90793891a22ebc56d48ebd6c8949"
+      "sha256": "176b34dc13a7919d86f92bbff625090954e80338e5f7046d070598c81bd74c75"
     }
   ],
   "generatedBy": "scripts/ai-toolkit/build-embedded-package.mjs"

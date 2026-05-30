@@ -4,15 +4,15 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "0c675af9af490f1dcd77ab40a67349988be6b62180b79e09cfb1879e01c3d5a4"
+      "sha256": "b366e7a37732bd6ac486194747ad8c4253e751f54406765155a75243b7fb1668"
     },
     {
       "path": "scripts/check-source-freshness.mjs",
-      "sha256": "f87bbb304f95f8cfa43d7b52df5dcd707b8215235f8d7865e21377e2d7c73602"
+      "sha256": "1ea180eaedd904a18ae026a892915ece38022f0cd16eafce89cf5a33157c7054"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
-      "sha256": "824684aa353789c417575e523a74811d4180760af03270e8b24cb3757ca65262"
+      "sha256": "d92cc98f27797d559b98b269e08c306c10ffdc578ccc37e48eea16b9f48e578d"
     },
     {
       "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",
