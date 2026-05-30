@@ -6,7 +6,7 @@ This report validates the public package allowlist only. It does not publish, co
 
 ## Summary
 
-- Public files scanned: 25
+- Public files scanned: 29
 - Missing policy files: 0
 - Findings: 0
 
