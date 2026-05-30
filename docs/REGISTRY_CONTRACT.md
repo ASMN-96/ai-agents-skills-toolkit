@@ -4,6 +4,8 @@ Registries are machine-readable indexes of reviewed toolkit assets, planned asse
 
 Registry reporting must follow `docs/NO_FAKE_VALIDATION_POLICY.md`: registry entries may describe planned, documented, metadata-only, approved, or active states, but they must not be used as proof that a tool ran, a skill was visible, a source was trusted, or a fallback executed.
 
+Future frontmatter-driven generation is governed by `docs/REGISTRY_GENERATION_DESIGN.md`. Generation may derive stable identity and descriptive fields only. Routing, tool trust, license, security, approval, allowed-environment, and activation decisions remain hand-maintained.
+
 ## Required Registries
 
 - `registries/agents.registry.json`
