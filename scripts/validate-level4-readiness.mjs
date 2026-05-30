@@ -11,7 +11,7 @@ const REQUIRED_WARNING_STATUS = "owner-approved";
 const REQUIRED_ROLLBACK_STATUS = "passed";
 const REQUIRED_ENTERPRISE_REVIEW_STATUS = "owner-reviewed";
 
-const allowedEvidenceStatuses = new Set(["blocked", "ready-for-owner-decision", "approved"]);
+const allowedEvidenceStatuses = new Set(["blocked", "deferred", "ready-for-owner-decision", "approved"]);
 const allowedPilotStatuses = new Set(["planned", "held", "failed", "passed"]);
 
 function usage() {
@@ -19,7 +19,7 @@ function usage() {
   node scripts/validate-level4-readiness.mjs
   node scripts/validate-level4-readiness.mjs --require-ready
 
-Audits Level 4 promotion evidence. The default mode reports BLOCKED while
+Audits Level 4 promotion evidence. The default mode reports BLOCKED/deferred while
 exiting successfully when the evidence shape is valid. --require-ready exits
 non-zero until the Level 4 gate is fully satisfied.
 `;
@@ -153,6 +153,25 @@ async function evaluateEvidence(evidence) {
   }
   if (!allowedEvidenceStatuses.has(status)) {
     failures.push(`status must be one of: ${[...allowedEvidenceStatuses].join(", ")}`);
+  }
+
+  if (status === "deferred") {
+    const closeout = evidence.level3Closeout;
+    if (!closeout || typeof closeout !== "object" || Array.isArray(closeout)) {
+      failures.push("level3Closeout must be present when status is deferred");
+    } else {
+      const closeoutStatus = stringField(closeout, "status", failures, "level3Closeout");
+      stringField(closeout, "decisionDate", failures, "level3Closeout");
+      const closeoutReport = closeout.report;
+      if (closeoutStatus !== "closed") {
+        failures.push("level3Closeout.status must be closed when Level 4 is deferred");
+      }
+      if (!isSafeRelativePath(closeoutReport)) {
+        failures.push("level3Closeout report must be a safe relative path");
+      } else if (!(await exists(closeoutReport))) {
+        failures.push(`level3Closeout report does not exist: ${closeoutReport}`);
+      }
+    }
   }
 
   const minimumPassedProjectPilots = Number(evidence.minimumPassedProjectPilots);

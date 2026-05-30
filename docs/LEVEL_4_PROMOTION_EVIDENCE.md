@@ -1,6 +1,6 @@
 # Level 4 Promotion Evidence
 
-Status: blocked. The toolkit remains Level 3 until the evidence manifest and owner decision meet the Level 4 gate.
+Status: deferred. The toolkit is Level 3 complete, and Level 4 remains deferred until the evidence manifest and owner decision meet the Level 4 gate.
 
 This document is an evidence ledger, not a promotion. It does not activate runtimes, install tools, change global configuration, modify product repositories, or approve broad rollout.
 
@@ -24,8 +24,9 @@ The default audit reports current readiness without failing the normal Level 3 v
 
 ## Current Position
 
-- Current level: Level 3.
+- Current level: Level 3 complete.
 - Target level: Level 4.
+- Level 3 closeout: complete on the first successful representative pilot.
 - Passed pilots counted so far: 1 of 3 required.
 - Project types counted so far: 1 of 2 required.
 - Warning threshold owner approval: missing.
@@ -49,7 +50,7 @@ The default audit reports current readiness without failing the normal Level 3 v
 - A skipped, dry-run, fallback, planned, or held check must be reported as such.
 - Level 4 does not authorize public release, runtime adapter activation, MCP setup, global config changes, package installs, or product-repository writes outside approved project PRs.
 
-## Next Evidence To Collect
+## Deferred Level 4 Evidence Backlog
 
 1. Complete two additional representative project-sync pilots and record reports using `templates/level4-project-pilot-report.template.md`.
 2. Record owner-approved warning thresholds using `templates/level4-warning-threshold-decision.template.md`.

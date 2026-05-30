@@ -1,6 +1,6 @@
 # Rollout Maturity and Public Release Readiness
 
-Status: Level 3 internal controlled-pilot ready; Level 4 enterprise rollout and Level 5 public release are not approved.
+Status: Level 3 controlled-pilot milestone complete; Level 4 enterprise rollout is deferred and Level 5 public release is not started.
 
 Date: 2026-05-30
 
@@ -19,18 +19,20 @@ This document is a promotion gate. It does not activate runtimes, publish packag
 
 ## Current Classification
 
-Current level: Level 3.
+Current level: Level 3 complete.
 
 Evidence:
 
 - Level 2 fresh-session verification is recorded in `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09_FRESH_SESSION.md`.
 - Level 3 project-sync pilot evidence is recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`.
+- Level 3 milestone closeout is recorded in `docs/LEVEL_3_CONTROLLED_PILOT_CLOSEOUT.md`.
 - Aggregate validation reports WARN output instead of hiding it.
 - Public/private leak scan, stale/unverified classification, sourceRef traceability, enterprise tool metadata, and dry-run issue drafts now exist as governance evidence.
 
-Current blockers for Level 4:
+Deferred Level 4 evidence backlog:
 
-- Level 4 evidence is tracked in `docs/LEVEL_4_PROMOTION_EVIDENCE.md` and `docs/LEVEL_4_PROMOTION_EVIDENCE.json`; the current gate status is blocked.
+- Level 4 evidence is tracked in `docs/LEVEL_4_PROMOTION_EVIDENCE.md` and `docs/LEVEL_4_PROMOTION_EVIDENCE.json`; the current gate status is deferred.
+- One successful representative pilot is enough to close Level 3 controlled use; additional pilots are future Level 4 evidence, not current Level 3 blockers.
 - Enterprise external-tool metadata now has owner buckets, but most evidence fields remain `unknown-review-required` and no tool has enterprise approval.
 - Multiple project-type pilots have not been completed.
 - Warning thresholds for Level 4 are not yet owner-approved.
@@ -110,7 +112,7 @@ Owner decisions still required:
 - community/contribution owner,
 - release owner.
 
-Until these are assigned, Level 4 and Level 5 remain blocked.
+Until these are assigned, Level 4 remains deferred and Level 5 remains not started.
 
 ## Runtime Policy
 
