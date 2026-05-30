@@ -1,9 +1,12 @@
 #!/usr/bin/env node
+import { execFile } from "node:child_process";
 import { access, readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { promisify } from "node:util";
 
 const ROOT = process.cwd();
+const execFileAsync = promisify(execFile);
 const failures = [];
 const checks = [];
 const totals = {
@@ -39,6 +42,12 @@ function fail(check, location, message) {
 
 function note(check) {
   checks.push(check);
+}
+
+function failSubvalidator(check, output) {
+  for (const line of output.trim().split(/\r?\n/).filter(Boolean)) {
+    fail(check, check, line);
+  }
 }
 
 async function exists(relativePath) {
@@ -491,6 +500,34 @@ async function validateForbiddenArtifacts() {
   await visit(ROOT);
 }
 
+async function runAiToolkitSubvalidators() {
+  note("Embedded AI Toolkit validators");
+  const validators = [
+    "scripts/ai-toolkit/validate-ai-toolkit.mjs",
+    "scripts/ai-toolkit/validate-codex-runtime.mjs",
+    "scripts/ai-toolkit/validate-version-consistency.mjs",
+    "scripts/ai-toolkit/run-toolkit-evals.mjs"
+  ];
+
+  for (const validator of validators) {
+    try {
+      const result = await execFileAsync(process.execPath, [validator], {
+        cwd: ROOT,
+        timeout: 60_000,
+        maxBuffer: 1024 * 1024 * 10
+      });
+      for (const line of `${result.stdout}${result.stderr}`.trim().split(/\r?\n/).filter(Boolean)) {
+        if (line.startsWith("FAIL")) {
+          fail("embedded validator", validator, line);
+        }
+      }
+    } catch (error) {
+      fail("embedded validator", validator, `subvalidator failed with exit ${error.code ?? "unknown"}`);
+      failSubvalidator("embedded validator", `${error.stdout || ""}${error.stderr || error.message || ""}`);
+    }
+  }
+}
+
 async function main() {
   const parsed = await validateJsonParsing();
   const sourceRecords = await collectSourceRecords();
@@ -501,6 +538,7 @@ async function main() {
   await validateGovernanceBoundaries(registryState);
   await validateSourcePolicy(watchlist, registryState);
   await validateForbiddenArtifacts();
+  await runAiToolkitSubvalidators();
 
   const status = failures.length === 0 ? "PASS" : "FAIL";
   console.log(status);

@@ -1,0 +1,1901 @@
+{
+  "schemaVersion": "1.0.0",
+  "registryType": "methods",
+  "activationPolicy": "Methods are passive reference metadata only. Registry presence does not install, activate, route, execute, or approve runtime behavior.",
+  "statusValues": [
+    "documented",
+    "available",
+    "approved",
+    "draft"
+  ],
+  "methods": [
+    {
+      "id": "backend.supabase-postgres-rls-gates",
+      "displayName": "Supabase Postgres RLS Gates",
+      "area": "backend",
+      "methodPath": "methods/backend/supabase-postgres-rls-gates.md",
+      "purpose": "Define the minimum safety gates for Supabase, Postgres, auth, RLS, query, and migration work before implementation or review claims.",
+      "whenToUse": "Use when a task touches Supabase projects, Postgres schema or queries, RLS policies, auth/session behavior, storage access, migrations, generated database types, public payloads, or database performance.",
+      "whenNotToUse": "Do not use for frontend-only changes, static docs changes, or backend work that does not touch data access, auth, persistence, or database behavior.",
+      "passiveConsumerAgents": [
+        "Backend Contract Agent",
+        "Database RLS Agent",
+        "Security Agent",
+        "QA Test Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "high-risk-security-data-request",
+        "postgres-query-performance",
+        "supabase-rls-migration"
+      ],
+      "riskDomains": [
+        "backend"
+      ],
+      "validationGates": [
+        "Report the data surface, files or migrations reviewed, RLS/auth/storage implications, docs freshness status, validation command or reason it could not run, and remaining manual checks. For implementation work, include migration/test evidence and any rollback or recovery notes."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/supabase-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Supabase source record reports MIT; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "internal.engineering-lifecycle-gates",
+      "displayName": "Engineering Lifecycle Gates",
+      "area": "internal",
+      "methodPath": "methods/internal/engineering-lifecycle-gates.md",
+      "purpose": "Define the toolkit's internal lifecycle from idea to release.",
+      "whenToUse": "Use when compiling agents or reviewing whether a project workflow has enough gates.",
+      "whenNotToUse": "Do not require every gate for tiny documentation changes with no behavior or release impact.",
+      "passiveConsumerAgents": [
+        "Product Agent",
+        "Architect Agent",
+        "QA Test Agent",
+        "Reviewer Agent",
+        "Release Manager Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "dirty-stale-divergent-repo-state",
+        "performance-regression",
+        "plain-language-product-request",
+        "release-readiness"
+      ],
+      "riskDomains": [
+        "internal"
+      ],
+      "validationGates": [
+        "- Define: problem statement and acceptance criteria. - Plan: implementation plan and risk assessment. - Build: branch or commit reference and scoped implementation notes. - Verify: test results, check output, or documented manual validation. - Review: review summary and action items. - Release: release notes and rollback or recovery notes."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "internal.frontend-uiux-quality-gates",
+      "displayName": "Frontend UIUX Quality Gates",
+      "area": "internal",
+      "methodPath": "methods/internal/frontend-uiux-quality-gates.md",
+      "purpose": "Define shared frontend and UI/UX quality checks for future compiled agents.",
+      "whenToUse": "Use when building or reviewing user-facing UI, dashboards, responsive layouts, or design systems.",
+      "whenNotToUse": "Do not apply visual polish rules to backend-only changes unless UI behavior is affected.",
+      "passiveConsumerAgents": [
+        "UIUX Agent",
+        "Frontend Agent",
+        "QA Test Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "frontend-performance-issue",
+        "frontend-ui-bug"
+      ],
+      "riskDomains": [
+        "internal"
+      ],
+      "validationGates": [
+        "Use screenshots, browser checks, accessibility review, and target workflow testing when UI changes are implemented. Minimum evidence: - contrast meets WCAG 2.1 AA: 4.5:1 for normal text and 3:1 for large text, - all interactive elements are keyboard reachable with visible focus, - semantic controls have labels, roles, or accessible names, - mobile and desktop breakpoints plus interaction states are covered, - screenshots or automated reports from tools such as Axe, Lighthouse, or a color contrast checker are attached or summarized."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/bencium-marketplace.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "internal.simplicity-surgical-change-discipline",
+      "displayName": "Simplicity Surgical Change Discipline",
+      "area": "internal",
+      "methodPath": "methods/internal/simplicity-surgical-change-discipline.md",
+      "purpose": "Keep agent changes focused, understandable, and proportional to the user request.",
+      "whenToUse": "Use before implementing, reviewing, or refactoring code.",
+      "whenNotToUse": "Do not use to block necessary migrations or architecture work when the requirement justifies it.",
+      "passiveConsumerAgents": [
+        "Architect Agent",
+        "Frontend Agent",
+        "Backend Contract Agent",
+        "Reviewer Agent",
+        "QA Test Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "plain-language-product-request",
+        "small-low-risk-typo-doc-change"
+      ],
+      "riskDomains": [
+        "internal"
+      ],
+      "validationGates": [
+        "Every changed line should trace to the request, the plan, or a verification fix."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/karpathy-inspired-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated. Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "internal.skill-anatomy",
+      "displayName": "Skill Anatomy",
+      "area": "internal",
+      "methodPath": "methods/internal/skill-anatomy.md",
+      "purpose": "Define what makes a reusable skill or method easy for agents to discover, load, and apply.",
+      "whenToUse": "Use when creating toolkit methods, future skills, profiles, or compiled agent inputs.",
+      "whenNotToUse": "Do not use to activate raw external skills or bypass source evaluation.",
+      "passiveConsumerAgents": [
+        "Skill Scout Agent",
+        "Architect Agent",
+        "Release Manager Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "external-skill-source-audit",
+        "missing-capability-skill-discovery"
+      ],
+      "riskDomains": [
+        "internal"
+      ],
+      "validationGates": [
+        "Check that every method or future skill has a clear purpose, trigger, negative trigger, operating boundary, verification requirement, and source/license note. Confirm references and scripts are optional support material rather than hidden execution requirements."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/gitlab-agent-skills.md",
+          "category": "restricted-source"
+        }
+      ],
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. GitLab docs terms were not separately reviewed; use as caveated normalized reference only.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "internal.source-discovery-workflow",
+      "displayName": "Source Discovery Workflow",
+      "area": "internal",
+      "methodPath": "methods/internal/source-discovery-workflow.md",
+      "purpose": "Help Skill Scout find candidate skills and methods without installing or activating anything.",
+      "whenToUse": "Use when searching for new sources, comparing candidate skills, or building a source evaluation backlog.",
+      "whenNotToUse": "Do not use to install, activate, clone, or run a candidate source.",
+      "passiveConsumerAgents": [
+        "Skill Scout Agent",
+        "Security Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "external-skill-source-audit",
+        "install-all-tools-request",
+        "missing-capability-skill-discovery"
+      ],
+      "riskDomains": [
+        "internal"
+      ],
+      "validationGates": [
+        "Every candidate must have a source record before extraction. The source record must identify accepted patterns, rejected patterns, license status, prompt-injection risks, dangerous operations, and whether any runtime behavior was activated. No install, clone, activation, sync, copy, update, repair, or script execution is part of discovery."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/skills-sh.md",
+          "category": "restricted-source"
+        }
+      ],
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. skills.sh is a dynamic discovery index with per-source license review required.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "internal.source-safety-scoring",
+      "displayName": "Source Safety Scoring",
+      "area": "internal",
+      "methodPath": "methods/internal/source-safety-scoring.md",
+      "purpose": "Provide a consistent scoring lens for external source review.",
+      "whenToUse": "Use during Phase 2 source evaluation and before any Phase 3 method extraction.",
+      "whenNotToUse": "Do not use as approval to run a source; scoring informs review only.",
+      "passiveConsumerAgents": [
+        "Skill Scout Agent",
+        "Security Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "dependency-supply-chain-review",
+        "external-skill-source-audit",
+        "install-all-tools-request",
+        "missing-capability-skill-discovery",
+        "read-only-repo-audit"
+      ],
+      "riskDomains": [
+        "internal"
+      ],
+      "validationGates": [
+        "Assign a 0-100 safety/usefulness score, then classify with rationale: - 0-30: `Ignore`. - 31-60: `Reference only`. - 61-85: `Extract into methods`. - 86-100: `Potential future install review`, only when installation is explicitly requested in a separate approved phase and all safety gates pass; otherwise keep as `Extract into methods`. Every classification must include a short rationale, rejected operation list, license confidence, and any override reason. A source with high usefulness but high execution risk should usually be `Reference only` or `Extract into methods`, not installable."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/everything-claude-code.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/ruflo.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/superpowers.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Everything Claude Code source record reports MIT but high config/hook/MCP mutation risk; use governance patterns only. RuFlo source record reports MIT but high daemon/runtime risk; use static governance patterns only. Superpowers source record reports MIT; Superpowers remains external and must not be duplicated.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "internal.tdd-verification-alignment",
+      "displayName": "TDD Verification Alignment",
+      "area": "internal",
+      "methodPath": "methods/internal/tdd-verification-alignment.md",
+      "purpose": "Align test-first development and proof-before-completion behavior across agents.",
+      "whenToUse": "Use when an agent changes behavior, fixes bugs, or claims a task is complete.",
+      "whenNotToUse": "Do not force executable tests for pure reference documents with no behavior.",
+      "passiveConsumerAgents": [
+        "QA Test Agent",
+        "Reviewer Agent",
+        "Backend Contract Agent",
+        "Frontend Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "internal"
+      ],
+      "validationGates": [
+        "Record the command run, expected result, actual result, run timestamp, commit or PR reference, and any remaining test gap."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/superpowers.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied. Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Superpowers source record reports MIT; Superpowers remains external and must not be duplicated.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "karpathy.assumption-surfacing",
+      "displayName": "Assumption Surfacing",
+      "area": "karpathy",
+      "methodPath": "methods/karpathy/assumption-surfacing.md",
+      "purpose": "Make agent uncertainty visible before it becomes implementation risk.",
+      "whenToUse": "Use when a request has ambiguous intent, multiple plausible designs, missing constraints, or conflicting signals.",
+      "whenNotToUse": "Do not over-question discoverable facts that can be resolved by reading local files or docs.",
+      "passiveConsumerAgents": [
+        "Product Agent",
+        "Architect Agent",
+        "Reviewer Agent",
+        "Skill Scout Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "ambiguous-behavior-changing-request"
+      ],
+      "riskDomains": [
+        "karpathy"
+      ],
+      "validationGates": [
+        "Check that the final plan names assumptions and locks a default when proceeding."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/karpathy-inspired-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "karpathy.goal-driven-execution",
+      "displayName": "Goal-Driven Execution",
+      "area": "karpathy",
+      "methodPath": "methods/karpathy/goal-driven-execution.md",
+      "purpose": "Keep agent work tied to the user goal and measurable success criteria.",
+      "whenToUse": "Use when implementing features, fixing bugs, planning releases, or verifying outcomes.",
+      "whenNotToUse": "Do not use as a shortcut around safety, review, or test gates.",
+      "passiveConsumerAgents": [
+        "Product Agent",
+        "Architect Agent",
+        "QA Test Agent",
+        "Release Manager Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "karpathy"
+      ],
+      "validationGates": [
+        "Report what proves the goal was met and what remains unproven."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/karpathy-inspired-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "karpathy.simplicity-surgical-changes",
+      "displayName": "Simplicity And Surgical Changes",
+      "area": "karpathy",
+      "methodPath": "methods/karpathy/simplicity-surgical-changes.md",
+      "purpose": "Keep agent edits small, direct, and proportionate.",
+      "whenToUse": "Use for code changes, refactors, bug fixes, and reviews where scope can drift.",
+      "whenNotToUse": "Do not use to block necessary architecture work when complexity is justified by clear requirements.",
+      "passiveConsumerAgents": [
+        "Architect Agent",
+        "Frontend Agent",
+        "Backend Contract Agent",
+        "Reviewer Agent",
+        "QA Test Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "karpathy"
+      ],
+      "validationGates": [
+        "Review the diff and confirm each changed line has a direct reason."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/karpathy-inspired-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "matt.design-interface",
+      "displayName": "Design Interface",
+      "area": "matt",
+      "methodPath": "methods/matt/design-interface.md",
+      "purpose": "Explore interface shapes before committing to a module or API design.",
+      "whenToUse": "Use when a module boundary, API, component interface, or developer experience is unclear.",
+      "whenNotToUse": "Do not generate many alternatives when an established local pattern already fits.",
+      "passiveConsumerAgents": [
+        "Architect Agent",
+        "Backend Contract Agent",
+        "Frontend Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "ambiguous-behavior-changing-request"
+      ],
+      "riskDomains": [
+        "matt"
+      ],
+      "validationGates": [
+        "Include example usage and explain why the chosen shape wins."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "matt.git-guardrails",
+      "displayName": "Git Guardrails",
+      "area": "matt",
+      "methodPath": "methods/matt/git-guardrails.md",
+      "purpose": "Keep branch, commit, and push behavior deliberate.",
+      "whenToUse": "Use before staging, committing, pushing, or opening a PR.",
+      "whenNotToUse": "Do not use to bypass project-specific release policy.",
+      "passiveConsumerAgents": [
+        "Release Manager Agent",
+        "Reviewer Agent",
+        "QA Test Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "coderabbit-pr-triage",
+        "dirty-stale-divergent-repo-state"
+      ],
+      "riskDomains": [
+        "matt"
+      ],
+      "validationGates": [
+        "Confirm branch, commit hash, remote, PR URL, and clean or expected worktree status."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "matt.grill-me",
+      "displayName": "Grill Me",
+      "area": "matt",
+      "methodPath": "methods/matt/grill-me.md",
+      "purpose": "Resolve ambiguity through focused questioning before implementation.",
+      "whenToUse": "Use when the goal, scope, success criteria, audience, or tradeoffs are unclear.",
+      "whenNotToUse": "Do not ask questions that local inspection can answer.",
+      "passiveConsumerAgents": [
+        "Product Agent",
+        "Architect Agent",
+        "UIUX Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "matt"
+      ],
+      "validationGates": [
+        "The final plan must be decision-complete for the next worker."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "matt.improve-architecture",
+      "displayName": "Improve Architecture",
+      "area": "matt",
+      "methodPath": "methods/matt/improve-architecture.md",
+      "purpose": "Plan architecture improvements without drifting into rewrite enthusiasm.",
+      "whenToUse": "Use when existing structure blocks a requested change or creates clear risk.",
+      "whenNotToUse": "Do not refactor unrelated code just because it could be cleaner.",
+      "passiveConsumerAgents": [
+        "Architect Agent",
+        "Reviewer Agent",
+        "Backend Contract Agent",
+        "Frontend Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "matt"
+      ],
+      "validationGates": [
+        "Show before/after behavior remains compatible and tests cover the moved boundary."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "matt.tdd",
+      "displayName": "TDD",
+      "area": "matt",
+      "methodPath": "methods/matt/tdd.md",
+      "purpose": "Drive implementation through a failing test, passing implementation, and cleanup loop.",
+      "whenToUse": "Use for behavior changes, bugs, contracts, and risky refactors.",
+      "whenNotToUse": "Do not force a test loop where the artifact has no executable behavior.",
+      "passiveConsumerAgents": [
+        "QA Test Agent",
+        "Backend Contract Agent",
+        "Frontend Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "matt"
+      ],
+      "validationGates": [
+        "Record red/green evidence when feasible, or explain why not."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "matt.to-issues",
+      "displayName": "To Issues",
+      "area": "matt",
+      "methodPath": "methods/matt/to-issues.md",
+      "purpose": "Break a plan into independently grabbable implementation units.",
+      "whenToUse": "Use when a spec needs task slicing for branch or issue workflow.",
+      "whenNotToUse": "Do not create issue churn for a single-file or trivial change.",
+      "passiveConsumerAgents": [
+        "Product Agent",
+        "Architect Agent",
+        "Release Manager Agent",
+        "QA Test Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "matt"
+      ],
+      "validationGates": [
+        "Each issue should be implementable and testable without guessing."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "matt.to-prd",
+      "displayName": "To PRD",
+      "area": "matt",
+      "methodPath": "methods/matt/to-prd.md",
+      "purpose": "Turn conversation context into a concise product requirements document.",
+      "whenToUse": "Use when a feature needs shared product intent before planning.",
+      "whenNotToUse": "Do not create a PRD for tiny implementation-only changes.",
+      "passiveConsumerAgents": [
+        "Product Agent",
+        "Architect Agent",
+        "Release Manager Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "matt"
+      ],
+      "validationGates": [
+        "Check that each requirement has a corresponding acceptance signal."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "matt.triage-issue",
+      "displayName": "Triage Issue",
+      "area": "matt",
+      "methodPath": "methods/matt/triage-issue.md",
+      "purpose": "Classify incoming work and decide the next responsible path.",
+      "whenToUse": "Use when reviewing bugs, feature requests, source findings, or unclear backlog items.",
+      "whenNotToUse": "Do not use as a substitute for fixing a clearly scoped urgent bug.",
+      "passiveConsumerAgents": [
+        "Product Agent",
+        "QA Test Agent",
+        "Reviewer Agent",
+        "Release Manager Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "matt"
+      ],
+      "validationGates": [
+        "Every triaged item must have a recommended next state."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/matt-pocock-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "osmani.api-interface-design",
+      "displayName": "API Interface Design",
+      "area": "osmani",
+      "methodPath": "methods/osmani/api-interface-design.md",
+      "purpose": "Create clear and stable contracts between systems.",
+      "whenToUse": "Use when designing APIs, module boundaries, public types, or integration contracts.",
+      "whenNotToUse": "Do not over-design internal helpers that have one local caller and no stable contract.",
+      "passiveConsumerAgents": [
+        "Architect Agent",
+        "Backend Contract Agent",
+        "Database RLS Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "api-contract-change"
+      ],
+      "riskDomains": [
+        "osmani"
+      ],
+      "validationGates": [
+        "Confirm examples, tests, and docs match the contract."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "osmani.code-review-quality",
+      "displayName": "Code Review Quality",
+      "area": "osmani",
+      "methodPath": "methods/osmani/code-review-quality.md",
+      "purpose": "Review changes for correctness, maintainability, risk, and test adequacy.",
+      "whenToUse": "Use before merging code, accepting generated work, or shipping risky changes.",
+      "whenNotToUse": "Do not use to bikeshed unrelated style when the change is otherwise clear and local conventions are met.",
+      "passiveConsumerAgents": [
+        "Reviewer Agent",
+        "Security Agent",
+        "QA Test Agent",
+        "Architect Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "coderabbit-pr-triage"
+      ],
+      "riskDomains": [
+        "osmani"
+      ],
+      "validationGates": [
+        "Findings must cite files or behavior and include severity."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "osmani.engineering-lifecycle-gates",
+      "displayName": "Engineering Lifecycle Gates",
+      "area": "osmani",
+      "methodPath": "methods/osmani/engineering-lifecycle-gates.md",
+      "purpose": "Create disciplined gates from idea through release.",
+      "whenToUse": "Use for any non-trivial software change or agent workflow.",
+      "whenNotToUse": "Do not use as heavyweight ceremony for tiny documentation fixes.",
+      "passiveConsumerAgents": [
+        "All internal agents",
+        "especially Product",
+        "Architect",
+        "QA Test",
+        "Reviewer",
+        "and Release Manager"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "osmani"
+      ],
+      "validationGates": [
+        "- Planning: planning brief or RFC with acceptance criteria. - Development / PR: unit or integration test results and code review approval. - Pre-merge / CI: passing CI result or documented check output and security review when relevant. - Release: release notes, rollback plan, and smoke test result."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "osmani.frontend-ui-engineering",
+      "displayName": "Frontend UI Engineering",
+      "area": "osmani",
+      "methodPath": "methods/osmani/frontend-ui-engineering.md",
+      "purpose": "Guide production-quality frontend implementation.",
+      "whenToUse": "Use when building or reviewing user-facing interfaces.",
+      "whenNotToUse": "Do not use for purely backend or data-only changes unless UI contracts are affected.",
+      "passiveConsumerAgents": [
+        "Frontend Agent",
+        "UIUX Agent",
+        "QA Test Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "osmani"
+      ],
+      "validationGates": [
+        "Check viewport behavior, keyboard access, contrast-sensitive states, and browser runtime issues."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "osmani.incremental-implementation",
+      "displayName": "Incremental Implementation",
+      "area": "osmani",
+      "methodPath": "methods/osmani/incremental-implementation.md",
+      "purpose": "Reduce risk by building in small verified slices.",
+      "whenToUse": "Use when a change touches multiple files, user workflows, or shared behavior.",
+      "whenNotToUse": "Do not split so finely that verification becomes meaningless or fragmented.",
+      "passiveConsumerAgents": [
+        "Frontend Agent",
+        "Backend Contract Agent",
+        "Database RLS Agent",
+        "QA Test Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "osmani"
+      ],
+      "validationGates": [
+        "Run focused tests or checks after each meaningful slice."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "osmani.performance-optimization",
+      "displayName": "Performance Optimization",
+      "area": "osmani",
+      "methodPath": "methods/osmani/performance-optimization.md",
+      "purpose": "Improve performance through measurement and targeted changes.",
+      "whenToUse": "Use when performance requirements exist, regressions are suspected, or user experience depends on speed.",
+      "whenNotToUse": "Do not optimize speculative bottlenecks without measurement.",
+      "passiveConsumerAgents": [
+        "SRE Performance Agent",
+        "Frontend Agent",
+        "Backend Contract Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "frontend-performance-issue",
+        "performance-regression",
+        "postgres-query-performance"
+      ],
+      "riskDomains": [
+        "osmani"
+      ],
+      "validationGates": [
+        "Record baseline, change, and post-change measurement when feasible."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "osmani.security-hardening",
+      "displayName": "Security Hardening",
+      "area": "osmani",
+      "methodPath": "methods/osmani/security-hardening.md",
+      "purpose": "Make security review part of normal engineering work.",
+      "whenToUse": "Use when handling auth, user input, storage, external integrations, secrets, deployment, or automation.",
+      "whenNotToUse": "Do not block low-risk docs work with unrelated security review.",
+      "passiveConsumerAgents": [
+        "Security Agent",
+        "Backend Contract Agent",
+        "Database RLS Agent",
+        "Reviewer Agent",
+        "Skill Scout Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "high-risk-security-data-request",
+        "security-review"
+      ],
+      "riskDomains": [
+        "osmani"
+      ],
+      "validationGates": [
+        "Run relevant security checks or document why no check exists."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "osmani.shipping-launch",
+      "displayName": "Shipping And Launch",
+      "area": "osmani",
+      "methodPath": "methods/osmani/shipping-launch.md",
+      "purpose": "Prepare changes for controlled release.",
+      "whenToUse": "Use when a feature, migration, or workflow is ready for production or project sync.",
+      "whenNotToUse": "Do not use for local-only drafts that are not ready for review.",
+      "passiveConsumerAgents": [
+        "Release Manager Agent",
+        "SRE Performance Agent",
+        "QA Test Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "release-readiness"
+      ],
+      "riskDomains": [
+        "osmani"
+      ],
+      "validationGates": [
+        "Confirm tests, review status, release notes, and rollback notes."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "osmani.spec-driven-development",
+      "displayName": "Spec Driven Development",
+      "area": "osmani",
+      "methodPath": "methods/osmani/spec-driven-development.md",
+      "purpose": "Turn intent into implementation-ready requirements before coding.",
+      "whenToUse": "Use for new features, cross-module work, architectural changes, and unclear requests.",
+      "whenNotToUse": "Do not require a full spec for a clearly bounded typo or tiny doc correction.",
+      "passiveConsumerAgents": [
+        "Product Agent",
+        "Architect Agent",
+        "Backend Contract Agent",
+        "Frontend Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "ambiguous-behavior-changing-request"
+      ],
+      "riskDomains": [
+        "osmani"
+      ],
+      "validationGates": [
+        "Confirm bidirectional traceability: every planned task maps to a spec requirement, and every spec requirement maps to at least one task and ideally one test. Maintain a traceability matrix or linked checklist so requirements cannot drop silently."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "osmani.test-driven-development",
+      "displayName": "Test-Driven Development",
+      "area": "osmani",
+      "methodPath": "methods/osmani/test-driven-development.md",
+      "purpose": "Use tests to define and protect expected behavior.",
+      "whenToUse": "Use for bug fixes, behavior changes, business logic, contracts, and regression-prone UI flows.",
+      "whenNotToUse": "Do not force TDD for static text-only edits where no behavior changes.",
+      "passiveConsumerAgents": [
+        "QA Test Agent",
+        "Backend Contract Agent",
+        "Frontend Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "osmani"
+      ],
+      "validationGates": [
+        "Record the test command, expected result, actual result, and any remaining gap or rationale. For regressions, demonstrate that the test would fail without the fix when feasible."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "security.differential-security-review",
+      "displayName": "Differential Security Review",
+      "area": "security",
+      "methodPath": "methods/security/differential-security-review.md",
+      "purpose": "Review changed code by risk first, focusing security effort where the diff can alter trust boundaries, access control, secrets, public payloads, or supply-chain behavior.",
+      "whenToUse": "Use for PR review, dependency changes, auth/security-sensitive diffs, public API changes, database policy changes, external calls, validation changes, payment/value-transfer logic, cryptography, file upload/download paths, or configuration that changes runtime exposure.",
+      "whenNotToUse": "Do not use as a full audit of unrelated code when the user asked for a narrow typo, formatting, or docs-only change with no security surface. Do not use it to run external scanners or install security tooling unless separately approved.",
+      "passiveConsumerAgents": [
+        "Security Agent",
+        "Reviewer Agent",
+        "Backend Contract Agent",
+        "Database RLS Agent",
+        "Release Manager Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "api-contract-change",
+        "coderabbit-pr-triage",
+        "dependency-supply-chain-review",
+        "high-risk-security-data-request",
+        "read-only-repo-audit",
+        "release-readiness",
+        "security-review",
+        "supabase-rls-migration"
+      ],
+      "riskDomains": [
+        "security"
+      ],
+      "validationGates": [
+        "Report changed surfaces reviewed, high-risk triggers found or absent, findings ordered by severity, evidence references, confidence, tests or checks run, and coverage limits. If no issues are found, state residual risk and any validation that could not run."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/trailofbits-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Trail of Bits source record reports CC-BY-SA-4.0; method text must remain paraphrased and not copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "uiux.accessibility",
+      "displayName": "Accessibility",
+      "area": "uiux",
+      "methodPath": "methods/uiux/accessibility.md",
+      "purpose": "Make interfaces usable by keyboard, assistive technology, and users with varied abilities.",
+      "whenToUse": "Use for any user-facing UI change.",
+      "whenNotToUse": "Do not treat accessibility as optional polish after visual completion.",
+      "passiveConsumerAgents": [
+        "UIUX Agent",
+        "Frontend Agent",
+        "QA Test Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "uiux"
+      ],
+      "validationGates": [
+        "Check keyboard navigation, focus states, labels, contrast-sensitive elements, and responsive readability."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "uiux.dashboard-ux",
+      "displayName": "Dashboard UX",
+      "area": "uiux",
+      "methodPath": "methods/uiux/dashboard-ux.md",
+      "purpose": "Design operational interfaces for scanning, comparison, and repeated action.",
+      "whenToUse": "Use for dashboards, admin tools, CRMs, analytics surfaces, and internal operations UI.",
+      "whenNotToUse": "Do not use marketing-page composition for dense work surfaces.",
+      "passiveConsumerAgents": [
+        "UIUX Agent",
+        "Frontend Agent",
+        "Product Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "dashboard-ui-redesign"
+      ],
+      "riskDomains": [
+        "uiux"
+      ],
+      "validationGates": [
+        "Check scan paths, sorting/filtering affordances, responsive density, and empty/error states."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/bencium-marketplace.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "uiux.design-system",
+      "displayName": "Design System",
+      "area": "uiux",
+      "methodPath": "methods/uiux/design-system.md",
+      "purpose": "Use consistent tokens, components, and interaction rules across UI work.",
+      "whenToUse": "Use when creating or reviewing repeatable interface patterns.",
+      "whenNotToUse": "Do not create a design system for a one-off page unless reuse is likely.",
+      "passiveConsumerAgents": [
+        "UIUX Agent",
+        "Frontend Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "dashboard-ui-redesign"
+      ],
+      "riskDomains": [
+        "uiux"
+      ],
+      "validationGates": [
+        "Check consistency across repeated elements and states."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/bencium-marketplace.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "uiux.frontend-design",
+      "displayName": "Frontend Design",
+      "area": "uiux",
+      "methodPath": "methods/uiux/frontend-design.md",
+      "purpose": "Create frontend experiences that are usable, coherent, and visually intentional.",
+      "whenToUse": "Use when designing pages, components, apps, prototypes, dashboards, or visual refinements.",
+      "whenNotToUse": "Do not use to add decorative styling that ignores product workflow needs.",
+      "passiveConsumerAgents": [
+        "UIUX Agent",
+        "Frontend Agent",
+        "Reviewer Agent",
+        "QA Test Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "uiux"
+      ],
+      "validationGates": [
+        "Check desktop and mobile layout, component states, screenshot quality, and accessibility minimums: - keyboard-only navigation with reachable interactive elements, - visible focus indicators, - semantic labels, alt text, or form labels for controls, - contrast of at least 4.5:1 for normal text and 3:1 for large text."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/bencium-marketplace.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "uiux.interaction-motion",
+      "displayName": "Interaction Motion",
+      "area": "uiux",
+      "methodPath": "methods/uiux/interaction-motion.md",
+      "purpose": "Use motion to clarify state change, hierarchy, and continuity.",
+      "whenToUse": "Use for transitions, interaction feedback, loading states, and spatial navigation.",
+      "whenNotToUse": "Do not add motion that slows work, distracts from content, or violates reduced-motion preferences.",
+      "passiveConsumerAgents": [
+        "UIUX Agent",
+        "Frontend Agent",
+        "QA Test Agent"
+      ],
+      "relatedRoutingScenarios": [],
+      "riskDomains": [
+        "uiux"
+      ],
+      "validationGates": [
+        "Check interaction timing, reduced-motion behavior, and visual stability during state changes."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        }
+      ],
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "uiux.premium-visual-quality",
+      "displayName": "Premium Visual Quality",
+      "area": "uiux",
+      "methodPath": "methods/uiux/premium-visual-quality.md",
+      "purpose": "Raise visual quality without sacrificing usability or performance.",
+      "whenToUse": "Use for branded websites, polished apps, demos, and high-visibility UI.",
+      "whenNotToUse": "Do not prioritize aesthetics over clarity, accessibility, or product workflow.",
+      "passiveConsumerAgents": [
+        "UIUX Agent",
+        "Frontend Agent",
+        "Product Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "dashboard-ui-redesign"
+      ],
+      "riskDomains": [
+        "uiux"
+      ],
+      "validationGates": [
+        "Review screenshots across viewports and inspect for overlap, low contrast, and generic composition."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        },
+        {
+          "path": "sources/bencium-marketplace.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "uiux.responsive-layout",
+      "displayName": "Responsive Layout",
+      "area": "uiux",
+      "methodPath": "methods/uiux/responsive-layout.md",
+      "purpose": "Ensure UI adapts cleanly across mobile, tablet, and desktop.",
+      "whenToUse": "Use when building or reviewing layouts, dashboards, tools, forms, or cards.",
+      "whenNotToUse": "Do not rely on viewport-scaled type or accidental wrapping as a layout strategy.",
+      "passiveConsumerAgents": [
+        "UIUX Agent",
+        "Frontend Agent",
+        "QA Test Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "frontend-ui-bug"
+      ],
+      "riskDomains": [
+        "uiux"
+      ],
+      "validationGates": [
+        "Capture or inspect representative mobile and desktop views."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/anthropic-skills.md",
+          "category": "restricted-source"
+        }
+      ],
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "uiux.webapp-testing",
+      "displayName": "Webapp Testing",
+      "area": "uiux",
+      "methodPath": "methods/uiux/webapp-testing.md",
+      "purpose": "Verify web apps through rendered behavior, not just static code inspection.",
+      "whenToUse": "Use after frontend changes, routing changes, form work, dashboards, or visual refinements.",
+      "whenNotToUse": "Do not use full browser checks for docs-only changes with no rendered surface.",
+      "passiveConsumerAgents": [
+        "QA Test Agent",
+        "Frontend Agent",
+        "UIUX Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "dashboard-ui-redesign",
+        "frontend-performance-issue",
+        "frontend-ui-bug"
+      ],
+      "riskDomains": [
+        "uiux"
+      ],
+      "validationGates": [
+        "Report browser target, workflow tested, viewport coverage, errors found, screenshots or observations, artifact handling, and remaining gaps. When using traces, videos, Lighthouse-style reports, or accessibility reports, summarize the evidence and avoid committing private artifacts."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/addy-osmani-agent-skills.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/playwright.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/addyosmani-web-quality-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Playwright source record reports Apache-2.0; no framework source or docs text copied. Addy Osmani Web Quality source record reports MIT; no raw skill bodies copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    }
+  ]
+}

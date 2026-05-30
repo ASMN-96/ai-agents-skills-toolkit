@@ -1,0 +1,208 @@
+{
+  "schemaVersion": "1.0.0",
+  "toolkitVersion": "0.6.0-draft",
+  "packageType": "route-metadata",
+  "installPolicy": "Routes do not install, activate, configure CI, configure MCP, or change package files.",
+  "routes": [
+    {
+      "id": "fast-local",
+      "purpose": "Fast local confidence using existing scripts only.",
+      "triggerCases": [
+        "code change",
+        "quality check"
+      ],
+      "negativeTriggerCases": [
+        "deep release",
+        "approval-required scans"
+      ],
+      "requiredScriptsIfAvailable": [
+        "typecheck",
+        "lint",
+        "test",
+        "build"
+      ],
+      "optionalToolsIfAvailable": [
+        "typescript",
+        "typescript-eslint",
+        "vitest"
+      ],
+      "approvalRequiredTools": [],
+      "stopConditions": [
+        "required script fails"
+      ],
+      "completionReportFields": [
+        "mode",
+        "scripts run",
+        "missing scripts",
+        "failures"
+      ]
+    },
+    {
+      "id": "pr-blocking",
+      "purpose": "PR blocking local and remote readiness.",
+      "triggerCases": [
+        "PR prep",
+        "merge readiness"
+      ],
+      "negativeTriggerCases": [
+        "local-only draft"
+      ],
+      "requiredScriptsIfAvailable": [
+        "typecheck",
+        "lint",
+        "test",
+        "build"
+      ],
+      "optionalToolsIfAvailable": [
+        "gitleaks",
+        "osv-scanner",
+        "github-gh",
+        "coderabbit"
+      ],
+      "approvalRequiredTools": [],
+      "stopConditions": [
+        "required check fails"
+      ],
+      "completionReportFields": [
+        "branch",
+        "PR",
+        "checks",
+        "review status"
+      ]
+    },
+    {
+      "id": "frontend-ui",
+      "purpose": "Frontend UI, accessibility, and browser-facing readiness.",
+      "triggerCases": [
+        "UI change",
+        "mobile",
+        "dashboard"
+      ],
+      "negativeTriggerCases": [
+        "backend-only"
+      ],
+      "requiredScriptsIfAvailable": [
+        "typecheck",
+        "lint",
+        "test",
+        "build"
+      ],
+      "optionalToolsIfAvailable": [
+        "playwright",
+        "axe-playwright",
+        "lighthouse-ci",
+        "react-doctor"
+      ],
+      "approvalRequiredTools": [
+        "owasp-zap-baseline"
+      ],
+      "stopConditions": [
+        "browser target unavailable for required runtime QA"
+      ],
+      "completionReportFields": [
+        "viewport coverage",
+        "screenshots",
+        "manual QA"
+      ]
+    },
+    {
+      "id": "security-review",
+      "purpose": "Security and privacy review using project-owned checks first.",
+      "triggerCases": [
+        "security",
+        "public payload",
+        "tenant"
+      ],
+      "negativeTriggerCases": [
+        "style-only"
+      ],
+      "requiredScriptsIfAvailable": [
+        "typecheck",
+        "lint",
+        "test"
+      ],
+      "optionalToolsIfAvailable": [
+        "gitleaks",
+        "osv-scanner",
+        "semgrep",
+        "codeql"
+      ],
+      "approvalRequiredTools": [
+        "socket",
+        "trufflehog",
+        "owasp-zap-baseline"
+      ],
+      "stopConditions": [
+        "secret or auth risk unresolved"
+      ],
+      "completionReportFields": [
+        "findings",
+        "coverage",
+        "skipped deep scans"
+      ]
+    },
+    {
+      "id": "workflow-ci",
+      "purpose": "Workflow and CI security review.",
+      "triggerCases": [
+        "workflow file change"
+      ],
+      "negativeTriggerCases": [
+        "no workflow change"
+      ],
+      "requiredScriptsIfAvailable": [
+        "lint",
+        "test"
+      ],
+      "optionalToolsIfAvailable": [
+        "actionlint",
+        "zizmor"
+      ],
+      "approvalRequiredTools": [
+        "harden-runner"
+      ],
+      "stopConditions": [
+        "workflow permissions risk unresolved"
+      ],
+      "completionReportFields": [
+        "workflow files",
+        "permissions",
+        "findings"
+      ]
+    },
+    {
+      "id": "deep-release",
+      "purpose": "Deep release gate after scoped approval.",
+      "triggerCases": [
+        "release candidate"
+      ],
+      "negativeTriggerCases": [
+        "normal PR"
+      ],
+      "requiredScriptsIfAvailable": [
+        "typecheck",
+        "lint",
+        "test",
+        "build"
+      ],
+      "optionalToolsIfAvailable": [
+        "trivy",
+        "checkov"
+      ],
+      "approvalRequiredTools": [
+        "socket",
+        "trufflehog",
+        "owasp-zap-baseline",
+        "harden-runner"
+      ],
+      "stopConditions": [
+        "approval missing for deep tool"
+      ],
+      "completionReportFields": [
+        "release status",
+        "blockers",
+        "manual QA"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,520 @@
+{
+  "schemaVersion": "1.0.0",
+  "registryType": "profiles",
+  "activationPolicy": "Profiles guide routing and do not install or activate anything.",
+  "profiles": [
+    {
+      "name": "audit-profile",
+      "purpose": "Read-only source, safety, review, and QA evaluation.",
+      "mode": "read-only",
+      "agents": [
+        "skill-scout-agent",
+        "security-agent",
+        "reviewer-agent",
+        "qa-test-agent"
+      ],
+      "skills": [
+        "riss-governance"
+      ],
+      "supportTools": [
+        "Superpowers",
+        "Context7",
+        "web search/browser"
+      ],
+      "allowedActions": [
+        "Inspect repository files and docs",
+        "Classify findings and risks",
+        "Recommend fixes without applying them unless separately approved"
+      ],
+      "forbiddenActions": [
+        "Install or activate skills",
+        "Clone external repositories",
+        "Run third-party scripts",
+        "Modify product repos or global Codex config"
+      ],
+      "validationGates": [
+        "Confirm no raw external sources are active",
+        "Confirm no unsafe files or nested repos were added",
+        "Confirm source/license uncertainty is documented"
+      ],
+      "outputExpectations": [
+        "Executive status",
+        "Findings ordered by severity",
+        "Safety gate table",
+        "Recommended next action"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/audit-profile.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "implementation-profile",
+      "purpose": "Scoped implementation with architecture, frontend, backend, database, QA, and review coverage.",
+      "mode": "implementation",
+      "agents": [
+        "product-agent",
+        "architect-agent",
+        "frontend-agent",
+        "backend-contract-agent",
+        "database-rls-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "riss-governance"
+      ],
+      "supportTools": [
+        "Superpowers",
+        "GSD",
+        "GitHub/gh",
+        "Playwright/browser",
+        "Supabase tooling/docs"
+      ],
+      "allowedActions": [
+        "Make approved scoped repo changes",
+        "Run available validation",
+        "Update docs and tests in scope"
+      ],
+      "forbiddenActions": [
+        "Push directly to main",
+        "Install or activate external skills without approval",
+        "Modify product repos from this toolkit"
+      ],
+      "validationGates": [
+        "Working branch is not main",
+        "JSON and static checks pass when available",
+        "No unsafe artifacts are added"
+      ],
+      "outputExpectations": [
+        "What changed",
+        "Files changed",
+        "Validation evidence",
+        "Risks and deferred work"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/implementation-profile.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "frontend-profile",
+      "purpose": "Frontend implementation and review with UI/UX, QA, review, and security gates.",
+      "mode": "implementation",
+      "agents": [
+        "frontend-agent",
+        "uiux-agent",
+        "qa-test-agent",
+        "reviewer-agent",
+        "security-agent"
+      ],
+      "skills": [
+        "riss-governance",
+        "vd-premium-uiux"
+      ],
+      "supportTools": [
+        "Playwright/browser",
+        "Superpowers",
+        "Context7",
+        "Figma"
+      ],
+      "allowedActions": [
+        "Implement approved frontend changes",
+        "Validate accessibility and responsive behavior",
+        "Run browser verification when needed"
+      ],
+      "forbiddenActions": [
+        "Invent unsupported design systems",
+        "Use Figma without an approved design source",
+        "Install frontend packages without approval"
+      ],
+      "validationGates": [
+        "Responsive behavior checked",
+        "Accessibility and UI states checked",
+        "Runtime verification run when behavior is browser-visible"
+      ],
+      "outputExpectations": [
+        "UI summary",
+        "Affected flows",
+        "Browser/accessibility validation",
+        "Remaining manual QA"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/frontend-profile.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "backend-profile",
+      "purpose": "Backend contract, Supabase, database, RLS, security, and QA gated work.",
+      "mode": "implementation",
+      "agents": [
+        "backend-contract-agent",
+        "database-rls-agent",
+        "security-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "riss-governance"
+      ],
+      "supportTools": [
+        "Supabase tooling/docs",
+        "GitHub/gh",
+        "Superpowers",
+        "Context7"
+      ],
+      "allowedActions": [
+        "Review and implement approved backend changes",
+        "Run safe local validation",
+        "Document migration and rollback considerations"
+      ],
+      "forbiddenActions": [
+        "Weaken authorization",
+        "Run production-impacting commands without approval",
+        "Apply database migrations without explicit approval"
+      ],
+      "validationGates": [
+        "API/payload contracts checked",
+        "RLS/data isolation checked when relevant",
+        "Migration risk documented"
+      ],
+      "outputExpectations": [
+        "Contract impact",
+        "Database/RLS impact",
+        "Validation evidence",
+        "Rollback notes"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/backend-profile.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "uiux-profile",
+      "purpose": "UI/UX review using Product, Frontend, QA, and Reviewer handoff.",
+      "mode": "review",
+      "agents": [
+        "uiux-agent",
+        "frontend-agent",
+        "product-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "riss-governance",
+        "vd-premium-uiux"
+      ],
+      "supportTools": [
+        "Playwright/browser",
+        "Figma",
+        "Superpowers"
+      ],
+      "allowedActions": [
+        "Define visual and UX acceptance criteria",
+        "Review UI for quality, accessibility, and responsiveness",
+        "Recommend scoped UI improvements"
+      ],
+      "forbiddenActions": [
+        "Override security/accessibility constraints",
+        "Use unapproved design sources",
+        "Copy external design assets into active paths"
+      ],
+      "validationGates": [
+        "Hierarchy, spacing, contrast, state coverage, and text fit checked",
+        "Design source status reported",
+        "Runtime UI checks recommended or run when needed"
+      ],
+      "outputExpectations": [
+        "UX findings",
+        "Acceptance criteria",
+        "Implementation handoff",
+        "Validation notes"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/uiux-profile.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "security-profile",
+      "purpose": "Security, privacy, supply-chain, and data exposure review.",
+      "mode": "review",
+      "agents": [
+        "security-agent",
+        "skill-scout-agent",
+        "database-rls-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "riss-governance"
+      ],
+      "supportTools": [
+        "Superpowers",
+        "GitHub/gh",
+        "web search/browser",
+        "Supabase tooling/docs"
+      ],
+      "allowedActions": [
+        "Inspect source, diffs, docs, and metadata",
+        "Classify risk and evidence",
+        "Recommend remediations"
+      ],
+      "forbiddenActions": [
+        "Run unknown scripts",
+        "Read secrets unnecessarily",
+        "Install or activate external skills",
+        "Copy raw external sources"
+      ],
+      "validationGates": [
+        "Prompt-injection risk checked",
+        "Secret/public-payload risk checked",
+        "Source/license uncertainty documented"
+      ],
+      "outputExpectations": [
+        "Findings by severity",
+        "Evidence",
+        "Coverage limits",
+        "Required approvals"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/security-profile.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "sre-profile",
+      "purpose": "Reliability, performance, observability, and release-readiness review.",
+      "mode": "review",
+      "agents": [
+        "sre-performance-agent",
+        "backend-contract-agent",
+        "qa-test-agent",
+        "release-manager-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "riss-governance"
+      ],
+      "supportTools": [
+        "Playwright/browser",
+        "GitHub/gh",
+        "Superpowers",
+        "Context7"
+      ],
+      "allowedActions": [
+        "Review performance and reliability risk",
+        "Define observability and rollback gates",
+        "Run non-destructive validation"
+      ],
+      "forbiddenActions": [
+        "Run production-impacting commands without approval",
+        "Claim performance readiness without evidence",
+        "Bypass release gates"
+      ],
+      "validationGates": [
+        "Evidence exists for readiness claims",
+        "Rollback and monitoring are documented for risky changes",
+        "High-impact failures block release"
+      ],
+      "outputExpectations": [
+        "Reliability/performance summary",
+        "Risks and severity",
+        "Required gates",
+        "Rollback and monitoring notes"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/sre-profile.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "release-profile",
+      "purpose": "PR, CI, changelog, release gate, and merge readiness review.",
+      "mode": "review",
+      "agents": [
+        "release-manager-agent",
+        "reviewer-agent",
+        "qa-test-agent",
+        "security-agent"
+      ],
+      "skills": [
+        "riss-governance"
+      ],
+      "supportTools": [
+        "GitHub/gh",
+        "CodeRabbit",
+        "Superpowers"
+      ],
+      "allowedActions": [
+        "Check branch, PR, CI, and review status",
+        "Prepare release gate summary",
+        "Recommend merge/fix/wait"
+      ],
+      "forbiddenActions": [
+        "Push directly to main",
+        "Merge with unresolved required checks or review comments",
+        "Bypass safety blockers"
+      ],
+      "validationGates": [
+        "Working tree and branch status checked",
+        "Required checks and reviews checked",
+        "Forbidden artifacts checked"
+      ],
+      "outputExpectations": [
+        "Branch and PR status",
+        "Checks/review status",
+        "Safety gates",
+        "Next action"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/release-profile.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    }
+  ]
+}

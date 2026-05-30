@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "toolkitVersion": "0.6.0-draft",
+  "scripts": [
+    {
+      "path": "scripts/validate-toolkit.mjs",
+      "sha256": "b366e7a37732bd6ac486194747ad8c4253e751f54406765155a75243b7fb1668"
+    },
+    {
+      "path": "scripts/check-source-freshness.mjs",
+      "sha256": "1ea180eaedd904a18ae026a892915ece38022f0cd16eafce89cf5a33157c7054"
+    },
+    {
+      "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
+      "sha256": "38a71c6847dfd4d0f6f2502130148821d05a7d5eae014dff49328bfb201061e6"
+    },
+    {
+      "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",
+      "sha256": "22e063067360e6134c52dce3f9b2389818710ea0f3491177b57ee5e56c1be285"
+    },
+    {
+      "path": "scripts/ai-toolkit/validate-version-consistency.mjs",
+      "sha256": "28c593cfcb5eae0eac46027876f3bce460a77cf76d5daebe59c7fb30dce6c2bc"
+    },
+    {
+      "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
+      "sha256": "fce27d6ff3a59ba73deed805c2adc51a240c7700b39b67515250980604e64ddf"
+    },
+    {
+      "path": "scripts/ai-toolkit/check-source-freshness.mjs",
+      "sha256": "3665243a38cd0fa28db48b128146acad91af4b217f43e3d97dc481860a3db46c"
+    },
+    {
+      "path": "scripts/ai-toolkit/run-quality-gate.mjs",
+      "sha256": "856d311a038064680d81373d253f864e9fc4d4e4b01d054a09963b965b94c57e"
+    }
+  ]
+}
