@@ -1,3 +1,9 @@
+---
+sourceRef: ["addy-osmani-agent-skills","microsoft-playwright","addyosmani-web-quality-skills"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Webapp Testing
 
 ## Purpose

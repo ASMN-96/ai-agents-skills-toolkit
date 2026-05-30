@@ -4,7 +4,7 @@ This document defines when the toolkit can be used in real product repositories.
 
 ## Current Classification
 
-After the 2026-05-30 RISS v2 pilot, the toolkit is Level 3 certified for normal use in comparable real projects that follow the same governed PR sync flow. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
+After the 2026-05-30 RISS v2 pilot, the toolkit is Level 3 certified for normal use in comparable real projects that follow the same governed PR sync flow. Level 4 enterprise rollout and Level 5 public release are not approved; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
 
 Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project checks, PR review, and passing CI. This does not authorize automatic rollout or runtime/global activation.
 
@@ -19,6 +19,7 @@ Phase 10L governance UX hardening did not upgrade readiness by itself. The Level
 | 2 | Fresh-session verified | A new Codex session confirms skill visibility, agent native/fallback status, support-tool availability, and no silent fallback | One controlled real-project pilot |
 | 3 | Pilot validated | One representative project sync is reviewed, version-pinned, validated, and merged through PR | Normal use in comparable real projects |
 | 4 | Broad rollout | Multiple project pilots pass with no governance drift or unsafe sync behavior | Wider rollout, still phase-gated |
+| 5 | Public release | Public/private blockers, license/contribution/security policy gaps, package allowlist, and clean-clone release validation are resolved | Public repository or package distribution |
 
 ## Level 2 Gate
 

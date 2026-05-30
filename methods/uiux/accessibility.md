@@ -1,3 +1,9 @@
+---
+sourceRef: ["addy-osmani-agent-skills","anthropic-skills"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Accessibility
 
 ## Purpose

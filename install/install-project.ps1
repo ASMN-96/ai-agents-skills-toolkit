@@ -11,8 +11,19 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-$ToolkitVersion = '0.5.0-draft'
 $ToolkitRoot = Split-Path -Parent $PSScriptRoot
+
+function Get-ToolkitVersion {
+    $versionPath = Join-Path $ToolkitRoot '.ai-toolkit\VERSION'
+    if (!(Test-Path -LiteralPath $versionPath)) {
+        throw 'Missing .ai-toolkit/VERSION. Project sync requires the canonical toolkit version file.'
+    }
+    $version = (Get-Content -Raw -LiteralPath $versionPath).Trim()
+    if ([string]::IsNullOrWhiteSpace($version)) {
+        throw '.ai-toolkit/VERSION is empty.'
+    }
+    return $version
+}
 
 function Show-Help {
     @'
@@ -251,6 +262,7 @@ if ([string]::IsNullOrWhiteSpace($TargetPath)) {
 
 $targetRoot = (Resolve-Path -LiteralPath $TargetPath).Path
 $config = Resolve-Config
+$ToolkitVersion = Get-ToolkitVersion
 
 $selectedAgents = @(if ($Agents.Count -gt 0) { Convert-ToStringArray $Agents } else { Convert-ToStringArray (Get-JsonProperty $config 'selectedAgents' @()) })
 $selectedProfiles = @(if ($Profiles.Count -gt 0) { Convert-ToStringArray $Profiles } else { Convert-ToStringArray (Get-JsonProperty $config 'selectedProfiles' @()) })

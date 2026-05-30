@@ -52,6 +52,8 @@ The main-toolkit `.ai-toolkit/` package is different from a target-project insta
 
 Phase 6 project-managed skill sync copies selected toolkit-owned single-file skills into target projects under `.ai-toolkit/skills/<skill-name>/SKILL.md`. It does not activate skills globally, modify Codex global config, or support bundled multi-file skill resources.
 
+`docs/PUBLIC_PRIVATE_OVERLAY_ARCHITECTURE_ADR.md` defines the future `core/`, `runtimes/`, `private-overlays/`, and `distribution/` architecture. That ADR is documentation-only: it does not approve moving today’s canonical top-level folders, and it requires leak-scan, naming, registry, sourceRef, compile-contract, project-sync, embedded-package, and rollback gates before any migration.
+
 Phase 8 global custom-agent registration adds a Codex-native convenience layer above compiled agents. Native custom agents are preferred when available, but compiled agents remain the canonical fallback source. Global agent registration is not considered fully runtime-active until TOML validation and a Codex restart/new-session smoke test confirm visibility.
 
 Phase 10A/10B adds a governance spine and registry contract. Registries are metadata only: they do not install, activate, approve, or execute anything. Phase 10A/10B registers existing assets first and preserves external-source scouting for later batches through `docs/EXTERNAL_SOURCE_BACKLOG.md`.

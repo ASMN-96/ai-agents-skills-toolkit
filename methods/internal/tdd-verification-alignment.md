@@ -1,3 +1,9 @@
+---
+sourceRef: ["matt-pocock-skills","addy-osmani-agent-skills","superpowers"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # TDD Verification Alignment
 
 ## Purpose

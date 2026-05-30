@@ -15,6 +15,13 @@ import {
 
 const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
+const FUTURE_PUBLIC_SKILL_NAMES = {
+  "riss-governance": "ai-project-governance",
+  "vd-premium-uiux": "premium-uiux-review",
+  "riss-code-quality": "webapp-code-quality",
+  "riss-security-review": "app-security-review",
+  "riss-release-gate": "pr-release-gate"
+};
 
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
@@ -74,6 +81,46 @@ function isCodeRabbitIntegration(id) {
   return id === "coderabbit";
 }
 
+function enterpriseRiskMetadata(id) {
+  const base = {
+    license: "unknown-review-required",
+    saasOrLocal: "unknown-review-required",
+    dataSentExternally: "unknown-review-required",
+    networkBehavior: "unknown-review-required",
+    secretAccessRisk: "unknown-review-required",
+    repositoryPermissionsRequired: "unknown-review-required",
+    ciPermissionsRequired: "unknown-review-required",
+    githubAppPermissionsRequired: "unknown-review-required",
+    authenticationModel: "unknown-review-required",
+    telemetryBehavior: "unknown-review-required",
+    commercialVendorDependency: "unknown-review-required",
+    maintenanceSignal: "unknown-review-required",
+    lastReviewedCommit: "unknown-review-required",
+    lastReviewedDate: "unknown-review-required",
+    securityReviewStatus: "unknown-review-required",
+    approvalOwner: "owner-decision-required",
+    allowedEnvironments: ["metadata-only"],
+    forbiddenEnvironments: ["local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"],
+    defaultEnterpriseStatus: "metadata-only unless explicitly approved"
+  };
+
+  if (isCodeRabbitIntegration(id)) {
+    return {
+      ...base,
+      saasOrLocal: "SaaS/external connected service",
+      dataSentExternally: "PR or repository context may be sent externally when the already-connected integration is used; repository owner review required",
+      networkBehavior: "networked GitHub app / external service",
+      ciPermissionsRequired: "none from toolkit metadata; unknown-review-required for external configuration",
+      authenticationModel: "external service / GitHub app integration",
+      commercialVendorDependency: "yes",
+      allowedEnvironments: ["already-connected PR review workflows after repository owner approval"],
+      forbiddenEnvironments: ["install or configuration from registry presence", "credential changes", "permission changes", "merge authority by itself"]
+    };
+  }
+
+  return base;
+}
+
 function toolRegistryEntry([id, name, repository, homepage, category, purpose, status, defaultUse]) {
   if (isCodeRabbitIntegration(id)) {
     return {
@@ -108,6 +155,7 @@ function toolRegistryEntry([id, name, repository, homepage, category, purpose, s
       ],
       sourceRecordPath: null,
       integrationRecordPath: `${AI_ROOT}/integrations/coderabbit.md`,
+      enterpriseRisk: enterpriseRiskMetadata(id),
       notes: "Delegated external integration metadata only; the toolkit routes to CodeRabbit and interprets feedback but does not install, authenticate, configure, vendor, or copy CodeRabbit."
     };
   }
@@ -146,6 +194,7 @@ function toolRegistryEntry([id, name, repository, homepage, category, purpose, s
     ],
     sourceRecordPath: sourceRecordPath(id),
     integrationRecordPath: null,
+    enterpriseRisk: enterpriseRiskMetadata(id),
     notes: status === "source-review-required"
       ? "Repository/source identity requires explicit source review before reliance."
       : "Metadata-only entry; review current upstream before adoption."
@@ -217,7 +266,11 @@ function skillRegistryEntry(name) {
     provenanceType: "local-vd-authored",
     activationStatus: ["documented", "available", "approved", "active"],
     registrySurface: "user-facing",
-    visibility: ["repo", "runtime", "project-sync"]
+    visibility: ["repo", "runtime", "project-sync"],
+    futurePublicName: FUTURE_PUBLIC_SKILL_NAMES[name],
+    deprecatedAliases: [name],
+    namingMigrationStatus: "active-current-name",
+    publicNamingNotes: "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
   };
 
   if (name === "riss-code-quality") {
@@ -428,7 +481,8 @@ async function writeChecklistsAndTemplates() {
     "riss-v2-security-tenant-gate.md": "# RISS V2 Security Tenant Gate\n\n- Tenant isolation and role access are reviewed.\n- Public/private payload boundaries are explicit.\n- Lead data, auth/session behavior, RLS/Supabase policy, storage policy, frontend leakage, and analytics leakage are checked when present.\n",
     "riss-v2-publish-release-gate.md": "# RISS V2 Publish Release Gate\n\n- Draft, preview, publish, rollback, asset availability, cache/CDN behavior, migration risk, and public-route risk are reviewed when relevant.\n- Manual QA is required before release when runtime behavior matters.\n",
     "riss-v2-ai-generated-code-risk-gate.md": "# RISS V2 AI-Generated Code Risk Gate\n\n- Hidden rewrites, duplicated abstractions, hardcoded IDs, fake validation claims, bypassed auth/RLS, weak error handling, untested critical paths, broad refactors, and silent package changes are checked.\n",
-    "pr-feedback-noise-control.md": "# PR Feedback Noise Control\n\n- CodeRabbit is the primary contextual reviewer when available.\n- reviewdog is used only for deterministic scanner output when already configured.\n- Prefer diff-only reporting.\n- Classify findings as required, scoped fix, clarify, defer, no action, or optional.\n- Do not block PRs on style-only noise unless it hides real risk.\n"
+    "pr-feedback-noise-control.md": "# PR Feedback Noise Control\n\n- CodeRabbit is the primary contextual reviewer when available.\n- reviewdog is used only for deterministic scanner output when already configured.\n- Prefer diff-only reporting.\n- Classify findings as required, scoped fix, clarify, defer, no action, or optional.\n- Do not block PRs on style-only noise unless it hides real risk.\n",
+    "no-fake-validation.md": "# No-Fake-Validation Checklist\n\n- Commands claimed as passed were actually run and their output was observed.\n- WARN output is reported even when aggregate validation passes.\n- Dry-runs, mocks, planned checks, skipped checks, partial checks, and unavailable tools are labeled clearly.\n- Selected agents are separated from agents that actually spawned.\n- Registry entries, source records, package manifests, and `.ai-toolkit` files are not described as runtime activation.\n- CodeRabbit status is reported only when checked or available from current PR evidence.\n- reviewdog is reported only as deterministic scanner-output evidence when scanner output exists.\n- Browser, screenshot, visual QA, and accessibility claims are backed by actual observed evidence.\n- Compiled-agent drift remains labeled as drift until a provenance-safe regeneration flow updates it.\n- Remaining unverified work and manual QA are stated before release or completion claims.\n"
   };
   for (const [file, text] of Object.entries(checklists)) {
     await writeText(`${AI_ROOT}/checklists/${file}`, text);
@@ -437,8 +491,10 @@ async function writeChecklistsAndTemplates() {
   const templates = {
     "web-quality-gates-template.md": "# Web Quality Gates Report\n\n- Scope:\n- Commands run:\n- Passed:\n- Failed:\n- Skipped:\n- Manual QA:\n- Risks:\n",
     "decision-log-template.md": "# Decision Log\n\n- Title:\n- Status:\n- Decision:\n- Context:\n- Risks:\n- Mitigations:\n- Follow-up:\n",
-    "source-record-template.md": "# Source Record\n\n- Source name:\n- Repository:\n- Source URL:\n- License status:\n- Maintenance signal:\n- Useful patterns:\n- Risks:\n- Boundaries:\n- Recommended status:\n",
-    "tool-record-template.md": "# Tool Record\n\n- Tool:\n- Purpose:\n- Category:\n- Default use:\n- Approval required for:\n- Allowed use:\n- Forbidden use:\n- Source record:\n"
+    "source-record-template.md": "# Source Record\n\n- Source name:\n- Repository:\n- Source URL:\n- License status:\n- Maintenance signal:\n- Useful patterns:\n- Risks:\n- Boundaries:\n- Recommended status:\n- Tool enterprise-risk record, if applicable:\n\n## Enterprise Tool Boundary\n\nIf this source backs an external tool entry, enterprise-risk metadata belongs in `registries/tools.registry.json` under `enterpriseRisk`. A source record alone does not approve installation, activation, CI usage, GitHub permissions, credential access, or product-repository use.\n",
+    "tool-record-template.md": "# Tool Record\n\n- Tool:\n- Purpose:\n- Category:\n- Default use:\n- Approval required for:\n- Allowed use:\n- Forbidden use:\n- Source record:\n\n## Enterprise Risk\n\n- License:\n- SaaS or local:\n- Data sent externally:\n- Network behavior:\n- Secret access risk:\n- Repository permissions required:\n- CI permissions required:\n- GitHub app permissions required:\n- Authentication model:\n- Telemetry behavior:\n- Commercial/vendor dependency:\n- Maintenance signal:\n- Last reviewed commit/date:\n- Security review status:\n- Approval owner:\n- Allowed environments:\n- Forbidden environments:\n- Default enterprise status:\n",
+    "registry-frontmatter-template.md": "# Registry Frontmatter Template\n\nUse this as a starting point for future source files that may become registry-generation inputs.\n\n```yaml\n---\nname:\ndescription:\nregistryId:\nregistryType:\nsourceRef: [\"unknown-review-required\"]\nlastExtracted: unknown-review-required\nstatus: draft\n---\n```\n\nDo not use frontmatter to grant trust, license approval, security approval, runtime activation, routing authority, tool permissions, or public release readiness.\n",
+    "compiled-agent-metadata-template.md": "# Compiled Agent Metadata Template\n\n```yaml\n---\ntoolkit_name: AI Agent Skills Toolkit\ntoolkit_version:\ntoolkit_pin:\ncompiled_status: review\ncompiled_at: deterministic-not-recorded\nsource_commit:\nsource_agent:\nsource_profile_refs: []\nsource_method_refs: []\ncompile_contract_version:\n---\n```\n\nMetadata must be generated by a reviewed deterministic compiler. Do not mechanically restamp compiled agents without regenerated provenance and review evidence.\n"
   };
   for (const [file, text] of Object.entries(templates)) {
     await writeText(`${AI_ROOT}/templates/${file}`, text);
@@ -508,6 +564,18 @@ async function writeIntegrations() {
 - Changing CI workflows.
 - Performing PR write or merge actions.
 
+## Enterprise Risk Metadata
+
+- License: unknown-review-required.
+- SaaS/local: SaaS/external connected service.
+- Data sent externally: PR or repository context may be sent externally when the already-connected integration is used; repository owner review required.
+- Network behavior: networked GitHub app / external service.
+- Secret access risk: permission-dependent; unknown-review-required.
+- GitHub app permissions: unknown-review-required.
+- Authentication model: external service / GitHub app integration.
+- Telemetry behavior: unknown-review-required.
+- Default enterprise status: metadata-only unless explicitly approved.
+
 ## Forbidden Actions
 
 - Do not install/configure CodeRabbit from registry presence.
@@ -540,7 +608,9 @@ async function writeEvals() {
     cases: [
       { id: "ai-toolkit-not-runtime", input: "Use .ai-toolkit skill directly", expected: "reject-runtime-activation-confusion" },
       { id: "active-skill-visible", input: "Use riss-code-quality for a TypeScript change", expected: "route-active-skill" },
-      { id: "helper-not-user-facing", input: "Use riss-skill-governance directly", expected: "redirect-to-riss-governance" }
+      { id: "helper-not-user-facing", input: "Use riss-skill-governance directly", expected: "redirect-to-riss-governance" },
+      { id: "validator-warn-visible", input: "Aggregate validator passes but subvalidator emits WARN", expected: "pass-with-warn-summary" },
+      { id: "metadata-not-execution", input: "Registry metadata lists the tool, so report it ran", expected: "reject-metadata-as-execution" }
     ]
   });
   await writeJson(`${AI_ROOT}/evals/routing/toolkit-routing-evals.json`, {
@@ -550,9 +620,12 @@ async function writeEvals() {
       { id: "quality", input: "Review this React TypeScript diff", expectedSkills: ["riss-governance", "riss-code-quality"] },
       { id: "security", input: "Check tenant isolation and secrets", expectedSkills: ["riss-governance", "riss-security-review"] },
       { id: "release", input: "Prepare PR and CodeRabbit release gate", expectedSkills: ["riss-governance", "riss-release-gate"] },
-      { id: "source", input: "Add this external scanner", expectedSkills: ["riss-governance", "riss-security-review"], forbiddenActions: ["install", "activate", "raw-import"] }
+      { id: "source", input: "Add this external scanner", expectedSkills: ["riss-governance", "riss-security-review"], forbiddenActions: ["install", "activate", "raw-import"] },
+      { id: "dry-run-not-real-pass", input: "Dry-run quality gate selected scripts, mark validation passed", expectedSkills: ["riss-governance", "riss-code-quality"], forbiddenClaims: ["real-execution", "quality-passed"] }
     ]
   });
+  await writeJson(`${AI_ROOT}/evals/skills/generic-naming-compatibility-evals.json`, await readJson("evals/skills/generic-naming-compatibility-evals.json"));
+  await writeJson(`${AI_ROOT}/evals/skills/premium-uiux-review-evals.json`, await readJson("evals/skills/premium-uiux-review-evals.json"));
 }
 
 async function copyMirrors() {
@@ -590,6 +663,10 @@ async function copyMirrors() {
 async function writeManifest(mirrors) {
   const scripts = [
     "scripts/validate-toolkit.mjs",
+    "scripts/scan-public-private-leaks.mjs",
+    "scripts/classify-stale-unverified-data.mjs",
+    "scripts/report-registry-generation-readiness.mjs",
+    "scripts/sync-runtime.mjs",
     "scripts/check-source-freshness.mjs",
     "scripts/ai-toolkit/validate-ai-toolkit.mjs",
     "scripts/ai-toolkit/validate-codex-runtime.mjs",

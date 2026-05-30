@@ -1,3 +1,9 @@
+---
+sourceRef: ["anthropic-skills","bencium-marketplace"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Premium Visual Quality
 
 ## Purpose

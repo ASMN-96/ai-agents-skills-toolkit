@@ -64,6 +64,8 @@ Validation should match risk. Use unit tests, integration tests, runtime checks,
 
 Completion claims must include what was run, what passed, what could not run, and what residual manual QA remains. Do not claim success from unrun checks.
 
+Follow `docs/NO_FAKE_VALIDATION_POLICY.md`: mock, dry-run, skipped, unavailable, metadata-only, planned, fallback, partial, and unverified checks must be labeled as such. Validator WARN output remains reportable even when the aggregate result is PASS.
+
 ## Performance And SRE
 
 Performance and reliability review should consider latency, load, stability, memory, slow queries, blocking operations, logs, monitoring, rollback, and failure modes.
@@ -81,6 +83,8 @@ Do not merge or ship with unresolved required checks, unresolved required review
 A completion report must include changed files, why each change is in scope, dependency-chain impact checked, validation run and results, security or production risks, manual QA, blockers, and the next safe action.
 
 For toolkit governance work, also confirm whether runtime activation surfaces, product repositories, global config, package installs, secrets, and compiled-agent regeneration were touched.
+
+Completion reports must separate commands actually run from selected-but-not-invoked agents, tools, fallbacks, browser checks, CodeRabbit/reviewdog status, and metadata-only registry records.
 
 ## First Production-Grade Software Pilot Usage
 

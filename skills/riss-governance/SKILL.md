@@ -99,6 +99,17 @@ If a recommended agent, tool, or profile is not installed or not available in th
 
 For serious multi-phase work, do not silently continue without GSD. If GSD is unavailable, stop and ask whether to install or configure GSD, continue with manual phase tracking, or stop the task.
 
+## Validation Honesty
+
+Follow `docs/NO_FAKE_VALIDATION_POLICY.md`.
+
+- Report selected agents separately from agents that actually spawned.
+- Report support tools as available, unavailable, selected, invoked, skipped, or metadata-only; do not blur those states.
+- Report mock, dry-run, skipped, partial, fallback, or planned checks as such.
+- Do not claim CodeRabbit, reviewdog, browser, screenshot, runtime, source-freshness, or security evidence unless it was actually checked.
+- Surface validator WARN output even when the aggregate status is PASS.
+- If compiled agents are stale or fallback-only, say so before using or recommending them.
+
 ## Source Of Truth
 
 - Treat GitHub `origin/main` or the explicit target branch as authoritative.

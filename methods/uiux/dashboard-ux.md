@@ -1,3 +1,9 @@
+---
+sourceRef: ["anthropic-skills","bencium-marketplace"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Dashboard UX
 
 ## Purpose

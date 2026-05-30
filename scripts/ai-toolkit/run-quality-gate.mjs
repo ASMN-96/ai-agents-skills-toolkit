@@ -94,20 +94,29 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help) {
     console.log("Usage: node scripts/ai-toolkit/run-quality-gate.mjs --mode fast-local --dry-run");
+    console.log("       node scripts/ai-toolkit/run-quality-gate.mjs --mode fast-local");
+    console.log("Dry-run is capability detection only. Non-dry-run requires runnable project scripts.");
     return;
   }
 
   console.log(`mode: ${args.mode}`);
   console.log(`dryRun: ${args.dryRun}`);
+  console.log(`evidence type: ${args.dryRun ? "dry-run capability detection" : "project script execution requested"}`);
 
   if (!(await exists("package.json"))) {
     console.log("package.json: missing");
     console.log("scripts detected: none");
     console.log("scripts run: none");
+    console.log("quality status: not-run");
     console.log("missing scripts: all; this repository currently has no package.json");
     console.log("skipped tools: all external tools are metadata-only in this pass");
     console.log("approval-required tools: socket, trufflehog, owasp-zap-baseline, harden-runner");
-    console.log("manual QA required: none for dry-run; implementation validators remain required");
+    console.log(args.dryRun
+      ? "manual QA required: none for dry-run; implementation validators remain required"
+      : "manual QA required: quality gate did not run; add project scripts or run validators manually");
+    if (!args.dryRun) {
+      process.exitCode = 1;
+    }
     return;
   }
 
@@ -115,6 +124,7 @@ async function main() {
   if (!manager || manager === "ambiguous") {
     console.log(`package manager: ${manager || "not detected"}`);
     console.log("scripts run: none");
+    console.log("quality status: not-run");
     console.log("missing scripts: package manager could not be safely inferred from a single existing lockfile");
     if (!args.dryRun) {
       process.exitCode = 1;
@@ -135,6 +145,14 @@ async function main() {
 
   if (args.dryRun) {
     console.log("scripts run: none");
+    console.log("quality status: not-run");
+    return;
+  }
+
+  if (runnable.length === 0) {
+    console.log("scripts run: none");
+    console.log("quality status: not-run");
+    process.exitCode = 1;
     return;
   }
 
@@ -149,6 +167,7 @@ async function main() {
     }
   }
   console.log(`scripts run: ${runnable.join(", ") || "none"}`);
+  console.log("quality status: scripts-passed");
 }
 
 await main().catch((error) => {

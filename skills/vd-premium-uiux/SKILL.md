@@ -152,12 +152,15 @@ Anti-generic guardrails:
 - Check overlap, clipping, unreadable text, broken layout, bad density, broken modals/popovers, focus states, and chart/table collapse.
 - If browser/screenshot verification is required but unavailable, report the limitation and do not claim visual QA passed.
 - Do not fabricate or invent screenshot/browser evidence.
+- Follow `docs/NO_FAKE_VALIDATION_POLICY.md`; selected browser tooling, planned screenshots, unavailable visual checks, and partial manual review are not proof that rendered QA passed.
+- Preserve validator WARN output in completion reports even when static checks pass.
 
 ## 11. Completion report
 
 - UI changes made and files changed.
 - Before/after visual intent.
 - Validation run and outcomes.
+- WARN output, skipped checks, and unavailable tools.
 - Screenshot/browser checks performed (or explicit limitation).
 - Responsive and accessibility notes.
 - Remaining manual QA and residual risks.

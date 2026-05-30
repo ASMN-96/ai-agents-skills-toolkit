@@ -41,6 +41,7 @@ No file in this package installs tools, activates external sources, configures C
 Run from the repository root:
 
 - `node scripts/validate-toolkit.mjs`
+- `node scripts/scan-public-private-leaks.mjs --output docs/PUBLIC_PRIVATE_LEAK_REPORT.md`
 - `node scripts/ai-toolkit/validate-ai-toolkit.mjs`
 - `node scripts/ai-toolkit/validate-codex-runtime.mjs`
 - `node scripts/ai-toolkit/validate-version-consistency.mjs`

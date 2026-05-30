@@ -21,6 +21,7 @@ This policy defines how the toolkit tracks external sources without auto-importi
   - changing Codex global config,
   - changing product repositories.
 - Freshness signals may propose that a source is worth re-review; they are not execution permissions.
+- Freshness issue drafts generated with `--create-issues` are local dry-run review artifacts only. They do not create GitHub issues and do not authorize import, activation, extraction, source-record updates, CI changes, package changes, global config changes, or product-repository changes.
 - If GitHub API metadata returns `403` or `429`, the only allowed fallback is a read-only `git ls-remote` default-branch commit check. Fallback must not clone, checkout, fetch raw files, install, execute scripts, activate anything, or update source records automatically.
 - Pull request CI may use mock freshness checks to avoid flaky rate-limit failures. A scheduled/manual advisory workflow may run live freshness with `--fail-on-change`; failures are review signals and do not authorize import, activation, extraction, or runtime changes.
 
@@ -69,6 +70,8 @@ No update path in this repository should treat these timestamps/commits as inter
 
 For toolkit skills, each `SKILL.md` should keep a stable `Source Provenance` section that references review artifacts and should not carry weekly freshness timestamps or freshness state.
 
+For toolkit methods, each method file must keep stable `sourceRef`, `lastExtracted`, and `status` frontmatter. `sourceRef` maps a normalized method to `sources/source-watchlist.json` IDs so freshness reports can identify affected methods before any issue creation or review routing. Unknown extraction evidence must remain `unknown-review-required`.
+
 ## 5) Forking and execution posture
 
 - Forking is not the default.
@@ -94,6 +97,8 @@ For toolkit skills, each `SKILL.md` should keep a stable `Source Provenance` sec
 - support advisory `--fail-on-change` monitoring for changed, failed, unsupported, or review-missing statuses,
 - avoid runtime writes outside `docs/SOURCE_FRESHNESS_REPORT.md`,
 - keep `neverAutoImport` behavior,
+- include affected-method hints derived from method `sourceRef` frontmatter,
+- generate dry-run issue drafts with dedupe keys, labels, affected methods, and no-import/no-activation language when `--create-issues` is supplied,
 - emit a report explicitly stating that no approval is granted.
 
 This policy is the normative control; scripts may enforce and reinforce it.

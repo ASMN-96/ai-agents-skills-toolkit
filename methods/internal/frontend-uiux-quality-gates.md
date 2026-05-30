@@ -1,3 +1,9 @@
+---
+sourceRef: ["addy-osmani-agent-skills","anthropic-skills","bencium-marketplace"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Frontend UIUX Quality Gates
 
 ## Purpose

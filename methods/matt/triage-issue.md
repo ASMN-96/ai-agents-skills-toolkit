@@ -1,3 +1,9 @@
+---
+sourceRef: ["matt-pocock-skills"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Triage Issue
 
 ## Purpose

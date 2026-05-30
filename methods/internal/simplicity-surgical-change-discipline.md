@@ -1,3 +1,9 @@
+---
+sourceRef: ["karpathy-inspired-skills","matt-pocock-skills"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Simplicity Surgical Change Discipline
 
 ## Purpose

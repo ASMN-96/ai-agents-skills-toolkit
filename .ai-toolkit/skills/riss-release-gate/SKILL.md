@@ -39,7 +39,10 @@ Harden-Runner, reviewdog setup, actionlint setup, zizmor setup, or any CI workfl
 - No false release-readiness claims.
 - Validation evidence maps to the changed surface.
 - Branch, PR, checks, review, and manual QA status are explicit.
+- CodeRabbit status is not inferred when unavailable.
+- reviewdog is reported only as deterministic scanner-output evidence when scanner output exists.
+- WARN output and skipped checks remain visible even when blocking validation passes.
 
 ## Completion Evidence
 
-Report branch state, PR URL if created, checks run, check results, review status, skipped gates, blockers, missing evidence, and the exact next action before any merge request.
+Report branch state, PR URL if created, checks run, check results, review status, skipped gates, WARN output, blockers, missing evidence, and the exact next action before any merge request. Follow `docs/NO_FAKE_VALIDATION_POLICY.md`; do not claim merge readiness from metadata-only records, dry-runs, skipped CI jobs, unavailable review status, or unobserved tool output.

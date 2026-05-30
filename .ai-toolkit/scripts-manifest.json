@@ -4,15 +4,31 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "b366e7a37732bd6ac486194747ad8c4253e751f54406765155a75243b7fb1668"
+      "sha256": "8babfcaff19c7db7d8dc928a6e967dd9de555fd8c6a57a0e857eac62c6b58cd4"
+    },
+    {
+      "path": "scripts/scan-public-private-leaks.mjs",
+      "sha256": "2b2b707f66942ce46e1afc2212c0fb42d6cd6990a848e8b449a8e070a7c398f5"
+    },
+    {
+      "path": "scripts/classify-stale-unverified-data.mjs",
+      "sha256": "5c288cb150e9774d187c9ef56937baf8bc739b06221a328583d6c7456547e570"
+    },
+    {
+      "path": "scripts/report-registry-generation-readiness.mjs",
+      "sha256": "b2e9e93a6931f161e1aea0cf43c4c157aad6e97e2a802af6d4b438d91f927851"
+    },
+    {
+      "path": "scripts/sync-runtime.mjs",
+      "sha256": "c3e6a67cf645bf050bb5039117daa6fd1a04fde9013fb43cd10868af3e0a6efc"
     },
     {
       "path": "scripts/check-source-freshness.mjs",
-      "sha256": "1ea180eaedd904a18ae026a892915ece38022f0cd16eafce89cf5a33157c7054"
+      "sha256": "4ddb8c1a1887401853d19cb73770648d3113d3fece27cdb364b39c24a1cdbd5d"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
-      "sha256": "38a71c6847dfd4d0f6f2502130148821d05a7d5eae014dff49328bfb201061e6"
+      "sha256": "91247d3bd211db379dfeb781161d43c9aba90b71726a31e338bc06c9f16cfbb6"
     },
     {
       "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",
@@ -20,19 +36,19 @@
     },
     {
       "path": "scripts/ai-toolkit/validate-version-consistency.mjs",
-      "sha256": "28c593cfcb5eae0eac46027876f3bce460a77cf76d5daebe59c7fb30dce6c2bc"
+      "sha256": "ec86bd57e64b14c2f1450a49b39251cfeeae115a76330ba2d0be74b5beda4af4"
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "fce27d6ff3a59ba73deed805c2adc51a240c7700b39b67515250980604e64ddf"
+      "sha256": "de3756b35fc2f5a9421178d1ee538ff549b860170dbbda25fe8d638a58a65755"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",
-      "sha256": "3665243a38cd0fa28db48b128146acad91af4b217f43e3d97dc481860a3db46c"
+      "sha256": "e202d8675e788868a1f91529478aa270e798a788d567dcf13d052f13a4a50a3e"
     },
     {
       "path": "scripts/ai-toolkit/run-quality-gate.mjs",
-      "sha256": "856d311a038064680d81373d253f864e9fc4d4e4b01d054a09963b965b94c57e"
+      "sha256": "6dcf9cc6aaa1b9c23ac1121e7c02cb5d46f0713ea9282f6d97bed4895a79d919"
     }
   ]
 }

@@ -1,3 +1,9 @@
+---
+sourceRef: ["everything-claude-code","ruflo","superpowers"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Source Safety Scoring
 
 ## Purpose

@@ -46,6 +46,7 @@ External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.m
 ## Phase 4 Compilation Rules
 
 - Compile agents only from approved source agent specs, normalized method files, and toolkit governance.
+- Future regeneration must follow `docs/COMPILED_AGENT_COMPILE_CONTRACT.md`.
 - Do not copy full upstream method or skill files into compiled agents.
 - Do not activate compiled agents globally.
 - Do not create project sync or install scripts during Phase 4.
@@ -53,17 +54,19 @@ External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.m
 - Treat Context7, Playwright, and Figma as support triggers only when available, configured, and relevant.
 - Include source provenance in every compiled agent so downstream projects can audit the toolkit inputs.
 - Keep profiles free of secrets and project-specific credentials.
+- Do not mechanically restamp compiled-agent version metadata without deterministic regenerated output, provenance report, size report, leak scan, and review evidence.
 
 ## Phase 5 Project Sync Rules
 
 - Project sync is dry-run by default.
-- `-ConfirmWrite` is required before writing to a target project.
+- `-ConfirmWrite` for PowerShell or `--confirm-write` for Bash is required before writing to a target project.
 - Scripts may manage selected files only under `.ai-toolkit/`.
 - Project installs must pin toolkit version and toolkit commit.
 - Project-local `AGENTS.md`, `docs/ai/STATE.md`, `docs/ai/DECISIONS.md`, `docs/ai/PROJECT_CONTEXT.md`, and `docs/ai/RELEASE_GATES.md` must not be created or overwritten by toolkit sync scripts.
 - `allowOverwriteProjectContext:true` is rejected by the current sync workflow.
 - Stale or unmanaged files are reported, not deleted.
 - No product repo install is performed from the toolkit Phase 5 PR.
+- Bash project-sync entrypoints are Node-backed for JSON, hashing, manifests, and Git checks. They require existing `node` and `git`, and they must not install dependencies, change package or lockfiles, change CI, activate global skills, or touch files outside the target `.ai-toolkit/` directory.
 
 ## Phase 6 Project-Managed Skill Rules
 
@@ -73,6 +76,15 @@ External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.m
 - Synced skills must be recorded in `selectedSkills`.
 - Syncing a skill file does not activate skills globally, install external skills, or modify Codex global config.
 - Bundled multi-file skill resources are not supported in Phase 6 v1.
+
+## Repo Runtime Sync Rules
+
+- `scripts/sync-runtime.mjs` is dry-run by default.
+- `--confirm-write` is required before syncing canonical `skills/<skill>/SKILL.md` into repo runtime `.agents/skills/<skill>/SKILL.md` or package storage `.ai-toolkit/skills/<skill>/SKILL.md`.
+- The active runtime skill allowlist is `ACTIVE_SKILLS` from `scripts/ai-toolkit/embedded-data.mjs`.
+- Unknown skills and internal helper skills are refused; helper activation requires a separate reviewed PR.
+- Confirmed writes may update `.ai-toolkit/manifest.json` mirror hashes only for the affected active skill mirrors.
+- The script must not write to product repositories, package files, CI, MCP config, global Codex config, external sources, or non-skill runtime paths.
 
 ## Phase 7 Core Toolchain Governance Rules
 

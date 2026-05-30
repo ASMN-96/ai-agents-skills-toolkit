@@ -1,3 +1,9 @@
+---
+sourceRef: ["karpathy-inspired-skills"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Assumption Surfacing
 
 ## Purpose

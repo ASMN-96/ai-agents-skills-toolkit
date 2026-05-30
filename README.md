@@ -47,3 +47,11 @@ Phases 1-9 established the toolkit foundation, source records, normalized method
 Phase 10A/10B adds the governance spine contract, registries, token-efficiency policy, missing-skill discovery policy, runtime verification docs, external-source backlog, and eval scaffolding. Phase 10C/10D refreshes external source records only. Phase 10E adds narrow normalized methods. Phase 10F indexes reviewed methods as passive metadata and routing references. These phases do not install tools, activate skills, clone repositories, copy raw external skills, modify global Codex config, or touch product repositories.
 
 Phase 10 source-refresh slimming adds the production-grade software governance model, runtime activation boundary, overlap classification, and live source freshness refresh while preserving Codex/plugin execution authority.
+
+Post-PR #39 hardening starts with validation honesty and public/private release safety. `docs/NO_FAKE_VALIDATION_POLICY.md` defines reporting truth rules, and `scripts/scan-public-private-leaks.mjs` generates a report-only public/private leak scan before any public release or naming migration.
+
+`docs/OPERATOR_GUIDE.md` defines the normal prompt patterns for planning-only work, controlled implementation, release review, and quality-gate honesty. `scripts/ai-toolkit/run-quality-gate.mjs --dry-run` is capability detection only unless project scripts actually run.
+
+`docs/PUBLIC_PRIVATE_OVERLAY_ARCHITECTURE_ADR.md` records the future public/private architecture target. It does not move folders; current top-level paths remain canonical until compatibility, leak-scan, package, and runtime gates are proven.
+
+`docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md` defines maturity Levels 0-5. Current status is Level 3 controlled-pilot readiness; Level 4 enterprise rollout and Level 5 public release remain blocked by owner, evidence, policy, naming, and public/private release gates.

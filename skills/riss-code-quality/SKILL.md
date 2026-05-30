@@ -40,7 +40,9 @@ React Doctor, Knip, Biome, Oxlint, dependency-cruiser, Madge, jscpd, and similar
 - Tests cover changed behavior or critical regression risk.
 - Scanner output is triaged by actual product risk, not followed blindly.
 - No hidden package, lockfile, CI, or global config changes occur.
+- Dry-run or metadata-only quality gates are not reported as real quality execution.
+- WARN output is preserved in completion reports even when blocking checks pass.
 
 ## Completion Evidence
 
-Report commands run, results, skipped checks, missing project scripts, and remaining manual QA. Do not claim quality gates passed unless the relevant command output was actually observed.
+Report commands run, results, skipped checks, missing project scripts, WARN output, and remaining manual QA. Do not claim quality gates passed unless the relevant command output was actually observed. Follow `docs/NO_FAKE_VALIDATION_POLICY.md` for dry-run, mock, skipped, partial, fallback, and metadata-only states.

@@ -157,3 +157,17 @@ Phase 10O adds a read-only/report-only watchlist, a dependency-free source fresh
 Phase 10 is ready to close after this Phase 10O PR is reviewed and merged. The closed Phase 10 scope will include governance spine, source scouting, method indexing, runtime/readiness gates, Level 2 certification, governance UX hardening, explicit opt-in governance, and read-only source freshness monitoring.
 
 Future work after Phase 10 should be planned in a separate phase and must keep the same review, safety, and approval boundaries.
+
+## Post-PR #39 Hardening
+
+Status: in progress on a local hardening branch.
+
+The hardening sprint improves validation honesty, public/private release safety, enterprise tool metadata, sourceRef traceability, sync automation, operator guidance, eval coverage, registry generation design, compile-contract governance, cross-platform project sync, and future public/private architecture boundaries.
+
+`docs/PUBLIC_PRIVATE_OVERLAY_ARCHITECTURE_ADR.md` defines the future `core/`, `runtimes/`, `private-overlays/`, and distribution architecture. It is documentation-only and does not authorize folder relocation, runtime expansion, CI changes, package changes, or public release readiness claims.
+
+`docs/SOURCE_FRESHNESS_ISSUE_WORKFLOW.md` defines dry-run source freshness issue drafts with dedupe keys, labels, affected methods, and explicit no-import/no-activation language. Live issue creation remains unapproved future work.
+
+`docs/STALE_UNVERIFIED_DATA_CLASSIFICATION.md` classifies stale, unverified, historical, private-overlay-only, and remove-later signals as report-only cleanup input. It does not authorize deletion, renaming, relocation, or public release readiness.
+
+`docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md` formalizes maturity Levels 0-5. The sprint leaves the toolkit at Level 3; Level 4 enterprise rollout and Level 5 public release require separate owner decisions and evidence.

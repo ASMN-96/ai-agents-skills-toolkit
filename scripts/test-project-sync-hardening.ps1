@@ -5,6 +5,8 @@ $RepoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
 $InstallScript = Join-Path $RepoRoot 'install/install-project.ps1'
 $UpdateScript = Join-Path $RepoRoot 'install/update-project.ps1'
 $ValidateScript = Join-Path $RepoRoot 'install/validate-project-install.ps1'
+$CanonicalVersionPath = Join-Path $RepoRoot '.ai-toolkit/VERSION'
+$CanonicalToolkitVersion = (Get-Content -Raw -LiteralPath $CanonicalVersionPath).Trim()
 $TempRoot = Join-Path ([System.IO.Path]::GetTempPath()) "ai-toolkit-sync-tests-$([System.Guid]::NewGuid().ToString('N'))"
 
 function Invoke-CheckedGit {
@@ -110,8 +112,13 @@ try {
     $install = Invoke-Tool @('-File', $InstallScript, '-TargetPath', $successRepo, '-Agents', 'reviewer-agent', '-ConfirmWrite')
     Assert-Success $install 'clean feature confirm-write'
     $manifestPath = Join-Path $successRepo '.ai-toolkit/.ai-toolkit-manifest.json'
+    $versionPath = Join-Path $successRepo '.ai-toolkit/.ai-toolkit-version'
     if (!(Test-Path -LiteralPath $manifestPath)) {
         throw 'confirm-write did not create .ai-toolkit/.ai-toolkit-manifest.json'
+    }
+    $versionRecord = Get-Content -Raw -LiteralPath $versionPath | ConvertFrom-Json
+    if ($versionRecord.toolkitVersion -ne $CanonicalToolkitVersion) {
+        throw "confirm-write wrote toolkitVersion '$($versionRecord.toolkitVersion)', expected canonical '$CanonicalToolkitVersion'"
     }
     Assert-Success (Invoke-Tool @('-File', $ValidateScript, '-TargetPath', $successRepo)) 'manifest validation'
     Invoke-CheckedGit $successRepo @('add', '.ai-toolkit')
