@@ -1,3 +1,9 @@
+---
+sourceRef: ["anthropic-skills","unknown-review-required"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Skill Anatomy
 
 ## Purpose

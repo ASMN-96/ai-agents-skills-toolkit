@@ -6,6 +6,7 @@ import process from "node:process";
 import { promisify } from "node:util";
 
 const WATCHLIST_PATH = "sources/source-watchlist.json";
+const METHODS_REGISTRY_PATH = "registries/methods.registry.json";
 const ALLOWED_OUTPUT = "docs/SOURCE_FRESHNESS_REPORT.md";
 const execFileAsync = promisify(execFile);
 const DISCLAIMER =
@@ -109,6 +110,82 @@ async function readWatchlist() {
   const parsed = JSON.parse(raw);
   validateWatchlist(parsed);
   return parsed;
+}
+
+async function readJsonIfPresent(relativePath) {
+  try {
+    return JSON.parse(await readFile(relativePath, "utf8"));
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return null;
+    }
+    throw error;
+  }
+}
+
+function parseMethodFrontmatter(text) {
+  const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
+  if (!match) {
+    return null;
+  }
+
+  const fields = {};
+  for (const line of match[1].split(/\r?\n/)) {
+    const separator = line.indexOf(":");
+    if (separator === -1) {
+      continue;
+    }
+    const key = line.slice(0, separator).trim();
+    const value = line.slice(separator + 1).trim();
+    fields[key] = value;
+  }
+  return fields;
+}
+
+function parseSourceRef(value) {
+  if (!value) {
+    return [];
+  }
+  if (value.startsWith("[")) {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed.map(String) : [];
+  }
+  return value.split(",").map((part) => part.trim()).filter(Boolean);
+}
+
+async function buildMethodImpactIndex() {
+  const registry = await readJsonIfPresent(METHODS_REGISTRY_PATH);
+  const impactIndex = new Map();
+  if (!registry) {
+    return impactIndex;
+  }
+
+  for (const method of registry.methods || []) {
+    if (!method.methodPath) {
+      continue;
+    }
+    let text;
+    try {
+      text = await readFile(method.methodPath, "utf8");
+    } catch (error) {
+      if (error.code === "ENOENT") {
+        continue;
+      }
+      throw error;
+    }
+
+    const frontmatter = parseMethodFrontmatter(text);
+    const sourceRefs = parseSourceRef(frontmatter?.sourceRef || "unknown-review-required")
+      .filter((sourceRef) => sourceRef !== "unknown-review-required");
+    const label = method.displayName ? `${method.id} (${method.displayName})` : method.id;
+    for (const sourceRef of sourceRefs) {
+      const existing = impactIndex.get(sourceRef) || [];
+      existing.push(label);
+      impactIndex.set(sourceRef, existing);
+    }
+  }
+
+  return impactIndex;
 }
 
 function validateWatchlist(watchlist) {
@@ -427,7 +504,7 @@ function nextStepFor(status) {
   }
 }
 
-async function buildResults(watchlist, useMock, checkedAt) {
+async function buildResults(watchlist, useMock, checkedAt, methodImpactIndex) {
   const results = [];
   for (let index = 0; index < watchlist.sources.length; index += 1) {
     const source = watchlist.sources[index];
@@ -439,6 +516,7 @@ async function buildResults(watchlist, useMock, checkedAt) {
       ...source,
       ...inspection,
       lastCheckedDate: checkedAt,
+      affectedMethods: formatAffectedMethods(methodImpactIndex.get(source.id)),
       nextStep: nextStepFor(inspection.status)
     });
   }
@@ -451,6 +529,13 @@ function actionableResults(results) {
 
 function shortSha(sha) {
   return sha ? sha.slice(0, 12) : "n/a";
+}
+
+function formatAffectedMethods(methods) {
+  if (!Array.isArray(methods) || methods.length === 0) {
+    return "none registered";
+  }
+  return methods.sort().join("; ");
 }
 
 function renderReport(results, useMock, checkedAt) {
@@ -482,19 +567,19 @@ function renderReport(results, useMock, checkedAt) {
     "",
     "## Sources",
     "",
-    "| Source | Repo | Status | Reviewed | Checked | Latest | Reviewed date | Latest date | License signal | Next step | Notes |",
-    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+    "| Source | Repo | Status | Reviewed | Checked | Latest | Reviewed date | Latest date | License signal | Affected methods | Next step | Notes |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
   ];
 
   for (const result of results) {
     lines.push(
-      `| ${escapeCell(result.name)} | ${escapeCell(`${result.repoOwner}/${result.repoName}`)} | ${result.status} | ${shortSha(result.lastReviewedCommit)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
+      `| ${escapeCell(result.name)} | ${escapeCell(`${result.repoOwner}/${result.repoName}`)} | ${result.status} | ${shortSha(result.lastReviewedCommit)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
     );
 
     if (result.watchedPathSignals.length > 0) {
       for (const signal of result.watchedPathSignals) {
         lines.push(
-          `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | ${escapeCell(signal.date || "n/a")} | n/a | path commit signal only | ${escapeCell(result.nextStep)} | watched-path signal only |`
+          `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | ${escapeCell(signal.date || "n/a")} | n/a | path commit signal only | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | watched-path signal only |`
         );
       }
     }
@@ -518,6 +603,7 @@ function renderReport(results, useMock, checkedAt) {
     "- Watched-path changes are signals only, not approval.",
     "- CHECK_FAILED is per source and does not authorize fallback import or activation.",
     "- GitHub API 403/429 fallback is limited to `git ls-remote` default-branch commit checks.",
+    "- Affected methods are derived from method `sourceRef` frontmatter and are review-routing hints only.",
     "- This monitor never clones repositories, runs external scripts, copies raw files, installs skills, activates plugins, or updates source records."
   );
 
@@ -541,7 +627,8 @@ async function main() {
     const outputPath = resolveOutputPath(args.output);
     const checkedAt = new Date().toISOString();
     const watchlist = await readWatchlist();
-    const results = await buildResults(watchlist, args.mock, checkedAt);
+    const methodImpactIndex = await buildMethodImpactIndex();
+    const results = await buildResults(watchlist, args.mock, checkedAt, methodImpactIndex);
     const report = renderReport(results, args.mock, checkedAt);
 
     if (outputPath) {

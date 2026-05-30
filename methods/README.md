@@ -17,3 +17,11 @@ Raw external source material does not belong here. Only reviewed and approved me
 Methods are passive reference material. They do not install, activate, route, or execute anything by themselves; `riss-governance` remains the normal entrypoint for selecting agents, skills, profiles, support tools, validation, and stop conditions.
 
 `registries/methods.registry.json` indexes method metadata for auditability. Registry entries may be referenced by routing scenarios, but they are not trigger rules, skill definitions, support-tool requirements, or activation claims.
+
+Each method file must start with frontmatter containing:
+
+- `sourceRef`: source-watchlist IDs that influenced the normalized method, or `unknown-review-required` when provenance cannot be mapped safely.
+- `lastExtracted`: the deterministic extraction date, or `unknown-review-required` until a compile/extraction contract records it.
+- `status`: the method status mirrored from the registry, or `unknown-review-required`.
+
+`sourceRef` is traceability for source freshness and review routing only. It does not approve importing, copying, activating, or updating external source material.

@@ -11,3 +11,5 @@ External sources have been evaluated in prior phases and are recorded under `sou
 `docs/GENERIC_NAMING_COMPATIBILITY.md` defines the future public naming map and the compatibility rules that prevent runtime breakage during the migration away from project-specific names.
 
 `docs/ENTERPRISE_EXTERNAL_TOOL_RISK_METADATA.md` defines the required enterprise-review fields for external tools and integrations. Unknown values remain `unknown-review-required` until evidence is reviewed.
+
+Method files include `sourceRef`, `lastExtracted`, and `status` frontmatter so source freshness reports can identify affected methods without approving imports or extraction.

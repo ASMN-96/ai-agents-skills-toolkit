@@ -69,6 +69,8 @@ No update path in this repository should treat these timestamps/commits as inter
 
 For toolkit skills, each `SKILL.md` should keep a stable `Source Provenance` section that references review artifacts and should not carry weekly freshness timestamps or freshness state.
 
+For toolkit methods, each method file must keep stable `sourceRef`, `lastExtracted`, and `status` frontmatter. `sourceRef` maps a normalized method to `sources/source-watchlist.json` IDs so freshness reports can identify affected methods before any issue creation or review routing. Unknown extraction evidence must remain `unknown-review-required`.
+
 ## 5) Forking and execution posture
 
 - Forking is not the default.
@@ -94,6 +96,7 @@ For toolkit skills, each `SKILL.md` should keep a stable `Source Provenance` sec
 - support advisory `--fail-on-change` monitoring for changed, failed, unsupported, or review-missing statuses,
 - avoid runtime writes outside `docs/SOURCE_FRESHNESS_REPORT.md`,
 - keep `neverAutoImport` behavior,
+- include affected-method hints derived from method `sourceRef` frontmatter,
 - emit a report explicitly stating that no approval is granted.
 
 This policy is the normative control; scripts may enforce and reinforce it.

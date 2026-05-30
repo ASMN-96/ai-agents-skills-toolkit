@@ -1,3 +1,9 @@
+---
+sourceRef: ["addy-osmani-agent-skills"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Spec Driven Development
 
 ## Purpose

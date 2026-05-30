@@ -94,3 +94,41 @@ test("--fail-on-change reports actionable freshness statuses", async () => {
     assert.match(result.stderr, /actionable source freshness status/i);
   });
 });
+
+test("mock report includes affected methods from method sourceRef frontmatter", async () => {
+  await withWatchlist([source()], async (cwd) => {
+    await mkdir(path.join(cwd, "registries"));
+    await mkdir(path.join(cwd, "methods", "internal"), { recursive: true });
+    await writeFile(
+      path.join(cwd, "methods", "internal", "traceability.md"),
+      [
+        "---",
+        "sourceRef: [\"openai-skills\"]",
+        "lastExtracted: unknown-review-required",
+        "status: approved",
+        "---",
+        "",
+        "# Traceability"
+      ].join("\n")
+    );
+    await writeFile(
+      path.join(cwd, "registries", "methods.registry.json"),
+      `${JSON.stringify({
+        schemaVersion: "1.0.0",
+        methods: [
+          {
+            id: "internal.traceability",
+            displayName: "Traceability",
+            methodPath: "methods/internal/traceability.md"
+          }
+        ]
+      }, null, 2)}\n`
+    );
+
+    const result = await runFreshness(cwd, ["--mock"]);
+
+    assert.equal(result.code, 0);
+    assert.match(result.stdout, /Affected methods/);
+    assert.match(result.stdout, /internal\.traceability \(Traceability\)/);
+  });
+});

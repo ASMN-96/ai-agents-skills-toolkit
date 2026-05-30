@@ -1,3 +1,9 @@
+---
+sourceRef: ["trailofbits-skills"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Differential Security Review
 
 ## Purpose

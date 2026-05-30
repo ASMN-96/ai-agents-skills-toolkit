@@ -46,6 +46,12 @@ const ENTERPRISE_RISK_FIELDS = [
   "defaultEnterpriseStatus"
 ];
 
+const METHOD_TRACEABILITY_FIELDS = new Set([
+  "sourceRef",
+  "lastExtracted",
+  "status"
+]);
+
 const COMMIT_SHA_PATTERN = /^[0-9a-f]{40}$/i;
 const GITHUB_OWNER_PATTERN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/;
 const GITHUB_REPO_PATTERN = /^[A-Za-z0-9._-]+$/;
@@ -263,6 +269,109 @@ async function validateSourceProvenance(owner, entries, sourceRecords, watchlist
   }
 }
 
+function parseMethodFrontmatter(text) {
+  const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
+  if (!match) {
+    return null;
+  }
+
+  const fields = {};
+  for (const line of match[1].split(/\r?\n/)) {
+    const separator = line.indexOf(":");
+    if (separator === -1) {
+      continue;
+    }
+    const key = line.slice(0, separator).trim();
+    const value = line.slice(separator + 1).trim();
+    fields[key] = value;
+  }
+  return fields;
+}
+
+function parseSourceRefs(value, location) {
+  if (!value) {
+    return [];
+  }
+  if (value.startsWith("[")) {
+    try {
+      const parsed = JSON.parse(value);
+      if (!Array.isArray(parsed)) {
+        fail("method sourceRef traceability", location, "sourceRef must be an array or comma-separated list");
+        return [];
+      }
+      return parsed.map(String);
+    } catch (error) {
+      fail("method sourceRef traceability", location, `sourceRef JSON parse failed: ${error.message}`);
+      return [];
+    }
+  }
+  return value.split(",").map((part) => part.trim()).filter(Boolean);
+}
+
+async function validateMethodFrontmatter(method, sourceIdByRecordPath, watchlistSourceIds) {
+  const location = `methods.registry:${method.id}`;
+  if (!method.methodPath) {
+    fail("method sourceRef traceability", location, "methodPath is required for frontmatter validation");
+    return;
+  }
+
+  let text;
+  try {
+    text = await readFile(rootPath(method.methodPath), "utf8");
+  } catch (error) {
+    fail("method sourceRef traceability", method.methodPath, `could not read method file: ${error.message}`);
+    return;
+  }
+
+  const frontmatter = parseMethodFrontmatter(text);
+  if (!frontmatter) {
+    fail("method sourceRef traceability", method.methodPath, "missing method frontmatter");
+    return;
+  }
+
+  for (const field of METHOD_TRACEABILITY_FIELDS) {
+    if (!(field in frontmatter)) {
+      fail("method sourceRef traceability", method.methodPath, `frontmatter missing ${field}`);
+    }
+  }
+
+  const sourceRefs = parseSourceRefs(frontmatter.sourceRef, method.methodPath);
+  if (sourceRefs.length === 0) {
+    fail("method sourceRef traceability", method.methodPath, "sourceRef must contain at least one source id or unknown-review-required");
+  }
+
+  for (const sourceRef of sourceRefs) {
+    if (sourceRef !== "unknown-review-required" && !watchlistSourceIds.has(sourceRef)) {
+      fail("method sourceRef traceability", method.methodPath, `sourceRef does not resolve to source-watchlist id: ${sourceRef}`);
+    }
+  }
+
+  const expectedRefs = new Set();
+  for (const entry of asArray(method.sourceProvenance)) {
+    if (entry?.path?.startsWith("sources/")) {
+      expectedRefs.add(sourceIdByRecordPath.get(entry.path) || "unknown-review-required");
+    }
+  }
+  if (expectedRefs.size === 0) {
+    expectedRefs.add("unknown-review-required");
+  }
+  for (const expectedRef of expectedRefs) {
+    if (!sourceRefs.includes(expectedRef)) {
+      fail("method sourceRef traceability", method.methodPath, `sourceRef missing expected source: ${expectedRef}`);
+    }
+  }
+
+  const lastExtracted = String(frontmatter.lastExtracted || "");
+  if (lastExtracted !== "unknown-review-required" && !/^\d{4}-\d{2}-\d{2}$/.test(lastExtracted)) {
+    fail("method sourceRef traceability", method.methodPath, "lastExtracted must be YYYY-MM-DD or unknown-review-required");
+  }
+
+  const status = String(frontmatter.status || "");
+  if (status !== "unknown-review-required" && !asArray(method.status).includes(status)) {
+    fail("method sourceRef traceability", method.methodPath, `frontmatter status must match registry status or unknown-review-required: ${status}`);
+  }
+}
+
 function requireKnown(check, location, values, known, label) {
   for (const value of asArray(values)) {
     if (!known.has(value)) {
@@ -302,6 +411,7 @@ function normalizeAgentDisplayReference(value) {
 
 async function validateRegistries(parsed, sourceRecords, watchlist) {
   note("Registry and reference integrity");
+  note("Method sourceRef traceability");
 
   const skillsRegistry = parsed.get("registries/skills.registry.json");
   const agentsRegistry = parsed.get("registries/agents.registry.json");
@@ -317,6 +427,8 @@ async function validateRegistries(parsed, sourceRecords, watchlist) {
   const methods = byName(methodsRegistry?.methods, "id");
   const tools = byName(toolsRegistry?.tools, "id");
   const watchlistRecordPaths = new Set(asArray(watchlist?.sources).map((source) => source.sourceRecordPath));
+  const watchlistSourceIds = new Set(asArray(watchlist?.sources).map((source) => source.id));
+  const sourceIdByRecordPath = new Map(asArray(watchlist?.sources).map((source) => [source.sourceRecordPath, source.id]));
 
   for (const [name, skill] of skills) {
     requireKnown("referenced agents", `skills.registry:${name}`, [skill.ownerAgent], agents, "agent");
@@ -357,6 +469,7 @@ async function validateRegistries(parsed, sourceRecords, watchlist) {
       }
     }
     await validateSourceProvenance(`methods.registry:${id}`, method.sourceProvenance, sourceRecords, watchlistRecordPaths);
+    await validateMethodFrontmatter(method, sourceIdByRecordPath, watchlistSourceIds);
   }
 
   for (const scenario of asArray(routingMatrix?.scenarios)) {

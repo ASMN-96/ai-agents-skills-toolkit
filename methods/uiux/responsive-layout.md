@@ -1,3 +1,9 @@
+---
+sourceRef: ["anthropic-skills"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Responsive Layout
 
 ## Purpose

@@ -1,3 +1,9 @@
+---
+sourceRef: ["supabase-agent-skills"]
+lastExtracted: unknown-review-required
+status: approved
+---
+
 # Supabase Postgres RLS Gates
 
 ## Purpose

@@ -36,6 +36,7 @@ const ENTERPRISE_RISK_FIELDS = [
   "forbiddenEnvironments",
   "defaultEnterpriseStatus"
 ];
+const METHOD_TRACEABILITY_FIELDS = ["sourceRef", "lastExtracted", "status"];
 
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
@@ -134,6 +135,38 @@ function validateEnterpriseRisk(tool, location) {
   if (!Array.isArray(tool.enterpriseRisk.forbiddenEnvironments) || tool.enterpriseRisk.forbiddenEnvironments.length === 0) {
     fail(location, "forbiddenEnvironments must be a non-empty array");
   }
+}
+
+function parseMethodFrontmatter(text) {
+  const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
+  if (!match) {
+    return null;
+  }
+  const fields = {};
+  for (const line of match[1].split(/\r?\n/)) {
+    const separator = line.indexOf(":");
+    if (separator === -1) {
+      continue;
+    }
+    fields[line.slice(0, separator).trim()] = line.slice(separator + 1).trim();
+  }
+  return fields;
+}
+
+function parseSourceRefs(value, location) {
+  if (!value) {
+    return [];
+  }
+  if (value.startsWith("[")) {
+    try {
+      const parsed = JSON.parse(value);
+      return Array.isArray(parsed) ? parsed.map(String) : [];
+    } catch (error) {
+      fail(location, `sourceRef JSON parse failed: ${error.message}`);
+      return [];
+    }
+  }
+  return value.split(",").map((part) => part.trim()).filter(Boolean);
 }
 
 async function validatePackageShape() {
@@ -286,6 +319,65 @@ async function validateToolRegistry() {
   }
 }
 
+async function validateMethodTraceability() {
+  const registry = await readJson(`${AI_ROOT}/registries/methods.registry.json`);
+  const watchlist = await readJson("sources/source-watchlist.json");
+  if (!registry || !watchlist) {
+    return;
+  }
+
+  const sourceIdByRecordPath = new Map((watchlist.sources || []).map((source) => [source.sourceRecordPath, source.id]));
+  const sourceIds = new Set((watchlist.sources || []).map((source) => source.id));
+  for (const method of registry.methods || []) {
+    const location = `${AI_ROOT}/registries/methods.registry.json:${method.id || "<unknown>"}`;
+    if (!method.methodPath || !(await exists(method.methodPath))) {
+      fail(location, `methodPath missing or unreadable: ${method.methodPath || "<missing>"}`);
+      continue;
+    }
+
+    const text = await readFile(rootPath(method.methodPath), "utf8");
+    const frontmatter = parseMethodFrontmatter(text);
+    if (!frontmatter) {
+      fail(method.methodPath, "missing method sourceRef frontmatter");
+      continue;
+    }
+    for (const field of METHOD_TRACEABILITY_FIELDS) {
+      if (!(field in frontmatter)) {
+        fail(method.methodPath, `frontmatter missing ${field}`);
+      }
+    }
+
+    const sourceRefs = parseSourceRefs(frontmatter.sourceRef, method.methodPath);
+    for (const sourceRef of sourceRefs) {
+      if (sourceRef !== "unknown-review-required" && !sourceIds.has(sourceRef)) {
+        fail(method.methodPath, `sourceRef does not resolve to source-watchlist id: ${sourceRef}`);
+      }
+    }
+
+    const expectedRefs = new Set();
+    for (const entry of method.sourceProvenance || []) {
+      if (entry?.path?.startsWith("sources/")) {
+        expectedRefs.add(sourceIdByRecordPath.get(entry.path) || "unknown-review-required");
+      }
+    }
+    if (expectedRefs.size === 0) {
+      expectedRefs.add("unknown-review-required");
+    }
+    for (const expectedRef of expectedRefs) {
+      if (!sourceRefs.includes(expectedRef)) {
+        fail(method.methodPath, `sourceRef missing expected source: ${expectedRef}`);
+      }
+    }
+    if (frontmatter.lastExtracted !== "unknown-review-required" && !/^\d{4}-\d{2}-\d{2}$/.test(String(frontmatter.lastExtracted || ""))) {
+      fail(method.methodPath, "lastExtracted must be YYYY-MM-DD or unknown-review-required");
+    }
+    const status = String(frontmatter.status || "");
+    if (status !== "unknown-review-required" && (!Array.isArray(method.status) || !method.status.includes(status))) {
+      fail(method.methodPath, "frontmatter status must match registry status or unknown-review-required");
+    }
+  }
+}
+
 async function validateWatchlist() {
   const watchlist = await readJson(`${AI_ROOT}/sources/watchlist.json`);
   if (!watchlist) {
@@ -351,6 +443,7 @@ async function main() {
   await validateManifest();
   await validateSourceMap();
   await validateToolRegistry();
+  await validateMethodTraceability();
   await validateWatchlist();
   await validateUnsafeText();
   await validateRuntimeBoundaryDocs();
