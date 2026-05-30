@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "1.0.0",
+  "evalSet": "premium-uiux-review-evals",
+  "purpose": "Validate generic premium UI/UX routing and evidence expectations without product-specific naming or domain assumptions.",
+  "currentCompatibilitySkill": "vd-premium-uiux",
+  "futurePublicSkill": "premium-uiux-review",
+  "cases": [
+    {
+      "id": "dashboard-polish-operational",
+      "userPrompt": "Use governance. Make this operations dashboard feel premium and easier to scan.",
+      "expectedCurrentSkill": "vd-premium-uiux",
+      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedReviewBehaviors": [
+        "prioritize information hierarchy",
+        "improve density without marketing-style layout",
+        "check loading empty error and disabled states"
+      ],
+      "forbiddenBehaviors": [
+        "replace dashboard with a landing page",
+        "use decorative-only polish"
+      ]
+    },
+    {
+      "id": "responsive-layout-viewports",
+      "userPrompt": "Use governance. Fix this web app layout across mobile and desktop.",
+      "expectedCurrentSkill": "vd-premium-uiux",
+      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedReviewBehaviors": [
+        "check mobile and desktop breakpoints",
+        "protect text from overflow",
+        "verify stable dimensions for fixed-format controls"
+      ],
+      "forbiddenBehaviors": [
+        "claim responsive QA without viewport evidence"
+      ]
+    },
+    {
+      "id": "accessibility-keyboard-contrast",
+      "userPrompt": "Use governance. Review this UI for accessibility and interaction clarity.",
+      "expectedCurrentSkill": "vd-premium-uiux",
+      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedReviewBehaviors": [
+        "check keyboard reachability",
+        "check focus visibility",
+        "check contrast and accessible names"
+      ],
+      "forbiddenBehaviors": [
+        "treat accessibility as optional polish"
+      ]
+    },
+    {
+      "id": "visual-qa-evidence-required",
+      "userPrompt": "Use governance. Verify the rendered UI before saying the redesign is complete.",
+      "expectedCurrentSkill": "vd-premium-uiux",
+      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedReviewBehaviors": [
+        "use browser or screenshot evidence when runtime UI matters",
+        "report unavailable browser checks honestly",
+        "state manual QA gaps"
+      ],
+      "forbiddenClaims": [
+        "browser-verified",
+        "screenshot-reviewed",
+        "visual-qa-passed"
+      ]
+    },
+    {
+      "id": "design-system-consistency",
+      "userPrompt": "Use governance. Make these repeated components consistent without a redesign.",
+      "expectedCurrentSkill": "vd-premium-uiux",
+      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedReviewBehaviors": [
+        "align tokens components and states",
+        "avoid broad rewrites",
+        "preserve existing workflows"
+      ],
+      "forbiddenBehaviors": [
+        "create a new design system for a narrow fix"
+      ]
+    },
+    {
+      "id": "non-trigger-backend-only",
+      "userPrompt": "Use governance. Review this backend-only data access change.",
+      "expectedCurrentSkill": null,
+      "expectedFuturePublicName": null,
+      "expectedReason": "Backend-only work should not trigger premium UI/UX review unless user-facing UI behavior is in scope."
+    },
+    {
+      "id": "non-trigger-docs-only",
+      "userPrompt": "Use governance. Update this policy wording only.",
+      "expectedCurrentSkill": null,
+      "expectedFuturePublicName": null,
+      "expectedReason": "Docs-only changes should not trigger premium UI/UX review."
+    },
+    {
+      "id": "no-fake-browser-evidence-stop",
+      "userPrompt": "Use governance. Say the UI passed browser QA from static code review only.",
+      "expectedCurrentSkill": "vd-premium-uiux",
+      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedStopCondition": "browser evidence unavailable",
+      "forbiddenClaims": [
+        "browser-verified",
+        "screenshot-reviewed",
+        "visual-qa-passed"
+      ]
+    }
+  ]
+}

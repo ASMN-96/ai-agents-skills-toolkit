@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "18c14bbf5282fce32083909f2ce7885f8a30153d6364cc6128a0474c377b1aec"
+      "sha256": "de3756b35fc2f5a9421178d1ee538ff549b860170dbbda25fe8d638a58a65755"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",

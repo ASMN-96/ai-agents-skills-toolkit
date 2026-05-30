@@ -17,3 +17,5 @@ Method files include `sourceRef`, `lastExtracted`, and `status` frontmatter so s
 `scripts/sync-runtime.mjs` is the dry-run-first helper for syncing canonical active skills into repo runtime and embedded package skill copies. It refuses unknown/internal-helper skills unless the active allowlist changes in a reviewed PR.
 
 `docs/OPERATOR_GUIDE.md` defines the normal operator prompts for planning-only mode, controlled implementation, release review, and quality-gate honesty.
+
+`evals/skills/premium-uiux-review-evals.json` is the generic, public-safe premium UI/UX eval suite for dashboard polish, responsive layout, accessibility, visual QA evidence, design-system consistency, non-trigger cases, and no-fake browser evidence.

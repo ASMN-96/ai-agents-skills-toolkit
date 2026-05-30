@@ -33,6 +33,8 @@ async function main() {
   const routingEvals = await readJson(".ai-toolkit/evals/routing/toolkit-routing-evals.json");
   const stopConditionEvals = await readJson("evals/stop-conditions/unsafe-request-evals.json");
   const namingEvals = await readJson("evals/skills/generic-naming-compatibility-evals.json");
+  const premiumUiuxEvals = await readJson("evals/skills/premium-uiux-review-evals.json");
+  const embeddedPremiumUiuxEvals = await readJson(".ai-toolkit/evals/skills/premium-uiux-review-evals.json");
 
   for (const name of ["riss-governance", "vd-premium-uiux", "riss-code-quality", "riss-security-review", "riss-release-gate"]) {
     if (!skills.skills.some((skill) => skill.name === name)) {
@@ -123,6 +125,44 @@ async function main() {
     if (!namingEvalIds.has(required)) {
       fail(`generic-naming-${required}`, "expected generic naming compatibility eval missing");
     }
+  }
+
+  const premiumSkill = skills.skills.find((entry) => entry.name === "vd-premium-uiux");
+  if (premiumSkill?.futurePublicName !== "premium-uiux-review") {
+    fail("premium-uiux-future-name", "premium UI/UX skill must keep premium-uiux-review as the future public name");
+  }
+  if (!premiumSkill?.evalSuites?.includes("evals/skills/premium-uiux-review-evals.json")) {
+    fail("premium-uiux-eval-suite", "premium UI/UX skill registry entry must reference the generic eval suite");
+  }
+
+  if (JSON.stringify(premiumUiuxEvals) !== JSON.stringify(embeddedPremiumUiuxEvals)) {
+    fail("premium-uiux-embedded-evals", "embedded premium UI/UX eval suite must match top-level eval suite");
+  }
+
+  const premiumEvalIds = new Set((premiumUiuxEvals.cases || []).map((evalCase) => evalCase.id));
+  for (const required of [
+    "dashboard-polish-operational",
+    "responsive-layout-viewports",
+    "accessibility-keyboard-contrast",
+    "visual-qa-evidence-required",
+    "design-system-consistency",
+    "non-trigger-backend-only",
+    "non-trigger-docs-only",
+    "no-fake-browser-evidence-stop"
+  ]) {
+    if (!premiumEvalIds.has(required)) {
+      fail(`premium-uiux-${required}`, "expected generic premium UI/UX eval missing");
+    }
+  }
+
+  const premiumPrompts = JSON.stringify((premiumUiuxEvals.cases || []).map((evalCase) => evalCase.userPrompt || ""));
+  if (/\bRISS\b|VDTwin|real estate/i.test(premiumPrompts)) {
+    fail("premium-uiux-public-safe-prompts", "generic premium UI/UX eval prompts must not contain project-specific names or domains");
+  }
+
+  const noFakeBrowser = (premiumUiuxEvals.cases || []).find((evalCase) => evalCase.id === "no-fake-browser-evidence-stop");
+  if (!noFakeBrowser || !includesAll(noFakeBrowser.forbiddenClaims || [], ["browser-verified", "screenshot-reviewed", "visual-qa-passed"])) {
+    fail("premium-uiux-no-fake-browser", "no-fake browser eval must forbid browser, screenshot, and visual QA claims without evidence");
   }
 
   if (failures.length === 0) {

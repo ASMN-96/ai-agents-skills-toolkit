@@ -623,6 +623,7 @@ async function writeEvals() {
     ]
   });
   await writeJson(`${AI_ROOT}/evals/skills/generic-naming-compatibility-evals.json`, await readJson("evals/skills/generic-naming-compatibility-evals.json"));
+  await writeJson(`${AI_ROOT}/evals/skills/premium-uiux-review-evals.json`, await readJson("evals/skills/premium-uiux-review-evals.json"));
 }
 
 async function copyMirrors() {

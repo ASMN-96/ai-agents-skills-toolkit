@@ -255,7 +255,7 @@
         "Context7"
       ],
       "riskLevel": "medium",
-      "evalStatus": "scaffolded",
+      "evalStatus": "covered",
       "sourceProvenance": [
         {
           "path": "skills/vd-premium-uiux/SKILL.md",
@@ -316,7 +316,10 @@
         "vd-premium-uiux"
       ],
       "namingMigrationStatus": "active-current-name",
-      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
+      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified.",
+      "evalSuites": [
+        "evals/skills/premium-uiux-review-evals.json"
+      ]
     },
     {
       "name": "riss-code-quality",
