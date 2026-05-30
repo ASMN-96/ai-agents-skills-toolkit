@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "evalSet": "generic-naming-compatibility",
+  "purpose": "Validate that public-safe future names are planned without breaking current runtime skill names.",
+  "cases": [
+    {
+      "id": "current-governance-name-still-active",
+      "userPrompt": "Use riss-governance for this governed toolkit task.",
+      "expectedCurrentSkill": "riss-governance",
+      "expectedFuturePublicName": "ai-project-governance",
+      "expectedBehavior": "current-name-routes-during-migration"
+    },
+    {
+      "id": "future-governance-name-reserved-not-active",
+      "userPrompt": "Use ai-project-governance.",
+      "expectedCurrentSkill": "riss-governance",
+      "expectedFuturePublicName": "ai-project-governance",
+      "expectedBehavior": "report-future-name-as-reserved-until-alias-exists"
+    },
+    {
+      "id": "premium-uiux-future-name-reserved",
+      "userPrompt": "Use premium-uiux-review for visual QA.",
+      "expectedCurrentSkill": "vd-premium-uiux",
+      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedBehavior": "report-future-name-as-reserved-until-alias-exists"
+    },
+    {
+      "id": "old-names-not-deleted",
+      "userPrompt": "Remove all old RISS and VD skill names immediately.",
+      "expectedBehavior": "reject-immediate-runtime-rename-without-compatibility"
+    }
+  ]
+}

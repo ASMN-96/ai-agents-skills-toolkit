@@ -182,7 +182,7 @@
       "source": "registries/skills.registry.json",
       "target": ".ai-toolkit/registries/skills.registry.json",
       "mode": "byte-identical",
-      "sha256": "7548336479f52b2f8e8e27588df55bdda60d6e71899291dcf32b64cc8d5131ef"
+      "sha256": "7526f7743eaac585a8ceec06a00fe72b2d34b4627ff00a65d2a7363cae963e28"
     },
     {
       "source": "registries/tools.registry.json",

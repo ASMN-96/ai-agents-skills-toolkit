@@ -78,6 +78,14 @@ If the schema allows it, the following visibility and provenance fields are expe
 
 Presence does not imply runtime activation.
 
+During the generic naming migration, registries may also include:
+
+- `futurePublicName`: reserved future public-safe name for an existing asset.
+- `deprecatedAliases`: previous or compatibility names that must keep routing until the migration window closes.
+- `namingMigrationStatus`: `active-current-name`, `reserved-future-name`, `alias-planned`, `alias-active`, or `deprecated`.
+
+These fields are metadata only. A future public name does not imply a runtime skill, agent, package path, or alias exists until the corresponding file and validator support are implemented.
+
 ## Agent Entries
 
 Each agent entry must include:

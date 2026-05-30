@@ -32,10 +32,28 @@ async function main() {
   const runtimeEvals = await readJson(".ai-toolkit/evals/runtime-activation/runtime-boundary-evals.json");
   const routingEvals = await readJson(".ai-toolkit/evals/routing/toolkit-routing-evals.json");
   const stopConditionEvals = await readJson("evals/stop-conditions/unsafe-request-evals.json");
+  const namingEvals = await readJson("evals/skills/generic-naming-compatibility-evals.json");
 
   for (const name of ["riss-governance", "vd-premium-uiux", "riss-code-quality", "riss-security-review", "riss-release-gate"]) {
     if (!skills.skills.some((skill) => skill.name === name)) {
       fail(`skill-${name}`, "expected skill missing from registry");
+    }
+  }
+
+  const futureNames = new Map([
+    ["riss-governance", "ai-project-governance"],
+    ["riss-code-quality", "webapp-code-quality"],
+    ["riss-security-review", "app-security-review"],
+    ["riss-release-gate", "pr-release-gate"],
+    ["vd-premium-uiux", "premium-uiux-review"]
+  ]);
+  for (const [currentName, futureName] of futureNames) {
+    const skill = skills.skills.find((entry) => entry.name === currentName);
+    if (skill?.futurePublicName !== futureName) {
+      fail(`future-name-${currentName}`, `expected futurePublicName ${futureName}`);
+    }
+    if (skill?.namingMigrationStatus !== "active-current-name") {
+      fail(`naming-status-${currentName}`, "current runtime skill must remain active-current-name during compatibility phase");
     }
   }
 
@@ -92,6 +110,18 @@ async function main() {
   ]) {
     if (!stopConditionIds.has(required)) {
       fail(`no-fake-validation-${required}`, "expected no-fake-validation stop-condition eval missing");
+    }
+  }
+
+  const namingEvalIds = new Set((namingEvals.cases || []).map((evalCase) => evalCase.id));
+  for (const required of [
+    "current-governance-name-still-active",
+    "future-governance-name-reserved-not-active",
+    "premium-uiux-future-name-reserved",
+    "old-names-not-deleted"
+  ]) {
+    if (!namingEvalIds.has(required)) {
+      fail(`generic-naming-${required}`, "expected generic naming compatibility eval missing");
     }
   }
 

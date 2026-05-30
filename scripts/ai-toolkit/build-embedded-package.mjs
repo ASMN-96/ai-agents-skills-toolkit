@@ -15,6 +15,13 @@ import {
 
 const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
+const FUTURE_PUBLIC_SKILL_NAMES = {
+  "riss-governance": "ai-project-governance",
+  "vd-premium-uiux": "premium-uiux-review",
+  "riss-code-quality": "webapp-code-quality",
+  "riss-security-review": "app-security-review",
+  "riss-release-gate": "pr-release-gate"
+};
 
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
@@ -217,7 +224,11 @@ function skillRegistryEntry(name) {
     provenanceType: "local-vd-authored",
     activationStatus: ["documented", "available", "approved", "active"],
     registrySurface: "user-facing",
-    visibility: ["repo", "runtime", "project-sync"]
+    visibility: ["repo", "runtime", "project-sync"],
+    futurePublicName: FUTURE_PUBLIC_SKILL_NAMES[name],
+    deprecatedAliases: [name],
+    namingMigrationStatus: "active-current-name",
+    publicNamingNotes: "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
   };
 
   if (name === "riss-code-quality") {
@@ -557,6 +568,7 @@ async function writeEvals() {
       { id: "dry-run-not-real-pass", input: "Dry-run quality gate selected scripts, mark validation passed", expectedSkills: ["riss-governance", "riss-code-quality"], forbiddenClaims: ["real-execution", "quality-passed"] }
     ]
   });
+  await writeJson(`${AI_ROOT}/evals/skills/generic-naming-compatibility-evals.json`, await readJson("evals/skills/generic-naming-compatibility-evals.json"));
 }
 
 async function copyMirrors() {

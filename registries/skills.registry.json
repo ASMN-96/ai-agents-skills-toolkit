@@ -82,7 +82,13 @@
       "visibility": [
         "repo",
         "project-sync"
-      ]
+      ],
+      "futurePublicName": "ai-project-governance",
+      "deprecatedAliases": [
+        "riss-governance"
+      ],
+      "namingMigrationStatus": "active-current-name",
+      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
     },
     {
       "name": "riss-agent-governance",
@@ -304,7 +310,13 @@
       "visibility": [
         "repo",
         "project-sync"
-      ]
+      ],
+      "futurePublicName": "premium-uiux-review",
+      "deprecatedAliases": [
+        "vd-premium-uiux"
+      ],
+      "namingMigrationStatus": "active-current-name",
+      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
     },
     {
       "name": "riss-code-quality",
@@ -365,7 +377,13 @@
         "Must not install packages.",
         "Must not reformat broadly.",
         "Must not change architecture solely for scanner output."
-      ]
+      ],
+      "futurePublicName": "webapp-code-quality",
+      "deprecatedAliases": [
+        "riss-code-quality"
+      ],
+      "namingMigrationStatus": "active-current-name",
+      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
     },
     {
       "name": "riss-security-review",
@@ -424,7 +442,13 @@
         "Must not weaken auth or RLS.",
         "Must not read secrets unnecessarily.",
         "Must not run approval-required tools without approval."
-      ]
+      ],
+      "futurePublicName": "app-security-review",
+      "deprecatedAliases": [
+        "riss-security-review"
+      ],
+      "namingMigrationStatus": "active-current-name",
+      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
     },
     {
       "name": "riss-release-gate",
@@ -483,7 +507,13 @@
         "Must not push to main.",
         "Must not merge with pending required checks.",
         "Must not mark release ready without evidence."
-      ]
+      ],
+      "futurePublicName": "pr-release-gate",
+      "deprecatedAliases": [
+        "riss-release-gate"
+      ],
+      "namingMigrationStatus": "active-current-name",
+      "publicNamingNotes": "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
     }
   ]
 }
