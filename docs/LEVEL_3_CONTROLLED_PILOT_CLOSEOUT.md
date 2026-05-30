@@ -16,6 +16,8 @@ Level 4 remains deferred until future evidence exists. Level 5 has not started.
 
 - Level 2 fresh-session verification: `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09_FRESH_SESSION.md`
 - Level 3 project-sync pilot: `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`
+- Level 3 operator checklist: `docs/LEVEL_3_OPERATOR_CHECKLIST.md`
+- Level 3 mock sync rehearsal: `docs/LEVEL_3_MOCK_SYNC_REHEARSAL_2026-05-30.md`
 - Level 4 evidence backlog: `docs/LEVEL_4_PROMOTION_EVIDENCE.md`
 
 ## Allowed After Closeout
