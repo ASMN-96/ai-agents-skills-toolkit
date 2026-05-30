@@ -1,8 +1,21 @@
 # Toolkit Architecture
 
-AI Agent Skills Toolkit separates production-grade governance, source intake, method extraction, agent definition, compilation, runtime-boundary documentation, and project sync.
+AI Agent Skills Toolkit separates production-grade governance, source intake, method extraction, agent definition, compilation, embedded distribution packaging, runtime-boundary documentation, and project sync.
 
 The toolkit is a governance, provenance, source-safety, routing, quality-control, and release-discipline layer for serious software projects. It is not a second Codex runtime and must not duplicate Codex-native capabilities, installed plugins, official OpenAI/Codex docs, or external skill/plugin behavior.
+
+## Main-Toolkit Embedded Distribution Pivot
+
+This repository now carries an embedded distribution/governance package at `.ai-toolkit/`. In this main toolkit repo, `.ai-toolkit/` is not a target-project install state and is not a Codex runtime activation path. It is a packaged, reviewable view of selected toolkit assets with a source-of-truth map, manifest hashes, registries, source records, route metadata, checklists, templates, and eval scaffolding.
+
+The pivot keeps the top-level folders as canonical source material. This implementation pass must not delete, relocate, or flatten `agents/`, `compiled-agents/`, `registries/`, `methods/`, `sources/`, `profiles/`, `evals/`, `scripts/`, or `skills/`. Any cleanup or migration of top-level folders is a later PR after the embedded package is validated.
+
+Active runtime remains intentionally small:
+
+- repo skills under `.agents/skills/`: `riss-governance`, `vd-premium-uiux`, `riss-code-quality`, `riss-security-review`, and `riss-release-gate`;
+- project custom agents under `.codex/agents/`: reviewer, frontend, security, QA/test, and release manager.
+
+All mirrors must be validated by byte identity or manifest hash. Registries and source records remain metadata only; they do not install, activate, approve, configure CI, configure MCP, change global Codex config, or import raw upstream content.
 
 ## Layers
 
@@ -14,6 +27,9 @@ The toolkit is a governance, provenance, source-safety, routing, quality-control
 - `compiled-agents/` stores intentional compiled outputs for project repositories.
 - `registries/` stores machine-readable indexes for existing agents, skills, passive methods, profiles, support tools, and plain-language routing scenarios.
 - `evals/` stores routing, skill trigger, stop-condition, token-efficiency, and runtime visibility evaluation scaffolds.
+- `.agents/skills/` stores the small active repo-skill runtime copy set for this toolkit repository.
+- `.codex/agents/` stores the small active project custom-agent runtime copy set for this toolkit repository.
+- `.ai-toolkit/` stores the embedded distribution/governance package and mirror manifest. It is non-runtime storage.
 - `docs/PRODUCTION_GRADE_SOFTWARE_GOVERNANCE.md` defines the universal quality bar and first-pilot usage model.
 - `docs/RUNTIME_ACTIVATION_MODEL.md` separates `.ai-toolkit/` governance storage from Codex runtime activation surfaces.
 - `docs/OVERLAP_REDUCTION.md` classifies duplicated authority as keep-active, delegate-to-codex-plugin, passive-reference, or candidate-removal.
@@ -31,6 +47,8 @@ Phase 3 method extraction adds source records and normalized method documents on
 Phase 4 agent compilation adds normalized compiled agent documents and reusable profiles only. Compiled agents summarize approved method rules into practical role-specific operating instructions. They do not duplicate full upstream method files, activate skills, create project sync scripts, overwrite project `AGENTS.md`, or modify product repositories.
 
 Phase 5 project sync adds installer, updater, and validator scripts that manage selected files under a target project's `.ai-toolkit/` directory. These scripts are dry-run by default, require `-ConfirmWrite` for writes, preserve project-local context, and do not install external skills or activate compiled agents globally.
+
+The main-toolkit `.ai-toolkit/` package is different from a target-project install. It is the distribution/governance package built inside this repo; target-project installs remain separately managed by the `install/` workflow.
 
 Phase 6 project-managed skill sync copies selected toolkit-owned single-file skills into target projects under `.ai-toolkit/skills/<skill-name>/SKILL.md`. It does not activate skills globally, modify Codex global config, or support bundled multi-file skill resources.
 

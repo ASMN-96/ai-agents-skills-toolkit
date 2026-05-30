@@ -2,45 +2,80 @@
 
 ## Purpose
 
-This document separates toolkit storage and governance from Codex runtime activation.
+This document separates the main toolkit repository's embedded distribution/governance package from Codex runtime activation.
 
-This PR documents the model only. It does not activate skills, plugins, tools, custom agents, global configuration, or project sync behavior.
+This pivot intentionally creates local runtime copies for a small approved surface while keeping `.ai-toolkit/` non-runtime storage. It does not install tools, configure MCP servers, change global Codex config, change CI workflows, import raw upstream content, or modify product repositories.
 
-## Governance Storage Is Not Runtime Activation
+## Verified Codex Runtime Surfaces
 
-`.ai-toolkit/` is the version-pinned governance, audit, and project-sync storage layer for target projects. It can store selected compiled agents, profiles, toolkit-owned skill files, sync metadata, and the toolkit version a project chose to consume.
+The runtime-path model was checked against official OpenAI Codex docs during this implementation:
 
-Presence under `.ai-toolkit/` does not mean Codex runtime activation. Files stored there are project artifacts until a separate approved workflow copies, registers, or activates them through a Codex-supported runtime surface.
+- Repo skills: `.agents/skills/<skill>/SKILL.md`. OpenAI's Codex skills docs state that repository skills are scanned from `.agents/skills` from the current working directory up to the repository root and that each skill directory contains `SKILL.md` with `name` and `description`. See [Agent Skills](https://developers.openai.com/codex/skills).
+- User skills: `$HOME/.agents/skills`. The same OpenAI skills docs list the user skill location as `$HOME/.agents/skills`.
+- Project custom agents: `.codex/agents/*.toml`. OpenAI's Codex subagents docs state that project-scoped custom agents live under `.codex/agents/` and require `name`, `description`, and `developer_instructions`. See [Subagents](https://developers.openai.com/codex/subagents).
+- Personal custom agents: `~/.codex/agents/*.toml`. The same subagents docs list `~/.codex/agents/` for personal custom agents.
 
-## Skill Runtime Surfaces
+## Embedded Distribution Storage Is Not Runtime Activation
 
-Codex runtime skill activation uses supported skill locations and plugin-provided skills, such as:
+In this main toolkit repository, `.ai-toolkit/` is an embedded distribution and governance package. It is not a target-project install state, and it is not an active Codex runtime path by itself.
 
-- project skill locations such as `.agents/skills`,
-- user skill locations such as `$HOME/.agents/skills`,
-- admin or system skill locations managed outside this repository,
-- installed plugins that expose skills.
+`.ai-toolkit/` may contain:
 
-This toolkit must not treat `sources/`, `methods/`, `registries/`, `compiled-agents/`, or `.ai-toolkit/` as active runtime skill directories.
+- source-of-truth map,
+- distribution manifest,
+- copied active skills for package review,
+- copied custom-agent TOML for package review,
+- copied registries,
+- tool-pack route metadata,
+- source records and watchlist metadata,
+- checklists, templates, and eval scaffolding.
 
-## Custom Agent Runtime Surfaces
+Presence under `.ai-toolkit/` never means:
 
-Codex runtime custom agents use supported custom-agent locations, such as:
+- skill activation,
+- custom-agent activation,
+- external tool install,
+- CI wiring,
+- MCP setup,
+- global Codex config changes,
+- approval to run scans,
+- raw upstream source import,
+- product repository sync.
 
-- project custom agents under `.codex/agents`,
-- user custom agents under `~/.codex/agents`.
+## Active Runtime Boundary For This Pivot
 
-Compiled agents in this repository are optional project artifacts and fallback source material. They are not mandatory always-on runtime layers.
+Active repo skills are limited to:
 
-## Boundary For This Phase
+- `.agents/skills/riss-governance/SKILL.md`
+- `.agents/skills/vd-premium-uiux/SKILL.md`
+- `.agents/skills/riss-code-quality/SKILL.md`
+- `.agents/skills/riss-security-review/SKILL.md`
+- `.agents/skills/riss-release-gate/SKILL.md`
 
-This source-refresh and slimming phase must not:
+Active project custom agents are limited to:
 
-- modify `~/.codex/agents`,
-- modify `.codex/agents`,
-- modify `.agents/skills`,
-- modify global Codex config,
-- install or activate skills, plugins, or tools,
-- sync files into product repositories.
+- `.codex/agents/reviewer-agent.toml`
+- `.codex/agents/frontend-agent.toml`
+- `.codex/agents/security-agent.toml`
+- `.codex/agents/qa-test-agent.toml`
+- `.codex/agents/release-manager-agent.toml`
 
-Runtime activation changes require a separate explicit approval with the exact target path, artifact list, validation plan, and rollback path.
+The other top-level agent specs and compiled agents remain canonical or fallback source material. They are not all activated in this pass.
+
+## Source-Of-Truth And Drift Rules
+
+Top-level folders remain canonical and must not be deleted, relocated, or flattened in this implementation pass.
+
+- Canonical skills live under `skills/`.
+- Runtime skill copies under `.agents/skills/` must be byte-identical to their canonical `skills/` source.
+- Distribution skill copies under `.ai-toolkit/skills/` must be byte-identical to their canonical `skills/` source.
+- Registry files under `.ai-toolkit/registries/` are package mirrors and must match their top-level `registries/` source.
+- Manifest hashes in `.ai-toolkit/manifest.json` are authoritative drift evidence for distribution copies.
+
+Any later cleanup, migration, folder flattening, or top-level relocation requires a separate PR after this pivot is proven.
+
+## External Tool Boundary
+
+Tool registry and source records are metadata only. They do not approve install, activation, CI wiring, MCP setup, credentials, global config, hooks, or PR write permissions.
+
+Approval-required tools such as deep secret scanners, DAST, supply-chain scanners, and runner hardening remain unexecuted unless a later task explicitly approves a scoped target and validation plan.

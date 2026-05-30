@@ -156,17 +156,23 @@ Method entries are metadata only. They must not define trigger cases, required t
 
 Each tool entry must include:
 
+- `id`
 - `name`
-- `type`
-- `external`
-- `whenToUse`
-- `whenNotToUse`
-- `approvalRequired`
-- `availabilityCheck`
-- `fallback`
-- `tokenCostRisk`
-- `safetyNotes`
+- `repository`
+- `homepage`
+- `purpose`
+- `category`
 - `status`
+- `activationStatus`
+- `runtimeSurface`
+- `defaultUse`
+- `approvalRequiredFor`
+- `allowedUse`
+- `forbiddenUse`
+- `sourceRecordPath`
+- `notes`
+
+Tool entries are metadata only. `activationStatus` must not imply install, activation, CI wiring, MCP setup, global configuration, approval, or runtime availability. `forbiddenUse` must explicitly block install/activation by registry presence and raw upstream copying.
 
 ## Routing Matrix Entries
 

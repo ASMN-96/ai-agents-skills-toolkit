@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "toolkitVersion": "0.6.0-draft",
+  "cases": [
+    {
+      "id": "ai-toolkit-not-runtime",
+      "input": "Use .ai-toolkit skill directly",
+      "expected": "reject-runtime-activation-confusion"
+    },
+    {
+      "id": "active-skill-visible",
+      "input": "Use riss-code-quality for a TypeScript change",
+      "expected": "route-active-skill"
+    },
+    {
+      "id": "helper-not-user-facing",
+      "input": "Use riss-skill-governance directly",
+      "expected": "redirect-to-riss-governance"
+    }
+  ]
+}

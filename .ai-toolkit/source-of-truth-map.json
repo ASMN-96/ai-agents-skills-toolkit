@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.0.0",
+  "toolkitVersion": "0.6.0-draft",
+  "domains": [
+    {
+      "domain": "skills",
+      "canonicalSource": "skills/<skill>/SKILL.md",
+      "runtimeCopy": ".agents/skills/<skill>/SKILL.md for the five active runtime skills only",
+      "distributionCopy": ".ai-toolkit/skills/<skill>/SKILL.md for packaged active skills",
+      "historicalArchive": "None in this pass unless a file is explicitly marked historical",
+      "driftControl": "byte identity between canonical, runtime, and distribution copies"
+    },
+    {
+      "domain": "agents",
+      "canonicalSource": "agents/*.md",
+      "runtimeCopy": ".codex/agents/*.toml for the five active project custom agents only",
+      "distributionCopy": ".ai-toolkit/agents/*.md for packaged agent source material",
+      "historicalArchive": "Existing non-active agent specs remain top-level documented assets",
+      "driftControl": "manifest hashes plus TOML field validation for active agents"
+    },
+    {
+      "domain": "compiled-agents",
+      "canonicalSource": "compiled-agents/*.compiled.md",
+      "runtimeCopy": "none",
+      "distributionCopy": ".ai-toolkit/compiled-agents/*.compiled.md when packaged",
+      "historicalArchive": "Older compiled-agent versions remain explicit drift until provenance is updated",
+      "driftControl": "manifest hashes; no broad version restamp in this pass"
+    },
+    {
+      "domain": "registries",
+      "canonicalSource": "registries/*.json",
+      "runtimeCopy": "none",
+      "distributionCopy": ".ai-toolkit/registries/*.json",
+      "historicalArchive": "none",
+      "driftControl": "byte identity for mirrored registry files"
+    },
+    {
+      "domain": "methods",
+      "canonicalSource": "methods/**",
+      "runtimeCopy": "none",
+      "distributionCopy": ".ai-toolkit/methods/**",
+      "historicalArchive": "restricted or historical sources remain marked in provenance",
+      "driftControl": "manifest hashes and source-provenance validation"
+    },
+    {
+      "domain": "sources",
+      "canonicalSource": "sources/*.md and sources/source-watchlist.json",
+      "runtimeCopy": "none",
+      "distributionCopy": ".ai-toolkit/sources/**",
+      "historicalArchive": "restricted/reference-only source records stay explicitly marked",
+      "driftControl": "neverAutoImport plus source-record and watchlist validation"
+    },
+    {
+      "domain": "profiles",
+      "canonicalSource": "profiles/*.md",
+      "runtimeCopy": "none",
+      "distributionCopy": ".ai-toolkit/profiles/*.md",
+      "historicalArchive": "older profile notes only if marked",
+      "driftControl": "manifest hashes and registry reference validation"
+    },
+    {
+      "domain": "evals",
+      "canonicalSource": "evals/**",
+      "runtimeCopy": "none",
+      "distributionCopy": ".ai-toolkit/evals/**",
+      "historicalArchive": "none",
+      "driftControl": "JSON parse and expected routing-case validation"
+    },
+    {
+      "domain": "scripts",
+      "canonicalSource": "scripts/*.mjs and scripts/ai-toolkit/*.mjs",
+      "runtimeCopy": "none",
+      "distributionCopy": ".ai-toolkit/scripts-manifest.json metadata only",
+      "historicalArchive": "old scripts remain top-level until a later cleanup PR",
+      "driftControl": "command allowlist, unsafe-command scan, and manifest hashes"
+    }
+  ]
+}

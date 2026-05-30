@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "toolkitVersion": "0.6.0-draft",
+  "cases": [
+    {
+      "id": "quality",
+      "input": "Review this React TypeScript diff",
+      "expectedSkills": [
+        "riss-governance",
+        "riss-code-quality"
+      ]
+    },
+    {
+      "id": "security",
+      "input": "Check tenant isolation and secrets",
+      "expectedSkills": [
+        "riss-governance",
+        "riss-security-review"
+      ]
+    },
+    {
+      "id": "release",
+      "input": "Prepare PR and CodeRabbit release gate",
+      "expectedSkills": [
+        "riss-governance",
+        "riss-release-gate"
+      ]
+    },
+    {
+      "id": "source",
+      "input": "Add this external scanner",
+      "expectedSkills": [
+        "riss-governance",
+        "riss-security-review"
+      ],
+      "forbiddenActions": [
+        "install",
+        "activate",
+        "raw-import"
+      ]
+    }
+  ]
+}
