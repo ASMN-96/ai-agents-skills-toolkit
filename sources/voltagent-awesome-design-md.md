@@ -4,8 +4,8 @@
 - Related directory: https://getdesign.md
 - Owner / publisher: VoltAgent.
 - Source type: Curated DESIGN.md collection inspired by popular brand and product design systems.
-- Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `4a8c23122c04929fc6df13545b6d1525a473fdfd` on `main`, checked by read-only remote HEAD on 2026-05-29.
+- Retrieval date: 2026-05-30.
+- Pinned repo ref checked: `6d10c1457484c971cdae35563a1386102b4337c6` on `main`, checked by read-only remote HEAD on 2026-05-30.
 - Visible adoption signals: about 73.5k GitHub stars, 9.0k forks, active repository updates on 2026-05-08, and a large `design-md` catalog.
 - Trust level: Medium source trust, high brand/trade-dress and copy-paste risk.
 - License status: GitHub API reports MIT.
@@ -63,3 +63,7 @@ Using this source incorrectly could make products look derivative, off-brand, or
 ## Recommendation
 
 Candidate for future normalized design-source-of-truth method extraction, pending separate approval. Keep future extraction focused on DESIGN.md schema and governance, not brand content. No raw design files, previews, skills, plugins, or repo content were activated.
+
+## Freshness Review 2026-05-30
+
+Skill Scout read-only follow-up reviewed the upstream default-branch movement from `4a8c23122c04929fc6df13545b6d1525a473fdfd` to `6d10c1457484c971cdae35563a1386102b4337c6` using read-only `git ls-remote`, GitHub compare metadata, license metadata, and patch keyword review only. The compare was 2 commits ahead and touched `README.md`, added `design-md/dell-1996/DESIGN.md`, `design-md/dell-1996/README.md`, `design-md/hp/DESIGN.md`, and `design-md/hp/README.md`. MIT license metadata remained present. Patch keyword review identified brand/catalog/design-content signals, but no package install, script execution, credential, MCP, hook, or filesystem-write signal in the changed lines. The brand, trade-dress, copyright, and product-misrepresentation risks remain high; the recommendation is unchanged. This refresh updates source tracking only and does not approve copying brand-specific `DESIGN.md` content, preview execution, source import, method extraction, project `DESIGN.md` writes, runtime activation, or global configuration use.
