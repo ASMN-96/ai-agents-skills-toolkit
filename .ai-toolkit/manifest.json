@@ -188,7 +188,7 @@
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
-      "sha256": "37a2625899feabb4cbbef9821303a3b344cb62ed4d6f6e0e52e4af8f020dcf01"
+      "sha256": "5d3080b3f80e1ce07607b2daa159b582f8384843f7269cb54ed58438167830ab"
     },
     {
       "source": "compiled-agents/reviewer-agent.compiled.md",
@@ -219,6 +219,12 @@
       "target": ".ai-toolkit/compiled-agents/release-manager-agent.compiled.md",
       "mode": "packaged-source-hash",
       "sha256": "176b34dc13a7919d86f92bbff625090954e80338e5f7046d070598c81bd74c75"
+    }
+  ],
+  "generatedArtifacts": [
+    {
+      "path": ".ai-toolkit/integrations/coderabbit.md",
+      "sha256": "f5502373a0894d8dd3b52f30bfc825ee8c848a427b1ab570c0f731af7ab88b47"
     }
   ],
   "generatedBy": "scripts/ai-toolkit/build-embedded-package.mjs"

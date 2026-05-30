@@ -1,9 +1,9 @@
 # React Doctor Source Record
 
 - Source name: React Doctor
-- Repository: react-doctor/react-doctor
-- Source URL: https://github.com/react-doctor/react-doctor
-- Homepage: unknown-review-required
+- Repository: millionco/react-doctor
+- Source URL: https://github.com/millionco/react-doctor
+- Homepage: https://react.doctor
 - Purpose: React codebase scanning for correctness, performance, architecture, accessibility, and AI-generated React risks
 - Category: react-scanner
 - License status: unknown-review-required

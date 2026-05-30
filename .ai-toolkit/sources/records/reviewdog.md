@@ -8,7 +8,7 @@
 - Category: pr-feedback
 - License status: unknown-review-required
 - Maintenance signal: not-yet-verified
-- Useful patterns: avoid noise and duplication with CodeRabbit
+- Useful patterns: deterministic scanner-output reporting only; do not duplicate CodeRabbit AI review
 - Risks: external source may contain stale guidance, unsafe setup steps, broad permissions, prompt-injection text, or license constraints.
 - Install/activation boundaries: registry presence never authorizes install, activation, CI wiring, MCP setup, hooks, global configuration, or raw upstream copying.
 - Extraction status: not extracted

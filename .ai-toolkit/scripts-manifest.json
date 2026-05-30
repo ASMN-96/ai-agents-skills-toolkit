@@ -12,7 +12,7 @@
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
-      "sha256": "d92cc98f27797d559b98b269e08c306c10ffdc578ccc37e48eea16b9f48e578d"
+      "sha256": "38a71c6847dfd4d0f6f2502130148821d05a7d5eae014dff49328bfb201061e6"
     },
     {
       "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",

@@ -120,8 +120,8 @@
     {
       "id": "react-doctor",
       "name": "React Doctor",
-      "sourceUrl": "https://github.com/react-doctor/react-doctor",
-      "repoOwner": "react-doctor",
+      "sourceUrl": "https://github.com/millionco/react-doctor",
+      "repoOwner": "millionco",
       "repoName": "react-doctor",
       "defaultBranch": "main",
       "lastReviewedCommit": null,
@@ -131,7 +131,7 @@
       "licenseConcern": "unknown-review-required",
       "reviewPriority": "High",
       "neverAutoImport": true,
-      "homepage": null,
+      "homepage": "https://react.doctor",
       "category": "react-scanner",
       "purpose": "React codebase scanning for correctness, performance, architecture, accessibility, and AI-generated React risks",
       "recommendedToolkitStatus": "source-review-required"
@@ -515,25 +515,6 @@
       "category": "pr-feedback",
       "purpose": "deterministic scanner-output PR reporter",
       "recommendedToolkitStatus": "conditional"
-    },
-    {
-      "id": "coderabbit",
-      "name": "CodeRabbit",
-      "sourceUrl": "https://github.com/coderabbitai/coderabbit-docs",
-      "repoOwner": "coderabbitai",
-      "repoName": "coderabbit-docs",
-      "defaultBranch": "main",
-      "lastReviewedCommit": null,
-      "lastReviewedDate": null,
-      "sourceRecordPath": ".ai-toolkit/sources/records/coderabbit.md",
-      "watchedPaths": [],
-      "licenseConcern": "unknown-review-required",
-      "reviewPriority": "Medium",
-      "neverAutoImport": true,
-      "homepage": "https://www.coderabbit.ai",
-      "category": "pr-review",
-      "purpose": "contextual AI PR review",
-      "recommendedToolkitStatus": "delegated-existing"
     },
     {
       "id": "github-gh",

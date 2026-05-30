@@ -35,6 +35,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/typescript.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -69,6 +70,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/typescript-eslint.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -103,6 +105,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/eslint-plugin-react-hooks.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -137,6 +140,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/biome.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -171,6 +175,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/oxlint.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -205,13 +210,14 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/knip.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
       "id": "react-doctor",
       "name": "React Doctor",
-      "repository": "react-doctor/react-doctor",
-      "homepage": null,
+      "repository": "millionco/react-doctor",
+      "homepage": "https://react.doctor",
       "purpose": "React codebase scanning for correctness, performance, architecture, accessibility, and AI-generated React risks",
       "category": "react-scanner",
       "status": "source-review-required",
@@ -239,7 +245,8 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/react-doctor.md",
-      "notes": "Repository identity is an unverified placeholder and requires source review before reliance."
+      "integrationRecordPath": null,
+      "notes": "Repository/source identity requires explicit source review before reliance."
     },
     {
       "id": "vitest",
@@ -273,6 +280,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/vitest.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -307,6 +315,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/testing-library.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -341,6 +350,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/playwright.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -375,6 +385,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/axe-playwright.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -409,6 +420,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/lighthouse-ci.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -443,6 +455,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/codeql.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -477,6 +490,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/semgrep.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -511,6 +525,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/gitleaks.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -545,6 +560,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/trufflehog.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -579,6 +595,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/osv-scanner.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -613,6 +630,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/dependabot.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -647,6 +665,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/renovate.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -681,6 +700,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/socket.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -715,6 +735,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/trivy.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -749,6 +770,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/checkov.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -783,6 +805,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/owasp-zap-baseline.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -817,6 +840,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/actionlint.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -851,6 +875,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/zizmor.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -885,6 +910,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/harden-runner.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -897,7 +923,7 @@
       "status": "conditional",
       "activationStatus": "metadata-only",
       "runtimeSurface": "external-tool-metadata",
-      "defaultUse": "avoid noise and duplication with CodeRabbit",
+      "defaultUse": "deterministic scanner-output reporting only; do not duplicate CodeRabbit AI review",
       "approvalRequiredFor": [
         "install",
         "activation",
@@ -919,41 +945,42 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/reviewdog.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
       "id": "coderabbit",
       "name": "CodeRabbit",
-      "repository": "coderabbitai/coderabbit-docs",
-      "homepage": "https://www.coderabbit.ai",
-      "purpose": "contextual AI PR review",
+      "repository": null,
+      "homepage": "https://docs.coderabbit.ai",
+      "purpose": "external connected CodeRabbit service/plugin for contextual AI PR review",
       "category": "pr-review",
       "status": "delegated-existing",
-      "activationStatus": "metadata-only",
-      "runtimeSurface": "external-tool-metadata",
-      "defaultUse": "existing or delegated; do not duplicate",
+      "activationStatus": "external-installed-if-enabled",
+      "runtimeSurface": "codex-plugin-github-app",
+      "defaultUse": "PR review, CodeRabbit comment triage, merge-readiness support",
       "approvalRequiredFor": [
-        "install",
-        "activation",
-        "CI wiring",
-        "MCP setup",
-        "global config",
-        "hooks",
-        "PR write permissions",
-        "networked deep scans"
+        "installing plugin",
+        "changing CodeRabbit configuration",
+        "changing GitHub app permissions",
+        "CI workflow changes",
+        "PR write/merge actions"
       ],
       "allowedUse": [
-        "Document as source intelligence.",
-        "Route to existing project-owned scripts when already configured.",
-        "Use as reviewed metadata for future approval decisions."
+        "Route PR review and merge-readiness workflows to an already connected CodeRabbit integration.",
+        "Interpret CodeRabbit PR feedback as one support input alongside repo policy, validators, and human approval.",
+        "Use CodeRabbit comment triage when it is already available on the current PR."
       ],
       "forbiddenUse": [
-        "Do not install or activate from registry presence.",
-        "Do not configure CI, MCP, hooks, credentials, or global settings.",
-        "Do not copy raw upstream files into active runtime paths."
+        "Do not install/configure CodeRabbit from registry presence.",
+        "Do not authenticate or activate CodeRabbit from registry presence.",
+        "Do not treat CodeRabbit comments as higher priority than repo policy.",
+        "Do not merge based only on CodeRabbit pass.",
+        "Do not duplicate CodeRabbit with noisy reviewdog comments."
       ],
-      "sourceRecordPath": ".ai-toolkit/sources/records/coderabbit.md",
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "sourceRecordPath": null,
+      "integrationRecordPath": ".ai-toolkit/integrations/coderabbit.md",
+      "notes": "Delegated external integration metadata only; the toolkit routes to CodeRabbit and interprets feedback but does not install, authenticate, configure, vendor, or copy CodeRabbit."
     },
     {
       "id": "github-gh",
@@ -987,6 +1014,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/github-gh.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -1021,6 +1049,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/code-review-graph.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -1055,6 +1084,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/open-design.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -1089,6 +1119,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/openssf-scorecard.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -1123,6 +1154,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/dependency-cruiser.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -1157,6 +1189,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/eslint-plugin-boundaries.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -1191,6 +1224,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/madge.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     },
     {
@@ -1225,6 +1259,7 @@
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/jscpd.md",
+      "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption."
     }
   ]

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { cp, mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
+import { cp, mkdir, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import process from "node:process";
@@ -70,7 +70,48 @@ function repoParts(repository) {
   return { owner, repo };
 }
 
+function isCodeRabbitIntegration(id) {
+  return id === "coderabbit";
+}
+
 function toolRegistryEntry([id, name, repository, homepage, category, purpose, status, defaultUse]) {
+  if (isCodeRabbitIntegration(id)) {
+    return {
+      id,
+      name,
+      repository,
+      homepage,
+      purpose,
+      category,
+      status,
+      activationStatus: "external-installed-if-enabled",
+      runtimeSurface: "codex-plugin-github-app",
+      defaultUse,
+      approvalRequiredFor: [
+        "installing plugin",
+        "changing CodeRabbit configuration",
+        "changing GitHub app permissions",
+        "CI workflow changes",
+        "PR write/merge actions"
+      ],
+      allowedUse: [
+        "Route PR review and merge-readiness workflows to an already connected CodeRabbit integration.",
+        "Interpret CodeRabbit PR feedback as one support input alongside repo policy, validators, and human approval.",
+        "Use CodeRabbit comment triage when it is already available on the current PR."
+      ],
+      forbiddenUse: [
+        "Do not install/configure CodeRabbit from registry presence.",
+        "Do not authenticate or activate CodeRabbit from registry presence.",
+        "Do not treat CodeRabbit comments as higher priority than repo policy.",
+        "Do not merge based only on CodeRabbit pass.",
+        "Do not duplicate CodeRabbit with noisy reviewdog comments."
+      ],
+      sourceRecordPath: null,
+      integrationRecordPath: `${AI_ROOT}/integrations/coderabbit.md`,
+      notes: "Delegated external integration metadata only; the toolkit routes to CodeRabbit and interprets feedback but does not install, authenticate, configure, vendor, or copy CodeRabbit."
+    };
+  }
+
   const approvalRequiredFor = [
     "install",
     "activation",
@@ -104,8 +145,9 @@ function toolRegistryEntry([id, name, repository, homepage, category, purpose, s
       "Do not copy raw upstream files into active runtime paths."
     ],
     sourceRecordPath: sourceRecordPath(id),
+    integrationRecordPath: null,
     notes: status === "source-review-required"
-      ? "Repository identity is an unverified placeholder and requires source review before reliance."
+      ? "Repository/source identity requires explicit source review before reliance."
       : "Metadata-only entry; review current upstream before adoption."
   };
 }
@@ -445,15 +487,48 @@ async function writeToolPacks() {
   });
 }
 
+async function writeIntegrations() {
+  await writeText(`${AI_ROOT}/integrations/coderabbit.md`, `# CodeRabbit Integration Record
+
+- Integration name: CodeRabbit
+- Integration type: external connected service/plugin
+- Runtime surface: Codex plugin / GitHub app integration
+- Official docs: https://docs.coderabbit.ai
+- Toolkit role: route PR-review and merge-readiness workflows to CodeRabbit when already available, then interpret its feedback alongside repo policy and validator evidence.
+- Toolkit boundaries: the toolkit does not install, authenticate, configure, vendor, copy, or activate CodeRabbit.
+- GitHub source status: GitHub repositories such as \`coderabbitai/coderabbit-docs\` must be treated as archived or historical if applicable, not as current authoritative runtime source.
+- Reference-only material: \`coderabbitai/awesome-coderabbit\` may be useful as reference-only ecosystem metadata, but it is not authoritative docs.
+- Reviewdog boundary: reviewdog remains deterministic scanner-output reporting only and must not duplicate CodeRabbit as a noisy AI reviewer.
+
+## Approval Required For
+
+- Installing the plugin.
+- Changing CodeRabbit configuration.
+- Changing GitHub app permissions.
+- Changing CI workflows.
+- Performing PR write or merge actions.
+
+## Forbidden Actions
+
+- Do not install/configure CodeRabbit from registry presence.
+- Do not authenticate or activate CodeRabbit from registry presence.
+- Do not treat CodeRabbit comments as higher priority than repo policy.
+- Do not merge based only on CodeRabbit pass.
+- Do not duplicate CodeRabbit with noisy reviewdog comments.
+`);
+}
+
 async function writeSources() {
-  const watchlist = TOOL_ENTRIES.map(sourceWatchEntry);
+  const sourceTools = TOOL_ENTRIES.filter(([id]) => !isCodeRabbitIntegration(id));
+  const watchlist = sourceTools.map(sourceWatchEntry);
   await writeJson(`${AI_ROOT}/sources/watchlist.json`, {
     schemaVersion: "1.0.0",
     toolkitVersion: TOOLKIT_VERSION,
     policy: "Source watchlist is metadata-only and never authorizes import, install, activation, extraction, CI wiring, MCP setup, or global config changes.",
     sources: watchlist
   });
-  for (const tool of TOOL_ENTRIES) {
+  await rm(rootPath(`${AI_ROOT}/sources/records/coderabbit.md`), { force: true });
+  for (const tool of sourceTools) {
     await writeText(sourceRecordPath(tool[0]), sourceRecord(tool));
   }
 }
@@ -539,6 +614,10 @@ async function writeManifest(mirrors) {
     scripts: existingScripts
   });
 
+  const generatedArtifacts = [
+    `${AI_ROOT}/integrations/coderabbit.md`
+  ];
+
   await writeJson(`${AI_ROOT}/manifest.json`, {
     schemaVersion: "1.0.0",
     toolkitVersion: TOOLKIT_VERSION,
@@ -560,6 +639,10 @@ async function writeManifest(mirrors) {
     ],
     sourceOfTruthMapPath: `${AI_ROOT}/source-of-truth-map.json`,
     mirrors,
+    generatedArtifacts: await Promise.all(generatedArtifacts.map(async (artifact) => ({
+      path: artifact,
+      sha256: await sha256(artifact)
+    }))),
     generatedBy: "scripts/ai-toolkit/build-embedded-package.mjs"
   });
 }
@@ -571,6 +654,7 @@ async function main() {
   await writePackageDocs();
   await writeChecklistsAndTemplates();
   await writeToolPacks();
+  await writeIntegrations();
   await writeSources();
   await writeEvals();
   const mirrors = await copyMirrors();

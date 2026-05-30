@@ -80,8 +80,17 @@ function scanUnsafe(relativePath, text) {
   }
 }
 
+function isCodeRabbitIntegration(tool) {
+  return tool.id === "coderabbit"
+    && tool.status === "delegated-existing"
+    && tool.activationStatus === "external-installed-if-enabled"
+    && tool.runtimeSurface === "codex-plugin-github-app"
+    && tool.sourceRecordPath === null
+    && tool.integrationRecordPath === `${AI_ROOT}/integrations/coderabbit.md`;
+}
+
 async function validatePackageShape() {
-  for (const dir of ["skills", "agents", "compiled-agents", "registries", "tool-packs", "checklists", "sources", "templates", "evals"]) {
+  for (const dir of ["skills", "agents", "compiled-agents", "registries", "tool-packs", "checklists", "sources", "integrations", "templates", "evals"]) {
     if (!(await exists(`${AI_ROOT}/${dir}`))) {
       fail(`${AI_ROOT}/${dir}`, "missing embedded package directory");
     }
@@ -139,6 +148,21 @@ async function validateManifest() {
       }
     }
   }
+  const generatedArtifacts = manifest.generatedArtifacts || [];
+  const coderabbitIntegration = generatedArtifacts.find((artifact) => artifact.path === `${AI_ROOT}/integrations/coderabbit.md`);
+  if (!coderabbitIntegration) {
+    fail(`${AI_ROOT}/manifest.json`, "missing generated artifact hash for CodeRabbit integration record");
+  }
+  for (const artifact of generatedArtifacts) {
+    if (!(await exists(artifact.path))) {
+      fail(`${AI_ROOT}/manifest.json`, `generated artifact missing: ${artifact.path}`);
+      continue;
+    }
+    const actualHash = await sha256(artifact.path);
+    if (artifact.sha256 !== actualHash) {
+      fail(artifact.path, "manifest generated artifact hash drift");
+    }
+  }
 }
 
 async function validateSourceMap() {
@@ -163,7 +187,7 @@ async function validateToolRegistry() {
     fail(`${AI_ROOT}/registries/tools.registry.json`, "activationPolicy must forbid install/activation by registry presence");
   }
   const ids = new Set();
-  const required = ["id", "name", "repository", "homepage", "purpose", "category", "status", "activationStatus", "runtimeSurface", "defaultUse", "approvalRequiredFor", "allowedUse", "forbiddenUse", "sourceRecordPath", "notes"];
+  const required = ["id", "name", "repository", "homepage", "purpose", "category", "status", "activationStatus", "runtimeSurface", "defaultUse", "approvalRequiredFor", "allowedUse", "forbiddenUse", "sourceRecordPath", "integrationRecordPath", "notes"];
   for (const tool of registry.tools || []) {
     const location = `${AI_ROOT}/registries/tools.registry.json:${tool.id || "<unknown>"}`;
     for (const field of required) {
@@ -175,11 +199,37 @@ async function validateToolRegistry() {
       fail(location, "duplicate tool id");
     }
     ids.add(tool.id);
+    if (tool.id === "coderabbit") {
+      if (!isCodeRabbitIntegration(tool)) {
+        fail(location, "CodeRabbit is the only allowed integration-backed tool and must use the approved delegated integration schema");
+      }
+      if (!(await exists(`${AI_ROOT}/integrations/coderabbit.md`))) {
+        fail(location, "CodeRabbit integration record is missing");
+      }
+      const approval = JSON.stringify(tool.approvalRequiredFor || []).toLowerCase();
+      for (const requiredApproval of ["installing plugin", "changing coderabbit configuration", "changing github app permissions", "ci workflow changes", "pr write/merge actions"]) {
+        if (!approval.includes(requiredApproval)) {
+          fail(location, `approvalRequiredFor must include ${requiredApproval}`);
+        }
+      }
+      const forbidden = JSON.stringify(tool.forbiddenUse || []).toLowerCase();
+      for (const requiredBoundary of ["install/configure", "authenticate or activate", "repo policy", "merge based only", "noisy reviewdog"]) {
+        if (!forbidden.includes(requiredBoundary)) {
+          fail(location, `forbiddenUse must block ${requiredBoundary}`);
+        }
+      }
+      continue;
+    }
     if (tool.activationStatus !== "metadata-only") {
       fail(location, "activationStatus must be metadata-only");
     }
-    if (tool.sourceRecordPath && !(await exists(tool.sourceRecordPath))) {
+    if (!tool.sourceRecordPath || typeof tool.sourceRecordPath !== "string") {
+      fail(location, "sourceRecordPath is required for normal external-source tool metadata");
+    } else if (!(await exists(tool.sourceRecordPath))) {
       fail(location, `source record missing: ${tool.sourceRecordPath}`);
+    }
+    if (tool.integrationRecordPath !== null) {
+      fail(location, "integrationRecordPath is only allowed for the CodeRabbit delegated integration");
     }
     const forbidden = JSON.stringify(tool.forbiddenUse || []).toLowerCase();
     if (!forbidden.includes("do not install") || !forbidden.includes("raw upstream")) {
@@ -205,6 +255,9 @@ async function validateWatchlist() {
       fail(location, "duplicate source id");
     }
     ids.add(source.id);
+    if (source.id === "coderabbit") {
+      fail(location, "CodeRabbit must be represented as an integration record, not a source-watchlist entry");
+    }
     if (source.neverAutoImport !== true) {
       fail(location, "neverAutoImport must be true");
     }
@@ -217,6 +270,9 @@ async function validateWatchlist() {
     if (!Array.isArray(source.watchedPaths)) {
       fail(location, "watchedPaths must be an array");
     }
+  }
+  if (await exists(`${AI_ROOT}/sources/records/coderabbit.md`)) {
+    fail(`${AI_ROOT}/sources/records/coderabbit.md`, "CodeRabbit must not be emitted as a source record");
   }
 }
 
