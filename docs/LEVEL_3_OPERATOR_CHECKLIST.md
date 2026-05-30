@@ -1,6 +1,6 @@
 # Level 3 Operator Checklist
 
-Status: active for Level 3 internal controlled use.
+Status: active for Level 3 internal controlled use and private beta.
 
 This checklist makes project sync repeatable for comparable internal projects. It does not approve Level 4 enterprise rollout, Level 5 public release, runtime adapter activation, MCP setup, global Codex configuration changes, external tool activation, or product-repository writes outside approved project PRs.
 

@@ -4,7 +4,7 @@ This document defines when the toolkit can be used in real product repositories.
 
 ## Current Classification
 
-After the 2026-05-30 first representative pilot, the toolkit is Level 3 certified and the current controlled-pilot milestone is closed. It is ready for normal use in comparable real projects that follow the same governed PR sync flow. Level 4 enterprise rollout is deferred and Level 5 public release is not approved; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
+After the 2026-05-30 first representative pilot, the toolkit is Level 3 certified and the current controlled-pilot milestone is closed. It is ready for normal use in comparable real projects and private beta with invited users when the same governed PR sync flow is followed. Level 4 enterprise rollout is deferred and Level 5 public release is not approved; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
 
 Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project checks, PR review, and passing CI. This does not authorize automatic rollout or runtime/global activation.
 
@@ -78,7 +78,7 @@ The current Level 3 milestone is complete on the first successful representative
 
 Level 3 closeout evidence is recorded in `docs/LEVEL_3_CONTROLLED_PILOT_CLOSEOUT.md`.
 
-For repeatable Level 3 internal use, follow `docs/LEVEL_3_OPERATOR_CHECKLIST.md`. The fixture rehearsal in `docs/LEVEL_3_MOCK_SYNC_REHEARSAL_2026-05-30.md` confirms the dry-run, confirm-write, and validation path without changing a real product repository.
+For repeatable Level 3 internal use and private beta, follow `docs/LEVEL_3_OPERATOR_CHECKLIST.md`. Private beta readiness is recorded in `docs/PRIVATE_BETA_READINESS_CLOSEOUT.md`. The fixture rehearsal in `docs/LEVEL_3_MOCK_SYNC_REHEARSAL_2026-05-30.md` confirms the dry-run, confirm-write, and validation path without changing a real product repository.
 
 ## Level 4 Broad Rollout Gate
 

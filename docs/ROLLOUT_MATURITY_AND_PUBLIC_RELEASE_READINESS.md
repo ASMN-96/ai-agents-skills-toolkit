@@ -1,6 +1,6 @@
 # Rollout Maturity and Public Release Readiness
 
-Status: Level 3 controlled-pilot milestone complete; Level 4 enterprise rollout is deferred and Level 5 public release is not started.
+Status: Level 3 controlled-pilot milestone complete and private beta approved; Level 4 enterprise rollout is deferred and Level 5 public release is not started.
 
 Date: 2026-05-30
 
@@ -28,6 +28,7 @@ Evidence:
 - Level 3 milestone closeout is recorded in `docs/LEVEL_3_CONTROLLED_PILOT_CLOSEOUT.md`.
 - Level 3 operator checklist is recorded in `docs/LEVEL_3_OPERATOR_CHECKLIST.md`.
 - Level 3 mock sync rehearsal is recorded in `docs/LEVEL_3_MOCK_SYNC_REHEARSAL_2026-05-30.md`.
+- Private beta readiness is recorded in `docs/PRIVATE_BETA_READINESS_CLOSEOUT.md`.
 - Aggregate validation reports WARN output instead of hiding it.
 - Public/private leak scan, stale/unverified classification, sourceRef traceability, enterprise tool metadata, and dry-run issue drafts now exist as governance evidence.
 
@@ -122,6 +123,7 @@ Allowed now:
 
 - Codex-first governance through the current active repo skills and project custom-agent artifacts.
 - Project sync through reviewed `.ai-toolkit/` project artifacts on feature branches.
+- Private beta with invited users under the Level 3 operator checklist.
 
 Documentation-only until separately approved:
 

@@ -18,11 +18,13 @@ Level 4 remains deferred until future evidence exists. Level 5 has not started.
 - Level 3 project-sync pilot: `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`
 - Level 3 operator checklist: `docs/LEVEL_3_OPERATOR_CHECKLIST.md`
 - Level 3 mock sync rehearsal: `docs/LEVEL_3_MOCK_SYNC_REHEARSAL_2026-05-30.md`
+- Private beta readiness closeout: `docs/PRIVATE_BETA_READINESS_CLOSEOUT.md`
 - Level 4 evidence backlog: `docs/LEVEL_4_PROMOTION_EVIDENCE.md`
 
 ## Allowed After Closeout
 
 - Internal controlled use for comparable projects.
+- Private beta with invited users under Level 3 controls.
 - Clean upstream-aligned feature branches.
 - Dry-run-first project sync.
 - Explicit owner approval for write scope.
