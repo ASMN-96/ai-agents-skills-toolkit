@@ -74,6 +74,15 @@ External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.m
 - Syncing a skill file does not activate skills globally, install external skills, or modify Codex global config.
 - Bundled multi-file skill resources are not supported in Phase 6 v1.
 
+## Repo Runtime Sync Rules
+
+- `scripts/sync-runtime.mjs` is dry-run by default.
+- `--confirm-write` is required before syncing canonical `skills/<skill>/SKILL.md` into repo runtime `.agents/skills/<skill>/SKILL.md` or package storage `.ai-toolkit/skills/<skill>/SKILL.md`.
+- The active runtime skill allowlist is `ACTIVE_SKILLS` from `scripts/ai-toolkit/embedded-data.mjs`.
+- Unknown skills and internal helper skills are refused; helper activation requires a separate reviewed PR.
+- Confirmed writes may update `.ai-toolkit/manifest.json` mirror hashes only for the affected active skill mirrors.
+- The script must not write to product repositories, package files, CI, MCP config, global Codex config, external sources, or non-skill runtime paths.
+
 ## Phase 7 Core Toolchain Governance Rules
 
 - GSD is treated as an external core governance tool, not a vendored toolkit dependency.

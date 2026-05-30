@@ -75,6 +75,8 @@ Top-level folders remain canonical and must not be deleted, relocated, or flatte
 - Manifest hashes in `.ai-toolkit/manifest.json` are authoritative drift evidence for distribution copies.
 - Validator WARN output is part of the runtime-boundary evidence. A PASS with WARN means the blocking checks passed, but the warning condition still exists and must be reported until fixed or explicitly accepted.
 
+`scripts/sync-runtime.mjs` is the repo-local sync helper for the active skill surface. It is dry-run by default; `--confirm-write` is required before it copies canonical active skills into `.agents/skills/` and `.ai-toolkit/skills/` or updates `.ai-toolkit/manifest.json` hashes. The script refuses unknown skills and internal helper skills because helper activation requires a separate reviewed PR.
+
 Any later cleanup, migration, folder flattening, or top-level relocation requires a separate PR after this pivot is proven.
 
 ## External Tool Boundary
