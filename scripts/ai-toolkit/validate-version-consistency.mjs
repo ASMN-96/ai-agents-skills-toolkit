@@ -79,7 +79,7 @@ async function main() {
   for (const mirror of compiledMirrors) {
     const text = await readFile(rootPath(mirror.target), "utf8");
     if (!text.includes(`toolkit_version: ${TOOLKIT_VERSION}`)) {
-      warn(mirror.target, `compiled-agent metadata does not use ${TOOLKIT_VERSION}; left as explicit drift pending provenance-safe regeneration`);
+      warn(mirror.target, `compiled-agent metadata does not use ${TOOLKIT_VERSION}; left as explicit drift pending docs/COMPILED_AGENT_COMPILE_CONTRACT.md implementation`);
     }
   }
 
