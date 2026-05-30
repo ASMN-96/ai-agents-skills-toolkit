@@ -42,6 +42,8 @@ Presence under `.ai-toolkit/` never means:
 - raw upstream source import,
 - product repository sync.
 
+Runtime reporting must follow `docs/NO_FAKE_VALIDATION_POLICY.md`. Files under `.ai-toolkit/`, registries, source records, manifests, or packaged copies are storage and metadata evidence only; they must not be described as active runtime visibility, installed tools, executed validation, or approval unless an actual runtime or command check proves it.
+
 ## Active Runtime Boundary For This Pivot
 
 Active repo skills are limited to:
@@ -71,6 +73,7 @@ Top-level folders remain canonical and must not be deleted, relocated, or flatte
 - Distribution skill copies under `.ai-toolkit/skills/` must be byte-identical to their canonical `skills/` source.
 - Registry files under `.ai-toolkit/registries/` are package mirrors and must match their top-level `registries/` source.
 - Manifest hashes in `.ai-toolkit/manifest.json` are authoritative drift evidence for distribution copies.
+- Validator WARN output is part of the runtime-boundary evidence. A PASS with WARN means the blocking checks passed, but the warning condition still exists and must be reported until fixed or explicitly accepted.
 
 Any later cleanup, migration, folder flattening, or top-level relocation requires a separate PR after this pivot is proven.
 

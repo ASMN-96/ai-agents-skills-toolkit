@@ -31,6 +31,7 @@ async function main() {
   const matrix = await readJson("registries/routing-matrix.json");
   const runtimeEvals = await readJson(".ai-toolkit/evals/runtime-activation/runtime-boundary-evals.json");
   const routingEvals = await readJson(".ai-toolkit/evals/routing/toolkit-routing-evals.json");
+  const stopConditionEvals = await readJson("evals/stop-conditions/unsafe-request-evals.json");
 
   for (const name of ["riss-governance", "vd-premium-uiux", "riss-code-quality", "riss-security-review", "riss-release-gate"]) {
     if (!skills.skills.some((skill) => skill.name === name)) {
@@ -64,9 +65,33 @@ async function main() {
     }
   }
 
+  const runtimeEvalIds = new Set((runtimeEvals.cases || []).map((evalCase) => evalCase.id));
+  for (const required of ["validator-warn-visible", "metadata-not-execution"]) {
+    if (!runtimeEvalIds.has(required)) {
+      fail(`runtime-no-fake-${required}`, "expected embedded no-fake-validation runtime eval missing");
+    }
+  }
+
   for (const evalCase of routingEvals.cases || []) {
     if (evalCase.forbiddenActions?.includes("install") && !evalCase.forbiddenActions.includes("activate")) {
       fail(evalCase.id, "external source eval must forbid install and activation");
+    }
+  }
+
+  const dryRunEval = (routingEvals.cases || []).find((evalCase) => evalCase.id === "dry-run-not-real-pass");
+  if (!dryRunEval || !includesAll(dryRunEval.forbiddenClaims || [], ["real-execution", "quality-passed"])) {
+    fail("dry-run-not-real-pass", "dry-run eval must forbid real execution and quality-passed claims");
+  }
+
+  const stopConditionIds = new Set((stopConditionEvals.cases || []).map((evalCase) => evalCase.id));
+  for (const required of [
+    "dry-run-quality-gate-not-real-pass",
+    "registry-entry-not-tool-execution",
+    "coderabbit-status-unavailable",
+    "validator-warnings-not-hidden"
+  ]) {
+    if (!stopConditionIds.has(required)) {
+      fail(`no-fake-validation-${required}`, "expected no-fake-validation stop-condition eval missing");
     }
   }
 

@@ -8,6 +8,7 @@ import { promisify } from "node:util";
 const ROOT = process.cwd();
 const execFileAsync = promisify(execFile);
 const failures = [];
+const warnings = [];
 const checks = [];
 const totals = {
   registries: 0,
@@ -40,6 +41,10 @@ function fail(check, location, message) {
   failures.push({ check, location, message });
 }
 
+function warn(check, location, message) {
+  warnings.push({ check, location, message });
+}
+
 function note(check) {
   checks.push(check);
 }
@@ -47,6 +52,26 @@ function note(check) {
 function failSubvalidator(check, output) {
   for (const line of output.trim().split(/\r?\n/).filter(Boolean)) {
     fail(check, check, line);
+  }
+}
+
+function collectSubvalidatorWarnings(check, validator, output) {
+  let currentWarning = null;
+  for (const rawLine of output.trim().split(/\r?\n/).filter(Boolean)) {
+    const line = rawLine.trimEnd();
+    if (line.startsWith("WARN ")) {
+      const message = line.replace(/^WARN\s+/, "");
+      currentWarning = message;
+      warn(check, validator, message);
+      continue;
+    }
+
+    if (currentWarning && line.startsWith("- ")) {
+      warn(check, validator, `${currentWarning} ${line}`);
+      continue;
+    }
+
+    currentWarning = null;
   }
 }
 
@@ -521,9 +546,11 @@ async function runAiToolkitSubvalidators() {
           fail("embedded validator", validator, line);
         }
       }
+      collectSubvalidatorWarnings("embedded validator", validator, `${result.stdout}${result.stderr}`);
     } catch (error) {
       fail("embedded validator", validator, `subvalidator failed with exit ${error.code ?? "unknown"}`);
       failSubvalidator("embedded validator", `${error.stdout || ""}${error.stderr || error.message || ""}`);
+      collectSubvalidatorWarnings("embedded validator", validator, `${error.stdout || ""}${error.stderr || ""}`);
     }
   }
 }
@@ -547,6 +574,13 @@ async function main() {
     console.log(`- ${check}`);
   }
   console.log(`totals: registries=${totals.registries}, evals=${totals.evals}, sources=${totals.sources}`);
+
+  if (warnings.length > 0) {
+    console.log("WARN summary:");
+    for (const warning of warnings) {
+      console.log(`- [${warning.check}] ${warning.location}: ${warning.message}`);
+    }
+  }
 
   if (failures.length > 0) {
     console.log("failures:");

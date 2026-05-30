@@ -4,7 +4,7 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "b366e7a37732bd6ac486194747ad8c4253e751f54406765155a75243b7fb1668"
+      "sha256": "8b56c60586df353efe051b94d483d14a95a11579a8cc4640e5b007aab865a0da"
     },
     {
       "path": "scripts/check-source-freshness.mjs",
@@ -24,7 +24,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "fce27d6ff3a59ba73deed805c2adc51a240c7700b39b67515250980604e64ddf"
+      "sha256": "eb2be24bd9829e1040ef61f40aed7efe618742cb2852b82414b4e64c5e007a15"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",

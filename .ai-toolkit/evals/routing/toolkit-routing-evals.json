@@ -38,6 +38,18 @@
         "activate",
         "raw-import"
       ]
+    },
+    {
+      "id": "dry-run-not-real-pass",
+      "input": "Dry-run quality gate selected scripts, mark validation passed",
+      "expectedSkills": [
+        "riss-governance",
+        "riss-code-quality"
+      ],
+      "forbiddenClaims": [
+        "real-execution",
+        "quality-passed"
+      ]
     }
   ]
 }

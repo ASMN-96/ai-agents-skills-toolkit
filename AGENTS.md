@@ -13,6 +13,8 @@ These rules apply to work inside this toolkit repository.
 - Keep methods modular.
 - Generate compiled agents intentionally.
 - Treat skills as supply-chain artifacts.
+- Do not report fallback, mock, dry-run, skipped, metadata-only, planned, unavailable, or partial checks as real execution.
+- If validator WARN output exists, surface it in completion reports even when the aggregate status is PASS.
 
 ## External Source Rules
 

@@ -38,61 +38,61 @@
       "source": "skills/riss-governance/SKILL.md",
       "target": ".agents/skills/riss-governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "549cf366f9302ba36d9b08a7b658648af7edb141151c698a8c429b0490f3e4a4"
+      "sha256": "83acadc97276d3d707d463729d57f1d9f28141b3187224c4b4fbbacac7888414"
     },
     {
       "source": "skills/riss-governance/SKILL.md",
       "target": ".ai-toolkit/skills/riss-governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "549cf366f9302ba36d9b08a7b658648af7edb141151c698a8c429b0490f3e4a4"
+      "sha256": "83acadc97276d3d707d463729d57f1d9f28141b3187224c4b4fbbacac7888414"
     },
     {
       "source": "skills/vd-premium-uiux/SKILL.md",
       "target": ".agents/skills/vd-premium-uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "02c5345215186e2457e9bd2ddcbdda0490df1bfdaf7592c21cc73ceec8d355dd"
+      "sha256": "a6d06a6dcf6c6adae1678bc784f9bccc0a6575cc48c062c045930da98a8df5de"
     },
     {
       "source": "skills/vd-premium-uiux/SKILL.md",
       "target": ".ai-toolkit/skills/vd-premium-uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "02c5345215186e2457e9bd2ddcbdda0490df1bfdaf7592c21cc73ceec8d355dd"
+      "sha256": "a6d06a6dcf6c6adae1678bc784f9bccc0a6575cc48c062c045930da98a8df5de"
     },
     {
       "source": "skills/riss-code-quality/SKILL.md",
       "target": ".agents/skills/riss-code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "9304a9ab50c97a0b1c6b99364ae32c64b9fc42262943f8ca6f7926c5320d1917"
+      "sha256": "73b135b4b945dc6fff12e313f1c2b237bcf456370a1fe91e32afc819d3b044fc"
     },
     {
       "source": "skills/riss-code-quality/SKILL.md",
       "target": ".ai-toolkit/skills/riss-code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "9304a9ab50c97a0b1c6b99364ae32c64b9fc42262943f8ca6f7926c5320d1917"
+      "sha256": "73b135b4b945dc6fff12e313f1c2b237bcf456370a1fe91e32afc819d3b044fc"
     },
     {
       "source": "skills/riss-security-review/SKILL.md",
       "target": ".agents/skills/riss-security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "eee864af1c2f03aa82e43f1d0b0e6a7e9679fd73858677aab1337c41fc5207b7"
+      "sha256": "c3175c166b37dfc5587680770ffd58c334216a1dd8a6d8ef4e6e65bd34be279d"
     },
     {
       "source": "skills/riss-security-review/SKILL.md",
       "target": ".ai-toolkit/skills/riss-security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "eee864af1c2f03aa82e43f1d0b0e6a7e9679fd73858677aab1337c41fc5207b7"
+      "sha256": "c3175c166b37dfc5587680770ffd58c334216a1dd8a6d8ef4e6e65bd34be279d"
     },
     {
       "source": "skills/riss-release-gate/SKILL.md",
       "target": ".agents/skills/riss-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "80a74a28f23455a5c9b360f9eeffa068193795fc520dc14ea428b95ef72abd5c"
+      "sha256": "0c8b49ee6c7a2bad944a5c2b110535f93fcab6efbd8ee11446fa3a0db102e147"
     },
     {
       "source": "skills/riss-release-gate/SKILL.md",
       "target": ".ai-toolkit/skills/riss-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "80a74a28f23455a5c9b360f9eeffa068193795fc520dc14ea428b95ef72abd5c"
+      "sha256": "0c8b49ee6c7a2bad944a5c2b110535f93fcab6efbd8ee11446fa3a0db102e147"
     },
     {
       "source": ".codex/agents/reviewer-agent.toml",

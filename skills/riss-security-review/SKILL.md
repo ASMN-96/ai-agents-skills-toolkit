@@ -40,7 +40,9 @@ Socket, TruffleHog, ZAP, Harden-Runner, Trivy, Checkov, Semgrep, CodeQL, and sim
 - RLS and authorization checks remain intact.
 - External source records document license, trust, maintenance, dangerous commands, secret access, network behavior, and prompt-injection risk.
 - Findings are evidence-based and severity-labeled.
+- Metadata-only tool records, skipped scans, dry-runs, unavailable scanners, and partial reviews are labeled honestly.
+- Security coverage is not claimed from registry/source metadata or approval-required tools that did not run.
 
 ## Completion Evidence
 
-Report findings by severity, files or artifacts reviewed, commands run, skipped checks, and residual risk. If security coverage is partial, say exactly what remains unverified.
+Report findings by severity, files or artifacts reviewed, commands run, skipped checks, WARN output, and residual risk. If security coverage is partial, say exactly what remains unverified. Follow `docs/NO_FAKE_VALIDATION_POLICY.md` for mock, dry-run, unavailable, fallback, metadata-only, and unverified security evidence.

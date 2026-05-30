@@ -2,6 +2,8 @@
 
 Registries are machine-readable indexes of reviewed toolkit assets, planned assets, and external support capabilities. They are metadata only. Presence in a registry does not install, activate, approve, or execute anything.
 
+Registry reporting must follow `docs/NO_FAKE_VALIDATION_POLICY.md`: registry entries may describe planned, documented, metadata-only, approved, or active states, but they must not be used as proof that a tool ran, a skill was visible, a source was trusted, or a fallback executed.
+
 ## Required Registries
 
 - `registries/agents.registry.json`
@@ -205,4 +207,6 @@ Source records remain the provenance layer. A method registry entry may cite a s
 ## Validation
 
 Every registry file must be valid JSON. Registry updates should be validated before completion and reviewed for accidental activation language. `registries/methods.registry.json` must additionally validate that every `methodPath` exists, every `sourceProvenance` path exists, every routing `methodReferences` value resolves to a method ID, and no method entry claims active runtime status.
+
+Validation reports must surface WARN output separately from blocking failures. A passing registry validator can still leave review-required metadata, source-review-required tools, compiled-agent drift, mock-only freshness, or other non-blocking warnings that completion reports must preserve.
 
