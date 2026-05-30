@@ -157,3 +157,11 @@ Phase 10O adds a read-only/report-only watchlist, a dependency-free source fresh
 Phase 10 is ready to close after this Phase 10O PR is reviewed and merged. The closed Phase 10 scope will include governance spine, source scouting, method indexing, runtime/readiness gates, Level 2 certification, governance UX hardening, explicit opt-in governance, and read-only source freshness monitoring.
 
 Future work after Phase 10 should be planned in a separate phase and must keep the same review, safety, and approval boundaries.
+
+## Post-PR #39 Hardening
+
+Status: in progress on a local hardening branch.
+
+The hardening sprint improves validation honesty, public/private release safety, enterprise tool metadata, sourceRef traceability, sync automation, operator guidance, eval coverage, registry generation design, compile-contract governance, cross-platform project sync, and future public/private architecture boundaries.
+
+`docs/PUBLIC_PRIVATE_OVERLAY_ARCHITECTURE_ADR.md` defines the future `core/`, `runtimes/`, `private-overlays/`, and distribution architecture. It is documentation-only and does not authorize folder relocation, runtime expansion, CI changes, package changes, or public release readiness claims.

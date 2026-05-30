@@ -51,3 +51,5 @@ Phase 10 source-refresh slimming adds the production-grade software governance m
 Post-PR #39 hardening starts with validation honesty and public/private release safety. `docs/NO_FAKE_VALIDATION_POLICY.md` defines reporting truth rules, and `scripts/scan-public-private-leaks.mjs` generates a report-only public/private leak scan before any public release or naming migration.
 
 `docs/OPERATOR_GUIDE.md` defines the normal prompt patterns for planning-only work, controlled implementation, release review, and quality-gate honesty. `scripts/ai-toolkit/run-quality-gate.mjs --dry-run` is capability detection only unless project scripts actually run.
+
+`docs/PUBLIC_PRIVATE_OVERLAY_ARCHITECTURE_ADR.md` records the future public/private architecture target. It does not move folders; current top-level paths remain canonical until compatibility, leak-scan, package, and runtime gates are proven.
