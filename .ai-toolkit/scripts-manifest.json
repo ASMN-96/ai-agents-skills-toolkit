@@ -7,6 +7,10 @@
       "sha256": "8b56c60586df353efe051b94d483d14a95a11579a8cc4640e5b007aab865a0da"
     },
     {
+      "path": "scripts/scan-public-private-leaks.mjs",
+      "sha256": "6e231f43b91f96c2839f59ee40dae4285663e48fed7ebdd4d971dd1f9d8084c3"
+    },
+    {
       "path": "scripts/check-source-freshness.mjs",
       "sha256": "1ea180eaedd904a18ae026a892915ece38022f0cd16eafce89cf5a33157c7054"
     },

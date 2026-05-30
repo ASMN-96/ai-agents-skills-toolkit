@@ -594,6 +594,7 @@ async function copyMirrors() {
 async function writeManifest(mirrors) {
   const scripts = [
     "scripts/validate-toolkit.mjs",
+    "scripts/scan-public-private-leaks.mjs",
     "scripts/check-source-freshness.mjs",
     "scripts/ai-toolkit/validate-ai-toolkit.mjs",
     "scripts/ai-toolkit/validate-codex-runtime.mjs",

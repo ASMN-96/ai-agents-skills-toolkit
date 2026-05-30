@@ -47,3 +47,5 @@ Phases 1-9 established the toolkit foundation, source records, normalized method
 Phase 10A/10B adds the governance spine contract, registries, token-efficiency policy, missing-skill discovery policy, runtime verification docs, external-source backlog, and eval scaffolding. Phase 10C/10D refreshes external source records only. Phase 10E adds narrow normalized methods. Phase 10F indexes reviewed methods as passive metadata and routing references. These phases do not install tools, activate skills, clone repositories, copy raw external skills, modify global Codex config, or touch product repositories.
 
 Phase 10 source-refresh slimming adds the production-grade software governance model, runtime activation boundary, overlap classification, and live source freshness refresh while preserving Codex/plugin execution authority.
+
+Post-PR #39 hardening starts with validation honesty and public/private release safety. `docs/NO_FAKE_VALIDATION_POLICY.md` defines reporting truth rules, and `scripts/scan-public-private-leaks.mjs` generates a report-only public/private leak scan before any public release or naming migration.
