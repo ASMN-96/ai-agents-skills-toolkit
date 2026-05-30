@@ -37,6 +37,10 @@ function git(repo, args) {
   return run("git", ["-C", repo, ...args]);
 }
 
+function canonicalToolkitVersion() {
+  return run("node", ["--input-type=module", "-e", "import { TOOLKIT_VERSION } from './scripts/ai-toolkit/embedded-data.mjs'; console.log(TOOLKIT_VERSION);"]).trim();
+}
+
 function newTestRepo(tempRoot, name) {
   const remote = path.join(tempRoot, `${name}-remote.git`);
   const repo = path.join(tempRoot, `${name}-repo`);
@@ -92,6 +96,8 @@ test("project sync core remains dry-run-first and validates confirmed installs",
     ]);
     assert.equal(install.status, 0, install.output);
     assert.equal(existsSync(path.join(repo, ".ai-toolkit", ".ai-toolkit-manifest.json")), true);
+    const installedVersion = JSON.parse(run("node", ["-e", `console.log(require('fs').readFileSync(${JSON.stringify(path.join(repo, ".ai-toolkit", ".ai-toolkit-version"))}, 'utf8'))`]));
+    assert.equal(installedVersion.toolkitVersion, canonicalToolkitVersion());
 
     const validate = runResult("node", [coreScript, "validate", "--target", repo]);
     assert.equal(validate.status, 0, validate.output);

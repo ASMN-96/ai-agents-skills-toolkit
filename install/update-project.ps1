@@ -8,8 +8,19 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-$ToolkitVersion = '0.5.0-draft'
 $ToolkitRoot = Split-Path -Parent $PSScriptRoot
+
+function Get-ToolkitVersion {
+    $versionPath = Join-Path $ToolkitRoot '.ai-toolkit\VERSION'
+    if (!(Test-Path -LiteralPath $versionPath)) {
+        throw 'Missing .ai-toolkit/VERSION. Project sync requires the canonical toolkit version file.'
+    }
+    $version = (Get-Content -Raw -LiteralPath $versionPath).Trim()
+    if ([string]::IsNullOrWhiteSpace($version)) {
+        throw '.ai-toolkit/VERSION is empty.'
+    }
+    return $version
+}
 
 function Show-Help {
     @'
@@ -258,6 +269,7 @@ if (!(Test-Path -LiteralPath $resolvedConfigPath)) { throw "Missing config file:
 $installedVersionRaw = Get-Content -Raw -LiteralPath $versionPath
 $installedVersion = $installedVersionRaw | ConvertFrom-Json
 $config = Get-Content -Raw -LiteralPath $resolvedConfigPath | ConvertFrom-Json
+$ToolkitVersion = Get-ToolkitVersion
 
 $allowOverwrite = [bool](Get-JsonProperty $config 'allowOverwriteProjectContext' $false)
 if ($allowOverwrite) {

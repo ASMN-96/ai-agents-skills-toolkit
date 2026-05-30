@@ -13,8 +13,8 @@ import {
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { TOOLKIT_VERSION } from "../scripts/ai-toolkit/embedded-data.mjs";
 
-const TOOLKIT_VERSION = "0.5.0-draft";
 const TOOLKIT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 function usage(command) {

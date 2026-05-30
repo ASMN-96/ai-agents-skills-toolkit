@@ -1,6 +1,6 @@
 # Stale and Unverified Data Classification
 
-Generated at: 2026-05-30T12:33:55.166Z
+Generated at: 2026-05-30T13:00:44.101Z
 
 Report-only classification. No files were deleted, renamed, relocated, activated, installed, or approved by this report.
 
@@ -20,7 +20,7 @@ Report-only classification. No files were deleted, renamed, relocated, activated
 | keep-active | 196 |
 | metadata-only | 179 |
 | historical | 36 |
-| review-required | 1569 |
+| review-required | 1566 |
 | remove-later | 11 |
 | private-overlay-only | 858 |
 
@@ -28,7 +28,7 @@ Report-only classification. No files were deleted, renamed, relocated, activated
 
 | Signal | Count |
 | --- | ---: |
-| old-version-metadata | 38 |
+| old-version-metadata | 35 |
 | unknown-review-required | 1252 |
 | project-private-naming | 1119 |
 | local-path | 1 |
@@ -133,8 +133,6 @@ Samples are capped to keep the report reviewable. Re-run the script for the curr
 
 | Signal | File | Line | Value | Context |
 | --- | --- | ---: | --- | --- |
-| unknown-review-required | docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md | 33 | unknown-review-required | - Enterprise external-tool metadata remains mostly `unknown-review-required`. |
-| unknown-review-required | docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md | 64 | unknown-review-required | - no unreviewed `unknown-review-required` values in tools approved for enterprise use, |
 | old-version-metadata | .ai-toolkit/compiled-agents/frontend-agent.compiled.md | 3 | 0.4.0-draft | toolkit_version: 0.4.0-draft |
 | old-version-metadata | .ai-toolkit/compiled-agents/frontend-agent.compiled.md | 4 | 0.4.0-draft | toolkit_pin: ai-agents-skills-toolkit@0.4.0-draft |
 | old-version-metadata | .ai-toolkit/compiled-agents/qa-test-agent.compiled.md | 3 | 0.4.0-draft | toolkit_version: 0.4.0-draft |
@@ -158,6 +156,8 @@ Samples are capped to keep the report reviewable. Re-run the script for the curr
 | unknown-review-required | .ai-toolkit/registries/tools.registry.json | 47 | unknown-review-required | "ciPermissionsRequired": "unknown-review-required", |
 | unknown-review-required | .ai-toolkit/registries/tools.registry.json | 48 | unknown-review-required | "githubAppPermissionsRequired": "unknown-review-required", |
 | unknown-review-required | .ai-toolkit/registries/tools.registry.json | 49 | unknown-review-required | "authenticationModel": "unknown-review-required", |
+| unknown-review-required | .ai-toolkit/registries/tools.registry.json | 50 | unknown-review-required | "telemetryBehavior": "unknown-review-required", |
+| unknown-review-required | .ai-toolkit/registries/tools.registry.json | 51 | unknown-review-required | "commercialVendorDependency": "unknown-review-required", |
 
 ### remove-later
 
