@@ -74,6 +74,8 @@ async function main() {
     await checkJsonVersion(file, false);
   }
 
+  await checkJsonVersion("templates/.ai-toolkit.config.example.json", false);
+
   const compiledManifest = await readJson(".ai-toolkit/manifest.json");
   const compiledMirrors = (compiledManifest?.mirrors || []).filter((mirror) => mirror.target.includes("/compiled-agents/"));
   for (const mirror of compiledMirrors) {

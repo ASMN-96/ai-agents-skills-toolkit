@@ -1,6 +1,6 @@
 # Stale and Unverified Data Classification
 
-Generated at: 2026-05-30T13:00:44.101Z
+Generated at: 2026-05-30T13:17:32.650Z
 
 Report-only classification. No files were deleted, renamed, relocated, activated, installed, or approved by this report.
 
@@ -18,7 +18,7 @@ Report-only classification. No files were deleted, renamed, relocated, activated
 | Classification | Count |
 | --- | ---: |
 | keep-active | 196 |
-| metadata-only | 179 |
+| metadata-only | 178 |
 | historical | 36 |
 | review-required | 1566 |
 | remove-later | 11 |
@@ -28,7 +28,7 @@ Report-only classification. No files were deleted, renamed, relocated, activated
 
 | Signal | Count |
 | --- | ---: |
-| old-version-metadata | 35 |
+| old-version-metadata | 34 |
 | unknown-review-required | 1252 |
 | project-private-naming | 1119 |
 | local-path | 1 |

@@ -61,6 +61,8 @@ Confirm mode writes:
 - selected profiles
 - selected skills
 
+The example config selects assets and sync policy only. It does not define the toolkit version; install and update commands take the canonical version from `scripts/ai-toolkit/embedded-data.mjs` / `.ai-toolkit/VERSION` and record it in the generated `.ai-toolkit/.ai-toolkit-version`, `.ai-toolkit/.ai-toolkit.config.json`, and `.ai-toolkit/.ai-toolkit-manifest.json` files.
+
 ## Update
 
 Updates read the existing project config and version pin:
