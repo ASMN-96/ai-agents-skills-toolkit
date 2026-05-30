@@ -15,6 +15,27 @@ const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
 const failures = [];
 const warnings = [];
+const ENTERPRISE_RISK_FIELDS = [
+  "license",
+  "saasOrLocal",
+  "dataSentExternally",
+  "networkBehavior",
+  "secretAccessRisk",
+  "repositoryPermissionsRequired",
+  "ciPermissionsRequired",
+  "githubAppPermissionsRequired",
+  "authenticationModel",
+  "telemetryBehavior",
+  "commercialVendorDependency",
+  "maintenanceSignal",
+  "lastReviewedCommit",
+  "lastReviewedDate",
+  "securityReviewStatus",
+  "approvalOwner",
+  "allowedEnvironments",
+  "forbiddenEnvironments",
+  "defaultEnterpriseStatus"
+];
 
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
@@ -87,6 +108,32 @@ function isCodeRabbitIntegration(tool) {
     && tool.runtimeSurface === "codex-plugin-github-app"
     && tool.sourceRecordPath === null
     && tool.integrationRecordPath === `${AI_ROOT}/integrations/coderabbit.md`;
+}
+
+function validateEnterpriseRisk(tool, location) {
+  if (!tool.enterpriseRisk || typeof tool.enterpriseRisk !== "object" || Array.isArray(tool.enterpriseRisk)) {
+    fail(location, "missing enterpriseRisk object");
+    return;
+  }
+
+  for (const field of ENTERPRISE_RISK_FIELDS) {
+    if (!(field in tool.enterpriseRisk)) {
+      fail(location, `enterpriseRisk missing ${field}`);
+    }
+  }
+
+  if (!String(tool.enterpriseRisk.defaultEnterpriseStatus || "").includes("metadata-only")) {
+    fail(location, "defaultEnterpriseStatus must remain metadata-only unless explicitly approved");
+  }
+  if (/enterprise-approved|approved/i.test(String(tool.enterpriseRisk.securityReviewStatus || ""))) {
+    fail(location, "securityReviewStatus must not claim enterprise approval without evidence");
+  }
+  if (!Array.isArray(tool.enterpriseRisk.allowedEnvironments) || tool.enterpriseRisk.allowedEnvironments.length === 0) {
+    fail(location, "allowedEnvironments must be a non-empty array");
+  }
+  if (!Array.isArray(tool.enterpriseRisk.forbiddenEnvironments) || tool.enterpriseRisk.forbiddenEnvironments.length === 0) {
+    fail(location, "forbiddenEnvironments must be a non-empty array");
+  }
 }
 
 async function validatePackageShape() {
@@ -187,7 +234,7 @@ async function validateToolRegistry() {
     fail(`${AI_ROOT}/registries/tools.registry.json`, "activationPolicy must forbid install/activation by registry presence");
   }
   const ids = new Set();
-  const required = ["id", "name", "repository", "homepage", "purpose", "category", "status", "activationStatus", "runtimeSurface", "defaultUse", "approvalRequiredFor", "allowedUse", "forbiddenUse", "sourceRecordPath", "integrationRecordPath", "notes"];
+  const required = ["id", "name", "repository", "homepage", "purpose", "category", "status", "activationStatus", "runtimeSurface", "defaultUse", "approvalRequiredFor", "allowedUse", "forbiddenUse", "sourceRecordPath", "integrationRecordPath", "enterpriseRisk", "notes"];
   for (const tool of registry.tools || []) {
     const location = `${AI_ROOT}/registries/tools.registry.json:${tool.id || "<unknown>"}`;
     for (const field of required) {
@@ -195,6 +242,7 @@ async function validateToolRegistry() {
         fail(location, `missing ${field}`);
       }
     }
+    validateEnterpriseRisk(tool, location);
     if (ids.has(tool.id)) {
       fail(location, "duplicate tool id");
     }

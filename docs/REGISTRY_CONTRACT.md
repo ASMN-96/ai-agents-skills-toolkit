@@ -181,8 +181,11 @@ Each tool entry must include:
 - `forbiddenUse`
 - `sourceRecordPath`
 - `notes`
+- `enterpriseRisk`
 
 Tool entries are metadata only. `activationStatus` must not imply install, activation, CI wiring, MCP setup, global configuration, approval, or runtime availability. `forbiddenUse` must explicitly block install/activation by registry presence and raw upstream copying.
+
+`enterpriseRisk` must include the fields defined in `docs/ENTERPRISE_EXTERNAL_TOOL_RISK_METADATA.md`. Unknowns must be explicit as `unknown-review-required`, and default enterprise status must remain metadata-only unless a later evidence-backed review approves a narrower use.
 
 ## Routing Matrix Entries
 

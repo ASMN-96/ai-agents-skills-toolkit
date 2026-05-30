@@ -188,7 +188,7 @@
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
-      "sha256": "5d3080b3f80e1ce07607b2daa159b582f8384843f7269cb54ed58438167830ab"
+      "sha256": "1c1017e6f5e962c7fcb22cd2df1dee22e2f40c471ca7a74bdb07bf0a9020c536"
     },
     {
       "source": "compiled-agents/reviewer-agent.compiled.md",
@@ -224,7 +224,7 @@
   "generatedArtifacts": [
     {
       "path": ".ai-toolkit/integrations/coderabbit.md",
-      "sha256": "f5502373a0894d8dd3b52f30bfc825ee8c848a427b1ab570c0f731af7ab88b47"
+      "sha256": "941aca51d83f561b95e991385b31d047395454db6eb151a7cc9b124ad607ad21"
     }
   ],
   "generatedBy": "scripts/ai-toolkit/build-embedded-package.mjs"

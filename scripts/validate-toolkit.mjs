@@ -24,6 +24,28 @@ const PROVENANCE_CATEGORIES = new Set([
   "local-vd-authored"
 ]);
 
+const ENTERPRISE_RISK_FIELDS = [
+  "license",
+  "saasOrLocal",
+  "dataSentExternally",
+  "networkBehavior",
+  "secretAccessRisk",
+  "repositoryPermissionsRequired",
+  "ciPermissionsRequired",
+  "githubAppPermissionsRequired",
+  "authenticationModel",
+  "telemetryBehavior",
+  "commercialVendorDependency",
+  "maintenanceSignal",
+  "lastReviewedCommit",
+  "lastReviewedDate",
+  "securityReviewStatus",
+  "approvalOwner",
+  "allowedEnvironments",
+  "forbiddenEnvironments",
+  "defaultEnterpriseStatus"
+];
+
 const COMMIT_SHA_PATTERN = /^[0-9a-f]{40}$/i;
 const GITHUB_OWNER_PATTERN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/;
 const GITHUB_REPO_PATTERN = /^[A-Za-z0-9._-]+$/;
@@ -285,6 +307,7 @@ async function validateRegistries(parsed, sourceRecords, watchlist) {
   const agentsRegistry = parsed.get("registries/agents.registry.json");
   const profilesRegistry = parsed.get("registries/profiles.registry.json");
   const methodsRegistry = parsed.get("registries/methods.registry.json");
+  const toolsRegistry = parsed.get("registries/tools.registry.json");
   const routingMatrix = parsed.get("registries/routing-matrix.json");
 
   const skills = byName(skillsRegistry?.skills);
@@ -292,6 +315,7 @@ async function validateRegistries(parsed, sourceRecords, watchlist) {
   const agentDisplays = new Set(asArray(agentsRegistry?.agents).map((agent) => agent.displayName));
   const profiles = byName(profilesRegistry?.profiles);
   const methods = byName(methodsRegistry?.methods, "id");
+  const tools = byName(toolsRegistry?.tools, "id");
   const watchlistRecordPaths = new Set(asArray(watchlist?.sources).map((source) => source.sourceRecordPath));
 
   for (const [name, skill] of skills) {
@@ -343,7 +367,38 @@ async function validateRegistries(parsed, sourceRecords, watchlist) {
     requireKnown("referenced methods", location, scenario.methodReferences, methods, "method");
   }
 
-  return { skills, agents, profiles, methods, routingMatrix };
+  return { skills, agents, profiles, methods, tools, routingMatrix };
+}
+
+async function validateEnterpriseToolMetadata(registryState) {
+  note("Enterprise external-tool risk metadata");
+
+  for (const [id, tool] of registryState.tools) {
+    const location = `tools.registry:${id}`;
+    if (!tool.enterpriseRisk || typeof tool.enterpriseRisk !== "object" || Array.isArray(tool.enterpriseRisk)) {
+      fail("enterprise tool metadata", location, "missing enterpriseRisk object");
+      continue;
+    }
+
+    for (const field of ENTERPRISE_RISK_FIELDS) {
+      if (!(field in tool.enterpriseRisk)) {
+        fail("enterprise tool metadata", location, `enterpriseRisk missing ${field}`);
+      }
+    }
+
+    if (!String(tool.enterpriseRisk.defaultEnterpriseStatus || "").includes("metadata-only")) {
+      fail("enterprise tool metadata", location, "defaultEnterpriseStatus must remain metadata-only unless explicitly approved");
+    }
+    if (/enterprise-approved|approved/i.test(String(tool.enterpriseRisk.securityReviewStatus || ""))) {
+      fail("enterprise tool metadata", location, "securityReviewStatus must not claim enterprise approval without evidence");
+    }
+    if (!Array.isArray(tool.enterpriseRisk.allowedEnvironments) || tool.enterpriseRisk.allowedEnvironments.length === 0) {
+      fail("enterprise tool metadata", location, "allowedEnvironments must be a non-empty array");
+    }
+    if (!Array.isArray(tool.enterpriseRisk.forbiddenEnvironments) || tool.enterpriseRisk.forbiddenEnvironments.length === 0) {
+      fail("enterprise tool metadata", location, "forbiddenEnvironments must be a non-empty array");
+    }
+  }
 }
 
 async function validateSkills(registryState) {
@@ -564,6 +619,7 @@ async function main() {
   await validateSkills(registryState);
   await validateGovernanceBoundaries(registryState);
   await validateSourcePolicy(watchlist, registryState);
+  await validateEnterpriseToolMetadata(registryState);
   await validateForbiddenArtifacts();
   await runAiToolkitSubvalidators();
 

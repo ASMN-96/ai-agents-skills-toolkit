@@ -15,6 +15,7 @@ Template for reviewed external source evidence files under `sources/`.
 - Last extracted commit:
 - Trust level:
 - License status:
+- Tool enterprise-risk record, if applicable:
 
 ## Purpose
 
@@ -64,3 +65,10 @@ Describe why this source is relevant to this toolkit.
 - Reviewed by:
 - Review decision:
 - Last review evidence:
+
+## Enterprise Tool Boundary
+
+If this source backs an external tool entry, enterprise-risk metadata belongs in
+`registries/tools.registry.json` under `enterpriseRisk`. A source record alone
+does not approve installation, activation, CI usage, GitHub permissions,
+credential access, or product-repository use.

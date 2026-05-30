@@ -18,6 +18,18 @@
 - Changing CI workflows.
 - Performing PR write or merge actions.
 
+## Enterprise Risk Metadata
+
+- License: unknown-review-required.
+- SaaS/local: SaaS/external connected service.
+- Data sent externally: PR or repository context may be sent externally when the already-connected integration is used; repository owner review required.
+- Network behavior: networked GitHub app / external service.
+- Secret access risk: permission-dependent; unknown-review-required.
+- GitHub app permissions: unknown-review-required.
+- Authentication model: external service / GitHub app integration.
+- Telemetry behavior: unknown-review-required.
+- Default enterprise status: metadata-only unless explicitly approved.
+
 ## Forbidden Actions
 
 - Do not install/configure CodeRabbit from registry presence.

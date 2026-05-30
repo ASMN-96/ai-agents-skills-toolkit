@@ -81,6 +81,46 @@ function isCodeRabbitIntegration(id) {
   return id === "coderabbit";
 }
 
+function enterpriseRiskMetadata(id) {
+  const base = {
+    license: "unknown-review-required",
+    saasOrLocal: "unknown-review-required",
+    dataSentExternally: "unknown-review-required",
+    networkBehavior: "unknown-review-required",
+    secretAccessRisk: "unknown-review-required",
+    repositoryPermissionsRequired: "unknown-review-required",
+    ciPermissionsRequired: "unknown-review-required",
+    githubAppPermissionsRequired: "unknown-review-required",
+    authenticationModel: "unknown-review-required",
+    telemetryBehavior: "unknown-review-required",
+    commercialVendorDependency: "unknown-review-required",
+    maintenanceSignal: "unknown-review-required",
+    lastReviewedCommit: "unknown-review-required",
+    lastReviewedDate: "unknown-review-required",
+    securityReviewStatus: "unknown-review-required",
+    approvalOwner: "owner-decision-required",
+    allowedEnvironments: ["metadata-only"],
+    forbiddenEnvironments: ["local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"],
+    defaultEnterpriseStatus: "metadata-only unless explicitly approved"
+  };
+
+  if (isCodeRabbitIntegration(id)) {
+    return {
+      ...base,
+      saasOrLocal: "SaaS/external connected service",
+      dataSentExternally: "PR or repository context may be sent externally when the already-connected integration is used; repository owner review required",
+      networkBehavior: "networked GitHub app / external service",
+      ciPermissionsRequired: "none from toolkit metadata; unknown-review-required for external configuration",
+      authenticationModel: "external service / GitHub app integration",
+      commercialVendorDependency: "yes",
+      allowedEnvironments: ["already-connected PR review workflows after repository owner approval"],
+      forbiddenEnvironments: ["install or configuration from registry presence", "credential changes", "permission changes", "merge authority by itself"]
+    };
+  }
+
+  return base;
+}
+
 function toolRegistryEntry([id, name, repository, homepage, category, purpose, status, defaultUse]) {
   if (isCodeRabbitIntegration(id)) {
     return {
@@ -115,6 +155,7 @@ function toolRegistryEntry([id, name, repository, homepage, category, purpose, s
       ],
       sourceRecordPath: null,
       integrationRecordPath: `${AI_ROOT}/integrations/coderabbit.md`,
+      enterpriseRisk: enterpriseRiskMetadata(id),
       notes: "Delegated external integration metadata only; the toolkit routes to CodeRabbit and interprets feedback but does not install, authenticate, configure, vendor, or copy CodeRabbit."
     };
   }
@@ -153,6 +194,7 @@ function toolRegistryEntry([id, name, repository, homepage, category, purpose, s
     ],
     sourceRecordPath: sourceRecordPath(id),
     integrationRecordPath: null,
+    enterpriseRisk: enterpriseRiskMetadata(id),
     notes: status === "source-review-required"
       ? "Repository/source identity requires explicit source review before reliance."
       : "Metadata-only entry; review current upstream before adoption."
@@ -449,8 +491,8 @@ async function writeChecklistsAndTemplates() {
   const templates = {
     "web-quality-gates-template.md": "# Web Quality Gates Report\n\n- Scope:\n- Commands run:\n- Passed:\n- Failed:\n- Skipped:\n- Manual QA:\n- Risks:\n",
     "decision-log-template.md": "# Decision Log\n\n- Title:\n- Status:\n- Decision:\n- Context:\n- Risks:\n- Mitigations:\n- Follow-up:\n",
-    "source-record-template.md": "# Source Record\n\n- Source name:\n- Repository:\n- Source URL:\n- License status:\n- Maintenance signal:\n- Useful patterns:\n- Risks:\n- Boundaries:\n- Recommended status:\n",
-    "tool-record-template.md": "# Tool Record\n\n- Tool:\n- Purpose:\n- Category:\n- Default use:\n- Approval required for:\n- Allowed use:\n- Forbidden use:\n- Source record:\n"
+    "source-record-template.md": "# Source Record\n\n- Source name:\n- Repository:\n- Source URL:\n- License status:\n- Maintenance signal:\n- Useful patterns:\n- Risks:\n- Boundaries:\n- Recommended status:\n- Tool enterprise-risk record, if applicable:\n\n## Enterprise Tool Boundary\n\nIf this source backs an external tool entry, enterprise-risk metadata belongs in `registries/tools.registry.json` under `enterpriseRisk`. A source record alone does not approve installation, activation, CI usage, GitHub permissions, credential access, or product-repository use.\n",
+    "tool-record-template.md": "# Tool Record\n\n- Tool:\n- Purpose:\n- Category:\n- Default use:\n- Approval required for:\n- Allowed use:\n- Forbidden use:\n- Source record:\n\n## Enterprise Risk\n\n- License:\n- SaaS or local:\n- Data sent externally:\n- Network behavior:\n- Secret access risk:\n- Repository permissions required:\n- CI permissions required:\n- GitHub app permissions required:\n- Authentication model:\n- Telemetry behavior:\n- Commercial/vendor dependency:\n- Maintenance signal:\n- Last reviewed commit/date:\n- Security review status:\n- Approval owner:\n- Allowed environments:\n- Forbidden environments:\n- Default enterprise status:\n"
   };
   for (const [file, text] of Object.entries(templates)) {
     await writeText(`${AI_ROOT}/templates/${file}`, text);
@@ -519,6 +561,18 @@ async function writeIntegrations() {
 - Changing GitHub app permissions.
 - Changing CI workflows.
 - Performing PR write or merge actions.
+
+## Enterprise Risk Metadata
+
+- License: unknown-review-required.
+- SaaS/local: SaaS/external connected service.
+- Data sent externally: PR or repository context may be sent externally when the already-connected integration is used; repository owner review required.
+- Network behavior: networked GitHub app / external service.
+- Secret access risk: permission-dependent; unknown-review-required.
+- GitHub app permissions: unknown-review-required.
+- Authentication model: external service / GitHub app integration.
+- Telemetry behavior: unknown-review-required.
+- Default enterprise status: metadata-only unless explicitly approved.
 
 ## Forbidden Actions
 

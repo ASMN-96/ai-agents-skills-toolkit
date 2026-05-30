@@ -36,7 +36,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/typescript.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "typescript-eslint",
@@ -71,7 +102,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/typescript-eslint.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "eslint-plugin-react-hooks",
@@ -106,7 +168,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/eslint-plugin-react-hooks.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "biome",
@@ -141,7 +234,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/biome.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "oxlint",
@@ -176,7 +300,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/oxlint.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "knip",
@@ -211,7 +366,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/knip.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "react-doctor",
@@ -246,7 +432,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/react-doctor.md",
       "integrationRecordPath": null,
-      "notes": "Repository/source identity requires explicit source review before reliance."
+      "notes": "Repository/source identity requires explicit source review before reliance.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "vitest",
@@ -281,7 +498,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/vitest.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "testing-library",
@@ -316,7 +564,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/testing-library.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "playwright",
@@ -351,7 +630,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/playwright.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "axe-playwright",
@@ -386,7 +696,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/axe-playwright.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "lighthouse-ci",
@@ -421,7 +762,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/lighthouse-ci.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "codeql",
@@ -456,7 +828,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/codeql.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "semgrep",
@@ -491,7 +894,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/semgrep.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "gitleaks",
@@ -526,7 +960,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/gitleaks.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "trufflehog",
@@ -561,7 +1026,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/trufflehog.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "osv-scanner",
@@ -596,7 +1092,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/osv-scanner.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "dependabot",
@@ -631,7 +1158,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/dependabot.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "renovate",
@@ -666,7 +1224,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/renovate.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "socket",
@@ -701,7 +1290,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/socket.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "trivy",
@@ -736,7 +1356,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/trivy.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "checkov",
@@ -771,7 +1422,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/checkov.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "owasp-zap-baseline",
@@ -806,7 +1488,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/owasp-zap-baseline.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "actionlint",
@@ -841,7 +1554,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/actionlint.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "zizmor",
@@ -876,7 +1620,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/zizmor.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "harden-runner",
@@ -911,7 +1686,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/harden-runner.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "reviewdog",
@@ -946,7 +1752,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/reviewdog.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "coderabbit",
@@ -980,7 +1817,35 @@
       ],
       "sourceRecordPath": null,
       "integrationRecordPath": ".ai-toolkit/integrations/coderabbit.md",
-      "notes": "Delegated external integration metadata only; the toolkit routes to CodeRabbit and interprets feedback but does not install, authenticate, configure, vendor, or copy CodeRabbit."
+      "notes": "Delegated external integration metadata only; the toolkit routes to CodeRabbit and interprets feedback but does not install, authenticate, configure, vendor, or copy CodeRabbit.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "SaaS/external connected service",
+        "dataSentExternally": "PR or repository context may be sent externally when the already-connected integration is used; repository owner review required",
+        "networkBehavior": "networked GitHub app / external service",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "none from toolkit metadata; unknown-review-required for external configuration",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "external service / GitHub app integration",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "yes",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "already-connected PR review workflows after repository owner approval"
+        ],
+        "forbiddenEnvironments": [
+          "install or configuration from registry presence",
+          "credential changes",
+          "permission changes",
+          "merge authority by itself"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "github-gh",
@@ -1015,7 +1880,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/github-gh.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "code-review-graph",
@@ -1050,7 +1946,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/code-review-graph.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "open-design",
@@ -1085,7 +2012,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/open-design.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "openssf-scorecard",
@@ -1120,7 +2078,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/openssf-scorecard.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "dependency-cruiser",
@@ -1155,7 +2144,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/dependency-cruiser.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "eslint-plugin-boundaries",
@@ -1190,7 +2210,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/eslint-plugin-boundaries.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "madge",
@@ -1225,7 +2276,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/madge.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     },
     {
       "id": "jscpd",
@@ -1260,7 +2342,38 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/jscpd.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption."
+      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "enterpriseRisk": {
+        "license": "unknown-review-required",
+        "saasOrLocal": "unknown-review-required",
+        "dataSentExternally": "unknown-review-required",
+        "networkBehavior": "unknown-review-required",
+        "secretAccessRisk": "unknown-review-required",
+        "repositoryPermissionsRequired": "unknown-review-required",
+        "ciPermissionsRequired": "unknown-review-required",
+        "githubAppPermissionsRequired": "unknown-review-required",
+        "authenticationModel": "unknown-review-required",
+        "telemetryBehavior": "unknown-review-required",
+        "commercialVendorDependency": "unknown-review-required",
+        "maintenanceSignal": "unknown-review-required",
+        "lastReviewedCommit": "unknown-review-required",
+        "lastReviewedDate": "unknown-review-required",
+        "securityReviewStatus": "unknown-review-required",
+        "approvalOwner": "owner-decision-required",
+        "allowedEnvironments": [
+          "metadata-only"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only unless explicitly approved"
+      }
     }
   ]
 }

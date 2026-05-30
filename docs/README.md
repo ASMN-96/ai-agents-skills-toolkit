@@ -9,3 +9,5 @@ External sources have been evaluated in prior phases and are recorded under `sou
 `docs/PUBLIC_PRIVATE_LEAK_REPORT.md` is the report-only public/private naming and leakage scan. It classifies project-specific terms, local paths, private repo/org references, and contact-like data without deleting, renaming, relocating, or activating anything.
 
 `docs/GENERIC_NAMING_COMPATIBILITY.md` defines the future public naming map and the compatibility rules that prevent runtime breakage during the migration away from project-specific names.
+
+`docs/ENTERPRISE_EXTERNAL_TOOL_RISK_METADATA.md` defines the required enterprise-review fields for external tools and integrations. Unknown values remain `unknown-review-required` until evidence is reviewed.
