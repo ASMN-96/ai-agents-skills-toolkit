@@ -41,3 +41,7 @@ Token budgeting is a governance requirement. A large task must identify the smal
 - Every added context item has a reason tied to the task.
 - Private-overlay and secret exclusions are explicit.
 - Missing graph evidence is reported as missing, not inferred.
+
+## Draft Visibility
+
+This draft method may be visible to project-sync consumers as advisory governance guidance only. Draft status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.

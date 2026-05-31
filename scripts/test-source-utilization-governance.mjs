@@ -58,6 +58,8 @@ test("source utilization report classifies every watched source and registered t
     "missing UI UX Pro Max internal audit artifact classification"
   );
   assert.match(report, /docs\/UI_UX_PRO_MAX_AUDIT\.md/);
+  assert.match(report, /\|\s*matt-pocock-skills\s*\|\s*Matt Pocock Skills\s*\|\s*active-method\s*\|\s*Do later\s*\|/);
+  assert.doesNotMatch(report, /\|\s*matt-pocock-skills\s*\|[^\n]*Refresh reviewed commit/);
 });
 
 test("context graph token governance methods are registered and backed by method files", async () => {
@@ -73,6 +75,23 @@ test("context graph token governance methods are registered and backed by method
     assert.match(text, /sourceRef:/);
     assert.match(text, /sourceRef:\s*\["code-review-graph"\]/);
     assert.match(text, /secret|private-overlay|whole-repo|MCP|global config/i);
+    assert.match(text, /Draft Visibility/);
+    assert.match(text, /advisory governance guidance only/);
+  }
+});
+
+test("compact agent context pack defines token modes and graph evidence labels", async () => {
+  const text = await readText("methods/orchestration/compact-agent-context-pack.md");
+
+  for (const required of [
+    "omitted context and reason",
+    "`concise`",
+    "`standard`",
+    "`detailed`",
+    "`manual/static`",
+    "`tool-generated`"
+  ]) {
+    assert.match(text, new RegExp(required.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   }
 });
 

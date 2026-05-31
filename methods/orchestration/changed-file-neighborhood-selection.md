@@ -32,3 +32,7 @@ Select the smallest trustworthy neighborhood around the changed files so review 
 - Stop if the dependency direction is unclear and the task could affect security, public payloads, runtime activation, or release readiness.
 - State when the selected neighborhood is static analysis only.
 - Do not silently substitute a whole-repo dump for missing graph evidence.
+
+## Draft Visibility
+
+This draft method may be visible to project-sync consumers as advisory governance guidance only. Draft status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.

@@ -29,7 +29,7 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | microsoft-playwright | Microsoft Playwright | active-method | Do later | `methods/uiux/webapp-testing.md` | Keep browser-evidence reporting sharp | No browser/pass claims without output |
 | bencium-marketplace | Bencium Marketplace | active-method | Do later | UIUX/dashboard/design-system methods | Keep commercial dashboard quality patterns | No brand/template copying |
 | karpathy-inspired-skills | Karpathy-Inspired Skills | active-method | Do later | Simplicity, assumptions, goal discipline | Keep surgical-change discipline concise | No personal-style absolutism as policy |
-| matt-pocock-skills | Matt Pocock Skills | active-method | Must do next | `methods/matt/*`, TDD, PRD/issues, triage | Refresh reviewed commit and keep active-method | No duplicate Superpowers/Codex workflow runtime |
+| matt-pocock-skills | Matt Pocock Skills | active-method | Do later | `methods/matt/*`, TDD, PRD/issues, triage | Monitor and extract only if a new unique method is identified | No duplicate Superpowers/Codex workflow runtime |
 | shadcn-ui | shadcn/ui | planned-extraction | Must do next | UIUX source map, no registered method | Component composition, semantic tokens, accessible defaults, ownership model | No CLI, MCP, registry JSON, component source, package/config import |
 | vercel-agent-skills | Vercel Agent Skills | reference-only-with-reason | Do later | Historical/reference-only source record | Revisit only if a unique toolkit method is identified | Not active authority |
 | vercel-find-skills | Vercel find-skills | reference-only-with-reason | Do later | Historical/reference-only source record | Revisit only through Skill Scout | Not active authority |

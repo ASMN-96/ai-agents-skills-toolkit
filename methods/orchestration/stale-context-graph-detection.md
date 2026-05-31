@@ -29,3 +29,7 @@ Use this method when an audit, plan, or review depends on graph-like context tha
 - Do not repair stale context by activating MCP, running code-review-graph, indexing product repos, changing global config, or dumping the whole-repo context.
 - Do not include private overlays, secrets, credentials, tokens, cookies, or environment values in a refreshed graph.
 - Do not treat source metadata as approval to extract, install, activate, or sync.
+
+## Draft Visibility
+
+This draft method may be visible to project-sync consumers as advisory governance guidance only. Draft status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
