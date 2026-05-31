@@ -1,7 +1,7 @@
 ---
 sourceRef: ["code-review-graph"]
 lastExtracted: 2026-05-31
-status: draft
+status: approved
 ---
 
 # Context Graph Token Budget
@@ -42,6 +42,6 @@ Token budgeting is a governance requirement. A large task must identify the smal
 - Private-overlay and secret exclusions are explicit.
 - Missing graph evidence is reported as missing, not inferred.
 
-## Draft Visibility
+## Passive Visibility
 
-This draft method may be visible to project-sync consumers as advisory governance guidance only. Draft status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.

@@ -10,11 +10,14 @@ Profiles should not contain secrets.
 ## Phase 4 Profiles
 
 - `audit-profile.md`: read-only source, safety, review, and QA evaluation.
+- `planning-profile.md`: product/architecture/reviewer planning with compact context governance.
 - `implementation-profile.md`: scoped implementation with architecture, frontend, backend, database, QA, and review coverage.
 - `frontend-profile.md`: frontend implementation with UI/UX, QA, review, and security gates.
 - `backend-profile.md`: backend contract and data access implementation with security and QA gates.
 - `uiux-profile.md`: UI/UX review using Frontend, Product, QA, and Reviewer handoff.
+- `fullstack-profile.md`: scoped full-stack implementation without creating a single fullstack agent.
 - `security-profile.md`: security and supply-chain review.
+- `source-review-profile.md`: external source/tool/skill review using Skill Scout, Security, Architect, and Reviewer.
 - `sre-profile.md`: reliability, performance, observability, and release-readiness review.
 - `release-profile.md`: PR, CI, changelog, release gate, and merge readiness review.
 

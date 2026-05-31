@@ -70,3 +70,7 @@ Every evaluation report should include:
 ## Boundaries
 
 Skill Scout Agent does not import methods directly. It produces source evaluations and recommendations. Extraction into `methods/`, compilation into `compiled-agents/`, and project sync require separate approval.
+
+## Runtime Status
+
+First-class registry and profile agent. Runtime activation remains a follow-up owner decision unless a separate task approves adding a project custom-agent file.

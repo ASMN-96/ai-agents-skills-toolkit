@@ -5,7 +5,7 @@ description: Use for PR readiness, branch hygiene, checks, review feedback, rele
 
 # PR Release Gate
 
-Use this as the public-safe release gate skill for branch, PR, CI, review, and publish-readiness work.
+Use this as the canonical final release gate skill for branch, PR, CI, review, and publish-readiness work.
 
 This skill coordinates evidence and release posture. It does not authorize direct pushes to main, bypassing required checks, CI workflow edits, external installs, MCP setup, global config changes, or release actions without explicit approval.
 
@@ -14,6 +14,7 @@ This skill coordinates evidence and release posture. It does not authorize direc
 - Branch, upstream, working tree, and PR state are verified.
 - Required checks and review feedback are classified before merge recommendations.
 - Contextual review services are support evidence only and never override repository policy.
+- Large PRs use changed-file neighborhood selection and compact context packs instead of whole-repo dumps.
 - WARN output, skipped gates, and unavailable checks remain visible.
 
 ## Completion Evidence

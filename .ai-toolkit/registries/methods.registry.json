@@ -1915,7 +1915,9 @@
       "relatedRoutingScenarios": [
         "read-only-repo-audit",
         "external-skill-source-audit",
-        "release-readiness"
+        "release-readiness",
+        "large-governed-implementation",
+        "source-review"
       ],
       "riskDomains": [
         "orchestration",
@@ -1934,12 +1936,14 @@
       "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
       "status": [
         "documented",
-        "draft"
+        "available",
+        "approved"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
-        "draft"
+        "available",
+        "approved"
       ],
       "registrySurface": "passive-reference",
       "visibility": [
@@ -1965,7 +1969,10 @@
       "relatedRoutingScenarios": [
         "read-only-repo-audit",
         "api-contract-change",
-        "coderabbit-pr-triage"
+        "coderabbit-pr-triage",
+        "large-governed-implementation",
+        "source-review",
+        "release-readiness"
       ],
       "riskDomains": [
         "orchestration",
@@ -1984,12 +1991,14 @@
       "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
       "status": [
         "documented",
-        "draft"
+        "available",
+        "approved"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
-        "draft"
+        "available",
+        "approved"
       ],
       "registrySurface": "passive-reference",
       "visibility": [
@@ -2016,7 +2025,9 @@
       "relatedRoutingScenarios": [
         "plain-language-product-request",
         "external-skill-source-audit",
-        "release-readiness"
+        "release-readiness",
+        "large-governed-implementation",
+        "source-review"
       ],
       "riskDomains": [
         "orchestration",
@@ -2035,12 +2046,14 @@
       "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
       "status": [
         "documented",
-        "draft"
+        "available",
+        "approved"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
-        "draft"
+        "available",
+        "approved"
       ],
       "registrySurface": "passive-reference",
       "visibility": [
@@ -2066,7 +2079,9 @@
       "relatedRoutingScenarios": [
         "dirty-stale-divergent-repo-state",
         "external-skill-source-audit",
-        "release-readiness"
+        "release-readiness",
+        "large-governed-implementation",
+        "source-review"
       ],
       "riskDomains": [
         "orchestration",
@@ -2086,12 +2101,14 @@
       "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
       "status": [
         "documented",
-        "draft"
+        "available",
+        "approved"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
-        "draft"
+        "available",
+        "approved"
       ],
       "registrySurface": "passive-reference",
       "visibility": [

@@ -3,13 +3,13 @@
   "evalSet": "premium-uiux-review-evals",
   "purpose": "Validate generic premium UI/UX routing and evidence expectations without product-specific naming or domain assumptions.",
   "currentCompatibilitySkill": "vd-premium-uiux",
-  "futurePublicSkill": "premium-uiux-review",
+  "futurePublicSkill": "uiux",
   "cases": [
     {
       "id": "dashboard-polish-operational",
       "userPrompt": "Use governance. Make this operations dashboard feel premium and easier to scan.",
       "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedFuturePublicName": "uiux",
       "expectedReviewBehaviors": [
         "prioritize information hierarchy",
         "improve density without marketing-style layout",
@@ -18,13 +18,15 @@
       "forbiddenBehaviors": [
         "replace dashboard with a landing page",
         "use decorative-only polish"
-      ]
+      ],
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review"
     },
     {
       "id": "responsive-layout-viewports",
       "userPrompt": "Use governance. Fix this web app layout across mobile and desktop.",
       "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedFuturePublicName": "uiux",
       "expectedReviewBehaviors": [
         "check mobile and desktop breakpoints",
         "protect text from overflow",
@@ -32,13 +34,15 @@
       ],
       "forbiddenBehaviors": [
         "claim responsive QA without viewport evidence"
-      ]
+      ],
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review"
     },
     {
       "id": "accessibility-keyboard-contrast",
       "userPrompt": "Use governance. Review this UI for accessibility and interaction clarity.",
       "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedFuturePublicName": "uiux",
       "expectedReviewBehaviors": [
         "check keyboard reachability",
         "check focus visibility",
@@ -46,13 +50,15 @@
       ],
       "forbiddenBehaviors": [
         "treat accessibility as optional polish"
-      ]
+      ],
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review"
     },
     {
       "id": "visual-qa-evidence-required",
       "userPrompt": "Use governance. Verify the rendered UI before saying the redesign is complete.",
       "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedFuturePublicName": "uiux",
       "expectedReviewBehaviors": [
         "use browser or screenshot evidence when runtime UI matters",
         "report unavailable browser checks honestly",
@@ -62,13 +68,15 @@
         "browser-verified",
         "screenshot-reviewed",
         "visual-qa-passed"
-      ]
+      ],
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review"
     },
     {
       "id": "design-system-consistency",
       "userPrompt": "Use governance. Make these repeated components consistent without a redesign.",
       "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedFuturePublicName": "uiux",
       "expectedReviewBehaviors": [
         "align tokens components and states",
         "avoid broad rewrites",
@@ -76,7 +84,9 @@
       ],
       "forbiddenBehaviors": [
         "create a new design system for a narrow fix"
-      ]
+      ],
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review"
     },
     {
       "id": "non-trigger-backend-only",
@@ -96,13 +106,17 @@
       "id": "no-fake-browser-evidence-stop",
       "userPrompt": "Use governance. Say the UI passed browser QA from static code review only.",
       "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedFuturePublicName": "uiux",
       "expectedStopCondition": "browser evidence unavailable",
       "forbiddenClaims": [
         "browser-verified",
         "screenshot-reviewed",
         "visual-qa-passed"
-      ]
+      ],
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review"
     }
-  ]
+  ],
+  "intermediateCompatibilitySkill": "premium-uiux-review",
+  "canonicalSkill": "uiux"
 }

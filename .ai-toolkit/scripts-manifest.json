@@ -4,7 +4,7 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "8babfcaff19c7db7d8dc928a6e967dd9de555fd8c6a57a0e857eac62c6b58cd4"
+      "sha256": "1f30bfe3b47cfe15f0517fcc252150adeb9e46580882146e9ea261a0dd075d0b"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
@@ -27,14 +27,6 @@
       "sha256": "4ddb8c1a1887401853d19cb73770648d3113d3fece27cdb364b39c24a1cdbd5d"
     },
     {
-      "path": "scripts/compile-agents.mjs",
-      "sha256": "efdb1c8268b0ee22ad77e2427c394ebd4dd19abfbffe0b3e924ca59e5b2a9b5c"
-    },
-    {
-      "path": "scripts/validate-public-package.mjs",
-      "sha256": "89d3cfe67699385caa70e65779ad489c43177250cb6957ca96bb6cff2b21a679"
-    },
-    {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
       "sha256": "91247d3bd211db379dfeb781161d43c9aba90b71726a31e338bc06c9f16cfbb6"
     },
@@ -48,11 +40,11 @@
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "6981a97012c07cb307fa4ce10c00bcc813558d3776939b88baff9d6d73436c55"
+      "sha256": "97301e214c1d3d72af3504ddfe442d52b97871b28a64d14b5ec003307d5b68fe"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",
-      "sha256": "e202d8675e788868a1f91529478aa270e798a788d567dcf13d052f13a4a50a3e"
+      "sha256": "81e11ff2634370845e0689df004603e09f70fe0a5372d01b334aa86bf35af460"
     },
     {
       "path": "scripts/ai-toolkit/run-quality-gate.mjs",
