@@ -79,9 +79,9 @@ export const SOURCE_OF_TRUTH_MAP = [
     domain: "profiles",
     canonicalSource: "profiles/*.md",
     runtimeCopy: "none",
-    distributionCopy: ".ai-toolkit/profiles/*.md",
+    distributionCopy: "not emitted in the current embedded package; profile registry mirror remains packaged",
     historicalArchive: "older profile notes only if marked",
-    driftControl: "manifest hashes and registry reference validation"
+    driftControl: "top-level profile files plus registry reference validation"
   },
   {
     domain: "evals",

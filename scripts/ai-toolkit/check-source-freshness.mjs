@@ -11,11 +11,13 @@ const ISSUE_DRAFT_DISCLAIMER =
   "This is a dry-run issue draft only. No GitHub issue was created, and no import, install, activation, extraction, source-record update, CI change, MCP change, global config change, or product-repository change is authorized.";
 
 function parseArgs(argv) {
-  const args = { mock: false, output: null, createIssues: false, issuesOutput: null };
+  const args = { mock: false, failOnChange: false, output: null, createIssues: false, issuesOutput: null };
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === "--mock") {
       args.mock = true;
+    } else if (arg === "--fail-on-change") {
+      args.failOnChange = true;
     } else if (arg === "--create-issues") {
       args.createIssues = true;
     } else if (arg === "--output") {
@@ -237,11 +239,19 @@ function render(sources, mock, methodImpactIndex) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help) {
-    console.log(`Usage: node scripts/ai-toolkit/check-source-freshness.mjs --mock [--output ${ALLOWED_OUTPUT}] [--create-issues --issues-output ${ALLOWED_ISSUES_OUTPUT}]`);
+    console.log(`Usage: node scripts/ai-toolkit/check-source-freshness.mjs --mock [--output ${ALLOWED_OUTPUT}] [--create-issues --issues-output ${ALLOWED_ISSUES_OUTPUT}]
+
+Embedded package note:
+  This script is mock-only for packaged distribution checks.
+  Run live source freshness from the repository root with:
+    node scripts/check-source-freshness.mjs --fail-on-change`);
     return;
   }
   if (!args.mock) {
-    throw new Error("Only --mock is enabled in this implementation pass.");
+    throw new Error("Embedded source freshness is mock-only. Use `node scripts/check-source-freshness.mjs --fail-on-change` from the repository root for the live source freshness gate.");
+  }
+  if (args.failOnChange) {
+    throw new Error("Embedded source freshness does not support live --fail-on-change. Use `node scripts/check-source-freshness.mjs --fail-on-change` from the repository root.");
   }
   if (args.issuesOutput && !args.createIssues) {
     throw new Error("--issues-output requires --create-issues");

@@ -451,7 +451,7 @@ ${sourceMapTable}
 - Registries are metadata only.
 - Tool records are source-intelligence only.
 - Source watchlist entries always use \`neverAutoImport: true\`.
-- Active runtime is limited to five skills and five project custom agents.
+- Active runtime is limited to ten reviewed skills and five project custom agents.
 - Helper skills remain internal and must not be copied into active runtime paths.
 - Top-level folders remain canonical and are not deleted, relocated, or flattened in this pass.
 
@@ -464,6 +464,7 @@ Run from the repository root:
 - \`node scripts/ai-toolkit/validate-codex-runtime.mjs\`
 - \`node scripts/ai-toolkit/validate-version-consistency.mjs\`
 - \`node scripts/ai-toolkit/run-toolkit-evals.mjs\`
+- \`node scripts/check-source-freshness.mjs --fail-on-change\`
 - \`node scripts/ai-toolkit/check-source-freshness.mjs --mock\`
 - \`node scripts/ai-toolkit/run-quality-gate.mjs --mode fast-local --dry-run\`
 `);

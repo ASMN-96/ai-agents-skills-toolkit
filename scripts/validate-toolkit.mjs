@@ -46,6 +46,40 @@ const ENTERPRISE_RISK_FIELDS = [
   "defaultEnterpriseStatus"
 ];
 
+const SOURCE_UTILIZATION_REPORT = "docs/SOURCE_UTILIZATION_MATRIX.md";
+
+const SOURCE_UTILIZATION_CLASSIFICATIONS = new Set([
+  "active-method",
+  "active-skill-rule",
+  "active-profile-route",
+  "planned-extraction",
+  "reference-only-with-reason",
+  "archive-candidate",
+  "remove-candidate",
+  "reject"
+]);
+
+const SOURCE_UTILIZATION_RECOMMENDATIONS = new Set([
+  "Must do next",
+  "Do later",
+  "Needs owner decision",
+  "Reject / not aligned"
+]);
+
+const REQUIRED_CONTEXT_METHODS = [
+  "orchestration.context-graph-token-budget",
+  "orchestration.changed-file-neighborhood-selection",
+  "orchestration.compact-agent-context-pack",
+  "orchestration.stale-context-graph-detection"
+];
+
+const REQUIRED_TOKEN_CONTEXT_EVALS = [
+  "large-task-compact-context-pack",
+  "changed-file-neighborhood-no-whole-repo-dump",
+  "private-overlay-exclusion-required",
+  "stale-context-graph-detection-required"
+];
+
 const METHOD_TRACEABILITY_FIELDS = new Set([
   "sourceRef",
   "lastExtracted",
@@ -514,6 +548,110 @@ async function validateEnterpriseToolMetadata(registryState) {
   }
 }
 
+function parseMarkdownTableRows(text) {
+  const rows = new Map();
+  for (const rawLine of text.split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (!line.startsWith("|") || !line.endsWith("|")) {
+      continue;
+    }
+    const cells = line.slice(1, -1).split("|").map((cell) => cell.trim());
+    if (cells.length < 4 || cells[0] === "ID" || /^-+$/.test(cells[0])) {
+      continue;
+    }
+    rows.set(cells[0], {
+      classification: cells[2],
+      recommendation: cells[3],
+      rawLine
+    });
+  }
+  return rows;
+}
+
+async function validateSourceUtilizationClassification(watchlist, registryState) {
+  note("Source utilization classification");
+  let text;
+  try {
+    text = await readFile(rootPath(SOURCE_UTILIZATION_REPORT), "utf8");
+  } catch (error) {
+    fail("source utilization classification", SOURCE_UTILIZATION_REPORT, `could not read report: ${error.message}`);
+    return;
+  }
+
+  const rows = parseMarkdownTableRows(text);
+  for (const source of asArray(watchlist?.sources)) {
+    const row = rows.get(source.id);
+    const location = `${SOURCE_UTILIZATION_REPORT}:${source.id}`;
+    if (!row) {
+      fail("source utilization classification", location, "missing watched source classification row");
+      continue;
+    }
+    if (!SOURCE_UTILIZATION_CLASSIFICATIONS.has(row.classification)) {
+      fail("source utilization classification", location, `invalid classification: ${row.classification}`);
+    }
+    if (!SOURCE_UTILIZATION_RECOMMENDATIONS.has(row.recommendation)) {
+      fail("source utilization classification", location, `invalid recommendation: ${row.recommendation}`);
+    }
+  }
+
+  for (const tool of registryState.tools.values()) {
+    const row = rows.get(tool.id);
+    const location = `${SOURCE_UTILIZATION_REPORT}:${tool.id}`;
+    if (!row) {
+      fail("source utilization classification", location, "missing registered tool classification row");
+      continue;
+    }
+    if (!SOURCE_UTILIZATION_CLASSIFICATIONS.has(row.classification)) {
+      fail("source utilization classification", location, `invalid classification: ${row.classification}`);
+    }
+    if (!SOURCE_UTILIZATION_RECOMMENDATIONS.has(row.recommendation)) {
+      fail("source utilization classification", location, `invalid recommendation: ${row.recommendation}`);
+    }
+  }
+
+  const requiredRows = new Map([
+    ["code-review-graph", "planned-extraction"],
+    ["shadcn-ui", "planned-extraction"],
+    ["ruflo", "planned-extraction"],
+    ["open-design", "reference-only-with-reason"]
+  ]);
+  for (const [id, expected] of requiredRows) {
+    const actual = rows.get(id)?.classification;
+    if (actual !== expected) {
+      fail("source utilization classification", `${SOURCE_UTILIZATION_REPORT}:${id}`, `expected ${expected}, got ${actual || "missing"}`);
+    }
+  }
+}
+
+async function validateTokenContextGovernance(registryState) {
+  note("Token context governance");
+  for (const methodId of REQUIRED_CONTEXT_METHODS) {
+    const method = registryState.methods.get(methodId);
+    if (!method) {
+      fail("token context governance", `methods.registry:${methodId}`, "missing required orchestration method");
+      continue;
+    }
+    if (!method.methodPath || !(await exists(method.methodPath))) {
+      fail("token context governance", `methods.registry:${methodId}`, `methodPath missing or unreadable: ${method.methodPath || "<missing>"}`);
+      continue;
+    }
+    const text = await readFile(rootPath(method.methodPath), "utf8");
+    for (const requiredText of ["whole-repo", "private", "MCP", "global config"]) {
+      if (!text.includes(requiredText)) {
+        fail("token context governance", method.methodPath, `missing boundary text: ${requiredText}`);
+      }
+    }
+  }
+
+  const tokenEvals = await readJson("evals/token-efficiency/low-risk-concise-routing-evals.json", "token context governance");
+  const evalIds = new Set(asArray(tokenEvals?.cases).map((entry) => entry.id));
+  for (const evalId of REQUIRED_TOKEN_CONTEXT_EVALS) {
+    if (!evalIds.has(evalId)) {
+      fail("token context governance", "evals/token-efficiency/low-risk-concise-routing-evals.json", `missing eval case: ${evalId}`);
+    }
+  }
+}
+
 async function validateSkills(registryState) {
   note("Skill checks");
   const skillFiles = [
@@ -733,6 +871,8 @@ async function main() {
   await validateGovernanceBoundaries(registryState);
   await validateSourcePolicy(watchlist, registryState);
   await validateEnterpriseToolMetadata(registryState);
+  await validateSourceUtilizationClassification(watchlist, registryState);
+  await validateTokenContextGovernance(registryState);
   await validateForbiddenArtifacts();
   await runAiToolkitSubvalidators();
 

@@ -48,6 +48,8 @@ Phase 10A/10B adds the governance spine contract, registries, token-efficiency p
 
 Phase 10 source-refresh slimming adds the production-grade software governance model, runtime activation boundary, overlap classification, and live source freshness refresh while preserving Codex/plugin execution authority.
 
+The source utilization and token-optimization gate adds `docs/SOURCE_UTILIZATION_MATRIX.md`, first-class context graph/token budget methods, and validation coverage so source/tool metadata has an explicit value path without activating external tools or dumping whole repositories into context.
+
 Post-PR #39 hardening starts with validation honesty and public/private release safety. `docs/NO_FAKE_VALIDATION_POLICY.md` defines reporting truth rules, and `scripts/scan-public-private-leaks.mjs` generates a report-only public/private leak scan before any public release or naming migration.
 
 `docs/OPERATOR_GUIDE.md` defines the normal prompt patterns for planning-only work, controlled implementation, release review, and quality-gate honesty. `scripts/ai-toolkit/run-quality-gate.mjs --dry-run` is capability detection only unless project scripts actually run.
