@@ -32,6 +32,7 @@ async function main() {
   const runtimeEvals = await readJson(".ai-toolkit/evals/runtime-activation/runtime-boundary-evals.json");
   const routingEvals = await readJson(".ai-toolkit/evals/routing/toolkit-routing-evals.json");
   const stopConditionEvals = await readJson("evals/stop-conditions/unsafe-request-evals.json");
+  const tokenEfficiencyEvals = await readJson("evals/token-efficiency/low-risk-concise-routing-evals.json");
   const namingEvals = await readJson("evals/skills/generic-naming-compatibility-evals.json");
   const premiumUiuxEvals = await readJson("evals/skills/premium-uiux-review-evals.json");
   const embeddedPremiumUiuxEvals = await readJson(".ai-toolkit/evals/skills/premium-uiux-review-evals.json");
@@ -129,6 +130,18 @@ async function main() {
   ]) {
     if (!stopConditionIds.has(required)) {
       fail(`no-fake-validation-${required}`, "expected no-fake-validation stop-condition eval missing");
+    }
+  }
+
+  const tokenEvalIds = new Set((tokenEfficiencyEvals.cases || []).map((evalCase) => evalCase.id));
+  for (const required of [
+    "large-task-compact-context-pack",
+    "changed-file-neighborhood-no-whole-repo-dump",
+    "private-overlay-exclusion-required",
+    "stale-context-graph-detection-required"
+  ]) {
+    if (!tokenEvalIds.has(required)) {
+      fail(`token-context-${required}`, "expected compact context/token governance eval missing");
     }
   }
 

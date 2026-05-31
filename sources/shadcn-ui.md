@@ -5,7 +5,7 @@
 - Owner / publisher: shadcn-ui.
 - Source type: Open component code, registry, documentation, CLI, and AI-oriented UI composition source.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `67cef8fcb94a4223a144e8ed6cbd26169943db7a` on `main`, checked by read-only remote HEAD on 2026-05-29.
+- Pinned repo ref checked: `460ad60d84617836762a8800755fafef37f662df` on `main`, checked by read-only remote HEAD and compare metadata on 2026-05-31.
 - Visible adoption signals: about 113.8k GitHub stars, 8.7k forks, active repository updates on 2026-05-08, and official docs at `ui.shadcn.com`.
 - Trust level: High UI ecosystem trust, medium-high execution risk if CLI or registry behavior is followed blindly.
 - License status: GitHub API reports MIT.
@@ -65,3 +65,7 @@ Blindly importing shadcn/ui can create framework lock-in, duplicate local compon
 ## Recommendation
 
 Candidate for future normalized UIUX/design-system method extraction, pending separate approval. Keep future extraction focused on composition rules, semantic tokens, accessibility, and compatibility gates. No raw tool/plugin/repo content was activated.
+
+## Freshness Review 2026-05-31
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `67cef8fcb94a4223a144e8ed6cbd26169943db7a` to `460ad60d84617836762a8800755fafef37f662df` using `git ls-remote` and GitHub compare metadata only. The compare was 2 commits ahead and touched CLI/docs/changelog/package and eject-command files, including `apps/v4/content/docs/(root)/cli.mdx`, `apps/v4/content/docs/changelog/2026-05-shadcn-eject.mdx`, `packages/shadcn/src/commands/eject.ts`, tests, package metadata, and lockfile data. The existing recommendation is unchanged: extract only normalized component composition, semantic token, accessible default, and design-system compatibility rules. This refresh does not approve CLI execution, MCP setup, registry import, component source copying, package changes, lockfile import, or project design-system overrides.

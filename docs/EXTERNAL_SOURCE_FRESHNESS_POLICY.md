@@ -101,4 +101,6 @@ For toolkit methods, each method file must keep stable `sourceRef`, `lastExtract
 - generate dry-run issue drafts with dedupe keys, labels, affected methods, and no-import/no-activation language when `--create-issues` is supplied,
 - emit a report explicitly stating that no approval is granted.
 
+The embedded package script `scripts/ai-toolkit/check-source-freshness.mjs` is mock-only distribution scaffolding. It may be used for package-shape validation, but it must not be treated as live freshness evidence or as a substitute for the root live gate.
+
 This policy is the normative control; scripts may enforce and reinforce it.

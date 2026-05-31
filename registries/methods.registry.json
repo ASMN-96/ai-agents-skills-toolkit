@@ -1896,6 +1896,208 @@
         "repo",
         "project-sync"
       ]
+    },
+    {
+      "id": "orchestration.context-graph-token-budget",
+      "displayName": "Context Graph Token Budget",
+      "area": "orchestration",
+      "methodPath": "methods/orchestration/context-graph-token-budget.md",
+      "purpose": "Require compact, justified context selection for large tasks instead of whole-repo or whole-registry dumping.",
+      "whenToUse": "Use for large audits, PR reviews, implementation plans, multi-agent handoffs, source utilization reviews, or any task where context volume can hide risk or expose private material.",
+      "whenNotToUse": "Do not use for small typo, wording, or narrow single-file explanations where the relevant context is obvious.",
+      "passiveConsumerAgents": [
+        "Product Agent",
+        "Architect Agent",
+        "Skill Scout Agent",
+        "Reviewer Agent",
+        "Release Manager Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "read-only-repo-audit",
+        "external-skill-source-audit",
+        "release-readiness"
+      ],
+      "riskDomains": [
+        "orchestration",
+        "source-intelligence"
+      ],
+      "validationGates": [
+        "Report token mode, selected context pack, direct-neighbor rationale, explicit exclusions, and whether graph evidence was actual output or metadata-only."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/code-review-graph.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "code-review-graph remains source-only with unknown-review-required license status; this method is toolkit-owned and does not copy upstream code, prompts, CLI behavior, MCP setup, or indexing behavior.",
+      "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
+      "status": [
+        "documented",
+        "draft"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "draft"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "orchestration.changed-file-neighborhood-selection",
+      "displayName": "Changed-File Neighborhood Selection",
+      "area": "orchestration",
+      "methodPath": "methods/orchestration/changed-file-neighborhood-selection.md",
+      "purpose": "Select the smallest useful dependency and policy neighborhood around changed files for audits, reviews, and plans.",
+      "whenToUse": "Use when work starts from a diff, file set, PR, source record, registry change, or validator change.",
+      "whenNotToUse": "Do not use when there is no file or behavior boundary to inspect.",
+      "passiveConsumerAgents": [
+        "Architect Agent",
+        "Security Agent",
+        "QA Test Agent",
+        "Reviewer Agent",
+        "Release Manager Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "read-only-repo-audit",
+        "api-contract-change",
+        "coderabbit-pr-triage"
+      ],
+      "riskDomains": [
+        "orchestration",
+        "review"
+      ],
+      "validationGates": [
+        "List changed files, direct neighbors, tests/evals/validators, source or profile records loaded, and explicit exclusions."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/code-review-graph.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "code-review-graph remains source-only with unknown-review-required license status; this method is toolkit-owned and uses only normalized context-selection guidance.",
+      "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
+      "status": [
+        "documented",
+        "draft"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "draft"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "orchestration.compact-agent-context-pack",
+      "displayName": "Compact Agent Context Pack",
+      "area": "orchestration",
+      "methodPath": "methods/orchestration/compact-agent-context-pack.md",
+      "purpose": "Define compact handoff context for inline agent lenses, profiles, reviewers, and future approved sub-agents.",
+      "whenToUse": "Use before multi-agent planning, large reviews, source reviews, implementation handoffs, release handoffs, or any task where context must be transferred without bloating or leaking private material.",
+      "whenNotToUse": "Do not use for tiny direct answers or one-line static edits.",
+      "passiveConsumerAgents": [
+        "Product Agent",
+        "Architect Agent",
+        "Skill Scout Agent",
+        "Reviewer Agent",
+        "Release Manager Agent",
+        "SRE Performance Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "plain-language-product-request",
+        "external-skill-source-audit",
+        "release-readiness"
+      ],
+      "riskDomains": [
+        "orchestration",
+        "source-intelligence"
+      ],
+      "validationGates": [
+        "Include objective, non-goals, selected files, source/method/profile references, validation evidence, stop conditions, private exclusions, and token mode."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/code-review-graph.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "code-review-graph remains source-only with unknown-review-required license status; this method is toolkit-owned and does not activate external graph tooling.",
+      "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
+      "status": [
+        "documented",
+        "draft"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "draft"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "orchestration.stale-context-graph-detection",
+      "displayName": "Stale Context Graph Detection",
+      "area": "orchestration",
+      "methodPath": "methods/orchestration/stale-context-graph-detection.md",
+      "purpose": "Detect and report stale context, graph, source, registry, or runtime evidence before implementation or release claims.",
+      "whenToUse": "Use when an audit, plan, or review depends on previous graph-like context, source freshness, generated reports, registries, mirrors, or runtime state.",
+      "whenNotToUse": "Do not use as a reason to run external graph tools or index product repos without explicit approval.",
+      "passiveConsumerAgents": [
+        "Architect Agent",
+        "Skill Scout Agent",
+        "Security Agent",
+        "Reviewer Agent",
+        "Release Manager Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "dirty-stale-divergent-repo-state",
+        "external-skill-source-audit",
+        "release-readiness"
+      ],
+      "riskDomains": [
+        "orchestration",
+        "source-intelligence",
+        "release"
+      ],
+      "validationGates": [
+        "Report stale signal, refresh command or reason refresh could not run, current evidence freshness, and any reduced confidence."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/code-review-graph.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "code-review-graph remains source-only with unknown-review-required license status; this method is toolkit-owned and does not activate external graph tooling.",
+      "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
+      "status": [
+        "documented",
+        "draft"
+      ],
+      "provenanceType": "local-vd-authored",
+      "activationStatus": [
+        "documented",
+        "draft"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
     }
   ]
 }

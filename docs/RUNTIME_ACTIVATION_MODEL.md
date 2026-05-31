@@ -46,12 +46,17 @@ Runtime reporting must follow `docs/NO_FAKE_VALIDATION_POLICY.md`. Files under `
 
 ## Active Runtime Boundary For This Pivot
 
-Active repo skills are limited to:
+Active repo skills are limited to ten reviewed runtime entries: five public-safe aliases plus five RISS/VD compatibility aliases.
 
+- `.agents/skills/ai-project-governance/SKILL.md`
 - `.agents/skills/riss-governance/SKILL.md`
+- `.agents/skills/premium-uiux-review/SKILL.md`
 - `.agents/skills/vd-premium-uiux/SKILL.md`
+- `.agents/skills/webapp-code-quality/SKILL.md`
 - `.agents/skills/riss-code-quality/SKILL.md`
+- `.agents/skills/app-security-review/SKILL.md`
 - `.agents/skills/riss-security-review/SKILL.md`
+- `.agents/skills/pr-release-gate/SKILL.md`
 - `.agents/skills/riss-release-gate/SKILL.md`
 
 Active project custom agents are limited to:
@@ -84,3 +89,5 @@ Any later cleanup, migration, folder flattening, or top-level relocation require
 Tool registry and source records are metadata only. They do not approve install, activation, CI wiring, MCP setup, credentials, global config, hooks, or PR write permissions.
 
 Approval-required tools such as deep secret scanners, DAST, supply-chain scanners, and runner hardening remain unexecuted unless a later task explicitly approves a scoped target and validation plan.
+
+Live source freshness is checked from the root script: `node scripts/check-source-freshness.mjs --fail-on-change`. The embedded package script at `scripts/ai-toolkit/check-source-freshness.mjs` is mock-only distribution scaffolding and must not be reported as live source freshness evidence.

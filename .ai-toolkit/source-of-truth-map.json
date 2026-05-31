@@ -5,7 +5,7 @@
     {
       "domain": "skills",
       "canonicalSource": "skills/<skill>/SKILL.md",
-      "runtimeCopy": ".agents/skills/<skill>/SKILL.md for the five active runtime skills only",
+      "runtimeCopy": ".agents/skills/<skill>/SKILL.md for active runtime skills and public-safe aliases only",
       "distributionCopy": ".ai-toolkit/skills/<skill>/SKILL.md for packaged active skills",
       "historicalArchive": "None in this pass unless a file is explicitly marked historical",
       "driftControl": "byte identity between canonical, runtime, and distribution copies"
@@ -54,9 +54,9 @@
       "domain": "profiles",
       "canonicalSource": "profiles/*.md",
       "runtimeCopy": "none",
-      "distributionCopy": ".ai-toolkit/profiles/*.md",
+      "distributionCopy": "not emitted in the current embedded package; profile registry mirror remains packaged",
       "historicalArchive": "older profile notes only if marked",
-      "driftControl": "manifest hashes and registry reference validation"
+      "driftControl": "top-level profile files plus registry reference validation"
     },
     {
       "domain": "evals",

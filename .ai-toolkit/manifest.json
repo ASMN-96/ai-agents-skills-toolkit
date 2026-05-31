@@ -229,7 +229,7 @@
       "source": "registries/methods.registry.json",
       "target": ".ai-toolkit/registries/methods.registry.json",
       "mode": "byte-identical",
-      "sha256": "d7c387d409e6722f55956482da0ea24e71398c111342293ad855866317fab401"
+      "sha256": "c1e45771dd9bd046f9b5080b47da97c0c568f9a5dd91088751637996dfb8e028"
     },
     {
       "source": "registries/profiles.registry.json",

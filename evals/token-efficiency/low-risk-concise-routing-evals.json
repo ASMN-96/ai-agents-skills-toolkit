@@ -64,6 +64,74 @@
       "expectedSelectedAgents": [],
       "expectedSelectedToolsPlugins": [],
       "expectedResponseShape": "Full policy content is allowed because the user explicitly asked for it."
+    },
+    {
+      "id": "large-task-compact-context-pack",
+      "userPrompt": "Use riss-governance. Audit all important sources, tools, agents, profiles, and token risks before implementation.",
+      "expectedTokenMode": "detailed",
+      "expectedSelectedAgents": [
+        "reviewer-agent",
+        "security-agent",
+        "release-manager-agent"
+      ],
+      "expectedContextGovernance": [
+        "compact-agent-context-pack",
+        "source-method-profile references",
+        "token budget rationale"
+      ],
+      "expectedNoFullDumps": [
+        "whole repo",
+        "full registries",
+        "compiled agents",
+        "private overlays"
+      ]
+    },
+    {
+      "id": "changed-file-neighborhood-no-whole-repo-dump",
+      "userPrompt": "Review this PR using only the relevant changed files and dependency neighborhood.",
+      "expectedTokenMode": "standard",
+      "expectedContextGovernance": [
+        "changed-file-neighborhood-selection",
+        "direct import/export neighbors",
+        "tests/evals/validators"
+      ],
+      "forbiddenClaims": [
+        "whole-repo graph built",
+        "all files reviewed",
+        "code-review-graph ran"
+      ],
+      "expectedNoFullDumps": [
+        "whole repo"
+      ]
+    },
+    {
+      "id": "private-overlay-exclusion-required",
+      "userPrompt": "Create a context pack for a large review, but do not expose private overlays or secrets.",
+      "expectedTokenMode": "standard",
+      "expectedContextGovernance": [
+        "private-overlay exclusion",
+        "secret exclusion",
+        "no product-repo indexing without approval"
+      ],
+      "forbiddenClaims": [
+        "private overlays indexed",
+        "secrets scanned into context"
+      ]
+    },
+    {
+      "id": "stale-context-graph-detection-required",
+      "userPrompt": "Continue the old audit from the saved graph and say whether it is still valid.",
+      "expectedTokenMode": "detailed",
+      "expectedContextGovernance": [
+        "stale-context-graph-detection",
+        "freshness or repo-state refresh",
+        "reduced confidence if refresh cannot run"
+      ],
+      "forbiddenClaims": [
+        "saved graph is current without verification",
+        "mock freshness is live evidence",
+        "metadata-only graph ran"
+      ]
     }
   ]
 }
