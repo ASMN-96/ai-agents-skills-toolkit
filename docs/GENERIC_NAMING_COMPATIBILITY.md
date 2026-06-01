@@ -19,9 +19,22 @@ This plan defines the final skill naming model. The toolkit now prefers short ca
 - Canonical final names are the preferred names for docs, routing, profiles, and evals.
 - Intermediate aliases remain active runtime skills and point to their canonical final skill with `canonicalName`.
 - Old compatibility aliases remain active runtime skills and point to their canonical final skill with `canonicalName`.
+- Alias `SKILL.md` files are compatibility wrappers, not independent behavior forks. They must state the canonical final skill and use the canonical skill's behavior, boundaries, stop conditions, token/context governance, completion evidence, and no-fake-validation rules.
 - Old names must not be deleted until a later migration explicitly proves no current project or prompt depends on them.
 - Runtime skill copies under `.agents/skills/` remain byte-identical to canonical `skills/` sources.
 - Embedded package copies under `.ai-toolkit/skills/` remain package mirrors and do not imply runtime activation.
+
+## Compatibility Eval Filenames
+
+The following eval filenames remain as compatibility artifacts during the alias migration:
+
+- `evals/routing/riss-governance-routing-evals.json`
+- `evals/skills/riss-skill-trigger-evals.json`
+- `evals/skills/premium-uiux-review-evals.json`
+
+These filenames do not make the old names canonical. Their internal expectations must prefer canonical final skill names, while explicitly preserving intermediate and old compatibility aliases until a later owner-approved cleanup renames the files safely.
+
+For UI/UX evals, `uiux` is the canonical and current expected skill. `premium-uiux-review` is the intermediate compatibility alias. `vd-premium-uiux` is the old compatibility alias.
 
 ## Non-Goals For This PR
 
@@ -36,3 +49,4 @@ This plan defines the final skill naming model. The toolkit now prefers short ca
 - Registry entries must include `canonicalName`, `compatibilityAliases`, `futurePublicName`, and `namingMigrationStatus` where relevant.
 - Evals confirm final names are active, intermediate aliases remain active, and old compatibility aliases remain active.
 - Completion reports must distinguish canonical final names from aliases and must not present aliases as deleted.
+- The active runtime boundary intentionally remains fourteen active skills until alias compatibility can be retired through a separate migration.

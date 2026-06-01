@@ -184,6 +184,19 @@ async function main() {
     fail("premium-uiux-embedded-evals", "embedded premium UI/UX eval suite must match top-level eval suite");
   }
 
+  if (premiumUiuxEvals.canonicalSkill !== "uiux" || premiumUiuxEvals.currentCanonicalSkill !== "uiux") {
+    fail("premium-uiux-current-canonical", "premium UI/UX eval suite must use uiux as canonical and current canonical skill");
+  }
+  if (premiumUiuxEvals.intermediateCompatibilitySkill !== "premium-uiux-review") {
+    fail("premium-uiux-intermediate-alias", "premium UI/UX eval suite must preserve premium-uiux-review as the intermediate alias");
+  }
+  if (premiumUiuxEvals.oldCompatibilitySkill !== "vd-premium-uiux") {
+    fail("premium-uiux-old-alias", "premium UI/UX eval suite must preserve vd-premium-uiux as the old compatibility alias");
+  }
+  if (Object.hasOwn(premiumUiuxEvals, "currentCompatibilitySkill")) {
+    fail("premium-uiux-no-old-current", "premium UI/UX eval suite must not describe vd-premium-uiux as the current skill");
+  }
+
   const premiumEvalIds = new Set((premiumUiuxEvals.cases || []).map((evalCase) => evalCase.id));
   for (const required of [
     "dashboard-polish-operational",
@@ -197,6 +210,21 @@ async function main() {
   ]) {
     if (!premiumEvalIds.has(required)) {
       fail(`premium-uiux-${required}`, "expected generic premium UI/UX eval missing");
+    }
+  }
+
+  for (const evalCase of premiumUiuxEvals.cases || []) {
+    if (evalCase.expectedCurrentSkill && evalCase.expectedCurrentSkill !== "uiux") {
+      fail(`premium-uiux-current-${evalCase.id}`, "expectedCurrentSkill must be uiux when present");
+    }
+    if (evalCase.expectedCanonicalSkill && evalCase.expectedCanonicalSkill !== "uiux") {
+      fail(`premium-uiux-canonical-${evalCase.id}`, "expectedCanonicalSkill must be uiux when present");
+    }
+    if (evalCase.expectedIntermediateAlias && evalCase.expectedIntermediateAlias !== "premium-uiux-review") {
+      fail(`premium-uiux-intermediate-${evalCase.id}`, "expectedIntermediateAlias must be premium-uiux-review when present");
+    }
+    if (evalCase.expectedOldCompatibilityAlias && evalCase.expectedOldCompatibilityAlias !== "vd-premium-uiux") {
+      fail(`premium-uiux-old-${evalCase.id}`, "expectedOldCompatibilityAlias must be vd-premium-uiux when present");
     }
   }
 

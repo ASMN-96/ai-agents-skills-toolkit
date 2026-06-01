@@ -22,3 +22,5 @@ Profiles should not contain secrets.
 - `release-profile.md`: PR, CI, changelog, release gate, and merge readiness review.
 
 Profiles do not install or activate anything. Phase 5 added dry-run-first project sync workflows, and Phase 10A/10B indexes existing profiles in `registries/profiles.registry.json` for routing metadata only.
+
+Profile agent lists are selected or recommended lenses. They are not proof that a native custom agent was active or spawned. Reports must distinguish selected/recommended agents, active `.codex/agents` TOML files, compiled fallbacks, inline lenses, and actually spawned agents.

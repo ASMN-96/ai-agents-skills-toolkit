@@ -713,6 +713,19 @@ async function validateSkills(registryState) {
       if (skillName !== canonical && entry.canonicalName !== canonical) {
         fail("canonical skill naming", `registries/skills.registry.json:${skillName}`, `alias must point to canonicalName ${canonical}`);
       }
+      if (skillName !== canonical) {
+        const sourceText = source.toString("utf8");
+        for (const requiredText of [
+          "compatibility alias",
+          `Canonical final skill: \`${canonical}\``,
+          "Use the canonical skill's behavior",
+          "Do not treat this alias as a separate behavior fork"
+        ]) {
+          if (!sourceText.includes(requiredText)) {
+            fail("canonical skill naming", canonicalPath, `alias wrapper missing required text: ${requiredText}`);
+          }
+        }
+      }
     }
     if (!asArray(canonicalEntry?.compatibilityAliases).every((alias) => aliases.includes(alias))) {
       fail("canonical skill naming", `registries/skills.registry.json:${canonical}`, "canonical skill must list intermediate and old compatibility aliases");

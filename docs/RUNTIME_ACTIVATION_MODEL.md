@@ -48,6 +48,8 @@ Active project custom agents remain limited to five approved TOML files:
 
 Product, Architect, UIUX, and Skill Scout remain top-level agent specs and compiled fallback material in this pass. Adding their `.codex/agents` runtime TOML files is a separate owner decision because it expands execution surfaces.
 
+Skill, profile, and routing registry references to agents describe selected or recommended agent lenses unless current runtime evidence proves a spawned agent actually ran. Completion reports must distinguish selected or recommended agent, active runtime `.codex/agents` TOML, compiled fallback, inline lens, and actually spawned agent.
+
 ## Source-Of-Truth And Drift Rules
 
 - Canonical skills live under `skills/`.
@@ -56,6 +58,8 @@ Product, Architect, UIUX, and Skill Scout remain top-level agent specs and compi
 - Registry files under `.ai-toolkit/registries/` are package mirrors and must match their top-level `registries/` source.
 - Manifest hashes in `.ai-toolkit/manifest.json` are authoritative drift evidence for distribution copies.
 - Validator WARN output is part of runtime-boundary evidence and must be surfaced even when the aggregate status is PASS.
+
+The embedded builder intentionally preserves reviewed registry files instead of regenerating them from stale defaults. Validators confirm required active skills, registry references, mirrors, and evals remain present. Builder preservation does not authorize runtime activation, external tool activation, CI changes, MCP setup, global config changes, or product-repository sync.
 
 ## External Tool Boundary
 

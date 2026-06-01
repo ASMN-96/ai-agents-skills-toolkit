@@ -35,6 +35,8 @@ No file in this package installs tools, activates external sources, configures C
 - Active runtime is limited to 14 reviewed skills and 5 project custom agents.
 - Helper skills remain internal and must not be copied into active runtime paths.
 - Top-level folders remain canonical and are not deleted, relocated, or flattened in this pass.
+- The embedded builder preserves reviewed registries instead of regenerating them from stale defaults.
+- Builder preservation does not authorize runtime activation, external tool activation, CI changes, MCP setup, global config changes, or product-repository sync.
 
 ## Validation
 
