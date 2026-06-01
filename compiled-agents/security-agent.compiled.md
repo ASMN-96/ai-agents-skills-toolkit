@@ -6,8 +6,8 @@ compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/security-agent.md
-source_profile_refs: ["profiles/security-profile.md", "profiles/audit-profile.md", "profiles/backend-profile.md"]
-source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.source-discovery-workflow", "internal.source-safety-scoring", "osmani.code-review-quality", "osmani.security-hardening", "security.differential-security-review"]
+source_profile_refs: ["profiles/security-profile.md", "profiles/audit-profile.md", "profiles/backend-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.source-discovery-workflow", "internal.source-safety-scoring", "osmani.code-review-quality", "osmani.security-hardening", "security.differential-security-review", "orchestration.changed-file-neighborhood-selection", "orchestration.stale-context-graph-detection"]
 compile_contract_version: 1.0.0
 ---
 
@@ -65,6 +65,32 @@ Stub. This agent will be compiled later from approved methods and project profil
 - Architect Agent
 ## Recommended Support Tools
 - Superpowers as an external Codex execution-discipline plugin.
+
+### fullstack-profile
+
+# Fullstack Profile
+## Included Agents
+- Product Agent
+- Architect Agent
+- Frontend Agent
+- Backend Contract Agent
+- Database RLS Agent
+- Security Agent
+- QA Test Agent
+- Reviewer Agent
+
+### source-review-profile
+
+# Source Review Profile
+## Included Agents
+- Skill Scout Agent
+- Security Agent
+- Architect Agent
+- Reviewer Agent
+## Recommended Support Tools
+- GitHub/gh or web search/browser for source identity checks when explicitly needed.
+- Superpowers for verification honesty and source-safety discipline.
+## Default Mode
 
 ## Methods
 
@@ -158,12 +184,42 @@ Do not use as a full audit of unrelated code when the user asked for a narrow ty
 Security Agent, Reviewer Agent, Backend Contract Agent, Database RLS Agent, Release Manager Agent.
 ## Operating Rules
 
+### orchestration.changed-file-neighborhood-selection
+
+Source: `methods/orchestration/changed-file-neighborhood-selection.md`
+
+# Changed-File Neighborhood Selection
+Use this method before audits, PR reviews, implementation planning, and agent handoffs that start from a diff or known file set.
+## Purpose
+Select the smallest trustworthy neighborhood around the changed files so review quality improves without whole-repo context dumping.
+## Selection Order
+1. Changed files and directly edited docs/configs.
+2. Tests, evals, validators, or generated mirrors that prove the changed behavior.
+3. Direct import/export neighbors and shared contracts.
+4. Referenced methods, skills, profiles, and source records.
+5. Release, security, or public/private boundary docs only when the change crosses those gates.
+
+### orchestration.stale-context-graph-detection
+
+Source: `methods/orchestration/stale-context-graph-detection.md`
+
+# Stale Context Graph Detection
+Use this method when an audit, plan, or review depends on graph-like context that may have changed.
+## Staleness Signals
+- local branch is stale, dirty, divergent, detached, or not verified against remote
+- source freshness reports actionable changes
+- registry, profile, method, or embedded package mirrors drift
+- changed files are not represented in the selected context pack
+- generated reports or docs disagree with live runtime files
+- graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
+## Required Response
+
 ## Provenance
 
 - Source agent path: `agents/security-agent.md`
-- Profile paths: `profiles/security-profile.md`, `profiles/audit-profile.md`, `profiles/backend-profile.md`
-- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `osmani.code-review-quality`, `osmani.security-hardening`, `security.differential-security-review`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `everything-claude-code`, `ruflo`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required`
+- Profile paths: `profiles/security-profile.md`, `profiles/audit-profile.md`, `profiles/backend-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `osmani.code-review-quality`, `osmani.security-hardening`, `security.differential-security-review`, `orchestration.changed-file-neighborhood-selection`, `orchestration.stale-context-graph-detection`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `ruflo`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

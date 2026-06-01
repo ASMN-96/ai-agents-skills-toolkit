@@ -23,11 +23,18 @@ export const INTERNAL_HELPER_SKILLS = [
 ];
 
 export const ACTIVE_PROJECT_AGENTS = [
+  "product-agent",
+  "architect-agent",
   "reviewer-agent",
+  "uiux-agent",
   "frontend-agent",
+  "backend-contract-agent",
+  "database-rls-agent",
   "security-agent",
   "qa-test-agent",
-  "release-manager-agent"
+  "release-manager-agent",
+  "skill-scout-agent",
+  "sre-performance-agent"
 ];
 
 export const SOURCE_OF_TRUTH_MAP = [
@@ -42,7 +49,7 @@ export const SOURCE_OF_TRUTH_MAP = [
   {
     domain: "agents",
     canonicalSource: "agents/*.md",
-    runtimeCopy: ".codex/agents/*.toml for the five active project custom agents only",
+    runtimeCopy: ".codex/agents/*.toml for the twelve active project custom agents only",
     distributionCopy: ".ai-toolkit/agents/*.md for packaged agent source material",
     historicalArchive: "Existing non-active agent specs remain top-level documented assets",
     driftControl: "manifest hashes plus TOML field validation for active agents"
@@ -106,11 +113,18 @@ export const SOURCE_OF_TRUTH_MAP = [
 ];
 
 export const ACTIVE_AGENT_FILES = [
+  "product-agent.toml",
+  "architect-agent.toml",
   "reviewer-agent.toml",
+  "uiux-agent.toml",
   "frontend-agent.toml",
+  "backend-contract-agent.toml",
+  "database-rls-agent.toml",
   "security-agent.toml",
   "qa-test-agent.toml",
-  "release-manager-agent.toml"
+  "release-manager-agent.toml",
+  "skill-scout-agent.toml",
+  "sre-performance-agent.toml"
 ];
 
 export const TOOL_ENTRIES = [

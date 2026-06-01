@@ -6,8 +6,8 @@ compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/reviewer-agent.md
-source_profile_refs: ["profiles/audit-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md", "profiles/security-profile.md"]
-source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.source-discovery-workflow", "internal.source-safety-scoring", "internal.tdd-verification-alignment", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.git-guardrails", "matt.grill-me", "matt.improve-architecture", "matt.tdd", "matt.triage-issue", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.performance-optimization", "osmani.security-hardening", "osmani.shipping-launch", "osmani.test-driven-development", "security.differential-security-review", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.premium-visual-quality", "uiux.webapp-testing"]
+source_profile_refs: ["profiles/audit-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md", "profiles/security-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.source-discovery-workflow", "internal.source-safety-scoring", "internal.tdd-verification-alignment", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.git-guardrails", "matt.grill-me", "matt.improve-architecture", "matt.tdd", "matt.triage-issue", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.performance-optimization", "osmani.security-hardening", "osmani.shipping-launch", "osmani.test-driven-development", "security.differential-security-review", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.premium-visual-quality", "uiux.webapp-testing", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection"]
 compile_contract_version: 1.0.0
 ---
 
@@ -78,6 +78,32 @@ Stub. This agent will be compiled later from approved methods and project profil
 ## Recommended Support Tools
 - Superpowers as an external Codex execution-discipline plugin.
 - Context7 when available/configured for current security, auth, platform, or API guidance.
+
+### fullstack-profile
+
+# Fullstack Profile
+## Included Agents
+- Product Agent
+- Architect Agent
+- Frontend Agent
+- Backend Contract Agent
+- Database RLS Agent
+- Security Agent
+- QA Test Agent
+- Reviewer Agent
+
+### source-review-profile
+
+# Source Review Profile
+## Included Agents
+- Skill Scout Agent
+- Security Agent
+- Architect Agent
+- Reviewer Agent
+## Recommended Support Tools
+- GitHub/gh or web search/browser for source identity checks when explicitly needed.
+- Superpowers for verification honesty and source-safety discipline.
+## Default Mode
 
 ## Methods
 
@@ -531,12 +557,72 @@ Do not use full browser checks for docs-only changes with no rendered surface.
 QA Test Agent, Frontend Agent, UIUX Agent, Reviewer Agent.
 ## Operating Rules
 
+### orchestration.context-graph-token-budget
+
+Source: `methods/orchestration/context-graph-token-budget.md`
+
+# Context Graph Token Budget
+Use this method when a task is large enough that full-registry, full-repo, or full-source dumping would waste context or expose private material.
+## Purpose
+Token budgeting is a governance requirement. A large task must identify the smallest useful context graph before routing agents, writing plans, or reviewing diffs.
+## Required Inputs
+- task goal and risk level
+- changed files or intended files
+- selected profile and inline agent lenses
+- relevant source/method/profile records
+- private-overlay and secret boundaries
+
+### orchestration.changed-file-neighborhood-selection
+
+Source: `methods/orchestration/changed-file-neighborhood-selection.md`
+
+# Changed-File Neighborhood Selection
+Use this method before audits, PR reviews, implementation planning, and agent handoffs that start from a diff or known file set.
+## Purpose
+Select the smallest trustworthy neighborhood around the changed files so review quality improves without whole-repo context dumping.
+## Selection Order
+1. Changed files and directly edited docs/configs.
+2. Tests, evals, validators, or generated mirrors that prove the changed behavior.
+3. Direct import/export neighbors and shared contracts.
+4. Referenced methods, skills, profiles, and source records.
+5. Release, security, or public/private boundary docs only when the change crosses those gates.
+
+### orchestration.compact-agent-context-pack
+
+Source: `methods/orchestration/compact-agent-context-pack.md`
+
+# Compact Agent Context Pack
+Use this method when handing work between inline agent lenses, profiles, reviewers, or future approved sub-agents.
+## Required Pack Fields
+- objective and non-goals
+- selected files and reason for each
+- changed-file neighborhood summary
+- source/method/profile references
+- validation commands and expected evidence
+- stop conditions
+- private-overlay, secret, and product-repo exclusions
+
+### orchestration.stale-context-graph-detection
+
+Source: `methods/orchestration/stale-context-graph-detection.md`
+
+# Stale Context Graph Detection
+Use this method when an audit, plan, or review depends on graph-like context that may have changed.
+## Staleness Signals
+- local branch is stale, dirty, divergent, detached, or not verified against remote
+- source freshness reports actionable changes
+- registry, profile, method, or embedded package mirrors drift
+- changed files are not represented in the selected context pack
+- generated reports or docs disagree with live runtime files
+- graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
+## Required Response
+
 ## Provenance
 
 - Source agent path: `agents/reviewer-agent.md`
-- Profile paths: `profiles/audit-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/security-profile.md`
-- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `internal.tdd-verification-alignment`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.git-guardrails`, `matt.grill-me`, `matt.improve-architecture`, `matt.tdd`, `matt.triage-issue`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.shipping-launch`, `osmani.test-driven-development`, `security.differential-security-review`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.premium-visual-quality`, `uiux.webapp-testing`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `everything-claude-code`, `karpathy-inspired-skills`, `matt-pocock-skills`, `microsoft-playwright`, `ruflo`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required`
+- Profile paths: `profiles/audit-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `internal.tdd-verification-alignment`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.git-guardrails`, `matt.grill-me`, `matt.improve-architecture`, `matt.tdd`, `matt.triage-issue`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.shipping-launch`, `osmani.test-driven-development`, `security.differential-security-review`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.premium-visual-quality`, `uiux.webapp-testing`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `code-review-graph`, `everything-claude-code`, `karpathy-inspired-skills`, `matt-pocock-skills`, `microsoft-playwright`, `ruflo`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

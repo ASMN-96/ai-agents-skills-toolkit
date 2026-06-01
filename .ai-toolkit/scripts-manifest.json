@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",
-      "sha256": "22e063067360e6134c52dce3f9b2389818710ea0f3491177b57ee5e56c1be285"
+      "sha256": "1fe6bac4acd91d889318eedc587cdb8fc092b4257731ac306b7013c2a7cc4424"
     },
     {
       "path": "scripts/ai-toolkit/validate-version-consistency.mjs",
@@ -40,7 +40,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "526d5403672551a6d0ade49ad42abe14d5007b9f4d2d6340872aeade35219838"
+      "sha256": "6b9108be798c235624dd9c0fd202f1d43df3f7bbaa7022bd39f8c7af317d62b7"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",

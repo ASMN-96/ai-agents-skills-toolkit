@@ -13,6 +13,16 @@
       "expected": "route-active-skill"
     },
     {
+      "id": "active-project-agent-count-12",
+      "input": "Validate repo-local project custom agent count",
+      "expectedActiveProjectAgents": 12
+    },
+    {
+      "id": "bounded-backend-database-sre-agents",
+      "input": "Validate backend/database/SRE agents are read-only advisory and bounded",
+      "expected": "guardrails-required"
+    },
+    {
       "id": "helper-not-user-facing",
       "input": "Use riss-skill-governance directly",
       "expected": "redirect-to-governance"

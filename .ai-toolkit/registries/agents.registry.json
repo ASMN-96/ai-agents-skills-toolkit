@@ -75,14 +75,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -90,7 +94,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/product-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "architect-agent",
@@ -159,14 +163,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -174,7 +182,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/architect-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "frontend-agent",
@@ -241,14 +249,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -256,7 +268,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/frontend-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "uiux-agent",
@@ -322,14 +334,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -337,7 +353,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/uiux-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "backend-contract-agent",
@@ -403,14 +419,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -418,7 +438,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/backend-contract-agent.toml after stub removal and bounded read-only advisory hardening. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "database-rls-agent",
@@ -485,14 +505,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -500,7 +524,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/database-rls-agent.toml after stub removal and bounded read-only advisory hardening. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "security-agent",
@@ -567,14 +591,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -582,7 +610,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/security-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "qa-test-agent",
@@ -649,14 +677,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -664,7 +696,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/qa-test-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "reviewer-agent",
@@ -737,14 +769,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -752,7 +788,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/reviewer-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "release-manager-agent",
@@ -818,14 +854,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -833,7 +873,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/release-manager-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "sre-performance-agent",
@@ -898,14 +938,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -913,7 +957,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/sre-performance-agent.toml after stub removal and bounded read-only advisory hardening. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "skill-scout-agent",
@@ -981,14 +1025,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -996,7 +1044,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Registry availability does not imply native runtime visibility; only .codex/agents files listed in the runtime boundary are active project custom agents."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/skill-scout-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     }
   ]
 }
