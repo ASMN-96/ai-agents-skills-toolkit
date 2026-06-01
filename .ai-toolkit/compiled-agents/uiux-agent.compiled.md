@@ -6,7 +6,7 @@ compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/uiux-agent.md
-source_profile_refs: ["profiles/uiux-profile.md", "profiles/frontend-profile.md"]
+source_profile_refs: ["profiles/uiux-profile.md", "profiles/frontend-profile.md", "profiles/fullstack-profile.md"]
 source_method_refs: ["internal.frontend-uiux-quality-gates", "matt.grill-me", "osmani.frontend-ui-engineering", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing"]
 compile_contract_version: 1.0.0
 ---
@@ -22,8 +22,14 @@ Source: `agents/uiux-agent.md`
 # UIUX Agent
 ## Role
 Evaluates user experience quality, information architecture, visual hierarchy, usability, accessibility, and product fit.
-## Status
-Stub. This agent will be compiled later from approved methods and project profiles.
+## Operating Rules
+- Produce UX critique, design intent, acceptance criteria, and frontend handoff instructions.
+- Use normalized guidance from UI/UX methods, source maps, and approved local design source of truth.
+- Cover accessibility, responsive/mobile behavior, interaction states, loading/error/empty states, chart/data UI, and browser evidence requirements when relevant.
+- Do not act as the default frontend implementer; Frontend Agent implements after UIUX defines the criteria.
+- Do not activate open-design, UI UX Pro Max, shadcn CLI/MCP, raw prompts, raw component source, scripts, or unmanaged design-system files.
+## Runtime Status
+First-class registry and profile agent. Runtime activation remains a follow-up owner decision unless a separate task approves adding a project custom-agent file.
 
 ## Profiles
 
@@ -52,6 +58,19 @@ Stub. This agent will be compiled later from approved methods and project profil
 ## Recommended Support Tools
 - Superpowers as an external Codex execution-discipline plugin.
 - Context7 when available/configured for current framework or browser API docs.
+
+### fullstack-profile
+
+# Fullstack Profile
+## Included Agents
+- Product Agent
+- Architect Agent
+- Frontend Agent
+- Backend Contract Agent
+- Database RLS Agent
+- Security Agent
+- QA Test Agent
+- Reviewer Agent
 
 ## Methods
 
@@ -223,7 +242,7 @@ QA Test Agent, Frontend Agent, UIUX Agent, Reviewer Agent.
 ## Provenance
 
 - Source agent path: `agents/uiux-agent.md`
-- Profile paths: `profiles/uiux-profile.md`, `profiles/frontend-profile.md`
+- Profile paths: `profiles/uiux-profile.md`, `profiles/frontend-profile.md`, `profiles/fullstack-profile.md`
 - Method IDs: `internal.frontend-uiux-quality-gates`, `matt.grill-me`, `osmani.frontend-ui-engineering`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `matt-pocock-skills`, `microsoft-playwright`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`

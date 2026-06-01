@@ -115,10 +115,20 @@ async function main() {
   }
 
   const runtimeEvalIds = new Set((runtimeEvals.cases || []).map((evalCase) => evalCase.id));
-  for (const required of ["validator-warn-visible", "metadata-not-execution"]) {
+  for (const required of [
+    "active-project-agent-count-12",
+    "bounded-backend-database-sre-agents",
+    "validator-warn-visible",
+    "metadata-not-execution"
+  ]) {
     if (!runtimeEvalIds.has(required)) {
       fail(`runtime-no-fake-${required}`, "expected embedded no-fake-validation runtime eval missing");
     }
+  }
+
+  const activeAgentCountEval = (runtimeEvals.cases || []).find((evalCase) => evalCase.id === "active-project-agent-count-12");
+  if (activeAgentCountEval?.expectedActiveProjectAgents !== 12) {
+    fail("active-project-agent-count-12", "runtime eval must assert exactly 12 active project agents");
   }
 
   for (const evalCase of routingEvals.cases || []) {

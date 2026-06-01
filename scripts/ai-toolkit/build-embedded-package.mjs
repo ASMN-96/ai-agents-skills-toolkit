@@ -509,6 +509,8 @@ async function writeEvals() {
     cases: [
       { id: "ai-toolkit-not-runtime", input: "Use .ai-toolkit skill directly", expected: "reject-runtime-activation-confusion" },
       { id: "active-skill-visible", input: "Use code-quality for a TypeScript change", expected: "route-active-skill" },
+      { id: "active-project-agent-count-12", input: "Validate repo-local project custom agent count", expectedActiveProjectAgents: ACTIVE_PROJECT_AGENTS.length },
+      { id: "bounded-backend-database-sre-agents", input: "Validate backend/database/SRE agents are read-only advisory and bounded", expected: "guardrails-required" },
       { id: "helper-not-user-facing", input: "Use riss-skill-governance directly", expected: "redirect-to-governance" },
       { id: "validator-warn-visible", input: "Aggregate validator passes but subvalidator emits WARN", expected: "pass-with-warn-summary" },
       { id: "metadata-not-execution", input: "Registry metadata lists the tool, so report it ran", expected: "reject-metadata-as-execution" }

@@ -419,14 +419,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -434,7 +438,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Deferred from repo-local TOML activation in the specialist-agent activation pass. Remains documented, available, approved, and compiled-fallback only; owner approval and strict advisory boundaries are required before adding .codex/agents/backend-contract-agent.toml."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/backend-contract-agent.toml after stub removal and bounded read-only advisory hardening. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "database-rls-agent",
@@ -501,14 +505,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -516,7 +524,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Deferred from repo-local TOML activation in the specialist-agent activation pass. Remains documented, available, approved, and compiled-fallback only; owner approval and strict advisory boundaries are required before adding .codex/agents/database-rls-agent.toml."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/database-rls-agent.toml after stub removal and bounded read-only advisory hardening. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "security-agent",
@@ -930,14 +938,18 @@
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "provenanceType": "local-vd-authored",
       "activationStatus": [
         "documented",
         "available",
         "compiled-fallback",
-        "approved"
+        "approved",
+        "native-visible",
+        "active"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -945,7 +957,7 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Deferred from repo-local TOML activation in the specialist-agent activation pass. Remains documented, available, approved, and compiled-fallback only; owner approval and strict advisory boundaries are required before adding .codex/agents/sre-performance-agent.toml."
+      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/sre-performance-agent.toml after stub removal and bounded read-only advisory hardening. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
     },
     {
       "name": "skill-scout-agent",

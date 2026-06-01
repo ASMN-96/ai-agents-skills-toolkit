@@ -6,6 +6,21 @@ import { ACTIVE_AGENT_FILES, ACTIVE_SKILLS, INTERNAL_HELPER_SKILLS, UNSAFE_COMMA
 
 const ROOT = process.cwd();
 const failures = [];
+const BOUNDED_REVIEW_AGENT_FILES = [
+  "backend-contract-agent.toml",
+  "database-rls-agent.toml",
+  "sre-performance-agent.toml"
+];
+const BOUNDED_REVIEW_AGENT_REQUIRED_TEXT = [
+  "sandbox_mode = \"read-only\"",
+  "governance, uiux, code-quality, security-review, and pr-release-gate",
+  "Do not",
+  "unless explicitly approved",
+  "Do not claim",
+  "actual output exists",
+  "Report selected or recommended agents separately from agents actually spawned",
+  "Stop when"
+];
 
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
@@ -119,6 +134,9 @@ async function validateActiveSkills() {
 async function validateProjectAgents() {
   const files = await readdir(rootPath(".codex/agents")).catch(() => []);
   const tomlFiles = files.filter((file) => file.endsWith(".toml")).sort();
+  if (tomlFiles.length !== ACTIVE_AGENT_FILES.length) {
+    fail(".codex/agents", `expected ${ACTIVE_AGENT_FILES.length} active project agents, found ${tomlFiles.length}`);
+  }
   for (const required of ACTIVE_AGENT_FILES) {
     if (!tomlFiles.includes(required)) {
       fail(".codex/agents", `missing active project agent ${required}`);
@@ -144,6 +162,13 @@ async function validateProjectAgents() {
     if (/\[mcp_servers\b/.test(text) || /^mcp_servers\s*=/m.test(text)) {
       fail(relativePath, "MCP server config is not allowed in this pass");
     }
+    if (BOUNDED_REVIEW_AGENT_FILES.includes(file)) {
+      for (const requiredText of BOUNDED_REVIEW_AGENT_REQUIRED_TEXT) {
+        if (!text.includes(requiredText)) {
+          fail(relativePath, `missing bounded review agent guardrail text: ${requiredText}`);
+        }
+      }
+    }
     scanUnsafe(relativePath, text);
   }
 }
@@ -153,7 +178,8 @@ async function main() {
   await validateProjectAgents();
 
   if (failures.length === 0) {
-    console.log("PASS validate-codex-runtime");
+    console.log(`PASS validate-codex-runtime`);
+    console.log(`active runtime: ${ACTIVE_SKILLS.length} skills, ${ACTIVE_AGENT_FILES.length} project agents`);
     return;
   }
 

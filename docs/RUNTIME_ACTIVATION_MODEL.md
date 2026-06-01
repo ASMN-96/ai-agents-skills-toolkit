@@ -38,21 +38,24 @@ Active repo skills are limited to fourteen reviewed runtime entries: five canoni
 - `.agents/skills/pr-release-gate/SKILL.md`
 - `.agents/skills/riss-release-gate/SKILL.md`
 
-Active project custom agents are limited to nine approved repo-local TOML files:
+Active project custom agents are limited to twelve approved repo-local TOML files:
 
 - `.codex/agents/product-agent.toml`
 - `.codex/agents/architect-agent.toml`
 - `.codex/agents/reviewer-agent.toml`
 - `.codex/agents/uiux-agent.toml`
 - `.codex/agents/frontend-agent.toml`
+- `.codex/agents/backend-contract-agent.toml`
+- `.codex/agents/database-rls-agent.toml`
 - `.codex/agents/security-agent.toml`
 - `.codex/agents/qa-test-agent.toml`
 - `.codex/agents/release-manager-agent.toml`
 - `.codex/agents/skill-scout-agent.toml`
+- `.codex/agents/sre-performance-agent.toml`
 
-The four specialist agents added in this activation pass are read-only advisory agents. They expand repo-local runtime visibility for product framing, architecture framing, UI/UX criteria, and source-safety scouting, but they do not authorize package changes, CI changes, MCP configuration, global Codex config changes, product-repository sync, secret access, external source import, or fake validation claims.
+The seven specialist agents added in this activation pass are read-only advisory agents. They expand repo-local runtime visibility for product framing, architecture framing, UI/UX criteria, backend/API contract review, database/RLS review, source-safety scouting, and SRE/performance review, but they do not authorize package changes, CI changes, MCP configuration, global Codex config changes, product-repository sync, secret access, production/data/destructive changes, external source import, scanner execution, or fake validation claims.
 
-Backend Contract, Database RLS, and SRE Performance remain top-level agent specs and compiled fallback material in this pass. Adding their `.codex/agents` runtime TOML files is still a separate owner decision because those domains carry backend, database, migration, production, reliability, and operational risk, and their top-level source specs are currently stubs.
+Backend Contract, Database RLS, and SRE Performance were upgraded from stubs to bounded read-only advisory agents before activation. Their hardening is anchored in OpenAPI/OAI contract description, OWASP API Security Top 10 risk categories, Supabase/Postgres RLS documentation, public/private leak gates, Google SRE golden signals, OpenTelemetry signals, and existing toolkit governance, security-review, code-quality, performance, release, and no-fake-validation methods. They still cannot approve production database changes, weaken RLS, perform security signoff alone, change deployment/CI/infrastructure, access secrets, or claim scanner/browser/runtime evidence without actual output.
 
 Skill, profile, and routing registry references to agents describe selected or recommended agent lenses unless current runtime evidence proves a spawned agent actually ran. Completion reports must distinguish selected or recommended agent, active runtime `.codex/agents` TOML, compiled fallback, inline lens, and actually spawned agent.
 

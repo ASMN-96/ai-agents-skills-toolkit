@@ -6,8 +6,8 @@ compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/skill-scout-agent.md
-source_profile_refs: ["profiles/audit-profile.md", "profiles/security-profile.md"]
-source_method_refs: ["internal.skill-anatomy", "internal.source-discovery-workflow", "internal.source-safety-scoring", "karpathy.assumption-surfacing", "osmani.security-hardening"]
+source_profile_refs: ["profiles/audit-profile.md", "profiles/security-profile.md", "profiles/source-review-profile.md"]
+source_method_refs: ["internal.skill-anatomy", "internal.source-discovery-workflow", "internal.source-safety-scoring", "karpathy.assumption-surfacing", "osmani.security-hardening", "orchestration.context-graph-token-budget", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection"]
 compile_contract_version: 1.0.0
 ---
 
@@ -71,6 +71,19 @@ For every source, check:
 ## Recommended Support Tools
 - Superpowers as an external Codex execution-discipline plugin.
 - Context7 when available/configured for current security, auth, platform, or API guidance.
+
+### source-review-profile
+
+# Source Review Profile
+## Included Agents
+- Skill Scout Agent
+- Security Agent
+- Architect Agent
+- Reviewer Agent
+## Recommended Support Tools
+- GitHub/gh or web search/browser for source identity checks when explicitly needed.
+- Superpowers for verification honesty and source-safety discipline.
+## Default Mode
 
 ## Methods
 
@@ -149,12 +162,57 @@ Do not block low-risk docs work with unrelated security review.
 Security Agent, Backend Contract Agent, Database RLS Agent, Reviewer Agent, Skill Scout Agent.
 ## Operating Rules
 
+### orchestration.context-graph-token-budget
+
+Source: `methods/orchestration/context-graph-token-budget.md`
+
+# Context Graph Token Budget
+Use this method when a task is large enough that full-registry, full-repo, or full-source dumping would waste context or expose private material.
+## Purpose
+Token budgeting is a governance requirement. A large task must identify the smallest useful context graph before routing agents, writing plans, or reviewing diffs.
+## Required Inputs
+- task goal and risk level
+- changed files or intended files
+- selected profile and inline agent lenses
+- relevant source/method/profile records
+- private-overlay and secret boundaries
+
+### orchestration.compact-agent-context-pack
+
+Source: `methods/orchestration/compact-agent-context-pack.md`
+
+# Compact Agent Context Pack
+Use this method when handing work between inline agent lenses, profiles, reviewers, or future approved sub-agents.
+## Required Pack Fields
+- objective and non-goals
+- selected files and reason for each
+- changed-file neighborhood summary
+- source/method/profile references
+- validation commands and expected evidence
+- stop conditions
+- private-overlay, secret, and product-repo exclusions
+
+### orchestration.stale-context-graph-detection
+
+Source: `methods/orchestration/stale-context-graph-detection.md`
+
+# Stale Context Graph Detection
+Use this method when an audit, plan, or review depends on graph-like context that may have changed.
+## Staleness Signals
+- local branch is stale, dirty, divergent, detached, or not verified against remote
+- source freshness reports actionable changes
+- registry, profile, method, or embedded package mirrors drift
+- changed files are not represented in the selected context pack
+- generated reports or docs disagree with live runtime files
+- graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
+## Required Response
+
 ## Provenance
 
 - Source agent path: `agents/skill-scout-agent.md`
-- Profile paths: `profiles/audit-profile.md`, `profiles/security-profile.md`
-- Method IDs: `internal.skill-anatomy`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `karpathy.assumption-surfacing`, `osmani.security-hardening`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `everything-claude-code`, `karpathy-inspired-skills`, `ruflo`, `superpowers`, `unknown-review-required`
+- Profile paths: `profiles/audit-profile.md`, `profiles/security-profile.md`, `profiles/source-review-profile.md`
+- Method IDs: `internal.skill-anatomy`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `karpathy.assumption-surfacing`, `osmani.security-hardening`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `karpathy-inspired-skills`, `ruflo`, `superpowers`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

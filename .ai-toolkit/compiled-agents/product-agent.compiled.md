@@ -6,8 +6,8 @@ compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/product-agent.md
-source_profile_refs: ["profiles/implementation-profile.md", "profiles/uiux-profile.md"]
-source_method_refs: ["internal.engineering-lifecycle-gates", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "matt.grill-me", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.spec-driven-development", "uiux.dashboard-ux", "uiux.premium-visual-quality"]
+source_profile_refs: ["profiles/implementation-profile.md", "profiles/uiux-profile.md", "profiles/planning-profile.md", "profiles/fullstack-profile.md"]
+source_method_refs: ["internal.engineering-lifecycle-gates", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "matt.grill-me", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.spec-driven-development", "uiux.dashboard-ux", "uiux.premium-visual-quality", "orchestration.context-graph-token-budget", "orchestration.compact-agent-context-pack"]
 compile_contract_version: 1.0.0
 ---
 
@@ -22,8 +22,14 @@ Source: `agents/product-agent.md`
 # Product Agent
 ## Role
 Defines product goals, user needs, scope boundaries, acceptance criteria, and release priorities for agent-assisted projects.
-## Status
-Stub. This agent will be compiled later from approved methods and project profiles.
+## Operating Rules
+- Convert broad requests into explicit goals, non-goals, acceptance criteria, and release slices.
+- Identify user value, business impact, and workflow risk before implementation.
+- Keep scope small enough for a reviewable PR unless the owner approves a larger phase.
+- Include token mode and compact context expectations for large planning tasks.
+- Handoff structure, sequencing, and rollback concerns to Architect Agent.
+## Runtime Status
+First-class registry and profile agent. Runtime activation remains a follow-up owner decision unless a separate task approves adding a project custom-agent file.
 
 ## Profiles
 
@@ -52,6 +58,32 @@ Stub. This agent will be compiled later from approved methods and project profil
 ## Recommended Support Tools
 - Superpowers as an external Codex execution-discipline plugin.
 - Playwright for browser-visible UX verification.
+
+### planning-profile
+
+# Planning Profile
+## Included Agents
+- Product Agent
+- Architect Agent
+- Reviewer Agent
+## Recommended Support Tools
+- Superpowers as an external Codex execution-discipline plugin.
+- GSD for serious phase and milestone planning when available.
+- GitHub/gh when branch or PR source-of-truth matters.
+## Default Mode
+
+### fullstack-profile
+
+# Fullstack Profile
+## Included Agents
+- Product Agent
+- Architect Agent
+- Frontend Agent
+- Backend Contract Agent
+- Database RLS Agent
+- Security Agent
+- QA Test Agent
+- Reviewer Agent
 
 ## Methods
 
@@ -205,12 +237,42 @@ Do not prioritize aesthetics over clarity, accessibility, or product workflow.
 UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
 ## Operating Rules
 
+### orchestration.context-graph-token-budget
+
+Source: `methods/orchestration/context-graph-token-budget.md`
+
+# Context Graph Token Budget
+Use this method when a task is large enough that full-registry, full-repo, or full-source dumping would waste context or expose private material.
+## Purpose
+Token budgeting is a governance requirement. A large task must identify the smallest useful context graph before routing agents, writing plans, or reviewing diffs.
+## Required Inputs
+- task goal and risk level
+- changed files or intended files
+- selected profile and inline agent lenses
+- relevant source/method/profile records
+- private-overlay and secret boundaries
+
+### orchestration.compact-agent-context-pack
+
+Source: `methods/orchestration/compact-agent-context-pack.md`
+
+# Compact Agent Context Pack
+Use this method when handing work between inline agent lenses, profiles, reviewers, or future approved sub-agents.
+## Required Pack Fields
+- objective and non-goals
+- selected files and reason for each
+- changed-file neighborhood summary
+- source/method/profile references
+- validation commands and expected evidence
+- stop conditions
+- private-overlay, secret, and product-repo exclusions
+
 ## Provenance
 
 - Source agent path: `agents/product-agent.md`
-- Profile paths: `profiles/implementation-profile.md`, `profiles/uiux-profile.md`
-- Method IDs: `internal.engineering-lifecycle-gates`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `matt.grill-me`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.spec-driven-development`, `uiux.dashboard-ux`, `uiux.premium-visual-quality`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `bencium-marketplace`, `karpathy-inspired-skills`, `matt-pocock-skills`
+- Profile paths: `profiles/implementation-profile.md`, `profiles/uiux-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`
+- Method IDs: `internal.engineering-lifecycle-gates`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `matt.grill-me`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.spec-driven-development`, `uiux.dashboard-ux`, `uiux.premium-visual-quality`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `bencium-marketplace`, `code-review-graph`, `karpathy-inspired-skills`, `matt-pocock-skills`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.
