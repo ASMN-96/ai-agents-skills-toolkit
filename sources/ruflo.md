@@ -4,7 +4,7 @@
 - Owner / publisher: ruvnet.
 - Source type: Agent orchestration/runtime framework with daemon, plugins, workers, state, and verification materials.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `28eb57543be916abf5191f71114268a3985cb001` on `main`, checked by read-only remote HEAD and compare metadata on 2026-05-31.
+- Pinned repo ref checked: `f57b69876ba1c4e6bf4e317d0d1529a5481692c4` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-01.
 - Visible adoption signals: about 56.4k GitHub stars, 6.4k forks, and active alpha release work.
 - Trust level: Medium source trust, very high runtime/daemon risk.
 - License status: GitHub API reports MIT.
@@ -93,3 +93,7 @@ Skill Scout read-only follow-up reviewed the upstream default-branch movement fr
 ## Freshness Review 2026-05-31
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `709b85949f7526e4bf61a5d9375ed9f7960600d0` to `28eb57543be916abf5191f71114268a3985cb001` using `git ls-remote` and GitHub compare metadata only. The compare was 7 commits ahead and touched benchmark run data, package metadata, memory/vector/retrieval code, MCP tools, neural tools, worker daemon code, and ADR benchmark documentation. The source remains very high risk for runtime, daemon, MCP, hook, memory, plugin, package-script, benchmark-script, persisted-state, file-write, indexing, and background-process behavior. The only planned safe extraction path is static governance inspiration: task-state visibility, handoff ledgers, adaptive replanning stop conditions, no silent fallback, and failure accounting. This refresh updates source tracking only and does not approve package install, daemon, worker, hook, MCP, memory, plugin, script, benchmark, vector indexing, source-copying, method-extraction, product-repo indexing, or global configuration use.
+
+## Freshness Review 2026-06-01
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `28eb57543be916abf5191f71114268a3985cb001` to `f57b69876ba1c4e6bf4e317d0d1529a5481692c4` using GitHub compare metadata, current commit metadata, license metadata, and patch keyword review only. The compare was 2 commits ahead and touched `README.md`, `data/clone-data.ledger.json`, `data/clone-data.proof.json`, and `data/clone-data.rvf`. MIT license metadata remained present. Patch keyword review matched ledger/proof data file movement but found no new package install, MCP command, daemon, hook, worker, network-fetch, credential, destructive shell, or product-write signal in the changed source-freshness scope. The source remains very high risk for runtime, daemon, MCP, hook, memory, plugin, package-script, benchmark-script, persisted-state, file-write, indexing, and background-process behavior. The only planned safe extraction path remains static governance inspiration. This refresh updates source tracking only and does not approve package install, daemon, worker, hook, MCP, memory, plugin, script, benchmark, vector indexing, source-copying, method-extraction, product-repo indexing, or global configuration use.

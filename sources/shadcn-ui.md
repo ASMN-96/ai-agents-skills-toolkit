@@ -5,7 +5,7 @@
 - Owner / publisher: shadcn-ui.
 - Source type: Open component code, registry, documentation, CLI, and AI-oriented UI composition source.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `460ad60d84617836762a8800755fafef37f662df` on `main`, checked by read-only remote HEAD and compare metadata on 2026-05-31.
+- Pinned repo ref checked: `adac7cae1f5bb08c210483b73732100cec51987c` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-01.
 - Visible adoption signals: about 113.8k GitHub stars, 8.7k forks, active repository updates on 2026-05-08, and official docs at `ui.shadcn.com`.
 - Trust level: High UI ecosystem trust, medium-high execution risk if CLI or registry behavior is followed blindly.
 - License status: GitHub API reports MIT.
@@ -69,3 +69,7 @@ Candidate for future normalized UIUX/design-system method extraction, pending se
 ## Freshness Review 2026-05-31
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `67cef8fcb94a4223a144e8ed6cbd26169943db7a` to `460ad60d84617836762a8800755fafef37f662df` using `git ls-remote` and GitHub compare metadata only. The compare was 2 commits ahead and touched CLI/docs/changelog/package and eject-command files, including `apps/v4/content/docs/(root)/cli.mdx`, `apps/v4/content/docs/changelog/2026-05-shadcn-eject.mdx`, `packages/shadcn/src/commands/eject.ts`, tests, package metadata, and lockfile data. The existing recommendation is unchanged: extract only normalized component composition, semantic token, accessible default, and design-system compatibility rules. This refresh does not approve CLI execution, MCP setup, registry import, component source copying, package changes, lockfile import, or project design-system overrides.
+
+## Freshness Review 2026-06-01
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `460ad60d84617836762a8800755fafef37f662df` to `adac7cae1f5bb08c210483b73732100cec51987c` using GitHub compare metadata, current commit metadata, license metadata, and patch keyword review only. The compare was 3 commits ahead and touched docs/changelog/registry material, registry GitHub-source implementation and tests, command validation/search/view files, package metadata, lockfile data, and `skills/shadcn` guidance for CLI, MCP, and registry usage. MIT license metadata remained present. Patch keyword review found registry, CLI, MCP, package, lockfile, install, network, and file-write-adjacent source signals, so the source remains medium-high execution risk if followed directly. It remains low-risk only as a source-record refresh because no upstream component, registry item, skill, CLI behavior, MCP behavior, package metadata, lockfile, docs, or source code was imported, copied, installed, activated, or extracted. The recommendation is unchanged: extract only normalized component composition, semantic token, accessible default, and design-system compatibility rules in a separate approved phase. This refresh does not approve CLI execution, MCP setup, registry import, component source copying, skill import, package changes, lockfile import, or project design-system overrides.
