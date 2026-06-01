@@ -16,7 +16,8 @@
       ],
       "expectedSelectedSkills": [
         "governance",
-        "uiux"
+        "uiux",
+        "code-quality"
       ],
       "expectedToolsPlugins": [
         "Playwright/browser",
@@ -52,7 +53,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "security-review"
       ],
       "expectedToolsPlugins": [
         "Supabase tooling/docs",
@@ -198,7 +200,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "uiux"
       ],
       "expectedToolsPlugins": [
         "Playwright/browser",
@@ -235,7 +238,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "uiux"
       ],
       "expectedToolsPlugins": [
         "Playwright/browser",
@@ -271,7 +275,8 @@
         "security-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "pr-release-gate"
       ],
       "expectedToolsPlugins": [
         "GitHub/gh",
@@ -307,7 +312,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "security-review"
       ],
       "expectedToolsPlugins": [
         "skills.sh/find-skills discovery",
@@ -371,7 +377,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "security-review"
       ],
       "expectedToolsPlugins": [],
       "expectedAgentExecution": "inline-stop-no-tool-invocation",
@@ -400,7 +407,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "pr-release-gate"
       ],
       "expectedToolsPlugins": [
         "GitHub/gh"
@@ -463,7 +471,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "security-review"
       ],
       "expectedToolsPlugins": [
         "Supabase tooling/docs",
@@ -500,7 +509,8 @@
         "qa-test-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "security-review"
       ],
       "expectedInternalHelperSkills": [
         "riss-agent-governance"
@@ -537,7 +547,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "security-review"
       ],
       "expectedInternalHelperSkills": [
         "riss-agent-governance"
@@ -574,7 +585,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "uiux"
       ],
       "expectedToolsPlugins": [
         "Playwright/browser",
@@ -608,7 +620,9 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "code-quality",
+        "pr-release-gate"
       ],
       "expectedToolsPlugins": [
         "Playwright/browser",
@@ -641,7 +655,8 @@
         "qa-test-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "pr-release-gate"
       ],
       "expectedToolsPlugins": [
         "GitHub/gh",
@@ -769,7 +784,9 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "code-quality",
+        "pr-release-gate"
       ],
       "expectedToolsPlugins": [
         "Playwright/browser",
@@ -802,7 +819,8 @@
         "qa-test-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "pr-release-gate"
       ],
       "expectedToolsPlugins": [
         "GitHub/gh",
@@ -904,7 +922,8 @@
       ],
       "expectedSelectedSkills": [
         "governance",
-        "uiux"
+        "uiux",
+        "code-quality"
       ],
       "expectedToolsPlugins": [
         "Playwright/browser",
@@ -1012,7 +1031,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "security-review"
       ],
       "expectedNotSelectedSkills": [
         "uiux"
@@ -1050,7 +1070,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "security-review"
       ],
       "expectedNotSelectedSkills": [
         "uiux"
@@ -1087,7 +1108,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "security-review"
       ],
       "expectedNotSelectedSkills": [
         "uiux"
@@ -1125,7 +1147,8 @@
         "security-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "pr-release-gate"
       ],
       "expectedNotSelectedSkills": [
         "uiux"
@@ -1271,7 +1294,8 @@
         "reviewer-agent"
       ],
       "expectedSelectedSkills": [
-        "governance"
+        "governance",
+        "security-review"
       ],
       "expectedNotSelectedSkills": [
         "uiux"
