@@ -1,7 +1,7 @@
 ---
 sourceRef: ["code-review-graph"]
 lastExtracted: 2026-05-31
-status: draft
+status: approved
 ---
 
 # Compact Agent Context Pack
@@ -36,9 +36,9 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - Label graph evidence as `manual/static` when it comes from repo inspection or source metadata, and `tool-generated` only when an approved tool actually ran and produced output.
 - Treat whole-repo context dumping and global config activation as forbidden unless a later task explicitly approves a different execution mode.
 
-## Draft Visibility
+## Passive Visibility
 
-This draft method may be visible to project-sync consumers as advisory governance guidance only. Draft status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
 
 ## Forbidden Claims
 

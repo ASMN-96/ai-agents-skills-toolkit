@@ -4,12 +4,16 @@
   "packageModel": "main-toolkit-embedded-distribution-governance-package",
   "runtimeBoundary": ".ai-toolkit is non-runtime storage; active runtime is limited to .agents/skills and .codex/agents files listed here.",
   "activeSkills": [
+    "governance",
     "ai-project-governance",
     "riss-governance",
+    "uiux",
     "premium-uiux-review",
     "vd-premium-uiux",
+    "code-quality",
     "webapp-code-quality",
     "riss-code-quality",
+    "security-review",
     "app-security-review",
     "riss-security-review",
     "pr-release-gate",
@@ -40,124 +44,172 @@
   "sourceOfTruthMapPath": ".ai-toolkit/source-of-truth-map.json",
   "mirrors": [
     {
+      "source": "skills/governance/SKILL.md",
+      "target": ".agents/skills/governance/SKILL.md",
+      "mode": "byte-identical",
+      "sha256": "b4be36521d9e3e80614862f0a693764d0fb3f521f21c8f9bd7b9b14d3cefb589"
+    },
+    {
+      "source": "skills/governance/SKILL.md",
+      "target": ".ai-toolkit/skills/governance/SKILL.md",
+      "mode": "byte-identical",
+      "sha256": "b4be36521d9e3e80614862f0a693764d0fb3f521f21c8f9bd7b9b14d3cefb589"
+    },
+    {
       "source": "skills/ai-project-governance/SKILL.md",
       "target": ".agents/skills/ai-project-governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "c1444d3eac0e24a7a157d65b430c77e0f686bb9dd3efa9ca5e8db47386cb18d7"
+      "sha256": "de698ab95d1fc872636a8eb43a6c630dcd7895a8a26b103737092daa89e974ee"
     },
     {
       "source": "skills/ai-project-governance/SKILL.md",
       "target": ".ai-toolkit/skills/ai-project-governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "c1444d3eac0e24a7a157d65b430c77e0f686bb9dd3efa9ca5e8db47386cb18d7"
+      "sha256": "de698ab95d1fc872636a8eb43a6c630dcd7895a8a26b103737092daa89e974ee"
     },
     {
       "source": "skills/riss-governance/SKILL.md",
       "target": ".agents/skills/riss-governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "83acadc97276d3d707d463729d57f1d9f28141b3187224c4b4fbbacac7888414"
+      "sha256": "e0466c7ffe43555f64e49e11f07383256d38e557e4a8c1713e4bf2f1d4becfaf"
     },
     {
       "source": "skills/riss-governance/SKILL.md",
       "target": ".ai-toolkit/skills/riss-governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "83acadc97276d3d707d463729d57f1d9f28141b3187224c4b4fbbacac7888414"
+      "sha256": "e0466c7ffe43555f64e49e11f07383256d38e557e4a8c1713e4bf2f1d4becfaf"
+    },
+    {
+      "source": "skills/uiux/SKILL.md",
+      "target": ".agents/skills/uiux/SKILL.md",
+      "mode": "byte-identical",
+      "sha256": "5111c90bd14b52763a4d19dc8522e31f1fa24f2af5661d19ee300e6bc40a4fd0"
+    },
+    {
+      "source": "skills/uiux/SKILL.md",
+      "target": ".ai-toolkit/skills/uiux/SKILL.md",
+      "mode": "byte-identical",
+      "sha256": "5111c90bd14b52763a4d19dc8522e31f1fa24f2af5661d19ee300e6bc40a4fd0"
     },
     {
       "source": "skills/premium-uiux-review/SKILL.md",
       "target": ".agents/skills/premium-uiux-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "2a78d028b367bae950647fea47942ffa5b2a1002c066a0ed64c7eaa391d6d533"
+      "sha256": "4fb5f87eedfbacc5d200db7f0acdc8ce47cba9ad74d67b5cabacd48c37270127"
     },
     {
       "source": "skills/premium-uiux-review/SKILL.md",
       "target": ".ai-toolkit/skills/premium-uiux-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "2a78d028b367bae950647fea47942ffa5b2a1002c066a0ed64c7eaa391d6d533"
+      "sha256": "4fb5f87eedfbacc5d200db7f0acdc8ce47cba9ad74d67b5cabacd48c37270127"
     },
     {
       "source": "skills/vd-premium-uiux/SKILL.md",
       "target": ".agents/skills/vd-premium-uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "a6d06a6dcf6c6adae1678bc784f9bccc0a6575cc48c062c045930da98a8df5de"
+      "sha256": "cbc82bccc650cc027e75fe12d65900abf45bf27ee58a56d1a1db36000454c230"
     },
     {
       "source": "skills/vd-premium-uiux/SKILL.md",
       "target": ".ai-toolkit/skills/vd-premium-uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "a6d06a6dcf6c6adae1678bc784f9bccc0a6575cc48c062c045930da98a8df5de"
+      "sha256": "cbc82bccc650cc027e75fe12d65900abf45bf27ee58a56d1a1db36000454c230"
+    },
+    {
+      "source": "skills/code-quality/SKILL.md",
+      "target": ".agents/skills/code-quality/SKILL.md",
+      "mode": "byte-identical",
+      "sha256": "89713dcc006fa33e83ed73d32aa1ae610fd9b829e5c42fad88ff0b93e403577b"
+    },
+    {
+      "source": "skills/code-quality/SKILL.md",
+      "target": ".ai-toolkit/skills/code-quality/SKILL.md",
+      "mode": "byte-identical",
+      "sha256": "89713dcc006fa33e83ed73d32aa1ae610fd9b829e5c42fad88ff0b93e403577b"
     },
     {
       "source": "skills/webapp-code-quality/SKILL.md",
       "target": ".agents/skills/webapp-code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "b9d026d1309bb4774c5853b04612894b8bfae891b424a25610eac6214284de51"
+      "sha256": "1b1f8f47f2b3c0597052983abe9a95edeaac79ad5a0c6e8533fa7f555403f37e"
     },
     {
       "source": "skills/webapp-code-quality/SKILL.md",
       "target": ".ai-toolkit/skills/webapp-code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "b9d026d1309bb4774c5853b04612894b8bfae891b424a25610eac6214284de51"
+      "sha256": "1b1f8f47f2b3c0597052983abe9a95edeaac79ad5a0c6e8533fa7f555403f37e"
     },
     {
       "source": "skills/riss-code-quality/SKILL.md",
       "target": ".agents/skills/riss-code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "73b135b4b945dc6fff12e313f1c2b237bcf456370a1fe91e32afc819d3b044fc"
+      "sha256": "90bb002a8fdcb854d51812b545579f296a2b86f683ff3c6be565bb4b504c9096"
     },
     {
       "source": "skills/riss-code-quality/SKILL.md",
       "target": ".ai-toolkit/skills/riss-code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "73b135b4b945dc6fff12e313f1c2b237bcf456370a1fe91e32afc819d3b044fc"
+      "sha256": "90bb002a8fdcb854d51812b545579f296a2b86f683ff3c6be565bb4b504c9096"
+    },
+    {
+      "source": "skills/security-review/SKILL.md",
+      "target": ".agents/skills/security-review/SKILL.md",
+      "mode": "byte-identical",
+      "sha256": "0046451a8842ad95f664f62e38964bd43b4cabe283fc774c3d2072390a3756b0"
+    },
+    {
+      "source": "skills/security-review/SKILL.md",
+      "target": ".ai-toolkit/skills/security-review/SKILL.md",
+      "mode": "byte-identical",
+      "sha256": "0046451a8842ad95f664f62e38964bd43b4cabe283fc774c3d2072390a3756b0"
     },
     {
       "source": "skills/app-security-review/SKILL.md",
       "target": ".agents/skills/app-security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "9478f117814ac24d6a3179d9e7b718a4ab4be108d876adb4b39e382810a0a82b"
+      "sha256": "42189773c30401153ca1b80544ebfe59e261bc2727ecbc6e5230bda5880bc60c"
     },
     {
       "source": "skills/app-security-review/SKILL.md",
       "target": ".ai-toolkit/skills/app-security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "9478f117814ac24d6a3179d9e7b718a4ab4be108d876adb4b39e382810a0a82b"
+      "sha256": "42189773c30401153ca1b80544ebfe59e261bc2727ecbc6e5230bda5880bc60c"
     },
     {
       "source": "skills/riss-security-review/SKILL.md",
       "target": ".agents/skills/riss-security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "c3175c166b37dfc5587680770ffd58c334216a1dd8a6d8ef4e6e65bd34be279d"
+      "sha256": "9086df1393771a44cc468a283e101ac7880401ca39b93e38a6f80e437f48cc37"
     },
     {
       "source": "skills/riss-security-review/SKILL.md",
       "target": ".ai-toolkit/skills/riss-security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "c3175c166b37dfc5587680770ffd58c334216a1dd8a6d8ef4e6e65bd34be279d"
+      "sha256": "9086df1393771a44cc468a283e101ac7880401ca39b93e38a6f80e437f48cc37"
     },
     {
       "source": "skills/pr-release-gate/SKILL.md",
       "target": ".agents/skills/pr-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "31f14374b38ecb7512d9cb8915975f7ba7c18cad89ce1b02cbd8ddeeef4aed16"
+      "sha256": "12120fda170090f63c26c27d2020f034158246084d036a716d40945e045aa9ef"
     },
     {
       "source": "skills/pr-release-gate/SKILL.md",
       "target": ".ai-toolkit/skills/pr-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "31f14374b38ecb7512d9cb8915975f7ba7c18cad89ce1b02cbd8ddeeef4aed16"
+      "sha256": "12120fda170090f63c26c27d2020f034158246084d036a716d40945e045aa9ef"
     },
     {
       "source": "skills/riss-release-gate/SKILL.md",
       "target": ".agents/skills/riss-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "0c8b49ee6c7a2bad944a5c2b110535f93fcab6efbd8ee11446fa3a0db102e147"
+      "sha256": "a5ae69594efd00ce9ac98cae77c4c5aa68552e4fb14eafed2f104b7dd72310b5"
     },
     {
       "source": "skills/riss-release-gate/SKILL.md",
       "target": ".ai-toolkit/skills/riss-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "0c8b49ee6c7a2bad944a5c2b110535f93fcab6efbd8ee11446fa3a0db102e147"
+      "sha256": "a5ae69594efd00ce9ac98cae77c4c5aa68552e4fb14eafed2f104b7dd72310b5"
     },
     {
       "source": ".codex/agents/reviewer-agent.toml",
@@ -223,31 +275,31 @@
       "source": "registries/agents.registry.json",
       "target": ".ai-toolkit/registries/agents.registry.json",
       "mode": "byte-identical",
-      "sha256": "299b7c8a3fb08c0542cbf02e925ecffa58fc8efa692455d0880b09f2173f3040"
+      "sha256": "46f826d632a83042d14e5898dfb863dd0320521024e9df4fa0fa80b1fbd423cf"
     },
     {
       "source": "registries/methods.registry.json",
       "target": ".ai-toolkit/registries/methods.registry.json",
       "mode": "byte-identical",
-      "sha256": "c1e45771dd9bd046f9b5080b47da97c0c568f9a5dd91088751637996dfb8e028"
+      "sha256": "a9fef4a555b511d76eb31da286c05f1119c602b83d1fe71780959f3a9fdb175c"
     },
     {
       "source": "registries/profiles.registry.json",
       "target": ".ai-toolkit/registries/profiles.registry.json",
       "mode": "byte-identical",
-      "sha256": "ae618ca3b949ee85a240cfb3d967079ec8883aecc7d2f33db7e8757a1dfa0100"
+      "sha256": "4a50c519f3da64e241c3074b6397e3eaff204eeac3c74f52aef96b80f897184c"
     },
     {
       "source": "registries/routing-matrix.json",
       "target": ".ai-toolkit/registries/routing-matrix.json",
       "mode": "byte-identical",
-      "sha256": "0d16c92d0db4b244f71ee9ac7cac09f5bc3140311b53e72e4934e3b701395586"
+      "sha256": "b4cc730f34afbe5798b61884c4cb608ae3ed00f798d02f5f2c22144ba8d1f32a"
     },
     {
       "source": "registries/skills.registry.json",
       "target": ".ai-toolkit/registries/skills.registry.json",
       "mode": "byte-identical",
-      "sha256": "299071ba2c0116a3519afb0829698d364784247067a241615e0f8085aec0c19d"
+      "sha256": "79e4eb3c99906addc849fd639ec7082508e9eea5e9227fc417c4213cea65e715"
     },
     {
       "source": "registries/tools.registry.json",

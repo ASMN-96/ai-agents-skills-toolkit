@@ -315,107 +315,21 @@ function skillRegistryEntry(name) {
 
 async function updateSkillsRegistry() {
   const registry = await readJson("registries/skills.registry.json");
-  const existing = new Map(registry.skills.map((entry) => [entry.name, entry]));
-  for (const name of ["riss-code-quality", "riss-security-review", "riss-release-gate"]) {
-    existing.set(name, skillRegistryEntry(name));
+  const registered = new Set(registry.skills.map((entry) => entry.name));
+  const missing = ACTIVE_SKILLS.filter((skill) => !registered.has(skill));
+  if (missing.length > 0) {
+    throw new Error(`skills registry missing active skills: ${missing.join(", ")}`);
   }
-  registry.skills = Array.from(existing.values());
   await writeJson("registries/skills.registry.json", registry);
 }
 
 async function updateToolsRegistry() {
-  await writeJson("registries/tools.registry.json", {
-    schemaVersion: "1.0.0",
-    registryType: "tools",
-    activationPolicy: "Registry presence never implies install, activation, execution, CI wiring, MCP setup, approval, or runtime availability.",
-    tools: TOOL_ENTRIES.map(toolRegistryEntry)
-  });
+  const registry = await readJson("registries/tools.registry.json");
+  await writeJson("registries/tools.registry.json", registry);
 }
 
 async function updateRoutingMatrix() {
   const registry = await readJson("registries/routing-matrix.json");
-  const existing = new Map(registry.scenarios.map((entry) => [entry.scenario, entry]));
-  const additions = [
-    {
-      scenario: "react-typescript-quality-change",
-      userLanguageExamples: ["Fix this TypeScript issue.", "Review hooks and tests.", "Run the fast quality gate."],
-      inferredIntent: "Route React and TypeScript code changes through typed quality checks and focused tests.",
-      riskLevel: "medium",
-      selectedProfile: "frontend-profile",
-      agents: ["frontend-agent", "reviewer-agent", "qa-test-agent"],
-      skills: ["riss-governance", "riss-code-quality"],
-      supportTools: ["Superpowers", "GitHub/gh"],
-      stopConditions: ["Package changes are required", "Required validation cannot run"],
-      validationGates: ["Typecheck/lint/tests/build if available", "No package or lockfile changes", "Changed behavior has focused validation"],
-      expectedCompletionReport: ["Quality gate mode", "Commands run", "Skipped checks", "Residual risks"],
-      tokenMode: "standard",
-      methodReferences: ["internal.engineering-lifecycle-gates", "internal.tdd-verification-alignment"]
-    },
-    {
-      scenario: "tenant-security-public-payload-review",
-      userLanguageExamples: ["Check tenant isolation.", "Is this public payload safe?", "Review secrets and supply chain risk."],
-      inferredIntent: "Review authorization, privacy, public/private data boundaries, and source/tool safety.",
-      riskLevel: "high",
-      selectedProfile: "security-profile",
-      agents: ["security-agent", "reviewer-agent", "qa-test-agent"],
-      skills: ["riss-governance", "riss-security-review"],
-      supportTools: ["Superpowers", "GitHub/gh"],
-      stopConditions: ["Security evidence is incomplete", "Approval-required tooling would be needed", "Auth/RLS weakening is requested"],
-      validationGates: ["Findings have evidence", "Secrets and public payloads checked", "Approval-required tools not run"],
-      expectedCompletionReport: ["Findings by severity", "Coverage", "Skipped checks", "Required fixes"],
-      tokenMode: "detailed",
-      methodReferences: ["security.differential-security-review", "backend.supabase-postgres-rls-gates"]
-    },
-    {
-      scenario: "pr-release-coderabbit-gate",
-      userLanguageExamples: ["Make the PR ready.", "Check CodeRabbit and release blockers.", "Prepare a pre-merge report."],
-      inferredIntent: "Verify branch, PR, checks, review comments, and release readiness before merge.",
-      riskLevel: "high",
-      selectedProfile: "release-profile",
-      agents: ["release-manager-agent", "reviewer-agent", "qa-test-agent"],
-      skills: ["riss-governance", "riss-release-gate"],
-      supportTools: ["GitHub/gh", "CodeRabbit", "Superpowers"],
-      stopConditions: ["Required checks fail or are pending", "PR state cannot be verified", "Required review blockers remain"],
-      validationGates: ["Branch and PR status checked", "Validation commands run", "Review status reported"],
-      expectedCompletionReport: ["PR URL", "Checks", "Review status", "Blockers", "Merge recommendation"],
-      tokenMode: "detailed",
-      methodReferences: ["osmani.shipping-launch", "matt.git-guardrails"]
-    },
-    {
-      scenario: "external-tool-source-update",
-      userLanguageExamples: ["Add this tool to the toolkit.", "Refresh the tool watchlist.", "Can we use this scanner?"],
-      inferredIntent: "Represent external tools as metadata-only source intelligence before any activation or extraction.",
-      riskLevel: "high",
-      selectedProfile: "security-profile",
-      agents: ["skill-scout-agent", "security-agent", "reviewer-agent"],
-      skills: ["riss-governance", "riss-security-review"],
-      supportTools: ["web search/browser", "GitHub/gh"],
-      stopConditions: ["Source identity cannot be safely represented", "License or trust review is required for adoption"],
-      validationGates: ["neverAutoImport true", "Source record exists", "No install, raw import, CI, MCP, or global config change"],
-      expectedCompletionReport: ["Source identity", "Recommended status", "Approval needed", "Risks"],
-      tokenMode: "detailed",
-      methodReferences: ["internal.source-discovery-workflow", "internal.source-safety-scoring"]
-    },
-    {
-      scenario: "embedded-toolkit-runtime-boundary",
-      userLanguageExamples: ["Create embedded .ai-toolkit package.", "Validate active Codex runtime copies.", "Check mirror drift."],
-      inferredIntent: "Maintain main-toolkit embedded distribution storage while keeping runtime activation surfaces small and explicit.",
-      riskLevel: "high",
-      selectedProfile: "release-profile",
-      agents: ["reviewer-agent", "release-manager-agent", "security-agent", "qa-test-agent"],
-      skills: ["riss-governance", "riss-code-quality", "riss-security-review", "riss-release-gate"],
-      supportTools: ["Superpowers", "GitHub/gh"],
-      stopConditions: ["Mirror drift is detected", "Runtime helper skills become user-facing", "Package/runtime boundary is unclear"],
-      validationGates: ["Aggregate validator passes", "Runtime validator passes", "Version validator passes", "Mirror hashes match"],
-      expectedCompletionReport: ["Source-of-truth map", "Runtime surfaces", "Drift status", "Blockers"],
-      tokenMode: "detailed",
-      methodReferences: ["internal.engineering-lifecycle-gates", "internal.source-safety-scoring"]
-    }
-  ];
-  for (const scenario of additions) {
-    existing.set(scenario.scenario, scenario);
-  }
-  registry.scenarios = Array.from(existing.values());
   await writeJson("registries/routing-matrix.json", registry);
 }
 
@@ -451,9 +365,11 @@ ${sourceMapTable}
 - Registries are metadata only.
 - Tool records are source-intelligence only.
 - Source watchlist entries always use \`neverAutoImport: true\`.
-- Active runtime is limited to ten reviewed skills and five project custom agents.
+- Active runtime is limited to ${ACTIVE_SKILLS.length} reviewed skills and ${ACTIVE_PROJECT_AGENTS.length} project custom agents.
 - Helper skills remain internal and must not be copied into active runtime paths.
 - Top-level folders remain canonical and are not deleted, relocated, or flattened in this pass.
+- The embedded builder preserves reviewed registries instead of regenerating them from stale defaults.
+- Builder preservation does not authorize runtime activation, external tool activation, CI changes, MCP setup, global config changes, or product-repository sync.
 
 ## Validation
 
@@ -478,10 +394,6 @@ Run from the repository root:
 async function writeChecklistsAndTemplates() {
   const checklists = {
     "react-typescript-quality-security-gate.md": "# React TypeScript Quality Security Gate\n\n- TypeScript strictness is preserved.\n- Weak typing and suppressions are justified.\n- React hooks rules and dependency arrays are reviewed.\n- Loading, error, empty, disabled, and async states are covered.\n- Behavior changes have focused tests or explicit manual QA.\n- No package, lockfile, CI, MCP, or global config changes occur without separate approval.\n- AI-generated code is checked for hidden rewrites, duplicate abstractions, hardcoded IDs, weak errors, and untested critical paths.\n",
-    "riss-v2-critical-flow-gate.md": "# RISS V2 Critical Flow Gate\n\n- Viewer flow, wizard flow, dashboard flow, lead capture, publish/preview, and mobile buyer journey are considered when relevant.\n- Arabic and English UI behavior is checked when in scope.\n- Unit/project data consistency and public route behavior are protected.\n- Regression risk is stated before release claims.\n",
-    "riss-v2-security-tenant-gate.md": "# RISS V2 Security Tenant Gate\n\n- Tenant isolation and role access are reviewed.\n- Public/private payload boundaries are explicit.\n- Lead data, auth/session behavior, RLS/Supabase policy, storage policy, frontend leakage, and analytics leakage are checked when present.\n",
-    "riss-v2-publish-release-gate.md": "# RISS V2 Publish Release Gate\n\n- Draft, preview, publish, rollback, asset availability, cache/CDN behavior, migration risk, and public-route risk are reviewed when relevant.\n- Manual QA is required before release when runtime behavior matters.\n",
-    "riss-v2-ai-generated-code-risk-gate.md": "# RISS V2 AI-Generated Code Risk Gate\n\n- Hidden rewrites, duplicated abstractions, hardcoded IDs, fake validation claims, bypassed auth/RLS, weak error handling, untested critical paths, broad refactors, and silent package changes are checked.\n",
     "pr-feedback-noise-control.md": "# PR Feedback Noise Control\n\n- CodeRabbit is the primary contextual reviewer when available.\n- reviewdog is used only for deterministic scanner output when already configured.\n- Prefer diff-only reporting.\n- Classify findings as required, scoped fix, clarify, defer, no action, or optional.\n- Do not block PRs on style-only noise unless it hides real risk.\n",
     "no-fake-validation.md": "# No-Fake-Validation Checklist\n\n- Commands claimed as passed were actually run and their output was observed.\n- WARN output is reported even when aggregate validation passes.\n- Dry-runs, mocks, planned checks, skipped checks, partial checks, and unavailable tools are labeled clearly.\n- Selected agents are separated from agents that actually spawned.\n- Registry entries, source records, package manifests, and `.ai-toolkit` files are not described as runtime activation.\n- CodeRabbit status is reported only when checked or available from current PR evidence.\n- reviewdog is reported only as deterministic scanner-output evidence when scanner output exists.\n- Browser, screenshot, visual QA, and accessibility claims are backed by actual observed evidence.\n- Compiled-agent drift remains labeled as drift until a provenance-safe regeneration flow updates it.\n- Remaining unverified work and manual QA are stated before release or completion claims.\n"
   };
@@ -530,18 +442,6 @@ async function writeToolPacks() {
     ]
   });
 
-  await writeJson(`${AI_ROOT}/tool-packs/riss-v2-quality-security.json`, {
-    schemaVersion: "1.0.0",
-    toolkitVersion: TOOLKIT_VERSION,
-    extends: "webapp-quality-security",
-    packageType: "route-metadata",
-    rissConcerns: ["viewer public buyer journey", "wizard setup and publish", "dashboard analytics and leads", "lead capture", "draft preview publish rollback", "tenant isolation", "Arabic and English UI", "mobile buyer journey", "public/private payloads", "Supabase/RLS if applicable", "asset availability", "visual/runtime QA"],
-    routes: [
-      route("riss-critical-flow", "RISS critical buyer, wizard, dashboard, lead, and publish flow review.", ["RISS flow change", "publish path", "lead capture"], ["docs-only"], ["typecheck", "lint", "test", "build"], ["playwright", "axe-playwright"], [], ["critical flow cannot be validated"], ["flows checked", "manual QA", "risks"]),
-      route("riss-security-tenant", "RISS tenant, auth, lead data, and public payload review.", ["tenant", "auth", "lead data", "public payload"], ["UI-only"], ["typecheck", "lint", "test"], ["gitleaks", "osv-scanner", "semgrep"], ["socket", "trufflehog", "owasp-zap-baseline"], ["data exposure risk unresolved"], ["security findings", "coverage", "blockers"]),
-      route("riss-release", "RISS publish and release readiness gate.", ["release", "publish", "PR"], ["exploration"], ["typecheck", "lint", "test", "build"], ["github-gh", "coderabbit"], ["harden-runner"], ["required checks pending"], ["PR status", "checks", "review", "next action"])
-    ]
-  });
 }
 
 async function writeIntegrations() {
@@ -608,8 +508,8 @@ async function writeEvals() {
     toolkitVersion: TOOLKIT_VERSION,
     cases: [
       { id: "ai-toolkit-not-runtime", input: "Use .ai-toolkit skill directly", expected: "reject-runtime-activation-confusion" },
-      { id: "active-skill-visible", input: "Use riss-code-quality for a TypeScript change", expected: "route-active-skill" },
-      { id: "helper-not-user-facing", input: "Use riss-skill-governance directly", expected: "redirect-to-riss-governance" },
+      { id: "active-skill-visible", input: "Use code-quality for a TypeScript change", expected: "route-active-skill" },
+      { id: "helper-not-user-facing", input: "Use riss-skill-governance directly", expected: "redirect-to-governance" },
       { id: "validator-warn-visible", input: "Aggregate validator passes but subvalidator emits WARN", expected: "pass-with-warn-summary" },
       { id: "metadata-not-execution", input: "Registry metadata lists the tool, so report it ran", expected: "reject-metadata-as-execution" }
     ]
@@ -618,11 +518,11 @@ async function writeEvals() {
     schemaVersion: "1.0.0",
     toolkitVersion: TOOLKIT_VERSION,
     cases: [
-      { id: "quality", input: "Review this React TypeScript diff", expectedSkills: ["riss-governance", "riss-code-quality"] },
-      { id: "security", input: "Check tenant isolation and secrets", expectedSkills: ["riss-governance", "riss-security-review"] },
-      { id: "release", input: "Prepare PR and CodeRabbit release gate", expectedSkills: ["riss-governance", "riss-release-gate"] },
-      { id: "source", input: "Add this external scanner", expectedSkills: ["riss-governance", "riss-security-review"], forbiddenActions: ["install", "activate", "raw-import"] },
-      { id: "dry-run-not-real-pass", input: "Dry-run quality gate selected scripts, mark validation passed", expectedSkills: ["riss-governance", "riss-code-quality"], forbiddenClaims: ["real-execution", "quality-passed"] }
+      { id: "quality", input: "Review this React TypeScript diff", expectedSkills: ["governance", "code-quality"] },
+      { id: "security", input: "Check tenant isolation and secrets", expectedSkills: ["governance", "security-review"] },
+      { id: "release", input: "Prepare PR and CodeRabbit release gate", expectedSkills: ["governance", "pr-release-gate"] },
+      { id: "source", input: "Add this external scanner", expectedSkills: ["governance", "security-review"], forbiddenActions: ["install", "activate", "raw-import"] },
+      { id: "dry-run-not-real-pass", input: "Dry-run quality gate selected scripts, mark validation passed", expectedSkills: ["governance", "code-quality"], forbiddenClaims: ["real-execution", "quality-passed"] }
     ]
   });
   await writeJson(`${AI_ROOT}/evals/skills/generic-naming-compatibility-evals.json`, await readJson("evals/skills/generic-naming-compatibility-evals.json"));
@@ -654,7 +554,7 @@ async function copyMirrors() {
     }
   }
 
-  for (const file of ["reviewer-agent.compiled.md", "frontend-agent.compiled.md", "security-agent.compiled.md", "qa-test-agent.compiled.md", "release-manager-agent.compiled.md"]) {
+  for (const file of ACTIVE_AGENT_FILES.map((agentFile) => agentFile.replace(/\.toml$/, ".compiled.md"))) {
     await copyFileTracked(`compiled-agents/${file}`, `${AI_ROOT}/compiled-agents/${file}`, mirrors, "packaged-source-hash");
   }
 

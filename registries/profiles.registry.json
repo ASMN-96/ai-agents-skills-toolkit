@@ -14,7 +14,7 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance"
+        "governance"
       ],
       "supportTools": [
         "Superpowers",
@@ -67,6 +67,67 @@
       ]
     },
     {
+      "name": "planning-profile",
+      "purpose": "Milestone planning, scope control, architecture framing, token/context governance, and validation plan creation before implementation.",
+      "mode": "planning",
+      "agents": [
+        "product-agent",
+        "architect-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "governance"
+      ],
+      "supportTools": [
+        "Superpowers",
+        "GSD",
+        "GitHub/gh"
+      ],
+      "allowedActions": [
+        "Translate goals into scope, non-goals, acceptance criteria, and milestones",
+        "Map architecture, dependencies, stop conditions, and validation gates",
+        "Produce compact context packs for large tasks"
+      ],
+      "forbiddenActions": [
+        "Modify files unless controlled implementation is separately approved",
+        "Install or activate external skills, plugins, MCP servers, or tools",
+        "Modify product repositories or global Codex config"
+      ],
+      "validationGates": [
+        "Branch and working tree checked when current truth matters",
+        "Changed-file neighborhood or intended file set stated",
+        "Private-overlay, secret, and product-repo exclusions stated for large tasks"
+      ],
+      "outputExpectations": [
+        "Objective and scope",
+        "Milestones and acceptance criteria",
+        "Selected profile, agents, methods, and support tools",
+        "Stop conditions and validation plan"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/planning-profile.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "internal-artifact",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
       "name": "implementation-profile",
       "purpose": "Scoped implementation with architecture, frontend, backend, database, QA, and review coverage.",
       "mode": "implementation",
@@ -80,7 +141,7 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "governance"
       ],
       "supportTools": [
         "Superpowers",
@@ -134,6 +195,78 @@
       ]
     },
     {
+      "name": "fullstack-profile",
+      "purpose": "Scoped cross-surface implementation with frontend, backend, data, security, QA, and release gates while keeping specialist agents separate.",
+      "mode": "implementation",
+      "agents": [
+        "product-agent",
+        "architect-agent",
+        "frontend-agent",
+        "backend-contract-agent",
+        "database-rls-agent",
+        "security-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "governance",
+        "uiux",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "Superpowers",
+        "GitHub/gh",
+        "Playwright/browser",
+        "Supabase tooling/docs"
+      ],
+      "allowedActions": [
+        "Plan and implement scoped cross-surface changes after approval",
+        "Coordinate frontend, backend, database, security, QA, and review gates",
+        "Update docs, tests, registries, and validators directly tied to the change"
+      ],
+      "forbiddenActions": [
+        "Create a fullstack-agent or devops-platform-agent",
+        "Install packages or change package managers without explicit approval",
+        "Apply database migrations, weaken auth/RLS, change production config, or touch product repos from this toolkit"
+      ],
+      "validationGates": [
+        "Contracts and consumer impact checked",
+        "RLS/data isolation checked when data access is in scope",
+        "Frontend/runtime checks run when UI behavior is in scope",
+        "Release and rollback risk reviewed before PR readiness claims"
+      ],
+      "outputExpectations": [
+        "Scope and affected surfaces",
+        "Contract, UI, data, security, and validation impact",
+        "Commands run and WARN/skipped checks",
+        "Risks, owner decisions, and next release action"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/fullstack-profile.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "internal-artifact",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
       "name": "frontend-profile",
       "purpose": "Frontend implementation and review with UI/UX, QA, review, and security gates.",
       "mode": "implementation",
@@ -145,8 +278,9 @@
         "security-agent"
       ],
       "skills": [
-        "riss-governance",
-        "vd-premium-uiux"
+        "governance",
+        "uiux",
+        "code-quality"
       ],
       "supportTools": [
         "Playwright/browser",
@@ -210,7 +344,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "governance",
+        "security-review"
       ],
       "supportTools": [
         "Supabase tooling/docs",
@@ -274,8 +409,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "vd-premium-uiux"
+        "governance",
+        "uiux"
       ],
       "supportTools": [
         "Playwright/browser",
@@ -337,7 +472,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "governance",
+        "security-review"
       ],
       "supportTools": [
         "Superpowers",
@@ -391,6 +527,69 @@
       ]
     },
     {
+      "name": "source-review-profile",
+      "purpose": "Read-only external source, tool, skill, license, trust, maintenance, and supply-chain review before adoption or method extraction.",
+      "mode": "read-only",
+      "agents": [
+        "skill-scout-agent",
+        "security-agent",
+        "architect-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "governance",
+        "security-review"
+      ],
+      "supportTools": [
+        "GitHub/gh",
+        "web search/browser",
+        "Superpowers"
+      ],
+      "allowedActions": [
+        "Evaluate source records, licenses, trust, maintenance, useful patterns, and dangerous operations",
+        "Classify sources for method extraction, reference-only use, archive, removal, or rejection",
+        "Recommend normalized methods, routing, evals, or validators without importing raw upstream content"
+      ],
+      "forbiddenActions": [
+        "Install, activate, clone, run unknown scripts, configure MCP, or change global config",
+        "Copy raw upstream prompts, components, registry JSON, package config, or scripts into active paths",
+        "Treat source metadata as approval to execute tools or sync product repositories"
+      ],
+      "validationGates": [
+        "Source record and watchlist status checked when available",
+        "Dangerous commands, prompt-injection risk, secret access, and network behavior considered",
+        "No install, activation, raw copy, or product-repo change occurred"
+      ],
+      "outputExpectations": [
+        "Source identity and reviewed evidence",
+        "Trust/license/security findings",
+        "Useful normalized value path",
+        "Rejected operations and owner decisions"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/source-review-profile.md",
+          "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "internal-artifact",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
       "name": "sre-profile",
       "purpose": "Reliability, performance, observability, and release-readiness review.",
       "mode": "review",
@@ -402,7 +601,9 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance"
+        "governance",
+        "code-quality",
+        "pr-release-gate"
       ],
       "supportTools": [
         "Playwright/browser",
@@ -465,7 +666,8 @@
         "security-agent"
       ],
       "skills": [
-        "riss-governance"
+        "governance",
+        "pr-release-gate"
       ],
       "supportTools": [
         "GitHub/gh",

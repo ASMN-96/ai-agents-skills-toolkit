@@ -2,52 +2,51 @@
 
 ## Purpose
 
-This plan defines how project-specific toolkit names migrate toward public-safe generic names without breaking current Codex runtime discovery, project sync manifests, registry references, or existing prompts.
+This plan defines the final skill naming model. The toolkit now prefers short canonical names while preserving intermediate public aliases and old compatibility aliases so existing prompts, project sync manifests, and runtime discovery do not break.
 
-This is a compatibility design only. It does not rename active runtime skills, delete old names, regenerate compiled agents, change package or lockfiles, alter CI, or activate helper skills.
+## Final Naming Map
 
-## Future Public Naming Map
-
-| Current name | Future public name | Status | Compatibility behavior |
+| Canonical final name | Intermediate alias | Old compatibility alias | Status |
 | --- | --- | --- | --- |
-| `riss-governance` | `ai-project-governance` | compatibility alias required | Keep current runtime skill active until alias/wrapper support is implemented and verified. |
-| `riss-code-quality` | `webapp-code-quality` | compatibility alias required | Keep current runtime skill active; future generic skill should delegate to the same canonical policy. |
-| `riss-security-review` | `app-security-review` | compatibility alias required | Keep current runtime skill active; future generic skill must preserve security stop conditions. |
-| `riss-release-gate` | `pr-release-gate` | compatibility alias required | Keep current runtime skill active; future generic skill must preserve PR/check/CodeRabbit/reviewdog boundaries. |
-| `vd-premium-uiux` | `premium-uiux-review` | compatibility alias required | Keep current runtime skill active; future generic skill must preserve UI/UX runtime-evidence honesty. |
+| `governance` | `ai-project-governance` | `riss-governance` | canonical final active |
+| `uiux` | `premium-uiux-review` | `vd-premium-uiux` | canonical final active |
+| `code-quality` | `webapp-code-quality` | `riss-code-quality` | canonical final active |
+| `security-review` | `app-security-review` | `riss-security-review` | canonical final active |
+| `pr-release-gate` | none; already final | `riss-release-gate` | canonical final active |
 
 ## Compatibility Strategy
 
-- Old names remain the active runtime names until a later PR adds tested aliases, wrappers, or deprecation shims.
-- New names are reserved as future public names in registry metadata and docs only.
-- Validators must accept both old and future names during migration once alias files exist.
-- Runtime skill copies under `.agents/skills/` remain byte-identical to canonical `skills/` files.
+- Canonical final names are the preferred names for docs, routing, profiles, and evals.
+- Intermediate aliases remain active runtime skills and point to their canonical final skill with `canonicalName`.
+- Old compatibility aliases remain active runtime skills and point to their canonical final skill with `canonicalName`.
+- Alias `SKILL.md` files are compatibility wrappers, not independent behavior forks. They must state the canonical final skill and use the canonical skill's behavior, boundaries, stop conditions, token/context governance, completion evidence, and no-fake-validation rules.
+- Old names must not be deleted until a later migration explicitly proves no current project or prompt depends on them.
+- Runtime skill copies under `.agents/skills/` remain byte-identical to canonical `skills/` sources.
 - Embedded package copies under `.ai-toolkit/skills/` remain package mirrors and do not imply runtime activation.
-- Public docs should prefer future generic names once aliases exist; internal history may keep old names as historical references.
-- Project-specific examples, stack assumptions, client details, local paths, and private repo references move to a future private overlay or are excluded from public release.
+
+## Compatibility Eval Filenames
+
+The following eval filenames remain as compatibility artifacts during the alias migration:
+
+- `evals/routing/riss-governance-routing-evals.json`
+- `evals/skills/riss-skill-trigger-evals.json`
+- `evals/skills/premium-uiux-review-evals.json`
+
+These filenames do not make the old names canonical. Their internal expectations must prefer canonical final skill names, while explicitly preserving intermediate and old compatibility aliases until a later owner-approved cleanup renames the files safely.
+
+For UI/UX evals, `uiux` is the canonical and current expected skill. `premium-uiux-review` is the intermediate compatibility alias. `vd-premium-uiux` is the old compatibility alias.
 
 ## Non-Goals For This PR
 
-- No active runtime rename.
 - No deletion of old skill directories.
-- No compiled-agent regeneration or mechanical version restamp.
 - No broad top-level folder relocation.
 - No product repository sync.
 - No package, lockfile, CI, MCP, global config, or external tool changes.
+- No new `.codex/agents` activation beyond the existing five approved project custom agents.
 
 ## Validator And Eval Expectations
 
-- Registry entries may include `futurePublicName`, `deprecatedAliases`, and `namingMigrationStatus`.
-- Presence of a future public name is metadata only until a real skill path exists.
-- Evals should confirm old names still route during the migration window.
-- Evals should confirm future names are treated as reserved aliases, not active runtime skills, until alias files are implemented.
-- Completion reports must distinguish current active runtime names from future public names.
-
-## Public Release Gate
-
-Public release remains blocked while old project-specific names exist in public/core paths unless they are explicitly:
-
-- compatibility aliases with a deprecation plan,
-- historical/internal references excluded from public artifacts,
-- private-overlay-only assets,
-- or false positives documented by the leak scanner.
+- Registry entries must include `canonicalName`, `compatibilityAliases`, `futurePublicName`, and `namingMigrationStatus` where relevant.
+- Evals confirm final names are active, intermediate aliases remain active, and old compatibility aliases remain active.
+- Completion reports must distinguish canonical final names from aliases and must not present aliases as deleted.
+- The active runtime boundary intentionally remains fourteen active skills until alias compatibility can be retired through a separate migration.

@@ -1,7 +1,7 @@
 ---
 sourceRef: ["code-review-graph"]
 lastExtracted: 2026-05-31
-status: draft
+status: approved
 ---
 
 # Changed-File Neighborhood Selection
@@ -33,6 +33,6 @@ Select the smallest trustworthy neighborhood around the changed files so review 
 - State when the selected neighborhood is static analysis only.
 - Do not silently substitute a whole-repo dump for missing graph evidence.
 
-## Draft Visibility
+## Passive Visibility
 
-This draft method may be visible to project-sync consumers as advisory governance guidance only. Draft status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.

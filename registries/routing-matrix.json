@@ -16,7 +16,7 @@
       ],
       "inferredIntent": "Clarify scope, protect existing behavior, and route to implementation planning.",
       "riskLevel": "medium",
-      "selectedProfile": "implementation-profile",
+      "selectedProfile": "planning-profile",
       "agents": [
         "product-agent",
         "architect-agent",
@@ -24,8 +24,7 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance"
       ],
       "supportTools": [
         "Superpowers",
@@ -51,7 +50,8 @@
       "tokenMode": "standard",
       "methodReferences": [
         "internal.engineering-lifecycle-gates",
-        "internal.simplicity-surgical-change-discipline"
+        "internal.simplicity-surgical-change-discipline",
+        "orchestration.compact-agent-context-pack"
       ]
     },
     {
@@ -70,8 +70,7 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance"
       ],
       "supportTools": [
         "Superpowers",
@@ -94,7 +93,9 @@
       "tokenMode": "standard",
       "methodReferences": [
         "internal.source-safety-scoring",
-        "security.differential-security-review"
+        "security.differential-security-review",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack"
       ]
     },
     {
@@ -105,15 +106,15 @@
       ],
       "inferredIntent": "Evaluate an external source read-only before any extraction or activation.",
       "riskLevel": "high",
-      "selectedProfile": "security-profile",
+      "selectedProfile": "source-review-profile",
       "agents": [
         "skill-scout-agent",
         "security-agent",
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "security-review"
       ],
       "supportTools": [
         "web search/browser",
@@ -140,7 +141,11 @@
       "methodReferences": [
         "internal.source-discovery-workflow",
         "internal.source-safety-scoring",
-        "internal.skill-anatomy"
+        "internal.skill-anatomy",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -158,10 +163,9 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance",
-        "vd-premium-uiux",
-        "premium-uiux-review"
+        "governance",
+        "uiux",
+        "code-quality"
       ],
       "supportTools": [
         "Playwright/browser",
@@ -207,10 +211,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance",
-        "vd-premium-uiux",
-        "premium-uiux-review"
+        "governance",
+        "uiux"
       ],
       "supportTools": [
         "Playwright/browser",
@@ -238,7 +240,9 @@
         "uiux.premium-visual-quality",
         "uiux.dashboard-ux",
         "uiux.design-system",
-        "uiux.webapp-testing"
+        "uiux.webapp-testing",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack"
       ]
     },
     {
@@ -258,8 +262,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "code-quality"
       ],
       "supportTools": [
         "Playwright/browser",
@@ -307,8 +311,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "security-review"
       ],
       "supportTools": [
         "Supabase tooling/docs",
@@ -334,7 +338,11 @@
       "tokenMode": "detailed",
       "methodReferences": [
         "backend.supabase-postgres-rls-gates",
-        "security.differential-security-review"
+        "security.differential-security-review",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -353,8 +361,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "security-review"
       ],
       "supportTools": [
         "Supabase tooling/docs",
@@ -378,7 +386,11 @@
       "tokenMode": "detailed",
       "methodReferences": [
         "backend.supabase-postgres-rls-gates",
-        "osmani.performance-optimization"
+        "osmani.performance-optimization",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -398,8 +410,9 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "security-review",
+        "code-quality"
       ],
       "supportTools": [
         "GitHub/gh",
@@ -424,7 +437,11 @@
       "tokenMode": "detailed",
       "methodReferences": [
         "osmani.api-interface-design",
-        "security.differential-security-review"
+        "security.differential-security-review",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -442,8 +459,8 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "security-review"
       ],
       "supportTools": [
         "GitHub/gh",
@@ -467,7 +484,11 @@
       "tokenMode": "detailed",
       "methodReferences": [
         "security.differential-security-review",
-        "osmani.security-hardening"
+        "osmani.security-hardening",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -478,15 +499,15 @@
       ],
       "inferredIntent": "Review dependency/source safety before adoption.",
       "riskLevel": "high",
-      "selectedProfile": "security-profile",
+      "selectedProfile": "source-review-profile",
       "agents": [
         "skill-scout-agent",
         "security-agent",
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "security-review"
       ],
       "supportTools": [
         "web search/browser",
@@ -511,7 +532,11 @@
       "tokenMode": "detailed",
       "methodReferences": [
         "security.differential-security-review",
-        "internal.source-safety-scoring"
+        "internal.source-safety-scoring",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -529,8 +554,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "code-quality"
       ],
       "supportTools": [
         "GitHub/gh",
@@ -555,7 +580,8 @@
       "tokenMode": "standard",
       "methodReferences": [
         "osmani.performance-optimization",
-        "internal.engineering-lifecycle-gates"
+        "internal.engineering-lifecycle-gates",
+        "orchestration.changed-file-neighborhood-selection"
       ]
     },
     {
@@ -574,8 +600,8 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "pr-release-gate"
       ],
       "supportTools": [
         "GitHub/gh",
@@ -603,7 +629,9 @@
       "methodReferences": [
         "osmani.code-review-quality",
         "security.differential-security-review",
-        "matt.git-guardrails"
+        "matt.git-guardrails",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack"
       ]
     },
     {
@@ -623,8 +651,9 @@
         "security-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "pr-release-gate",
+        "security-review"
       ],
       "supportTools": [
         "GitHub/gh",
@@ -651,7 +680,11 @@
       "methodReferences": [
         "osmani.shipping-launch",
         "internal.engineering-lifecycle-gates",
-        "security.differential-security-review"
+        "security.differential-security-review",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -662,15 +695,15 @@
       ],
       "inferredIntent": "Check local registry and perform read-only discovery when useful.",
       "riskLevel": "high",
-      "selectedProfile": "security-profile",
+      "selectedProfile": "source-review-profile",
       "agents": [
         "skill-scout-agent",
         "security-agent",
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "security-review"
       ],
       "supportTools": [
         "skills.sh/find-skills discovery",
@@ -697,7 +730,11 @@
       "methodReferences": [
         "internal.source-discovery-workflow",
         "internal.source-safety-scoring",
-        "internal.skill-anatomy"
+        "internal.skill-anatomy",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -714,8 +751,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "pr-release-gate"
       ],
       "supportTools": [
         "GitHub/gh"
@@ -736,7 +773,8 @@
       "tokenMode": "concise",
       "methodReferences": [
         "matt.git-guardrails",
-        "internal.engineering-lifecycle-gates"
+        "internal.engineering-lifecycle-gates",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -747,15 +785,15 @@
       ],
       "inferredIntent": "Unsafe broad activation request; refuse broad install and propose audited minimal capability path.",
       "riskLevel": "high",
-      "selectedProfile": "security-profile",
+      "selectedProfile": "source-review-profile",
       "agents": [
         "skill-scout-agent",
         "security-agent",
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "security-review"
       ],
       "supportTools": [],
       "stopConditions": [
@@ -790,8 +828,7 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance"
       ],
       "supportTools": [],
       "stopConditions": [
@@ -821,15 +858,14 @@
       ],
       "inferredIntent": "Clarify intent before making behavior-changing edits.",
       "riskLevel": "medium",
-      "selectedProfile": "implementation-profile",
+      "selectedProfile": "planning-profile",
       "agents": [
         "product-agent",
         "architect-agent",
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance"
       ],
       "supportTools": [
         "Superpowers"
@@ -850,7 +886,8 @@
       "methodReferences": [
         "karpathy.assumption-surfacing",
         "matt.design-interface",
-        "osmani.spec-driven-development"
+        "osmani.spec-driven-development",
+        "orchestration.compact-agent-context-pack"
       ]
     },
     {
@@ -870,8 +907,8 @@
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance",
+        "security-review"
       ],
       "supportTools": [
         "Supabase tooling/docs",
@@ -897,7 +934,11 @@
       "methodReferences": [
         "security.differential-security-review",
         "backend.supabase-postgres-rls-gates",
-        "osmani.security-hardening"
+        "osmani.security-hardening",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -908,13 +949,12 @@
       ],
       "inferredIntent": "Redirect direct helper-skill requests back to the riss-governance entrypoint.",
       "riskLevel": "medium",
-      "selectedProfile": "implementation-profile",
+      "selectedProfile": "planning-profile",
       "agents": [
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance"
+        "governance"
       ],
       "supportTools": [],
       "stopConditions": [
@@ -953,10 +993,8 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance",
-        "riss-code-quality",
-        "webapp-code-quality"
+        "governance",
+        "code-quality"
       ],
       "supportTools": [
         "Superpowers",
@@ -999,10 +1037,8 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance",
-        "riss-security-review",
-        "app-security-review"
+        "governance",
+        "security-review"
       ],
       "supportTools": [
         "Superpowers",
@@ -1027,7 +1063,11 @@
       "tokenMode": "detailed",
       "methodReferences": [
         "security.differential-security-review",
-        "backend.supabase-postgres-rls-gates"
+        "backend.supabase-postgres-rls-gates",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -1046,9 +1086,7 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance",
-        "riss-release-gate",
+        "governance",
         "pr-release-gate"
       ],
       "supportTools": [
@@ -1076,7 +1114,11 @@
       "tokenMode": "detailed",
       "methodReferences": [
         "osmani.shipping-launch",
-        "matt.git-guardrails"
+        "matt.git-guardrails",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.context-graph-token-budget",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -1088,17 +1130,15 @@
       ],
       "inferredIntent": "Represent external tools as metadata-only source intelligence before any activation or extraction.",
       "riskLevel": "high",
-      "selectedProfile": "security-profile",
+      "selectedProfile": "source-review-profile",
       "agents": [
         "skill-scout-agent",
         "security-agent",
         "reviewer-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance",
-        "riss-security-review",
-        "app-security-review"
+        "governance",
+        "security-review"
       ],
       "supportTools": [
         "web search/browser",
@@ -1122,7 +1162,11 @@
       "tokenMode": "detailed",
       "methodReferences": [
         "internal.source-discovery-workflow",
-        "internal.source-safety-scoring"
+        "internal.source-safety-scoring",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     },
     {
@@ -1142,13 +1186,9 @@
         "qa-test-agent"
       ],
       "skills": [
-        "riss-governance",
-        "ai-project-governance",
-        "riss-code-quality",
-        "webapp-code-quality",
-        "riss-security-review",
-        "app-security-review",
-        "riss-release-gate",
+        "governance",
+        "code-quality",
+        "security-review",
         "pr-release-gate"
       ],
       "supportTools": [
@@ -1175,7 +1215,71 @@
       "tokenMode": "detailed",
       "methodReferences": [
         "internal.engineering-lifecycle-gates",
-        "internal.source-safety-scoring"
+        "internal.source-safety-scoring",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
+      ]
+    },
+    {
+      "scenario": "large-governed-implementation",
+      "userLanguageExamples": [
+        "Use governance. Plan and implement this cross-surface feature safely.",
+        "Proceed with the attached task, milestone it, validate everything, and open a PR."
+      ],
+      "inferredIntent": "Run controlled implementation through explicit milestones, compact context selection, validation, and draft PR readiness.",
+      "riskLevel": "high",
+      "selectedProfile": "fullstack-profile",
+      "agents": [
+        "product-agent",
+        "architect-agent",
+        "frontend-agent",
+        "backend-contract-agent",
+        "security-agent",
+        "qa-test-agent",
+        "reviewer-agent",
+        "release-manager-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "Superpowers",
+        "GitHub/gh"
+      ],
+      "stopConditions": [
+        "Required precondition is not merged",
+        "Changed-file neighborhood cannot be established",
+        "Required validation fails",
+        "Security, production, package, CI, global config, or product-repo approval is required"
+      ],
+      "validationGates": [
+        "Token mode and budget rationale recorded",
+        "Changed-file neighborhood selected",
+        "Compact context pack includes source/method/profile references",
+        "Omitted context and reason recorded",
+        "Private/secret/product-repo exclusions recorded",
+        "Graph evidence labeled as tool-generated, manual/static, metadata-only, or not invoked",
+        "Final audit/test/validation pass completed before commit and PR"
+      ],
+      "expectedCompletionReport": [
+        "Milestone status",
+        "Files changed",
+        "Validation commands and WARN/skipped checks",
+        "Security and production risks",
+        "Draft PR URL and readiness caveats"
+      ],
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "internal.engineering-lifecycle-gates",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
       ]
     }
   ]

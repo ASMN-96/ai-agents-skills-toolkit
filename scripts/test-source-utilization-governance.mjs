@@ -75,8 +75,9 @@ test("context graph token governance methods are registered and backed by method
     assert.match(text, /sourceRef:/);
     assert.match(text, /sourceRef:\s*\["code-review-graph"\]/);
     assert.match(text, /secret|private-overlay|whole-repo|MCP|global config/i);
-    assert.match(text, /Draft Visibility/);
-    assert.match(text, /advisory governance guidance only/);
+    assert.match(text, /Passive Visibility/);
+    assert.match(text, /passive governance guidance only/);
+    assert.match(text, /does not authorize tool activation/);
   }
 });
 

@@ -1,21 +1,16 @@
 ---
 name: app-security-review
-description: Use for auth, authorization, tenant isolation, public/private payloads, secrets, supply-chain, source safety, and security review. Do not run production-impacting scans, read secrets unnecessarily, weaken controls, or auto-configure tools.
+description: Compatibility alias for security-review. Use security-review for new prompts, docs, profiles, routing, and evals; keep this alias only for existing app security prompts and project compatibility.
 ---
 
 # App Security Review
 
-Use this as the public-safe security review skill for application and toolkit work.
+This skill is a compatibility alias.
 
-This skill is a review and routing layer. It does not authorize production scans, secret access, policy weakening, external installs, CI edits, MCP setup, global config changes, or tool activation.
+- Canonical final skill: `security-review`.
+- Prefer `security-review` in new prompts, docs, profiles, routing, and evals.
+- Use the canonical skill's behavior, boundaries, stop conditions, token/context governance, completion evidence, and no-fake-validation rules.
+- Do not treat this alias as a separate behavior fork.
+- Old project-specific wording is compatibility context only, not the future public API.
 
-## Review Focus
-
-- Trust boundaries, auth, authorization, public/private payloads, and tenant data are explicit.
-- Secrets, tokens, credentials, cookies, and private environment values are not exposed.
-- External sources and tools remain untrusted until reviewed.
-- Metadata-only tool records, skipped scans, dry-runs, unavailable scanners, and partial reviews are labeled honestly.
-
-## Completion Evidence
-
-Report findings by severity, coverage, commands run, skipped checks, WARN output, and residual security risk.
+When this alias is invoked, route to `security-review` and follow that skill's instructions. Keep compatibility aliases active until a later owner-approved migration proves they can be removed safely.

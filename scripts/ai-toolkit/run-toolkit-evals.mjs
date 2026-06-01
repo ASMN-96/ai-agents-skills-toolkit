@@ -38,12 +38,16 @@ async function main() {
   const embeddedPremiumUiuxEvals = await readJson(".ai-toolkit/evals/skills/premium-uiux-review-evals.json");
 
   for (const name of [
+    "governance",
     "ai-project-governance",
     "riss-governance",
+    "uiux",
     "premium-uiux-review",
     "vd-premium-uiux",
+    "code-quality",
     "webapp-code-quality",
     "riss-code-quality",
+    "security-review",
     "app-security-review",
     "riss-security-review",
     "pr-release-gate",
@@ -54,26 +58,33 @@ async function main() {
     }
   }
 
-  const futureNames = new Map([
-    ["riss-governance", "ai-project-governance"],
-    ["riss-code-quality", "webapp-code-quality"],
-    ["riss-security-review", "app-security-review"],
+  const finalNames = new Map([
+    ["ai-project-governance", "governance"],
+    ["riss-governance", "governance"],
+    ["premium-uiux-review", "uiux"],
+    ["vd-premium-uiux", "uiux"],
+    ["webapp-code-quality", "code-quality"],
+    ["riss-code-quality", "code-quality"],
+    ["app-security-review", "security-review"],
+    ["riss-security-review", "security-review"],
     ["riss-release-gate", "pr-release-gate"],
-    ["vd-premium-uiux", "premium-uiux-review"]
   ]);
-  for (const [currentName, futureName] of futureNames) {
-    const skill = skills.skills.find((entry) => entry.name === currentName);
-    if (skill?.futurePublicName !== futureName) {
-      fail(`future-name-${currentName}`, `expected futurePublicName ${futureName}`);
+  for (const [aliasName, finalName] of finalNames) {
+    const skill = skills.skills.find((entry) => entry.name === aliasName);
+    if (skill?.canonicalName !== finalName || skill?.futurePublicName !== finalName) {
+      fail(`canonical-name-${aliasName}`, `expected canonicalName and futurePublicName ${finalName}`);
     }
-    if (skill?.namingMigrationStatus !== "deprecated") {
-      fail(`naming-status-${currentName}`, "current compatibility skill must be deprecated while remaining active during migration");
+    if (!["intermediate-alias", "old-compatibility-alias"].includes(skill?.namingMigrationStatus)) {
+      fail(`naming-status-${aliasName}`, "compatibility skill must be classified as an intermediate or old alias");
     }
-    const alias = skills.skills.find((entry) => entry.name === futureName);
-    if (!alias) {
-      fail(`public-alias-${futureName}`, "public-safe alias skill must exist");
-    } else if (alias.namingMigrationStatus !== "alias-active") {
-      fail(`public-alias-status-${futureName}`, "public-safe alias skill must be alias-active");
+  }
+
+  for (const finalName of ["governance", "uiux", "code-quality", "security-review", "pr-release-gate"]) {
+    const skill = skills.skills.find((entry) => entry.name === finalName);
+    if (!skill) {
+      fail(`canonical-final-${finalName}`, "canonical final skill must exist");
+    } else if (skill.namingMigrationStatus !== "canonical-final") {
+      fail(`canonical-final-status-${finalName}`, "canonical final skill must be canonical-final");
     }
   }
 
@@ -83,18 +94,18 @@ async function main() {
   }
 
   const quality = findScenario(matrix, "react-typescript-quality-change");
-  if (!quality || !includesAll(quality.skills || [], ["riss-governance", "riss-code-quality"])) {
-    fail("quality-route", "React/TypeScript route must select riss-governance and riss-code-quality");
+  if (!quality || !includesAll(quality.skills || [], ["governance", "code-quality"])) {
+    fail("quality-route", "React/TypeScript route must select governance and code-quality");
   }
 
   const security = findScenario(matrix, "tenant-security-public-payload-review");
-  if (!security || !includesAll(security.skills || [], ["riss-governance", "riss-security-review"])) {
-    fail("security-route", "Security route must select riss-governance and riss-security-review");
+  if (!security || !includesAll(security.skills || [], ["governance", "security-review"])) {
+    fail("security-route", "Security route must select governance and security-review");
   }
 
   const release = findScenario(matrix, "pr-release-coderabbit-gate");
-  if (!release || !includesAll(release.skills || [], ["riss-governance", "riss-release-gate"])) {
-    fail("release-route", "Release route must select riss-governance and riss-release-gate");
+  if (!release || !includesAll(release.skills || [], ["governance", "pr-release-gate"])) {
+    fail("release-route", "Release route must select governance and pr-release-gate");
   }
 
   for (const evalCase of runtimeEvals.cases || []) {
@@ -147,12 +158,13 @@ async function main() {
 
   const namingEvalIds = new Set((namingEvals.cases || []).map((evalCase) => evalCase.id));
   for (const required of [
-    "current-governance-name-still-active",
-    "public-governance-alias-active",
-    "premium-uiux-public-alias-active",
-    "quality-public-alias-active",
-    "security-public-alias-active",
-    "release-public-alias-active",
+    "canonical-governance-final-active",
+    "canonical-uiux-final-active",
+    "canonical-quality-final-active",
+    "canonical-security-final-active",
+    "canonical-release-final-active",
+    "intermediate-aliases-still-active",
+    "old-compatibility-aliases-still-active",
     "old-names-not-deleted"
   ]) {
     if (!namingEvalIds.has(required)) {
@@ -160,9 +172,9 @@ async function main() {
     }
   }
 
-  const premiumSkill = skills.skills.find((entry) => entry.name === "vd-premium-uiux");
-  if (premiumSkill?.futurePublicName !== "premium-uiux-review") {
-    fail("premium-uiux-future-name", "premium UI/UX skill must keep premium-uiux-review as the future public name");
+  const premiumSkill = skills.skills.find((entry) => entry.name === "uiux");
+  if (premiumSkill?.namingMigrationStatus !== "canonical-final") {
+    fail("premium-uiux-future-name", "uiux must be the canonical final UI/UX skill");
   }
   if (!premiumSkill?.evalSuites?.includes("evals/skills/premium-uiux-review-evals.json")) {
     fail("premium-uiux-eval-suite", "premium UI/UX skill registry entry must reference the generic eval suite");
@@ -170,6 +182,19 @@ async function main() {
 
   if (JSON.stringify(premiumUiuxEvals) !== JSON.stringify(embeddedPremiumUiuxEvals)) {
     fail("premium-uiux-embedded-evals", "embedded premium UI/UX eval suite must match top-level eval suite");
+  }
+
+  if (premiumUiuxEvals.canonicalSkill !== "uiux" || premiumUiuxEvals.currentCanonicalSkill !== "uiux") {
+    fail("premium-uiux-current-canonical", "premium UI/UX eval suite must use uiux as canonical and current canonical skill");
+  }
+  if (premiumUiuxEvals.intermediateCompatibilitySkill !== "premium-uiux-review") {
+    fail("premium-uiux-intermediate-alias", "premium UI/UX eval suite must preserve premium-uiux-review as the intermediate alias");
+  }
+  if (premiumUiuxEvals.oldCompatibilitySkill !== "vd-premium-uiux") {
+    fail("premium-uiux-old-alias", "premium UI/UX eval suite must preserve vd-premium-uiux as the old compatibility alias");
+  }
+  if (Object.hasOwn(premiumUiuxEvals, "currentCompatibilitySkill")) {
+    fail("premium-uiux-no-old-current", "premium UI/UX eval suite must not describe vd-premium-uiux as the current skill");
   }
 
   const premiumEvalIds = new Set((premiumUiuxEvals.cases || []).map((evalCase) => evalCase.id));
@@ -185,6 +210,21 @@ async function main() {
   ]) {
     if (!premiumEvalIds.has(required)) {
       fail(`premium-uiux-${required}`, "expected generic premium UI/UX eval missing");
+    }
+  }
+
+  for (const evalCase of premiumUiuxEvals.cases || []) {
+    if (evalCase.expectedCurrentSkill && evalCase.expectedCurrentSkill !== "uiux") {
+      fail(`premium-uiux-current-${evalCase.id}`, "expectedCurrentSkill must be uiux when present");
+    }
+    if (evalCase.expectedCanonicalSkill && evalCase.expectedCanonicalSkill !== "uiux") {
+      fail(`premium-uiux-canonical-${evalCase.id}`, "expectedCanonicalSkill must be uiux when present");
+    }
+    if (evalCase.expectedIntermediateAlias && evalCase.expectedIntermediateAlias !== "premium-uiux-review") {
+      fail(`premium-uiux-intermediate-${evalCase.id}`, "expectedIntermediateAlias must be premium-uiux-review when present");
+    }
+    if (evalCase.expectedOldCompatibilityAlias && evalCase.expectedOldCompatibilityAlias !== "vd-premium-uiux") {
+      fail(`premium-uiux-old-${evalCase.id}`, "expectedOldCompatibilityAlias must be vd-premium-uiux when present");
     }
   }
 

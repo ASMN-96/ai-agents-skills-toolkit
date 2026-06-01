@@ -1,23 +1,16 @@
 ---
 name: ai-project-governance
-description: Use for governed software work that needs source-of-truth checks, routing, branch/PR/CI discipline, security caution, validation honesty, and release readiness. Do not use as approval for writes, installs, migrations, broad plugin use, external tool activation, or global config changes.
+description: Compatibility alias for governance. Use governance for new prompts, docs, profiles, routing, and evals; keep this alias only for existing prompts and project sync compatibility.
 ---
 
 # AI Project Governance
 
-Use this as the public-safe governance entrypoint for serious toolkit or project work.
+This skill is a compatibility alias.
 
-This skill authorizes routing, planning, read-only checks, capability selection, and validation gates only. It does not authorize writes, migrations, package changes, CI changes, MCP setup, global config changes, external installs, product-repository writes, or broad plugin/tool activation.
+- Canonical final skill: `governance`.
+- Prefer `governance` in new prompts, docs, profiles, routing, and evals.
+- Use the canonical skill's behavior, boundaries, stop conditions, token/context governance, completion evidence, and no-fake-validation rules.
+- Do not treat this alias as a separate behavior fork.
+- Old project-specific wording is compatibility context only, not the future public API.
 
-## Operating Rules
-
-- Verify the repository source of truth before readiness or release claims.
-- Select the smallest useful agent, skill, and support-tool surface.
-- Keep selected agents separate from agents actually spawned.
-- Treat registries, source records, dry-runs, reports, and metadata as evidence, not execution.
-- Preserve WARN output in completion reports even when aggregate validation passes.
-- Stop before security-sensitive, destructive, global, package, CI, or product-repository changes unless separately approved.
-
-## Completion Evidence
-
-Report branch/baseline, selected lenses or agents, files changed, validation commands, skipped checks, WARN output, residual risk, and the next release action.
+When this alias is invoked, route to `governance` and follow that skill's instructions. Keep compatibility aliases active until a later owner-approved migration proves they can be removed safely.

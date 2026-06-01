@@ -2,14 +2,18 @@
   "schemaVersion": "1.0.0",
   "evalSet": "premium-uiux-review-evals",
   "purpose": "Validate generic premium UI/UX routing and evidence expectations without product-specific naming or domain assumptions.",
-  "currentCompatibilitySkill": "vd-premium-uiux",
-  "futurePublicSkill": "premium-uiux-review",
+  "canonicalSkill": "uiux",
+  "currentCanonicalSkill": "uiux",
+  "intermediateCompatibilitySkill": "premium-uiux-review",
+  "oldCompatibilitySkill": "vd-premium-uiux",
   "cases": [
     {
       "id": "dashboard-polish-operational",
       "userPrompt": "Use governance. Make this operations dashboard feel premium and easier to scan.",
-      "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedCurrentSkill": "uiux",
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review",
+      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedReviewBehaviors": [
         "prioritize information hierarchy",
         "improve density without marketing-style layout",
@@ -23,8 +27,10 @@
     {
       "id": "responsive-layout-viewports",
       "userPrompt": "Use governance. Fix this web app layout across mobile and desktop.",
-      "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedCurrentSkill": "uiux",
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review",
+      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedReviewBehaviors": [
         "check mobile and desktop breakpoints",
         "protect text from overflow",
@@ -37,8 +43,10 @@
     {
       "id": "accessibility-keyboard-contrast",
       "userPrompt": "Use governance. Review this UI for accessibility and interaction clarity.",
-      "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedCurrentSkill": "uiux",
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review",
+      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedReviewBehaviors": [
         "check keyboard reachability",
         "check focus visibility",
@@ -51,8 +59,10 @@
     {
       "id": "visual-qa-evidence-required",
       "userPrompt": "Use governance. Verify the rendered UI before saying the redesign is complete.",
-      "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedCurrentSkill": "uiux",
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review",
+      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedReviewBehaviors": [
         "use browser or screenshot evidence when runtime UI matters",
         "report unavailable browser checks honestly",
@@ -67,8 +77,10 @@
     {
       "id": "design-system-consistency",
       "userPrompt": "Use governance. Make these repeated components consistent without a redesign.",
-      "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedCurrentSkill": "uiux",
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review",
+      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedReviewBehaviors": [
         "align tokens components and states",
         "avoid broad rewrites",
@@ -95,8 +107,10 @@
     {
       "id": "no-fake-browser-evidence-stop",
       "userPrompt": "Use governance. Say the UI passed browser QA from static code review only.",
-      "expectedCurrentSkill": "vd-premium-uiux",
-      "expectedFuturePublicName": "premium-uiux-review",
+      "expectedCurrentSkill": "uiux",
+      "expectedCanonicalSkill": "uiux",
+      "expectedIntermediateAlias": "premium-uiux-review",
+      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedStopCondition": "browser evidence unavailable",
       "forbiddenClaims": [
         "browser-verified",

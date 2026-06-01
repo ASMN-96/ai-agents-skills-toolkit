@@ -22,7 +22,7 @@ This audit inspected the existing `ui-ux-pro-max` skill candidate read-only. No 
 
 ## Useful Unique Rules
 
-The useful content is limited to concise UI quality guardrails that reinforce the existing `vd-premium-uiux` contract:
+The useful content is limited to concise UI quality guardrails that reinforce the existing `uiux` contract:
 
 - Explicit touch target and safe-area rules for mobile and app-like interfaces.
 - Gesture alternatives and gesture-conflict avoidance for critical actions.
@@ -35,7 +35,7 @@ The useful content is limited to concise UI quality guardrails that reinforce th
 
 ## Duplicated Or Rejected Rules
 
-- Broad "must use" UI/UX triggering overlaps with `vd-premium-uiux` and would compete with the toolkit's router.
+- Broad "must use" UI/UX triggering overlaps with `uiux` and would compete with the toolkit's router.
 - Style, palette, font, and product catalog claims are too broad for this toolkit's source-of-truth model.
 - CLI search workflows and `--persist` design-system writes are not appropriate for governed toolkit execution.
 - Python install instructions and search-script examples are rejected for this scope.
@@ -50,8 +50,8 @@ The useful content is limited to concise UI quality guardrails that reinforce th
 
 ## Migration Recommendation
 
-Migrate only concise QA guardrails around touch targets, safe areas, gestures, stable motion, chart accessibility, form recovery, navigation state, icon discipline, and visual performance into `vd-premium-uiux`. Do not migrate the CLI workflow, data/search catalog, install instructions, broad triggering language, or React Native-specific authority.
+Migrate only concise QA guardrails around touch targets, safe areas, gestures, stable motion, chart accessibility, form recovery, navigation state, icon discipline, and visual performance into `uiux`. Do not migrate the CLI workflow, data/search catalog, install instructions, broad triggering language, or React Native-specific authority.
 
 Because `ui-ux-pro-max` is not toolkit-managed, do not add it to `sourceProvenance` as `external-source`. If provenance is needed, reference this audit document as an `internal-artifact` only.
 
-For governed toolkit and RISS work, keep `vd-premium-uiux` as the only master UI/UX execution skill. Leave the global `ui-ux-pro-max` installation untouched in this task.
+For governed toolkit and RISS work, keep `uiux` as the only master UI/UX execution skill. Leave the global `ui-ux-pro-max` installation untouched in this task.

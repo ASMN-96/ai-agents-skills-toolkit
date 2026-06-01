@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
   "evalSet": "riss-skill-trigger-evals",
-  "purpose": "Validate when riss-governance should trigger and when helper skills must remain internal rather than user-facing.",
+  "purpose": "Validate when governance should trigger and when helper skills must remain internal rather than user-facing.",
   "cases": [
     {
-      "id": "explicit-riss-governance",
-      "userPrompt": "Use riss-governance. Check if this PR is safe to merge.",
+      "id": "explicit-governance",
+      "userPrompt": "Use governance. Check if this PR is safe to merge.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
         "riss-agent-governance",
@@ -17,45 +17,45 @@
     },
     {
       "id": "explicit-non-riss-opt-in",
-      "userPrompt": "In this unrelated Node project, Use riss-governance. Plan the API cleanup.",
+      "userPrompt": "In this unrelated Node project, Use governance. Plan the API cleanup.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
         "riss-agent-governance",
         "riss-skill-governance"
       ],
-      "expectedReason": "Explicit invocation opts the current thread into riss-governance even outside the primary RISS/VD domains, while helper skills remain internal."
+      "expectedReason": "Explicit invocation opts the current thread into governance even outside the primary RISS/VD domains, while helper skills remain internal."
     },
     {
       "id": "normal-language-professional-request",
       "userPrompt": "I want this feature done professionally.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
         "riss-agent-governance",
         "riss-skill-governance"
       ],
-      "expectedReason": "Plain-language engineering request should route through riss-governance when operating inside this toolkit/RISS governance context."
+      "expectedReason": "Plain-language engineering request should route through governance when operating inside this toolkit/RISS governance context."
     },
     {
       "id": "unrelated-professional-without-explicit",
       "userPrompt": "In my unrelated game prototype repo, make this feel professional.",
       "expectedTriggeredSkills": [],
       "expectedNotTriggeredSkills": [
-        "riss-governance",
+        "governance",
         "riss-agent-governance",
         "riss-skill-governance"
       ],
-      "expectedReason": "Outside the primary governance context, vague quality language should not auto-trigger riss-governance without explicit invocation."
+      "expectedReason": "Outside the primary governance context, vague quality language should not auto-trigger governance without explicit invocation."
     },
     {
       "id": "unrelated-simple-question",
       "userPrompt": "What does this CSS property mean?",
       "expectedTriggeredSkills": [],
       "expectedNotTriggeredSkills": [
-        "riss-governance",
+        "governance",
         "riss-agent-governance",
         "riss-skill-governance"
       ],
@@ -65,7 +65,7 @@
       "id": "missing-skill-discovery",
       "userPrompt": "Do we have a local skill for secure browser automation review?",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedInternalHelperSkills": [
         "riss-skill-governance"
@@ -73,13 +73,13 @@
       "expectedNotTriggeredSkills": [
         "riss-agent-governance"
       ],
-      "expectedReason": "Missing-capability discovery starts through riss-governance. riss-skill-governance may be used internally for trigger and preflight checks, but not as the direct user-facing skill."
+      "expectedReason": "Missing-capability discovery starts through governance. riss-skill-governance may be used internally for trigger and preflight checks, but not as the direct user-facing skill."
     },
     {
       "id": "broad-activation-negative",
       "userPrompt": "Activate every skill and plugin globally.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
         "riss-agent-governance",
@@ -91,31 +91,31 @@
       "id": "direct-agent-helper-call",
       "userPrompt": "Use riss-agent-governance directly to route this work.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
         "riss-agent-governance",
         "riss-skill-governance"
       ],
-      "expectedReason": "Direct helper calls must be redirected to riss-governance; helpers are internal only."
+      "expectedReason": "Direct helper calls must be redirected to governance; helpers are internal only."
     },
     {
       "id": "direct-skill-helper-call",
-      "userPrompt": "Call riss-skill-governance instead of riss-governance.",
+      "userPrompt": "Call riss-skill-governance instead of governance.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
         "riss-agent-governance",
         "riss-skill-governance"
       ],
-      "expectedReason": "Direct helper calls must be redirected to riss-governance; helpers must not become normal user-facing entrypoints."
+      "expectedReason": "Direct helper calls must be redirected to governance; helpers must not become normal user-facing entrypoints."
     },
     {
       "id": "extra-skill-context-rule",
-      "userPrompt": "Use riss-governance. I have a design mockup and want the dashboard easier to scan.",
+      "userPrompt": "Use governance. I have a design mockup and want the dashboard easier to scan.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedInternalHelperSkills": [
         "riss-skill-governance"
@@ -123,50 +123,50 @@
       "expectedReason": "An internal helper may be used when an extra skill or checklist materially improves context, safety, validation, or quality."
     },
     {
-      "id": "vd-premium-uiux-dashboard-premium",
-      "userPrompt": "Use riss-governance. Make this dashboard premium.",
+      "id": "uiux-dashboard-premium",
+      "userPrompt": "Use governance. Make this dashboard premium.",
       "expectedTriggeredSkills": [
-        "riss-governance",
-        "vd-premium-uiux"
+        "governance",
+        "uiux"
       ],
       "expectedNotTriggeredSkills": [
         "riss-agent-governance",
         "riss-skill-governance"
       ],
-      "expectedReason": "Premium dashboard quality is a direct UI/UX execution request handled by vd-premium-uiux, while riss-governance remains the entrypoint."
+      "expectedReason": "Premium dashboard quality is a direct UI/UX execution request handled by uiux, while governance remains the entrypoint."
     },
     {
-      "id": "vd-premium-uiux-fix-mobile-layout",
-      "userPrompt": "Use riss-governance. Fix mobile layout.",
+      "id": "uiux-fix-mobile-layout",
+      "userPrompt": "Use governance. Fix mobile layout.",
       "expectedTriggeredSkills": [
-        "riss-governance",
-        "vd-premium-uiux"
+        "governance",
+        "uiux"
       ],
       "expectedNotTriggeredSkills": [
         "riss-agent-governance",
         "riss-skill-governance"
       ],
-      "expectedReason": "Responsive UI work is direct scope for vd-premium-uiux under riss-governance routing."
+      "expectedReason": "Responsive UI work is direct scope for uiux under governance routing."
     },
     {
-      "id": "vd-premium-uiux-visual-polish",
-      "userPrompt": "Use riss-governance. Make it visually polished.",
+      "id": "uiux-visual-polish",
+      "userPrompt": "Use governance. Make it visually polished.",
       "expectedTriggeredSkills": [
-        "riss-governance",
-        "vd-premium-uiux"
+        "governance",
+        "uiux"
       ],
       "expectedNotTriggeredSkills": [
         "riss-agent-governance",
         "riss-skill-governance"
       ],
-      "expectedReason": "Visual polish is direct UI/UX execution and should trigger the dedicated vd-premium-uiux skill."
+      "expectedReason": "Visual polish is direct UI/UX execution and should trigger the dedicated uiux skill."
     },
     {
-      "id": "vd-premium-uiux-improve-uiux",
-      "userPrompt": "Use riss-governance. Improve UI/UX.",
+      "id": "uiux-improve-uiux",
+      "userPrompt": "Use governance. Improve UI/UX.",
       "expectedTriggeredSkills": [
-        "riss-governance",
-        "vd-premium-uiux"
+        "governance",
+        "uiux"
       ],
       "expectedNotTriggeredSkills": [
         "riss-agent-governance",
@@ -175,104 +175,104 @@
       "expectedReason": "General UI/UX improvement should map to the dedicated UI/UX execution skill for frontend-visible quality."
     },
     {
-      "id": "vd-premium-uiux-negative-backend-only",
-      "userPrompt": "Use riss-governance. Review backend-only SQL optimization.",
+      "id": "uiux-negative-backend-only",
+      "userPrompt": "Use governance. Review backend-only SQL optimization.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
-        "vd-premium-uiux",
+        "uiux",
         "riss-agent-governance",
         "riss-skill-governance"
       ],
       "expectedReason": "Backend-only work should route through governance but not the UI/UX execution skill."
     },
     {
-      "id": "vd-premium-uiux-negative-rls-only",
-      "userPrompt": "Use riss-governance. Do an RLS-only migration.",
+      "id": "uiux-negative-rls-only",
+      "userPrompt": "Use governance. Do an RLS-only migration.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
-        "vd-premium-uiux",
+        "uiux",
         "riss-agent-governance",
         "riss-skill-governance"
       ],
       "expectedReason": "RLS-only scope is governed through backend/release channels, not direct UI/UX execution."
     },
     {
-      "id": "vd-premium-uiux-negative-security-only",
-      "userPrompt": "Use riss-governance. Perform a security-only audit of token handling.",
+      "id": "uiux-negative-security-only",
+      "userPrompt": "Use governance. Perform a security-only audit of token handling.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
-        "vd-premium-uiux",
+        "uiux",
         "riss-agent-governance",
         "riss-skill-governance"
       ],
       "expectedReason": "Security-only tasks remain governance-driven and do not require the UI/UX execution skill."
     },
     {
-      "id": "vd-premium-uiux-negative-release-only",
-      "userPrompt": "Use riss-governance. Check if this PR is safe to merge.",
+      "id": "uiux-negative-release-only",
+      "userPrompt": "Use governance. Check if this PR is safe to merge.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
-        "vd-premium-uiux",
+        "uiux",
         "riss-agent-governance",
         "riss-skill-governance"
       ],
       "expectedReason": "Release-readiness routing does not auto-select UI/UX execution unless UI behavior is in scope."
     },
     {
-      "id": "vd-premium-uiux-negative-docs-only",
-      "userPrompt": "Use riss-governance. Update docs wording only.",
+      "id": "uiux-negative-docs-only",
+      "userPrompt": "Use governance. Update docs wording only.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
-        "vd-premium-uiux",
+        "uiux",
         "riss-agent-governance",
         "riss-skill-governance"
       ],
       "expectedReason": "Docs-only updates should not trigger the direct UI/UX execution skill."
     },
     {
-      "id": "vd-premium-uiux-negative-plain-language",
-      "userPrompt": "Use riss-governance. I want this feature done professionally.",
+      "id": "uiux-negative-plain-language",
+      "userPrompt": "Use governance. I want this feature done professionally.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
-        "vd-premium-uiux",
+        "uiux",
         "riss-agent-governance",
         "riss-skill-governance"
       ],
       "expectedReason": "Professional, non-technical request language is clarification/scoping, not a direct UI/UX execution request."
     },
     {
-      "id": "vd-premium-uiux-negative-read-only-audit",
-      "userPrompt": "Use riss-governance. Audit this repo first before changing anything.",
+      "id": "uiux-negative-read-only-audit",
+      "userPrompt": "Use governance. Audit this repo first before changing anything.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
-        "vd-premium-uiux",
+        "uiux",
         "riss-agent-governance",
         "riss-skill-governance"
       ],
       "expectedReason": "Read-only repo audits should go through governance/audit paths, not UI/UX execution."
     },
     {
-      "id": "vd-premium-uiux-negative-external-source",
-      "userPrompt": "Use riss-governance. Evaluate external skill source safety before extraction.",
+      "id": "uiux-negative-external-source",
+      "userPrompt": "Use governance. Evaluate external skill source safety before extraction.",
       "expectedTriggeredSkills": [
-        "riss-governance"
+        "governance"
       ],
       "expectedNotTriggeredSkills": [
-        "vd-premium-uiux",
+        "uiux",
         "riss-agent-governance",
         "riss-skill-governance"
       ],

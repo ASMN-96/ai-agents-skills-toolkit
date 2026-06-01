@@ -12,7 +12,7 @@ The pivot keeps the top-level folders as canonical source material. This impleme
 
 Active runtime remains intentionally small:
 
-- repo skills under `.agents/skills/`: `riss-governance`, `vd-premium-uiux`, `riss-code-quality`, `riss-security-review`, and `riss-release-gate`;
+- repo skills under `.agents/skills/`: canonical final skills `governance`, `uiux`, `code-quality`, `security-review`, `pr-release-gate`, plus intermediate and old compatibility aliases;
 - project custom agents under `.codex/agents/`: reviewer, frontend, security, QA/test, and release manager.
 
 All mirrors must be validated by byte identity or manifest hash. Registries and source records remain metadata only; they do not install, activate, approve, configure CI, configure MCP, change global Codex config, or import raw upstream content.
@@ -134,8 +134,8 @@ Method references are supporting metadata for this translation. They help explai
 
 Phase 2 separates UI/UX execution from governance routing:
 
-- `riss-governance` remains the router/safety/source-of-truth layer.
-- `vd-premium-uiux` executes UI/UX quality workflow for frontend premium polish, dashboard UX, responsive layout, and visual QA.
+- `governance` is the router/safety/source-of-truth layer; `riss-governance` remains an old compatibility alias.
+- `uiux` owns UI/UX quality workflow; `vd-premium-uiux` remains an old compatibility alias for frontend premium polish, dashboard UX, responsive layout, and visual QA.
 - Governance remains responsible for scope, risk, and stop conditions; UI/UX execution lives in the direct skill.
 
 Internal helper skills support the governance entrypoint:

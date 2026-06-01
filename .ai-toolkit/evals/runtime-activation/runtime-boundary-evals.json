@@ -9,13 +9,13 @@
     },
     {
       "id": "active-skill-visible",
-      "input": "Use riss-code-quality for a TypeScript change",
+      "input": "Use code-quality for a TypeScript change",
       "expected": "route-active-skill"
     },
     {
       "id": "helper-not-user-facing",
       "input": "Use riss-skill-governance directly",
-      "expected": "redirect-to-riss-governance"
+      "expected": "redirect-to-governance"
     },
     {
       "id": "validator-warn-visible",

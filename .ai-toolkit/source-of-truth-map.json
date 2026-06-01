@@ -5,7 +5,7 @@
     {
       "domain": "skills",
       "canonicalSource": "skills/<skill>/SKILL.md",
-      "runtimeCopy": ".agents/skills/<skill>/SKILL.md for active runtime skills and public-safe aliases only",
+      "runtimeCopy": ".agents/skills/<skill>/SKILL.md for canonical final names, intermediate aliases, and old compatibility aliases only",
       "distributionCopy": ".ai-toolkit/skills/<skill>/SKILL.md for packaged active skills",
       "historicalArchive": "None in this pass unless a file is explicitly marked historical",
       "driftControl": "byte identity between canonical, runtime, and distribution copies"

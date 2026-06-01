@@ -66,7 +66,7 @@ Expand to detailed mode when:
 
 For typo, wording, punctuation, small link, or small metadata edits:
 
-- keep routing to `riss-governance` plus at most `reviewer-agent`
+- keep routing to `governance` plus at most `reviewer-agent`
 - avoid extra helpers, support tools, browser checks, and registry expansion unless the edit changes policy meaning or public behavior
 - validate by reviewing the target file and diff
 - report in one or two sentences

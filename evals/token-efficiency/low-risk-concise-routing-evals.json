@@ -5,7 +5,7 @@
   "cases": [
     {
       "id": "readme-typo",
-      "userPrompt": "Use riss-governance. Fix one typo in README.md.",
+      "userPrompt": "Use governance. Fix one typo in README.md.",
       "expectedTokenMode": "concise",
       "expectedSelectedAgents": [
         "reviewer-agent"
@@ -21,7 +21,7 @@
     },
     {
       "id": "small-doc-link",
-      "userPrompt": "Use riss-governance. Add a link to the roadmap in the docs README.",
+      "userPrompt": "Use governance. Add a link to the roadmap in the docs README.",
       "expectedTokenMode": "concise",
       "expectedSelectedAgents": [
         "reviewer-agent"
@@ -31,7 +31,7 @@
     },
     {
       "id": "explain-local-doc",
-      "userPrompt": "Use riss-governance. Explain what the audit profile is for.",
+      "userPrompt": "Use governance. Explain what the audit profile is for.",
       "expectedTokenMode": "concise",
       "expectedSelectedAgents": [],
       "expectedSelectedToolsPlugins": [],
@@ -39,7 +39,7 @@
     },
     {
       "id": "small-policy-typo-guard",
-      "userPrompt": "Use riss-governance. Fix a misspelled word in the token efficiency policy.",
+      "userPrompt": "Use governance. Fix a misspelled word in the token efficiency policy.",
       "expectedTokenMode": "concise",
       "expectedSelectedAgents": [
         "reviewer-agent"
@@ -59,7 +59,7 @@
     },
     {
       "id": "user-asks-full-policy",
-      "userPrompt": "Use riss-governance. Show the full token efficiency policy.",
+      "userPrompt": "Use governance. Show the full token efficiency policy.",
       "expectedTokenMode": "detailed",
       "expectedSelectedAgents": [],
       "expectedSelectedToolsPlugins": [],
@@ -67,7 +67,7 @@
     },
     {
       "id": "large-task-compact-context-pack",
-      "userPrompt": "Use riss-governance. Audit all important sources, tools, agents, profiles, and token risks before implementation.",
+      "userPrompt": "Use governance. Audit all important sources, tools, agents, profiles, and token risks before implementation.",
       "expectedTokenMode": "detailed",
       "expectedSelectedAgents": [
         "reviewer-agent",
