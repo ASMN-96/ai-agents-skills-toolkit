@@ -126,7 +126,7 @@ async function validateProjectAgents() {
   }
   for (const file of tomlFiles) {
     if (!ACTIVE_AGENT_FILES.includes(file)) {
-      fail(`.codex/agents/${file}`, "unexpected active project agent; first wave is limited to five");
+      fail(`.codex/agents/${file}`, "unexpected active project agent; active project agents must match the approved runtime list");
     }
     const relativePath = `.codex/agents/${file}`;
     const text = await readFile(rootPath(relativePath), "utf8");

@@ -13,7 +13,7 @@
     {
       "domain": "agents",
       "canonicalSource": "agents/*.md",
-      "runtimeCopy": ".codex/agents/*.toml for the five active project custom agents only",
+      "runtimeCopy": ".codex/agents/*.toml for the nine active project custom agents only",
       "distributionCopy": ".ai-toolkit/agents/*.md for packaged agent source material",
       "historicalArchive": "Existing non-active agent specs remain top-level documented assets",
       "driftControl": "manifest hashes plus TOML field validation for active agents"

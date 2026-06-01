@@ -24,11 +24,15 @@
     "riss-skill-governance"
   ],
   "activeProjectAgents": [
+    "product-agent",
+    "architect-agent",
     "reviewer-agent",
+    "uiux-agent",
     "frontend-agent",
     "security-agent",
     "qa-test-agent",
-    "release-manager-agent"
+    "release-manager-agent",
+    "skill-scout-agent"
   ],
   "forbiddenByThisPass": [
     "external installs",
@@ -212,6 +216,30 @@
       "sha256": "a5ae69594efd00ce9ac98cae77c4c5aa68552e4fb14eafed2f104b7dd72310b5"
     },
     {
+      "source": ".codex/agents/product-agent.toml",
+      "target": ".ai-toolkit/runtime-agents/product-agent.toml",
+      "mode": "byte-identical",
+      "sha256": "8e7deb509d56a3f85d9dbb091d291b7862c2bb97dbf6e2d60f20c8b22c85a660"
+    },
+    {
+      "source": "agents/product-agent.md",
+      "target": ".ai-toolkit/agents/product-agent.md",
+      "mode": "packaged-source-hash",
+      "sha256": "0463a8b6ac1f48e3b9735264e8d38761fbbfbee980110d12b31eac4cdb1d7da5"
+    },
+    {
+      "source": ".codex/agents/architect-agent.toml",
+      "target": ".ai-toolkit/runtime-agents/architect-agent.toml",
+      "mode": "byte-identical",
+      "sha256": "45d5541e15097677d97d3cf0eae8b1437c9edc0a926df323765844554ef67366"
+    },
+    {
+      "source": "agents/architect-agent.md",
+      "target": ".ai-toolkit/agents/architect-agent.md",
+      "mode": "packaged-source-hash",
+      "sha256": "7b4f0363194f4348604969c42169ea92f582ba7da03cca8ec9356d593dce1ccc"
+    },
+    {
       "source": ".codex/agents/reviewer-agent.toml",
       "target": ".ai-toolkit/runtime-agents/reviewer-agent.toml",
       "mode": "byte-identical",
@@ -222,6 +250,18 @@
       "target": ".ai-toolkit/agents/reviewer-agent.md",
       "mode": "packaged-source-hash",
       "sha256": "24497dce4dd2ebc895e1f767b18f123553e6ad980200ee924c9374ddbc3f9ef1"
+    },
+    {
+      "source": ".codex/agents/uiux-agent.toml",
+      "target": ".ai-toolkit/runtime-agents/uiux-agent.toml",
+      "mode": "byte-identical",
+      "sha256": "b282cb49aa728fd20e675b9c129ca748584c4e357410a4895bed99f9572a21ee"
+    },
+    {
+      "source": "agents/uiux-agent.md",
+      "target": ".ai-toolkit/agents/uiux-agent.md",
+      "mode": "packaged-source-hash",
+      "sha256": "ca4f5c8a05961b41397967fa3c0703dedcfd5e6f5e6170bfbfd8fd40ac7b3806"
     },
     {
       "source": ".codex/agents/frontend-agent.toml",
@@ -272,10 +312,22 @@
       "sha256": "4b11a267e4e96d1ab939da4f04ffd69383f27f5aa66aa331ef411f592ce1f691"
     },
     {
+      "source": ".codex/agents/skill-scout-agent.toml",
+      "target": ".ai-toolkit/runtime-agents/skill-scout-agent.toml",
+      "mode": "byte-identical",
+      "sha256": "fdb7c67dd595e78e8df293ba4a633a56fe9d05cd1fa9b71b319a096ed46f552c"
+    },
+    {
+      "source": "agents/skill-scout-agent.md",
+      "target": ".ai-toolkit/agents/skill-scout-agent.md",
+      "mode": "packaged-source-hash",
+      "sha256": "ed91e1b5542900edbf47fbf2d7b633f774c29f1e58512312b980dcba6da98b52"
+    },
+    {
       "source": "registries/agents.registry.json",
       "target": ".ai-toolkit/registries/agents.registry.json",
       "mode": "byte-identical",
-      "sha256": "46f826d632a83042d14e5898dfb863dd0320521024e9df4fa0fa80b1fbd423cf"
+      "sha256": "8b60d86e92c8cee58aa98e756c31c8be513e0b93a3aa6a56aabfbc25267fd62e"
     },
     {
       "source": "registries/methods.registry.json",
@@ -308,10 +360,28 @@
       "sha256": "69f2956fdb1ea0297a7b04622daddd6a2ecce1d2dd312ddd84b002d2c4302d8f"
     },
     {
+      "source": "compiled-agents/product-agent.compiled.md",
+      "target": ".ai-toolkit/compiled-agents/product-agent.compiled.md",
+      "mode": "packaged-source-hash",
+      "sha256": "4115e77ebca7085f4c14b5815bbd1ec006908d662ea77ba869871b3599e3b31b"
+    },
+    {
+      "source": "compiled-agents/architect-agent.compiled.md",
+      "target": ".ai-toolkit/compiled-agents/architect-agent.compiled.md",
+      "mode": "packaged-source-hash",
+      "sha256": "ed4668d9c779f2291d463fc1c82ff7431d9e3a1f7b0a933cc7e41696230f7358"
+    },
+    {
       "source": "compiled-agents/reviewer-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/reviewer-agent.compiled.md",
       "mode": "packaged-source-hash",
       "sha256": "3d97a9b655915cbf02ad5339ae63fe322d5c54c46e4e96bb3002eb91129e89bc"
+    },
+    {
+      "source": "compiled-agents/uiux-agent.compiled.md",
+      "target": ".ai-toolkit/compiled-agents/uiux-agent.compiled.md",
+      "mode": "packaged-source-hash",
+      "sha256": "44f7a17b2ad6cbd8cdbdd9698163e2698c9cce6710d2e3dcd509cae05d88206c"
     },
     {
       "source": "compiled-agents/frontend-agent.compiled.md",
@@ -336,6 +406,12 @@
       "target": ".ai-toolkit/compiled-agents/release-manager-agent.compiled.md",
       "mode": "packaged-source-hash",
       "sha256": "5069a375efe495605028f4f52426ab44f6c947d4377c51d5a12a12e6f2560d5a"
+    },
+    {
+      "source": "compiled-agents/skill-scout-agent.compiled.md",
+      "target": ".ai-toolkit/compiled-agents/skill-scout-agent.compiled.md",
+      "mode": "packaged-source-hash",
+      "sha256": "af1620950919df9fdff1d3f32ffd125b82b1193310e0109cd712f867aa076805"
     }
   ],
   "generatedArtifacts": [

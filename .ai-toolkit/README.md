@@ -18,7 +18,7 @@ No file in this package installs tools, activates external sources, configures C
 | Domain | Canonical source | Runtime copy | Distribution copy | Historical/archive | Drift control |
 | --- | --- | --- | --- | --- | --- |
 | skills | `skills/<skill>/SKILL.md` | .agents/skills/<skill>/SKILL.md for canonical final names, intermediate aliases, and old compatibility aliases only | .ai-toolkit/skills/<skill>/SKILL.md for packaged active skills | None in this pass unless a file is explicitly marked historical | byte identity between canonical, runtime, and distribution copies |
-| agents | `agents/*.md` | .codex/agents/*.toml for the five active project custom agents only | .ai-toolkit/agents/*.md for packaged agent source material | Existing non-active agent specs remain top-level documented assets | manifest hashes plus TOML field validation for active agents |
+| agents | `agents/*.md` | .codex/agents/*.toml for the nine active project custom agents only | .ai-toolkit/agents/*.md for packaged agent source material | Existing non-active agent specs remain top-level documented assets | manifest hashes plus TOML field validation for active agents |
 | compiled-agents | `compiled-agents/*.compiled.md` | none | .ai-toolkit/compiled-agents/*.compiled.md when packaged | Older compiled-agent versions remain explicit drift until provenance is updated | manifest hashes; no broad version restamp in this pass |
 | registries | `registries/*.json` | none | .ai-toolkit/registries/*.json | none | byte identity for mirrored registry files |
 | methods | `methods/**` | none | .ai-toolkit/methods/** | restricted or historical sources remain marked in provenance | manifest hashes and source-provenance validation |
@@ -32,7 +32,7 @@ No file in this package installs tools, activates external sources, configures C
 - Registries are metadata only.
 - Tool records are source-intelligence only.
 - Source watchlist entries always use `neverAutoImport: true`.
-- Active runtime is limited to 14 reviewed skills and 5 project custom agents.
+- Active runtime is limited to 14 reviewed skills and 9 project custom agents.
 - Helper skills remain internal and must not be copied into active runtime paths.
 - Top-level folders remain canonical and are not deleted, relocated, or flattened in this pass.
 - The embedded builder preserves reviewed registries instead of regenerating them from stale defaults.

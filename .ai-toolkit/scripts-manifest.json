@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",
-      "sha256": "22e063067360e6134c52dce3f9b2389818710ea0f3491177b57ee5e56c1be285"
+      "sha256": "0c9d2ab42fe2b112864477c2ce4592ebb0547564baf3886e203a47d1a68946cc"
     },
     {
       "path": "scripts/ai-toolkit/validate-version-consistency.mjs",
