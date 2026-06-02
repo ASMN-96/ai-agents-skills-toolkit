@@ -17,12 +17,14 @@ Public/core paths must not contain:
 
 ## Private Overlay Content
 
-Private overlays may contain project-specific checklists, route metadata, pilot evidence, and internal migration notes. Overlay content must not be included in public package output unless it is neutralized and re-reviewed.
+Private overlays may contain project-specific checklists, route metadata, pilot evidence, and internal migration notes. For any public repository candidate, private overlays must live in a separate private repository or private branch, not in the public repo tree.
 
-Current private overlay root:
+Historical internal overlay root:
 
 - `.ai-toolkit/private-overlays/`
 
+That path is not approved for public repository content. Removing overlay files from the current tree does not erase historical Git exposure.
+
 ## Release Rule
 
-The public package validator scans only the public allowlist. Full-repository leak scans may still report private-overlay findings, but those findings do not block public package output when the public package gate excludes overlay paths and reports zero public blockers.
+The public package validator scans only the public allowlist. Public GitHub repository readiness requires whole-tree and history review in addition to package allowlist validation. Publication remains blocked until private overlay content is absent from the current tree and historical exposure is resolved by a clean sanitized repository/mirror or verified history cleanup.

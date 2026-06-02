@@ -225,7 +225,7 @@ function classify(finding) {
   if (isCompatibilitySurface(finding.file, finding.context)) {
     return {
       classification: "compatibility-public-api-review",
-      action: "Keep temporarily for runtime compatibility; migrate through alias/deprecation strategy before public naming cleanup."
+      action: "Review before publication; allowed only when the term is a non-active historical, scanner, or public API compatibility reference, not an active runtime alias."
     };
   }
 
@@ -337,7 +337,7 @@ function renderReport(findings, scannedFiles, maxFindings) {
     "## Rules",
     "",
     "- This scan is evidence only; it does not authorize deletion or renaming.",
-    "- `compatibility-public-api-review` means the term may remain temporarily for active runtime or registry compatibility.",
+    "- `compatibility-public-api-review` means the term needs publication review and is not evidence of an active runtime alias.",
     "- `allowed-historical-internal-reference` means the term may remain in internal hardening history but still needs exclusion, rewrite, or archiving before public release.",
     "- `move-to-private-overlay` means the content should be neutralized in public/core paths or moved behind a future private overlay.",
     "- `must-remove-before-public-release` blocks public release unless masked, moved, or explicitly excluded."

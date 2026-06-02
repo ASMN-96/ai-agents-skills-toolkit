@@ -7,7 +7,7 @@
 - Retrieval date: 2026-05-29.
 - Last checked date: 2026-06-02.
 - Last reviewed date: 2026-06-02.
-- Last reviewed commit: `69b5f3af49fc15240a4dcc735f3eceb95258492f`.
+- Last reviewed commit: `6163ca0529eb6b30240d71b68ab55fe8051c44de`.
 - Normalization review date: 2026-05-22.
 - Normalization review commit: `642f03d5a10eb3deb91bd511241e387e23b9aa39`.
 - Visible adoption signals: 28,106 GitHub stars, 1,517 forks, and repository push activity on 2026-05-15 from read-only GitHub metadata.
@@ -86,6 +86,10 @@ Skill Scout read-only follow-up reviewed the upstream default-branch movement fr
 ## Freshness Review 2026-06-02
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `ea3e66b9844fbbdbfdbb55b81d4ec6ec3181234b` to `69b5f3af49fc15240a4dcc735f3eceb95258492f` using GitHub compare metadata, commit metadata, and `git ls-remote` only. The compare was 4 commits ahead and touched live-browser and detector scripts across multiple editor/package skill surfaces, the CLI detector, plugin skill scripts, tests, and `.gitignore`. These changes reinforce the existing execution risk around live browser workflows, detector scripts, copied skill packages, and CLI behavior. The recommendation is unchanged: keep Impeccable as normalized UI/UX source intelligence only. This refresh updates source tracking only and does not approve CLI execution, package install, detector use, browser workflow use, source-copying, skill-body import, external activation, or runtime configuration changes.
+
+## Freshness Review 2026-06-02 Follow-up
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `69b5f3af49fc15240a4dcc735f3eceb95258492f` to `6163ca0529eb6b30240d71b68ab55fe8051c44de` using GitHub compare metadata and `git ls-remote` only. The compare was 1 commit ahead and touched live-browser/reference/live scripts across multiple editor/package skill surfaces, added Svelte live component/adapter/core scripts, and changed tests, fixtures, package, and site surfaces. These changes reinforce live browser, detector, script, package, and external skill execution risk. The recommendation is unchanged: keep Impeccable as normalized UI/UX source intelligence only. This refresh updates source tracking only and does not approve CLI execution, package install, detector use, browser workflow use, source-copying, skill-body import, external activation, or runtime configuration changes.
 
 ## Source Provenance (Stable)
 

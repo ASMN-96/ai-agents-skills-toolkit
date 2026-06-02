@@ -4,7 +4,7 @@
 - Owner / publisher: ruvnet.
 - Source type: Agent orchestration/runtime framework with daemon, plugins, workers, state, and verification materials.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `f57b69876ba1c4e6bf4e317d0d1529a5481692c4` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-01.
+- Pinned repo ref checked: `d79f51b74d3b12ddf9ce48a2c497047709544451` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-02.
 - Visible adoption signals: about 56.4k GitHub stars, 6.4k forks, and active alpha release work.
 - Trust level: Medium source trust, very high runtime/daemon risk.
 - License status: GitHub API reports MIT.
@@ -97,3 +97,7 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 ## Freshness Review 2026-06-01
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `28eb57543be916abf5191f71114268a3985cb001` to `f57b69876ba1c4e6bf4e317d0d1529a5481692c4` using GitHub compare metadata, current commit metadata, license metadata, and patch keyword review only. The compare was 2 commits ahead and touched `README.md`, `data/clone-data.ledger.json`, `data/clone-data.proof.json`, and `data/clone-data.rvf`. MIT license metadata remained present. Patch keyword review matched ledger/proof data file movement but found no new package install, MCP command, daemon, hook, worker, network-fetch, credential, destructive shell, or product-write signal in the changed source-freshness scope. The source remains very high risk for runtime, daemon, MCP, hook, memory, plugin, package-script, benchmark-script, persisted-state, file-write, indexing, and background-process behavior. The only planned safe extraction path remains static governance inspiration. This refresh updates source tracking only and does not approve package install, daemon, worker, hook, MCP, memory, plugin, script, benchmark, vector indexing, source-copying, method-extraction, product-repo indexing, or global configuration use.
+
+## Freshness Review 2026-06-02
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `f57b69876ba1c4e6bf4e317d0d1529a5481692c4` to `d79f51b74d3b12ddf9ce48a2c497047709544451` using GitHub compare metadata and `git ls-remote` only. The compare was 6 commits ahead and touched supply-chain accepted findings, GitHub workflow files, package/package-lock/pnpm-lock files, CLI bin/helper/log filtering/init code, audit and smoke scripts, MCP hook tools, browser/CLI/MCP package files, and helper/router surfaces. MIT license metadata remained present. The source remains high risk for runtime, daemon, MCP, hook, package-script, lockfile, persisted-state, file-write, and background-process behavior. The recommendation is unchanged. This refresh updates source tracking only and does not approve package install, workflow copying, daemon, worker, hook, MCP, memory, plugin, script execution, source-copying, method-extraction, lockfile import, product-repo indexing, or global configuration use.

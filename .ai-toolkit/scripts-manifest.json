@@ -8,7 +8,7 @@
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
-      "sha256": "1073aa5a527c4e9355a352e0f6264e3f613e0bca5c8b12887cdcb8a583f8d561"
+      "sha256": "f218f7fd941a4ff7d0d4f4374d9e797444fb52a0f31f832492a879cbecbcbe98"
     },
     {
       "path": "scripts/classify-stale-unverified-data.mjs",
@@ -36,7 +36,7 @@
     },
     {
       "path": "scripts/ai-toolkit/validate-version-consistency.mjs",
-      "sha256": "d624bca3cf594b790dc4c4f6db4b227b56421fef4f9782ffe1779dd4cc4009fd"
+      "sha256": "215cc1fe83530c8779e7bc17a6a3004e388eff75fdd40ccefc03421b5bc94827"
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
