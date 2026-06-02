@@ -26,7 +26,6 @@
   - `qa-test-agent`
   - `release-manager-agent`
   - `reviewer-agent`
-  - `riss-governance-agent`
   - `security-agent`
   - `skill-scout-agent`
   - `sre-performance-agent`
@@ -40,10 +39,8 @@
 
 ## What is Intentionally Not Global
 
-- `vd-premium-uiux` skill is repo-global in this toolkit and is intentionally not mirrored as a global skill file by default.
-- Core helper skills remain repo/process assets and not globally mirrored by default:
-  - `riss-agent-governance`
-  - `riss-skill-governance`
+- Repo skills are not globally mirrored by default.
+- Retired helper aliases are not globally mirrored by default.
 - External global Codex settings and plugin install/state are unchanged in this scope.
 
 ## How to Safely Globalize Later

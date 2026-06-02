@@ -22,10 +22,10 @@ Classification is first. Files should not be deleted aggressively in this phase.
 | Supabase implementation details | `delegate-to-codex-plugin` | Supabase plugin/official docs own live implementation behavior. Toolkit keeps database/RLS/security gates and source records only. |
 | Vercel/Cloudflare/Expo/iOS/Android plugin workflows | `delegate-to-codex-plugin` | Installed plugins and native tools own platform-specific execution. Toolkit may route or require approval but should not copy workflow details. |
 | Browser/Playwright automation | `delegate-to-codex-plugin` | Browser, Chrome, Playwright, and verification plugins own runtime automation. Toolkit keeps when-to-verify gates and evidence requirements. |
-| Generic frontend/UI guidance | `passive-reference` | Keep only general quality references unless guidance is project-specific or tied to `vd-premium-uiux`. Do not duplicate frontend plugin behavior. |
+| Generic frontend/UI guidance | `passive-reference` | Keep only general quality references unless guidance is project-specific or tied to `uiux`. Do not duplicate frontend plugin behavior. |
 | External marketplace source discovery/install advice | `passive-reference` | Keep discovery/install sources as untrusted reference records. Do not present install commands as default actions. Some narrow install-oriented records may become `candidate-removal` later. |
-| `riss-governance` | `keep-active` | Primary governance entrypoint for serious toolkit/project work, source-of-truth checks, risk routing, and completion discipline. |
-| `vd-premium-uiux` | `keep-active` | Differentiated project-specific UI/UX quality skill for premium product polish when UI/UX is in scope. |
+| `governance` | `keep-active` | Primary governance entrypoint for serious toolkit/project work, source-of-truth checks, risk routing, and completion discipline. |
+| `uiux` | `keep-active` | Differentiated UI/UX quality skill for premium product polish when UI/UX is in scope. |
 | Source safety scoring | `keep-active` | Core supply-chain and external-source review function. |
 | Source watchlist/freshness policy | `keep-active` | Core provenance and upstream-currency function. |
 | Project-sync/version-pin tooling | `keep-active` | Core controlled sync mechanism for project artifacts; dry-run-first and version-pinned. |

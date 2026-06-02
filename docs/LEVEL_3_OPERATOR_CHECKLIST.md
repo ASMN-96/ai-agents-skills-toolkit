@@ -18,7 +18,7 @@ Recommended config-file shape:
 {
   "selectedAgents": ["reviewer-agent", "qa-test-agent", "security-agent"],
   "selectedProfiles": ["audit-profile"],
-  "selectedSkills": ["ai-project-governance", "pr-release-gate"],
+  "selectedSkills": ["governance", "pr-release-gate"],
   "branchPolicy": "no-direct-main",
   "approvalMode": "manual",
   "allowOverwriteProjectContext": false

@@ -3,7 +3,7 @@
 - URL: https://github.com/cyxzdev/Uncodixfy
 - Owner / publisher: `cyxzdev`.
 - Source type: External GitHub source for anti-generic AI UI constraints and dashboard/internal-tool design anti-patterns.
-- Source status: Reviewed source record; approved only for narrow normalized anti-generic UI guidance in `vd-premium-uiux`.
+- Source status: Reviewed source record; approved only for narrow normalized anti-generic UI guidance in `uiux`.
 - Retrieval date: 2026-05-16.
 - Last checked date: 2026-05-16.
 - Last reviewed date: 2026-05-16.
@@ -13,7 +13,7 @@
 - Visible adoption signals: 2,434 GitHub stars, 165 forks, and repository push activity on 2026-03-18 from read-only GitHub metadata.
 - Trust level: Medium UI critique trust, with medium execution/copying risk if treated as a full design system or copied wholesale.
 - License status: GitHub API reports MIT.
-- Recommendation: Use only as a normalized anti-generic UI checklist inside `vd-premium-uiux`.
+- Recommendation: Use only as a normalized anti-generic UI checklist inside `uiux`.
 
 ## Purpose
 
@@ -21,9 +21,9 @@ Use as a pattern source for detecting repeated AI-generated UI cliches, especial
 
 ## Intended Extraction Target
 
-- `skills/vd-premium-uiux/SKILL.md`
-- `.agents/skills/vd-premium-uiux/SKILL.md`
-- `docs/VD_PREMIUM_UIUX_SOURCE_MAP.md`
+- `skills/uiux/SKILL.md`
+- `.agents/skills/uiux/SKILL.md`
+- `docs/UIUX_SOURCE_MAP.md`
 
 Normalization is limited to toolkit-owned guidance. Raw upstream instructions, wording, examples, commands, and install guidance are not copied, extracted, or activated.
 
@@ -65,11 +65,11 @@ Over-application can flatten legitimate brand expression or remove useful visual
 
 ## Recommendation
 
-Approved for this PR as a reviewed source record and normalized anti-generic guardrail source for `vd-premium-uiux` only. Do not import, install, activate, clone, or copy raw upstream content.
+Approved as a reviewed source record and normalized anti-generic guardrail source for `uiux` only. Do not import, install, activate, clone, or copy raw upstream content.
 
 ## Source Provenance (Stable)
 
 - Watchlist path: `sources/source-watchlist.json`
 - Reviewed by: Codex controlled implementation pass
-- Review decision: Source-record plus narrow normalized `vd-premium-uiux` guardrail guidance
+- Review decision: Source-record plus narrow normalized `uiux` guardrail guidance
 - Last review evidence: GitHub API license metadata and `git ls-remote` HEAD SHA on 2026-05-16

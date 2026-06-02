@@ -13,7 +13,7 @@ pwsh -NoProfile -File install/install-project.ps1 `
   -TargetPath C:\path\to\project `
   -Agents skill-scout-agent,reviewer-agent,qa-test-agent,security-agent `
   -Profiles audit-profile `
-  -Skills riss-governance
+  -Skills governance
 ```
 
 macOS/Linux/Git Bash equivalent:
@@ -23,7 +23,7 @@ bash install/install-project.sh \
   --target /path/to/project \
   --agents skill-scout-agent,reviewer-agent,qa-test-agent,security-agent \
   --profiles audit-profile \
-  --skills riss-governance
+  --skills governance
 ```
 
 The command above is a dry-run. It shows the files that would be copied into:

@@ -57,3 +57,5 @@ Post-PR #39 hardening starts with validation honesty and public/private release 
 `docs/PUBLIC_PRIVATE_OVERLAY_ARCHITECTURE_ADR.md` records the future public/private architecture target. It does not move folders; current top-level paths remain canonical until compatibility, leak-scan, package, and runtime gates are proven.
 
 `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md` defines maturity Levels 0-5. Current status is Level 3 controlled-pilot readiness; Level 4 enterprise rollout and Level 5 public release remain blocked by owner, evidence, policy, naming, and public/private release gates.
+
+Public runtime naming is canonicalized to five active skills plus twelve project agents. See `docs/MIGRATION_TO_CANONICAL_SKILLS.md` for the old-name migration note.

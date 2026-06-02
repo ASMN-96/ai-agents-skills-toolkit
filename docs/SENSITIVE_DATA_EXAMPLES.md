@@ -19,4 +19,4 @@ Use safe synthetic or masked data in governance examples, docs, evals, screensho
 
 ## Refusal Pattern
 
-If a request asks to expose private data, weaken auth, or paste sensitive records, stop and route through `riss-governance` security/data handling. Offer a masked or synthetic example instead.
+If a request asks to expose private data, weaken auth, or paste sensitive records, stop and route through `governance` security/data handling. Offer a masked or synthetic example instead.

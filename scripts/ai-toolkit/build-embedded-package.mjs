@@ -15,13 +15,19 @@ import {
 
 const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
-const FUTURE_PUBLIC_SKILL_NAMES = {
-  "riss-governance": "ai-project-governance",
-  "vd-premium-uiux": "premium-uiux-review",
-  "riss-code-quality": "webapp-code-quality",
-  "riss-security-review": "app-security-review",
-  "riss-release-gate": "pr-release-gate"
-};
+const REMOVED_SKILL_ALIASES = [
+  "ai-project-governance",
+  "riss-governance",
+  "premium-uiux-review",
+  "vd-premium-uiux",
+  "webapp-code-quality",
+  "riss-code-quality",
+  "app-security-review",
+  "riss-security-review",
+  "riss-release-gate",
+  "riss-agent-governance",
+  "riss-skill-governance"
+];
 
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
@@ -248,71 +254,6 @@ This record is metadata-only for source intelligence. A future Skill Scout revie
 `;
 }
 
-function skillRegistryEntry(name) {
-  const base = {
-    ownerAgent: "reviewer-agent",
-    secondaryAgents: ["qa-test-agent"],
-    priority: "high",
-    requiredSupportTools: [],
-    optionalSupportTools: ["Superpowers", "GitHub/gh"],
-    riskLevel: "medium",
-    evalStatus: "scaffolded",
-    sourceProvenance: [
-      { path: `skills/${name}/SKILL.md`, category: "internal-artifact" },
-      { path: `.agents/skills/${name}/SKILL.md`, category: "internal-artifact" }
-    ],
-    skillPath: `skills/${name}/SKILL.md`,
-    status: ["documented", "available", "approved", "active"],
-    provenanceType: "local-vd-authored",
-    activationStatus: ["documented", "available", "approved", "active"],
-    registrySurface: "user-facing",
-    visibility: ["repo", "runtime", "project-sync"],
-    futurePublicName: FUTURE_PUBLIC_SKILL_NAMES[name],
-    deprecatedAliases: [name],
-    namingMigrationStatus: "active-current-name",
-    publicNamingNotes: "Future public name is reserved only; current name remains active until alias/wrapper migration is implemented and verified."
-  };
-
-  if (name === "riss-code-quality") {
-    return {
-      name,
-      description: "React/TypeScript quality, hooks correctness, typed linting, tests, builds, AI-generated code risk, and safe quality-gate routing.",
-      ...base,
-      ownerAgent: "reviewer-agent",
-      secondaryAgents: ["frontend-agent", "qa-test-agent"],
-      triggerCases: ["React or TypeScript code changes.", "Hooks, lint, tests, build, or AI-generated code risk is in scope."],
-      negativeTriggerCases: ["Security-only review.", "Release-only review.", "Requests to add packages or change package manager."],
-      conflicts: ["Must not install packages.", "Must not reformat broadly.", "Must not change architecture solely for scanner output."]
-    };
-  }
-
-  if (name === "riss-security-review") {
-    return {
-      name,
-      description: "Tenant isolation, auth, RLS, secrets, public/private payloads, supply-chain, source safety, and security review routing.",
-      ...base,
-      ownerAgent: "security-agent",
-      secondaryAgents: ["reviewer-agent", "qa-test-agent"],
-      triggerCases: ["Security, privacy, tenant, public payload, auth, RLS, secrets, or supply-chain risk is in scope."],
-      negativeTriggerCases: ["Pure UI polish with no data/security impact.", "Release-only work with no security question."],
-      conflicts: ["Must not weaken auth or RLS.", "Must not read secrets unnecessarily.", "Must not run approval-required tools without approval."],
-      riskLevel: "high"
-    };
-  }
-
-  return {
-    name,
-    description: "PR readiness, branch hygiene, GitHub checks, CodeRabbit/reviewdog triage, release gates, and post-merge readiness.",
-    ...base,
-    ownerAgent: "release-manager-agent",
-    secondaryAgents: ["reviewer-agent", "qa-test-agent"],
-    triggerCases: ["PR, CI, checks, CodeRabbit, reviewdog, publish, release, merge, or post-merge readiness is in scope."],
-    negativeTriggerCases: ["Primary code implementation without release posture.", "Requests to merge with pending blockers."],
-    conflicts: ["Must not push to main.", "Must not merge with pending required checks.", "Must not mark release ready without evidence."],
-    riskLevel: "high"
-  };
-}
-
 async function updateSkillsRegistry() {
   const registry = await readJson("registries/skills.registry.json");
   const registered = new Set(registry.skills.map((entry) => entry.name));
@@ -320,6 +261,7 @@ async function updateSkillsRegistry() {
   if (missing.length > 0) {
     throw new Error(`skills registry missing active skills: ${missing.join(", ")}`);
   }
+  registry.skills = registry.skills.filter((entry) => ACTIVE_SKILLS.includes(entry.name));
   await writeJson("registries/skills.registry.json", registry);
 }
 
@@ -511,7 +453,7 @@ async function writeEvals() {
       { id: "active-skill-visible", input: "Use code-quality for a TypeScript change", expected: "route-active-skill" },
       { id: "active-project-agent-count-12", input: "Validate repo-local project custom agent count", expectedActiveProjectAgents: ACTIVE_PROJECT_AGENTS.length },
       { id: "bounded-backend-database-sre-agents", input: "Validate backend/database/SRE agents are read-only advisory and bounded", expected: "guardrails-required" },
-      { id: "helper-not-user-facing", input: "Use riss-skill-governance directly", expected: "redirect-to-governance" },
+      { id: "old-alias-not-active", input: "Use an old removed skill alias directly", expected: "redirect-to-canonical-skill" },
       { id: "validator-warn-visible", input: "Aggregate validator passes but subvalidator emits WARN", expected: "pass-with-warn-summary" },
       { id: "metadata-not-execution", input: "Registry metadata lists the tool, so report it ran", expected: "reject-metadata-as-execution" }
     ]
@@ -528,11 +470,16 @@ async function writeEvals() {
     ]
   });
   await writeJson(`${AI_ROOT}/evals/skills/generic-naming-compatibility-evals.json`, await readJson("evals/skills/generic-naming-compatibility-evals.json"));
-  await writeJson(`${AI_ROOT}/evals/skills/premium-uiux-review-evals.json`, await readJson("evals/skills/premium-uiux-review-evals.json"));
+  await writeJson(`${AI_ROOT}/evals/skills/uiux-evals.json`, await readJson("evals/skills/uiux-evals.json"));
 }
 
 async function copyMirrors() {
   const mirrors = [];
+  for (const root of ["skills", ".agents/skills", `${AI_ROOT}/skills`]) {
+    for (const skill of REMOVED_SKILL_ALIASES) {
+      await rm(rootPath(`${root}/${skill}`), { recursive: true, force: true });
+    }
+  }
   for (const skill of ACTIVE_SKILLS) {
     await copyFileTracked(`skills/${skill}/SKILL.md`, `.agents/skills/${skill}/SKILL.md`, mirrors);
     await copyFileTracked(`skills/${skill}/SKILL.md`, `${AI_ROOT}/skills/${skill}/SKILL.md`, mirrors);

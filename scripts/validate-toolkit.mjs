@@ -81,11 +81,11 @@ const REQUIRED_TOKEN_CONTEXT_EVALS = [
 ];
 
 const CANONICAL_SKILL_GROUPS = [
-  ["governance", "ai-project-governance", "riss-governance"],
-  ["uiux", "premium-uiux-review", "vd-premium-uiux"],
-  ["code-quality", "webapp-code-quality", "riss-code-quality"],
-  ["security-review", "app-security-review", "riss-security-review"],
-  ["pr-release-gate", "riss-release-gate"]
+  ["governance"],
+  ["uiux"],
+  ["code-quality"],
+  ["security-review"],
+  ["pr-release-gate"]
 ];
 
 const METHOD_TRACEABILITY_FIELDS = new Set([
@@ -684,7 +684,7 @@ async function validateSkills(registryState) {
   }
 
   for (const group of CANONICAL_SKILL_GROUPS) {
-    const [canonical, ...aliases] = group;
+    const [canonical] = group;
     const canonicalEntry = registryState.skills.get(canonical);
     if (!canonicalEntry || canonicalEntry.namingMigrationStatus !== "canonical-final") {
       fail("canonical skill naming", `registries/skills.registry.json:${canonical}`, "final skill must be registered as canonical-final");
@@ -710,32 +710,24 @@ async function validateSkills(registryState) {
         fail("canonical skill naming", `registries/skills.registry.json:${skillName}`, "missing registry entry");
         continue;
       }
-      if (skillName !== canonical && entry.canonicalName !== canonical) {
-        fail("canonical skill naming", `registries/skills.registry.json:${skillName}`, `alias must point to canonicalName ${canonical}`);
-      }
-      if (skillName !== canonical) {
-        const sourceText = source.toString("utf8");
-        for (const requiredText of [
-          "compatibility alias",
-          `Canonical final skill: \`${canonical}\``,
-          "Use the canonical skill's behavior",
-          "Do not treat this alias as a separate behavior fork"
-        ]) {
-          if (!sourceText.includes(requiredText)) {
-            fail("canonical skill naming", canonicalPath, `alias wrapper missing required text: ${requiredText}`);
-          }
-        }
-      }
-    }
-    if (!asArray(canonicalEntry?.compatibilityAliases).every((alias) => aliases.includes(alias))) {
-      fail("canonical skill naming", `registries/skills.registry.json:${canonical}`, "canonical skill must list intermediate and old compatibility aliases");
     }
   }
 
-  for (const helperName of ["riss-agent-governance", "riss-skill-governance"]) {
-    const helper = registryState.skills.get(helperName);
-    if (!helper || helper.registrySurface !== "internal-helper") {
-      fail("helper skill boundary", `registries/skills.registry.json:${helperName}`, "helper skill must remain internal-helper");
+  for (const removedName of [
+    "ai-project-governance",
+    "riss-governance",
+    "premium-uiux-review",
+    "vd-premium-uiux",
+    "webapp-code-quality",
+    "riss-code-quality",
+    "app-security-review",
+    "riss-security-review",
+    "riss-release-gate",
+    "riss-agent-governance",
+    "riss-skill-governance"
+  ]) {
+    if (registryState.skills.has(removedName)) {
+      fail("canonical skill naming", `registries/skills.registry.json:${removedName}`, "old alias/helper skill must not remain registered");
     }
   }
 
@@ -754,7 +746,7 @@ async function validateGovernanceBoundaries(registryState) {
   note("Governance and routing boundaries");
   const uiPattern = /(ui|ux|frontend|dashboard|visual|responsive|design|accessibility|mobile|browser-visible|layout)/i;
   const nonUiPattern = /(backend|rls|database|security|release|docs-only|supabase|postgres|api-contract|coderabbit|dependency)/i;
-  const uiuxSkills = new Set(["uiux", "premium-uiux-review", "vd-premium-uiux"]);
+  const uiuxSkills = new Set(["uiux"]);
 
   for (const scenario of asArray(registryState.routingMatrix?.scenarios)) {
     const skills = asArray(scenario.skills);
@@ -777,10 +769,6 @@ async function validateGovernanceBoundaries(registryState) {
   const governance = registryState.skills.get("governance");
   if (!governance || governance.registrySurface !== "user-facing" || governance.namingMigrationStatus !== "canonical-final") {
     fail("governance boundary", "registries/skills.registry.json:governance", "governance must be the canonical final user-facing controller/router/safety skill");
-  }
-  const riss = registryState.skills.get("riss-governance");
-  if (!riss || riss.registrySurface !== "user-facing") {
-    fail("governance boundary", "registries/skills.registry.json:riss-governance", "riss-governance must remain a user-facing compatibility alias");
   }
   const governanceText = await readFile(rootPath("skills/governance/SKILL.md"), "utf8");
   if (!/source-of-truth/i.test(governanceText) || !/safety/i.test(governanceText) || !/routing/i.test(governanceText)) {

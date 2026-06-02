@@ -32,7 +32,7 @@ Status: Completed. This phase added dry-run-first install, update, and validatio
 
 Add project-specific governance skills that help installed toolkit agents operate safely inside target repositories.
 
-Status: Completed for v1. Phase 6 added `riss-governance` and project-managed skill sync so selected toolkit-owned skills can be copied into target repositories under `.ai-toolkit/skills/` without global activation.
+Status: Completed for v1. Phase 6 added project-managed skill sync so selected toolkit-owned skills can be copied into target repositories under `.ai-toolkit/skills/` without global activation.
 
 ## Phase 7: Core Toolchain Governance
 
@@ -46,11 +46,11 @@ Register toolkit agents as global Codex custom agents while preserving compiled 
 
 Status: Global custom-agent TOML registration and governance routing. Native custom agents are preferred when available; until runtime smoke testing passes after Codex restart/new session, status is "registered, restart verification required."
 
-## Phase 9: Global riss-governance Entrypoint
+## Phase 9: Governance Entrypoint
 
-Install `riss-governance` globally as the one-command governance entrypoint for RISS, RISS V2, AI Toolkit, Supabase/backend, security, release, repo governance, and related VD real estate platform work.
+Define a governance entrypoint for toolkit-governed product, backend, security, release, and repo governance work.
 
-Status: Global skill and router-agent registration. Do not mark runtime visibility fully active until restart/new-session verification confirms both the skill and `riss-governance-agent` router are visible.
+Status: Governance skill and agent registration. Do not mark runtime visibility fully active until restart/new-session verification confirms the active runtime surface.
 
 ## Phase 10A: Governance Spine and Registry Contract
 
@@ -118,7 +118,7 @@ Attempt to certify Level 2 readiness for one controlled real-project pilot using
 
 Status: Completed and Level 2 certified for one controlled pilot.
 
-Phase 10I records that the initial fresh CLI session could see `riss-governance` and native agent roles, but could not run local shell checks because Windows sandbox process startup failed with `CreateProcessAsUserW failed: 5`. A follow-up fresh CLI session used a temporary per-command `windows.sandbox="unelevated"` override, without changing global config, and verified source truth, JSON validity, helper-skill planned status, native role visibility, compiled fallback presence, support-tool visibility, and no silent fallback. No product repos, global Codex config, skills, agents, registries, source records, install scripts, external installs, activation, hooks, daemons, or MCP servers were changed.
+Phase 10I records that the initial fresh CLI session could see the governance skill and native agent roles, but could not run local shell checks because Windows sandbox process startup failed with `CreateProcessAsUserW failed: 5`. A follow-up fresh CLI session used a temporary per-command `windows.sandbox="unelevated"` override, without changing global config, and verified source truth, JSON validity, native role visibility, compiled fallback presence, support-tool visibility, and no silent fallback. No product repos, global Codex config, skills, agents, registries, source records, install scripts, external installs, activation, hooks, daemons, or MCP servers were changed.
 
 ## Phase 10J: First Pilot Repo Dry-Run Sync Plan
 
@@ -138,7 +138,7 @@ Phase 10L adds plain-language routing, strict response-budget rules, internal he
 
 ## Phase 10N: Explicit Opt-In Governance
 
-Clarify that `riss-governance` can be explicitly opted into for serious project threads outside the primary RISS/VD domain without weakening safety.
+Clarify that toolkit governance can be explicitly opted into for serious project threads without weakening safety.
 
 Status: Completed and merged.
 

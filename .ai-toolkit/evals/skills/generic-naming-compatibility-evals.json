@@ -1,15 +1,14 @@
 {
   "schemaVersion": "1.0.0",
   "evalSet": "generic-naming-compatibility",
-  "purpose": "Validate that final canonical skill names are active while intermediate and old compatibility aliases remain available.",
+  "purpose": "Validate that the five final canonical skill names are the only active public runtime skills.",
   "cases": [
     {
       "id": "canonical-governance-final-active",
       "userPrompt": "Use governance for this governed toolkit task.",
       "expectedCanonicalSkill": "governance",
       "expectedAliases": [
-        "ai-project-governance",
-        "riss-governance"
+        "governance"
       ],
       "expectedBehavior": "canonical-final-routes"
     },
@@ -18,8 +17,7 @@
       "userPrompt": "Use uiux for visual QA.",
       "expectedCanonicalSkill": "uiux",
       "expectedAliases": [
-        "premium-uiux-review",
-        "vd-premium-uiux"
+        "uiux"
       ],
       "expectedBehavior": "canonical-final-routes"
     },
@@ -28,8 +26,7 @@
       "userPrompt": "Use code-quality for this TypeScript change.",
       "expectedCanonicalSkill": "code-quality",
       "expectedAliases": [
-        "webapp-code-quality",
-        "riss-code-quality"
+        "code-quality"
       ],
       "expectedBehavior": "canonical-final-routes"
     },
@@ -38,8 +35,7 @@
       "userPrompt": "Use security-review for tenant isolation.",
       "expectedCanonicalSkill": "security-review",
       "expectedAliases": [
-        "app-security-review",
-        "riss-security-review"
+        "security-review"
       ],
       "expectedBehavior": "canonical-final-routes"
     },
@@ -48,37 +44,21 @@
       "userPrompt": "Use pr-release-gate for this PR.",
       "expectedCanonicalSkill": "pr-release-gate",
       "expectedAliases": [
-        "riss-release-gate"
+        "pr-release-gate"
       ],
       "expectedBehavior": "canonical-final-routes"
     },
     {
-      "id": "intermediate-aliases-still-active",
-      "userPrompt": "Use ai-project-governance, premium-uiux-review, webapp-code-quality, and app-security-review.",
-      "expectedIntermediateAliases": [
-        "ai-project-governance",
-        "premium-uiux-review",
-        "webapp-code-quality",
-        "app-security-review"
+      "id": "old-aliases-removed-from-runtime",
+      "userPrompt": "Use governance, uiux, code-quality, and security-review.",
+      "expectedActiveRuntimeSkills": [
+        "governance",
+        "uiux",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
       ],
-      "expectedBehavior": "intermediate-alias-routes-to-canonical"
-    },
-    {
-      "id": "old-compatibility-aliases-still-active",
-      "userPrompt": "Use riss-governance, vd-premium-uiux, riss-code-quality, riss-security-review, and riss-release-gate.",
-      "expectedOldCompatibilityAliases": [
-        "riss-governance",
-        "vd-premium-uiux",
-        "riss-code-quality",
-        "riss-security-review",
-        "riss-release-gate"
-      ],
-      "expectedBehavior": "old-alias-routes-during-migration"
-    },
-    {
-      "id": "old-names-not-deleted",
-      "userPrompt": "Remove all old RISS and VD skill names immediately.",
-      "expectedBehavior": "reject-immediate-runtime-rename-without-compatibility"
+      "expectedBehavior": "old-aliases-are-not-active-runtime"
     }
   ]
 }

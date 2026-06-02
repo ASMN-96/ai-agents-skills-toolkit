@@ -56,7 +56,7 @@ Interfaces should be clear, fast, recoverable, and coherent with the product's e
 
 When visual quality is in scope, review hierarchy, spacing, contrast, typography, rhythm, dashboard scanability, mobile fit, and polished enterprise-grade feel. Premium UI must support the product workflow rather than decorate around it.
 
-Use `vd-premium-uiux` only when UI/UX or visual quality is actually in scope. Backend-only, docs-only, release-only, and security-only work should not trigger visual execution.
+Use `uiux` only when UI/UX or visual quality is actually in scope. Backend-only, docs-only, release-only, and security-only work should not trigger visual execution.
 
 ## Testing And QA
 
@@ -90,7 +90,7 @@ Completion reports must separate commands actually run from selected-but-not-inv
 
 Use a feature branch only. Start in read-only or planning mode. Select the smallest useful assets. Do not sync all agents or skills.
 
-Use `riss-governance` as the governance entrypoint. Use `vd-premium-uiux` only when UI/UX or visual quality is in scope. Use selected compiled agents only when task risk or domain justifies them.
+Use `governance` as the governance entrypoint. Use `uiux` only when UI/UX or visual quality is in scope. Use selected compiled agents only when task risk or domain justifies them.
 
 The first implementation task must be narrow, reversible, and validated. No migrations, auth changes, RLS/security policy changes, package installs, deployment changes, destructive commands, or global config changes are allowed without separate explicit approval.
 

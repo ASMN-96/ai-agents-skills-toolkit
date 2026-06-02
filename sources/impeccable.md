@@ -3,11 +3,11 @@
 - URL: https://github.com/pbakaus/impeccable
 - Owner / publisher: Paul Bakaus / `pbakaus`.
 - Source type: External GitHub source for AI-assisted design critique, design-system context, and UI/UX quality vocabulary.
-- Source status: Reviewed source record; approved only for narrow normalized guidance in `vd-premium-uiux`.
+- Source status: Reviewed source record; approved only for narrow normalized guidance in `uiux`.
 - Retrieval date: 2026-05-29.
-- Last checked date: 2026-06-01.
-- Last reviewed date: 2026-06-01.
-- Last reviewed commit: `ea3e66b9844fbbdbfdbb55b81d4ec6ec3181234b`.
+- Last checked date: 2026-06-02.
+- Last reviewed date: 2026-06-02.
+- Last reviewed commit: `69b5f3af49fc15240a4dcc735f3eceb95258492f`.
 - Normalization review date: 2026-05-22.
 - Normalization review commit: `642f03d5a10eb3deb91bd511241e387e23b9aa39`.
 - Visible adoption signals: 28,106 GitHub stars, 1,517 forks, and repository push activity on 2026-05-15 from read-only GitHub metadata.
@@ -21,9 +21,9 @@ Use as a pattern source for design-system context, project design source-of-trut
 
 ## Intended Extraction Target
 
-- `skills/vd-premium-uiux/SKILL.md`
-- `.agents/skills/vd-premium-uiux/SKILL.md`
-- `docs/VD_PREMIUM_UIUX_SOURCE_MAP.md`
+- `skills/uiux/SKILL.md`
+- `.agents/skills/uiux/SKILL.md`
+- `docs/UIUX_SOURCE_MAP.md`
 
 Normalization is limited to toolkit-owned guidance. Raw upstream skill text, commands, scripts, detector behavior, browser extension workflows, examples, and install instructions are not copied, extracted, or activated.
 
@@ -69,7 +69,7 @@ Overuse can make UI review too broad or subjective. Future use should stay scope
 
 ## Recommendation
 
-Approved for this PR as a reviewed source record and normalized source basis for `vd-premium-uiux` hardening only. Do not import, install, activate, clone, or execute anything from the upstream repository.
+Approved as a reviewed source record and normalized source basis for `uiux` hardening only. Do not import, install, activate, clone, or execute anything from the upstream repository.
 
 ## Freshness Review 2026-05-29
 
@@ -83,9 +83,13 @@ Skill Scout read-only follow-up reviewed the upstream default-branch movement fr
 
 Skill Scout read-only follow-up reviewed the upstream default-branch movement from `b913668ba4d25b95c4a62278d3637837e9d2c6d9` to `ea3e66b9844fbbdbfdbb55b81d4ec6ec3181234b` using read-only GitHub compare metadata and `git ls-remote` only. The compare was 1 commit ahead and touched public site tutorial copy, Astro site pages, public site layout CSS, and one GitHub Copilot SVG logo asset. No upstream skill body, CLI implementation, package metadata, detector code, live/browser workflow, runtime configuration, or project-sync material changed in this reviewed drift. The change is classified `CHANGED_LOW_RISK`; the recommendation is unchanged: use Impeccable only as normalized UI/UX source intelligence. This refresh updates source tracking only and does not approve CLI execution, package install, detector use, browser workflow use, source-copying, skill-body import, external activation, or runtime configuration changes.
 
+## Freshness Review 2026-06-02
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `ea3e66b9844fbbdbfdbb55b81d4ec6ec3181234b` to `69b5f3af49fc15240a4dcc735f3eceb95258492f` using GitHub compare metadata, commit metadata, and `git ls-remote` only. The compare was 4 commits ahead and touched live-browser and detector scripts across multiple editor/package skill surfaces, the CLI detector, plugin skill scripts, tests, and `.gitignore`. These changes reinforce the existing execution risk around live browser workflows, detector scripts, copied skill packages, and CLI behavior. The recommendation is unchanged: keep Impeccable as normalized UI/UX source intelligence only. This refresh updates source tracking only and does not approve CLI execution, package install, detector use, browser workflow use, source-copying, skill-body import, external activation, or runtime configuration changes.
+
 ## Source Provenance (Stable)
 
 - Watchlist path: `sources/source-watchlist.json`
 - Reviewed by: Codex controlled implementation pass
-- Review decision: Source-record plus narrow normalized `vd-premium-uiux` guidance
-- Last review evidence: Source freshness report, GitHub compare metadata, and `git ls-remote` HEAD SHA on 2026-06-01
+- Review decision: Source-record plus narrow normalized `uiux` guidance
+- Last review evidence: Source freshness report, GitHub compare metadata, and `git ls-remote` HEAD SHA on 2026-06-02

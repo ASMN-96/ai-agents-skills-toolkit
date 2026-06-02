@@ -14,7 +14,7 @@ This report records an internal fixture rehearsal of the Level 3 project-sync wo
 - Config path mode: `-ConfigPath`.
 - Selected agents: `reviewer-agent`, `qa-test-agent`, `security-agent`.
 - Selected profile: `audit-profile`.
-- Selected skills: `ai-project-governance`, `pr-release-gate`.
+- Selected skills: `governance`, `pr-release-gate`.
 
 ## Commands Exercised
 
@@ -49,7 +49,7 @@ Managed files written in the fixture:
 - `.ai-toolkit/compiled-agents/reviewer-agent.compiled.md`
 - `.ai-toolkit/compiled-agents/security-agent.compiled.md`
 - `.ai-toolkit/profiles/audit-profile.md`
-- `.ai-toolkit/skills/ai-project-governance/SKILL.md`
+- `.ai-toolkit/skills/governance/SKILL.md`
 - `.ai-toolkit/skills/pr-release-gate/SKILL.md`
 
 ## Operator Finding

@@ -39,7 +39,7 @@ Parameters:
   -TargetPath     Target project repository path.
   -Agents         Agent names without extension, for example reviewer-agent,security-agent.
   -Profiles       Profile names without extension, for example audit-profile.
-  -Skills         Toolkit-owned skill names, for example riss-governance.
+  -Skills         Toolkit-owned skill names, for example governance.
   -ConfigPath     Optional JSON config with selectedAgents, selectedProfiles, and selectedSkills.
   -ConfirmWrite   Required to write files. Omit for dry-run.
   -Help           Show this help.

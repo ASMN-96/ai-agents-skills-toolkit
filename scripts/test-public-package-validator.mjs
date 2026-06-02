@@ -29,13 +29,13 @@ async function withFixture(callback) {
   const fixture = await mkdtemp(path.join(os.tmpdir(), "public-package-validator-"));
   try {
     await mkdir(path.join(fixture, "docs"), { recursive: true });
-    await mkdir(path.join(fixture, "skills", "ai-project-governance"), { recursive: true });
+    await mkdir(path.join(fixture, "skills", "governance"), { recursive: true });
     await writeFile(path.join(fixture, "README.md"), "# Public Package\n", "utf8");
     await writeFile(path.join(fixture, "LICENSE"), "MIT License\n", "utf8");
     await writeFile(path.join(fixture, "CONTRIBUTING.md"), "# Contributing\n", "utf8");
     await writeFile(path.join(fixture, "CODE_OF_CONDUCT.md"), "# Code of Conduct\n", "utf8");
     await writeFile(path.join(fixture, "SECURITY.md"), "# Security\n\nReport vulnerabilities without secrets.\n", "utf8");
-    await writeFile(path.join(fixture, "skills", "ai-project-governance", "SKILL.md"), "---\nname: ai-project-governance\ndescription: Public governance alias; do not install tools.\n---\n\n# AI Project Governance\n", "utf8");
+    await writeFile(path.join(fixture, "skills", "governance", "SKILL.md"), "---\nname: governance\ndescription: Public governance entrypoint; do not install tools.\n---\n\n# Governance\n", "utf8");
     return await callback(fixture);
   } finally {
     await rm(fixture, { recursive: true, force: true });

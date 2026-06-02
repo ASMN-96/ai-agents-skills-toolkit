@@ -2,25 +2,13 @@ export const TOOLKIT_VERSION = "0.6.0-draft";
 
 export const ACTIVE_SKILLS = [
   "governance",
-  "ai-project-governance",
-  "riss-governance",
   "uiux",
-  "premium-uiux-review",
-  "vd-premium-uiux",
   "code-quality",
-  "webapp-code-quality",
-  "riss-code-quality",
   "security-review",
-  "app-security-review",
-  "riss-security-review",
-  "pr-release-gate",
-  "riss-release-gate"
+  "pr-release-gate"
 ];
 
-export const INTERNAL_HELPER_SKILLS = [
-  "riss-agent-governance",
-  "riss-skill-governance"
-];
+export const INTERNAL_HELPER_SKILLS = [];
 
 export const ACTIVE_PROJECT_AGENTS = [
   "product-agent",
@@ -41,9 +29,9 @@ export const SOURCE_OF_TRUTH_MAP = [
   {
     domain: "skills",
     canonicalSource: "skills/<skill>/SKILL.md",
-    runtimeCopy: ".agents/skills/<skill>/SKILL.md for canonical final names, intermediate aliases, and old compatibility aliases only",
-    distributionCopy: ".ai-toolkit/skills/<skill>/SKILL.md for packaged active skills",
-    historicalArchive: "None in this pass unless a file is explicitly marked historical",
+    runtimeCopy: ".agents/skills/<skill>/SKILL.md for the five canonical public runtime skills only",
+    distributionCopy: ".ai-toolkit/skills/<skill>/SKILL.md for the five canonical packaged active skills",
+    historicalArchive: "Old aliases are removed from active runtime; see docs/MIGRATION_TO_CANONICAL_SKILLS.md.",
     driftControl: "byte identity between canonical, runtime, and distribution copies"
   },
   {
