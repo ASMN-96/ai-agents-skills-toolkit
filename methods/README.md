@@ -14,7 +14,7 @@ Method areas:
 
 Raw external source material does not belong here. Only reviewed and approved methods should be extracted into this directory.
 
-Methods are passive reference material. They do not install, activate, route, or execute anything by themselves; `riss-governance` remains the normal entrypoint for selecting agents, skills, profiles, support tools, validation, and stop conditions.
+Methods are passive reference material. They do not install, activate, route, or execute anything by themselves; `governance` remains the normal entrypoint for selecting agents, skills, profiles, support tools, validation, and stop conditions.
 
 `registries/methods.registry.json` indexes method metadata for auditability. Registry entries may be referenced by routing scenarios, but they are not trigger rules, skill definitions, support-tool requirements, or activation claims.
 

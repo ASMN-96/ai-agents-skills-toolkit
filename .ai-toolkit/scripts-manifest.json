@@ -4,11 +4,11 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "e7366514439d2d982c682bf94e31c2845f87a99749a65128595a908fdb33e78e"
+      "sha256": "1df57b02a73dedd0927afe379dbc9c5f90350f7f056c2ad7afcf439c3e567f94"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
-      "sha256": "f218f7fd941a4ff7d0d4f4374d9e797444fb52a0f31f832492a879cbecbcbe98"
+      "sha256": "3d042a98f51371c100b951c02c4c1d9ca5dab13aec6c836d9e64d487b71b076b"
     },
     {
       "path": "scripts/classify-stale-unverified-data.mjs",

@@ -47,7 +47,7 @@
   - `external-source`
   - `historical-reference`
   - `restricted-source`
-  - `local-vd-authored`
+  - `toolkit-authored`
 - External authority sources must have source records and watchlist entries.
 - Historical/reference and restricted sources are non-authority by default and should not be used for method/skill execution.
 - `sourceRecordPath` in watchlist records identifies the source intake record and is not itself executable authority.

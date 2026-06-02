@@ -21,7 +21,7 @@ const PROVENANCE_CATEGORIES = new Set([
   "external-source",
   "restricted-source",
   "historical-reference",
-  "local-vd-authored"
+  "toolkit-authored"
 ]);
 
 const ENTERPRISE_RISK_FIELDS = [

@@ -4,7 +4,7 @@
 - Owner / publisher: ruvnet.
 - Source type: Agent orchestration/runtime framework with daemon, plugins, workers, state, and verification materials.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `d79f51b74d3b12ddf9ce48a2c497047709544451` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-02.
+- Pinned repo ref checked: `08bf1cf3242baae280755fe1348572406b867cb7` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-02.
 - Visible adoption signals: about 56.4k GitHub stars, 6.4k forks, and active alpha release work.
 - Trust level: Medium source trust, very high runtime/daemon risk.
 - License status: GitHub API reports MIT.
@@ -101,3 +101,5 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 ## Freshness Review 2026-06-02
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `f57b69876ba1c4e6bf4e317d0d1529a5481692c4` to `d79f51b74d3b12ddf9ce48a2c497047709544451` using GitHub compare metadata and `git ls-remote` only. The compare was 6 commits ahead and touched supply-chain accepted findings, GitHub workflow files, package/package-lock/pnpm-lock files, CLI bin/helper/log filtering/init code, audit and smoke scripts, MCP hook tools, browser/CLI/MCP package files, and helper/router surfaces. MIT license metadata remained present. The source remains high risk for runtime, daemon, MCP, hook, package-script, lockfile, persisted-state, file-write, and background-process behavior. The recommendation is unchanged. This refresh updates source tracking only and does not approve package install, workflow copying, daemon, worker, hook, MCP, memory, plugin, script execution, source-copying, method-extraction, lockfile import, product-repo indexing, or global configuration use.
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `d79f51b74d3b12ddf9ce48a2c497047709544451` to `08bf1cf3242baae280755fe1348572406b867cb7` using GitHub compare metadata and `git ls-remote` only. The compare was 1 commit ahead and added ADR documentation for agent authorization propagation, plugin supply-chain integrity and memory governance, and tool-output guardrail rollout. No source files, package manifests, lockfiles, scripts, MCP code, hook code, daemon code, network-fetch code, credential access, destructive shell, or product-write guidance appeared in the changed file list. The source remains high risk for runtime, daemon, MCP, hook, package-script, lockfile, persisted-state, file-write, and background-process behavior. The recommendation is unchanged. This refresh updates source tracking only and does not approve package install, workflow copying, daemon, worker, hook, MCP, memory, plugin, script execution, source-copying, method-extraction, lockfile import, product-repo indexing, or global configuration use.

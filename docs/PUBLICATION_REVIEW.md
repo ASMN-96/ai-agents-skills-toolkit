@@ -21,7 +21,7 @@ This review is separate from `node scripts/validate-public-package.mjs`. Public 
 | `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md` | Stale Level 5 language implied alias compatibility remained part of the public readiness path. | blocker | Updated the rollout gate to canonical-only runtime language. | Approve the final Level 5 criteria only after whole-repo review, history decision, clean-clone verification, and policy approval. |
 | `LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md` | Policy files exist, but owner/legal/community/security disclosure approval is still required before publication. | blocker | Kept publication blocked. | Approve license, contribution, community, and vulnerability disclosure channel. |
 | Clean clone | Clean-clone publication verification has not been run for a public repository candidate. | blocker | Kept publication blocked. | Run clean-clone verification after the repository tree and history decision are resolved. |
-| `docs/PUBLIC_PRIVATE_LEAK_REPORT.md` | Whole-tree leak scan currently reports 221 findings, including 51 `move-to-private-overlay` findings. | blocker | Regenerated the scan and left publication blocked. | Review each finding class and decide what must be rewritten, excluded, archived, or accepted before any visibility change. |
+| `docs/PUBLIC_PRIVATE_LEAK_REPORT.md` | Whole-tree leak scan now reports 87 findings: 0 current-tree blockers, 9 history-only blockers, 10 owner-decision blockers, 64 safe guardrail/scanner evidence findings, and 4 false positives. The earlier baseline was 221 findings, including 51 private-overlay findings. | blocker | Neutralized current-tree metadata and docs references, regenerated the scan, and left publication blocked. Scanner detection rules were preserved. | Resolve history-only and owner-decision blockers before any visibility change. |
 | Retired skill aliases | Old names remain only in migration documentation and guardrail scripts/tests that reject old aliases. | acceptable | Active runtime remains canonical-only. | No action unless owner wants additional historical wording cleanup outside this PR. |
 
 ## Publication Rule
@@ -34,3 +34,5 @@ Do not make this repository public, change GitHub visibility, create public rele
 - owner approves license, contribution, security, and community docs,
 - security disclosure channel is owner-approved,
 - Level 5/public release is explicitly approved in a separate reviewed decision.
+
+Passing public package validation does not approve public repository readiness. If leak findings remain, the repository stays blocked unless each remaining finding is resolved or explicitly approved through the owner decision process above.

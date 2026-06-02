@@ -41,7 +41,7 @@ Method registry entries must not use `active`, `native-visible`, or `compiled-fa
   - `external-source`
   - `historical-reference`
   - `restricted-source`
-  - `local-vd-authored`
+  - `toolkit-authored`
 
 Interpretation:
 
@@ -49,7 +49,7 @@ Interpretation:
 - `external-source` : active authority source records for external, non-restricted inputs.
 - `historical-reference` : caution/reference-only sources that are not active authority.
 - `restricted-source` : sources that should not provide method/skill authority by default.
-- `local-vd-authored` : local toolkit authorship context for internal process metadata.
+- `toolkit-authored` : local toolkit authorship context for internal process metadata.
 
 Rules:
 
@@ -76,7 +76,7 @@ If the schema allows it, the following visibility and provenance fields are expe
   - `internal-artifact`
   - `historical-reference`
   - `restricted-source`
-  - `local-vd-authored`
+  - `toolkit-authored`
 
 Presence does not imply runtime activation.
 
