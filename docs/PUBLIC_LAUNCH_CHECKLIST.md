@@ -4,10 +4,9 @@ Status: manual owner checklist only. This document does not authorize repository
 
 ## Manual Owner Steps
 
-- [ ] Make the GitHub profile presentable/public if required for the launch.
 - [ ] Keep all other repositories private.
-- [ ] Create or make public only the sanitized `ai-agents-skills-toolkit` repository.
-- [ ] Pin the toolkit repository on the GitHub profile.
+- [ ] Keep `ai-agents-skills-toolkit` public under the approved publication path.
+- [ ] Pin the toolkit repository on the GitHub profile if desired.
 - [ ] Add approved repository topics:
   - `ai-agents`
   - `codex`
@@ -20,13 +19,13 @@ Status: manual owner checklist only. This document does not authorize repository
 - [ ] Enable Issues if desired for public bug reports and maintainer workflow.
 - [ ] Enable Discussions only if the owner wants a community support channel.
 - [ ] Enable GitHub private vulnerability reporting if available, or configure an owner-approved security disclosure channel.
-- [ ] Create `v0.1.0` release only after final owner approval and public mirror verification.
-- [ ] Submit the Codex OSS application only after the repository is public and verified.
+- [ ] Create `v0.1.0` release only after final launch and validation approval.
+- [ ] Confirm Codex OSS application submission remains pending.
 
 ## Pre-Launch Verification
 
-- [ ] Public mirror was created from an approved sanitized tree only.
-- [ ] No private `.git` history, old private overlays, product repositories, secrets, local files, or old Actions logs were included.
+- [ ] Repository is public and all required public-facing safeguards remain in place.
+- [ ] No private `.git` history, old private overlays, product repositories, secrets, local files, or old Actions logs were newly introduced.
 - [ ] Runtime validation still reports exactly `5` active skills and `12` active agents.
 - [ ] Public package validation passes in the public mirror.
 - [ ] Toolkit validation and evals pass in the public mirror.

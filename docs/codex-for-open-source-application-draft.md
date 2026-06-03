@@ -25,10 +25,10 @@ dependency.
 
 ## Anything else OpenAI should know (max 500 chars)
 
-This repository is not public-ready, and publication is intentionally deferred until owner-level
-history and release-decision blockers are resolved. Public package validation is an allowlist gate only
-and does not certify full-repository publication readiness. The repository remains outside enterprise
-readiness posture until owner-approved disclosure, licensing, and governance conditions are met.
+This repository is public by owner decision and includes intentionally visible PR/commit history for OpenAI Codex OSS review.
+Publication is not yet public-ready: public-package validation is an allowlist gate only and does not certify full-repository readiness.
+No release tag has been created and Codex OSS application submission is still pending.
+Remaining non-current-tree findings are managed through owner-decision, history-only, safe guardrail, and false-positive classifications.
 
 ## Evidence checklist
 

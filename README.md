@@ -4,10 +4,13 @@ AI Agent Skills Toolkit is a documentation-first governance repository for Codex
 
 ## Public release warning
 
-- Repository is not public-ready until owner decisions resolve history- and decision-based blockers.
+- Repository visibility is public by owner decision.
+- Current-tree blockers are 0.
+- Remaining findings are limited to owner-decision blockers, history-only blockers, safe guardrail/scanner evidence, and false positives.
 - Public package validation is **not** whole-repo publication readiness.
-- Only this toolkit repository is positioned for possible future publication.
-- All other repositories remain private unless separately approved.
+- No release tag has been created and Codex OSS application has not been submitted yet.
+- Owner intentionally accepted visible PR/commit history for OpenAI Codex OSS review.
+- Only this toolkit repository is positioned for publication; all other repositories remain private unless separately approved.
 
 ## One-paragraph summary
 
@@ -80,7 +83,7 @@ Public-facing status:
 
 - Canonical runtime is **5 skills and 12 agents**.
 - Public package validation can pass while still not proving whole-repo publication readiness.
-- Repository publication remains blocked until owner, history-clean, and disclosure decisions are resolved.
+- Repository is public now; public launch still requires completion of the remaining policy and history-approval gates.
 - All other repos remain private unless separately approved.
 
 ## Limitations
