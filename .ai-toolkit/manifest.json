@@ -108,7 +108,7 @@
       "source": "agents/product-agent.md",
       "target": ".ai-toolkit/agents/product-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "0463a8b6ac1f48e3b9735264e8d38761fbbfbee980110d12b31eac4cdb1d7da5"
+      "sha256": "2fddf6074bdf15390a2fa8657fc8189bf92e341f95a42ded7ba43afa001b2943"
     },
     {
       "source": ".codex/agents/architect-agent.toml",
@@ -120,7 +120,7 @@
       "source": "agents/architect-agent.md",
       "target": ".ai-toolkit/agents/architect-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "7b4f0363194f4348604969c42169ea92f582ba7da03cca8ec9356d593dce1ccc"
+      "sha256": "c5aec00b999d77e5e44ac8289ce6ae59c8b9b8d2ef585d04ad4a493d171940cf"
     },
     {
       "source": ".codex/agents/reviewer-agent.toml",
@@ -144,7 +144,7 @@
       "source": "agents/uiux-agent.md",
       "target": ".ai-toolkit/agents/uiux-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "ca4f5c8a05961b41397967fa3c0703dedcfd5e6f5e6170bfbfd8fd40ac7b3806"
+      "sha256": "0f52b42ac5b4e14af7345ab41f7925c72c90654473b5c6ec4bb7a32eee21ff7d"
     },
     {
       "source": ".codex/agents/frontend-agent.toml",
@@ -228,7 +228,7 @@
       "source": "agents/skill-scout-agent.md",
       "target": ".ai-toolkit/agents/skill-scout-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "ed91e1b5542900edbf47fbf2d7b633f774c29f1e58512312b980dcba6da98b52"
+      "sha256": "b973bd6a4299b74ae191eb7c451db80ffa687967c558906e44016fe4305af318"
     },
     {
       "source": ".codex/agents/sre-performance-agent.toml",

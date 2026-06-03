@@ -73,4 +73,4 @@ Skill Scout Agent does not import methods directly. It produces source evaluatio
 
 ## Runtime Status
 
-First-class registry and profile agent. Runtime activation remains a follow-up owner decision unless a separate task approves adding a project custom-agent file.
+Repo-local Codex project agent when `.codex/agents/skill-scout-agent.toml` is present. Availability means the agent can be selected/recommended; it is not automatically spawned. Runtime behavior is constrained by the TOML sandbox and instruction boundaries. This agent does not authorize product repo edits, package/CI/MCP changes, global configuration edits, external installs, secret access, or release/application actions without explicit owner approval.
