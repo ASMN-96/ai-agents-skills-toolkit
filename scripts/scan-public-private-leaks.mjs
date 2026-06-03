@@ -178,6 +178,22 @@ function isScannerRuleReference(relativePath) {
     relativePath === "scripts/test-public-package-validator.mjs";
 }
 
+function isGuardrailScriptReference(relativePath) {
+  return relativePath === "scripts/ai-toolkit/build-embedded-package.mjs" ||
+    relativePath === "scripts/ai-toolkit/run-toolkit-evals.mjs" ||
+    relativePath === "scripts/test-sync-runtime.mjs" ||
+    relativePath === "scripts/validate-toolkit.mjs";
+}
+
+function isMigrationNote(relativePath) {
+  return relativePath === "docs/MIGRATION_TO_CANONICAL_SKILLS.md";
+}
+
+function isPublicationReviewEvidence(relativePath) {
+  return relativePath === "docs/PUBLICATION_REVIEW.md" ||
+    relativePath === "docs/PUBLIC_REPOSITORY_READINESS_AUDIT.md";
+}
+
 function isHistoricalDoc(relativePath) {
   return /^(CHANGELOG\.md|docs\/(ROADMAP|REAL_PROJECT_READINESS|PROJECT_SYNC_VALIDATION_REPORT|RUNTIME_VERIFICATION|RUNTIME_VERIFICATION_REPORT|UI_UX_PRO_MAX_AUDIT|UPDATE_POLICY|TOOLKIT_ARCHITECTURE|CODEX_GLOBAL_AVAILABILITY))/i.test(relativePath);
 }
@@ -189,15 +205,36 @@ function isAllowedExampleEmail(match) {
 function classify(finding) {
   if (finding.file.startsWith(".ai-toolkit/private-overlays/")) {
     return {
-      classification: "private-overlay-only",
-      action: "Keep out of public package output; review separately before any public release."
+      classification: "history-only-blocker",
+      action: "Private overlay content must stay out of public output; if present historically, resolve by sanitized mirror or verified history cleanup before visibility change."
     };
   }
 
   if (isScannerRuleReference(finding.file)) {
     return {
-      classification: "allowed-scanner-rule-reference",
+      classification: "safe-guardrail-scanner-evidence",
       action: "Keep; the report-only scanner must name the terms it detects."
+    };
+  }
+
+  if (isGuardrailScriptReference(finding.file)) {
+    return {
+      classification: "safe-guardrail-scanner-evidence",
+      action: "Keep as guardrail evidence; the script/test names retired or rejected terms so they cannot return to active runtime."
+    };
+  }
+
+  if (isMigrationNote(finding.file)) {
+    return {
+      classification: "safe-guardrail-scanner-evidence",
+      action: "Keep as migration evidence; old names are documented as removed from active runtime."
+    };
+  }
+
+  if (isPublicationReviewEvidence(finding.file)) {
+    return {
+      classification: "owner-decision-blocker",
+      action: "Keep as generated publication evidence while the repo remains private; owner must resolve the documented decision before visibility changes."
     };
   }
 
@@ -210,41 +247,41 @@ function classify(finding) {
 
   if (finding.category === "local-machine-path" || finding.id === "private-org-or-repo") {
     return {
-      classification: "must-remove-before-public-release",
-      action: "Replace, mask, or move to a private overlay before any public package or repository release."
+      classification: "current-tree-blocker",
+      action: "Replace, mask, or explicitly approve before any public package or repository release."
     };
   }
 
   if (["vdtwin", "visual-twin"].includes(finding.id)) {
     return {
-      classification: "move-to-private-overlay",
-      action: "Move project-specific naming to a private overlay or neutralize before public release."
+      classification: "current-tree-blocker",
+      action: "Neutralize project-specific naming or move it out of the public candidate tree before publication."
     };
   }
 
   if (isCompatibilitySurface(finding.file, finding.context)) {
     return {
-      classification: "compatibility-public-api-review",
-      action: "Keep temporarily for runtime compatibility; migrate through alias/deprecation strategy before public naming cleanup."
+      classification: "current-tree-blocker",
+      action: "Neutralize active registry/runtime metadata; old private labels must not remain on active public surfaces."
     };
   }
 
   if (isHistoricalDoc(finding.file)) {
     return {
-      classification: "allowed-historical-internal-reference",
-      action: "Keep during internal hardening; exclude, rewrite, or archive before public release."
+      classification: "history-only-blocker",
+      action: "Historical internal reference; exclude, rewrite, archive, or publish only from a sanitized mirror before public release."
     };
   }
 
   if (finding.category === "project-specific-name") {
     return {
-      classification: "move-to-private-overlay",
-      action: "Neutralize public/core wording or move project-specific detail to a private overlay."
+      classification: "current-tree-blocker",
+      action: "Neutralize public/core wording or move project-specific detail out of the public candidate tree."
     };
   }
 
   return {
-    classification: "review-required",
+    classification: "owner-decision-blocker",
     action: "Review manually before public release."
   };
 }
@@ -337,10 +374,11 @@ function renderReport(findings, scannedFiles, maxFindings) {
     "## Rules",
     "",
     "- This scan is evidence only; it does not authorize deletion or renaming.",
-    "- `compatibility-public-api-review` means the term may remain temporarily for active runtime or registry compatibility.",
-    "- `allowed-historical-internal-reference` means the term may remain in internal hardening history but still needs exclusion, rewrite, or archiving before public release.",
-    "- `move-to-private-overlay` means the content should be neutralized in public/core paths or moved behind a future private overlay.",
-    "- `must-remove-before-public-release` blocks public release unless masked, moved, or explicitly excluded."
+    "- `current-tree-blocker` means the current repository tree still contains public-candidate content that must be neutralized, moved out of public scope, or explicitly approved before publication.",
+    "- `history-only-blocker` means the current text is historical evidence or prior exposure; resolve by archival exclusion, rewrite, sanitized mirror, or verified history cleanup before publication.",
+    "- `owner-decision-blocker` means the current text is publication-review evidence that requires an owner decision before visibility changes.",
+    "- `safe-guardrail-scanner-evidence` means the term appears only in scanner rules, migration notes, or guardrails that prevent old names from returning to active runtime.",
+    "- `false-positive` means the match is synthetic, masked, or otherwise non-sensitive evidence."
   );
 
   return `${sections.join("\n")}\n`;

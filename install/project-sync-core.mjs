@@ -22,7 +22,7 @@ function usage(command) {
     install: `AI Agent Skills Toolkit project installer
 
 Usage:
-  bash install/install-project.sh --target <repo> --agents reviewer-agent --profiles audit-profile --skills riss-governance
+  bash install/install-project.sh --target <repo> --agents reviewer-agent --profiles audit-profile --skills governance
   bash install/install-project.sh --target <repo> --config templates/.ai-toolkit.config.example.json
 
 Default behavior is dry-run. Add --confirm-write to copy selected files under the target .ai-toolkit/ directory.`,

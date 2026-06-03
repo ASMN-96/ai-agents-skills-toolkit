@@ -41,7 +41,7 @@ Method registry entries must not use `active`, `native-visible`, or `compiled-fa
   - `external-source`
   - `historical-reference`
   - `restricted-source`
-  - `local-vd-authored`
+  - `toolkit-authored`
 
 Interpretation:
 
@@ -49,7 +49,7 @@ Interpretation:
 - `external-source` : active authority source records for external, non-restricted inputs.
 - `historical-reference` : caution/reference-only sources that are not active authority.
 - `restricted-source` : sources that should not provide method/skill authority by default.
-- `local-vd-authored` : local toolkit authorship context for internal process metadata.
+- `toolkit-authored` : local toolkit authorship context for internal process metadata.
 
 Rules:
 
@@ -76,7 +76,7 @@ If the schema allows it, the following visibility and provenance fields are expe
   - `internal-artifact`
   - `historical-reference`
   - `restricted-source`
-  - `local-vd-authored`
+  - `toolkit-authored`
 
 Presence does not imply runtime activation.
 
@@ -162,7 +162,7 @@ Each method entry must include:
 - `registrySurface`
 - `visibility`
 
-Method entries are metadata only. They must not define trigger cases, required tools, runtime visibility, install behavior, activation behavior, or hidden routing. `riss-governance` may cite method IDs as passive reference inputs, but methods are never selected as skills, plugins, tools, agents, or active runtime capabilities.
+Method entries are metadata only. They must not define trigger cases, required tools, runtime visibility, install behavior, activation behavior, or hidden routing. `governance` may cite method IDs as passive reference inputs, but methods are never selected as skills, plugins, tools, agents, or active runtime capabilities.
 
 The method file referenced by `methodPath` must include frontmatter with `sourceRef`, `lastExtracted`, and `status`. `sourceRef` values must resolve to `sources/source-watchlist.json` IDs, or use `unknown-review-required` when provenance cannot be mapped. `lastExtracted` must be `YYYY-MM-DD` or `unknown-review-required`; unknown must be used until deterministic extraction evidence exists.
 
@@ -213,7 +213,7 @@ Each routing entry should include:
 
 ## Governance Rules
 
-Registries must index existing assets before adding speculative assets. Planned helper skills such as `riss-agent-governance` and `riss-skill-governance` may appear only as documented future contracts until separately approved and implemented.
+Registries must index existing assets before adding speculative assets. Retired helper aliases must not appear as active runtime skills.
 
 External support tools must be marked `external: true`. Superpowers, GSD, Codex plugins, Playwright/browser, GitHub/gh, Supabase tooling/docs, Figma, CodeRabbit, and discovery sources remain external capabilities.
 

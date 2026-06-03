@@ -34,48 +34,36 @@ async function main() {
   const stopConditionEvals = await readJson("evals/stop-conditions/unsafe-request-evals.json");
   const tokenEfficiencyEvals = await readJson("evals/token-efficiency/low-risk-concise-routing-evals.json");
   const namingEvals = await readJson("evals/skills/generic-naming-compatibility-evals.json");
-  const premiumUiuxEvals = await readJson("evals/skills/premium-uiux-review-evals.json");
-  const embeddedPremiumUiuxEvals = await readJson(".ai-toolkit/evals/skills/premium-uiux-review-evals.json");
+  const uiuxEvals = await readJson("evals/skills/uiux-evals.json");
+  const embeddedUiuxEvals = await readJson(".ai-toolkit/evals/skills/uiux-evals.json");
 
   for (const name of [
     "governance",
-    "ai-project-governance",
-    "riss-governance",
     "uiux",
-    "premium-uiux-review",
-    "vd-premium-uiux",
     "code-quality",
-    "webapp-code-quality",
-    "riss-code-quality",
     "security-review",
-    "app-security-review",
-    "riss-security-review",
-    "pr-release-gate",
-    "riss-release-gate"
+    "pr-release-gate"
   ]) {
     if (!skills.skills.some((skill) => skill.name === name)) {
       fail(`skill-${name}`, "expected skill missing from registry");
     }
   }
 
-  const finalNames = new Map([
-    ["ai-project-governance", "governance"],
-    ["riss-governance", "governance"],
-    ["premium-uiux-review", "uiux"],
-    ["vd-premium-uiux", "uiux"],
-    ["webapp-code-quality", "code-quality"],
-    ["riss-code-quality", "code-quality"],
-    ["app-security-review", "security-review"],
-    ["riss-security-review", "security-review"],
-    ["riss-release-gate", "pr-release-gate"],
-  ]);
-  for (const [aliasName, finalName] of finalNames) {
-    const skill = skills.skills.find((entry) => entry.name === aliasName);
-    if (skill?.canonicalName !== finalName || skill?.futurePublicName !== finalName) {
-      fail(`canonical-name-${aliasName}`, `expected canonicalName and futurePublicName ${finalName}`);
-    }
-    if (!["intermediate-alias", "old-compatibility-alias"].includes(skill?.namingMigrationStatus)) {
-      fail(`naming-status-${aliasName}`, "compatibility skill must be classified as an intermediate or old alias");
+  for (const removedName of [
+    "ai-project-governance",
+    "riss-governance",
+    "premium-uiux-review",
+    "vd-premium-uiux",
+    "webapp-code-quality",
+    "riss-code-quality",
+    "app-security-review",
+    "riss-security-review",
+    "riss-release-gate",
+    "riss-agent-governance",
+    "riss-skill-governance"
+  ]) {
+    if (skills.skills.some((entry) => entry.name === removedName)) {
+      fail(`removed-skill-${removedName}`, "old alias/helper skill must not remain in the active skills registry");
     }
   }
 
@@ -86,11 +74,6 @@ async function main() {
     } else if (skill.namingMigrationStatus !== "canonical-final") {
       fail(`canonical-final-status-${finalName}`, "canonical final skill must be canonical-final");
     }
-  }
-
-  const helper = skills.skills.find((skill) => skill.name === "riss-skill-governance");
-  if (!helper || helper.registrySurface !== "internal-helper") {
-    fail("helper-boundary", "riss-skill-governance must remain internal-helper");
   }
 
   const quality = findScenario(matrix, "react-typescript-quality-change");
@@ -117,6 +100,7 @@ async function main() {
   const runtimeEvalIds = new Set((runtimeEvals.cases || []).map((evalCase) => evalCase.id));
   for (const required of [
     "active-project-agent-count-12",
+    "old-alias-not-active",
     "bounded-backend-database-sre-agents",
     "validator-warn-visible",
     "metadata-not-execution"
@@ -173,9 +157,7 @@ async function main() {
     "canonical-quality-final-active",
     "canonical-security-final-active",
     "canonical-release-final-active",
-    "intermediate-aliases-still-active",
-    "old-compatibility-aliases-still-active",
-    "old-names-not-deleted"
+    "old-aliases-removed-from-runtime"
   ]) {
     if (!namingEvalIds.has(required)) {
       fail(`generic-naming-${required}`, "expected generic naming compatibility eval missing");
@@ -186,28 +168,19 @@ async function main() {
   if (premiumSkill?.namingMigrationStatus !== "canonical-final") {
     fail("premium-uiux-future-name", "uiux must be the canonical final UI/UX skill");
   }
-  if (!premiumSkill?.evalSuites?.includes("evals/skills/premium-uiux-review-evals.json")) {
-    fail("premium-uiux-eval-suite", "premium UI/UX skill registry entry must reference the generic eval suite");
+  if (!premiumSkill?.evalSuites?.includes("evals/skills/uiux-evals.json")) {
+    fail("uiux-eval-suite", "uiux skill registry entry must reference the generic eval suite");
   }
 
-  if (JSON.stringify(premiumUiuxEvals) !== JSON.stringify(embeddedPremiumUiuxEvals)) {
-    fail("premium-uiux-embedded-evals", "embedded premium UI/UX eval suite must match top-level eval suite");
+  if (JSON.stringify(uiuxEvals) !== JSON.stringify(embeddedUiuxEvals)) {
+    fail("uiux-embedded-evals", "embedded UI/UX eval suite must match top-level eval suite");
   }
 
-  if (premiumUiuxEvals.canonicalSkill !== "uiux" || premiumUiuxEvals.currentCanonicalSkill !== "uiux") {
-    fail("premium-uiux-current-canonical", "premium UI/UX eval suite must use uiux as canonical and current canonical skill");
-  }
-  if (premiumUiuxEvals.intermediateCompatibilitySkill !== "premium-uiux-review") {
-    fail("premium-uiux-intermediate-alias", "premium UI/UX eval suite must preserve premium-uiux-review as the intermediate alias");
-  }
-  if (premiumUiuxEvals.oldCompatibilitySkill !== "vd-premium-uiux") {
-    fail("premium-uiux-old-alias", "premium UI/UX eval suite must preserve vd-premium-uiux as the old compatibility alias");
-  }
-  if (Object.hasOwn(premiumUiuxEvals, "currentCompatibilitySkill")) {
-    fail("premium-uiux-no-old-current", "premium UI/UX eval suite must not describe vd-premium-uiux as the current skill");
+  if (uiuxEvals.canonicalSkill !== "uiux" || uiuxEvals.currentCanonicalSkill !== "uiux") {
+    fail("uiux-current-canonical", "UI/UX eval suite must use uiux as canonical and current canonical skill");
   }
 
-  const premiumEvalIds = new Set((premiumUiuxEvals.cases || []).map((evalCase) => evalCase.id));
+  const premiumEvalIds = new Set((uiuxEvals.cases || []).map((evalCase) => evalCase.id));
   for (const required of [
     "dashboard-polish-operational",
     "responsive-layout-viewports",
@@ -223,27 +196,21 @@ async function main() {
     }
   }
 
-  for (const evalCase of premiumUiuxEvals.cases || []) {
+  for (const evalCase of uiuxEvals.cases || []) {
     if (evalCase.expectedCurrentSkill && evalCase.expectedCurrentSkill !== "uiux") {
       fail(`premium-uiux-current-${evalCase.id}`, "expectedCurrentSkill must be uiux when present");
     }
     if (evalCase.expectedCanonicalSkill && evalCase.expectedCanonicalSkill !== "uiux") {
       fail(`premium-uiux-canonical-${evalCase.id}`, "expectedCanonicalSkill must be uiux when present");
     }
-    if (evalCase.expectedIntermediateAlias && evalCase.expectedIntermediateAlias !== "premium-uiux-review") {
-      fail(`premium-uiux-intermediate-${evalCase.id}`, "expectedIntermediateAlias must be premium-uiux-review when present");
-    }
-    if (evalCase.expectedOldCompatibilityAlias && evalCase.expectedOldCompatibilityAlias !== "vd-premium-uiux") {
-      fail(`premium-uiux-old-${evalCase.id}`, "expectedOldCompatibilityAlias must be vd-premium-uiux when present");
-    }
   }
 
-  const premiumPrompts = JSON.stringify((premiumUiuxEvals.cases || []).map((evalCase) => evalCase.userPrompt || ""));
+  const premiumPrompts = JSON.stringify((uiuxEvals.cases || []).map((evalCase) => evalCase.userPrompt || ""));
   if (/\bRISS\b|VDTwin|real estate/i.test(premiumPrompts)) {
     fail("premium-uiux-public-safe-prompts", "generic premium UI/UX eval prompts must not contain project-specific names or domains");
   }
 
-  const noFakeBrowser = (premiumUiuxEvals.cases || []).find((evalCase) => evalCase.id === "no-fake-browser-evidence-stop");
+  const noFakeBrowser = (uiuxEvals.cases || []).find((evalCase) => evalCase.id === "no-fake-browser-evidence-stop");
   if (!noFakeBrowser || !includesAll(noFakeBrowser.forbiddenClaims || [], ["browser-verified", "screenshot-reviewed", "visual-qa-passed"])) {
     fail("premium-uiux-no-fake-browser", "no-fake browser eval must forbid browser, screenshot, and visual QA claims without evidence");
   }

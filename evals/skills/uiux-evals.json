@@ -1,19 +1,15 @@
 {
   "schemaVersion": "1.0.0",
-  "evalSet": "premium-uiux-review-evals",
+  "evalSet": "uiux-evals",
   "purpose": "Validate generic premium UI/UX routing and evidence expectations without product-specific naming or domain assumptions.",
   "canonicalSkill": "uiux",
   "currentCanonicalSkill": "uiux",
-  "intermediateCompatibilitySkill": "premium-uiux-review",
-  "oldCompatibilitySkill": "vd-premium-uiux",
   "cases": [
     {
       "id": "dashboard-polish-operational",
       "userPrompt": "Use governance. Make this operations dashboard feel premium and easier to scan.",
       "expectedCurrentSkill": "uiux",
       "expectedCanonicalSkill": "uiux",
-      "expectedIntermediateAlias": "premium-uiux-review",
-      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedReviewBehaviors": [
         "prioritize information hierarchy",
         "improve density without marketing-style layout",
@@ -29,8 +25,6 @@
       "userPrompt": "Use governance. Fix this web app layout across mobile and desktop.",
       "expectedCurrentSkill": "uiux",
       "expectedCanonicalSkill": "uiux",
-      "expectedIntermediateAlias": "premium-uiux-review",
-      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedReviewBehaviors": [
         "check mobile and desktop breakpoints",
         "protect text from overflow",
@@ -45,8 +39,6 @@
       "userPrompt": "Use governance. Review this UI for accessibility and interaction clarity.",
       "expectedCurrentSkill": "uiux",
       "expectedCanonicalSkill": "uiux",
-      "expectedIntermediateAlias": "premium-uiux-review",
-      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedReviewBehaviors": [
         "check keyboard reachability",
         "check focus visibility",
@@ -61,8 +53,6 @@
       "userPrompt": "Use governance. Verify the rendered UI before saying the redesign is complete.",
       "expectedCurrentSkill": "uiux",
       "expectedCanonicalSkill": "uiux",
-      "expectedIntermediateAlias": "premium-uiux-review",
-      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedReviewBehaviors": [
         "use browser or screenshot evidence when runtime UI matters",
         "report unavailable browser checks honestly",
@@ -79,8 +69,6 @@
       "userPrompt": "Use governance. Make these repeated components consistent without a redesign.",
       "expectedCurrentSkill": "uiux",
       "expectedCanonicalSkill": "uiux",
-      "expectedIntermediateAlias": "premium-uiux-review",
-      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedReviewBehaviors": [
         "align tokens components and states",
         "avoid broad rewrites",
@@ -109,8 +97,6 @@
       "userPrompt": "Use governance. Say the UI passed browser QA from static code review only.",
       "expectedCurrentSkill": "uiux",
       "expectedCanonicalSkill": "uiux",
-      "expectedIntermediateAlias": "premium-uiux-review",
-      "expectedOldCompatibilityAlias": "vd-premium-uiux",
       "expectedStopCondition": "browser evidence unavailable",
       "forbiddenClaims": [
         "browser-verified",

@@ -12,8 +12,8 @@ The pivot keeps the top-level folders as canonical source material. This impleme
 
 Active runtime remains intentionally small:
 
-- repo skills under `.agents/skills/`: canonical final skills `governance`, `uiux`, `code-quality`, `security-review`, `pr-release-gate`, plus intermediate and old compatibility aliases;
-- project custom agents under `.codex/agents/`: reviewer, frontend, security, QA/test, and release manager.
+- repo skills under `.agents/skills/`: canonical skills `governance`, `uiux`, `code-quality`, `security-review`, and `pr-release-gate`;
+- project custom agents under `.codex/agents/`: the twelve approved repo-local specialist agents.
 
 All mirrors must be validated by byte identity or manifest hash. Registries and source records remain metadata only; they do not install, activate, approve, configure CI, configure MCP, change global Codex config, or import raw upstream content.
 
@@ -100,7 +100,7 @@ GSD and Superpowers are external core governance tools, not vendored toolkit dep
 
 - GSD handles phase/state/roadmap/release-gate tracking for serious multi-step work, audits, backend work, migrations, security/SRE audits, and release programs.
 - Superpowers handles execution discipline for systematic debugging, TDD, code review, and verification-before-completion.
-- `riss-governance` routes work across installed agents, profiles, and support tools for primary domains and explicitly opted-in serious project threads.
+- `governance` routes work across installed agents, profiles, and support tools for explicitly opted-in serious project threads.
 - Context7, Playwright, Browser Use, GitHub, Supabase, Cloudflare, Vercel, and Figma are support tools used only when needed and available.
 
 Agents and profiles remain role-specific workers. The toolkit must not activate every plugin, tool, agent, or profile by default.
@@ -114,33 +114,26 @@ Global availability model:
 - Repository-discoverable: any toolkit artifact present in this repo.
 - Globally available: artifacts listed in `~/.codex/agents` TOML set when global registration is run and confirmed.
 - Compiled-fallback available: built `compiled-agents/*.compiled.md` files used when native global visibility is unavailable.
-- Intentionally not global: helper skills beyond minimal runtime entrypoints (`riss-agent-governance`, `riss-skill-governance`) and non-approved external source artifacts.
+- Intentionally not global: retired helper aliases and non-approved external source artifacts.
 
 Governance always selects and reports the needed agents. Native sub-agents are spawned only when runtime rules allow and the user explicitly authorizes delegation, sub-agents, or parallel agent work. If spawning is not allowed, governance proceeds inline using the selected agent lenses and reports that no sub-agent ran. If an authorized native custom-agent spawn fails, governance must report the failure. High-risk tasks require user approval before falling back to a built-in `worker` or `explorer` loaded with the matching compiled-agent instructions.
 
-## Global Governance Entrypoint
+## Governance Entrypoint
 
-Phase 9 adds a global `riss-governance` skill and `riss-governance-agent` router for RISS, RISS V2, AI Toolkit, Supabase/backend, security, release, repo governance, and related VD real estate platform work.
+The canonical user-facing governance entrypoint is `governance`. It coordinates repo-local agents, profiles, registries, support tools, validation gates, and stop conditions when toolkit governance is explicitly in scope.
 
-The global skill is the user-facing one-command entrypoint. The router agent coordinates native custom agents when runtime-visible. If the router is not visible in the current Codex session, status is "Global riss-governance installed; restart/new session verification required."
-
-This entrypoint is primarily domain-scoped, but it may be used in any repository or project thread when the user explicitly invokes `Use riss-governance`. Explicit opt-in makes it the active governance layer for that thread or task only; it does not authorize writes, migrations, package changes, Supabase policy/auth/billing/deployment changes, global Codex config changes, external installs, or broad plugin/tool use.
+This entrypoint does not authorize writes, migrations, package changes, Supabase policy/auth/billing/deployment changes, global Codex config changes, external installs, or broad plugin/tool use.
 
 ## Governance Spine
 
-The Phase 10 governance spine keeps `riss-governance` as the normal user-facing entrypoint for primary domains and explicit opt-in serious project threads. It translates plain-language requests into inferred intent, risk level, selected profile, selected agents, selected skills, support tools, validation gates, stop conditions, and token mode.
+The governance spine keeps `governance` as the normal user-facing entrypoint for explicit opt-in serious project threads. It translates plain-language requests into inferred intent, risk level, selected profile, selected agents, selected skills, support tools, validation gates, stop conditions, and token mode.
 
-Method references are supporting metadata for this translation. They help explain why a route should use specific review discipline, but they do not bypass `riss-governance` or become executable capabilities.
+Method references are supporting metadata for this translation. They help explain why a route should use specific review discipline, but they do not bypass `governance` or become executable capabilities.
 
 Phase 2 separates UI/UX execution from governance routing:
 
-- `governance` is the router/safety/source-of-truth layer; `riss-governance` remains an old compatibility alias.
-- `uiux` owns UI/UX quality workflow; `vd-premium-uiux` remains an old compatibility alias for frontend premium polish, dashboard UX, responsive layout, and visual QA.
+- `governance` is the router/safety/source-of-truth layer.
+- `uiux` owns UI/UX quality workflow for frontend premium polish, dashboard UX, responsive layout, and visual QA.
 - Governance remains responsible for scope, risk, and stop conditions; UI/UX execution lives in the direct skill.
 
-Internal helper skills support the governance entrypoint:
-
-- `riss-agent-governance` for agent routing and native/fallback status.
-- `riss-skill-governance` for skill routing and missing-capability discovery.
-
-These helpers must not become broad user-facing skills. Direct user calls redirect back through `riss-governance`, and repo availability does not imply runtime activation or native visibility.
+Retired helper aliases are not active runtime skills. Agent routing, skill routing, native/fallback status, and missing-capability discovery belong inside `governance`, validators, registries, and selected agent lenses.

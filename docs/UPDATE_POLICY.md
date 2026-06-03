@@ -106,26 +106,26 @@ External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.m
 - Compiled agents remain the canonical fallback source and must be regenerated intentionally before updating global custom agents.
 - Do not set custom model, sandbox, MCP server, or tool permissions in Phase 8 v1.
 
-## Phase 9 Global Governance Entrypoint Rules
+## Phase 9 Governance Entrypoint Rules
 
-- The global `riss-governance` skill is scoped to RISS, RISS V2, AI Toolkit, Supabase/backend, security, release, repo governance, and related VD real estate platform work.
-- Other repositories and projects may use `riss-governance` only when the user explicitly invokes `Use riss-governance`.
+- The canonical `governance` skill is scoped to toolkit-governed product, backend, security, release, and repo governance work.
+- Other repositories and projects may use `governance` only when the user explicitly opts into toolkit governance.
 - Explicit invocation authorizes routing, planning, read-only checks, capability selection, and validation gates within the selected mode, repo scope, runtime permissions, and user-approved boundaries.
 - Explicit invocation does not authorize writes, migrations, package or dependency changes, Supabase policy/RLS changes, auth changes, billing changes, deployment or release changes, global Codex config changes, external installs, or broad plugin/tool use.
-- Do not infer `riss-governance` for unrelated projects from vague quality language alone.
-- The global `riss-governance-agent` router may coordinate native custom agents when runtime-visible.
+- Do not infer `governance` for unrelated projects from vague quality language alone.
+- Repo-local agents may coordinate specialist review when runtime-visible.
 - Always select and report needed agents. Spawn native sub-agents only when runtime rules allow and the user explicitly authorizes delegation, sub-agents, or parallel agent work.
 - If spawning is not allowed, proceed inline using the selected agent lenses and report that limitation. Never claim a spawned agent ran unless it actually ran.
 - Do not claim full runtime visibility until a new-session skill and router-agent visibility test passes.
-- If current-session hot-load fails, report: "Global riss-governance installed; restart/new session verification required."
+- If current-session hot-load fails, report that restart/new-session verification is required.
 - High-risk fallback from native agents to compiled-agent instructions requires user approval.
 
 ## Phase 10A/10B Governance Spine Rules
 
 - Registries are metadata only and never imply activation.
 - Register existing assets before adding speculative assets.
-- `riss-governance` remains the normal user-facing entrypoint.
-- `riss-agent-governance` and `riss-skill-governance` are internal helper skills only when implemented and approved; direct user calls must redirect through `riss-governance`.
+- `governance` remains the normal user-facing entrypoint.
+- Retired helper aliases are not active runtime skills.
 - Missing-skill discovery is read-only by default and may check local registries, source records, skills.sh, GitHub, GitLab, and official docs.
 - Discovery must not install, activate, clone, copy raw skills, run scripts, modify global config, or modify product repos.
 - Support tools may be selected only when useful, and physical invocation must respect mode, runtime availability, and approval boundaries.

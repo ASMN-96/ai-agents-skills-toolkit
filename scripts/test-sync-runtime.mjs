@@ -33,9 +33,9 @@ function sha256Text(text) {
 async function withTempRuntimeFixture(callback) {
   const fixture = mkdtempSync(path.join(tmpdir(), "sync-runtime-test-"));
   try {
-    mkdirSync(path.join(fixture, "skills", "riss-governance"), { recursive: true });
+    mkdirSync(path.join(fixture, "skills", "governance"), { recursive: true });
     mkdirSync(path.join(fixture, ".ai-toolkit"), { recursive: true });
-    writeFileSync(path.join(fixture, "skills", "riss-governance", "SKILL.md"), "skill fixture\n", "utf8");
+    writeFileSync(path.join(fixture, "skills", "governance", "SKILL.md"), "skill fixture\n", "utf8");
     return await callback(fixture);
   } finally {
     if (fixture.startsWith(tmpdir())) rmSync(fixture, { recursive: true, force: true });
@@ -49,13 +49,13 @@ function writeManifest(fixture, mirrors) {
 function skillMirrors() {
   return [
     {
-      source: "skills/riss-governance/SKILL.md",
-      target: ".agents/skills/riss-governance/SKILL.md",
+      source: "skills/governance/SKILL.md",
+      target: ".agents/skills/governance/SKILL.md",
       sha256: ""
     },
     {
-      source: "skills/riss-governance/SKILL.md",
-      target: ".ai-toolkit/skills/riss-governance/SKILL.md",
+      source: "skills/governance/SKILL.md",
+      target: ".ai-toolkit/skills/governance/SKILL.md",
       sha256: ""
     }
   ];
@@ -70,15 +70,15 @@ test("dry-run checks active runtime skill mirrors without writing", async () => 
 
   assert.equal(result.code, 0);
   assert.match(result.stdout, /sync-runtime mode: dry-run/);
-  assert.match(result.stdout, /riss-governance/);
+  assert.match(result.stdout, /governance/);
   assert.match(result.stdout, /manifest: checked; hashes not written/);
 });
 
-test("refuses internal helper skills", async () => {
-  const result = await runSync(["--dry-run", "--skill", "riss-agent-governance"]);
+test("refuses removed alias skills", async () => {
+  const result = await runSync(["--dry-run", "--skill", "riss-governance"]);
 
   assert.notEqual(result.code, 0);
-  assert.match(result.stderr, /Refusing internal helper skill riss-agent-governance/);
+  assert.match(result.stderr, /Refusing non-allowlisted skill riss-governance/);
 });
 
 test("refuses unknown non-allowlisted skills", async () => {
@@ -92,7 +92,7 @@ test("dry-run previews missing mirrors without reading or writing them", async (
   await withTempRuntimeFixture(async (fixture) => {
     writeManifest(fixture, skillMirrors());
 
-    const result = await runSync(["--dry-run", "--skill", "riss-governance"], { cwd: fixture });
+    const result = await runSync(["--dry-run", "--skill", "governance"], { cwd: fixture });
 
     assert.equal(result.code, 0, result.stderr);
     assert.match(result.stdout, /would-create/);
@@ -108,7 +108,7 @@ test("confirm-write fails before partial writes when manifest mirror entries are
   await withTempRuntimeFixture(async (fixture) => {
     writeManifest(fixture, [skillMirrors()[0]]);
 
-    const result = await runSync(["--confirm-write", "--skill", "riss-governance"], { cwd: fixture });
+    const result = await runSync(["--confirm-write", "--skill", "governance"], { cwd: fixture });
 
     assert.notEqual(result.code, 0);
     assert.match(result.stderr, /Manifest missing mirror entries/);
@@ -123,13 +123,13 @@ test("confirm-write creates missing mirrors and updates manifest hashes", async 
     const mirrors = skillMirrors();
     writeManifest(fixture, mirrors);
 
-    const result = await runSync(["--confirm-write", "--skill", "riss-governance"], { cwd: fixture });
+    const result = await runSync(["--confirm-write", "--skill", "governance"], { cwd: fixture });
 
     assert.equal(result.code, 0, result.stderr);
     assert.match(result.stdout, /created/);
     assert.match(result.stdout, /manifest: hashes updated/);
 
-    const sourceText = readFileSync(path.join(fixture, "skills", "riss-governance", "SKILL.md"), "utf8");
+    const sourceText = readFileSync(path.join(fixture, "skills", "governance", "SKILL.md"), "utf8");
     const expectedHash = sha256Text(sourceText);
     const manifest = JSON.parse(readFileSync(path.join(fixture, ".ai-toolkit", "manifest.json"), "utf8"));
     for (const mirror of mirrors) {

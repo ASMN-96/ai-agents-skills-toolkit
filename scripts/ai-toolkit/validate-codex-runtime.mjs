@@ -2,7 +2,7 @@
 import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
-import { ACTIVE_AGENT_FILES, ACTIVE_SKILLS, INTERNAL_HELPER_SKILLS, UNSAFE_COMMAND_PATTERNS } from "./embedded-data.mjs";
+import { ACTIVE_AGENT_FILES, ACTIVE_SKILLS, UNSAFE_COMMAND_PATTERNS } from "./embedded-data.mjs";
 
 const ROOT = process.cwd();
 const failures = [];
@@ -82,11 +82,6 @@ async function validateActiveSkills() {
   for (const required of ACTIVE_SKILLS) {
     if (!runtimeSkills.includes(required)) {
       fail(".agents/skills", `missing active skill ${required}`);
-    }
-  }
-  for (const helper of INTERNAL_HELPER_SKILLS) {
-    if (runtimeSkills.includes(helper)) {
-      fail(`.agents/skills/${helper}`, "internal helper skill must not be user-facing runtime");
     }
   }
   for (const skill of runtimeSkills) {

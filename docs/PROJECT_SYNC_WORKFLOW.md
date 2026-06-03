@@ -13,7 +13,7 @@ pwsh -NoProfile -File install/install-project.ps1 `
   -TargetPath C:\path\to\project `
   -Agents skill-scout-agent,reviewer-agent,qa-test-agent,security-agent `
   -Profiles audit-profile `
-  -Skills riss-governance
+  -Skills governance
 ```
 
 macOS/Linux/Git Bash equivalent:
@@ -23,7 +23,7 @@ bash install/install-project.sh \
   --target /path/to/project \
   --agents skill-scout-agent,reviewer-agent,qa-test-agent,security-agent \
   --profiles audit-profile \
-  --skills riss-governance
+  --skills governance
 ```
 
 The command above is a dry-run. It shows the files that would be copied into:
@@ -127,13 +127,13 @@ The sync scripts only manage selected files under `.ai-toolkit/`. They do not cr
 
 Project-local context remains owned by the target project.
 
-## Recommended First VT/RISS Dry Run
+## Recommended First Project Dry Run
 
-For a future VT/RISS adoption, start with the smallest read-only set:
+For a future project adoption, start with the smallest read-only set:
 
 ```powershell
 pwsh -NoProfile -File install/install-project.ps1 `
-  -TargetPath C:\path\to\vt-or-riss `
+  -TargetPath C:\path\to\project `
   -Agents skill-scout-agent,reviewer-agent,qa-test-agent,security-agent `
   -Profiles audit-profile
 ```

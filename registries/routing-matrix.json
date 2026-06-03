@@ -942,42 +942,6 @@
       ]
     },
     {
-      "scenario": "direct-helper-skill-call",
-      "userLanguageExamples": [
-        "Use riss-agent-governance directly.",
-        "Call riss-skill-governance instead of riss-governance."
-      ],
-      "inferredIntent": "Redirect direct helper-skill requests back to the riss-governance entrypoint.",
-      "riskLevel": "medium",
-      "selectedProfile": "planning-profile",
-      "agents": [
-        "reviewer-agent"
-      ],
-      "skills": [
-        "governance"
-      ],
-      "supportTools": [],
-      "stopConditions": [
-        "Helper skill is requested as a direct user-facing entrypoint",
-        "Requested helper is unavailable in the current runtime"
-      ],
-      "validationGates": [
-        "Direct helper use refused or redirected",
-        "No helper runtime activation claimed",
-        "riss-governance remains the normal entrypoint"
-      ],
-      "expectedCompletionReport": [
-        "Redirect status",
-        "Helper availability caveat",
-        "Next safe action"
-      ],
-      "tokenMode": "concise",
-      "methodReferences": [
-        "internal.skill-anatomy",
-        "internal.source-safety-scoring"
-      ]
-    },
-    {
       "scenario": "react-typescript-quality-change",
       "userLanguageExamples": [
         "Fix this TypeScript issue.",

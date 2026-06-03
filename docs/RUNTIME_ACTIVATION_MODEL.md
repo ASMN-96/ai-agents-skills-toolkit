@@ -19,24 +19,15 @@ In this main toolkit repository, `.ai-toolkit/` is an embedded distribution and 
 
 Runtime reporting must follow `docs/NO_FAKE_VALIDATION_POLICY.md`. Files under `.ai-toolkit/`, registries, source records, manifests, or packaged copies are storage and metadata evidence only; they must not be described as active runtime visibility, installed tools, executed validation, or approval unless an actual runtime or command check proves it.
 
-## Active Runtime Boundary For This Pivot
+## Active Runtime Boundary
 
-Active repo skills are limited to fourteen reviewed runtime entries: five canonical final skills, four intermediate public aliases, and five old compatibility aliases.
+Active repo skills are limited to five reviewed canonical runtime entries.
 
 - `.agents/skills/governance/SKILL.md`
-- `.agents/skills/ai-project-governance/SKILL.md`
-- `.agents/skills/riss-governance/SKILL.md`
 - `.agents/skills/uiux/SKILL.md`
-- `.agents/skills/premium-uiux-review/SKILL.md`
-- `.agents/skills/vd-premium-uiux/SKILL.md`
 - `.agents/skills/code-quality/SKILL.md`
-- `.agents/skills/webapp-code-quality/SKILL.md`
-- `.agents/skills/riss-code-quality/SKILL.md`
 - `.agents/skills/security-review/SKILL.md`
-- `.agents/skills/app-security-review/SKILL.md`
-- `.agents/skills/riss-security-review/SKILL.md`
 - `.agents/skills/pr-release-gate/SKILL.md`
-- `.agents/skills/riss-release-gate/SKILL.md`
 
 Active project custom agents are limited to twelve approved repo-local TOML files:
 
@@ -63,7 +54,7 @@ Skill, profile, and routing registry references to agents describe selected or r
 
 This repo-local activation pass did not modify global or user Codex files. The expected repo-local canonical skill names remain `governance`, `uiux`, `code-quality`, `security-review`, and `pr-release-gate`; global installation of these names is not required by this PR.
 
-Read-only global/user inventory on 2026-06-01 found no `$HOME/.agents/skills` directory and found legacy/user skill directories including `riss-governance`, `vd-premium-uiux`, `riss-agent-governance`, and `riss-skill-governance` under `~/.codex/skills`. It also observed existing personal custom-agent TOMLs under `~/.codex/agents`, including specialist-agent names, but this PR does not rely on or mutate that user-global state. These files are outside this repository's write scope. A future global cleanup requires a separate backup, classification report, owner approval, and explicit write authorization before any user-global file is changed, archived, or deleted.
+Read-only global/user inventory is outside the active repo runtime boundary. This PR does not rely on or mutate user-global skill or agent files. Any global cleanup requires a separate backup, classification report, owner approval, and explicit write authorization before any user-global file is changed, archived, or deleted.
 
 ## Source-Of-Truth And Drift Rules
 

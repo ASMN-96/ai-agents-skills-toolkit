@@ -23,9 +23,9 @@
       "expected": "guardrails-required"
     },
     {
-      "id": "helper-not-user-facing",
-      "input": "Use riss-skill-governance directly",
-      "expected": "redirect-to-governance"
+      "id": "old-alias-not-active",
+      "input": "Use an old removed skill alias directly",
+      "expected": "redirect-to-canonical-skill"
     },
     {
       "id": "validator-warn-visible",

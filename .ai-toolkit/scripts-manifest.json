@@ -4,11 +4,11 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "8518017479ab8b8dc855ec2534abd11f53ef740317f571e078cfa245ac46d242"
+      "sha256": "1df57b02a73dedd0927afe379dbc9c5f90350f7f056c2ad7afcf439c3e567f94"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
-      "sha256": "1073aa5a527c4e9355a352e0f6264e3f613e0bca5c8b12887cdcb8a583f8d561"
+      "sha256": "3d042a98f51371c100b951c02c4c1d9ca5dab13aec6c836d9e64d487b71b076b"
     },
     {
       "path": "scripts/classify-stale-unverified-data.mjs",
@@ -32,15 +32,15 @@
     },
     {
       "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",
-      "sha256": "1fe6bac4acd91d889318eedc587cdb8fc092b4257731ac306b7013c2a7cc4424"
+      "sha256": "6aeab52f7a0f54aa26532ac8f208dad2181b5c4eaed30271e2b6f6735646cf0f"
     },
     {
       "path": "scripts/ai-toolkit/validate-version-consistency.mjs",
-      "sha256": "d624bca3cf594b790dc4c4f6db4b227b56421fef4f9782ffe1779dd4cc4009fd"
+      "sha256": "215cc1fe83530c8779e7bc17a6a3004e388eff75fdd40ccefc03421b5bc94827"
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "6b9108be798c235624dd9c0fd202f1d43df3f7bbaa7022bd39f8c7af317d62b7"
+      "sha256": "96979eed26d32e1598b177b8fa18ee0e75cdb0235f4b6d38f9ad63f0985aeb0a"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",

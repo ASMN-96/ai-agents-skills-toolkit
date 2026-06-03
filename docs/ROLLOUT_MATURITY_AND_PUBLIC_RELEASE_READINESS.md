@@ -44,8 +44,10 @@ Deferred Level 4 evidence backlog:
 
 Current blockers for Level 5:
 
-- Public/private leak report now has zero hard-removal findings, but other internal/private classifications still require package exclusion or owner acceptance before public release.
-- Generic public naming aliases/wrappers are implemented and old names remain compatible for one migration window.
+- Public package validation is allowlist-only and does not certify the whole repository tree or Git history for public GitHub visibility.
+- Whole-repo publication review is blocked until `docs/PUBLICATION_REVIEW.md` and `docs/PUBLIC_REPOSITORY_READINESS_AUDIT.md` findings are resolved.
+- The project-specific private overlay was removed from the current tree, but historical Git exposure remains unresolved until the owner chooses a clean sanitized repository/mirror or verified history cleanup.
+- Public runtime is canonical-only: 5 active skills and 12 active repo-local project agents. Old aliases are not active runtime names.
 - Public package allowlist is enforced by `node scripts/validate-public-package.mjs`; current report is `docs/PUBLIC_PACKAGE_VALIDATION_REPORT.md`.
 - `LICENSE`, `CONTRIBUTING.md`, and `CODE_OF_CONDUCT.md` are present but still require owner/legal/community approval before publication.
 - `SECURITY.md` now defines supported scope and reporting expectations, but the final vulnerability-reporting channel still needs an owner-approved private contact path.
@@ -77,8 +79,11 @@ Level 5 additionally requires:
 
 - public package allowlist validation,
 - public/private leak scan with zero unresolved public-release blockers in public package paths,
-- generic naming compatibility implemented and verified,
+- whole-repo publication review with zero unresolved public-repository blockers,
+- resolved private overlay and Git history decision,
+- canonical-only runtime validation for 5 active skills and 12 active project agents,
 - license/contribution/security/community policy files approved,
+- owner-approved security disclosure channel,
 - release artifact reproducibility check,
 - public install/update docs verified from a clean clone.
 
@@ -99,8 +104,9 @@ Proposed Level 4 threshold:
 Proposed Level 5 threshold:
 
 - Public package validation must have zero unresolved public-release blockers.
-- Public release notes must list any accepted historical exclusions.
-- No private overlay markers may exist in public package output.
+- Whole-repo publication review must have zero unresolved public-repository blockers.
+- Public release notes must list any accepted historical exclusions and history-cleanup decision.
+- No private overlay content may exist in the current public repository tree or public package output.
 
 ## Owners
 
@@ -114,6 +120,7 @@ Owner decisions still required:
 - security disclosure owner,
 - community/contribution owner,
 - release owner.
+- private overlay/history cleanup owner.
 
 Until these are assigned, Level 4 remains deferred and Level 5 remains not started.
 
@@ -144,8 +151,10 @@ Forbidden without separate approval:
 ## Public Release Checklist
 
 - Public/private leak scan has zero unresolved blockers for public package paths.
+- Whole-repo publication review has zero unresolved blockers.
+- Private overlay and Git history exposure decisions are resolved.
 - Stale/unverified classification has no private overlay markers or unresolved `review-required` content in public package output.
-- Generic naming aliases/wrappers are implemented and old names are deprecated but compatible.
+- Public runtime is canonical-only: 5 active skills and 12 active project agents.
 - `sourceRef`, `lastExtracted`, and method status are present and validated.
 - External tool enterprise metadata is complete for any tool described as approved.
 - Source freshness issue workflow remains dry-run unless live issue creation receives separate approval.
@@ -154,6 +163,7 @@ Forbidden without separate approval:
 - `CONTRIBUTING` is present and approved.
 - `CODE_OF_CONDUCT` decision is recorded.
 - `SECURITY.md` includes public vulnerability reporting and supported-scope details.
+- Security disclosure channel is owner-approved.
 - Release notes state exact level, known WARNs, exclusions, and rollback.
 - Clean-clone verification passes from documented commands.
 

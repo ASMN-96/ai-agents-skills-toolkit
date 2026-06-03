@@ -26,4 +26,4 @@ External sources are reviewed references until approved.
 - `historical-reference`: sources kept for context and comparison but not active authority.
 - `restricted-source`: sources that are read-only/reference-only until explicit governance review clears scope and restrictions.
 - `internal-artifact`: local or internal toolkit-owned process artifacts.
-- `local-vd-authored`: normal local authorship context for internal process metadata.
+- `toolkit-authored`: normal local authorship context for internal process metadata.

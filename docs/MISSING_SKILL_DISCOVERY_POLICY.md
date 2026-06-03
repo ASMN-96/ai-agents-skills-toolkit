@@ -1,6 +1,6 @@
 # Missing Skill Discovery Policy
 
-The user should not need to know which skill is needed or whether a capability exists locally. `riss-governance` may identify missing capabilities and perform safe read-only discovery when useful.
+The user should not need to know which skill is needed or whether a capability exists locally. `governance` may identify missing capabilities and perform safe read-only discovery when useful.
 
 ## Allowed Read-Only Discovery
 

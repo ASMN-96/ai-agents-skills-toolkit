@@ -2,8 +2,8 @@
 
 ## Roles
 
-- `riss-governance` is the user-facing governance/router and safety source-of-truth for scoped serious work.
-- `vd-premium-uiux` is the execution skill for frontend UX/UI premium polish when UI behavior is explicitly in scope.
+- `governance` is the user-facing governance/router and safety source-of-truth for scoped serious work.
+- `uiux` is the execution skill for frontend UX/UI premium polish when UI behavior is explicitly in scope.
 - `profiles/` define task-mode bundles for execution expectations (audit/read-only, implementation, frontend, backend, UI/UX, security, SRE, release).
 - `agents/` define specialist role behavior and are the selection layer for deeper routing.
 - `methods/` are passive reference material; they inform agents but do not execute.
@@ -11,17 +11,17 @@
 
 ## Core Routing
 
-- Start with `riss-governance` when governance, safety, source checks, release posture, or multi-step project work is needed.
-- Use `riss-governance` to select agents/profiles/support tools, then switch to profiles and helper skills only as allowed by request scope.
-- Use `vd-premium-uiux` when the request is primarily dashboard/UI polish, premium frontend quality, responsive/layout/accessibility checks, or visual QA.
+- Start with `governance` when governance, safety, source checks, release posture, or multi-step project work is needed.
+- Use `governance` to select agents/profiles/support tools, then switch to focused skills only as allowed by request scope.
+- Use `uiux` when the request is primarily dashboard/UI polish, premium frontend quality, responsive/layout/accessibility checks, or visual QA.
 - Do not treat keyword overlap as execution selection: UI/UX execution must be explicitly selected through scenario/scoping signals (for example dashboard/user-facing redesign language), not through matching words alone.
 
 ## Scope Boundaries
 
-- `riss-governance` does not replace normal behavior for unrelated tasks unless the user explicitly opts in via `Use riss-governance`.
-- `vd-premium-uiux` should not be selected for backend-only, RLS/database-only, security-only, release-only, or docs-only work unless UI behavior is directly impacted.
-- Helper skills (`riss-agent-governance`, `riss-skill-governance`) are internal and should not be treated as direct user entrypoints.
-- `riss-governance` always remains router/safety/source-of-truth; `vd-premium-uiux` only executes UI/UX workflow after route selection.
+- `governance` does not replace normal behavior for unrelated tasks unless the user explicitly opts into toolkit governance.
+- `uiux` should not be selected for backend-only, RLS/database-only, security-only, release-only, or docs-only work unless UI behavior is directly impacted.
+- Retired helper names are not active runtime skills and should not be treated as direct user entrypoints.
+- `governance` always remains router/safety/source-of-truth; `uiux` only executes UI/UX workflow after route selection.
 
 ## When To Stop
 
@@ -47,15 +47,15 @@
   - `external-source`
   - `historical-reference`
   - `restricted-source`
-  - `local-vd-authored`
+  - `toolkit-authored`
 - External authority sources must have source records and watchlist entries.
 - Historical/reference and restricted sources are non-authority by default and should not be used for method/skill execution.
 - `sourceRecordPath` in watchlist records identifies the source intake record and is not itself executable authority.
 
 ## Routing Boundary Invariants
 
-- Helper skills are never direct UI/UX execution.
-- `vd-premium-uiux` must not be included in routing for:
+- Retired helper names are never direct UI/UX execution.
+- `uiux` must not be included in routing for:
   - backend-only tasks,
   - RLS-only migrations,
   - security-only audits,

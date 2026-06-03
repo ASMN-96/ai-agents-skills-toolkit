@@ -28,9 +28,9 @@ None.
 - docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md
 - docs/PRIVATE_OVERLAY_BOUNDARY.md
 - docs/PUBLIC_RELEASE_CHECKLIST.md
-- skills/ai-project-governance
-- skills/premium-uiux-review
-- skills/webapp-code-quality
-- skills/app-security-review
+- skills/governance
+- skills/uiux
+- skills/code-quality
+- skills/security-review
 - skills/pr-release-gate
 - templates

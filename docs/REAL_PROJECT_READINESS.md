@@ -8,14 +8,14 @@ After the 2026-05-30 first representative pilot, the toolkit is Level 3 certifie
 
 Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project checks, PR review, and passing CI. This does not authorize automatic rollout or runtime/global activation.
 
-Phase 10L governance UX hardening did not upgrade readiness by itself. The Level 3 upgrade is based on the merged RISS v2 project-sync pilot recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`. Internal helper skill files remain repo-available artifacts unless a fresh-session runtime check confirms visibility and fallback behavior.
+Phase 10L governance UX hardening did not upgrade readiness by itself. The Level 3 upgrade is based on the merged representative project-sync pilot recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`. Retired helper skill names are not active runtime skills.
 
 ## Readiness Levels
 
 | Level | Name | Meaning | Allowed Use |
 | --- | --- | --- | --- |
 | 0 | Repository complete | Toolkit files, docs, registries, compiled agents, and policies exist | Toolkit development only |
-| 1 | Current-session visible | Current Codex session can see `riss-governance` and validated compiled fallbacks | Toolkit review and planning |
+| 1 | Current-session visible | Current Codex session can see `governance` and validated compiled fallbacks | Toolkit review and planning |
 | 2 | Fresh-session verified | A new Codex session confirms skill visibility, agent native/fallback status, support-tool availability, and no silent fallback | One controlled real-project pilot |
 | 3 | Pilot validated | One representative project sync is reviewed, version-pinned, validated, and merged through PR | Normal use in comparable real projects |
 | 4 | Broad rollout | Multiple project pilots pass with no governance drift or unsafe sync behavior | Wider rollout, still phase-gated |
@@ -26,8 +26,8 @@ Phase 10L governance UX hardening did not upgrade readiness by itself. The Level
 Before the first real-project pilot, run a fresh-session smoke test and record a dated report. The report must confirm:
 
 - The exact toolkit commit being certified.
-- `riss-governance` is visible in the new session.
-- Helper skills are reported as planned, repo-available, unavailable, or runtime-visible as applicable, and are not silently assumed active.
+- `governance` is visible in the new session.
+- Retired helper aliases are not silently assumed active.
 - The 12 core agents are either native-visible or have present compiled fallback files.
 - Superpowers, GSD, GitHub/gh, browser/Playwright, Supabase, CodeRabbit, and other support tools are reported as available, unavailable with fallback, or not needed.
 - No fallback from native agent to compiled instructions is hidden.
@@ -50,7 +50,7 @@ pwsh -NoProfile -File install/install-project.ps1 `
   -TargetPath C:\path\to\project `
   -Agents skill-scout-agent,reviewer-agent,qa-test-agent,security-agent `
   -Profiles audit-profile `
-  -Skills riss-governance
+  -Skills governance
 ```
 
 Review the dry-run output. If the project owner approves the exact write scope, rerun with `-ConfirmWrite`, then validate:

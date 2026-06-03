@@ -4,19 +4,19 @@ Phase 10A defines the governance spine for AI Agent Skills Toolkit. The spine tu
 
 ## Operating Model
 
-`riss-governance` is the normal user-facing entrypoint for its primary domains. It should infer intent, risk, profile, agents, skills, support tools, validation gates, and stop conditions without requiring the user to know internal agent or skill names.
+`governance` is the normal user-facing entrypoint for serious toolkit-governed work. It should infer intent, risk, profile, agents, skills, support tools, validation gates, and stop conditions without requiring the user to know internal agent or skill names.
 
 The governance spine is not an execution engine and does not activate anything by itself. It coordinates documented assets, compiled-agent fallbacks, external support tools, and registry metadata.
 
-Methods under `methods/` are passive reference inputs. They improve agent guidance and review discipline, but they are not skills, plugins, agents, or runtime capabilities. Method presence must not be treated as activation; `riss-governance` remains the normal entrypoint that decides whether a method is relevant to the current task.
+Methods under `methods/` are passive reference inputs. They improve agent guidance and review discipline, but they are not skills, plugins, agents, or runtime capabilities. Method presence must not be treated as activation; `governance` remains the normal entrypoint that decides whether a method is relevant to the current task.
 
 `registries/methods.registry.json` indexes these methods for auditability and routing explanation. Routing may cite method IDs as passive references, but selected skills, agents, profiles, and support tools remain separate decisions.
 
 ## Explicit Opt-In Governance Mode
 
-RISS, RISS V2, AI Toolkit, VD projects, Supabase/backend, security, release, and repo-governance work remain the primary domain for `riss-governance`.
+Toolkit, product, backend, security, release, and repo-governance work remain the primary domain for `governance`.
 
-For other repositories or projects, the governance spine applies only when the user explicitly invokes `Use riss-governance`. That opt-in makes `riss-governance` the active governance layer for the current thread or task, bounded by the selected mode, repo scope, runtime permissions, and user-approved boundaries.
+For other repositories or projects, the governance spine applies only when the user explicitly opts into toolkit governance. That opt-in makes `governance` the active governance layer for the current thread or task, bounded by the selected mode, repo scope, runtime permissions, and user-approved boundaries.
 
 Explicit opt-in authorizes routing, planning, read-only checks, capability selection, agent/tool recommendations, and validation gates. It does not authorize writes, migrations, package or dependency changes, Supabase policy/RLS changes, auth changes, billing changes, deployment or release changes, global Codex config changes, external installs, or broad plugin/tool use. Those actions still require explicit scoped approval.
 
@@ -24,20 +24,15 @@ Outside the primary domain, unrelated projects without explicit invocation must 
 
 UI/UX separation currently means:
 
-- `riss-governance` routes UI/UX requests and applies governance checks.
-- `vd-premium-uiux` executes premium frontend/UI work when visual behavior is in scope.
-- `riss-governance` keeps a router/safety role and does not become the owner of UI/UX execution content.
+- `governance` routes UI/UX requests and applies governance checks.
+- `uiux` executes premium frontend/UI work when visual behavior is in scope.
+- `governance` keeps a router/safety role and does not become the owner of UI/UX execution content.
 
 ## Internal Helper Skills
 
-Two internal helper skills support the entrypoint:
+The public runtime does not expose helper skill aliases. Agent and skill inventory checks are handled inside `governance` plus validators, registries, and selected agent lenses.
 
-- `riss-agent-governance`: agent inventory, agent routing, native/custom-agent visibility, compiled fallback status, handoff rules, and no-silent-fallback policy.
-- `riss-skill-governance`: skill inventory, trigger quality, conflict rules, missing-capability discovery, and skill safety.
-
-These helpers must remain internal governance helpers. They should not become broad user-facing mega-skills.
-
-Direct user calls to either helper must be redirected back through `riss-governance`. Registry availability does not imply runtime activation or native visibility.
+Registry availability does not imply runtime activation or native visibility.
 
 ## Plain-Language Routing
 

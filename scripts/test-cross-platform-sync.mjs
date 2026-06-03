@@ -77,7 +77,7 @@ test("project sync core remains dry-run-first and validates confirmed installs",
       "--agents",
       "reviewer-agent",
       "--skills",
-      "riss-governance"
+      "governance"
     ]);
     assert.equal(dryRun.status, 0, dryRun.output);
     assert.match(dryRun.output, /Dry-run only/);
@@ -91,7 +91,7 @@ test("project sync core remains dry-run-first and validates confirmed installs",
       "--agents",
       "reviewer-agent",
       "--skills",
-      "riss-governance",
+      "governance",
       "--confirm-write"
     ]);
     assert.equal(install.status, 0, install.output);
@@ -118,7 +118,7 @@ test("bash install stays dry-run by default and writes only after confirm", { sk
       "--agents",
       "reviewer-agent",
       "--skills",
-      "riss-governance"
+      "governance"
     ]);
     assert.equal(dryRun.status, 0, dryRun.output);
     assert.match(dryRun.output, /Dry-run only/);
@@ -131,7 +131,7 @@ test("bash install stays dry-run by default and writes only after confirm", { sk
       "--agents",
       "reviewer-agent",
       "--skills",
-      "riss-governance",
+      "governance",
       "--confirm-write"
     ]);
     assert.equal(install.status, 0, install.output);

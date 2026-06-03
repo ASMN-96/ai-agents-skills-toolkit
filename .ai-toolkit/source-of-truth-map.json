@@ -5,9 +5,9 @@
     {
       "domain": "skills",
       "canonicalSource": "skills/<skill>/SKILL.md",
-      "runtimeCopy": ".agents/skills/<skill>/SKILL.md for canonical final names, intermediate aliases, and old compatibility aliases only",
-      "distributionCopy": ".ai-toolkit/skills/<skill>/SKILL.md for packaged active skills",
-      "historicalArchive": "None in this pass unless a file is explicitly marked historical",
+      "runtimeCopy": ".agents/skills/<skill>/SKILL.md for the five canonical public runtime skills only",
+      "distributionCopy": ".ai-toolkit/skills/<skill>/SKILL.md for the five canonical packaged active skills",
+      "historicalArchive": "Old aliases are removed from active runtime; see docs/MIGRATION_TO_CANONICAL_SKILLS.md.",
       "driftControl": "byte identity between canonical, runtime, and distribution copies"
     },
     {

@@ -8,17 +8,17 @@ External sources have been evaluated in prior phases and are recorded under `sou
 
 `docs/PUBLIC_PRIVATE_LEAK_REPORT.md` is the report-only public/private naming and leakage scan. It classifies project-specific terms, local paths, private repo/org references, and contact-like data without deleting, renaming, relocating, or activating anything.
 
-`docs/GENERIC_NAMING_COMPATIBILITY.md` defines the future public naming map and the compatibility rules that prevent runtime breakage during the migration away from project-specific names.
+`docs/GENERIC_NAMING_COMPATIBILITY.md` defines the current canonical public runtime naming boundary.
 
 `docs/ENTERPRISE_EXTERNAL_TOOL_RISK_METADATA.md` defines the required enterprise-review fields for external tools and integrations. Unknown values remain `unknown-review-required` until evidence is reviewed.
 
 Method files include `sourceRef`, `lastExtracted`, and `status` frontmatter so source freshness reports can identify affected methods without approving imports or extraction.
 
-`scripts/sync-runtime.mjs` is the dry-run-first helper for syncing canonical active skills into repo runtime and embedded package skill copies. It refuses unknown/internal-helper skills unless the active allowlist changes in a reviewed PR.
+`scripts/sync-runtime.mjs` is the dry-run-first helper for syncing canonical active skills into repo runtime and embedded package skill copies. It refuses unknown and removed alias skills unless the active allowlist changes in a reviewed PR.
 
 `docs/OPERATOR_GUIDE.md` defines the normal operator prompts for planning-only mode, controlled implementation, release review, and quality-gate honesty.
 
-`evals/skills/premium-uiux-review-evals.json` is the generic, public-safe premium UI/UX eval suite for dashboard polish, responsive layout, accessibility, visual QA evidence, design-system consistency, non-trigger cases, and no-fake browser evidence.
+`evals/skills/uiux-evals.json` is the generic, public-safe premium UI/UX eval suite for dashboard polish, responsive layout, accessibility, visual QA evidence, design-system consistency, non-trigger cases, and no-fake browser evidence.
 
 `docs/REGISTRY_GENERATION_DESIGN.md` defines the future report-only path for frontmatter-driven registry generation while keeping routing and trust decisions hand-maintained.
 

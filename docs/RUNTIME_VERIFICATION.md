@@ -6,9 +6,8 @@ Toolkit files are not proof of runtime activation. Full runtime activation must 
 
 Fresh-session runtime verification should confirm:
 
-- `riss-governance` skill visibility
-- internal `riss-agent-governance` helper visibility, if selected through `riss-governance`
-- internal `riss-skill-governance` helper visibility, if selected through `riss-governance`
+- `governance` skill visibility
+- no retired helper aliases exposed as active runtime skills
 - native custom-agent visibility or compiled fallback status for the 12 core agents
 - Superpowers availability if installed
 - GSD availability if installed
@@ -17,7 +16,7 @@ Fresh-session runtime verification should confirm:
 - Supabase tooling/docs availability when needed
 - no silent fallback
 
-Phase 10L makes the helper skill files available in the repository as internal helpers only. Do not claim runtime activation, native visibility, or project readiness from those files alone.
+Retired helper aliases are not active runtime skills. Do not claim runtime activation, native visibility, or project readiness from repository files alone.
 
 ## Reporting
 

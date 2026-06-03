@@ -9,20 +9,15 @@ No external skills have been installed or activated by this toolkit.
 
 ## Toolkit-Owned Skills
 
-- `riss-governance`: RISS-specific governance/router guidance for source-of-truth checks, narrow agent/tool routing, dependency-chain safety, PR/CI/CodeRabbit discipline, and validation-before-completion.
-- `vd-premium-uiux`: Direct UI/UX execution skill for premium frontend visual quality, dashboard UX, responsive layouts, accessibility checks, visual QA, browser/screenshot validation, and real-estate SaaS interface polish.
+The public runtime exposes exactly five canonical skills:
 
-`riss-governance` remains the routing/safety and source-of-truth governance layer.
-`vd-premium-uiux` executes the UI/UX workflow once governance routes a qualifying frontend quality task.
+- `governance`: source-of-truth checks, routing, branch/PR discipline, validation honesty, and release readiness.
+- `uiux`: visual quality, workflow clarity, responsive behavior, accessibility, and browser-visible UI evidence.
+- `code-quality`: React, TypeScript, hooks, tests, build quality, and maintainability routing.
+- `security-review`: auth, authorization, tenant isolation, secrets, public/private payloads, supply-chain, and source safety.
+- `pr-release-gate`: branch hygiene, checks, review feedback, release gates, and merge readiness.
 
-## Internal Helper Skills
-
-- `riss-agent-governance`: internal helper for agent routing, native visibility, compiled fallback status, scorecards, and handoff rules.
-- `riss-skill-governance`: internal helper for skill routing, trigger quality, conflicts, and read-only missing-capability discovery.
-
-These helpers are not normal user-facing entrypoints. Direct user calls to either helper must be redirected back through `riss-governance`.
-
-Registry entries may mark these helpers as documented, available, and approved, but not active or native-visible. Runtime activation still requires fresh-session verification.
+Old alias and helper skill folders were removed from active runtime. See `docs/MIGRATION_TO_CANONICAL_SKILLS.md`.
 
 ## External Governance Tools
 
