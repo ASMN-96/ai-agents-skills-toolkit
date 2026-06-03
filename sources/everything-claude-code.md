@@ -4,7 +4,7 @@
 - Owner / publisher: affaan-m.
 - Source type: Cross-harness Claude Code ecosystem repository with skills, agents, commands, hooks, manifests, MCP config, plugins, rules, and install scripts.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `64cd1ba248e77e377e76f70fc4e6434bfdddd511` on `main`, checked by read-only remote HEAD on 2026-05-29.
+- Pinned repo ref checked: `99baa8250096f2d295583572399a5c9aba2ce312` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
 - Visible adoption signals: about 175.8k GitHub stars, 27.2k forks, and large multi-harness surface area.
 - Trust level: Medium source trust, very high execution/config-mutation risk.
 - License status: GitHub API reports MIT.
@@ -66,3 +66,7 @@ Candidate for future normalized harness-hardening methods, pending separate appr
 ## Freshness Review 2026-05-16
 
 Skill Scout read-only review refreshed the source record from `5b617787d87482c205c2dc1eae3b525ac08890bd` to `0df46ec870a2c86b41f2da7a4bb46836704d3952`. The compare showed broad changes across plugin manifests, CI workflows, release docs, scripts, tests, and a newly added skill. MIT license metadata remained present, but the source continues to carry very high execution/config-mutation risk because it includes install, hook, workflow, plugin, skill, command, and cross-harness surfaces. This refresh updates source tracking only and does not approve installs, hooks, skills, commands, MCP config, plugin activation, script execution, source copying, method extraction, or global config changes.
+
+## Freshness Review 2026-06-03
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `64cd1ba248e77e377e76f70fc4e6434bfdddd511` to `99baa8250096f2d295583572399a5c9aba2ce312` using GitHub compare metadata and `git ls-remote` only. The compare was 2 commits ahead and touched Codex plugin metadata, Codex config, release docs, package metadata, plugin-manifest tests, and added platform-value-loop documentation and tests. MIT license metadata remained present from the source record. The source remains very high risk for cross-harness config mutation, plugin activation, package/script execution, and global path writes. This refresh updates source tracking only and does not approve installs, hooks, skills, commands, MCP config, plugin activation, script execution, package changes, source copying, method extraction, global config changes, or runtime activation.

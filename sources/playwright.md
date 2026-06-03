@@ -5,7 +5,7 @@
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `5dd0a9bd614cbebe1911debd863bbf6493d5d7e2` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-02.
+- Pinned repo ref checked: `dd151191ee02f2107bc702c70c487c9aec573e09` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
 - Visible adoption signals: about 89.8k GitHub stars, 5.8k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
@@ -90,3 +90,7 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 ## Freshness Review 2026-06-02 Follow-up
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `794a382f7c54872015a40972bc659c61b0a4dcfa` to `5dd0a9bd614cbebe1911debd863bbf6493d5d7e2` using GitHub compare metadata and `git ls-remote` only. The compare was 2 commits ahead and changed Playwright Docker CI workflow files: added `tests_docker`, `tests_docker_changes`, and `tests_docker_release` workflows and removed `trigger_tests`. Apache-2.0 license metadata remained present from the source record. Existing CI, build, browser automation, and runtime cautions remain; the recommendation is unchanged. This refresh updates source tracking only and does not approve CI changes, workflow copying, package install, browser download, MCP activation, runtime automation, source-copying, method extraction, Docker use, or product-repo changes.
+
+## Freshness Review 2026-06-03
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `5dd0a9bd614cbebe1911debd863bbf6493d5d7e2` to `dd151191ee02f2107bc702c70c487c9aec573e09` using GitHub compare metadata and `git ls-remote` only. The compare was 14 commits ahead and touched CI workflow files, package/package-lock metadata, browser install CLI code, browser registry metadata, server network/HAR/websocket/client-certificate handling, zip utility code, webview request/page handling, and related tests. Apache-2.0 license metadata remained present. Existing browser-control, trace artifact, runtime automation, package-install, browser-download, MCP, CI, network, and build-script cautions remain. This refresh updates source tracking only and does not approve CI changes, workflow copying, package install, browser download, MCP activation, runtime automation, source-copying, method extraction, package changes, Docker use, or product-repo changes.

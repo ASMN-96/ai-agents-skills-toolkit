@@ -5,7 +5,7 @@
 - Owner / publisher: Supabase.
 - Source type: Official Agent Skills repository and official Supabase AI Skills documentation.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `577e626421fdb691902f158181e467a3dbf99410` on `main`, checked by read-only remote HEAD on 2026-05-29.
+- Pinned repo ref checked: `759fddfc29ebc96b88b4bebb89ebb484a39aa6e2` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
 - Visible adoption signals: about 2.1k GitHub stars, 134 forks, and an official `v0.1.1` release on 2026-05-06.
 - Trust level: High publisher trust, high execution and data-risk if applied blindly to live Supabase projects.
 - License status: GitHub API reports MIT.
@@ -65,3 +65,7 @@ Installing or activating these skills could change agent behavior across Supabas
 ## Recommendation
 
 Refresh source record only, pending separate approval. Keep extraction narrow, paraphrased, source-cited, and focused on gates rather than copying skill bodies. No raw skill/plugin/repo content was activated.
+
+## Freshness Review 2026-06-03
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `577e626421fdb691902f158181e467a3dbf99410` to `759fddfc29ebc96b88b4bebb89ebb484a39aa6e2` using GitHub compare metadata and `git ls-remote` only. The compare was 2 commits ahead and touched release workflow metadata, release-please metadata, `AGENTS.md`, and changelog files for the Supabase and Supabase Postgres best-practices skills. MIT license metadata remained present. Because this source directly affects database, auth, and RLS guidance, the change remains review-sensitive even though no source content was imported. This refresh updates source tracking only and does not approve skill installation, raw `SKILL.md` copying, Supabase CLI execution, MCP configuration, database changes, auth changes, RLS changes, method extraction, product-repo changes, or runtime activation.

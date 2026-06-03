@@ -6,7 +6,7 @@
 - Source type: Skills directory entry plus open skills CLI repository.
 - Source authority level: Historical/reference-only. Not active authority for toolkit methods or runtime.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `b469d6954dd10be20d3e8d9bb59463584d42efbb` on `main`, checked by read-only remote HEAD on 2026-05-29.
+- Pinned repo ref checked: `87dc3636c59d38d7336a1d857f1364699bf38038` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
 - Visible adoption signals: about 17.5k GitHub stars, 1.4k forks, and about 1.4M skills.sh installs for `find-skills`.
 - Trust level: Medium-high source trust, high execution risk if CLI install/update behavior is followed.
 - License status: GitHub API did not expose a root repo license. `package.json` declares MIT. Per-skill license status should remain unclear until a dedicated license review confirms repository-level applicability.
@@ -62,3 +62,7 @@ Installing skills could change local or global agent behavior. Phase 10C permits
 ## Recommendation
 
 Candidate for future normalized discovery-method extraction, pending separate approval, with install/update/sync behavior explicitly rejected. No raw skill/plugin/repo content was activated.
+
+## Freshness Review 2026-06-03
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `b469d6954dd10be20d3e8d9bb59463584d42efbb` to `87dc3636c59d38d7336a1d857f1364699bf38038` using GitHub compare metadata and `git ls-remote` only. The compare was 23 commits ahead and touched `AGENTS.md`, README and package metadata, CLI add/list/sync/update/use surfaces, installer and Git helper code, prompts, types, and tests. License remains unclear at repository level. This source remains historical/reference-only and high risk for install/update/sync behavior. The reviewed change is rejected for active runtime adoption and held from extraction until a separate safety and license review approves a narrow normalized discovery pattern. This refresh updates source tracking only and does not approve CLI execution, skill installation, use/update/sync behavior, raw `SKILL.md` copying, method extraction, source copying, package changes, global config changes, or runtime activation.
