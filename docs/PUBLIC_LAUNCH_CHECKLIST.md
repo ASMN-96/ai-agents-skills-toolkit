@@ -1,6 +1,6 @@
 # Public Launch Checklist
 
-Status: manual owner checklist only. This document does not authorize repository visibility changes, releases, external service changes, or Codex OSS application submission.
+Status: manual owner checklist plus controlled `v0.1.0` release gate. This document does not authorize external service changes or Codex OSS application submission.
 
 ## Manual Owner Steps
 
@@ -19,7 +19,7 @@ Status: manual owner checklist only. This document does not authorize repository
 - [ ] Enable Issues if desired for public bug reports and maintainer workflow.
 - [ ] Enable Discussions only if the owner wants a community support channel.
 - [ ] Enable GitHub private vulnerability reporting if available, or configure an owner-approved security disclosure channel.
-- [ ] Create `v0.1.0` release only after final launch and validation approval.
+- [ ] Create `v0.1.0` release only after final validation, PR merge, post-merge verification, tag creation, and GitHub release verification pass.
 - [ ] Confirm Codex OSS application submission remains pending.
 
 ## Pre-Launch Verification
@@ -31,6 +31,8 @@ Status: manual owner checklist only. This document does not authorize repository
 - [ ] Toolkit validation and evals pass in the public mirror.
 - [ ] Source freshness is clean or explicitly resolved in a reviewed source-record update.
 - [ ] Leak findings are either absent, safe guardrail/scanner evidence, false positives, or owner-approved for publication.
+- [ ] Source freshness has no actionable changes.
+- [ ] Release notes state Codex-first controlled real-project readiness and do not claim Level 4, Level 5, enterprise readiness, or broad non-Codex runtime support.
 
 ## Stop Conditions
 
@@ -38,4 +40,5 @@ Status: manual owner checklist only. This document does not authorize repository
 - Stop if source freshness reports actionable changes.
 - Stop if leak scanning finds current-tree blockers.
 - Stop if any product repository content, private overlay, secret, local path, or unapproved security contact appears in the public mirror.
-- Stop if owner approval is incomplete.
+- Stop if owner approval for `v0.1.0` is incomplete.
+- Stop if Codex OSS application submission becomes required; that remains a separate owner task.

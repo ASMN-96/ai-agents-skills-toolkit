@@ -1,7 +1,7 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.6.0-draft
-toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
+toolkit_version: 0.1.0
+toolkit_pin: ai-agents-skills-toolkit@0.1.0
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
@@ -29,7 +29,7 @@ Designs system architecture, module boundaries, data flow, integration contracts
 - Record omitted context, private-overlay exclusions, and graph evidence labels when context governance matters.
 - Handoff security, database/RLS, frontend, and release risks to the matching specialist agents.
 ## Runtime Status
-First-class registry and profile agent. Runtime activation remains a follow-up owner decision unless a separate task approves adding a project custom-agent file.
+Repo-local Codex project agent when `.codex/agents/architect-agent.toml` is present. Availability means the agent can be selected/recommended; it is not automatically spawned. Runtime behavior is constrained by the TOML sandbox and instruction boundaries. This agent does not authorize product repo edits, package/CI/MCP changes, global configuration edits, external installs, secret access, or release/application actions without explicit owner approval.
 
 ## Profiles
 

@@ -2,13 +2,14 @@
 
 AI Agent Skills Toolkit is a documentation-first governance repository for Codex-driven workflows. It standardizes reviewed methods, source provenance, validated agents, and controlled sync artifacts so teams can scale execution quality without copying raw external runtime behavior.
 
-## Public release warning
+## Public release status
 
 - Repository visibility is public by owner decision.
 - Current-tree blockers are 0.
 - Remaining findings are limited to owner-decision blockers, history-only blockers, safe guardrail/scanner evidence, and false positives.
 - Public package validation is **not** whole-repo publication readiness.
-- No release tag has been created and Codex OSS application has not been submitted yet.
+- `v0.1.0` is the first controlled public release path once the release PR, validation gate, post-merge verification, and tag/release creation all pass.
+- Codex OSS application has not been submitted.
 - Owner intentionally accepted visible PR/commit history for OpenAI Codex OSS review.
 - Only this toolkit repository is positioned for publication; all other repositories remain private unless separately approved.
 
@@ -63,6 +64,8 @@ Typical flow:
 3. Run validation commands.
 4. Open a PR with explicit blockers and remaining risk.
 
+For real projects, treat the toolkit as a Codex governance and evidence layer. Select or recommend the 5 canonical skills and 12 repo-local project agents explicitly, report which agents actually spawned separately, and use project-owned checks before proposing new tools.
+
 ## Validation commands
 
 - `node scripts/validate-public-package.mjs`
@@ -83,7 +86,7 @@ Public-facing status:
 
 - Canonical runtime is **5 skills and 12 agents**.
 - Public package validation can pass while still not proving whole-repo publication readiness.
-- Repository is public now; public launch still requires completion of the remaining policy and history-approval gates.
+- Repository is public now; `v0.1.0` is a controlled public release, not a claim of Level 4, Level 5, enterprise readiness, or broad non-Codex runtime support.
 - All other repos remain private unless separately approved.
 
 ## Limitations

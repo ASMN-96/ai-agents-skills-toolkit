@@ -2,6 +2,8 @@
 
 This checklist is a release gate. It does not publish artifacts or approve distribution by itself.
 
+`v0.1.0` is a controlled public release for Codex-first real-project use. It is not a Level 4, Level 5, enterprise-readiness, broad package-distribution, or non-Codex runtime-support claim.
+
 - Public package allowlist is explicit.
 - `node scripts/validate-public-package.mjs` passes.
 - Whole-repo publication review is clean; public package validation is allowlist-only and does not certify repository history.
@@ -15,6 +17,17 @@ This checklist is a release gate. It does not publish artifacts or approve distr
 - Compiled agents are generated from the deterministic compiler or known drift is explicitly blocked from release.
 - Release notes state maturity level, validation evidence, WARN output, exclusions, and rollback.
 - Clean-clone verification has been run from documented commands before public distribution.
+
+## v0.1.0 Gate
+
+- Full release branch validation passes.
+- PR is merged to `main` through the normal branch/PR workflow.
+- Post-merge validation passes on `main`.
+- Leak scan reports `0` current-tree blockers and remaining findings are classified.
+- Source freshness reports no actionable changes.
+- Runtime validation reports the canonical Codex surface: 5 active skills and 12 active repo-local project agents.
+- Annotated tag `v0.1.0` is created only from validated `main`.
+- GitHub release notes state the controlled-use posture, validation evidence, known exclusions, rollback path, and that Codex OSS application submission remains pending.
 
 ## Clean-Clone Verification
 

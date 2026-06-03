@@ -1,7 +1,7 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.6.0-draft
-toolkit_pin: ai-agents-skills-toolkit@0.6.0-draft
+toolkit_version: 0.1.0
+toolkit_pin: ai-agents-skills-toolkit@0.1.0
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded

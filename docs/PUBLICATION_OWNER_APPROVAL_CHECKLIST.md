@@ -1,6 +1,6 @@
 # Publication Owner Approval Checklist
 
-Status: owner approval recorded for making the current toolkit repository public with visible PR/commit history accepted for OpenAI Codex OSS review. This checklist does not create a release or submit the Codex open-source application.
+Status: owner approval recorded for making the current toolkit repository public with visible PR/commit history accepted for OpenAI Codex OSS review. Owner approval for `v0.1.0` release execution is in scope only after final validation, PR merge, post-merge verification, tag creation, and GitHub release verification pass. This checklist does not submit the Codex open-source application.
 
 ## Owner Decision Entry - 2026-06-03
 
@@ -9,7 +9,8 @@ Status: owner approval recorded for making the current toolkit repository public
 - Owner confirms no current-tree blockers remain after final validation.
 - Owner accepts the non-current-tree findings for this publication path: safe guardrail/scanner evidence, owner-decision blockers, history-only blockers, and false positives.
 - Owner confirms all other repositories remain private unless separately approved.
-- Owner confirms no release tag or Codex OSS application submission is approved in this task.
+- Owner confirms `v0.1.0` release execution is approved after all technical gates pass.
+- Owner confirms Codex OSS application submission is not approved in this task.
 - Owner confirms the security disclosure path must be GitHub private vulnerability reporting if available, or an owner-approved contact later.
 - Owner confirms this approval applies only to this repository and does not authorize changes to any other repository, profile repository, global/user Codex config, package files, lockfiles, CI, MCP, deployment config, external services, releases, tags, or product repositories.
 
@@ -58,4 +59,4 @@ Preferred path: enable GitHub private vulnerability reporting on this repository
 
 ## Non-Approval Statement
 
-This approval does not authorize changing GitHub profile visibility, editing a profile README repository, creating release tags, submitting the Codex OSS application, modifying product repositories, touching global/user Codex config, or modifying package, lockfile, CI, MCP, deployment, or external service configuration.
+This approval does not authorize changing GitHub profile visibility, editing a profile README repository, submitting the Codex OSS application, modifying product repositories, touching global/user Codex config, or modifying package, lockfile, CI, MCP, deployment, or external service configuration. Release tag authority is limited to `v0.1.0` after all gates pass.

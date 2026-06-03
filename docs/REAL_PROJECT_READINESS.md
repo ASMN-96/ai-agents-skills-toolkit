@@ -4,9 +4,9 @@ This document defines when the toolkit can be used in real product repositories.
 
 ## Current Classification
 
-After the 2026-05-30 first representative pilot, the toolkit is Level 3 certified and the current controlled-pilot milestone is closed. It is ready for normal use in comparable real projects and private beta with invited users when the same governed PR sync flow is followed. Level 4 enterprise rollout is deferred and Level 5 public release is not approved; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
+After the 2026-05-30 first representative pilot, the toolkit is Level 3 certified and the current controlled-pilot milestone is closed. It is ready for controlled real-project Codex use when the same governed branch, PR, dry-run, validation, and owner-approval flow is followed. `v0.1.0` is the controlled public release path for this Codex-first state after final validation and tag/release execution. Level 4 enterprise rollout and Level 5 broad public/package maturity remain separate future gates; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
 
-Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project checks, PR review, and passing CI. This does not authorize automatic rollout or runtime/global activation.
+Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project-owned checks, PR review, and passing required checks. This does not authorize automatic rollout, product-repository writes without a project PR, runtime/global activation, package/CI/MCP changes, external installs, secret access, or broad non-Codex runtime support.
 
 Phase 10L governance UX hardening did not upgrade readiness by itself. The Level 3 upgrade is based on the merged representative project-sync pilot recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`. Retired helper skill names are not active runtime skills.
 
@@ -17,9 +17,9 @@ Phase 10L governance UX hardening did not upgrade readiness by itself. The Level
 | 0 | Repository complete | Toolkit files, docs, registries, compiled agents, and policies exist | Toolkit development only |
 | 1 | Current-session visible | Current Codex session can see `governance` and validated compiled fallbacks | Toolkit review and planning |
 | 2 | Fresh-session verified | A new Codex session confirms skill visibility, agent native/fallback status, support-tool availability, and no silent fallback | One controlled real-project pilot |
-| 3 | Pilot validated | One representative project sync is reviewed, version-pinned, validated, and merged through PR | Normal use in comparable real projects |
+| 3 | Pilot validated | One representative project sync is reviewed, version-pinned, validated, and merged through PR | Controlled Codex use in comparable real projects |
 | 4 | Broad rollout | Multiple project pilots pass with no governance drift or unsafe sync behavior | Wider rollout, still phase-gated |
-| 5 | Public release | Public/private blockers, license/contribution/security policy gaps, package allowlist, and clean-clone release validation are resolved | Public repository or package distribution |
+| 5 | Broad public/package maturity | Public/private blockers, license/contribution/security policy gaps, package allowlist, clean-clone release validation, and broader rollout evidence are resolved | Broad public/package distribution beyond the controlled `v0.1.0` path |
 
 ## Level 2 Gate
 
@@ -72,6 +72,20 @@ Passing Level 3 means the toolkit is ready for normal use in comparable real pro
 
 The current Level 3 project-sync evidence is recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`.
 
+## Controlled Real-Project Codex Use
+
+For real projects, use the toolkit as a governance and evidence layer:
+
+- Start in planning-only or review mode unless a project owner has approved implementation.
+- Select the smallest useful set from the 5 canonical skills and 12 repo-local Codex project agents.
+- Report selected or recommended agents separately from agents that actually spawned.
+- Prefer project-owned checks before proposing new tools.
+- Use dry-run-first sync where toolkit artifacts are copied into a project.
+- Do not modify product repositories without a separate project-specific PR.
+- Do not claim validation, browser, scanner, review-bot, GitHub, or runtime execution without current output.
+
+Completion reports must include changed files, commands observed, WARN/skipped/unavailable checks, residual risk, owner-only decisions, and exact next action.
+
 ## Level 3 Closeout
 
 The current Level 3 milestone is complete on the first successful representative pilot. Additional pilots remain useful and are still required for Level 4, but they are future evidence backlog rather than blockers for today's Level 3 closeout.
@@ -111,4 +125,4 @@ Stop before project use if:
 
 ## What This Does Not Authorize
 
-This readiness gate does not authorize automatic rollout, external skill activation, plugin duplication, Superpowers duplication, hooks, daemons, background workers, MCP servers, global memory, federation, global Codex config changes, or product repo changes outside an approved project PR.
+This readiness gate does not authorize automatic rollout, external skill activation, plugin duplication, Superpowers duplication, hooks, daemons, background workers, MCP servers, global memory, federation, global Codex config changes, product repo changes outside an approved project PR, Codex OSS application submission, enterprise readiness, Level 4 readiness, Level 5 readiness, or active runtime support outside Codex.

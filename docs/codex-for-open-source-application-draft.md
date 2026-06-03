@@ -26,8 +26,8 @@ dependency.
 ## Anything else OpenAI should know (max 500 chars)
 
 This repository is public by owner decision and includes intentionally visible PR/commit history for OpenAI Codex OSS review.
-Publication is not yet public-ready: public-package validation is an allowlist gate only and does not certify full-repository readiness.
-No release tag has been created and Codex OSS application submission is still pending.
+`v0.1.0` is the controlled public release path for Codex-first real-project use after the release and post-merge gates pass.
+Codex OSS application submission is still pending and must remain a separate owner action.
 Remaining non-current-tree findings are managed through owner-decision, history-only, safe guardrail, and false-positive classifications.
 
 ## Evidence checklist
@@ -41,7 +41,7 @@ Remaining non-current-tree findings are managed through owner-decision, history-
 
 ## Known limitations
 
-- Publication readiness is not reached yet.
-- Whole-repo publication risk is not fully closed.
+- `v0.1.0` is controlled-use readiness, not Level 4, Level 5, enterprise readiness, or broad non-Codex runtime support.
+- Whole-repo publication risk remains tracked through owner/history classifications.
 - Validator allowlist output is necessary but insufficient on its own.
-- No claim of public package completeness or enterprise/public release status yet.
+- Codex OSS application has not been submitted.

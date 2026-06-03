@@ -1,6 +1,6 @@
 # Rollout Maturity and Public Release Readiness
 
-Status: Level 3 controlled-pilot milestone complete and private beta approved; Level 4 enterprise rollout is deferred and Level 5 public release is not started.
+Status: Level 3 controlled-pilot milestone complete; controlled real-project Codex use and the `v0.1.0` public release path are in scope after final validation. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
 
 Date: 2026-05-30
 
@@ -13,13 +13,15 @@ This document is a promotion gate. It does not activate runtimes, publish packag
 | 0 | Repository scaffold | Core files exist and local docs explain intent | Toolkit-only development | Project sync, runtime claims |
 | 1 | Current-session usable | Current Codex session can read the repo, validators pass, no-fake-validation policy exists | Planning and local governance work | Real-project writes |
 | 2 | Fresh-session verified | Independent fresh-session smoke test proves skill/router visibility, fallback status, support-tool status, and no silent fallback | One controlled pilot plan | Broad rollout |
-| 3 | Controlled-pilot validated | At least one representative project sync is version-pinned, validated, reviewed, and merged through PR | Comparable projects using the same governed PR sync flow | Enterprise rollout, public release |
-| 4 | Enterprise rollout ready | Multiple pilots across project types pass, enterprise tool metadata is reviewed, warning thresholds are enforced, rollback evidence exists | Wider internal rollout with owners and gates | Public package/repo release |
-| 5 | Public release ready | Public/private leak blockers resolved, license/contribution/security/community policy gaps closed, public package allowlist enforced, release artifacts reproducible | Public repository/package distribution | Unreviewed private overlays or runtime expansion |
+| 3 | Controlled-pilot validated | At least one representative project sync is version-pinned, validated, reviewed, and merged through PR | Controlled Codex use in comparable projects using the same governed PR sync flow | Enterprise rollout, broad public/package maturity |
+| 4 | Enterprise rollout ready | Multiple pilots across project types pass, enterprise tool metadata is reviewed, warning thresholds are enforced, rollback evidence exists | Wider internal rollout with owners and gates | Broad public/package maturity |
+| 5 | Broad public/package maturity | Public/private leak blockers resolved or explicitly accepted, license/contribution/security/community policy gaps closed, public package allowlist enforced, release artifacts reproducible, and broader rollout evidence reviewed | Broad public repository/package distribution | Unreviewed private overlays or runtime expansion |
 
 ## Current Classification
 
 Current level: Level 3 complete.
+
+Controlled release target: `v0.1.0` for Codex-first real-project use after the full local validation gate, PR merge, post-merge verification, tag creation, and GitHub release verification pass. This target is not a Level 4, Level 5, enterprise, or broad non-Codex runtime claim.
 
 Evidence:
 
@@ -42,16 +44,16 @@ Deferred Level 4 evidence backlog:
 - Rollback rehearsal evidence for a Level 4 rollout is not recorded.
 - Runtime adapter support beyond Codex is documentation-only.
 
-Current blockers for Level 5:
+Current blockers for Level 5 broad public/package maturity:
 
 - Public package validation is allowlist-only and does not certify the whole repository tree or Git history for public GitHub visibility.
-- Whole-repo publication review is blocked until `docs/PUBLICATION_REVIEW.md` and `docs/PUBLIC_REPOSITORY_READINESS_AUDIT.md` findings are resolved.
+- Whole-repo publication review retains non-current-tree owner/history findings that are acceptable for the controlled `v0.1.0` path only when owner acceptance is explicit.
 - The project-specific private overlay was removed from the current tree, but historical Git exposure remains unresolved until the owner chooses a clean sanitized repository/mirror or verified history cleanup.
 - Public runtime is canonical-only: 5 active skills and 12 active repo-local project agents. Old aliases are not active runtime names.
 - Public package allowlist is enforced by `node scripts/validate-public-package.mjs`; current report is `docs/PUBLIC_PACKAGE_VALIDATION_REPORT.md`.
 - `LICENSE`, `CONTRIBUTING.md`, and `CODE_OF_CONDUCT.md` are present but still require owner/legal/community approval before publication.
 - `SECURITY.md` now defines supported scope and reporting expectations, but the final vulnerability-reporting channel still needs an owner-approved private contact path.
-- Clean-clone verification has not been run in this task.
+- Clean-clone verification remains required before any future broad package/distribution claim beyond the controlled `v0.1.0` path.
 
 ## Required Validators
 
@@ -75,7 +77,7 @@ Level 4 additionally requires:
 - explicit rollback evidence from at least one project update or rehearsal,
 - warning threshold decision recorded by owner.
 
-Level 5 additionally requires:
+Level 5 broad public/package maturity additionally requires:
 
 - public package allowlist validation,
 - public/private leak scan with zero unresolved public-release blockers in public package paths,
@@ -148,7 +150,18 @@ Forbidden without separate approval:
 - package or lockfile changes,
 - product-repository writes outside approved project PRs.
 
-## Public Release Checklist
+## Controlled v0.1.0 Release Checklist
+
+- Full local validation gate passes on the release branch.
+- PR is merged to `main` with no required checks or reviews blocked.
+- Post-merge validation passes on `main`.
+- Leak scan reports `0` current-tree blockers; remaining findings are classified and owner-accepted for this publication path.
+- Source freshness reports no actionable changes.
+- Runtime validation proves 5 active skills and 12 active repo-local project agents.
+- `v0.1.0` annotated tag is created only from validated `main`.
+- GitHub release notes state Codex-first controlled real-project readiness, validation evidence, known exclusions, and no Codex OSS submission.
+
+## Level 5 Checklist
 
 - Public/private leak scan has zero unresolved blockers for public package paths.
 - Whole-repo publication review has zero unresolved blockers.
