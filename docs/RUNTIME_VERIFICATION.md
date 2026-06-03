@@ -51,4 +51,3 @@ For high-risk work, do not silently downgrade from native agent to compiled fall
 ## Validation Boundary
 
 This document defines verification requirements only. It does not install, activate, or configure runtime capabilities.
-

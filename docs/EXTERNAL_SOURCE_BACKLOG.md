@@ -35,4 +35,3 @@ Phase 10O adds read-only source freshness monitoring for tracked GitHub sources.
 ## Batch Recommendation
 
 Phase 10C batch 1 started with the safest high-leverage sources: Anthropic skill anatomy, Vercel find-skills discovery, and skills.sh metadata. Batch 2 followed with backend/security/runtime verification sources: Supabase agent-skills, Trail of Bits skills, and Playwright. Batch 3 covered UI/design/web-quality sources: shadcn/ui, Addy Osmani web-quality-skills, and VoltAgent awesome-design-md. Phase 10D covers orchestration and harness sources. Defer Superpowers extraction; keep it external and avoid duplication.
-

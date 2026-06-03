@@ -1,6 +1,6 @@
 # Examples Index
 
-This repository is primarily policy and governance documentation.  
+This repository is primarily policy and governance documentation.
 `examples/` is currently a placeholder for minimal OSS-facing usage references and template examples as they become available.
 
 Current intent:

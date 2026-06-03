@@ -105,4 +105,3 @@ Stop instead of guessing when source of truth cannot be verified, required valid
 ## Boundaries
 
 The spine does not install skills, activate external tools, clone repositories into active paths, copy raw external skills, add hooks, add daemons, create MCP servers, change global Codex config, or modify product repositories.
-
