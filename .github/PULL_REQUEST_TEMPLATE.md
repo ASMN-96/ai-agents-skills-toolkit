@@ -7,6 +7,7 @@
 - [ ] Documentation files updated
 - [ ] Templates or issue docs updated
 - [ ] Codex open-source draft updated
+- [ ] No secrets, tokens, private data, or credentials are included
 
 ## Files changed
 

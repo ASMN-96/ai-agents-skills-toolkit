@@ -2,32 +2,33 @@
 
 ## Repository positioning
 
-Primary maintainer: **Primary maintainer**
+Recommended role selection: **Primary maintainer**
 
 This repository is a governance and execution-quality layer for Codex-driven software work.
 It is intentionally separated from product runtime and focuses on validated source records,
 agent/skill compilation policy, and reproducible release gates for safe sync workflows.
+It is an open-source governance-first repository.
 
 ## Why it qualifies (max 500 chars)
 
-The project demonstrates evidence-based governance rather than opportunistic tooling claims.
-It defines explicit scope boundaries, validates runtime naming and package surfaces, and documents
-both blockers and assumptions. It is positioned for open-source use through controlled,
-auditable artifacts while keeping high-risk activation paths out of default behavior.
+The repository provides evidence-based governance rather than opportunistic tooling claims. It documents
+explicit scope boundaries, runtime naming and package-surface validation, and publication blockers.
+It is positioned as an open-source governance-first repository with auditable sync workflows and
+explicit limits, while keeping high-risk activation paths out of default use.
 
 ## How API credits support the project (max 500 chars)
 
-API credits are used only for internal Codex-assisted work and documentation quality checks.
-They support structured prompt patterns, review-grade summaries, and migration safety workflows.
-No production runtime dependency is inferred from credits; credits amplify governance consistency,
-not direct runtime execution.
+API credits support open-source maintainer workflows by powering Codex-assisted policy checks,
+validation automation, documentation review, release checklist updates, and source-safety review.
+Credits improve consistency and speed for governance work and are not tied to any production runtime
+dependency.
 
 ## Anything else OpenAI should know (max 500 chars)
 
-This is an open-OSS governance-first repository with explicit honesty rules: dry-runs, missing checks,
-and WARN status are reported as partial. Publication is intentionally deferred until owner-level
-blockers (history and release-approval decisions) are closed. The repository does not seek
-enterprise-readiness claims in this phase.
+This repository is not public-ready, and publication is intentionally deferred until owner-level
+history and release-decision blockers are resolved. Public package validation is an allowlist gate only
+and does not certify full-repository publication readiness. The repository remains outside enterprise
+readiness posture until owner-approved disclosure, licensing, and governance conditions are met.
 
 ## Evidence checklist
 

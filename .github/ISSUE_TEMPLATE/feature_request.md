@@ -33,3 +33,4 @@ Who needs this and what problem it solves.
 
 - no runtime, package, CI, global config, or product-repo changes
 - maintain publication warning wording
+- do not include secrets, tokens, private data, or credentials

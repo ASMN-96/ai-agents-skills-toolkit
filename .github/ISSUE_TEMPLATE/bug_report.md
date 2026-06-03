@@ -8,6 +8,8 @@ labels: bug
 
 Describe the issue in one sentence.
 
+Do not include secrets, tokens, private data, or credentials.
+
 ## Environment
 
 - OS:

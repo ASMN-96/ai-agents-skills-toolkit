@@ -39,7 +39,7 @@ The toolkit is intentionally thin: governance metadata, compiled artifacts, and 
 - This repository does not change global Codex config.
 - It does not modify product repositories.
 - It does not duplicate external execution plugins.
-- It does not claim enterprise or public-readiness readiness without dedicated evidence.
+- It does not claim enterprise or public readiness without dedicated evidence.
 
 ## Why this split exists
 

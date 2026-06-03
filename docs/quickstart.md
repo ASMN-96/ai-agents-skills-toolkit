@@ -7,7 +7,9 @@ It is not a product runtime and does not execute product features itself.
 
 - Read access to the repository.
 - Git installed.
-- Optional: Node.js for running validator scripts.
+- Node.js is required to run repository validators.
+- Git is required for clone and local worktree operations.
+- Reading docs alone does not require running validators.
 
 ## 5-minute onboarding
 

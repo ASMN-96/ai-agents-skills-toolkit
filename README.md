@@ -74,13 +74,14 @@ Optional, when release context is requested:
 
 Only report checks that were actually executed.
 
-## Maturity status
+## External-facing status
 
-Documented status is **Level 3 controlled-pilot validated**.
+Public-facing status:
 
-- controlled sync and operator workflows are in place,
-- Level 4 and Level 5 claims are not active yet,
-- publication remains blocked by owner decision and history/ownership-related conditions.
+- Canonical runtime is **5 skills and 12 agents**.
+- Public package validation can pass while still not proving whole-repo publication readiness.
+- Repository publication remains blocked until owner, history-clean, and disclosure decisions are resolved.
+- All other repos remain private unless separately approved.
 
 ## Limitations
 
@@ -99,9 +100,3 @@ Documented status is **Level 3 controlled-pilot validated**.
 ## License
 
 This repository uses the root `LICENSE`.
-
-## Current-tree checks from the operator state
-
-- Current blockers for implementation flow: 0.
-- PR #52 is merged.
-- Runtime naming is canonicalized: 5 skills and 12 agents.
