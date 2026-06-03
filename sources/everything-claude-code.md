@@ -4,7 +4,7 @@
 - Owner / publisher: affaan-m.
 - Source type: Cross-harness Claude Code ecosystem repository with skills, agents, commands, hooks, manifests, MCP config, plugins, rules, and install scripts.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `99baa8250096f2d295583572399a5c9aba2ce312` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
+- Pinned repo ref checked: `0f84c0e2796703fbda87d577b2636351418c7442` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
 - Visible adoption signals: about 175.8k GitHub stars, 27.2k forks, and large multi-harness surface area.
 - Trust level: Medium source trust, very high execution/config-mutation risk.
 - License status: GitHub API reports MIT.
@@ -70,3 +70,5 @@ Skill Scout read-only review refreshed the source record from `5b617787d87482c20
 ## Freshness Review 2026-06-03
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `64cd1ba248e77e377e76f70fc4e6434bfdddd511` to `99baa8250096f2d295583572399a5c9aba2ce312` using GitHub compare metadata and `git ls-remote` only. The compare was 2 commits ahead and touched Codex plugin metadata, Codex config, release docs, package metadata, plugin-manifest tests, and added platform-value-loop documentation and tests. MIT license metadata remained present from the source record. The source remains very high risk for cross-harness config mutation, plugin activation, package/script execution, and global path writes. This refresh updates source tracking only and does not approve installs, hooks, skills, commands, MCP config, plugin activation, script execution, package changes, source copying, method extraction, global config changes, or runtime activation.
+
+Skill Scout read-only publication-gate follow-up reviewed upstream default-branch movement from `99baa8250096f2d295583572399a5c9aba2ce312` to `0f84c0e2796703fbda87d577b2636351418c7442` using GitHub compare metadata only. The compare was 1 commit ahead and touched package metadata, lockfiles, control-pane and ECC scripts, server/state/UI action code, and tests. The source remains very high risk for cross-harness config mutation, plugin activation, package/script execution, and global path writes. This refresh updates source tracking only and does not approve installs, hooks, skills, commands, MCP config, plugin activation, script execution, package changes, source copying, method extraction, global config changes, or runtime activation.

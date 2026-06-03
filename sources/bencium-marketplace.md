@@ -4,7 +4,7 @@
 - Purpose: Personal marketplace for design, architecture, and productivity skills.
 - Trust level: Medium-low.
 - License if visible: MIT.
-- Commit / update activity: `3ea292b062cdbc6a5e444f01a52abd1a0f9e02a5` from read-only remote HEAD check on 2026-05-29.
+- Commit / update activity: `c6f5a718d43ba5a5d540bf74efbd4dba81400c72` from read-only remote HEAD and compare metadata on 2026-06-03.
 - Recommendation: Reference only.
 
 ## Useful Methods
@@ -14,3 +14,7 @@ Design audit, typography, controlled UX, innovative UX, impact design, relations
 ## Security Notes
 
 Repository includes global install-all commands and global Claude settings guidance. Use selective inspiration only after individual skill review.
+
+## Freshness Review 2026-06-03
+
+Skill Scout read-only publication-gate follow-up reviewed upstream default-branch movement from `3ea292b062cdbc6a5e444f01a52abd1a0f9e02a5` to `c6f5a718d43ba5a5d540bf74efbd4dba81400c72` using GitHub compare metadata only. The compare was 1 commit ahead and touched `.claude-plugin/marketplace.json`. Existing global-install and settings-mutation cautions remain. This refresh updates source tracking only and does not approve plugin activation, global settings changes, source copying, method extraction, package changes, script execution, or product-repo changes.

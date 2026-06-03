@@ -4,7 +4,7 @@
 - Owner / publisher: msitarzewski.
 - Source type: Community agent taxonomy and role catalog.
 - Retrieval date: 2026-05-08.
-- Pinned repo ref checked: `083ce47e1385cd10a5dbfa1f3254bc6f0249217e` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
+- Pinned repo ref checked: `5032f7e75c3ea7ad02e33151486fb27b46a4ace5` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
 - Visible adoption signals: about 95.0k GitHub stars, 15.7k forks, and broad categorized agent folders.
 - Trust level: Medium source trust, high roster-sprawl risk.
 - License status: GitHub API reports MIT.
@@ -65,3 +65,5 @@ Candidate for future normalized scorecard and routing refinements, pending separ
 ## Freshness Review 2026-06-03
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `783f6a72bfd7f3135700ac273c619d92821b419a` to `083ce47e1385cd10a5dbfa1f3254bc6f0249217e` using GitHub compare metadata and `git ls-remote` only. The compare was 2 commits ahead and touched only `SECURITY.md` and `scripts/lint-agents.sh` with one-line removals. MIT license metadata remained present from the source record. The source remains useful only as passive role-taxonomy inspiration, with roster import and script execution rejected. This refresh updates source tracking only and does not approve source script execution, raw agent prompt copying, new agent creation, roster import, method extraction, source copying, product-repo changes, or runtime activation.
+
+Skill Scout read-only publication-gate follow-up reviewed upstream default-branch movement from `083ce47e1385cd10a5dbfa1f3254bc6f0249217e` to `5032f7e75c3ea7ad02e33151486fb27b46a4ace5` using GitHub compare metadata only. The compare was 1 commit ahead and touched a lint workflow, `CONTRIBUTING.md`, and an originality-check script. The source remains useful only as passive role-taxonomy inspiration, with roster import, workflow copying, and script execution rejected. This refresh updates source tracking only and does not approve source script execution, workflow copying, raw agent prompt copying, new agent creation, roster import, method extraction, source copying, product-repo changes, or runtime activation.

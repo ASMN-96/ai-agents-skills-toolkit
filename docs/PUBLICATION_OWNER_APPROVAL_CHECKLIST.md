@@ -1,6 +1,17 @@
 # Publication Owner Approval Checklist
 
-Status: blocked until every owner decision below is explicitly approved. This checklist does not make any repository public, create a release, or submit the Codex open-source application.
+Status: owner approval recorded for making the current toolkit repository public, subject to clean final validation. This checklist does not create a release or submit the Codex open-source application.
+
+## Owner Decision Entry - 2026-06-03
+
+- Owner approves making the current toolkit repository public instead of publishing a sanitized mirror.
+- Owner accepts that real PR and commit history is intentionally visible for OpenAI Codex OSS review.
+- Owner confirms no current-tree blockers remain after final validation.
+- Owner accepts the classified non-current-tree findings for this launch path: safe guardrail/scanner evidence, owner-decision blockers, history-only blockers, and false positives.
+- Owner confirms all other repositories remain private unless separately approved; any pre-existing public repository detected during validation is out of scope and must not be modified by this task.
+- Owner confirms no release tag or Codex OSS application submission is approved in this task.
+- Owner confirms the security disclosure path must be GitHub private vulnerability reporting if available, or an owner-approved contact later.
+- Owner confirms this approval applies only to this repository and does not approve changes to any other repository, profile repository, global/user Codex config, package files, lockfiles, CI, MCP, deployment config, external services, releases, tags, or product repositories.
 
 ## Verification Baseline
 
@@ -61,4 +72,4 @@ Preferred path: enable GitHub private vulnerability reporting on the public mirr
 
 ## Non-Approval Statement
 
-Until this checklist is approved, do not make the repository public, change repository visibility, change GitHub profile visibility, create release tags, submit the Codex OSS application, push directly to `main`, modify product repositories, touch global/user Codex config, or modify package, lockfile, CI, MCP, deployment, or external service configuration.
+This approval does not authorize changing GitHub profile visibility, editing a profile README repository, creating release tags, submitting the Codex OSS application, modifying product repositories, touching global/user Codex config, or modifying package, lockfile, CI, MCP, deployment, or external service configuration.

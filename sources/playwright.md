@@ -5,7 +5,7 @@
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `dd151191ee02f2107bc702c70c487c9aec573e09` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
+- Pinned repo ref checked: `f1c29818474bb109493660edbe171b94de7ac71c` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
 - Visible adoption signals: about 89.8k GitHub stars, 5.8k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
@@ -94,3 +94,5 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 ## Freshness Review 2026-06-03
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `5dd0a9bd614cbebe1911debd863bbf6493d5d7e2` to `dd151191ee02f2107bc702c70c487c9aec573e09` using GitHub compare metadata and `git ls-remote` only. The compare was 14 commits ahead and touched CI workflow files, package/package-lock metadata, browser install CLI code, browser registry metadata, server network/HAR/websocket/client-certificate handling, zip utility code, webview request/page handling, and related tests. Apache-2.0 license metadata remained present. Existing browser-control, trace artifact, runtime automation, package-install, browser-download, MCP, CI, network, and build-script cautions remain. This refresh updates source tracking only and does not approve CI changes, workflow copying, package install, browser download, MCP activation, runtime automation, source-copying, method extraction, package changes, Docker use, or product-repo changes.
+
+Skill Scout read-only publication-gate follow-up reviewed upstream default-branch movement from `dd151191ee02f2107bc702c70c487c9aec573e09` to `f1c29818474bb109493660edbe171b94de7ac71c` using GitHub compare metadata only. The compare was 5 commits ahead and touched Playwright docs, CLI driver, Chromium page handling, trace snapshot injection, MCP config parsing, and related tests. Existing browser-control, trace artifact, runtime automation, package-install, browser-download, MCP, CI, network, and build-script cautions remain. This refresh updates source tracking only and does not approve CI changes, workflow copying, package install, browser download, MCP activation, runtime automation, source-copying, method extraction, package changes, Docker use, or product-repo changes.

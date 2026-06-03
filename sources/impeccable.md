@@ -7,7 +7,7 @@
 - Retrieval date: 2026-05-29.
 - Last checked date: 2026-06-03.
 - Last reviewed date: 2026-06-03.
-- Last reviewed commit: `be83085dbd8a67dcb379129a9943c10fec4924a4`.
+- Last reviewed commit: `1d5d745823aae7019044e8b0a621af4366dae224`.
 - Normalization review date: 2026-05-22.
 - Normalization review commit: `642f03d5a10eb3deb91bd511241e387e23b9aa39`.
 - Visible adoption signals: 28,106 GitHub stars, 1,517 forks, and repository push activity on 2026-05-15 from read-only GitHub metadata.
@@ -94,6 +94,8 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 ## Freshness Review 2026-06-03
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `6163ca0529eb6b30240d71b68ab55fe8051c44de` to `be83085dbd8a67dcb379129a9943c10fec4924a4` using GitHub compare metadata and `git ls-remote` only. The compare was 4 commits ahead and touched public site CSS and favicon styling files only: `site/public/favicon.svg`, `site/styles/design-system.css`, `site/styles/detector-lab.css`, `site/styles/docs-kinpaku.css`, `site/styles/docs-visuals.css`, `site/styles/home-kinpaku.css`, `site/styles/home-rebuild.css`, `site/styles/kinpaku-tokens.css`, and `site/styles/light-mode.css`. No upstream package metadata, CLI implementation, detector script, live-browser workflow, skill body, tests, runtime configuration, or project-sync material changed in this reviewed drift. The recommendation is unchanged: use Impeccable only as normalized UI/UX source intelligence. This refresh updates source tracking only and does not approve CLI execution, package install, detector use, browser workflow use, source-copying, skill-body import, external activation, or runtime configuration changes.
+
+Skill Scout read-only publication-gate follow-up reviewed upstream default-branch movement from `be83085dbd8a67dcb379129a9943c10fec4924a4` to `1d5d745823aae7019044e8b0a621af4366dae224` using GitHub compare metadata only. The compare was 5 commits ahead and touched package metadata, build/API scripts, site layout/components/pages, theme utilities, and light-mode styles. Existing CLI, detector, live-browser, package, script, and external skill execution cautions remain. This refresh updates source tracking only and does not approve CLI execution, package install, detector use, browser workflow use, source-copying, skill-body import, external activation, or runtime configuration changes.
 
 ## Source Provenance (Stable)
 
