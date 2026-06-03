@@ -224,4 +224,3 @@ Source records remain the provenance layer. A method registry entry may cite a s
 Every registry file must be valid JSON. Registry updates should be validated before completion and reviewed for accidental activation language. `registries/methods.registry.json` must additionally validate that every `methodPath` exists, every method file has source traceability frontmatter, every `sourceProvenance` path exists, every routing `methodReferences` value resolves to a method ID, and no method entry claims active runtime status.
 
 Validation reports must surface WARN output separately from blocking failures. A passing registry validator can still leave review-required metadata, source-review-required tools, compiled-agent drift, mock-only freshness, or other non-blocking warnings that completion reports must preserve.
-

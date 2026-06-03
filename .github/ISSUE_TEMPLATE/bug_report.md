@@ -18,9 +18,9 @@ Do not include secrets, tokens, private data, or credentials.
 
 ## Steps to reproduce
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Expected result
 

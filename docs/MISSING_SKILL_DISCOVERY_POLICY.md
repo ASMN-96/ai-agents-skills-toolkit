@@ -74,4 +74,3 @@ Use this compact template before recommending any missing skill or source:
 ## Output Expectations
 
 When discovery finds a candidate, summarize it briefly, classify trust/license/safety, state what would be extracted in normalized form, and state what must not be copied or activated.
-
