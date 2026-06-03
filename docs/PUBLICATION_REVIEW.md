@@ -1,6 +1,6 @@
 # Publication Review
 
-Status: published path selected and active; remaining publication gates are still open for policy and Level 5 approvals.
+Status: published path selected and active; controlled `v0.1.0` release is allowed only after the release PR, validation gate, post-merge verification, tag creation, and GitHub release verification pass. Level 5 broad public/package maturity remains a separate future approval.
 
 This review is separate from `node scripts/validate-public-package.mjs`. Public package validation is allowlist-only: it checks the explicit package surface, not every repository file and not Git history. A public GitHub repository readiness review covers the whole tree, historical exposure, branch/tag state, policy files, disclosure channels, and owner approval.
 
@@ -8,7 +8,7 @@ This review is separate from `node scripts/validate-public-package.mjs`. Public 
 
 - Current repository visibility: public.
 - Public package readiness: valid for allowlist package surface only.
-- Public GitHub repository readiness: published on this path after owner history-disclosure acceptance; residual blockers remain for full Level 5 release readiness.
+- Public GitHub repository readiness: published on this path after owner history-disclosure acceptance; residual owner/history findings are accepted only for the controlled `v0.1.0` path and remain tracked for future Level 5 maturity.
 - Level 4 and Level 5 readiness: not claimed.
 
 ## Findings
@@ -26,13 +26,14 @@ This review is separate from `node scripts/validate-public-package.mjs`. Public 
 
 ## Publication Rule
 
-Do not change GitHub visibility, create public release tags, or publish package/repository artifacts until:
+Do not change GitHub visibility, create release tags beyond the approved `v0.1.0`, or publish package artifacts until:
 
-- whole-repo publication review is clean,
-- private overlay and history exposure decisions are resolved,
-- clean-clone verification passes,
-- owner approves license, contribution, security, and community docs,
+- the full release PR validation gate passes,
+- post-merge verification passes on `main`,
+- leak scan reports `0` current-tree blockers,
+- source freshness has no actionable changes,
+- runtime validation reports the canonical Codex surface,
 - security disclosure channel is owner-approved,
-- Level 5/public release is explicitly approved in a separate reviewed decision.
+- release notes state the exact controlled-use posture, exclusions, WARN output, and rollback path.
 
-Passing public package validation does not approve public repository readiness. If leak findings remain, the repository remains gated unless each remaining finding is resolved or explicitly approved through the owner decision process above.
+Passing public package validation does not approve Level 5 readiness by itself. If leak findings remain, they must be classified and explicitly accepted through the owner decision process for the controlled `v0.1.0` path.

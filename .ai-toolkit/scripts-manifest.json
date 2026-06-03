@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.6.0-draft",
+  "toolkitVersion": "0.1.0",
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
@@ -8,7 +8,7 @@
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
-      "sha256": "3d042a98f51371c100b951c02c4c1d9ca5dab13aec6c836d9e64d487b71b076b"
+      "sha256": "03645766ecc1322ea3e83b70a101c954018bce86b1ee8581aa527259bda897ca"
     },
     {
       "path": "scripts/classify-stale-unverified-data.mjs",

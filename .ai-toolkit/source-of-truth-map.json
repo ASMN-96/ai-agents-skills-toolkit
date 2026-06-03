@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.6.0-draft",
+  "toolkitVersion": "0.1.0",
   "domains": [
     {
       "domain": "skills",

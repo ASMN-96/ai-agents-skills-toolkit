@@ -325,7 +325,10 @@ function escapeCell(value) {
 function renderReport(findings, scannedFiles, maxFindings) {
   const limitedFindings = findings.slice(0, maxFindings);
   const truncated = findings.length > limitedFindings.length;
-  const publicReleaseBlocked = findings.some((finding) => finding.classification !== "false-positive");
+  const currentTreeBlockers = findings.filter((finding) => finding.classification === "current-tree-blocker").length;
+  const publicReleaseStatus = currentTreeBlockers > 0
+    ? `blocked by ${currentTreeBlockers} current-tree blocker${currentTreeBlockers === 1 ? "" : "s"}`
+    : "no current-tree blockers; remaining findings require explicit owner acceptance or documented exclusion";
 
   const sections = [
     "# Public/Private Leak Report",
@@ -336,7 +339,8 @@ function renderReport(findings, scannedFiles, maxFindings) {
     "",
     `- Scanned files: ${scannedFiles}`,
     `- Findings: ${findings.length}`,
-    `- Public release status: ${publicReleaseBlocked ? "blocked until findings are resolved or explicitly classified for exclusion" : "no blocking findings detected"}`,
+    `- Current-tree blockers: ${currentTreeBlockers}`,
+    `- Public release status: ${publicReleaseStatus}`,
     `- Detail rows shown: ${limitedFindings.length}${truncated ? ` of ${findings.length}` : ""}`,
     "",
     "## Classification Counts",
