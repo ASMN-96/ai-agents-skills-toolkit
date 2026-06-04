@@ -272,21 +272,6 @@
       "neverAutoImport": true
     },
     {
-      "id": "agency-agents",
-      "name": "Agency Agents",
-      "sourceUrl": "https://github.com/msitarzewski/agency-agents",
-      "repoOwner": "msitarzewski",
-      "repoName": "agency-agents",
-      "defaultBranch": "main",
-      "lastReviewedCommit": "fb65f61d80344a9d768292c228d6cbb30f52c362",
-      "lastReviewedDate": "2026-06-04",
-      "sourceRecordPath": "sources/agency-agents.md",
-      "watchedPaths": [],
-      "licenseConcern": "clear",
-      "reviewPriority": "Medium",
-      "neverAutoImport": true
-    },
-    {
       "id": "superpowers",
       "name": "Superpowers",
       "sourceUrl": "https://github.com/obra/superpowers",
