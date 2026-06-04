@@ -38,7 +38,7 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | voltagent-awesome-agent-skills | VoltAgent Awesome Agent Skills | reference-only-with-reason | Do later | Source record only | Compare orchestration ideas after RuFlo extraction | No raw agent activation |
 | impeccable | Impeccable | active-skill-rule | Do later | UIUX source map and skill behavior | Motion, polish, and context-loading acceptance criteria | No tool activation |
 | uncodixfy | Uncodixfy | active-skill-rule | Do later | Anti-generic UIUX guidance | Generic-AI UI smell rubric and evals | No raw prompt copying |
-| agency-agents | Agency Agents | archive-candidate | Needs owner decision | Source record only | Archive unless a concrete method emerges | No agent/runtime import |
+| agency-agents | Agency Agents | archive-candidate | Archived from active freshness monitoring | Source record only | Re-add only if a concrete owner-approved method emerges | No agent/runtime import |
 | superpowers | Superpowers | active-method | Do later | TDD/verification/source-safety references; external plugin delegation | Keep toolkit-owned guardrails minimal | Do not duplicate plugin workflows |
 | everything-claude-code | Everything Claude Code | active-method | Do later | Source safety scoring | Keep config/hook/MCP risks in source-safety method | No global config, hook, or MCP import |
 | code-review-graph | code-review-graph | planned-extraction | Must do next | Source-only token governance inspiration | Keep context graph methods tied to source-only planning | No install, CLI, MCP, global config, product indexing, generated graph output, or whole-repo dump |
