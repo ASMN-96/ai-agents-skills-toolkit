@@ -4,6 +4,8 @@ This checklist is a release gate. It does not publish artifacts or approve distr
 
 `v0.1.0` is a controlled public release for Codex-first real-project use. It is not a Level 4, Level 5, enterprise-readiness, broad package-distribution, or non-Codex runtime-support claim.
 
+Current release state: `v0.1.0` is published and targets the validated `main` release commit.
+
 - Public package allowlist is explicit.
 - `node scripts/validate-public-package.mjs` passes.
 - Whole-repo publication review is clean; public package validation is allowlist-only and does not certify repository history.
@@ -20,14 +22,14 @@ This checklist is a release gate. It does not publish artifacts or approve distr
 
 ## v0.1.0 Gate
 
-- Full release branch validation passes.
-- PR is merged to `main` through the normal branch/PR workflow.
-- Post-merge validation passes on `main`.
-- Leak scan reports `0` current-tree blockers and remaining findings are classified.
-- Source freshness reports no actionable changes.
-- Runtime validation reports the canonical Codex surface: 5 active skills and 12 active repo-local project agents.
-- Annotated tag `v0.1.0` is created only from validated `main`.
-- GitHub release notes state the controlled-use posture, validation evidence, known exclusions, rollback path, and that Codex OSS application submission remains pending.
+- [x] Full release branch validation passed.
+- [x] PR was merged to `main` through the normal branch/PR workflow.
+- [x] Post-merge validation passed on `main`.
+- [x] Leak scan reports `0` current-tree blockers and remaining findings are classified.
+- [x] Source freshness reports no actionable changes.
+- [x] Runtime validation reports the canonical Codex surface: 5 active skills and 12 active repo-local project agents.
+- [x] Annotated tag `v0.1.0` was created only from validated `main`.
+- [x] GitHub release notes state the controlled-use posture, validation evidence, known exclusions, rollback path, and that Codex OSS application submission remains pending.
 
 ## Clean-Clone Verification
 

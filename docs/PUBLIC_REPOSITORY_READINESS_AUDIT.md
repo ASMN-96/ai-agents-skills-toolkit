@@ -1,6 +1,6 @@
 # Public Repository Readiness Audit
 
-Status: repository is public with owner-approved visibility; this audit tracks controlled `v0.1.0` release evidence separately from future Level 5 broad public/package maturity.
+Status: repository is public with owner-approved visibility; this audit tracks the published controlled `v0.1.0` release separately from future Level 5 broad public/package maturity.
 
 ## Scope
 
@@ -14,7 +14,7 @@ This audit covers public GitHub repository readiness for the whole repository tr
 - Active project agents: exactly 12 repo-local agents.
 - Removed aliases are not active runtime skills.
 - Level 4 remains blocked/deferred.
-- Controlled `v0.1.0` release may proceed only after the full validation, PR, post-merge, tag, and GitHub release gates pass.
+- Controlled `v0.1.0` release is published after the full validation, PR, post-merge, tag, and GitHub release gates passed.
 - Level 5 broad public/package maturity remains blocked pending explicit policy and owner-decision closure.
 
 ## Findings
@@ -42,6 +42,6 @@ This audit covers public GitHub repository readiness for the whole repository tr
 
 ## Non-Approval Statement
 
-This audit supports the controlled `v0.1.0` release only when the release PR and post-merge gates pass. It does not approve Level 4 or Level 5, product repositories, global/user Codex files, package files, lockfiles, CI, MCP, deployment config, external services, or Codex OSS application submission.
+This audit supports the published controlled `v0.1.0` release. It does not approve Level 4 or Level 5, product repositories, global/user Codex files, package files, lockfiles, CI, MCP, deployment config, external services, or Codex OSS application submission.
 
 Public package validation is a package-surface check only. It must not be treated as whole-repository readiness while history-only or owner-decision blockers remain.
