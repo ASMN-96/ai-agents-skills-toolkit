@@ -264,7 +264,7 @@
       "source": "registries/routing-matrix.json",
       "target": ".ai-toolkit/registries/routing-matrix.json",
       "mode": "byte-identical",
-      "sha256": "be95e5343d090a306dd0711de7bdefd5fcd89fc9752dba6ee11a85d6e49e8b51"
+      "sha256": "45f935943a0174722359fddd647ff2f5344ebf5fe1c17e0cc56d8653bf792661"
     },
     {
       "source": "registries/skills.registry.json",
@@ -276,7 +276,7 @@
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
-      "sha256": "77cc4c868547354ab01fc131682c62765b390b0fe6e1af24bdae1581c3bda277"
+      "sha256": "d302f30a1abaaebaefa8cd6dc00f23e4924ec1487d758eae092684a5824d508a"
     },
     {
       "source": "compiled-agents/product-agent.compiled.md",

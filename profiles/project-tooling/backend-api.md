@@ -66,7 +66,6 @@ Classify normal-language requests before coding: affected surfaces, required age
 - Addy Osmani API/interface and security methods
 - cross-surface client contracts method
 - WebView boundary review when embedded/native clients consume the API
-- code-review-graph read-only source intelligence
 
 ## Active-Read-Only Resources
 

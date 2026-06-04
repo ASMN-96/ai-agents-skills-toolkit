@@ -73,7 +73,6 @@ Classify normal-language requests before coding: affected surfaces, required age
 - no-fake-validation policy
 - review/security routing docs
 - owner approval checklist
-- code-review-graph read-only source intelligence
 - open-design read-only design reference
 
 ## Active-Read-Only Resources

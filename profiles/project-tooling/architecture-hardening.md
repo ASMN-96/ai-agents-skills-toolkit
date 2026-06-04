@@ -64,7 +64,6 @@ Classify normal-language requests before coding: affected surfaces, required age
 - changed-file neighborhood selection
 - compact agent context pack
 - stale context graph detection
-- code-review-graph read-only source intelligence
 
 ## Active-Read-Only Resources
 

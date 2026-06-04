@@ -42,13 +42,13 @@ Report which validation mode was used:
 - simulator;
 - physical device;
 - Expo Go;
-- dev build;
+- debug build;
 - preview/internal build;
 - release-like build;
 - app-store/test-flight/play-track review evidence;
-- not performed.
+- skipped.
 
-If mobile validation was not performed, state that honestly and do not claim mobile readiness. Screenshots, logs, accessibility inspection, performance output, and build identifiers count only when actually collected.
+If mobile validation was skipped or unavailable, state that honestly and do not claim mobile readiness. Screenshots, logs, accessibility inspection, performance output, and build identifiers count only when actually collected.
 
 No fake validation: Expo Go, simulator, preview, debug build, release-like build, skipped, unavailable, and manual-only evidence must be labeled exactly.
 

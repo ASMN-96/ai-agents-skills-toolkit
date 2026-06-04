@@ -98,7 +98,7 @@
       "repoOwner": "microsoft",
       "repoName": "playwright",
       "defaultBranch": "main",
-      "lastReviewedCommit": "78c9dfd4c7245973a5d3f56a34971555cfcf3000",
+      "lastReviewedCommit": "e3f61c1d798795e2e93f6c36e934853bbdab1e75",
       "lastReviewedDate": "2026-06-04",
       "sourceRecordPath": "sources/playwright.md",
       "watchedPaths": [],
@@ -107,7 +107,7 @@
       "neverAutoImport": true,
       "reviewedHold": {
         "status": "REVIEWED_HELD",
-        "reviewedCommit": "78c9dfd4c7245973a5d3f56a34971555cfcf3000",
+        "reviewedCommit": "e3f61c1d798795e2e93f6c36e934853bbdab1e75",
         "reviewedDate": "2026-06-04",
         "classification": "reviewed runtime-sensitive browser payload reference",
         "decision": "reference-only hold; no import, no install, no activation, no extraction, no package update, no CI update, no runtime update, no browser binary download, no upstream test or code copy, and no script execution",

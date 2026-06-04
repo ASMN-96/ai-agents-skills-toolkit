@@ -182,6 +182,10 @@ function section(text, heading) {
   return match ? match[1] : "";
 }
 
+function includesIgnoreCase(haystack, needle) {
+  return haystack.toLowerCase().includes(needle.toLowerCase());
+}
+
 async function validatePlannerAndApply() {
   note("tooling planner/apply behavior");
   const planText = await read("install/tooling-plan.mjs");
@@ -206,7 +210,7 @@ async function validatePlannerAndApply() {
     fail("tooling planner/apply behavior", "install/tooling-plan.mjs", "planner must expose code-review-graph as active-read-only source intelligence");
   }
   for (const resource of REMOVED_CURRENT_SCOPE_RESOURCES) {
-    if (planText.includes(resource) || applyText.includes(resource)) {
+    if (includesIgnoreCase(planText, resource) || includesIgnoreCase(applyText, resource)) {
       fail("tooling planner/apply behavior", "install/tooling-plan.mjs", `${resource} must not appear in planner/apply output`);
     }
   }
@@ -304,15 +308,18 @@ async function validateProfiles() {
       fail("project tooling profiles", profile, "pilot-only must not remain in current-scope project tooling profiles");
     }
     for (const resource of REMOVED_CURRENT_SCOPE_RESOURCES) {
-      if (text.includes(resource)) {
+      if (includesIgnoreCase(text, resource)) {
         fail("project tooling profiles", profile, `${resource} must not appear in project tooling profiles`);
       }
-      if (activeReference.includes(resource) || activeReadOnly.includes(resource) || defaultTools.includes(resource) || activeTools.includes(resource)) {
+      if (includesIgnoreCase(activeReference, resource) || includesIgnoreCase(activeReadOnly, resource) || includesIgnoreCase(defaultTools, resource) || includesIgnoreCase(activeTools, resource)) {
         fail("project tooling profiles", profile, `${resource} must not appear in active/default/current-scope sections`);
       }
     }
     if (!activeReadOnly.includes("code-review-graph")) {
       fail("project tooling profiles", profile, "code-review-graph must be active-read-only source intelligence");
+    }
+    if (includesIgnoreCase(activeReference, "code-review-graph") || includesIgnoreCase(defaultTools, "code-review-graph") || includesIgnoreCase(activeTools, "code-review-graph")) {
+      fail("project tooling profiles", profile, "code-review-graph must be exclusively in Active-Read-Only Resources");
     }
     if (!text.includes("No-Fake-Validation")) {
       fail("project tooling profiles", profile, "profile must include no-fake-validation rules");
@@ -360,6 +367,22 @@ async function validateRegistryConsistency() {
       fail("project tooling registry consistency", `registries/tools.registry.json:${id}`, `expected projectInstallClass ${expected}, got ${tool.projectInstallClass || "missing"}`);
     }
   }
+  const codeReviewGraph = tools.get("code-review-graph");
+  if (codeReviewGraph?.status !== "active-read-only") {
+    fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", "code-review-graph status must be active-read-only");
+  }
+  for (const required of ["indexing", "product repo scanning"]) {
+    if (!codeReviewGraph?.approvalRequiredFor?.includes(required)) {
+      fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", `code-review-graph approvalRequiredFor must include ${required}`);
+    }
+    if (!JSON.stringify(codeReviewGraph?.forbiddenActions || []).toLowerCase().includes(required)) {
+      fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", `code-review-graph forbiddenActions must include ${required}`);
+    }
+  }
+  const eslintBoundaries = tools.get("eslint-plugin-boundaries");
+  if (eslintBoundaries?.status !== "active-install-if-project-type") {
+    fail("project tooling registry consistency", "registries/tools.registry.json:eslint-plugin-boundaries", "eslint-plugin-boundaries status must be active-install-if-project-type");
+  }
   for (const tool of toolsRegistry?.tools || []) {
     if (tool.projectInstallClass === "pilot-only" || tool.status === "pilot-only") {
       fail("project tooling registry consistency", `registries/tools.registry.json:${tool.id}`, "pilot-only must not remain in current-scope tool registry classification");
@@ -385,7 +408,7 @@ async function validateRegistryConsistency() {
     fail("project tooling registry consistency", ".ai-toolkit/tool-packs/webapp-quality-security.json", "tool pack must not expose pilot-only current-scope classifications");
   }
   for (const resource of REMOVED_CURRENT_SCOPE_RESOURCES) {
-    if (packText.includes(resource)) {
+    if (includesIgnoreCase(packText, resource)) {
       fail("project tooling registry consistency", ".ai-toolkit/tool-packs/webapp-quality-security.json", `${resource} must not appear in tool-pack routes/model`);
     }
   }
@@ -423,6 +446,13 @@ async function validateRegistryConsistency() {
       fail("project tooling registry consistency", `registries/routing-matrix.json:${scenario}`, "missing routing scenario");
     }
   }
+  const scenariosById = new Map((routing?.scenarios || []).map((scenario) => [scenario.scenario, scenario]));
+  for (const scenario of ["mobile-native-app-quality", "webview-boundary-review"]) {
+    const methodReferences = scenariosById.get(scenario)?.methodReferences || [];
+    if (methodReferences[0] !== "governance.task-intake-routing-gate") {
+      fail("project tooling registry consistency", `registries/routing-matrix.json:${scenario}`, "normal-language mobile/WebView scenarios must route through task-intake first");
+    }
+  }
   const routedMethodIds = new Set();
   for (const scenario of routing?.scenarios || []) {
     for (const methodReference of scenario.methodReferences || []) {
@@ -457,7 +487,7 @@ async function validateNoRemovedResourcesInCurrentScope() {
   for (const file of currentScopeFiles) {
     const text = await read(file);
     for (const resource of REMOVED_CURRENT_SCOPE_RESOURCES) {
-      if (text.includes(resource)) {
+      if (includesIgnoreCase(text, resource)) {
         fail("removed resources excluded from current scope", file, `${resource} appears in a current-scope planner/profile/tool-pack surface`);
       }
     }

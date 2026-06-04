@@ -122,3 +122,11 @@ Skill Scout read-only source-safety follow-up reviewed upstream default-branch m
 Classification: `REVIEWED_HELD` / reviewed runtime-sensitive browser payload reference.
 
 Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `78c9dfd4c7245973a5d3f56a34971555cfcf3000` requires a fresh review.
+
+## Reviewed-Held Source Safety Review 2026-06-04 Final v0.2 Gate Follow-up
+
+Skill Scout read-only source-safety follow-up reviewed upstream default-branch movement from `78c9dfd4c7245973a5d3f56a34971555cfcf3000` to `e3f61c1d798795e2e93f6c36e934853bbdab1e75` using GitHub compare metadata and commit metadata only. The compare was 1 commit ahead and touched `packages/playwright-core/browsers.json`. The commit message was `feat(firefox-beta): roll to r1522 (#41140)`. Apache-2.0 license metadata remained present from the live source-freshness scan.
+
+Classification: `REVIEWED_HELD` / reviewed runtime-sensitive browser payload reference.
+
+Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `e3f61c1d798795e2e93f6c36e934853bbdab1e75` requires a fresh review.

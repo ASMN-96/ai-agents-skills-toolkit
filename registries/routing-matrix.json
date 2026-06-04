@@ -1297,6 +1297,7 @@
       ],
       "tokenMode": "standard",
       "methodReferences": [
+        "governance.task-intake-routing-gate",
         "mobile.native-mobile-app-quality"
       ]
     },
@@ -1335,6 +1336,7 @@
       ],
       "tokenMode": "detailed",
       "methodReferences": [
+        "governance.task-intake-routing-gate",
         "security.webview-boundary-review",
         "security.application-security-readiness"
       ]

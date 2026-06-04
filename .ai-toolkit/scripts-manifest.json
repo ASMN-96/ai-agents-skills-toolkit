@@ -28,7 +28,7 @@
     },
     {
       "path": "scripts/validate-project-tooling-profiles.mjs",
-      "sha256": "c872ddc3dfbb661b6e805bcd8699483ee829bae019527970ce1b1f2350f2184f"
+      "sha256": "fc86af7beef63a211aaecfabe0e730e31d63e28f507041960f600000dacbf63f"
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",

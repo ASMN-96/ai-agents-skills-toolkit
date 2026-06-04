@@ -62,7 +62,6 @@ Classify normal-language requests before coding: affected surfaces, required age
 - production governance docs
 - release/security routing docs
 - agent-command-safety method
-- code-review-graph read-only source intelligence
 
 ## Active-Read-Only Resources
 

@@ -35,8 +35,7 @@ const COMMON = {
     "Anthropic UIUX normalized guidance",
     "Bencium dashboard/commercial polish references",
     "Uncodixfy anti-generic AI UI guidance",
-    "VoltAgent design references if already tracked",
-    "code-review-graph read-only source intelligence"
+    "VoltAgent design references if already tracked"
   ],
   activeReadOnly: [
     "code-review-graph source intelligence with no install, indexing, MCP, global config, or product repo scanning"

@@ -20,8 +20,6 @@
         "CI wiring",
         "MCP setup",
         "global config",
-        "indexing",
-        "product repo scanning",
         "hooks",
         "PR write permissions",
         "networked deep scans"
@@ -88,7 +86,7 @@
         "Do not install from registry presence.",
         "Do not run from registry presence.",
         "Do not wire CI from registry presence.",
-        "Do not configure MCP, indexing, product repo scanning, or global config from registry presence.",
+        "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
       ]
     },
@@ -2482,6 +2480,8 @@
         "CI wiring",
         "MCP setup",
         "global config",
+        "indexing",
+        "product repo scanning",
         "hooks",
         "PR write permissions",
         "networked deep scans"
@@ -2546,7 +2546,7 @@
         "Do not install from registry presence.",
         "Do not run from registry presence.",
         "Do not wire CI from registry presence.",
-        "Do not configure MCP or global config from registry presence.",
+        "Do not configure MCP, indexing, product repo scanning, or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
       ]
     },
@@ -2791,7 +2791,7 @@
       "homepage": "https://github.com/javierbrea/eslint-plugin-boundaries",
       "purpose": "module import and layer boundary enforcement",
       "category": "architecture-boundary",
-      "status": "research-candidate",
+      "status": "active-install-if-project-type",
       "activationStatus": "metadata-only",
       "runtimeSurface": "external-tool-metadata",
       "defaultUse": "active-install-if-project-type after architecture layers are stable and owner-approved",
@@ -2836,10 +2836,11 @@
         "securityReviewStatus": "metadata-only-owner-review-required",
         "approvalOwner": "architecture-tool-owner-required",
         "allowedEnvironments": [
-          "metadata-only"
+          "metadata-only",
+          "target project after stable layer model and owner approval"
         ],
         "forbiddenEnvironments": [
-          "local execution",
+          "automatic local execution",
           "CI",
           "staging",
           "production",
@@ -2847,7 +2848,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; active-install-if-project-type only after stable architecture layers, owner approval, and project-local evidence"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Architecture, Repo Intelligence, and Token Context",
