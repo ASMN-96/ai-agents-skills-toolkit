@@ -104,7 +104,27 @@
       "watchedPaths": [],
       "licenseConcern": "clear",
       "reviewPriority": "Medium",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewedHold": {
+        "status": "REVIEWED_HELD",
+        "reviewedCommit": "08e2d03b41d10ca44b078da6275a79dc0290f24f",
+        "reviewedDate": "2026-06-04",
+        "classification": "reviewed runtime-sensitive reference",
+        "decision": "reference-only hold; no import, no install, no activation, no extraction, no package update, no CI update, no runtime update, no upstream test or code copy, and no script execution",
+        "noImportNoInstallNoExtraction": true,
+        "forbiddenActions": [
+          "import",
+          "install",
+          "activation",
+          "extraction",
+          "package update",
+          "CI update",
+          "runtime update",
+          "upstream code copy",
+          "upstream test copy",
+          "script execution"
+        ]
+      }
     },
     {
       "id": "bencium-marketplace",
@@ -158,8 +178,8 @@
       "repoOwner": "shadcn-ui",
       "repoName": "ui",
       "defaultBranch": "main",
-      "lastReviewedCommit": "cd54e0927f3853a777f700a0bbf34507cf697b9c",
-      "lastReviewedDate": "2026-06-01",
+      "lastReviewedCommit": "d84c4a8ca5aeac51a6311023bef36e5b04a3de50",
+      "lastReviewedDate": "2026-06-04",
       "sourceRecordPath": "sources/shadcn-ui.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -299,7 +319,28 @@
       "watchedPaths": [],
       "licenseConcern": "clear",
       "reviewPriority": "Medium",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewedHold": {
+        "status": "REVIEWED_HELD",
+        "reviewedCommit": "bc8e12bb80c904a5a9864797ef1fd1212aa82f3d",
+        "reviewedDate": "2026-06-04",
+        "classification": "reviewed-held reference-only",
+        "decision": "reference-only hold; no plugin import, no skill import, no install module import, no control-plane import, no cross-harness runtime support claim, no MCP or global config behavior, no import, no install, no activation, and no extraction",
+        "noImportNoInstallNoExtraction": true,
+        "forbiddenActions": [
+          "import",
+          "install",
+          "activation",
+          "extraction",
+          "plugin import",
+          "skill import",
+          "install module import",
+          "control-plane import",
+          "cross-harness runtime support claim",
+          "MCP behavior",
+          "global config behavior"
+        ]
+      }
     },
     {
       "id": "code-review-graph",
@@ -329,7 +370,29 @@
       "watchedPaths": [],
       "licenseConcern": "clear",
       "reviewPriority": "Medium",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewedHold": {
+        "status": "REVIEWED_HELD",
+        "reviewedCommit": "d065b15927c6ba7318623e8af123e7980e4c6681",
+        "reviewedDate": "2026-06-04",
+        "classification": "reviewed-held high-risk reference-only",
+        "decision": "reference-only hold; no hooks, no memory bridge, no MCP or daemon or global behavior, no package or lockfile update, no global npm lookup behavior, no import, no install, no activation, and no extraction",
+        "noImportNoInstallNoExtraction": true,
+        "forbiddenActions": [
+          "import",
+          "install",
+          "activation",
+          "extraction",
+          "hooks",
+          "memory bridge",
+          "MCP behavior",
+          "daemon behavior",
+          "global behavior",
+          "package update",
+          "lockfile update",
+          "global npm lookup behavior"
+        ]
+      }
     }
   ]
 }

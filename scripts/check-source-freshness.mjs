@@ -17,6 +17,7 @@ const ISSUE_DRAFT_DISCLAIMER =
 
 const STATUSES = new Set([
   "UNCHANGED",
+  "REVIEWED_HELD",
   "CHANGED_LOW_RISK",
   "CHANGED_REVIEW_REQUIRED",
   "CHANGED_HIGH_RISK",
@@ -276,6 +277,45 @@ function validateWatchlist(watchlist) {
     if (source.lastReviewedDate !== null && typeof source.lastReviewedDate !== "string") {
       throw new Error(`Source ${source.id} lastReviewedDate must be string or null`);
     }
+    validateReviewedHold(source);
+  }
+}
+
+function validateReviewedHold(source) {
+  if (!("reviewedHold" in source)) {
+    return;
+  }
+  const hold = source.reviewedHold;
+  if (!hold || typeof hold !== "object" || Array.isArray(hold)) {
+    throw new Error(`Source ${source.id} reviewedHold must be an object`);
+  }
+  if (hold.status !== "REVIEWED_HELD") {
+    throw new Error(`Source ${source.id} reviewedHold.status must be REVIEWED_HELD`);
+  }
+  if (typeof hold.reviewedCommit !== "string" || !COMMIT_SHA_PATTERN.test(hold.reviewedCommit)) {
+    throw new Error(`Source ${source.id} reviewedHold.reviewedCommit must be a 40-character Git commit SHA`);
+  }
+  if (typeof hold.reviewedDate !== "string" || hold.reviewedDate.length === 0) {
+    throw new Error(`Source ${source.id} reviewedHold.reviewedDate must be a non-empty string`);
+  }
+  if (typeof hold.classification !== "string" || hold.classification.length === 0) {
+    throw new Error(`Source ${source.id} reviewedHold.classification must be a non-empty string`);
+  }
+  if (typeof hold.decision !== "string" || hold.decision.length === 0) {
+    throw new Error(`Source ${source.id} reviewedHold.decision must be a non-empty string`);
+  }
+  if (hold.noImportNoInstallNoExtraction !== true) {
+    throw new Error(`Source ${source.id} reviewedHold.noImportNoInstallNoExtraction must be true`);
+  }
+  if (!Array.isArray(hold.forbiddenActions) || hold.forbiddenActions.length === 0) {
+    throw new Error(`Source ${source.id} reviewedHold.forbiddenActions must be a non-empty array`);
+  }
+
+  const forbiddenText = [hold.decision, hold.classification, ...hold.forbiddenActions].join(" ").toLowerCase();
+  for (const required of ["import", "install", "activation", "extraction"]) {
+    if (!forbiddenText.includes(required)) {
+      throw new Error(`Source ${source.id} reviewedHold must explicitly forbid ${required}`);
+    }
   }
 }
 
@@ -399,7 +439,7 @@ async function inspectGithubSource(source) {
     const changed = Boolean(latestCommit && latestCommit !== source.lastReviewedCommit);
 
     return {
-      status: classifyStatus(source, changed),
+      status: classifyStatus(source, changed, latestCommit),
       latestCommit,
       latestCommitDate,
       releaseSignal: release,
@@ -442,7 +482,7 @@ async function inspectGithubSourceWithLsRemoteFallback(source, reason) {
     }
 
     return {
-      status: classifyStatus(source, changed),
+      status: classifyStatus(source, changed, latestCommit),
       latestCommit,
       latestCommitDate: "not checked (git ls-remote fallback)",
       releaseSignal: "not checked (git ls-remote fallback)",
@@ -476,9 +516,12 @@ async function latestReleaseOrTag(repoPath) {
   return "none found";
 }
 
-function classifyStatus(source, changed) {
+function classifyStatus(source, changed, latestCommit) {
   if (!changed) {
     return "UNCHANGED";
+  }
+  if (isReviewedHeldForLatestCommit(source, latestCommit)) {
+    return "REVIEWED_HELD";
   }
 
   const licenseConcern = String(source.licenseConcern || "").toLowerCase();
@@ -490,6 +533,16 @@ function classifyStatus(source, changed) {
     return "CHANGED_REVIEW_REQUIRED";
   }
   return "CHANGED_LOW_RISK";
+}
+
+function isReviewedHeldForLatestCommit(source, latestCommit) {
+  return Boolean(
+    latestCommit &&
+    source.reviewedHold?.status === "REVIEWED_HELD" &&
+    source.reviewedHold.reviewedCommit === latestCommit &&
+    source.reviewedHold.reviewedDate &&
+    source.reviewedHold.noImportNoInstallNoExtraction === true
+  );
 }
 
 function mockInspection(source, index) {
@@ -508,7 +561,7 @@ function mockInspection(source, index) {
   const changed = index % 4 === 1;
   const latestCommit = changed ? `feed${source.lastReviewedCommit.slice(4)}` : source.lastReviewedCommit;
   return {
-    status: classifyStatus(source, changed),
+    status: classifyStatus(source, changed, latestCommit),
     latestCommit,
     latestCommitDate: changed ? "2026-05-10T00:00:00Z" : source.lastReviewedDate,
     releaseSignal: changed ? "mock: new tag signal" : "mock: unchanged",
@@ -526,6 +579,8 @@ function nextStepFor(status) {
   switch (status) {
     case "UNCHANGED":
       return "no action";
+    case "REVIEWED_HELD":
+      return "reviewed-held; no import/install/activation/extraction";
     case "CHANGED_LOW_RISK":
       return "refresh source record";
     case "CHANGED_REVIEW_REQUIRED":
@@ -554,7 +609,8 @@ async function buildResults(watchlist, useMock, checkedAt, methodImpactIndex) {
       ...inspection,
       lastCheckedDate: checkedAt,
       affectedMethods: formatAffectedMethods(methodImpactIndex.get(source.id)),
-      nextStep: nextStepFor(inspection.status)
+      nextStep: nextStepFor(inspection.status),
+      reviewedHold: source.reviewedHold || null
     });
   }
   return results;
@@ -573,6 +629,8 @@ function issueLabels(result) {
   const labels = ["source-freshness", "review-required", "no-import-no-activation"];
   if (result.status === "CHANGED_HIGH_RISK") {
     labels.push("risk-high");
+  } else if (result.status === "REVIEWED_HELD") {
+    labels.push("reviewed-held");
   } else if (result.status === "CHANGED_REVIEW_REQUIRED") {
     labels.push("risk-review-required");
   } else if (result.status === "CHANGED_LOW_RISK") {
@@ -719,19 +777,19 @@ function renderReport(results, useMock, checkedAt) {
     "",
     "## Sources",
     "",
-    "| Source | Repo | Status | Reviewed | Checked | Latest | Reviewed date | Latest date | License signal | Affected methods | Next step | Notes |",
-    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+    "| Source | Repo | Status | Reviewed | Checked | Latest | Reviewed date | Latest date | License signal | Hold classification | Hold decision | Affected methods | Next step | Notes |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
   ];
 
   for (const result of results) {
     lines.push(
-      `| ${escapeCell(result.name)} | ${escapeCell(`${result.repoOwner}/${result.repoName}`)} | ${result.status} | ${shortSha(result.lastReviewedCommit)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
+      `| ${escapeCell(result.name)} | ${escapeCell(`${result.repoOwner}/${result.repoName}`)} | ${result.status} | ${shortSha(result.lastReviewedCommit)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.reviewedHold?.classification || "n/a")} | ${escapeCell(result.reviewedHold?.decision || "n/a")} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
     );
 
     if (result.watchedPathSignals.length > 0) {
       for (const signal of result.watchedPathSignals) {
         lines.push(
-          `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | ${escapeCell(signal.date || "n/a")} | n/a | path commit signal only | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | watched-path signal only |`
+          `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | ${escapeCell(signal.date || "n/a")} | n/a | path commit signal only | n/a | n/a | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | watched-path signal only |`
         );
       }
     }
@@ -742,6 +800,7 @@ function renderReport(results, useMock, checkedAt) {
     "## Next Step Meanings",
     "",
     "- no action: current default-branch signal matches the reviewed commit; this does not mean the source is safe forever.",
+    "- reviewed-held; no import/install/activation/extraction: upstream changed, the latest commit has a recorded source-safety review, and the source is explicitly held/reference-only for runtime/package/tooling adoption.",
     "- refresh source record: upstream changed and a source-record refresh is the next safe step.",
     "- Skill Scout review required: review trust, license, maintenance, prompt-injection risk, dangerous commands, secret access, network behavior, and filesystem writes before any later phase.",
     "- reject/hold due to safety or license concern: do not import or extract until the concern is resolved in a separate reviewed phase.",
@@ -750,6 +809,7 @@ function renderReport(results, useMock, checkedAt) {
     "## Caveats",
     "",
     "- `Last checked` is the freshness scan timestamp and is not persisted back into source records automatically.",
+    "- REVIEWED_HELD is not import approval; it is an explicit no-import/no-install/no-activation/no-extraction hold for the exact reviewed latest commit.",
     "- Freshness signals only select review priority; they do not authorize source-record edits, extraction, activation, installation, or runtime writes.",
     "- License metadata is a signal only, not approval.",
     "- Watched-path changes are signals only, not approval.",

@@ -95,6 +95,36 @@ test("--fail-on-change reports actionable freshness statuses", async () => {
   });
 });
 
+test("--fail-on-change allows exact reviewed-held source commits", async () => {
+  const reviewedCommit = "a8924c2a35cfa290458852c4fad17c9133054c2e";
+  const heldCommit = `feed${reviewedCommit.slice(4)}`;
+  const sources = [
+    source({ id: "unchanged-source", name: "Unchanged Source" }),
+    source({
+      id: "held-source",
+      name: "Held Source",
+      lastReviewedCommit: reviewedCommit,
+      reviewedHold: {
+        status: "REVIEWED_HELD",
+        reviewedCommit: heldCommit,
+        reviewedDate: "2026-06-04",
+        classification: "reviewed-held reference-only",
+        decision: "reference-only hold; no import, no install, no activation, and no extraction",
+        noImportNoInstallNoExtraction: true,
+        forbiddenActions: ["import", "install", "activation", "extraction"]
+      }
+    })
+  ];
+
+  await withWatchlist(sources, async (cwd) => {
+    const result = await runFreshness(cwd, ["--mock", "--fail-on-change"]);
+
+    assert.equal(result.code, 0, result.stderr);
+    assert.match(result.stdout, /REVIEWED_HELD/);
+    assert.doesNotMatch(result.stderr, /actionable source freshness status/i);
+  });
+});
+
 test("mock report includes affected methods from method sourceRef frontmatter", async () => {
   await withWatchlist([source()], async (cwd) => {
     await mkdir(path.join(cwd, "registries"));
