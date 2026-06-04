@@ -48,6 +48,14 @@ Knip is not part of active full-power profiles. It is a use-if-existing cleanup 
 
 Socket, TruffleHog, OWASP ZAP baseline, Harden-Runner, deep networked scans, package-manager/workspace migrations, MCP/global config changes, and permission-granting integrations require explicit owner approval before execution or adoption. The approval must define target, scope, expected outputs, risks, and rollback.
 
+## Final Current-Scope Classifications
+
+No final current-scope project-tooling resource may remain `pilot-only`. code-review-graph is active-read-only source intelligence with no default install, indexing, MCP/global config, CI wiring, package changes, product repo scanning, or evidence claim without actual output. open-design is active-reference design intelligence only. eslint-plugin-boundaries is active-install-if-project-type only after architecture layers are stable and owner-approved. Impeccable project-local install mode is approval-required while normalized Impeccable guidance remains active-reference. Base UI and Figma are removed from current scope and must not appear as active/default recommendations.
+
+## Task-Intake Routing
+
+Normal-language tasks should pass through `methods/governance/task-intake-routing-gate.md` before coding. The front door classifies affected surfaces, required agents/skills/methods/tools, validation gates, stop conditions, and out-of-scope items so coding starts with explicit boundaries.
+
 ## Rollback and Removal
 
 Tooling templates must be reversible:

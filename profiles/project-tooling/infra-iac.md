@@ -8,6 +8,10 @@ Provide an infrastructure and IaC tooling posture for cloud config, containers, 
 
 `infra-iac`
 
+## Task-Intake Routing Gate
+
+Classify normal-language requests before coding: affected surfaces, required agents/skills/methods/tools, validation gates, stop conditions, and out-of-scope items.
+
 ## Default Tools
 
 - TypeScript / typecheck where applicable
@@ -23,6 +27,7 @@ Provide an infrastructure and IaC tooling posture for cloud config, containers, 
 - Checkov for IaC/cloud projects
 - Semgrep for security-sensitive projects
 - dependency-cruiser for architecture hardening where code structure exists
+- eslint-plugin-boundaries after architecture layers are stable and owner-approved
 
 ## Use-If-Existing Tools
 
@@ -50,22 +55,18 @@ Provide an infrastructure and IaC tooling posture for cloud config, containers, 
 - deep networked scans
 - MCP/global config changes
 - package-manager/workspace migrations
+- code-review-graph install, indexing, MCP/global config, or product repo scanning
 
 ## Active-Reference Resources
 
 - production governance docs
 - release/security routing docs
 - agent-command-safety method
+- code-review-graph read-only source intelligence
 
-## Pilot-Only Tools
+## Active-Read-Only Resources
 
-- code-review-graph
-- eslint-plugin-boundaries until architecture layers are stable
-
-## Archive/Removed Tools
-
-- Base UI
-- Figma
+- code-review-graph source intelligence with no install, package change, indexing, MCP/global config, CI wiring, product repo scanning, or evidence claim without actual output
 
 ## Recommended Package Scripts
 

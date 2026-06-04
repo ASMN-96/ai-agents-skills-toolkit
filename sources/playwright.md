@@ -5,7 +5,7 @@
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `16601141918a7163b87a7ec84060451f6c1bbbfd` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
+- Pinned repo ref checked: `78c9dfd4c7245973a5d3f56a34971555cfcf3000` on `main`, checked by read-only GitHub compare/commit metadata on 2026-06-04.
 - Visible adoption signals: about 89.8k GitHub stars, 5.8k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
@@ -114,3 +114,11 @@ Skill Scout read-only source-safety follow-up reviewed upstream default-branch m
 Classification: `REVIEWED_HELD` / reviewed runtime-sensitive browser payload reference.
 
 Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `b0f1008d9d1da8ee4b6d1ac293ed4878932b588f` requires a fresh review.
+
+## Reviewed-Held Source Safety Review 2026-06-04 Final v0.2 Gate
+
+Skill Scout read-only source-safety follow-up reviewed upstream default-branch movement from `b0f1008d9d1da8ee4b6d1ac293ed4878932b588f` to `78c9dfd4c7245973a5d3f56a34971555cfcf3000` using GitHub compare metadata and commit metadata only. The compare was 1 commit ahead and touched `.github/workflows/tests_primary.yml` and `packages/playwright/src/transform/esmLoaderSync.ts`. The commit message was `fix(test): pass file:// URL to the ESM resolver in the sync loader (#41138)`. Apache-2.0 license metadata remained present from the live source-freshness scan.
+
+Classification: `REVIEWED_HELD` / reviewed runtime-sensitive browser payload reference.
+
+Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `78c9dfd4c7245973a5d3f56a34971555cfcf3000` requires a fresh review.

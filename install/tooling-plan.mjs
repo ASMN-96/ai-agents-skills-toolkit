@@ -29,22 +29,20 @@ const COMMON = {
   activeReference: [
     "UI UX Pro Max",
     "Impeccable normalized design guidance",
+    "open-design read-only design reference",
     "shadcn/ui reference only",
     "Addy Osmani UI/web quality methods",
     "Anthropic UIUX normalized guidance",
     "Bencium dashboard/commercial polish references",
     "Uncodixfy anti-generic AI UI guidance",
-    "VoltAgent design references if already tracked"
+    "VoltAgent design references if already tracked",
+    "code-review-graph read-only source intelligence"
   ],
-  pilotOnly: [
-    "code-review-graph",
-    "open-design",
-    "eslint-plugin-boundaries until architecture layers are stable",
+  activeReadOnly: [
+    "code-review-graph source intelligence with no install, indexing, MCP, global config, or product repo scanning"
+  ],
+  approvalRequiredInstallModes: [
     "Impeccable project-local install mode"
-  ],
-  archiveRemoved: [
-    "Base UI",
-    "Figma"
   ],
   useIfExisting: [
     "CodeQL",
@@ -59,6 +57,7 @@ const COMMON = {
     "Owner must review before applying any template.",
     "New dependencies, package files, lockfiles, package-manager changes, CI wiring, MCP/global config, external service permissions, and deep scans require explicit approval.",
     "React Doctor GitHub Action, PR write permissions, and agent skill install require explicit approval.",
+    "Impeccable project-local install mode requires explicit approval.",
     "Codex must not claim output unless the actual script or tool ran."
   ],
   stopConditions: [
@@ -97,6 +96,7 @@ const PLANS = {
       "Lighthouse CI for public/mobile/performance-sensitive web apps",
       "Semgrep for security-sensitive projects",
       "dependency-cruiser for architecture hardening",
+      "eslint-plugin-boundaries after architecture layers are stable and owner-approved",
       "Madge for circular dependency risk",
       "jscpd for duplication-hardening projects"
     ],
@@ -114,6 +114,7 @@ const PLANS = {
     activeInstallIfProjectType: [
       "Semgrep for security-sensitive projects",
       "dependency-cruiser for architecture hardening",
+      "eslint-plugin-boundaries after architecture layers are stable and owner-approved",
       "actionlint for GitHub Actions projects",
       "zizmor for GitHub Actions security",
       "Trivy for Docker/container/IaC/SBOM projects",
@@ -136,7 +137,8 @@ const PLANS = {
       "Trivy for Docker/container/IaC/SBOM projects",
       "Checkov for IaC/cloud projects",
       "Semgrep for security-sensitive projects",
-      "dependency-cruiser for architecture hardening where code structure exists"
+      "dependency-cruiser for architecture hardening where code structure exists",
+      "eslint-plugin-boundaries after architecture layers are stable and owner-approved"
     ],
     recommendedScripts: ["lint", "test", "security:secrets", "security:deps", "security:iac", "security:containers", "workflow:lint"]
   },
@@ -157,6 +159,7 @@ const PLANS = {
       "Lighthouse CI for public/mobile/performance-sensitive web apps",
       "Semgrep for security-sensitive projects",
       "dependency-cruiser for architecture hardening",
+      "eslint-plugin-boundaries after architecture layers are stable and owner-approved",
       "Madge for circular dependency risk",
       "jscpd for duplication-hardening projects"
     ],
@@ -178,6 +181,7 @@ const PLANS = {
       "Lighthouse CI for public/mobile/performance-sensitive web apps",
       "Semgrep for security-sensitive projects",
       "dependency-cruiser for architecture hardening",
+      "eslint-plugin-boundaries after architecture layers are stable and owner-approved",
       "actionlint for GitHub Actions projects",
       "zizmor for GitHub Actions security",
       "Trivy for Docker/container/IaC/SBOM projects",
@@ -198,6 +202,7 @@ const PLANS = {
     ],
     activeInstallIfProjectType: [
       "dependency-cruiser for architecture hardening",
+      "eslint-plugin-boundaries after architecture layers are stable and owner-approved",
       "Madge for circular dependency risk",
       "jscpd for duplication-hardening projects",
       "Oxlint for large JS/TS/React repos as acceleration/supplement",
@@ -238,11 +243,10 @@ if (!projectType || !PROJECT_TYPES.includes(projectType)) {
   printList("use-if-existing tools", COMMON.useIfExisting);
   printList("external-only resources", COMMON.externalOnly);
   printList("approval-required tools", projectType.includes("react") || projectType === "mobile-webview" || projectType === "deep-release"
-    ? [...COMMON.approvalRequired, "React Doctor GitHub Action / PR write permissions / agent skill install"]
-    : COMMON.approvalRequired);
+    ? [...COMMON.approvalRequired, "React Doctor GitHub Action / PR write permissions / agent skill install", ...COMMON.approvalRequiredInstallModes]
+    : [...COMMON.approvalRequired, ...COMMON.approvalRequiredInstallModes]);
   printList("active-reference resources", COMMON.activeReference);
-  printList("pilot-only tools", COMMON.pilotOnly);
-  printList("archive/removed tools", COMMON.archiveRemoved);
+  printList("active-read-only resources", COMMON.activeReadOnly);
   printList("recommended scripts", plan.recommendedScripts);
   printList("owner approval checklist", COMMON.ownerApprovalChecklist);
   printList("stop conditions", COMMON.stopConditions);

@@ -42,61 +42,61 @@
       "source": "skills/governance/SKILL.md",
       "target": ".agents/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "52406f2423a9e9ceb4b28acca2c0f9b2b40c06fdccd93493488e2738324c5de9"
+      "sha256": "a9bcb432356f61f458e4204118c0437b3b19a55cc45314bc33f6d3f89c4dfaf4"
     },
     {
       "source": "skills/governance/SKILL.md",
       "target": ".ai-toolkit/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "52406f2423a9e9ceb4b28acca2c0f9b2b40c06fdccd93493488e2738324c5de9"
+      "sha256": "a9bcb432356f61f458e4204118c0437b3b19a55cc45314bc33f6d3f89c4dfaf4"
     },
     {
       "source": "skills/uiux/SKILL.md",
       "target": ".agents/skills/uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "dad00590cee68943a7f7e44a07a907fa45bfc1838a1f34d673930c2c585464a3"
+      "sha256": "45421f059af504a95e30863cf7180787d06706ca9fb4e42beca1285469fc6584"
     },
     {
       "source": "skills/uiux/SKILL.md",
       "target": ".ai-toolkit/skills/uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "dad00590cee68943a7f7e44a07a907fa45bfc1838a1f34d673930c2c585464a3"
+      "sha256": "45421f059af504a95e30863cf7180787d06706ca9fb4e42beca1285469fc6584"
     },
     {
       "source": "skills/code-quality/SKILL.md",
       "target": ".agents/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "f76fe4ce5144d3bc5db99c2fdfbe9c9520de214eb30afd7474b7819d41c1c87c"
+      "sha256": "a1f2824e8cfbdb5458b41811ba213d2216c1e139ef7426cc470b591b912eff3f"
     },
     {
       "source": "skills/code-quality/SKILL.md",
       "target": ".ai-toolkit/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "f76fe4ce5144d3bc5db99c2fdfbe9c9520de214eb30afd7474b7819d41c1c87c"
+      "sha256": "a1f2824e8cfbdb5458b41811ba213d2216c1e139ef7426cc470b591b912eff3f"
     },
     {
       "source": "skills/security-review/SKILL.md",
       "target": ".agents/skills/security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "cc201eb9907f96d847159f4fb47611b2a1b5553ff08796878e32d3e8a33bece4"
+      "sha256": "8d1beeb5ff626d5191eb32bf51871af2b3f10736e7dafa581130cf827376eb07"
     },
     {
       "source": "skills/security-review/SKILL.md",
       "target": ".ai-toolkit/skills/security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "cc201eb9907f96d847159f4fb47611b2a1b5553ff08796878e32d3e8a33bece4"
+      "sha256": "8d1beeb5ff626d5191eb32bf51871af2b3f10736e7dafa581130cf827376eb07"
     },
     {
       "source": "skills/pr-release-gate/SKILL.md",
       "target": ".agents/skills/pr-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "7d591e6905f27407705fc4022eed2e6fdc8ea9df7dbf4b730a0007d3435e2f7c"
+      "sha256": "9de986be1db77adcaa4cb0af8d87a0ef6af33a74ad96465b966eb7dcb65b9bda"
     },
     {
       "source": "skills/pr-release-gate/SKILL.md",
       "target": ".ai-toolkit/skills/pr-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "7d591e6905f27407705fc4022eed2e6fdc8ea9df7dbf4b730a0007d3435e2f7c"
+      "sha256": "9de986be1db77adcaa4cb0af8d87a0ef6af33a74ad96465b966eb7dcb65b9bda"
     },
     {
       "source": ".codex/agents/product-agent.toml",
@@ -252,7 +252,7 @@
       "source": "registries/methods.registry.json",
       "target": ".ai-toolkit/registries/methods.registry.json",
       "mode": "byte-identical",
-      "sha256": "e29b5f9e198b3b7b8448b6526528eb7d36decf2781e734077c25ce9ff3f165b7"
+      "sha256": "9aff69c910b5fa577bc8df07c6f8fed730c57e098321d4166749c60e5d0d90c1"
     },
     {
       "source": "registries/profiles.registry.json",
@@ -264,7 +264,7 @@
       "source": "registries/routing-matrix.json",
       "target": ".ai-toolkit/registries/routing-matrix.json",
       "mode": "byte-identical",
-      "sha256": "b7b08015a2df137f7217495bbd702bfe930bd858f7413ce4faa92f64ce93b9b3"
+      "sha256": "be95e5343d090a306dd0711de7bdefd5fcd89fc9752dba6ee11a85d6e49e8b51"
     },
     {
       "source": "registries/skills.registry.json",
@@ -276,7 +276,7 @@
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
-      "sha256": "a6c89e1eef1f9efd465249c40ee19fe667c8216e4b356d0b4a6a562a388f02de"
+      "sha256": "77cc4c868547354ab01fc131682c62765b390b0fe6e1af24bdae1581c3bda277"
     },
     {
       "source": "compiled-agents/product-agent.compiled.md",

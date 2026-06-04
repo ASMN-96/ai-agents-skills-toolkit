@@ -6,6 +6,7 @@ The v0.2 UI/UX model uses plural, complementary design references. The goal is b
 
 - UI UX Pro Max is the primary internal premium design rubric.
 - Impeccable is the primary external UI/UX design intelligence source and reference.
+- open-design is an active-reference design intelligence source only.
 - shadcn/ui is a reference and pattern source only.
 - Addy Osmani UI/web quality methods provide normalized engineering and web quality criteria.
 - Anthropic UI/frontend guidance may be used only as restricted normalized guidance.
@@ -18,6 +19,7 @@ The v0.2 UI/UX model uses plural, complementary design references. The goal is b
 - No Base UI in this v0.2.0 model.
 - No Figma in this v0.2.0 model.
 - No Impeccable install unless separately approved.
+- No open-design install, MCP/global config, raw design-system import, or unmanaged persistence unless separately approved.
 - No CLI/component import from shadcn/ui by default.
 - No raw prompt/source copying.
 - No unmanaged design-system file import.

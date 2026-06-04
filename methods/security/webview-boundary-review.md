@@ -14,6 +14,8 @@ Treat WebView content as a trust boundary. WebView work can blend web, native, a
 
 Use for native apps, hybrid apps, embedded browser surfaces, Expo DOM/WebView usage, OAuth or payment WebViews, deep links, external content, and native bridge behavior.
 
+Run `methods/governance/task-intake-routing-gate.md` first for normal-language WebView requests so native, API, auth, token, link, package/config, and release surfaces are separated before implementation.
+
 ## When Not To Use
 
 Do not use for ordinary browser-only pages with no native shell, bridge, or embedded context.
@@ -36,6 +38,8 @@ Do not use for ordinary browser-only pages with no native shell, bridge, or embe
 ## Evidence Requirements
 
 Document allowed origins, blocked origins, link/deep-link handling, bridge methods, storage/cookie/token behavior, and observed validation. Include browser/device logs only when actually collected. State unverified WebView paths plainly.
+
+No fake validation: do not claim bridge, token, origin, device, browser, or security readiness without observed evidence or an explicitly documented review limit.
 
 ## Stop Conditions
 

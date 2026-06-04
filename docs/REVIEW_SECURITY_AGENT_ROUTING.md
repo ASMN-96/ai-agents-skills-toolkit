@@ -66,3 +66,7 @@ This document routes review, release, QA, backend, database, and security respon
 ## Deep Security Tool Approval Rules
 
 Socket, TruffleHog, OWASP ZAP baseline, Harden-Runner, deep networked scans, production-impacting scans, MCP/global config changes, package-manager migrations, GitHub app permission changes, and React Doctor PR write automation require explicit owner approval with target, scope, risk, expected evidence, and rollback.
+
+## Readiness Method Routing
+
+Use `methods/governance/task-intake-routing-gate.md` before coding normal-language tasks. Security-sensitive changes route to `methods/security/application-security-readiness.md`; API/route changes route to `methods/api/api-contract-and-routing-readiness.md`; release and merge decisions route to `methods/release/release-rollback-readiness.md`. These methods are gates for review and evidence, not approval to run tools.

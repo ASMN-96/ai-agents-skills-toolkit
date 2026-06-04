@@ -17,7 +17,7 @@ const SHARED_TEMPLATES = [
   "quality-gates.md",
   "owner-approval-checklist.md",
   "react-doctor-adoption-checklist.md",
-  "code-review-graph-pilot-checklist.md",
+  "code-review-graph-read-only-checklist.md",
   "reviewdog-output-policy.md"
 ];
 

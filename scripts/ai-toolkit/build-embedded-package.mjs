@@ -285,8 +285,10 @@ async function projectToolingModelFromRegistry() {
       "Knip": "use-if-existing cleanup candidate only; removed from active/default profiles",
       "Oxlint": "active acceleration for large JS/TS/React repos as ESLint supplement",
       "Biome": "use-if-existing or owner-approved migration only",
-      "Base UI": "archive/remove-from-active",
-      "Figma": "archive/remove-from-active"
+      "code-review-graph": "active-read-only source intelligence; install, indexing, MCP/global config, CI wiring, package changes, and product repo scanning require approval",
+      "open-design": "active-reference design intelligence only; install/import/MCP/global config require approval",
+      "eslint-plugin-boundaries": "active-install-if-project-type only after architecture layers are stable and owner-approved",
+      "Impeccable project-local install mode": "approval-required; normalized Impeccable guidance remains active-reference"
     }
   };
 }

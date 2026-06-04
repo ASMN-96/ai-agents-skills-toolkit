@@ -233,7 +233,7 @@
           "Do not install from registry presence.",
           "Do not run from registry presence.",
           "Do not wire CI from registry presence.",
-          "Do not configure MCP or global config from registry presence.",
+          "Do not configure MCP, indexing, product repo scanning, or global config from registry presence.",
           "Do not claim output unless the tool actually ran."
         ]
       },
@@ -874,18 +874,18 @@
       {
         "id": "code-review-graph",
         "name": "code-review-graph",
-        "projectInstallClass": "pilot-only",
+        "projectInstallClass": "active-read-only",
         "lane": "Architecture, Repo Intelligence, and Token Context",
         "projectTypes": [
           "architecture-hardening",
           "large-context"
         ],
-        "evidenceMode": "pilot notes only",
+        "evidenceMode": "manual/static source intelligence or actual tool output only if separately approved and run",
         "installLocation": "read-only source/reference",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
         "conflictGroup": "context-graph",
-        "preferredRole": "pilot-only no indexing",
+        "preferredRole": "read-only source intelligence; no indexing",
         "forbiddenActions": [
           "Do not install from registry presence.",
           "Do not run from registry presence.",
@@ -897,17 +897,17 @@
       {
         "id": "open-design",
         "name": "open-design",
-        "projectInstallClass": "pilot-only",
+        "projectInstallClass": "active-reference",
         "lane": "UI/UX Design Intelligence and Browser Evidence",
         "projectTypes": [
           "uiux"
         ],
-        "evidenceMode": "pilot notes only",
+        "evidenceMode": "reference notes only unless separately approved tool output exists",
         "installLocation": "read-only source/reference",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
         "conflictGroup": "design-reference",
-        "preferredRole": "pilot-only",
+        "preferredRole": "active-reference design intelligence",
         "forbiddenActions": [
           "Do not install from registry presence.",
           "Do not run from registry presence.",
@@ -941,13 +941,13 @@
       {
         "id": "eslint-plugin-boundaries",
         "name": "eslint-plugin-boundaries",
-        "projectInstallClass": "pilot-only",
+        "projectInstallClass": "active-install-if-project-type",
         "lane": "Architecture, Repo Intelligence, and Token Context",
         "projectTypes": [
           "architecture-hardening"
         ],
         "evidenceMode": "lint output",
-        "installLocation": "target project after owner approval",
+        "installLocation": "target project after stable layer model and owner approval",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
         "conflictGroup": "architecture-boundary",
@@ -1035,8 +1035,10 @@
       "Knip": "use-if-existing cleanup candidate only; removed from active/default profiles",
       "Oxlint": "active acceleration for large JS/TS/React repos as ESLint supplement",
       "Biome": "use-if-existing or owner-approved migration only",
-      "Base UI": "archive/remove-from-active",
-      "Figma": "archive/remove-from-active"
+      "code-review-graph": "active-read-only source intelligence; install, indexing, MCP/global config, CI wiring, package changes, and product repo scanning require approval",
+      "open-design": "active-reference design intelligence only; install/import/MCP/global config require approval",
+      "eslint-plugin-boundaries": "active-install-if-project-type only after architecture layers are stable and owner-approved",
+      "Impeccable project-local install mode": "approval-required; normalized Impeccable guidance remains active-reference"
     }
   }
 }

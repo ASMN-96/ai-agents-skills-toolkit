@@ -2360,6 +2360,373 @@
         "repo",
         "project-sync"
       ]
+    },
+    {
+      "id": "governance.task-intake-routing-gate",
+      "displayName": "Task Intake Routing Gate",
+      "area": "governance",
+      "methodPath": "methods/governance/task-intake-routing-gate.md",
+      "purpose": "Classify normal-language requests into affected surfaces, agents, skills, methods, tools, validation gates, stop conditions, and out-of-scope items before implementation.",
+      "whenToUse": "Use before non-trivial implementation, PR repair, release preparation, source adoption, security review, mobile/WebView work, package/tooling requests, or business-language tasks.",
+      "whenNotToUse": "Do not use as approval to write files, install tools, change packages, wire CI, configure MCP/global settings, mutate product repositories, or claim validation.",
+      "passiveConsumerAgents": [
+        "All internal agents"
+      ],
+      "relatedRoutingScenarios": [
+        "task-intake-routing-gate",
+        "plain-language-product-request",
+        "large-governed-implementation"
+      ],
+      "riskDomains": [
+        "governance",
+        "routing",
+        "validation"
+      ],
+      "validationGates": [
+        "Report affected surfaces, selected agents/skills/methods/tools, validation gates, stop conditions, out-of-scope items, and no-fake-validation boundaries before coding."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/governance/task-intake-routing-gate.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "reliability.coding-time-production-readiness",
+      "displayName": "Coding-Time Production Readiness",
+      "area": "reliability",
+      "methodPath": "methods/reliability/coding-time-production-readiness.md",
+      "purpose": "Apply production-style coding-time governance without claiming Level 4, Level 5, enterprise certification, production certification, or broad runtime support.",
+      "whenToUse": "Use for user-facing, release-sensitive, data, auth, reliability, or serious implementation work before completion or readiness claims.",
+      "whenNotToUse": "Do not use to certify production, enterprise, cross-runtime, or release readiness without observed validation and owner decisions.",
+      "passiveConsumerAgents": [
+        "Architect Agent",
+        "Reviewer Agent",
+        "QA Test Agent",
+        "Release Manager Agent",
+        "SRE Performance Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "coding-time-production-readiness",
+        "large-governed-implementation",
+        "release-readiness"
+      ],
+      "riskDomains": [
+        "reliability",
+        "production",
+        "validation"
+      ],
+      "validationGates": [
+        "Report branch/source truth, affected workflows, rollback path, commands run, WARN/skipped gates, owner approvals, and no-fake-validation limits."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/reliability/coding-time-production-readiness.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "api.api-contract-and-routing-readiness",
+      "displayName": "API Contract and Routing Readiness",
+      "area": "api",
+      "methodPath": "methods/api/api-contract-and-routing-readiness.md",
+      "purpose": "Protect API, RPC, server action, route, schema, and client contract changes before implementation or release claims.",
+      "whenToUse": "Use when APIs, routes, contracts, generated types, middleware, public/private payloads, caches, WebView/native clients, or multiple consumers are affected.",
+      "whenNotToUse": "Do not use for isolated docs or local-only code changes with no contract, route, or consumer impact.",
+      "passiveConsumerAgents": [
+        "Backend Contract Agent",
+        "Security Agent",
+        "QA Test Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "api-contract-and-routing-readiness",
+        "api-contract-change",
+        "cross-surface-api-contracts"
+      ],
+      "riskDomains": [
+        "api",
+        "backend",
+        "security"
+      ],
+      "validationGates": [
+        "Report affected consumers, compatibility decision, auth/public payload boundary, validation output, skipped checks, and rollback/staged rollout notes."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/api/api-contract-and-routing-readiness.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "performance.performance-scalability-cache-readiness",
+      "displayName": "Performance Scalability Cache Readiness",
+      "area": "performance",
+      "methodPath": "methods/performance/performance-scalability-cache-readiness.md",
+      "purpose": "Review performance, scalability, cache, query, rendering, memory, and concurrency risk during coding.",
+      "whenToUse": "Use for slow pages, query bottlenecks, cache changes, public/mobile performance, scaling concerns, and regression investigations.",
+      "whenNotToUse": "Do not use to justify broad optimization rewrites without measured risk or clear complexity reduction.",
+      "passiveConsumerAgents": [
+        "SRE Performance Agent",
+        "Frontend Agent",
+        "Backend Contract Agent",
+        "QA Test Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "performance-scalability-cache-readiness",
+        "performance-regression",
+        "frontend-performance-issue",
+        "postgres-query-performance"
+      ],
+      "riskDomains": [
+        "performance",
+        "scalability",
+        "cache"
+      ],
+      "validationGates": [
+        "Report baseline/reproduction evidence if collected, cache/data-isolation review, commands run, measurement limits, skipped checks, and verification status."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/performance/performance-scalability-cache-readiness.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "reliability.observability-readiness",
+      "displayName": "Observability Readiness",
+      "area": "reliability",
+      "methodPath": "methods/reliability/observability-readiness.md",
+      "purpose": "Ensure coding-time changes leave enough safe debugging evidence without leaking private data or claiming unobserved production telemetry.",
+      "whenToUse": "Use when failures, retries, background work, external calls, logs, errors, status codes, trace IDs, or operational debugging are in scope.",
+      "whenNotToUse": "Do not use to add monitoring services, deployment config, CI wiring, packages, or external permissions without approval.",
+      "passiveConsumerAgents": [
+        "SRE Performance Agent",
+        "QA Test Agent",
+        "Reviewer Agent",
+        "Security Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "observability-readiness",
+        "performance-regression",
+        "release-readiness"
+      ],
+      "riskDomains": [
+        "reliability",
+        "observability",
+        "security"
+      ],
+      "validationGates": [
+        "Report observed logs/errors/traces/metrics only when collected, skipped evidence, secret/private-data safety, and production-claim limits."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/reliability/observability-readiness.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "security.application-security-readiness",
+      "displayName": "Application Security Readiness",
+      "area": "security",
+      "methodPath": "methods/security/application-security-readiness.md",
+      "purpose": "Review application security risk across auth, authorization, tenant isolation, secrets, public/private payloads, input validation, source safety, and supply chain.",
+      "whenToUse": "Use for auth, RLS, tenant, secrets, public payloads, WebView/native bridge, redirects, uploads, CORS/CSP-sensitive behavior, dependencies, or source safety.",
+      "whenNotToUse": "Do not use to run deep scans, weaken controls, read secrets, change CI/package/MCP/global config, or activate external tools without approval.",
+      "passiveConsumerAgents": [
+        "Security Agent",
+        "Backend Contract Agent",
+        "Database RLS Agent",
+        "QA Test Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "application-security-readiness",
+        "security-review",
+        "tenant-security-public-payload-review",
+        "webview-boundary-review"
+      ],
+      "riskDomains": [
+        "security",
+        "privacy",
+        "supply-chain"
+      ],
+      "validationGates": [
+        "Report findings by severity with evidence, scanner output only if actually run, skipped checks, and approval-required boundaries."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/security/application-security-readiness.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "release.release-rollback-readiness",
+      "displayName": "Release Rollback Readiness",
+      "area": "release",
+      "methodPath": "methods/release/release-rollback-readiness.md",
+      "purpose": "Gate PR, merge, release-candidate, and post-merge decisions on observed evidence, rollback clarity, and honest limitations.",
+      "whenToUse": "Use for PR readiness, merge, release candidate, post-merge verification, check triage, source freshness, leak scan, and rollback planning.",
+      "whenNotToUse": "Do not use to create tags, releases, deployments, external submissions, package/CI/MCP/global changes, or product repo changes outside approved scope.",
+      "passiveConsumerAgents": [
+        "Release Manager Agent",
+        "Reviewer Agent",
+        "QA Test Agent",
+        "Security Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "release-rollback-readiness",
+        "release-readiness",
+        "pr-release-coderabbit-gate",
+        "deep-release"
+      ],
+      "riskDomains": [
+        "release",
+        "rollback",
+        "validation"
+      ],
+      "validationGates": [
+        "Report branch/PR/check state, commands run, WARN/skipped output, leak/source freshness status where relevant, rollback path, final HEAD after merge, and remaining limitations."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/release/release-rollback-readiness.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
     }
   ]
 }

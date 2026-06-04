@@ -14,6 +14,8 @@ Review native mobile and mobile-web app quality without treating mobile as just 
 
 Use for iOS, Android, Expo, React Native, Capacitor, WebView-heavy, mobile-web, or app-store-bound experiences.
 
+Run `methods/governance/task-intake-routing-gate.md` first for normal-language mobile requests so native, WebView, API, security, release, and package/config surfaces are separated before implementation.
+
 ## When Not To Use
 
 Do not use for backend-only, desktop-only, or docs-only work unless mobile consumers are affected.
@@ -47,6 +49,8 @@ Report which validation mode was used:
 - not performed.
 
 If mobile validation was not performed, state that honestly and do not claim mobile readiness. Screenshots, logs, accessibility inspection, performance output, and build identifiers count only when actually collected.
+
+No fake validation: Expo Go, simulator, preview, debug build, release-like build, skipped, unavailable, and manual-only evidence must be labeled exactly.
 
 ## Stop Conditions
 

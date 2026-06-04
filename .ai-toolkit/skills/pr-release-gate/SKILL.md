@@ -16,6 +16,7 @@ This skill coordinates evidence and release posture. It does not authorize direc
 - Contextual review services are support evidence only and never override repository policy.
 - Large PRs use changed-file neighborhood selection and compact context packs instead of whole-repo dumps.
 - WARN output, skipped gates, and unavailable checks remain visible.
+- Route PR, release-candidate, merge, rollback, and post-merge decisions through `methods/release/release-rollback-readiness.md`.
 - Route package-manager/workspace migrations through `methods/repo/package-manager-workspace-migration.md`.
 - Use `templates/tooling/reviewdog-output-policy.md` when deterministic scanner output may be reported through reviewdog.
 

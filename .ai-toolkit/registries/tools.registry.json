@@ -20,6 +20,8 @@
         "CI wiring",
         "MCP setup",
         "global config",
+        "indexing",
+        "product repo scanning",
         "hooks",
         "PR write permissions",
         "networked deep scans"
@@ -86,7 +88,7 @@
         "Do not install from registry presence.",
         "Do not run from registry presence.",
         "Do not wire CI from registry presence.",
-        "Do not configure MCP or global config from registry presence.",
+        "Do not configure MCP, indexing, product repo scanning, or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
       ]
     },
@@ -548,7 +550,7 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/react-doctor.md",
       "integrationRecordPath": null,
-      "notes": "React Doctor is active-install-if-project-type for React projects, not pilot-only.",
+      "notes": "React Doctor is active-install-if-project-type for React projects; automation remains approval-required.",
       "enterpriseRisk": {
         "license": "unknown-review-required",
         "saasOrLocal": "unknown-review-required",
@@ -2470,10 +2472,10 @@
       "homepage": null,
       "purpose": "local-first code intelligence graph for MCP/CLI and large-repo context mapping",
       "category": "source-intelligence",
-      "status": "pilot-only",
+      "status": "active-read-only",
       "activationStatus": "metadata-only",
       "runtimeSurface": "external-tool-metadata",
-      "defaultUse": "source-only until approved",
+      "defaultUse": "read-only source intelligence; no indexing or execution without approval",
       "approvalRequiredFor": [
         "install",
         "activation",
@@ -2486,17 +2488,17 @@
       ],
       "allowedUse": [
         "Document as source intelligence.",
-        "Route to existing project-owned scripts when already configured.",
+        "Use for manual/static source intelligence and context-selection planning.",
         "Use as reviewed metadata for future approval decisions."
       ],
       "forbiddenUse": [
         "Do not install or activate from registry presence.",
-        "Do not configure CI, MCP, hooks, credentials, or global settings.",
+        "Do not configure CI, MCP, hooks, credentials, indexing, product repo scanning, or global settings.",
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/code-review-graph.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "notes": "Active-read-only source intelligence; install, MCP, indexing, global config, CI wiring, package changes, and product repo scanning remain approval-required.",
       "enterpriseRisk": {
         "license": "unknown-review-required",
         "saasOrLocal": "unknown-review-required",
@@ -2528,18 +2530,18 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       },
-      "projectInstallClass": "pilot-only",
+      "projectInstallClass": "active-read-only",
       "lane": "Architecture, Repo Intelligence, and Token Context",
       "projectTypes": [
         "architecture-hardening",
         "large-context"
       ],
-      "evidenceMode": "pilot notes only",
+      "evidenceMode": "manual/static source intelligence or actual tool output only if separately approved and run",
       "installLocation": "read-only source/reference",
       "defaultInstall": false,
       "requiresOwnerApproval": true,
       "conflictGroup": "context-graph",
-      "preferredRole": "pilot-only no indexing",
+      "preferredRole": "read-only source intelligence; no indexing",
       "forbiddenActions": [
         "Do not install from registry presence.",
         "Do not run from registry presence.",
@@ -2555,10 +2557,10 @@
       "homepage": null,
       "purpose": "UI/UX reference and design-source scouting",
       "category": "uiux-reference",
-      "status": "pilot-only",
+      "status": "active-reference",
       "activationStatus": "metadata-only",
       "runtimeSurface": "external-tool-metadata",
-      "defaultUse": "reference-only until approved",
+      "defaultUse": "active-reference design intelligence; no install/import without approval",
       "approvalRequiredFor": [
         "install",
         "activation",
@@ -2581,7 +2583,7 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/open-design.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "notes": "Active-reference design intelligence only; install, MCP/global config, raw design-system import, package changes, and unmanaged persistence remain approval-required.",
       "enterpriseRisk": {
         "license": "unknown-review-required",
         "saasOrLocal": "unknown-review-required",
@@ -2613,17 +2615,17 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       },
-      "projectInstallClass": "pilot-only",
+      "projectInstallClass": "active-reference",
       "lane": "UI/UX Design Intelligence and Browser Evidence",
       "projectTypes": [
         "uiux"
       ],
-      "evidenceMode": "pilot notes only",
+      "evidenceMode": "reference notes only unless separately approved tool output exists",
       "installLocation": "read-only source/reference",
       "defaultInstall": false,
       "requiresOwnerApproval": true,
       "conflictGroup": "design-reference",
-      "preferredRole": "pilot-only",
+      "preferredRole": "active-reference design intelligence",
       "forbiddenActions": [
         "Do not install from registry presence.",
         "Do not run from registry presence.",
@@ -2789,10 +2791,10 @@
       "homepage": "https://github.com/javierbrea/eslint-plugin-boundaries",
       "purpose": "module import and layer boundary enforcement",
       "category": "architecture-boundary",
-      "status": "pilot-only",
+      "status": "research-candidate",
       "activationStatus": "metadata-only",
       "runtimeSurface": "external-tool-metadata",
-      "defaultUse": "research candidate",
+      "defaultUse": "active-install-if-project-type after architecture layers are stable and owner-approved",
       "approvalRequiredFor": [
         "install",
         "activation",
@@ -2815,7 +2817,7 @@
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/eslint-plugin-boundaries.md",
       "integrationRecordPath": null,
-      "notes": "Metadata-only entry; review current upstream before adoption.",
+      "notes": "Active-install-if-project-type only when architecture layers are stable and owner-approved; install, package/config change, and CI wiring remain approval-required.",
       "enterpriseRisk": {
         "license": "unknown-review-required",
         "saasOrLocal": "unknown-review-required",
@@ -2847,13 +2849,13 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
       },
-      "projectInstallClass": "pilot-only",
+      "projectInstallClass": "active-install-if-project-type",
       "lane": "Architecture, Repo Intelligence, and Token Context",
       "projectTypes": [
         "architecture-hardening"
       ],
       "evidenceMode": "lint output",
-      "installLocation": "target project after owner approval",
+      "installLocation": "target project after stable layer model and owner approval",
       "defaultInstall": false,
       "requiresOwnerApproval": true,
       "conflictGroup": "architecture-boundary",
