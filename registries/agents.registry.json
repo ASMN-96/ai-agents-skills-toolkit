@@ -282,7 +282,7 @@
       "whenNotToUse": [
         "Backend-only, database-only, or release-only tasks.",
         "Overriding security or accessibility constraints.",
-        "Using Figma without an approved design source."
+        "Using excluded or unapproved design tools without an approved design source."
       ],
       "ownedSkills": [],
       "secondarySkills": [

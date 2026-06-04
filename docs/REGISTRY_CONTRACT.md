@@ -215,7 +215,7 @@ Each routing entry should include:
 
 Registries must index existing assets before adding speculative assets. Retired helper aliases must not appear as active runtime skills.
 
-External support tools must be marked `external: true`. Superpowers, GSD, Codex plugins, Playwright/browser, GitHub/gh, Supabase tooling/docs, Figma, CodeRabbit, and discovery sources remain external capabilities.
+External support tools must be marked `external: true`. Superpowers, GSD, Codex plugins, Playwright/browser, GitHub/gh, Supabase tooling/docs, approved design artifacts, CodeRabbit, and discovery sources remain external capabilities. Figma is excluded from v0.2 current-scope recommendations unless a separately approved design artifact is supplied outside the default model.
 
 Source records remain the provenance layer. A method registry entry may cite a source record, but that citation is not approval to copy raw upstream content, install packages, activate skills, clone repositories, run scripts, or change runtime configuration.
 

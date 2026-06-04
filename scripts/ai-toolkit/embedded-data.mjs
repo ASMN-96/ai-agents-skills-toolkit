@@ -151,7 +151,8 @@ export const TOOL_ENTRIES = [
   ["dependency-cruiser", "dependency-cruiser", "sverweij/dependency-cruiser", "https://github.com/sverweij/dependency-cruiser", "architecture-boundary", "dependency and architecture boundary checks", "research-candidate", "research candidate"],
   ["eslint-plugin-boundaries", "eslint-plugin-boundaries", "javierbrea/eslint-plugin-boundaries", "https://github.com/javierbrea/eslint-plugin-boundaries", "architecture-boundary", "module import and layer boundary enforcement", "research-candidate", "research candidate"],
   ["madge", "Madge", "pahen/madge", "https://github.com/pahen/madge", "architecture-boundary", "dependency graph and circular dependency detection", "research-candidate", "research candidate"],
-  ["jscpd", "jscpd", "kucherenko/jscpd", "https://github.com/kucherenko/jscpd", "duplication", "duplicate code detection", "research-candidate", "future hardening"]
+  ["jscpd", "jscpd", "kucherenko/jscpd", "https://github.com/kucherenko/jscpd", "duplication", "duplicate code detection", "research-candidate", "future hardening"],
+  ["eslint", "ESLint", "eslint/eslint", "https://eslint.org", "linting", "JavaScript and TypeScript lint baseline", "default-install", "default-install"]
 ];
 
 export const APPROVAL_REQUIRED_STATUSES = new Set([

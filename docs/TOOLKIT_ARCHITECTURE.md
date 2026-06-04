@@ -33,6 +33,7 @@ All mirrors must be validated by byte identity or manifest hash. Registries and 
 - `docs/PRODUCTION_GRADE_SOFTWARE_GOVERNANCE.md` defines the universal quality bar and first-pilot usage model.
 - `docs/RUNTIME_ACTIVATION_MODEL.md` separates `.ai-toolkit/` governance storage from Codex runtime activation surfaces.
 - `docs/OVERLAP_REDUCTION.md` classifies duplicated authority as keep-active, delegate-to-codex-plugin, passive-reference, or candidate-removal.
+- `docs/TOOL_LANE_ARCHITECTURE.md`, `docs/PROJECT_TOOLING_OPERATING_MODEL.md`, and `docs/PROJECT_TOOL_INSTALLATION_MATRIX.md` define the v0.2 project tooling architecture. These docs recommend project-specific adoption posture only; they do not install, activate, run, wire CI, configure MCP, or change package files.
 - Global Codex custom agents can be generated from compiled agents under `~/.codex/agents/` after explicit approval.
 - `install/` stores dry-run-first, version-pinned project sync workflows for selected compiled agents and profiles.
 
@@ -61,6 +62,8 @@ Phase 10A/10B adds a governance spine and registry contract. Registries are meta
 Phase 10F adds a passive method registry and optional routing `methodReferences`. Method references explain which reviewed methods can inform a route; they are not skills, tools, agents, support-tool requirements, install approval, or runtime activation.
 
 Phase 10O adds read-only/report-only source freshness monitoring for tracked GitHub sources. It detects upstream change signals and may generate a local Markdown report, but it does not approve source import, install or activate external skills, extract methods, update source records automatically, change global configuration, or modify product repositories. This behavior is governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.md`.
+
+Phase v0.2 project tooling architecture adds lane docs, project-tooling profiles, templates, a dry-run planner, a confirm-write template copier, and a validator. It is a feature architecture milestone, not a release. It does not tag `v0.2.0`, create a GitHub release, install tools, change package files, change lockfiles, wire CI, configure MCP, or claim tool execution.
 
 Freshness and extraction are separated by timeline:
 - `last checked` = monitored signal only (freshness script/report),
@@ -101,7 +104,7 @@ GSD and Superpowers are external core governance tools, not vendored toolkit dep
 - GSD handles phase/state/roadmap/release-gate tracking for serious multi-step work, audits, backend work, migrations, security/SRE audits, and release programs.
 - Superpowers handles execution discipline for systematic debugging, TDD, code review, and verification-before-completion.
 - `governance` routes work across installed agents, profiles, and support tools for explicitly opted-in serious project threads.
-- Context7, Playwright, Browser Use, GitHub, Supabase, Cloudflare, Vercel, and Figma are support tools used only when needed and available.
+- Context7, Playwright, Browser Use, GitHub, Supabase, Cloudflare, Vercel, and approved design artifacts are support inputs used only when needed and available. Figma is excluded from v0.2 current-scope recommendations; separately supplied approved design artifacts remain outside this default model.
 
 Agents and profiles remain role-specific workers. The toolkit must not activate every plugin, tool, agent, or profile by default.
 

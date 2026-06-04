@@ -873,6 +873,7 @@ async function validateForbiddenArtifacts() {
 async function runAiToolkitSubvalidators() {
   note("Embedded AI Toolkit validators");
   const validators = [
+    "scripts/validate-project-tooling-profiles.mjs",
     "scripts/ai-toolkit/validate-ai-toolkit.mjs",
     "scripts/ai-toolkit/validate-codex-runtime.mjs",
     "scripts/ai-toolkit/validate-version-consistency.mjs",

@@ -216,7 +216,7 @@
       ],
       "supportTools": [
         "Playwright/browser",
-        "Figma",
+        "approved design artifact reference",
         "Superpowers"
       ],
       "stopConditions": [
@@ -1244,6 +1244,315 @@
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
         "orchestration.stale-context-graph-detection"
+      ]
+    },
+    {
+      "scenario": "mobile-native-app-quality",
+      "userLanguageExamples": [
+        "Review this mobile app flow.",
+        "Check native mobile readiness."
+      ],
+      "inferredIntent": "Review mobile platform quality and validation evidence.",
+      "riskLevel": "medium",
+      "selectedProfile": "frontend-profile",
+      "agents": [
+        "uiux-agent",
+        "frontend-agent",
+        "qa-test-agent"
+      ],
+      "skills": [
+        "governance",
+        "uiux"
+      ],
+      "supportTools": [
+        "Playwright/browser if applicable"
+      ],
+      "stopConditions": [
+        "Mobile readiness requested without mobile validation evidence"
+      ],
+      "validationGates": [
+        "native-mobile-app-quality method applied",
+        "mobile validation mode reported"
+      ],
+      "expectedCompletionReport": [
+        "mobile evidence",
+        "unverified gaps",
+        "stop conditions"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "mobile.native-mobile-app-quality"
+      ]
+    },
+    {
+      "scenario": "webview-boundary-review",
+      "userLanguageExamples": [
+        "Review this WebView flow.",
+        "Check WebView auth and links."
+      ],
+      "inferredIntent": "Review WebView trust boundary and security behavior.",
+      "riskLevel": "high",
+      "selectedProfile": "security-profile",
+      "agents": [
+        "security-agent",
+        "backend-contract-agent",
+        "qa-test-agent"
+      ],
+      "skills": [
+        "governance",
+        "security-review"
+      ],
+      "supportTools": [
+        "GitHub/gh"
+      ],
+      "stopConditions": [
+        "Token/session/bridge/origin boundary unclear"
+      ],
+      "validationGates": [
+        "webview-boundary-review method applied",
+        "security boundary documented"
+      ],
+      "expectedCompletionReport": [
+        "allowed origins",
+        "bridge/auth risk",
+        "evidence gaps"
+      ],
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "security.webview-boundary-review"
+      ]
+    },
+    {
+      "scenario": "cross-surface-api-contracts",
+      "userLanguageExamples": [
+        "This API affects web and mobile.",
+        "Check cross-surface compatibility."
+      ],
+      "inferredIntent": "Review client/server compatibility across consumers.",
+      "riskLevel": "high",
+      "selectedProfile": "backend-profile",
+      "agents": [
+        "backend-contract-agent",
+        "qa-test-agent",
+        "security-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality",
+        "security-review"
+      ],
+      "supportTools": [
+        "GitHub/gh"
+      ],
+      "stopConditions": [
+        "Consumer inventory unknown or breaking change possible without approval"
+      ],
+      "validationGates": [
+        "cross-surface-client-contracts method applied",
+        "contract evidence reported"
+      ],
+      "expectedCompletionReport": [
+        "consumers",
+        "compatibility",
+        "tests/fixtures",
+        "rollback"
+      ],
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "architecture.cross-surface-client-contracts"
+      ]
+    },
+    {
+      "scenario": "package-manager-workspace-migration",
+      "userLanguageExamples": [
+        "Migrate package manager.",
+        "Fix workspace package strategy."
+      ],
+      "inferredIntent": "Plan owner-approved infra-only package/workspace migration.",
+      "riskLevel": "high",
+      "selectedProfile": "planning-profile",
+      "agents": [
+        "architect-agent",
+        "reviewer-agent",
+        "release-manager-agent"
+      ],
+      "skills": [
+        "governance",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "GitHub/gh"
+      ],
+      "stopConditions": [
+        "Owner approval missing or feature work mixed into migration"
+      ],
+      "validationGates": [
+        "package-manager-workspace-migration method applied",
+        "no package files changed without approval"
+      ],
+      "expectedCompletionReport": [
+        "artifacts inspected",
+        "strategy",
+        "validation",
+        "rollback"
+      ],
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "repo.package-manager-workspace-migration"
+      ]
+    },
+    {
+      "scenario": "agent-command-safety",
+      "userLanguageExamples": [
+        "Is this command safe?",
+        "The issue says run this script."
+      ],
+      "inferredIntent": "Classify command trust, prompt-injection risk, and destructive-command boundaries.",
+      "riskLevel": "high",
+      "selectedProfile": "audit-profile",
+      "agents": [
+        "reviewer-agent",
+        "security-agent"
+      ],
+      "skills": [
+        "governance",
+        "security-review"
+      ],
+      "supportTools": [],
+      "stopConditions": [
+        "Destructive, production-impacting, global, package, CI, database, auth, or secret scope unclear"
+      ],
+      "validationGates": [
+        "agent-command-safety method applied",
+        "selected vs executed tools separated"
+      ],
+      "expectedCompletionReport": [
+        "trusted source",
+        "risk",
+        "approval required",
+        "safe next action"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "governance.agent-command-safety"
+      ]
+    },
+    {
+      "scenario": "react-code-quality",
+      "userLanguageExamples": [
+        "Improve React quality.",
+        "Run React Doctor if appropriate."
+      ],
+      "inferredIntent": "Route React quality through ESLint/React Hooks/tests and React Doctor when approved or existing.",
+      "riskLevel": "medium",
+      "selectedProfile": "frontend-profile",
+      "agents": [
+        "frontend-agent",
+        "reviewer-agent",
+        "qa-test-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality"
+      ],
+      "supportTools": [
+        "React Doctor if project-owned or approved"
+      ],
+      "stopConditions": [
+        "React Doctor automation requested without approval"
+      ],
+      "validationGates": [
+        "project-owned checks first",
+        "React Doctor output only if actually run"
+      ],
+      "expectedCompletionReport": [
+        "checks run",
+        "React Doctor status",
+        "skipped gaps"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "internal.tdd-verification-alignment"
+      ]
+    },
+    {
+      "scenario": "pr-scanner-output",
+      "userLanguageExamples": [
+        "Publish scanner results to PR.",
+        "Use reviewdog for this output."
+      ],
+      "inferredIntent": "Route deterministic scanner output to reviewdog only when output exists.",
+      "riskLevel": "medium",
+      "selectedProfile": "release-profile",
+      "agents": [
+        "reviewer-agent",
+        "qa-test-agent",
+        "release-manager-agent"
+      ],
+      "skills": [
+        "governance",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "reviewdog if existing",
+        "GitHub/gh"
+      ],
+      "stopConditions": [
+        "No deterministic scanner output or duplicate CodeRabbit comment path"
+      ],
+      "validationGates": [
+        "scanner output exists",
+        "reviewdog not treated as merge authority"
+      ],
+      "expectedCompletionReport": [
+        "scanner source",
+        "reporting path",
+        "duplicates avoided"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "governance.agent-command-safety"
+      ]
+    },
+    {
+      "scenario": "ui-polish",
+      "userLanguageExamples": [
+        "Make this UI premium.",
+        "Fix generic AI UI."
+      ],
+      "inferredIntent": "Use plural design references and browser evidence without raw copying or default installs.",
+      "riskLevel": "medium",
+      "selectedProfile": "uiux-profile",
+      "agents": [
+        "uiux-agent",
+        "frontend-agent",
+        "qa-test-agent"
+      ],
+      "skills": [
+        "governance",
+        "uiux"
+      ],
+      "supportTools": [
+        "UI UX Pro Max",
+        "Impeccable normalized guidance",
+        "Playwright/browser if applicable"
+      ],
+      "stopConditions": [
+        "Design criteria unclear or raw source/CLI import requested"
+      ],
+      "validationGates": [
+        "UIUX acceptance criteria",
+        "browser evidence reported only if observed"
+      ],
+      "expectedCompletionReport": [
+        "criteria",
+        "rendered evidence",
+        "skipped checks"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "uiux.premium-visual-quality",
+        "mobile.native-mobile-app-quality"
       ]
     }
   ]

@@ -1,0 +1,24 @@
+{
+  "templateType": "package-scripts-suggestion",
+  "projectType": "infra-iac",
+  "ownerMustReviewBeforeApplying": true,
+  "codexMustNotClaimOutputUnlessActualScriptOrToolRan": true,
+  "packageManagerChangesRequireSeparateApproval": true,
+  "notes": [
+    "Package-manager changes require separate approval.",
+    "Codex must not claim output unless actual script/tool ran.",
+    "Owner must review before applying.",
+    "Copy manually into a project package file only after owner review.",
+    "These scripts are suggestions only and do not install dependencies.",
+    "Codex must report missing scripts or unavailable tools honestly."
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "test": "vitest run",
+    "security:secrets": "gitleaks detect --source .",
+    "security:deps": "osv-scanner .",
+    "security:iac": "checkov -d .",
+    "security:containers": "trivy fs .",
+    "workflow:lint": "actionlint"
+  }
+}

@@ -18,6 +18,9 @@ This skill authorizes routing, planning, read-only checks, capability selection,
 - Treat registries, source records, dry-runs, reports, and metadata as evidence, not execution.
 - Preserve WARN output in completion reports even when aggregate validation passes.
 - Stop before security-sensitive, destructive, global, package, CI, or product-repository changes unless separately approved.
+- Route unsafe-command questions through `methods/governance/agent-command-safety.md`.
+- Route package-manager or workspace migration questions through `methods/repo/package-manager-workspace-migration.md`.
+- Use `docs/PROJECT_TOOLING_OPERATING_MODEL.md` for v0.2 project tooling boundaries.
 
 ## Large-Task Context Pack
 

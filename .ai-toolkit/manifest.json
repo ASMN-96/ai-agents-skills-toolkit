@@ -42,61 +42,61 @@
       "source": "skills/governance/SKILL.md",
       "target": ".agents/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "b4be36521d9e3e80614862f0a693764d0fb3f521f21c8f9bd7b9b14d3cefb589"
+      "sha256": "52406f2423a9e9ceb4b28acca2c0f9b2b40c06fdccd93493488e2738324c5de9"
     },
     {
       "source": "skills/governance/SKILL.md",
       "target": ".ai-toolkit/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "b4be36521d9e3e80614862f0a693764d0fb3f521f21c8f9bd7b9b14d3cefb589"
+      "sha256": "52406f2423a9e9ceb4b28acca2c0f9b2b40c06fdccd93493488e2738324c5de9"
     },
     {
       "source": "skills/uiux/SKILL.md",
       "target": ".agents/skills/uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "5111c90bd14b52763a4d19dc8522e31f1fa24f2af5661d19ee300e6bc40a4fd0"
+      "sha256": "dad00590cee68943a7f7e44a07a907fa45bfc1838a1f34d673930c2c585464a3"
     },
     {
       "source": "skills/uiux/SKILL.md",
       "target": ".ai-toolkit/skills/uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "5111c90bd14b52763a4d19dc8522e31f1fa24f2af5661d19ee300e6bc40a4fd0"
+      "sha256": "dad00590cee68943a7f7e44a07a907fa45bfc1838a1f34d673930c2c585464a3"
     },
     {
       "source": "skills/code-quality/SKILL.md",
       "target": ".agents/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "89713dcc006fa33e83ed73d32aa1ae610fd9b829e5c42fad88ff0b93e403577b"
+      "sha256": "f76fe4ce5144d3bc5db99c2fdfbe9c9520de214eb30afd7474b7819d41c1c87c"
     },
     {
       "source": "skills/code-quality/SKILL.md",
       "target": ".ai-toolkit/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "89713dcc006fa33e83ed73d32aa1ae610fd9b829e5c42fad88ff0b93e403577b"
+      "sha256": "f76fe4ce5144d3bc5db99c2fdfbe9c9520de214eb30afd7474b7819d41c1c87c"
     },
     {
       "source": "skills/security-review/SKILL.md",
       "target": ".agents/skills/security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "0046451a8842ad95f664f62e38964bd43b4cabe283fc774c3d2072390a3756b0"
+      "sha256": "cc201eb9907f96d847159f4fb47611b2a1b5553ff08796878e32d3e8a33bece4"
     },
     {
       "source": "skills/security-review/SKILL.md",
       "target": ".ai-toolkit/skills/security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "0046451a8842ad95f664f62e38964bd43b4cabe283fc774c3d2072390a3756b0"
+      "sha256": "cc201eb9907f96d847159f4fb47611b2a1b5553ff08796878e32d3e8a33bece4"
     },
     {
       "source": "skills/pr-release-gate/SKILL.md",
       "target": ".agents/skills/pr-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "12120fda170090f63c26c27d2020f034158246084d036a716d40945e045aa9ef"
+      "sha256": "7d591e6905f27407705fc4022eed2e6fdc8ea9df7dbf4b730a0007d3435e2f7c"
     },
     {
       "source": "skills/pr-release-gate/SKILL.md",
       "target": ".ai-toolkit/skills/pr-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "12120fda170090f63c26c27d2020f034158246084d036a716d40945e045aa9ef"
+      "sha256": "7d591e6905f27407705fc4022eed2e6fdc8ea9df7dbf4b730a0007d3435e2f7c"
     },
     {
       "source": ".codex/agents/product-agent.toml",
@@ -246,37 +246,37 @@
       "source": "registries/agents.registry.json",
       "target": ".ai-toolkit/registries/agents.registry.json",
       "mode": "byte-identical",
-      "sha256": "64149cc2845c2aa6efdff3cb0d244205b2b537d8eb408754fcfc230709d5cb0b"
+      "sha256": "910144adf1d83280fc10a6ac491d6978178f89ab366d5e680777c00cf40f0d0c"
     },
     {
       "source": "registries/methods.registry.json",
       "target": ".ai-toolkit/registries/methods.registry.json",
       "mode": "byte-identical",
-      "sha256": "256bfc53af08771a500d56ed85e108f62cc1c907d85303df4918620b98caf3d1"
+      "sha256": "e29b5f9e198b3b7b8448b6526528eb7d36decf2781e734077c25ce9ff3f165b7"
     },
     {
       "source": "registries/profiles.registry.json",
       "target": ".ai-toolkit/registries/profiles.registry.json",
       "mode": "byte-identical",
-      "sha256": "f6f009619df4dd5227a5e3d628e1aefae8f5706f3f84fdd59743de5adbe0b9af"
+      "sha256": "fabd434ccffaa53047401bc58f6f964ee01d77801157653550525dc3156cb29a"
     },
     {
       "source": "registries/routing-matrix.json",
       "target": ".ai-toolkit/registries/routing-matrix.json",
       "mode": "byte-identical",
-      "sha256": "be93886dce873d6ef37663f46ea2a7437a9747619ab22798e6641bd2315492ca"
+      "sha256": "b7b08015a2df137f7217495bbd702bfe930bd858f7413ce4faa92f64ce93b9b3"
     },
     {
       "source": "registries/skills.registry.json",
       "target": ".ai-toolkit/registries/skills.registry.json",
       "mode": "byte-identical",
-      "sha256": "047e7013b0794402bdb8e4e67c48488a2b659f1fdd0593fe7a3044ad29aa0f6f"
+      "sha256": "e0e8381631398b63810c9ca62bb821562ed2ee9f4f386d1133a93be258daa33d"
     },
     {
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
-      "sha256": "69f2956fdb1ea0297a7b04622daddd6a2ecce1d2dd312ddd84b002d2c4302d8f"
+      "sha256": "a6c89e1eef1f9efd465249c40ee19fe667c8216e4b356d0b4a6a562a388f02de"
     },
     {
       "source": "compiled-agents/product-agent.compiled.md",

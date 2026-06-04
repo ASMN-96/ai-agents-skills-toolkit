@@ -47,7 +47,7 @@
         "Playwright/browser",
         "Supabase tooling/docs",
         "CodeRabbit",
-        "Figma"
+        "approved design artifact reference"
       ],
       "riskLevel": "medium",
       "evalStatus": "scaffolded",
@@ -120,7 +120,7 @@
       "requiredSupportTools": [],
       "optionalSupportTools": [
         "Playwright/browser",
-        "Figma",
+        "approved design artifact reference",
         "Superpowers",
         "Context7"
       ],

@@ -286,7 +286,7 @@
         "Playwright/browser",
         "Superpowers",
         "Context7",
-        "Figma"
+        "approved design artifact reference"
       ],
       "allowedActions": [
         "Implement approved frontend changes",
@@ -295,7 +295,7 @@
       ],
       "forbiddenActions": [
         "Invent unsupported design systems",
-        "Use Figma without an approved design source",
+        "Use excluded or unapproved design tools without an approved design source",
         "Install frontend packages without approval"
       ],
       "validationGates": [
@@ -414,7 +414,7 @@
       ],
       "supportTools": [
         "Playwright/browser",
-        "Figma",
+        "approved design artifact reference",
         "Superpowers"
       ],
       "allowedActions": [
@@ -699,6 +699,423 @@
         {
           "path": "profiles/release-profile.md",
           "category": "internal-artifact"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "project-tooling-react-typescript-saas",
+      "purpose": "Project tooling recommendation profile for react-typescript-saas.",
+      "mode": "planning",
+      "agents": [
+        "frontend-agent",
+        "uiux-agent",
+        "qa-test-agent",
+        "reviewer-agent",
+        "security-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "Project-owned checks",
+        "GitHub/gh if available",
+        "CodeRabbit if already connected"
+      ],
+      "allowedActions": [
+        "Recommend project-specific tooling posture",
+        "Generate dry-run plan",
+        "Copy toolkit-owned templates after --confirm-write"
+      ],
+      "forbiddenActions": [
+        "Install packages",
+        "Edit package files or lockfiles",
+        "Wire CI",
+        "Configure MCP or global config",
+        "Touch product repositories",
+        "Claim tool output without execution"
+      ],
+      "validationGates": [
+        "Project tooling validator passes",
+        "Owner approval recorded for any target-project adoption",
+        "No automatic install occurs"
+      ],
+      "outputExpectations": [
+        "Recommended tools",
+        "Actually executed tools",
+        "Evidence requirements",
+        "Stop conditions",
+        "Rollback notes"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/project-tooling/react-typescript-saas.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "project-tooling-backend-api",
+      "purpose": "Project tooling recommendation profile for backend-api.",
+      "mode": "planning",
+      "agents": [
+        "backend-contract-agent",
+        "security-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "Project-owned checks",
+        "GitHub/gh if available",
+        "CodeRabbit if already connected"
+      ],
+      "allowedActions": [
+        "Recommend project-specific tooling posture",
+        "Generate dry-run plan",
+        "Copy toolkit-owned templates after --confirm-write"
+      ],
+      "forbiddenActions": [
+        "Install packages",
+        "Edit package files or lockfiles",
+        "Wire CI",
+        "Configure MCP or global config",
+        "Touch product repositories",
+        "Claim tool output without execution"
+      ],
+      "validationGates": [
+        "Project tooling validator passes",
+        "Owner approval recorded for any target-project adoption",
+        "No automatic install occurs"
+      ],
+      "outputExpectations": [
+        "Recommended tools",
+        "Actually executed tools",
+        "Evidence requirements",
+        "Stop conditions",
+        "Rollback notes"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/project-tooling/backend-api.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "project-tooling-infra-iac",
+      "purpose": "Project tooling recommendation profile for infra-iac.",
+      "mode": "planning",
+      "agents": [
+        "security-agent",
+        "sre-performance-agent",
+        "release-manager-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "Project-owned checks",
+        "GitHub/gh if available",
+        "CodeRabbit if already connected"
+      ],
+      "allowedActions": [
+        "Recommend project-specific tooling posture",
+        "Generate dry-run plan",
+        "Copy toolkit-owned templates after --confirm-write"
+      ],
+      "forbiddenActions": [
+        "Install packages",
+        "Edit package files or lockfiles",
+        "Wire CI",
+        "Configure MCP or global config",
+        "Touch product repositories",
+        "Claim tool output without execution"
+      ],
+      "validationGates": [
+        "Project tooling validator passes",
+        "Owner approval recorded for any target-project adoption",
+        "No automatic install occurs"
+      ],
+      "outputExpectations": [
+        "Recommended tools",
+        "Actually executed tools",
+        "Evidence requirements",
+        "Stop conditions",
+        "Rollback notes"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/project-tooling/infra-iac.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "project-tooling-mobile-webview",
+      "purpose": "Project tooling recommendation profile for mobile-webview.",
+      "mode": "planning",
+      "agents": [
+        "uiux-agent",
+        "frontend-agent",
+        "backend-contract-agent",
+        "security-agent",
+        "qa-test-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "Project-owned checks",
+        "GitHub/gh if available",
+        "CodeRabbit if already connected"
+      ],
+      "allowedActions": [
+        "Recommend project-specific tooling posture",
+        "Generate dry-run plan",
+        "Copy toolkit-owned templates after --confirm-write"
+      ],
+      "forbiddenActions": [
+        "Install packages",
+        "Edit package files or lockfiles",
+        "Wire CI",
+        "Configure MCP or global config",
+        "Touch product repositories",
+        "Claim tool output without execution"
+      ],
+      "validationGates": [
+        "Project tooling validator passes",
+        "Owner approval recorded for any target-project adoption",
+        "No automatic install occurs"
+      ],
+      "outputExpectations": [
+        "Recommended tools",
+        "Actually executed tools",
+        "Evidence requirements",
+        "Stop conditions",
+        "Rollback notes"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/project-tooling/mobile-webview.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "project-tooling-deep-release",
+      "purpose": "Project tooling recommendation profile for deep-release.",
+      "mode": "planning",
+      "agents": [
+        "release-manager-agent",
+        "reviewer-agent",
+        "qa-test-agent",
+        "security-agent",
+        "sre-performance-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "Project-owned checks",
+        "GitHub/gh if available",
+        "CodeRabbit if already connected"
+      ],
+      "allowedActions": [
+        "Recommend project-specific tooling posture",
+        "Generate dry-run plan",
+        "Copy toolkit-owned templates after --confirm-write"
+      ],
+      "forbiddenActions": [
+        "Install packages",
+        "Edit package files or lockfiles",
+        "Wire CI",
+        "Configure MCP or global config",
+        "Touch product repositories",
+        "Claim tool output without execution"
+      ],
+      "validationGates": [
+        "Project tooling validator passes",
+        "Owner approval recorded for any target-project adoption",
+        "No automatic install occurs"
+      ],
+      "outputExpectations": [
+        "Recommended tools",
+        "Actually executed tools",
+        "Evidence requirements",
+        "Stop conditions",
+        "Rollback notes"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/project-tooling/deep-release.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "internal-helper",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "name": "project-tooling-architecture-hardening",
+      "purpose": "Project tooling recommendation profile for architecture-hardening.",
+      "mode": "planning",
+      "agents": [
+        "architect-agent",
+        "reviewer-agent",
+        "sre-performance-agent",
+        "qa-test-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "Project-owned checks",
+        "GitHub/gh if available",
+        "CodeRabbit if already connected"
+      ],
+      "allowedActions": [
+        "Recommend project-specific tooling posture",
+        "Generate dry-run plan",
+        "Copy toolkit-owned templates after --confirm-write"
+      ],
+      "forbiddenActions": [
+        "Install packages",
+        "Edit package files or lockfiles",
+        "Wire CI",
+        "Configure MCP or global config",
+        "Touch product repositories",
+        "Claim tool output without execution"
+      ],
+      "validationGates": [
+        "Project tooling validator passes",
+        "Owner approval recorded for any target-project adoption",
+        "No automatic install occurs"
+      ],
+      "outputExpectations": [
+        "Recommended tools",
+        "Actually executed tools",
+        "Evidence requirements",
+        "Stop conditions",
+        "Rollback notes"
+      ],
+      "sourceProvenance": [
+        {
+          "path": "profiles/project-tooling/architecture-hardening.md",
+          "category": "toolkit-authored"
         }
       ],
       "status": [

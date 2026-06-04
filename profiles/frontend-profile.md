@@ -13,7 +13,7 @@
 - Superpowers as an external Codex execution-discipline plugin.
 - Context7 when available/configured for current framework or browser API docs.
 - Playwright for browser verification.
-- Figma only when an approved design exists.
+- Approved design artifacts only when separately supplied and reviewed; Figma is excluded from v0.2 current-scope recommendations.
 
 ## Default Mode
 
@@ -27,7 +27,7 @@ Implementation.
 
 ## Forbidden Actions
 
-- Use Figma without approved design access.
+- Use excluded or unapproved design tools without approved design access.
 - Install external UI packs or skills.
 - Override product repo design systems without approval.
 - Add package artifacts, caches, logs, build outputs, or temp files.

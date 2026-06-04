@@ -1,0 +1,25 @@
+{
+  "templateType": "package-scripts-suggestion",
+  "projectType": "react-typescript-saas",
+  "ownerMustReviewBeforeApplying": true,
+  "codexMustNotClaimOutputUnlessActualScriptOrToolRan": true,
+  "packageManagerChangesRequireSeparateApproval": true,
+  "notes": [
+    "Package-manager changes require separate approval.",
+    "Codex must not claim output unless actual script/tool ran.",
+    "Owner must review before applying.",
+    "Copy manually into a project package file only after owner review.",
+    "These scripts are suggestions only and do not install dependencies.",
+    "Codex must report missing scripts or unavailable tools honestly."
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:ui": "vitest run --environment jsdom",
+    "e2e": "playwright test",
+    "security:secrets": "gitleaks detect --source .",
+    "security:deps": "osv-scanner .",
+    "react:doctor": "react-doctor"
+  }
+}

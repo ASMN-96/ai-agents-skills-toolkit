@@ -21,6 +21,8 @@ Prefer available project-owned checks in this order: typecheck, lint, focused te
 - Tests cover changed behavior or critical regression risk.
 - Existing TypeScript, typed ESLint, React Hooks, Vitest, Testing Library, and build scripts are used when project-owned.
 - Dry-run, skipped, unavailable, metadata-only, or planned quality gates are not reported as real execution.
+- Route React projects to React Doctor as active-install-if-project-type only when project-owned or owner-approved; it supplements ESLint, React Hooks, tests, and browser evidence.
+- Route cross-surface API/client compatibility through `methods/architecture/cross-surface-client-contracts.md` when frontend changes affect multiple consumers.
 
 ## Completion Evidence
 

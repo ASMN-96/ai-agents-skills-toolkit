@@ -78,7 +78,7 @@ Select an extra skill only when it materially improves context, safety, validati
 
 Always select and report the needed agents. Spawn native sub-agents only when runtime rules allow and the user explicitly authorizes delegation, sub-agents, or parallel agent work. If spawning is not allowed, continue inline using the selected agent lenses and report that limitation. Never represent a selected agent as a spawned agent unless it actually ran.
 
-Support tools such as Superpowers, GSD, Playwright/browser, Supabase, GitHub/gh, CodeRabbit, Figma, and other tools may be selected only when useful. Invoking them must respect the selected mode, runtime availability, and approval boundaries. Report "available, not invoked" when that status is relevant.
+Support tools such as Superpowers, GSD, Playwright/browser, Supabase, GitHub/gh, CodeRabbit, approved design artifacts, and other tools may be selected only when useful. Invoking them must respect the selected mode, runtime availability, and approval boundaries. Figma is excluded from v0.2 current-scope recommendations unless a separately approved design artifact is supplied outside the default model. Report "available, not invoked" when that status is relevant.
 
 ## Response Budget
 

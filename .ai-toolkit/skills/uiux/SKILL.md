@@ -22,6 +22,8 @@ This skill produces UX critique, design intent, acceptance criteria, and impleme
 
 Use normalized guidance from reviewed UI/UX source maps and methods only. Do not activate open-design, UI UX Pro Max, shadcn CLI/MCP, external design scripts, raw prompts, registry JSON, component source, blocks, package config, or unmanaged design-system files.
 
+For v0.2 project tooling, use `docs/UIUX_DESIGN_RESOURCES.md` for design-resource boundaries and `methods/mobile/native-mobile-app-quality.md` for mobile quality routing. Base UI and Figma are excluded from current-scope recommendations.
+
 ## Handoff
 
 UIUX defines acceptance criteria. Frontend Agent implements, code-quality validates, QA Test verifies, and PR Release Gate decides readiness.

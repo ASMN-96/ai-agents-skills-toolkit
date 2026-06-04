@@ -21,6 +21,8 @@ This skill is a review and routing layer. It does not authorize production scans
 
 Use scanner metadata only as routing intelligence unless the target project already owns the scanner command or the owner separately approves a scoped scan. Do not use Socket, ZAP, Harden-Runner, deep secret scanners, CI permission changes, or production-impacting scans without explicit approval.
 
+Route WebView, native bridge, token/cookie, deep-link, local-file, and embedded-content risks through `methods/security/webview-boundary-review.md`.
+
 ## Completion Evidence
 
 Report findings by severity, coverage, commands run, skipped checks, WARN output, and residual security risk.
