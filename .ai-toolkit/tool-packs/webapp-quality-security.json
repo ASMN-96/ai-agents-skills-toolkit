@@ -204,5 +204,309 @@
         "manual QA"
       ]
     }
-  ]
+  ],
+  "projectToolingModel": {
+    "version": "0.2.0-architecture",
+    "metadataIsNotExecution": true,
+    "noAutomaticInstalls": true,
+    "noFakeValidation": true,
+    "tools": [
+      {
+        "id": "eslint",
+        "name": "ESLint",
+        "projectInstallClass": "default-install",
+        "lane": "Frontend Coding and React Quality",
+        "evidenceMode": "lint output",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "projectInstallClass": "default-install",
+        "lane": "Frontend Coding and React Quality",
+        "evidenceMode": "typecheck output",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "typescript-eslint",
+        "name": "typescript-eslint",
+        "projectInstallClass": "default-install",
+        "lane": "Frontend Coding and React Quality",
+        "evidenceMode": "typed lint output",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "eslint-plugin-react-hooks",
+        "name": "eslint-plugin-react-hooks",
+        "projectInstallClass": "default-install",
+        "lane": "Frontend Coding and React Quality",
+        "evidenceMode": "lint output",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "vitest",
+        "name": "Vitest",
+        "projectInstallClass": "default-install",
+        "lane": "Frontend Coding and React Quality",
+        "evidenceMode": "test output",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "testing-library",
+        "name": "Testing Library",
+        "projectInstallClass": "default-install",
+        "lane": "Frontend Coding and React Quality",
+        "evidenceMode": "component test output",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "playwright",
+        "name": "Playwright",
+        "projectInstallClass": "default-install",
+        "lane": "UI/UX Design Intelligence and Browser Evidence",
+        "evidenceMode": "browser test output, traces, screenshots",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "gitleaks",
+        "name": "Gitleaks",
+        "projectInstallClass": "default-install",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "secret scan report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "osv-scanner",
+        "name": "OSV-Scanner",
+        "projectInstallClass": "default-install",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "dependency vulnerability report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "react-doctor",
+        "name": "React Doctor",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Frontend Coding and React Quality",
+        "evidenceMode": "React Doctor report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "oxlint",
+        "name": "Oxlint",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Frontend Coding and React Quality",
+        "evidenceMode": "lint output",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "axe-playwright",
+        "name": "axe with Playwright",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "UI/UX Design Intelligence and Browser Evidence",
+        "evidenceMode": "accessibility report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "lighthouse-ci",
+        "name": "Lighthouse CI",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "UI/UX Design Intelligence and Browser Evidence",
+        "evidenceMode": "Lighthouse report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "semgrep",
+        "name": "Semgrep",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "Semgrep findings",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "dependency-cruiser",
+        "name": "dependency-cruiser",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Architecture, Repo Intelligence, and Token Context",
+        "evidenceMode": "dependency report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "actionlint",
+        "name": "actionlint",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "actionlint output",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "zizmor",
+        "name": "zizmor",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "zizmor report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "trivy",
+        "name": "Trivy",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "Trivy findings",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "checkov",
+        "name": "Checkov",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "Checkov findings",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "madge",
+        "name": "Madge",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Architecture, Repo Intelligence, and Token Context",
+        "evidenceMode": "cycle report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "jscpd",
+        "name": "jscpd",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Architecture, Repo Intelligence, and Token Context",
+        "evidenceMode": "duplication report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "codeql",
+        "name": "CodeQL",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "CodeQL alerts",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "dependabot",
+        "name": "Dependabot",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "update PRs/alerts",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "renovate",
+        "name": "Renovate",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "update PRs/alerts",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "reviewdog",
+        "name": "reviewdog",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Review, PR Feedback, and Release Evidence",
+        "evidenceMode": "PR comments from deterministic output",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "coderabbit",
+        "name": "CodeRabbit",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Review, PR Feedback, and Release Evidence",
+        "evidenceMode": "PR review comments",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "github-gh",
+        "name": "GitHub/gh",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Review, PR Feedback, and Release Evidence",
+        "evidenceMode": "command output",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "biome",
+        "name": "Biome",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Frontend Coding and React Quality",
+        "evidenceMode": "Biome output",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "knip",
+        "name": "Knip",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Frontend Coding and React Quality",
+        "evidenceMode": "Knip report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "socket",
+        "name": "Socket",
+        "projectInstallClass": "approval-required",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "Socket report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "trufflehog",
+        "name": "TruffleHog",
+        "projectInstallClass": "approval-required",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "findings report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "owasp-zap-baseline",
+        "name": "OWASP ZAP baseline",
+        "projectInstallClass": "approval-required",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "ZAP report",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "harden-runner",
+        "name": "Harden-Runner",
+        "projectInstallClass": "approval-required",
+        "lane": "Backend, Security, Data Safety",
+        "evidenceMode": "workflow/runtime evidence",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "code-review-graph",
+        "name": "code-review-graph",
+        "projectInstallClass": "pilot-only",
+        "lane": "Architecture, Repo Intelligence, and Token Context",
+        "evidenceMode": "pilot notes only",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "open-design",
+        "name": "open-design",
+        "projectInstallClass": "pilot-only",
+        "lane": "UI/UX Design Intelligence and Browser Evidence",
+        "evidenceMode": "pilot notes only",
+        "requiresOwnerApproval": true
+      },
+      {
+        "id": "eslint-plugin-boundaries",
+        "name": "eslint-plugin-boundaries",
+        "projectInstallClass": "pilot-only",
+        "lane": "Architecture, Repo Intelligence, and Token Context",
+        "evidenceMode": "lint output",
+        "requiresOwnerApproval": true
+      }
+    ],
+    "decisions": {
+      "React Doctor": "active-install-if-project-type for React projects; GitHub Action, PR write permissions, and agent skill install require owner approval",
+      "Knip": "use-if-existing cleanup candidate only; removed from active/default profiles",
+      "Oxlint": "active acceleration for large JS/TS/React repos as ESLint supplement",
+      "Biome": "use-if-existing or owner-approved migration only",
+      "Base UI": "archive/remove-from-active",
+      "Figma": "archive/remove-from-active"
+    }
+  }
 }

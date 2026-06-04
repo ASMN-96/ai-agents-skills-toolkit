@@ -54,13 +54,14 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 
 | ID | Tool | Classification | Recommendation | Current value path | Next extraction | Forbidden boundary |
 | --- | --- | --- | --- | --- | --- | --- |
-| typescript | TypeScript | active-profile-route | Do later | Baseline if project script exists | Keep typecheck as existing-script route | No install or CI wiring from metadata |
-| typescript-eslint | typescript-eslint | active-profile-route | Do later | Baseline if configured | Keep linting as existing-script route | No install or config rewrite |
-| eslint-plugin-react-hooks | eslint-plugin-react-hooks | active-profile-route | Do later | React correctness metadata | Keep hooks rule expectations in code-quality gates | No install or config rewrite |
-| biome | Biome | active-profile-route | Do later | Conditional metadata | Use only if project already owns it | No formatter churn from metadata |
-| oxlint | Oxlint | active-profile-route | Do later | Conditional metadata | Use only if project already owns it | No formatter/linter install |
-| knip | Knip | active-profile-route | Do later | Conditional cleanup metadata | Later cleanup routing | No broad deletion from metadata |
-| react-doctor | React Doctor | planned-extraction | Do later | Source-review-required metadata | Static React smell taxonomy | No scanner activation without approval |
+| typescript | TypeScript | active-profile-route | Do later | Baseline if project script exists; v0.2 default-install posture | Keep typecheck as existing-script route | No install or CI wiring from metadata |
+| eslint | ESLint | active-profile-route | Do later | Standalone baseline lint metadata; v0.2 default-install posture | Keep ESLint as default lint route with typed and React hooks supplements | No install or config rewrite from metadata |
+| typescript-eslint | typescript-eslint | active-profile-route | Do later | Baseline if configured; v0.2 default-install posture | Keep linting as existing-script route | No install or config rewrite |
+| eslint-plugin-react-hooks | eslint-plugin-react-hooks | active-profile-route | Do later | React correctness metadata; v0.2 default-install posture | Keep hooks rule expectations in code-quality gates | No install or config rewrite |
+| biome | Biome | active-profile-route | Do later | Use-if-existing or owner-approved migration only | Keep as migration-only lint/format route | No formatter churn from metadata |
+| oxlint | Oxlint | active-profile-route | Do later | Active acceleration metadata for large JS/TS/React repos | Supplement ESLint on large repos when owner-approved | No formatter/linter install from metadata |
+| knip | Knip | active-profile-route | Do later | Use-if-existing cleanup candidate only | Keep out of default/active profiles | No broad deletion from metadata |
+| react-doctor | React Doctor | active-profile-route | Do later | Active-install-if-project-type for React projects | Static React smell taxonomy and React risk evidence when actually run | No scanner activation, GitHub Action, PR write, or agent skill install without approval |
 | vitest | Vitest | active-profile-route | Do later | Baseline test metadata | Existing-script test route | No dependency install |
 | testing-library | Testing Library | active-profile-route | Do later | Component testing metadata | Existing-script component testing route | No package install |
 | playwright | Playwright | active-profile-route | Do later | Browser validation route | Rendered workflow evidence | No browser/pass claims without output |
@@ -86,10 +87,51 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | code-review-graph | code-review-graph | planned-extraction | Must do next | Metadata-only source intelligence | Context graph and token budget governance methods | No install, CLI, MCP, global config, product indexing, or whole-repo dump |
 | open-design | open-design | reference-only-with-reason | Needs owner decision | Metadata-only UIUX reference | Archive or review before extraction | No install, MCP, or raw design-system import |
 | openssf-scorecard | OpenSSF Scorecard | planned-extraction | Do later | Source-trust metadata | Source safety scoring criteria | No tool execution by default |
-| dependency-cruiser | dependency-cruiser | planned-extraction | Do later | Architecture-boundary metadata | Dependency-boundary review heuristics | No install or generated graph by default |
-| eslint-plugin-boundaries | eslint-plugin-boundaries | planned-extraction | Do later | Architecture-boundary metadata | Layer/import ownership policy | No config rewrite |
-| madge | Madge | planned-extraction | Do later | Circular-dependency metadata | Dependency cycle review heuristic | No install or generated graph by default |
-| jscpd | jscpd | planned-extraction | Do later | Duplication metadata | Copy/paste duplication review heuristic | No install or cleanup churn |
+| dependency-cruiser | dependency-cruiser | active-profile-route | Do later | Active-install-if-project-type architecture hardening metadata | Dependency-boundary review heuristics | No install or generated graph by default |
+| eslint-plugin-boundaries | eslint-plugin-boundaries | planned-extraction | Do later | Pilot-only boundary metadata until architecture layers are stable | Layer/import ownership policy after owner decision | No config rewrite |
+| madge | Madge | active-profile-route | Do later | Active-install-if-project-type circular-dependency metadata | Dependency cycle review heuristic | No install or generated graph by default |
+| jscpd | jscpd | active-profile-route | Do later | Active-install-if-project-type duplication metadata | Copy/paste duplication review heuristic | No install or cleanup churn |
+
+## v0.2 Project Tooling Posture
+
+The following project install classes are metadata-only recommendation posture. They do not approve installs, activation, CI wiring, MCP setup, global config changes, product-repository changes, or tool execution.
+
+- eslint: default-install.
+- typescript: default-install.
+- typescript-eslint: default-install.
+- eslint-plugin-react-hooks: default-install.
+- vitest: default-install.
+- testing-library: default-install.
+- playwright: default-install.
+- gitleaks: default-install.
+- osv-scanner: default-install.
+- react-doctor: active-install-if-project-type.
+- oxlint: active-install-if-project-type.
+- axe-playwright: active-install-if-project-type.
+- lighthouse-ci: active-install-if-project-type.
+- semgrep: active-install-if-project-type.
+- dependency-cruiser: active-install-if-project-type.
+- actionlint: active-install-if-project-type.
+- zizmor: active-install-if-project-type.
+- trivy: active-install-if-project-type.
+- checkov: active-install-if-project-type.
+- madge: active-install-if-project-type.
+- jscpd: active-install-if-project-type.
+- codeql: use-if-existing.
+- dependabot: use-if-existing.
+- renovate: use-if-existing.
+- reviewdog: use-if-existing.
+- coderabbit: use-if-existing.
+- github-gh: use-if-existing.
+- biome: use-if-existing.
+- knip: use-if-existing.
+- socket: approval-required.
+- trufflehog: approval-required.
+- owasp-zap-baseline: approval-required.
+- harden-runner: approval-required.
+- code-review-graph: pilot-only.
+- open-design: pilot-only.
+- eslint-plugin-boundaries: pilot-only.
 
 ## Rejected Operations
 

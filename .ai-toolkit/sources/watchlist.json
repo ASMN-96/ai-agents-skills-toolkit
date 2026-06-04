@@ -667,6 +667,25 @@
       "category": "duplication",
       "purpose": "duplicate code detection",
       "recommendedToolkitStatus": "research-candidate"
+    },
+    {
+      "id": "eslint",
+      "name": "ESLint",
+      "sourceUrl": "https://github.com/eslint/eslint",
+      "repoOwner": "eslint",
+      "repoName": "eslint",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/eslint.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "neverAutoImport": true,
+      "homepage": "https://eslint.org",
+      "category": "linting",
+      "purpose": "JavaScript and TypeScript lint baseline",
+      "recommendedToolkitStatus": "default-install"
     }
   ]
 }

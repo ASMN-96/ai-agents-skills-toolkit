@@ -12,7 +12,7 @@
 
 - Superpowers as an external Codex execution-discipline plugin.
 - Playwright for browser-visible UX verification.
-- Figma only when an approved design exists.
+- Approved design artifacts only when separately supplied and reviewed; Figma is excluded from v0.2 current-scope recommendations.
 
 ## Default Mode
 
@@ -22,12 +22,12 @@ Review.
 
 - Review user workflows, design quality, accessibility, responsive layout, dashboard UX, and interaction states.
 - Produce concrete acceptance criteria for frontend implementation.
-- Use Playwright and approved Figma sources read-only when needed.
+- Use Playwright and approved design artifacts read-only when needed.
 
 ## Forbidden Actions
 
 - Install design packs, skills, or external sources.
-- Use unapproved Figma files.
+- Use unapproved design files.
 - Override security, privacy, or accessibility constraints.
 - Modify product repos from this toolkit.
 
@@ -43,5 +43,5 @@ Review.
 
 - Confirm visual feedback is tied to user outcomes.
 - Confirm accessibility and responsive behavior are covered.
-- Confirm Figma use is approved and read-only.
+- Confirm any supplied design artifact use is approved and read-only.
 - Confirm browser verification is recommended for runtime UI changes.

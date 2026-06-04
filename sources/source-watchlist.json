@@ -107,10 +107,10 @@
       "neverAutoImport": true,
       "reviewedHold": {
         "status": "REVIEWED_HELD",
-        "reviewedCommit": "08e2d03b41d10ca44b078da6275a79dc0290f24f",
+        "reviewedCommit": "b0f1008d9d1da8ee4b6d1ac293ed4878932b588f",
         "reviewedDate": "2026-06-04",
-        "classification": "reviewed runtime-sensitive reference",
-        "decision": "reference-only hold; no import, no install, no activation, no extraction, no package update, no CI update, no runtime update, no upstream test or code copy, and no script execution",
+        "classification": "reviewed runtime-sensitive browser payload reference",
+        "decision": "reference-only hold; no import, no install, no activation, no extraction, no package update, no CI update, no runtime update, no browser binary download, no upstream test or code copy, and no script execution",
         "noImportNoInstallNoExtraction": true,
         "forbiddenActions": [
           "import",
@@ -120,6 +120,7 @@
           "package update",
           "CI update",
           "runtime update",
+          "browser binary download",
           "upstream code copy",
           "upstream test copy",
           "script execution"

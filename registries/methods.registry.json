@@ -2115,6 +2115,251 @@
         "repo",
         "project-sync"
       ]
+    },
+    {
+      "id": "mobile.native-mobile-app-quality",
+      "displayName": "Native Mobile App Quality",
+      "area": "mobile",
+      "methodPath": "methods/mobile/native-mobile-app-quality.md",
+      "purpose": "Review native mobile quality, platform expectations, release-like build evidence, accessibility, permissions, performance, localization, and honest mobile validation reporting.",
+      "whenToUse": "Use for native mobile app quality tasks in target projects when the scenario is in scope.",
+      "whenNotToUse": "Do not use as approval to install tools, change packages, wire CI, configure MCP, change global config, or touch product repositories.",
+      "passiveConsumerAgents": [
+        "UIUX Agent",
+        "Frontend Agent",
+        "QA Test Agent",
+        "SRE Performance Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "mobile-native-app-quality",
+        "ui-polish"
+      ],
+      "riskDomains": [
+        "mobile",
+        "uiux",
+        "quality"
+      ],
+      "validationGates": [
+        "Report actual evidence, skipped checks, owner approvals, no-fake-validation boundaries, and stop conditions."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/mobile/native-mobile-app-quality.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "security.webview-boundary-review",
+      "displayName": "WebView Boundary Review",
+      "area": "security",
+      "methodPath": "methods/security/webview-boundary-review.md",
+      "purpose": "Treat WebView content as a trust boundary covering allowlists, URL validation, external links, deep links, tokens, bridges, logs, downloads, and auth boundaries.",
+      "whenToUse": "Use for webview boundary review tasks in target projects when the scenario is in scope.",
+      "whenNotToUse": "Do not use as approval to install tools, change packages, wire CI, configure MCP, change global config, or touch product repositories.",
+      "passiveConsumerAgents": [
+        "Security Agent",
+        "Backend Contract Agent",
+        "QA Test Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "webview-boundary-review"
+      ],
+      "riskDomains": [
+        "security",
+        "mobile",
+        "webview"
+      ],
+      "validationGates": [
+        "Report actual evidence, skipped checks, owner approvals, no-fake-validation boundaries, and stop conditions."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/security/webview-boundary-review.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "architecture.cross-surface-client-contracts",
+      "displayName": "Cross-Surface Client Contracts",
+      "area": "architecture",
+      "methodPath": "methods/architecture/cross-surface-client-contracts.md",
+      "purpose": "Review compatibility across web, mobile, backend, APIs, enums, schemas, caches, staged rollout, contract tests, and rollback.",
+      "whenToUse": "Use for cross-surface client contracts tasks in target projects when the scenario is in scope.",
+      "whenNotToUse": "Do not use as approval to install tools, change packages, wire CI, configure MCP, change global config, or touch product repositories.",
+      "passiveConsumerAgents": [
+        "Backend Contract Agent",
+        "QA Test Agent",
+        "Security Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "cross-surface-api-contracts"
+      ],
+      "riskDomains": [
+        "architecture",
+        "api",
+        "compatibility"
+      ],
+      "validationGates": [
+        "Report actual evidence, skipped checks, owner approvals, no-fake-validation boundaries, and stop conditions."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/architecture/cross-surface-client-contracts.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "repo.package-manager-workspace-migration",
+      "displayName": "Package Manager and Workspace Migration",
+      "area": "repo",
+      "methodPath": "methods/repo/package-manager-workspace-migration.md",
+      "purpose": "Control package-manager and workspace migrations as infra-only owner-approved changes with frozen install validation and rollback.",
+      "whenToUse": "Use for package manager and workspace migration tasks in target projects when the scenario is in scope.",
+      "whenNotToUse": "Do not use as approval to install tools, change packages, wire CI, configure MCP, change global config, or touch product repositories.",
+      "passiveConsumerAgents": [
+        "Architect Agent",
+        "Reviewer Agent",
+        "Release Manager Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "package-manager-workspace-migration"
+      ],
+      "riskDomains": [
+        "repo",
+        "package-manager",
+        "release"
+      ],
+      "validationGates": [
+        "Report actual evidence, skipped checks, owner approvals, no-fake-validation boundaries, and stop conditions."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/repo/package-manager-workspace-migration.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "governance.agent-command-safety",
+      "displayName": "Agent Command Safety",
+      "area": "governance",
+      "methodPath": "methods/governance/agent-command-safety.md",
+      "purpose": "Prevent unsafe commands, prompt injection obedience, destructive operations, fake validation, and unapproved package/CI/deployment/database/auth/security/global changes.",
+      "whenToUse": "Use for agent command safety tasks in target projects when the scenario is in scope.",
+      "whenNotToUse": "Do not use as approval to install tools, change packages, wire CI, configure MCP, change global config, or touch product repositories.",
+      "passiveConsumerAgents": [
+        "All internal agents"
+      ],
+      "relatedRoutingScenarios": [
+        "agent-command-safety"
+      ],
+      "riskDomains": [
+        "governance",
+        "security",
+        "command-safety"
+      ],
+      "validationGates": [
+        "Report actual evidence, skipped checks, owner approvals, no-fake-validation boundaries, and stop conditions."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/governance/agent-command-safety.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
     }
   ]
 }

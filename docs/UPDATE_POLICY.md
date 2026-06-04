@@ -51,7 +51,7 @@ External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.m
 - Do not activate compiled agents globally.
 - Do not create project sync or install scripts during Phase 4.
 - Keep Superpowers as an external Codex plugin reference only.
-- Treat Context7, Playwright, and Figma as support triggers only when available, configured, and relevant.
+- Treat Context7 and Playwright as support triggers only when available, configured, and relevant. Treat approved design artifacts as inputs only; Figma is excluded from v0.2 current-scope recommendations unless separately supplied and approved outside the default model.
 - Include source provenance in every compiled agent so downstream projects can audit the toolkit inputs.
 - Keep profiles free of secrets and project-specific credentials.
 - Do not mechanically restamp compiled-agent version metadata without deterministic regenerated output, provenance report, size report, leak scan, and review evidence.

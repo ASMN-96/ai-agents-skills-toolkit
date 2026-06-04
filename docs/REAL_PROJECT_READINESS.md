@@ -8,6 +8,8 @@ After the 2026-05-30 first representative pilot, the toolkit is Level 3 certifie
 
 Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project-owned checks, PR review, and passing required checks. This does not authorize automatic rollout, product-repository writes without a project PR, runtime/global activation, package/CI/MCP changes, external installs, secret access, or broad non-Codex runtime support.
 
+The v0.2 project tooling architecture is a recommendation and evidence model on top of this Level 3 readiness position. It is not a readiness-level promotion, not a tool installation, not CI wiring, not MCP/global configuration, and not proof that any recommended tool ran.
+
 Phase 10L governance UX hardening did not upgrade readiness by itself. The Level 3 upgrade is based on the merged representative project-sync pilot recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`. Retired helper skill names are not active runtime skills.
 
 ## Readiness Levels
@@ -80,6 +82,7 @@ For real projects, use the toolkit as a governance and evidence layer:
 - Select the smallest useful set from the 5 canonical skills and 12 repo-local Codex project agents.
 - Report selected or recommended agents separately from agents that actually spawned.
 - Prefer project-owned checks before proposing new tools.
+- Use v0.2 project tooling profiles as recommendation posture only; registry/profile/template presence is not tool execution.
 - Use dry-run-first sync where toolkit artifacts are copied into a project.
 - Do not modify product repositories without a separate project-specific PR.
 - Do not claim validation, browser, scanner, review-bot, GitHub, or runtime execution without current output.

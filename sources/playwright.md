@@ -106,3 +106,11 @@ Skill Scout read-only source-safety review evaluated upstream default-branch mov
 Classification: `REVIEWED_HELD` / reviewed runtime-sensitive reference.
 
 Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, MCP activation, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `08e2d03b41d10ca44b078da6275a79dc0290f24f` requires a fresh review.
+
+## Reviewed-Held Source Safety Review 2026-06-04 Follow-up
+
+Skill Scout read-only source-safety follow-up reviewed upstream default-branch movement from `08e2d03b41d10ca44b078da6275a79dc0290f24f` to `b0f1008d9d1da8ee4b6d1ac293ed4878932b588f` using `git ls-remote`, GitHub repository metadata, license metadata, compare commit metadata, and changed-file metadata only. The compare was 1 commit ahead and touched only `packages/playwright-core/browsers.json`; the commit title indicated a WebKit browser revision roll. GitHub repository metadata continued to report Apache-2.0.
+
+Classification: `REVIEWED_HELD` / reviewed runtime-sensitive browser payload reference.
+
+Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `b0f1008d9d1da8ee4b6d1ac293ed4878932b588f` requires a fresh review.

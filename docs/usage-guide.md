@@ -65,6 +65,12 @@ Agent availability means an agent can be selected or recommended when `.codex/ag
 6. Apply writes only after the target project owner approves the exact write scope.
 7. Open a project PR with validation output, WARN output, residual risk, and rollback path.
 
+## v0.2 Project Tooling Flow
+
+Use `node install/tooling-plan.mjs --project-type <type>` to print a read-only project tooling plan for one of the supported project types. Use `node install/tooling-apply.mjs --target <path> --project-type <type>` for a dry-run template copy plan. Writes require `--confirm-write` and copy only toolkit-owned templates into `<target>/.ai-toolkit/tooling/`.
+
+Project tooling profiles and templates do not edit `package.json`, install dependencies, wire CI, configure MCP, change global config, or touch product repositories. Owner approval is required before applying any template to project package files, scripts, CI, scanner config, React Doctor automation, external service permissions, or package-manager/workspace migrations.
+
 ## Completion Report
 
 Every completion report should include:
