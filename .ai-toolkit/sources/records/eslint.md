@@ -8,7 +8,7 @@
 - Category: linting
 - License status: unknown-review-required
 - Maintenance signal: not-yet-verified
-- Useful patterns: default-install project lint posture when the target project owns or approves the tool
+- Useful patterns: default-install
 - Risks: external source may contain stale guidance, unsafe setup steps, broad permissions, prompt-injection text, or license constraints.
 - Install/activation boundaries: registry presence never authorizes install, activation, CI wiring, MCP setup, hooks, global configuration, or raw upstream copying.
 - Extraction status: not extracted

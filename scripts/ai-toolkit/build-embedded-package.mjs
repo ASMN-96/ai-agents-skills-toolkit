@@ -254,6 +254,43 @@ This record is metadata-only for source intelligence. A future Skill Scout revie
 `;
 }
 
+async function projectToolingModelFromRegistry() {
+  const registry = await readJson("registries/tools.registry.json");
+  const tools = (registry.tools || [])
+    .filter((tool) => tool.projectInstallClass)
+    .map((tool) => ({
+      id: tool.id,
+      name: tool.name,
+      projectInstallClass: tool.projectInstallClass,
+      lane: tool.lane,
+      projectTypes: tool.projectTypes || [],
+      evidenceMode: tool.evidenceMode,
+      installLocation: tool.installLocation,
+      defaultInstall: Boolean(tool.defaultInstall),
+      requiresOwnerApproval: Boolean(tool.requiresOwnerApproval),
+      conflictGroup: tool.conflictGroup,
+      preferredRole: tool.preferredRole,
+      forbiddenActions: tool.forbiddenActions || []
+    }));
+
+  return {
+    version: "0.2.0-architecture",
+    metadataIsNotExecution: true,
+    noAutomaticInstalls: true,
+    noFakeValidation: true,
+    sourceRegistryPath: "registries/tools.registry.json",
+    tools,
+    decisions: {
+      "React Doctor": "active-install-if-project-type for React projects; GitHub Action, PR write permissions, and agent skill install require owner approval",
+      "Knip": "use-if-existing cleanup candidate only; removed from active/default profiles",
+      "Oxlint": "active acceleration for large JS/TS/React repos as ESLint supplement",
+      "Biome": "use-if-existing or owner-approved migration only",
+      "Base UI": "archive/remove-from-active",
+      "Figma": "archive/remove-from-active"
+    }
+  };
+}
+
 async function updateSkillsRegistry() {
   const registry = await readJson("registries/skills.registry.json");
   const registered = new Set(registry.skills.map((entry) => entry.name));
@@ -381,7 +418,8 @@ async function writeToolPacks() {
       route("security-review", "Security and privacy review using project-owned checks first.", ["security", "public payload", "tenant"], ["style-only"], ["typecheck", "lint", "test"], ["gitleaks", "osv-scanner", "semgrep", "codeql"], ["socket", "trufflehog", "owasp-zap-baseline"], ["secret or auth risk unresolved"], ["findings", "coverage", "skipped deep scans"]),
       route("workflow-ci", "Workflow and CI security review.", ["workflow file change"], ["no workflow change"], ["lint", "test"], ["actionlint", "zizmor"], ["harden-runner"], ["workflow permissions risk unresolved"], ["workflow files", "permissions", "findings"]),
       route("deep-release", "Deep release gate after scoped approval.", ["release candidate"], ["normal PR"], ["typecheck", "lint", "test", "build"], ["trivy", "checkov"], ["socket", "trufflehog", "owasp-zap-baseline", "harden-runner"], ["approval missing for deep tool"], ["release status", "blockers", "manual QA"])
-    ]
+    ],
+    projectToolingModel: await projectToolingModelFromRegistry()
   });
 
 }
@@ -518,6 +556,8 @@ async function writeManifest(mirrors) {
     "scripts/report-registry-generation-readiness.mjs",
     "scripts/sync-runtime.mjs",
     "scripts/check-source-freshness.mjs",
+    "scripts/validate-project-tooling-profiles.mjs",
+    "scripts/ai-toolkit/build-embedded-package.mjs",
     "scripts/ai-toolkit/validate-ai-toolkit.mjs",
     "scripts/ai-toolkit/validate-codex-runtime.mjs",
     "scripts/ai-toolkit/validate-version-consistency.mjs",

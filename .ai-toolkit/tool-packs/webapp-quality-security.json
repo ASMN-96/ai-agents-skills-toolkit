@@ -210,294 +210,824 @@
     "metadataIsNotExecution": true,
     "noAutomaticInstalls": true,
     "noFakeValidation": true,
+    "sourceRegistryPath": "registries/tools.registry.json",
     "tools": [
-      {
-        "id": "eslint",
-        "name": "ESLint",
-        "projectInstallClass": "default-install",
-        "lane": "Frontend Coding and React Quality",
-        "evidenceMode": "lint output",
-        "requiresOwnerApproval": true
-      },
       {
         "id": "typescript",
         "name": "TypeScript",
         "projectInstallClass": "default-install",
         "lane": "Frontend Coding and React Quality",
+        "projectTypes": [
+          "typescript",
+          "react",
+          "backend-api",
+          "webapp"
+        ],
         "evidenceMode": "typecheck output",
-        "requiresOwnerApproval": true
+        "installLocation": "target project dev dependency or existing script",
+        "defaultInstall": true,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "typecheck",
+        "preferredRole": "baseline type authority",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       },
       {
         "id": "typescript-eslint",
         "name": "typescript-eslint",
         "projectInstallClass": "default-install",
         "lane": "Frontend Coding and React Quality",
+        "projectTypes": [
+          "typescript",
+          "react",
+          "webapp"
+        ],
         "evidenceMode": "typed lint output",
-        "requiresOwnerApproval": true
+        "installLocation": "target project dev dependency or existing script",
+        "defaultInstall": true,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "lint",
+        "preferredRole": "typed lint supplement",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       },
       {
         "id": "eslint-plugin-react-hooks",
         "name": "eslint-plugin-react-hooks",
         "projectInstallClass": "default-install",
         "lane": "Frontend Coding and React Quality",
+        "projectTypes": [
+          "react"
+        ],
         "evidenceMode": "lint output",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "vitest",
-        "name": "Vitest",
-        "projectInstallClass": "default-install",
-        "lane": "Frontend Coding and React Quality",
-        "evidenceMode": "test output",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "testing-library",
-        "name": "Testing Library",
-        "projectInstallClass": "default-install",
-        "lane": "Frontend Coding and React Quality",
-        "evidenceMode": "component test output",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "playwright",
-        "name": "Playwright",
-        "projectInstallClass": "default-install",
-        "lane": "UI/UX Design Intelligence and Browser Evidence",
-        "evidenceMode": "browser test output, traces, screenshots",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "gitleaks",
-        "name": "Gitleaks",
-        "projectInstallClass": "default-install",
-        "lane": "Backend, Security, Data Safety",
-        "evidenceMode": "secret scan report",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "osv-scanner",
-        "name": "OSV-Scanner",
-        "projectInstallClass": "default-install",
-        "lane": "Backend, Security, Data Safety",
-        "evidenceMode": "dependency vulnerability report",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "react-doctor",
-        "name": "React Doctor",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "Frontend Coding and React Quality",
-        "evidenceMode": "React Doctor report",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "oxlint",
-        "name": "Oxlint",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "Frontend Coding and React Quality",
-        "evidenceMode": "lint output",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "axe-playwright",
-        "name": "axe with Playwright",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "UI/UX Design Intelligence and Browser Evidence",
-        "evidenceMode": "accessibility report",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "lighthouse-ci",
-        "name": "Lighthouse CI",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "UI/UX Design Intelligence and Browser Evidence",
-        "evidenceMode": "Lighthouse report",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "semgrep",
-        "name": "Semgrep",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "Backend, Security, Data Safety",
-        "evidenceMode": "Semgrep findings",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "dependency-cruiser",
-        "name": "dependency-cruiser",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "Architecture, Repo Intelligence, and Token Context",
-        "evidenceMode": "dependency report",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "actionlint",
-        "name": "actionlint",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "Backend, Security, Data Safety",
-        "evidenceMode": "actionlint output",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "zizmor",
-        "name": "zizmor",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "Backend, Security, Data Safety",
-        "evidenceMode": "zizmor report",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "trivy",
-        "name": "Trivy",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "Backend, Security, Data Safety",
-        "evidenceMode": "Trivy findings",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "checkov",
-        "name": "Checkov",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "Backend, Security, Data Safety",
-        "evidenceMode": "Checkov findings",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "madge",
-        "name": "Madge",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "Architecture, Repo Intelligence, and Token Context",
-        "evidenceMode": "cycle report",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "jscpd",
-        "name": "jscpd",
-        "projectInstallClass": "active-install-if-project-type",
-        "lane": "Architecture, Repo Intelligence, and Token Context",
-        "evidenceMode": "duplication report",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "codeql",
-        "name": "CodeQL",
-        "projectInstallClass": "use-if-existing",
-        "lane": "Backend, Security, Data Safety",
-        "evidenceMode": "CodeQL alerts",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "dependabot",
-        "name": "Dependabot",
-        "projectInstallClass": "use-if-existing",
-        "lane": "Backend, Security, Data Safety",
-        "evidenceMode": "update PRs/alerts",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "renovate",
-        "name": "Renovate",
-        "projectInstallClass": "use-if-existing",
-        "lane": "Backend, Security, Data Safety",
-        "evidenceMode": "update PRs/alerts",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "reviewdog",
-        "name": "reviewdog",
-        "projectInstallClass": "use-if-existing",
-        "lane": "Review, PR Feedback, and Release Evidence",
-        "evidenceMode": "PR comments from deterministic output",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "coderabbit",
-        "name": "CodeRabbit",
-        "projectInstallClass": "use-if-existing",
-        "lane": "Review, PR Feedback, and Release Evidence",
-        "evidenceMode": "PR review comments",
-        "requiresOwnerApproval": true
-      },
-      {
-        "id": "github-gh",
-        "name": "GitHub/gh",
-        "projectInstallClass": "use-if-existing",
-        "lane": "Review, PR Feedback, and Release Evidence",
-        "evidenceMode": "command output",
-        "requiresOwnerApproval": true
+        "installLocation": "target React project dev dependency or existing script",
+        "defaultInstall": true,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "react-hooks",
+        "preferredRole": "hooks correctness",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       },
       {
         "id": "biome",
         "name": "Biome",
         "projectInstallClass": "use-if-existing",
         "lane": "Frontend Coding and React Quality",
+        "projectTypes": [
+          "js",
+          "ts"
+        ],
         "evidenceMode": "Biome output",
-        "requiresOwnerApproval": true
+        "installLocation": "target project if already present",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "lint-format-migration",
+        "preferredRole": "migration only unless existing",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "oxlint",
+        "name": "Oxlint",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Frontend Coding and React Quality",
+        "projectTypes": [
+          "large-js",
+          "large-ts",
+          "react"
+        ],
+        "evidenceMode": "lint output",
+        "installLocation": "target project dev dependency/script",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "lint-acceleration",
+        "preferredRole": "ESLint supplement",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       },
       {
         "id": "knip",
         "name": "Knip",
         "projectInstallClass": "use-if-existing",
         "lane": "Frontend Coding and React Quality",
+        "projectTypes": [
+          "cleanup"
+        ],
         "evidenceMode": "Knip report",
-        "requiresOwnerApproval": true
+        "installLocation": "target project if already present",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "cleanup",
+        "preferredRole": "cleanup candidate only",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       },
       {
-        "id": "socket",
-        "name": "Socket",
-        "projectInstallClass": "approval-required",
+        "id": "react-doctor",
+        "name": "React Doctor",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Frontend Coding and React Quality",
+        "projectTypes": [
+          "react",
+          "react-native"
+        ],
+        "evidenceMode": "React Doctor report",
+        "installLocation": "target React project only",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "react-quality",
+        "preferredRole": "active React supplement",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "vitest",
+        "name": "Vitest",
+        "projectInstallClass": "default-install",
+        "lane": "Frontend Coding and React Quality",
+        "projectTypes": [
+          "js",
+          "ts",
+          "react",
+          "backend-api"
+        ],
+        "evidenceMode": "test output",
+        "installLocation": "target project dev dependency or existing script",
+        "defaultInstall": true,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "unit-test",
+        "preferredRole": "fast test runner",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "testing-library",
+        "name": "Testing Library",
+        "projectInstallClass": "default-install",
+        "lane": "Frontend Coding and React Quality",
+        "projectTypes": [
+          "react",
+          "ui"
+        ],
+        "evidenceMode": "component test output",
+        "installLocation": "target project dev dependency or existing script",
+        "defaultInstall": true,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "component-test",
+        "preferredRole": "component/user behavior",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "playwright",
+        "name": "Playwright",
+        "projectInstallClass": "default-install",
+        "lane": "UI/UX Design Intelligence and Browser Evidence",
+        "projectTypes": [
+          "webapp",
+          "ui",
+          "browser"
+        ],
+        "evidenceMode": "browser test output, traces, screenshots",
+        "installLocation": "target project dev dependency or existing script",
+        "defaultInstall": true,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "browser-evidence",
+        "preferredRole": "browser workflow evidence",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "axe-playwright",
+        "name": "axe with Playwright",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "UI/UX Design Intelligence and Browser Evidence",
+        "projectTypes": [
+          "ui",
+          "accessibility"
+        ],
+        "evidenceMode": "accessibility report",
+        "installLocation": "target UI project dev dependency/script",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "browser-accessibility",
+        "preferredRole": "Playwright supplement",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "lighthouse-ci",
+        "name": "Lighthouse CI",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "UI/UX Design Intelligence and Browser Evidence",
+        "projectTypes": [
+          "public-web",
+          "mobile-web",
+          "performance"
+        ],
+        "evidenceMode": "Lighthouse report",
+        "installLocation": "target web project script",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "web-performance",
+        "preferredRole": "browser performance evidence",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "codeql",
+        "name": "CodeQL",
+        "projectInstallClass": "use-if-existing",
         "lane": "Backend, Security, Data Safety",
-        "evidenceMode": "Socket report",
-        "requiresOwnerApproval": true
+        "projectTypes": [
+          "security-sensitive"
+        ],
+        "evidenceMode": "CodeQL alerts",
+        "installLocation": "platform code scanning",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "sast",
+        "preferredRole": "platform scanner",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "semgrep",
+        "name": "Semgrep",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "security-sensitive"
+        ],
+        "evidenceMode": "Semgrep findings",
+        "installLocation": "target project scanner/script",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "sast",
+        "preferredRole": "targeted SAST",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "gitleaks",
+        "name": "Gitleaks",
+        "projectInstallClass": "default-install",
+        "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "all"
+        ],
+        "evidenceMode": "secret scan report",
+        "installLocation": "target project tool/script",
+        "defaultInstall": true,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "secret-scan",
+        "preferredRole": "baseline secret scan",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       },
       {
         "id": "trufflehog",
         "name": "TruffleHog",
         "projectInstallClass": "approval-required",
         "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "security-sensitive"
+        ],
         "evidenceMode": "findings report",
-        "requiresOwnerApproval": true
+        "installLocation": "target project tool/script only after approval",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "deep-secret-scan",
+        "preferredRole": "approval-required",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "osv-scanner",
+        "name": "OSV-Scanner",
+        "projectInstallClass": "default-install",
+        "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "all"
+        ],
+        "evidenceMode": "dependency vulnerability report",
+        "installLocation": "target project tool/script",
+        "defaultInstall": true,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "dependency-scan",
+        "preferredRole": "baseline dependency risk",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "dependabot",
+        "name": "Dependabot",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "dependency-management"
+        ],
+        "evidenceMode": "update PRs/alerts",
+        "installLocation": "target repo service/config",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "dependency-bot",
+        "preferredRole": "choose one dependency bot",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "renovate",
+        "name": "Renovate",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "dependency-management"
+        ],
+        "evidenceMode": "update PRs/alerts",
+        "installLocation": "target repo service/config",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "dependency-bot",
+        "preferredRole": "choose one dependency bot",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "socket",
+        "name": "Socket",
+        "projectInstallClass": "approval-required",
+        "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "security-sensitive"
+        ],
+        "evidenceMode": "Socket report",
+        "installLocation": "target project/service only after approval",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "deep-supply-chain",
+        "preferredRole": "approval-required",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "trivy",
+        "name": "Trivy",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "containers",
+          "iac",
+          "sbom"
+        ],
+        "evidenceMode": "Trivy findings",
+        "installLocation": "target container/IaC/SBOM project tooling",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "container-iac-security",
+        "preferredRole": "container/SBOM evidence",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "checkov",
+        "name": "Checkov",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "iac",
+          "cloud"
+        ],
+        "evidenceMode": "Checkov findings",
+        "installLocation": "target IaC/cloud project tooling",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "iac-security",
+        "preferredRole": "IaC evidence",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       },
       {
         "id": "owasp-zap-baseline",
         "name": "OWASP ZAP baseline",
         "projectInstallClass": "approval-required",
         "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "web-security"
+        ],
         "evidenceMode": "ZAP report",
-        "requiresOwnerApproval": true
+        "installLocation": "bounded test target only",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "dast",
+        "preferredRole": "approval-required",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "actionlint",
+        "name": "actionlint",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "github-actions"
+        ],
+        "evidenceMode": "actionlint output",
+        "installLocation": "target workflow project tooling/script",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "workflow-security",
+        "preferredRole": "workflow syntax/security",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "zizmor",
+        "name": "zizmor",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "github-actions"
+        ],
+        "evidenceMode": "zizmor report",
+        "installLocation": "target workflow project tooling/script",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "workflow-security",
+        "preferredRole": "workflow security supplement",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       },
       {
         "id": "harden-runner",
         "name": "Harden-Runner",
         "projectInstallClass": "approval-required",
         "lane": "Backend, Security, Data Safety",
+        "projectTypes": [
+          "github-actions"
+        ],
         "evidenceMode": "workflow/runtime evidence",
-        "requiresOwnerApproval": true
+        "installLocation": "GitHub Actions only after approval",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "workflow-runtime",
+        "preferredRole": "approval-required",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "reviewdog",
+        "name": "reviewdog",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Review, PR Feedback, and Release Evidence",
+        "projectTypes": [
+          "pr-review"
+        ],
+        "evidenceMode": "PR comments from deterministic output",
+        "installLocation": "target repo CI/tooling if already owned",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "pr-feedback",
+        "preferredRole": "deterministic scanner reporter",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "coderabbit",
+        "name": "CodeRabbit",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Review, PR Feedback, and Release Evidence",
+        "projectTypes": [
+          "pr-review"
+        ],
+        "evidenceMode": "PR review comments",
+        "installLocation": "already connected external service",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "ai-pr-review",
+        "preferredRole": "external service not package dependency",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "github-gh",
+        "name": "GitHub/gh",
+        "projectInstallClass": "use-if-existing",
+        "lane": "Review, PR Feedback, and Release Evidence",
+        "projectTypes": [
+          "repo-ops"
+        ],
+        "evidenceMode": "command output",
+        "installLocation": "local/operator environment",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "repo-ops",
+        "preferredRole": "operator tool",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       },
       {
         "id": "code-review-graph",
         "name": "code-review-graph",
         "projectInstallClass": "pilot-only",
         "lane": "Architecture, Repo Intelligence, and Token Context",
+        "projectTypes": [
+          "architecture-hardening",
+          "large-context"
+        ],
         "evidenceMode": "pilot notes only",
-        "requiresOwnerApproval": true
+        "installLocation": "read-only source/reference",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "context-graph",
+        "preferredRole": "pilot-only no indexing",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       },
       {
         "id": "open-design",
         "name": "open-design",
         "projectInstallClass": "pilot-only",
         "lane": "UI/UX Design Intelligence and Browser Evidence",
+        "projectTypes": [
+          "uiux"
+        ],
         "evidenceMode": "pilot notes only",
-        "requiresOwnerApproval": true
+        "installLocation": "read-only source/reference",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "design-reference",
+        "preferredRole": "pilot-only",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "dependency-cruiser",
+        "name": "dependency-cruiser",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Architecture, Repo Intelligence, and Token Context",
+        "projectTypes": [
+          "architecture-hardening"
+        ],
+        "evidenceMode": "dependency report",
+        "installLocation": "target project dev dependency/script",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "architecture-boundary",
+        "preferredRole": "first architecture hardening tool",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       },
       {
         "id": "eslint-plugin-boundaries",
         "name": "eslint-plugin-boundaries",
         "projectInstallClass": "pilot-only",
         "lane": "Architecture, Repo Intelligence, and Token Context",
+        "projectTypes": [
+          "architecture-hardening"
+        ],
         "evidenceMode": "lint output",
-        "requiresOwnerApproval": true
+        "installLocation": "target project after owner approval",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "architecture-boundary",
+        "preferredRole": "only after layers stabilize",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "madge",
+        "name": "Madge",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Architecture, Repo Intelligence, and Token Context",
+        "projectTypes": [
+          "architecture-hardening"
+        ],
+        "evidenceMode": "cycle report",
+        "installLocation": "target project dev dependency/script",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "architecture-cycles",
+        "preferredRole": "circular dependency risk",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "jscpd",
+        "name": "jscpd",
+        "projectInstallClass": "active-install-if-project-type",
+        "lane": "Architecture, Repo Intelligence, and Token Context",
+        "projectTypes": [
+          "architecture-hardening"
+        ],
+        "evidenceMode": "duplication report",
+        "installLocation": "target project dev dependency/script",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "duplication",
+        "preferredRole": "duplication hardening",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
+      },
+      {
+        "id": "eslint",
+        "name": "ESLint",
+        "projectInstallClass": "default-install",
+        "lane": "Frontend Coding and React Quality",
+        "projectTypes": [
+          "js",
+          "ts",
+          "react",
+          "webapp"
+        ],
+        "evidenceMode": "lint output",
+        "installLocation": "target project dev dependency or existing script",
+        "defaultInstall": true,
+        "requiresOwnerApproval": true,
+        "conflictGroup": "lint",
+        "preferredRole": "baseline lint authority",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP or global config from registry presence.",
+          "Do not claim output unless the tool actually ran."
+        ]
       }
     ],
     "decisions": {
