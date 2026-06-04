@@ -70,7 +70,7 @@ For small documentation-only edits, run the narrowest subset first, then broaden
 
 ## v0.1.0 Positioning
 
-`v0.1.0` is the controlled public release path for Codex-first real-project use. It does not submit the Codex OSS application and does not claim Level 4, Level 5, enterprise readiness, or active runtime support outside Codex.
+`v0.1.0` is published as the controlled public release for Codex-first real-project use. It does not submit the Codex OSS application and does not claim Level 4, Level 5, enterprise readiness, or active runtime support outside Codex.
 
 ## Next Step
 

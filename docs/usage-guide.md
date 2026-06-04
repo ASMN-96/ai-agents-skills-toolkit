@@ -131,4 +131,4 @@ Return an allow/defer/reject recommendation with evidence.
 
 ## Public Release Positioning
 
-`v0.1.0` is a controlled public release path for the Codex-first toolkit. It does not claim Level 4, Level 5, enterprise readiness, broad AI-agent runtime support, or Codex OSS application submission.
+`v0.1.0` is published as the controlled public release for the Codex-first toolkit. It does not claim Level 4, Level 5, enterprise readiness, broad AI-agent runtime support, or Codex OSS application submission.

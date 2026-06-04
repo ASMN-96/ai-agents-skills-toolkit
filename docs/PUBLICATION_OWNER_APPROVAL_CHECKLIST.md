@@ -1,6 +1,6 @@
 # Publication Owner Approval Checklist
 
-Status: owner approval recorded for making the current toolkit repository public with visible PR/commit history accepted for OpenAI Codex OSS review. Owner approval for `v0.1.0` release execution is in scope only after final validation, PR merge, post-merge verification, tag creation, and GitHub release verification pass. This checklist does not submit the Codex open-source application.
+Status: owner approval recorded for making the current toolkit repository public with visible PR/commit history accepted for OpenAI Codex OSS review. `v0.1.0` is published as the first controlled public release for Codex-first real-project use. This checklist does not submit the Codex open-source application.
 
 ## Owner Decision Entry - 2026-06-03
 
@@ -16,7 +16,7 @@ Status: owner approval recorded for making the current toolkit repository public
 
 ## Verification Baseline
 
-- Verified branch baseline: `main` at merge-head after PR #54 closeout.
+- Verified branch baseline: `main` at `v0.1.0` release closeout.
 - Runtime gate: `5` active skills and `12` active project agents.
 - Public package validation: passing.
 - Toolkit validation and evals: passing.
@@ -36,16 +36,16 @@ Preferred path: enable GitHub private vulnerability reporting on this repository
 
 ## Owner Approval Checklist
 
-- [ ] Confirm owner-approved publication path: current repository remains the public target.
-- [ ] Confirm remaining classified leak findings are handled through an owner decision.
-- [ ] Confirm no additional current-tree blockers were introduced.
+- [x] Confirm owner-approved publication path: current repository remains the public target.
+- [x] Confirm remaining classified leak findings are handled through an owner decision.
+- [x] Confirm no additional current-tree blockers were introduced.
 - [ ] Approve the MIT license posture.
 - [ ] Approve `CONTRIBUTING.md`.
 - [ ] Approve `CODE_OF_CONDUCT.md`.
 - [ ] Approve `SECURITY.md`.
 - [ ] Approve security disclosure channel: GitHub private vulnerability reporting if available, or an owner-approved contact later.
-- [ ] Confirm only this `ai-agents-skills-toolkit` repository is intended for public publication.
-- [ ] Confirm all other repositories remain private unless separately approved.
+- [x] Confirm only this `ai-agents-skills-toolkit` repository is intended for public publication.
+- [x] Confirm all other repositories remain private unless separately approved.
 - [ ] Approve GitHub topic: `ai-agents`.
 - [ ] Approve GitHub topic: `codex`.
 - [ ] Approve GitHub topic: `openai`.
@@ -54,9 +54,9 @@ Preferred path: enable GitHub private vulnerability reporting on this repository
 - [ ] Approve GitHub topic: `automation`.
 - [ ] Approve GitHub topic: `software-governance`.
 - [ ] Approve GitHub topic: `release-engineering`.
-- [ ] Approve `v0.1.0` release only after final launch and validation approval.
-- [ ] Confirm Codex OSS application submission remains pending.
+- [x] Approve `v0.1.0` release only after final launch and validation approval.
+- [x] Confirm Codex OSS application submission remains pending.
 
 ## Non-Approval Statement
 
-This approval does not authorize changing GitHub profile visibility, editing a profile README repository, submitting the Codex OSS application, modifying product repositories, touching global/user Codex config, or modifying package, lockfile, CI, MCP, deployment, or external service configuration. Release tag authority is limited to `v0.1.0` after all gates pass.
+This approval does not authorize changing GitHub profile visibility, editing a profile README repository, submitting the Codex OSS application, modifying product repositories, touching global/user Codex config, or modifying package, lockfile, CI, MCP, deployment, or external service configuration. Release tag authority was limited to `v0.1.0`.

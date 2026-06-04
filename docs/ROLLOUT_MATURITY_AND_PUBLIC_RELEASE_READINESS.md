@@ -1,6 +1,6 @@
 # Rollout Maturity and Public Release Readiness
 
-Status: Level 3 controlled-pilot milestone complete; controlled real-project Codex use and the `v0.1.0` public release path are in scope after final validation. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
+Status: Level 3 controlled-pilot milestone complete; `v0.1.0` is published as the first controlled public release for Codex-first real-project use. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
 
 Date: 2026-05-30
 
@@ -21,7 +21,7 @@ This document is a promotion gate. It does not activate runtimes, publish packag
 
 Current level: Level 3 complete.
 
-Controlled release target: `v0.1.0` for Codex-first real-project use after the full local validation gate, PR merge, post-merge verification, tag creation, and GitHub release verification pass. This target is not a Level 4, Level 5, enterprise, or broad non-Codex runtime claim.
+Controlled release: `v0.1.0` for Codex-first real-project use after the full local validation gate, PR merge, post-merge verification, tag creation, and GitHub release verification passed. This release is not a Level 4, Level 5, enterprise, or broad non-Codex runtime claim.
 
 Evidence:
 
@@ -152,14 +152,14 @@ Forbidden without separate approval:
 
 ## Controlled v0.1.0 Release Checklist
 
-- Full local validation gate passes on the release branch.
-- PR is merged to `main` with no required checks or reviews blocked.
-- Post-merge validation passes on `main`.
-- Leak scan reports `0` current-tree blockers; remaining findings are classified and owner-accepted for this publication path.
-- Source freshness reports no actionable changes.
-- Runtime validation proves 5 active skills and 12 active repo-local project agents.
-- `v0.1.0` annotated tag is created only from validated `main`.
-- GitHub release notes state Codex-first controlled real-project readiness, validation evidence, known exclusions, and no Codex OSS submission.
+- [x] Full local validation gate passed on the release branch.
+- [x] PR was merged to `main` with no required checks or reviews blocked.
+- [x] Post-merge validation passed on `main`.
+- [x] Leak scan reports `0` current-tree blockers; remaining findings are classified and owner-accepted for this publication path.
+- [x] Source freshness reports no actionable changes.
+- [x] Runtime validation proves 5 active skills and 12 active repo-local project agents.
+- [x] `v0.1.0` annotated tag was created only from validated `main`.
+- [x] GitHub release notes state Codex-first controlled real-project readiness, validation evidence, known exclusions, and no Codex OSS submission.
 
 ## Level 5 Checklist
 
