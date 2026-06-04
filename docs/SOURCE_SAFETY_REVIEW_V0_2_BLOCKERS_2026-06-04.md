@@ -71,7 +71,7 @@ No clone, checkout, package install, script execution, external tool activation,
 
 ## Microsoft Playwright Review
 
-Playwright remains a high-trust source and is useful for browser evidence, UI test strategy, and webapp verification methods. The upstream movement is not a passive docs-only update.
+Playwright remains a high-trust source and is useful for browser evidence, UI test strategy, and web app verification methods. The upstream movement is not a passive docs-only update.
 
 The compare includes:
 
