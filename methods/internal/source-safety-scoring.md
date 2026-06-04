@@ -46,6 +46,8 @@ Assign a 0-100 safety/usefulness score, then classify with rationale:
 
 Every classification must include a short rationale, rejected operation list, license confidence, and any override reason. A source with high usefulness but high execution risk should usually be `Reference only` or `Extract into methods`, not installable.
 
+For source freshness, use `REVIEWED_HELD` only when the latest upstream commit has been reviewed and explicitly held/reference-only. The record must name the exact held commit, review date, classification, decision, and forbidden operations. `REVIEWED_HELD` is not source import approval, install approval, activation approval, method extraction approval, package-update approval, CI approval, MCP approval, global-config approval, or product-repository approval. Future upstream commits after the held commit must become actionable again.
+
 ## Risks / Anti-Patterns
 
 Letting high stars override safety findings, missing license uncertainty, ignoring prompt-injection signals, importing runtime architecture, or treating a trusted publisher as permission to duplicate plugin behavior.
