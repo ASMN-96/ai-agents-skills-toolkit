@@ -1,6 +1,6 @@
 # Quickstart
 
-This repository is documentation and governance infrastructure for a Codex-first agent workflow. It is not a product runtime and does not execute product features itself.
+This repository is documentation and governance infrastructure for AI coding-agent workflows. It is not a product runtime and does not execute product features itself.
 
 ## What You Need
 
@@ -25,7 +25,7 @@ node scripts/ai-toolkit/validate-codex-runtime.mjs
 
 5. Report only the checks you actually observed.
 
-## Use Inside Codex
+## Use With AI Coding Agents
 
 Use the toolkit when you need:
 
@@ -36,7 +36,7 @@ Use the toolkit when you need:
 - dry-run-first project sync discipline,
 - validation honesty for real project work.
 
-Do not use it to install external tools, activate raw external skills, change product repositories, change package files, edit CI, configure MCP, change global Codex config, or access secrets without explicit owner approval.
+Do not use it to install external tools, activate raw external skills, change product repositories, change package files, edit CI, configure MCP, change global/user agent config, or access secrets without explicit owner approval.
 
 ## Practical First Flow
 
@@ -70,7 +70,7 @@ For small documentation-only edits, run the narrowest subset first, then broaden
 
 ## v0.2.0 Positioning
 
-`v0.2.0` is the controlled public release path for Codex-first toolkit use. It includes v0.2 hardening, task-intake routing, project-tooling governance, final dry-run adoption evidence, and validated 5-skill/12-agent runtime metadata. It does not submit the Codex OSS application and does not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, or active runtime support outside Codex.
+`v0.2.0` is the controlled public release path for agent-assisted toolkit use. It includes v0.2 hardening, task-intake routing, project-tooling governance, final dry-run adoption evidence, and validated 5-skill/12-agent runtime metadata for this repository. It does not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, package publication, marketplace submission, or broad cross-runtime active support.
 
 ## Next Step
 

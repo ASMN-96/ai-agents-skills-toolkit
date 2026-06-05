@@ -28,7 +28,7 @@ const PATTERNS = [
   {
     id: "project-private-naming",
     description: "Project/private naming that must stay out of future public core paths unless preserved as a compatibility alias.",
-    pattern: /\bRISS\b|\bVDTwin\b|\bVD\b|\briss-[a-z0-9-]+|\bvd-[a-z0-9-]+/gi
+    pattern: /\bprivate-project-marker\b|\binternal-project-marker\b|\blegacy-project-marker\b/gi
   },
   {
     id: "local-path",
@@ -142,10 +142,8 @@ function classify(hit) {
 
   if (hit.patternId === "project-private-naming") {
     if (
-      file.startsWith("skills/riss-") ||
-      file.startsWith("skills/vd-") ||
-      file.startsWith(".agents/skills/riss-") ||
-      file.startsWith(".agents/skills/vd-") ||
+      file.startsWith("skills/legacy-") ||
+      file.startsWith(".agents/skills/legacy-") ||
       file.includes("skills.registry.json") ||
       file.includes("runtime-boundary-evals") ||
       file.includes("toolkit-routing-evals")
@@ -167,10 +165,10 @@ function classify(hit) {
       return "private-overlay-only";
     }
 
-    if (file.startsWith(".ai-toolkit/checklists/riss-v2") || file.startsWith(".ai-toolkit/tool-packs/riss-v2")) {
+    if (file.startsWith(".ai-toolkit/checklists/private-project") || file.startsWith(".ai-toolkit/tool-packs/private-project")) {
       return "remove-later";
     }
-    return value.includes("riss") || value.includes("vd") ? "private-overlay-only" : "metadata-only";
+    return value.includes("private-project") || value.includes("legacy-private") ? "private-overlay-only" : "metadata-only";
   }
 
   if (hit.patternId === "local-path") {

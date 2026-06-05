@@ -8,7 +8,8 @@ import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import {
   checkModeExitCode,
-  countCurrentTreeBlockers
+  countCurrentTreeBlockers,
+  renderReport
 } from "./scan-public-private-leaks.mjs";
 
 const execFileAsync = promisify(execFile);
@@ -58,4 +59,23 @@ test("check-mode blocker count produces a failing exit code", () => {
 
   assert.equal(countCurrentTreeBlockers(findings), 1);
   assert.equal(checkModeExitCode(findings), 1);
+});
+
+test("generated report redacts private marker labels and match text", () => {
+  const report = renderReport([
+    {
+      id: "legacy-project-marker",
+      label: "Legacy Project Marker",
+      category: "project-specific-name",
+      classification: "history-only-blocker",
+      file: "docs/example.md",
+      line: 1,
+      match: "legacy-project-marker",
+      action: "Historical internal reference."
+    }
+  ], 1, 10);
+
+  assert.doesNotMatch(report, /legacy-project-marker/);
+  assert.match(report, /project-specific marker/);
+  assert.match(report, /\[redacted:project-specific-name\]/);
 });

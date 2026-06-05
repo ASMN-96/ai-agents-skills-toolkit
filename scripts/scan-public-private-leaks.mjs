@@ -50,33 +50,9 @@ const TEXT_EXTENSIONS = new Set([
 
 const SCAN_PATTERNS = [
   {
-    id: "riss-v2",
-    label: "RISS V2",
-    regex: /\bRISS\s+V2\b|\briss-v2\b/gi,
-    category: "project-specific-name"
-  },
-  {
-    id: "riss",
-    label: "RISS",
-    regex: /\bRISS\b|\briss-[a-z0-9-]+\b/gi,
-    category: "project-specific-name"
-  },
-  {
-    id: "vdtwin",
-    label: "VDTwin",
-    regex: /\bVDTwin\b/gi,
-    category: "private-project-name"
-  },
-  {
-    id: "visual-twin",
-    label: "Visual Twin",
-    regex: /\bVisual\s+Twin\b/gi,
-    category: "private-project-name"
-  },
-  {
-    id: "vd",
-    label: "VD",
-    regex: /\bVD\b|\bvd-premium-uiux\b|\blocal-vd-authored\b/gi,
+    id: "private-project-marker",
+    label: "private-project marker",
+    regex: /\bprivate-project-marker\b|\binternal-project-marker\b|\blegacy-project-marker\b/gi,
     category: "project-specific-name"
   },
   {
@@ -173,7 +149,7 @@ async function walk(relativePath, output = []) {
 function isCompatibilitySurface(relativePath, match) {
   return (
     /(^|\/)(skills|\.agents\/skills|\.ai-toolkit\/skills|registries|\.ai-toolkit\/registries)\//.test(relativePath) &&
-    /riss-|vd-premium-uiux|riss-governance|local-vd-authored/i.test(match)
+    /legacy-|private-project-marker|internal-project-marker/i.test(match)
   );
 }
 
@@ -181,6 +157,7 @@ function isScannerRuleReference(relativePath) {
   return relativePath === "scripts/scan-public-private-leaks.mjs" ||
     relativePath === "scripts/classify-stale-unverified-data.mjs" ||
     relativePath === "scripts/validate-public-package.mjs" ||
+    relativePath === "scripts/test-public-private-leak-scan-check-mode.mjs" ||
     relativePath === "scripts/test-public-package-validator.mjs";
 }
 
@@ -240,7 +217,7 @@ function classify(finding) {
   if (isPublicationReviewEvidence(finding.file)) {
     return {
       classification: "owner-decision-blocker",
-      action: "Keep as generated publication evidence while the repo remains private; owner must resolve the documented decision before visibility changes."
+      action: "Keep as generated publication evidence for the controlled publication path; owner must resolve the documented decision before any broader visibility, package, or distribution change."
     };
   }
 
@@ -258,17 +235,10 @@ function classify(finding) {
     };
   }
 
-  if (["vdtwin", "visual-twin"].includes(finding.id)) {
-    return {
-      classification: "current-tree-blocker",
-      action: "Neutralize project-specific naming or move it out of the public candidate tree before publication."
-    };
-  }
-
   if (isCompatibilitySurface(finding.file, finding.context)) {
     return {
       classification: "current-tree-blocker",
-      action: "Neutralize active registry/runtime metadata; old private labels must not remain on active public surfaces."
+      action: "Neutralize active registry/runtime metadata; legacy project labels must not remain on active public surfaces."
     };
   }
 
@@ -336,6 +306,37 @@ function escapeCell(value) {
   return String(value).replace(/\|/g, "\\|").replace(/\r?\n/g, " ");
 }
 
+function publicPatternLabel(finding) {
+  if (finding.category === "project-specific-name") {
+    return "project-specific marker";
+  }
+  if (finding.category === "private-project-name") {
+    return "private-project marker";
+  }
+  if (finding.category === "private-repo-reference") {
+    return "organization/repository marker";
+  }
+  return finding.label;
+}
+
+function publicMatchText(finding) {
+  if (finding.id === "email-address" && isAllowedExampleEmail(finding.match)) {
+    return "[synthetic-example-email]";
+  }
+  return `[redacted:${finding.category}]`;
+}
+
+function redactedFindingForReport(finding) {
+  return {
+    classification: finding.classification,
+    label: publicPatternLabel(finding),
+    file: finding.file,
+    line: finding.line,
+    match: publicMatchText(finding),
+    action: finding.action
+  };
+}
+
 function renderReport(findings, scannedFiles, maxFindings) {
   const limitedFindings = findings.slice(0, maxFindings);
   const truncated = findings.length > limitedFindings.length;
@@ -367,13 +368,13 @@ function renderReport(findings, scannedFiles, maxFindings) {
     "",
     "| Pattern | Count |",
     "| --- | ---: |",
-    ...countBy(findings, "label").map(([label, count]) => `| ${label} | ${count} |`),
+    ...countBy(findings.map(redactedFindingForReport), "label").map(([label, count]) => `| ${label} | ${count} |`),
     "",
     "## Detailed Findings",
     "",
     "| Classification | Pattern | File | Line | Match | Action |",
     "| --- | --- | --- | ---: | --- | --- |",
-    ...limitedFindings.map((finding) => [
+    ...limitedFindings.map(redactedFindingForReport).map((finding) => [
       finding.classification,
       finding.label,
       finding.file,
@@ -392,6 +393,7 @@ function renderReport(findings, scannedFiles, maxFindings) {
     "## Rules",
     "",
     "- This scan is evidence only; it does not authorize deletion or renaming.",
+    "- Generated Markdown and JSON reports redact matched terms and sensitive pattern names. The scanner still uses exact internal rules to preserve detection accuracy.",
     "- `current-tree-blocker` means the current repository tree still contains public-candidate content that must be neutralized, moved out of public scope, or explicitly approved before publication.",
     "- `history-only-blocker` means the current text is historical evidence or prior exposure; resolve by archival exclusion, rewrite, sanitized mirror, or verified history cleanup before publication.",
     "- `owner-decision-blocker` means the current text is publication-review evidence that requires an owner decision before visibility changes.",
@@ -456,7 +458,7 @@ async function main() {
   const report = renderReport(findings, uniqueFiles.length, args.maxFindings);
   await writeFile(rootPath(args.output), report, "utf8");
   if (args.json) {
-    await writeFile(rootPath(args.json), `${JSON.stringify({ scannedFiles: uniqueFiles.length, findings }, null, 2)}\n`, "utf8");
+    await writeFile(rootPath(args.json), `${JSON.stringify({ scannedFiles: uniqueFiles.length, findings: findings.map(redactedFindingForReport) }, null, 2)}\n`, "utf8");
   }
 
   printSummary({
@@ -471,6 +473,8 @@ export {
   countBy,
   countCurrentTreeBlockers,
   parseArgs,
+  redactedFindingForReport,
+  renderReport,
   scanFile,
   scanTree
 };

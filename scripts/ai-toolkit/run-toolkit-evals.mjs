@@ -53,16 +53,16 @@ async function main() {
 
   for (const removedName of [
     "ai-project-governance",
-    "riss-governance",
+    "legacy-governance",
     "premium-uiux-review",
-    "vd-premium-uiux",
+    "legacy-uiux-review",
     "webapp-code-quality",
-    "riss-code-quality",
+    "legacy-code-quality",
     "app-security-review",
-    "riss-security-review",
-    "riss-release-gate",
-    "riss-agent-governance",
-    "riss-skill-governance"
+    "legacy-security-review",
+    "legacy-release-gate",
+    "legacy-agent-governance",
+    "legacy-skill-governance"
   ]) {
     if (skills.skills.some((entry) => entry.name === removedName)) {
       fail(`removed-skill-${removedName}`, "old alias/helper skill must not remain in the active skills registry");
@@ -311,7 +311,7 @@ async function main() {
   }
 
   const premiumPrompts = JSON.stringify((uiuxEvals.cases || []).map((evalCase) => evalCase.userPrompt || ""));
-  if (/\bRISS\b|VDTwin|real estate/i.test(premiumPrompts)) {
+  if (/private project name|confidential project domain/i.test(premiumPrompts)) {
     fail("premium-uiux-public-safe-prompts", "generic premium UI/UX eval prompts must not contain project-specific names or domains");
   }
 

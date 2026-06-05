@@ -1,21 +1,18 @@
-# AI Agent Skills Toolkit
+# AI Vibe Coding Toolkit
 
-AI Agent Skills Toolkit is a documentation-first governance repository for Codex-driven workflows. It standardizes reviewed methods, source provenance, validated agents, and controlled sync artifacts so teams can scale execution quality without copying raw external runtime behavior.
+AI Vibe Coding Toolkit is a documentation-first governance repository for AI coding-agent workflows. It standardizes reviewed methods, source provenance, validated agents, activation boundaries, and controlled sync artifacts so teams can scale high-quality AI-assisted engineering without copying raw external runtime behavior.
 
 ## Public release status
 
-- Repository visibility is public by owner decision.
 - Current-tree blockers are 0.
 - Remaining findings are limited to owner-decision blockers, history-only blockers, safe guardrail/scanner evidence, and false positives.
 - Public package validation is **not** whole-repo publication readiness.
-- `v0.2.0` is the current controlled public release path for Codex-first toolkit use after the v0.2 hardening, final dry-run adoption, and release validation gates.
-- Codex OSS application has not been submitted.
-- Owner intentionally accepted visible PR/commit history for OpenAI Codex OSS review.
-- Only this toolkit repository is positioned for publication; all other repositories remain private unless separately approved.
+- `v0.2.0` is the current controlled public release path for agent-assisted toolkit use after the v0.2 hardening, final dry-run adoption, and release validation gates.
+- Public-facing release status is based on observed validation evidence; external submissions and publication channels are separate approval-gated decisions.
 
 ## One-paragraph summary
 
-The toolkit defines how to discover, evaluate, and operationalize reusable methods without directly introducing unverified external code. It keeps runtime changes in product repos intentional and repeatable by separating verified metadata from activated artifacts and by making blocker states explicit.
+The toolkit defines how to discover, evaluate, and operationalize reusable AI coding-agent methods without directly introducing unverified external code. It can support workflows around Codex, Claude Code, local project agents, and other coding assistants while keeping runtime changes intentional and repeatable through verified metadata, explicit approvals, and observable validation.
 
 ## Who it is for
 
@@ -49,7 +46,7 @@ Current canonical runtime is **5 skills + 12 agents**.
 3. Run required validation commands (below).
 4. Edit only in scope and report warnings before PR.
 
-## How to use with Codex
+## How to use with AI coding agents
 
 Use mode-aligned prompts:
 
@@ -64,7 +61,7 @@ Typical flow:
 3. Run validation commands.
 4. Open a PR with explicit blockers and remaining risk.
 
-For real projects, treat the toolkit as a Codex governance and evidence layer. Select or recommend the 5 canonical skills and 12 repo-local project agents explicitly, report which agents actually spawned separately, and use project-owned checks before proposing new tools.
+For real projects, treat the toolkit as an AI coding-agent governance and evidence layer. Select or recommend the 5 canonical skills and 12 repo-local project agents explicitly where this runtime is used, report which agents actually spawned separately, and use project-owned checks before proposing new tools.
 
 ## Validation commands
 
@@ -86,8 +83,8 @@ Public-facing status:
 
 - Canonical runtime is **5 skills and 12 agents**.
 - Public package validation can pass while still not proving whole-repo publication readiness.
-- Repository is public now; `v0.2.0` is a controlled public release, not a claim of Level 4, Level 5, enterprise certification, production certification, automatic tool installation, or broad non-Codex runtime support.
-- All other repos remain private unless separately approved.
+- `v0.2.0` is a controlled public release, not a claim of Level 4, Level 5, enterprise certification, production certification, automatic tool installation, or broad cross-runtime active support.
+- External submissions, marketplace listings, package publication, and broader runtime support remain separate approval-gated actions.
 
 ## Limitations
 

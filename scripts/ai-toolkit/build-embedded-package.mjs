@@ -17,16 +17,16 @@ const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
 const REMOVED_SKILL_ALIASES = [
   "ai-project-governance",
-  "riss-governance",
+  "legacy-governance",
   "premium-uiux-review",
-  "vd-premium-uiux",
+  "legacy-uiux-review",
   "webapp-code-quality",
-  "riss-code-quality",
+  "legacy-code-quality",
   "app-security-review",
-  "riss-security-review",
-  "riss-release-gate",
-  "riss-agent-governance",
-  "riss-skill-governance"
+  "legacy-security-review",
+  "legacy-release-gate",
+  "legacy-agent-governance",
+  "legacy-skill-governance"
 ];
 
 function rootPath(relativePath) {

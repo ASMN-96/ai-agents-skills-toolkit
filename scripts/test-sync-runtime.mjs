@@ -75,10 +75,10 @@ test("dry-run checks active runtime skill mirrors without writing", async () => 
 });
 
 test("refuses removed alias skills", async () => {
-  const result = await runSync(["--dry-run", "--skill", "riss-governance"]);
+  const result = await runSync(["--dry-run", "--skill", "legacy-governance"]);
 
   assert.notEqual(result.code, 0);
-  assert.match(result.stderr, /Refusing non-allowlisted skill riss-governance/);
+  assert.match(result.stderr, /Refusing non-allowlisted skill legacy-governance/);
 });
 
 test("refuses unknown non-allowlisted skills", async () => {

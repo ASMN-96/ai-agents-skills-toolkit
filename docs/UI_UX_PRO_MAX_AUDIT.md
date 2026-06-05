@@ -54,4 +54,4 @@ Migrate only concise QA guardrails around touch targets, safe areas, gestures, s
 
 Because `ui-ux-pro-max` is not toolkit-managed, do not add it to `sourceProvenance` as `external-source`. If provenance is needed, reference this audit document as an `internal-artifact` only.
 
-For governed toolkit and RISS work, keep `uiux` as the only master UI/UX execution skill. Leave the global `ui-ux-pro-max` installation untouched in this task.
+For governed toolkit work, keep `uiux` as the only master UI/UX execution skill. Leave the global `ui-ux-pro-max` installation untouched in this task.

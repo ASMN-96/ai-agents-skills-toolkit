@@ -4,15 +4,15 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "f3e50552c5e5d19caf6c0417a3db258c7eb265bb7efb0e0d4fedb18acfafd43e"
+      "sha256": "9e38a67b7ee312c4d0b86c11541b4c4ff5cfbb8db82c44ac8388293a2e0dacf2"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
-      "sha256": "2bc2019eb7ec334ed2e0e215d02f223d2acee4a9c1ebc79eda3a8379c18b9400"
+      "sha256": "eff7bade5c87b57cbaf8469e5f67bdc349c0e56692e972349d155d0d6e680f5b"
     },
     {
       "path": "scripts/classify-stale-unverified-data.mjs",
-      "sha256": "fa70b7bb65ac63ddde39fc39f7fe1373e08f1cb4ef5902faed0a03f411089210"
+      "sha256": "147c42798a9442c76ebe0df0fd00680e5ea4e3508e3716941a5b896e74c69d67"
     },
     {
       "path": "scripts/report-registry-generation-readiness.mjs",
@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "c6754ddb402328660914fc3d7185cd3e0c3ac35983e783317acd3867d3b3f202"
+      "sha256": "4193b36175959cd7e9ec1de24a5748b07105267a98d931a9ee73cb0f0600f443"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
@@ -48,7 +48,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "f36a90a85371246ce35b755d53587903c8ef4b49e69845e4c91da1f858ad3eb8"
+      "sha256": "69d31ba2ccf60e57694738a34528bf27eb70739ca12f34d5d1428f58a68a262c"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",

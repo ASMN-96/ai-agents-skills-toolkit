@@ -2,9 +2,9 @@
 
 ## Scope
 
-`v0.2.0` is a controlled Codex toolkit release after the v0.2 enterprise-style coding-time governance hardening and final release-candidate dry-run adoption check.
+`v0.2.0` is a controlled AI coding-agent toolkit release after the v0.2 enterprise-style coding-time governance hardening and final release-candidate dry-run adoption check.
 
-This release does not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, CI wiring, MCP/global configuration, project-repository mutation, broad cross-runtime active support, package publication, or Codex OSS application submission.
+This release does not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, CI wiring, MCP/global configuration, project-repository mutation, broad cross-runtime active support, package publication, marketplace submission, or external submission.
 
 ## Included Evidence
 
@@ -22,11 +22,11 @@ This release does not claim Level 4, Level 5, enterprise certification, producti
 
 - No product repositories are touched.
 - No package files or lockfiles are changed.
-- No CI workflow, MCP config, deployment config, global/user Codex config, or external service config is changed.
+- No CI workflow, MCP config, deployment config, global/user agent config, or external service config is changed.
 - No tools are installed.
 - No raw upstream source content is copied into active runtime paths.
 - Recommended tools remain governed metadata unless a separate owner-approved project task installs or runs them.
-- Historical v0.1.0 publication and Codex OSS application draft records remain historical evidence; this release does not submit the Codex OSS application.
+- Historical v0.1.0 publication records remain historical evidence; this release does not publish packages, submit marketplace listings, or make external submissions.
 
 ## Validation Required Before Tag
 
