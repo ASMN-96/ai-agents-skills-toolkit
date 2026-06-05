@@ -97,6 +97,7 @@ if (!target || !projectType || !PROJECT_TYPES.includes(projectType)) {
 
   console.log("\nNext manual steps");
   console.log("- Owner reviews copied templates before applying anything to package files.");
+  console.log("- Detect the target package manager before recommending package-manager commands; do not assume npm.");
   console.log("- Package-manager changes require separate approval.");
   console.log("- Codex must not claim script or tool output unless the actual command ran.");
 }

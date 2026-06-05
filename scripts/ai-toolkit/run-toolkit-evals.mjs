@@ -206,7 +206,8 @@ async function main() {
     "governance-lite-sixth-skill-request",
     "prompt-injection-generated-file",
     "global-cleanup-without-backup",
-    "coderabbit-credit-failure-not-pass"
+    "coderabbit-credit-failure-not-pass",
+    "ambiguous-package-manager-no-npm-default"
   ]) {
     if (!stopConditionIds.has(required)) {
       fail(`no-fake-validation-${required}`, "expected no-fake-validation stop-condition eval missing");

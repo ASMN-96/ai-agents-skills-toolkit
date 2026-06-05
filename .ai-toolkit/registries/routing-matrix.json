@@ -1404,14 +1404,17 @@
         "GitHub/gh"
       ],
       "stopConditions": [
-        "Owner approval missing or feature work mixed into migration"
+        "Owner approval missing or feature work mixed into migration",
+        "Package-manager signals missing or conflicting when package-manager commands are needed"
       ],
       "validationGates": [
         "package-manager-workspace-migration method applied",
+        "package-manager detection order applied",
         "no package files changed without approval"
       ],
       "expectedCompletionReport": [
         "artifacts inspected",
+        "package-manager signals",
         "strategy",
         "validation",
         "rollback"

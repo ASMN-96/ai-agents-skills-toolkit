@@ -2345,8 +2345,8 @@
       "displayName": "Package Manager and Workspace Migration",
       "area": "repo",
       "methodPath": "methods/repo/package-manager-workspace-migration.md",
-      "purpose": "Control package-manager and workspace migrations as infra-only owner-approved changes with frozen install validation and rollback.",
-      "whenToUse": "Use for package manager and workspace migration tasks in target projects when the scenario is in scope.",
+      "purpose": "Control package-manager and workspace migrations as infra-only owner-approved changes with package-manager detection, frozen install validation, and rollback.",
+      "whenToUse": "Use for package manager and workspace migration tasks, package-manager command recommendations, lockfile strategy, and workspace layout in target projects when the scenario is in scope.",
       "whenNotToUse": "Do not use as approval to install tools, change packages, wire CI, configure MCP, change global config, or touch product repositories.",
       "passiveConsumerAgents": [
         "Architect Agent",
@@ -2362,7 +2362,7 @@
         "release"
       ],
       "validationGates": [
-        "Report actual evidence, skipped checks, owner approvals, no-fake-validation boundaries, and stop conditions."
+        "Report package-manager detection signals, selected strategy or ambiguity, actual evidence, skipped checks, owner approvals, no-fake-validation boundaries, and stop conditions."
       ],
       "sourceProvenance": [
         {

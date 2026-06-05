@@ -252,7 +252,7 @@
       "source": "registries/methods.registry.json",
       "target": ".ai-toolkit/registries/methods.registry.json",
       "mode": "byte-identical",
-      "sha256": "171960ed51274a7a64bb92b919114b7b04939139240244e84e1edc97d708e312"
+      "sha256": "4d367db997183b836b5b1b4aec11a4ae17021c8a3bc212e998115a01e089863b"
     },
     {
       "source": "registries/profiles.registry.json",
@@ -264,7 +264,7 @@
       "source": "registries/routing-matrix.json",
       "target": ".ai-toolkit/registries/routing-matrix.json",
       "mode": "byte-identical",
-      "sha256": "298c1eac6796ae0ed8d502e9c519cf90ce837232e1f818cbba1d65fbbcb57921"
+      "sha256": "566208d7a576adfea30c1a3323603731097937a92c104cb32d1f2516e37e92ab"
     },
     {
       "source": "registries/skills.registry.json",
@@ -288,13 +288,13 @@
       "source": "compiled-agents/architect-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/architect-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "8aa3b009a5e4421d0374838f21f97af3c064636c266e88a5bfc13e5db19e15f9"
+      "sha256": "0e103c6bb25bdb012553967590fb69d224ec00d2699e9992a582feb266fb41cc"
     },
     {
       "source": "compiled-agents/reviewer-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/reviewer-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "ca96cd31cc1addd0f96f58b905ce76eb74477fe1338d026b84e9007b9fe4ee68"
+      "sha256": "70ca8a25c22d4dc6aec25b31fb92bafd5f16d408ac41f9fb06d829a94363dec9"
     },
     {
       "source": "compiled-agents/uiux-agent.compiled.md",
@@ -336,7 +336,7 @@
       "source": "compiled-agents/release-manager-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/release-manager-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "17613c0d6ef38bdd6c277c9a5a5bde9e33ea2ff9ad914c3fb0d4aca4321dfab5"
+      "sha256": "0bc4af98798c27f985c79fae302331be4b5ca462ced9a4c4f2fe1a4308c53cc0"
     },
     {
       "source": "compiled-agents/skill-scout-agent.compiled.md",

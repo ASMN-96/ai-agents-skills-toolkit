@@ -20,6 +20,7 @@ Owner must review before applying. Codex must not claim output unless the actual
 - approved scope:
 - files/surfaces allowed:
 - tools allowed:
+- detected package manager or ambiguity:
 - commands allowed:
 - stop conditions:
 - rollback:
