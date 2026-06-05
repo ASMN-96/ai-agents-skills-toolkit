@@ -108,6 +108,20 @@ Do not use for frontend-only changes, static docs changes, or backend work that 
 ## Agent Roles That Should Embed It
 Backend Contract Agent, Database RLS Agent, Security Agent, QA Test Agent, Reviewer Agent.
 ## Operating Rules
+- Start by classifying the data surface: public, authenticated user, tenant-scoped, admin-only, or service-role-only.
+- Verify the current source of truth before database guidance: local migrations, generated types, Supabase docs, and project-specific repo instructions.
+- Treat RLS, auth, storage, and public API payloads as security surfaces, not just backend implementation details.
+- Prefer read-only inspection until the migration or SQL change is explicitly in scope.
+- Never run live SQL, migrations, seed scripts, Supabase CLI commands, MCP actions, or project config changes without explicit approval and a rollback path.
+- For query-performance work, identify the query shape, indexes, row volume assumptions, locking/concurrency risk, and expected evidence before proposing changes.
+- For migrations, check reversibility, data backfill impact, generated type drift, staging/production differences, and whether policies need to change with schema.
+- Stop if service-role keys, JWT secrets, database URLs, auth config, or private payloads are needed but not explicitly authorized.
+## Verification Requirements
+Report the data surface, files or migrations reviewed, RLS/auth/storage implications, docs freshness status, validation command or reason it could not run, and remaining manual checks. For implementation work, include migration/test evidence and any rollback or recovery notes.
+## Risks / Anti-Patterns
+Weakening RLS, assuming local schema matches production, running live mutations during review, exposing service-role credentials, treating generated types as optional after schema changes, or optimizing queries without evidence.
+## Source Inspiration / License Status
+Inspired by the reviewed Supabase Agent Skills source record. GitHub API reported MIT for that source. This method is normalized/paraphrased toolkit guidance, not raw upstream activation.
 
 ### internal.engineering-lifecycle-gates
 
@@ -123,6 +137,19 @@ Do not require every gate for tiny documentation changes with no behavior or rel
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, QA Test Agent, Reviewer Agent, Release Manager Agent.
 ## Operating Rules
+Apply these gates: define, plan, build, verify, review, release. Each gate must produce evidence before moving forward.
+## Verification Requirements
+- Define: problem statement and acceptance criteria.
+- Plan: implementation plan and risk assessment.
+- Build: branch or commit reference and scoped implementation notes.
+- Verify: test results, check output, or documented manual validation.
+- Review: review summary and action items.
+- Release: release notes and rollback or recovery notes.
+## Risks / Anti-Patterns
+Skipping evidence, treating release as only a push, or applying heavy gates to trivial changes.
+## Source Inspiration / License Status
+Inspired by Addy Osmani engineering workflow patterns.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### internal.frontend-uiux-quality-gates
 
@@ -138,6 +165,20 @@ Do not apply visual polish rules to backend-only changes unless UI behavior is a
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, QA Test Agent, Reviewer Agent.
 ## Operating Rules
+Check visual hierarchy, accessibility, responsive layout, interaction states, loading/error states, typography, spacing, color contrast, and browser verification.
+## Verification Requirements
+Use screenshots, browser checks, accessibility review, and target workflow testing when UI changes are implemented.
+Minimum evidence:
+- contrast meets WCAG 2.1 AA: 4.5:1 for normal text and 3:1 for large text,
+- all interactive elements are keyboard reachable with visible focus,
+- semantic controls have labels, roles, or accessible names,
+- mobile and desktop breakpoints plus interaction states are covered,
+- screenshots or automated reports from tools such as Axe, Lighthouse, or a color contrast checker are attached or summarized.
+## Risks / Anti-Patterns
+Generic aesthetics, inaccessible controls, untested responsive states, or visual changes without workflow validation.
+## Source Inspiration / License Status
+Inspired by Addy frontend UI engineering, Anthropic restricted-source guidance, and local UI/UX governance.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### internal.simplicity-surgical-change-discipline
 
@@ -153,6 +194,15 @@ Do not use to block necessary migrations, architecture work, or validation fixes
 ## Agent Roles That Should Embed It
 Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
+State assumptions, avoid speculative abstractions, touch only necessary files, match existing style, remove only dead code created by the current change, and surface unrelated issues without editing them.
+When source-safety or registry work is in scope, keep runtime, package, CI, MCP, global-config, and product-repository boundaries explicit in the diff.
+## Verification Requirements
+Every changed line should trace to the request, the plan, a source-safety rule, or a verification fix.
+## Risks / Anti-Patterns
+Over-minimizing needed changes, hiding unresolved uncertainty, performing unrelated cleanup, or treating a small diff as proof that runtime boundaries are unaffected.
+## Source Safety / License Status
+Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment. License-caveated historical source-scouting evidence is not active source authority for this method.
+No upstream wording, examples, prompt structure, scripts, or runtime behavior were copied or activated.
 
 ### internal.tdd-verification-alignment
 
@@ -168,6 +218,14 @@ Do not force executable tests for pure reference documents with no behavior.
 ## Agent Roles That Should Embed It
 QA Test Agent, Reviewer Agent, Backend Contract Agent, Frontend Agent.
 ## Operating Rules
+Prefer red-green-refactor for risky behavior changes. Claims must be backed by fresh verification evidence. Tests should prove user-visible behavior rather than implementation trivia.
+## Verification Requirements
+Record the command run, expected result, actual result, run timestamp, commit or PR reference, and any remaining test gap.
+## Risks / Anti-Patterns
+Passing tests without reading output, testing implementation details, or claiming completion from stale evidence.
+## Source Inspiration / License Status
+Inspired by Addy Osmani, Matt Pocock, and existing Superpowers verification discipline.
+This is normalized/paraphrased guidance, not raw upstream activation or duplication.
 
 ### karpathy.goal-driven-execution
 
@@ -183,6 +241,18 @@ Do not use as a shortcut around safety, review, source-freshness, leak, runtime,
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, QA Test Agent, Release Manager Agent, Reviewer Agent.
 ## Operating Rules
+- Restate the outcome in terms the user can verify.
+- Define success criteria and non-goals before changing files.
+- Prefer the shortest path that satisfies the outcome without weakening safety boundaries.
+- Treat validation evidence as part of the work, not a postscript.
+- Stop when success cannot be proven honestly.
+## Verification Requirements
+Report the goal, the proof collected, the checks that were skipped or unavailable, and any remaining uncertainty.
+## Risks / Anti-Patterns
+Confusing activity with progress, widening scope to look productive, or declaring completion without current evidence.
+## Source Safety / License Status
+Toolkit-authored cleanroom method. Historical Karpathy-inspired source evidence remains license-caveated and is not active source authority for this method.
+No upstream wording, examples, prompt structure, scripts, or runtime behavior were copied or activated.
 
 ### karpathy.simplicity-surgical-changes
 
@@ -198,6 +268,18 @@ Do not use to block necessary architecture or migration work when the requiremen
 ## Agent Roles That Should Embed It
 Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
+- Keep each edit traceable to the request, a validator failure, or an explicit safety requirement.
+- Match local structure before introducing a new abstraction.
+- Avoid future-proofing that does not remove current risk.
+- Keep unrelated cleanup as a note unless it blocks validation.
+- Prefer small reviewed methods over large cross-cutting rewrites.
+## Verification Requirements
+Review the diff and confirm each changed file has a direct reason and no hidden runtime, package, CI, MCP, or global-config side effect.
+## Risks / Anti-Patterns
+Over-minimizing necessary work, refusing a justified abstraction, or hiding a migration inside a small-looking diff.
+## Source Safety / License Status
+Toolkit-authored cleanroom method. Historical Karpathy-inspired source evidence remains license-caveated and is not active source authority for this method.
+No upstream wording, examples, prompt structure, scripts, or runtime behavior were copied or activated.
 
 ### matt.git-guardrails
 
@@ -213,6 +295,18 @@ Do not use to bypass project-specific release policy.
 ## Agent Roles That Should Embed It
 Release Manager Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
+- Inspect status before staging.
+- Stage only intended files.
+- Avoid direct push to protected branches.
+- Use clear commit messages.
+- Open PRs with safety context.
+## Verification Requirements
+Confirm branch, commit hash, remote, PR URL, and clean or expected worktree status.
+## Risks / Anti-Patterns
+`git add -A` on mixed changes, force-pushes, or commits containing secrets.
+## Source Inspiration / License Status
+Inspired by `mattpocock/skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### matt.tdd
 
@@ -228,6 +322,17 @@ Do not force a test loop where the artifact has no executable behavior.
 ## Agent Roles That Should Embed It
 QA Test Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
 ## Operating Rules
+- Write the smallest useful failing test.
+- Implement only enough to pass.
+- Refactor after green.
+- Keep tests readable.
+## Verification Requirements
+Record red/green evidence when feasible, or explain why not.
+## Risks / Anti-Patterns
+Testing implementation details, skipping the failing state, or broad fixtures that hide intent.
+## Source Inspiration / License Status
+Inspired by `mattpocock/skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### matt.to-issues
 
@@ -243,6 +348,16 @@ Do not create issue churn for a single-file or trivial change.
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, Release Manager Agent, QA Test Agent.
 ## Operating Rules
+- Slice by user-visible or independently verifiable outcomes.
+- Include acceptance criteria.
+- Minimize dependencies between issues.
+## Verification Requirements
+Each issue should be implementable and testable without guessing.
+## Risks / Anti-Patterns
+Layer-based tickets that cannot ship alone, vague acceptance, or hidden dependencies.
+## Source Inspiration / License Status
+Inspired by `mattpocock/skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### matt.triage-issue
 
@@ -258,6 +373,16 @@ Do not use as a substitute for fixing a clearly scoped urgent bug.
 ## Agent Roles That Should Embed It
 Product Agent, QA Test Agent, Reviewer Agent, Release Manager Agent.
 ## Operating Rules
+- Identify type, severity, owner, evidence, and next action.
+- Separate reproducible facts from speculation.
+- Prefer labels or categories that drive action.
+## Verification Requirements
+Every triaged item must have a recommended next state.
+## Risks / Anti-Patterns
+Over-labeling, treating triage as resolution, or ignoring missing reproduction data.
+## Source Inspiration / License Status
+Inspired by `mattpocock/skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### osmani.code-review-quality
 
@@ -273,6 +398,17 @@ Do not use to bikeshed unrelated style when the change is otherwise clear and lo
 ## Agent Roles That Should Embed It
 Reviewer Agent, Security Agent, QA Test Agent, Architect Agent.
 ## Operating Rules
+- Lead with bugs and risk.
+- Check tests and verification evidence.
+- Confirm scope is appropriate.
+- Separate blocking issues from optional cleanup.
+## Verification Requirements
+Findings must cite files or behavior and include severity.
+## Risks / Anti-Patterns
+Rubber-stamping, style-only reviews, or missing behavioral regressions.
+## Source Inspiration / License Status
+Inspired by `addyosmani/agent-skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### osmani.frontend-ui-engineering
 
@@ -288,6 +424,17 @@ Do not use for purely backend or data-only changes unless UI contracts are affec
 ## Agent Roles That Should Embed It
 Frontend Agent, UIUX Agent, QA Test Agent, Reviewer Agent.
 ## Operating Rules
+- Respect component boundaries.
+- Design for responsive layout, accessibility, loading states, and error states.
+- Use existing design systems before inventing new patterns.
+- Verify real rendering where practical.
+## Verification Requirements
+Check viewport behavior, keyboard access, contrast-sensitive states, and browser runtime issues.
+## Risks / Anti-Patterns
+Generic layouts, missing states, inaccessible controls, or visual-only changes with broken behavior.
+## Source Inspiration / License Status
+Inspired by `addyosmani/agent-skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### osmani.incremental-implementation
 
@@ -303,6 +450,17 @@ Do not split so finely that verification becomes meaningless or fragmented.
 ## Agent Roles That Should Embed It
 Frontend Agent, Backend Contract Agent, Database RLS Agent, QA Test Agent.
 ## Operating Rules
+- Implement one coherent slice at a time.
+- Keep defaults safe.
+- Verify each slice before expanding scope.
+- Preserve rollback options where practical.
+## Verification Requirements
+Run focused tests or checks after each meaningful slice.
+## Risks / Anti-Patterns
+Large unverified rewrites, partial states with no guardrails, or hidden scope expansion.
+## Source Inspiration / License Status
+Inspired by `addyosmani/agent-skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### osmani.shipping-launch
 
@@ -318,6 +476,17 @@ Do not use for local-only drafts that are not ready for review.
 ## Agent Roles That Should Embed It
 Release Manager Agent, SRE Performance Agent, QA Test Agent, Reviewer Agent.
 ## Operating Rules
+- Confirm release gates.
+- Record change summary and user impact.
+- Define rollback or recovery path.
+- Keep versioning and compatibility visible.
+## Verification Requirements
+Confirm tests, review status, release notes, and rollback notes.
+## Risks / Anti-Patterns
+Shipping without monitoring, skipping changelog, or making irreversible changes without fallback.
+## Source Inspiration / License Status
+Inspired by `addyosmani/agent-skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### osmani.test-driven-development
 
@@ -333,6 +502,16 @@ Do not force TDD for static text-only edits where no behavior changes.
 ## Agent Roles That Should Embed It
 QA Test Agent, Backend Contract Agent, Frontend Agent, Reviewer Agent.
 ## Operating Rules
+- Prefer red, green, refactor for risky changes.
+- Test public behavior, not incidental internals.
+- Keep tests readable and maintainable.
+## Verification Requirements
+Record the test command, expected result, actual result, and any remaining gap or rationale. For regressions, demonstrate that the test would fail without the fix when feasible.
+## Risks / Anti-Patterns
+Retrofitting weak tests, over-mocking, or claiming coverage without executing tests.
+## Source Inspiration / License Status
+Inspired by `addyosmani/agent-skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.accessibility
 
@@ -348,6 +527,18 @@ Do not treat accessibility as optional polish after visual completion.
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, QA Test Agent, Reviewer Agent.
 ## Operating Rules
+- Use semantic HTML where possible.
+- Provide visible focus.
+- Ensure labels and names for controls.
+- Respect reduced motion.
+- Maintain contrast and readable text.
+## Verification Requirements
+Check keyboard navigation, focus states, labels, contrast-sensitive elements, and responsive readability.
+## Risks / Anti-Patterns
+Clickable divs, hidden focus, icon-only controls without labels, or motion that cannot be reduced.
+## Source Inspiration / License Status
+Inspired by Addy frontend/accessibility references and local UI/UX governance.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.frontend-design
 
@@ -363,6 +554,21 @@ Do not use to add decorative styling that ignores product workflow needs.
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
+- Design for the domain and user workflow.
+- Make hierarchy, spacing, typography, and interaction states intentional.
+- Prefer real, inspectable UI over marketing filler.
+- Verify rendered output.
+## Verification Requirements
+Check desktop and mobile layout, component states, screenshot quality, and accessibility minimums:
+- keyboard-only navigation with reachable interactive elements,
+- visible focus indicators,
+- semantic labels, alt text, or form labels for controls,
+- contrast of at least 4.5:1 for normal text and 3:1 for large text.
+## Risks / Anti-Patterns
+Generic AI aesthetics, inaccessible controls, content overflow, or visual polish that breaks behavior.
+## Source Inspiration / License Status
+Inspired by Anthropic restricted-source guidance, Addy frontend UI engineering, and local UI/UX governance. Licenses vary by source.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.interaction-motion
 
@@ -378,6 +584,17 @@ Do not add motion that slows work, distracts from content, or violates reduced-m
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, QA Test Agent.
 ## Operating Rules
+- Animate meaningful state changes.
+- Keep duration short and predictable.
+- Prefer transform and opacity for performance.
+- Respect `prefers-reduced-motion`.
+## Verification Requirements
+Check interaction timing, reduced-motion behavior, and visual stability during state changes.
+## Risks / Anti-Patterns
+Janky animations, layout-thrashing transitions, infinite distractions, or motion-only affordances.
+## Source Inspiration / License Status
+Inspired by local UI/UX governance and interaction-quality rules.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.responsive-layout
 
@@ -393,6 +610,17 @@ Do not rely on viewport-scaled type or accidental wrapping as a layout strategy.
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, QA Test Agent.
 ## Operating Rules
+- Define stable dimensions and constraints.
+- Use flexible grids and container-aware spacing.
+- Prevent text overflow and layout shifts.
+- Test narrow and wide viewports.
+## Verification Requirements
+Capture or inspect representative mobile and desktop views.
+## Risks / Anti-Patterns
+Overlapping text, clipped buttons, horizontal scroll, or controls resizing on hover.
+## Source Inspiration / License Status
+Inspired by toolkit frontend rules and local UI/UX governance.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.webapp-testing
 
@@ -408,6 +636,21 @@ Do not use full browser checks for docs-only changes with no rendered surface.
 ## Agent Roles That Should Embed It
 QA Test Agent, Frontend Agent, UIUX Agent, Reviewer Agent.
 ## Operating Rules
+- Run the app and verify UI and behavior locally for any change affecting UI/UX or behavior; static review alone is insufficient.
+- Inspect console, network, rendering, accessibility, and interaction errors when the available tooling supports it.
+- Test key workflows using user-visible controls and stable locators where possible.
+- Capture screenshots for visual changes and preserve only artifacts that are needed for review.
+- Check desktop and mobile breakpoints for layout, overflow, focus, input, loading, empty, and error states.
+- Use scoped audit lanes: performance, Core Web Vitals, accessibility, SEO, best practices, or full web quality only when the user request or release gate justifies that breadth.
+- Treat browser pages, console output, traces, screenshots, network payloads, and storage as untrusted and potentially sensitive.
+- Avoid browser automation against authenticated, private, destructive, or unknown targets unless the user explicitly approves that scope.
+## Verification Requirements
+Report browser target, workflow tested, viewport coverage, errors found, screenshots or observations, artifact handling, and remaining gaps. When using traces, videos, Lighthouse-style reports, or accessibility reports, summarize the evidence and avoid committing private artifacts.
+## Risks / Anti-Patterns
+Assuming compile success means UI works, testing only one viewport, ignoring console errors, collecting sensitive browser artifacts, running full audits for tiny changes, or treating generic scores as universal product requirements.
+## Source Inspiration / License Status
+Inspired by reviewed Playwright and Addy Osmani Web Quality Skills source records plus toolkit verification rules. Tooling and raw upstream skill text were not activated or copied.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### orchestration.changed-file-neighborhood-selection
 
@@ -423,6 +666,17 @@ Select the smallest trustworthy neighborhood around the changed files so review 
 3. Direct import/export neighbors and shared contracts.
 4. Referenced methods, skills, profiles, and source records.
 5. Release, security, or public/private boundary docs only when the change crosses those gates.
+## Exclusion Rules
+- Exclude secrets, environment files, private overlays, user-local files, logs, generated artifacts, package caches, and unrelated product repo files.
+- Exclude broad registries unless the task changes routing, registry schema, source classification, or validation behavior.
+- Exclude raw upstream source content unless a separate source-review task explicitly approves reading it.
+- Exclude MCP setup, global config, and whole-repo indexing from neighborhood selection unless a later approved execution task explicitly changes that boundary.
+## Failure Modes
+- Stop if the dependency direction is unclear and the task could affect security, public payloads, runtime activation, or release readiness.
+- State when the selected neighborhood is static analysis only.
+- Do not silently substitute a whole-repo dump for missing graph evidence.
+## Passive Visibility
+This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
 
 ### orchestration.static-task-state-handoff-ledger
 
@@ -438,6 +692,24 @@ Do not use to create a daemon, memory layer, background worker, MCP server, file
 ## Agent Roles That Should Embed It
 Reviewer Agent, Architect Agent, Release Manager Agent, QA Test Agent, Skill Scout Agent.
 ## Required Ledger Fields
+- current objective and non-goals
+- current phase and next stop condition
+- completed decisions and open owner decisions
+- changed files and why they are in scope
+- validation commands, observed results, WARN output, and skipped checks
+- failures encountered, attempted fixes, and current blocker status
+- handoff summary for the next reviewer or implementation pass
+## Operating Rules
+- Keep the ledger as plain project documentation, plan text, or review notes.
+- Update state only when observed evidence changes.
+- Treat failed checks and unavailable tools as first-class state.
+- Replan only when a blocker, new user decision, or validation result changes the path.
+- Never persist secrets, private overlays, product-repo content, hidden memory, or whole-repo dumps.
+## Verification Requirements
+Confirm that the final report can answer what changed, why it changed, what passed, what warned, what failed, what remains blocked, and what should happen next.
+## Risks / Anti-Patterns
+Silent fallback, fake progress, hidden background state, stale handoff notes, retry loops without stop conditions, and treating orchestration metadata as runtime execution.
+## Source Safety / License Status
 
 ### mobile.native-mobile-app-quality
 
@@ -453,6 +725,24 @@ Run `methods/governance/task-intake-routing-gate.md` first for normal-language m
 Do not use for backend-only, desktop-only, or docs-only work unless mobile consumers are affected.
 ## Required Review Areas
 - iOS and Android platform expectations, navigation conventions, permission UX, gestures, status surfaces, and store-critical behavior.
+- Safe areas, notches, Dynamic Island, status bars, Android navigation bars, keyboard overlap, and orientation changes.
+- Touch targets, gesture conflicts, scroll behavior, tap latency, haptics expectations, and accidental destructive actions.
+- Accessibility labels, roles, focus order, screen-reader behavior, dynamic type, contrast, reduced motion, and keyboard/external input where relevant.
+- Offline, poor network, captive portal, retry, timeout, stale data, and request cancellation states.
+- Loading, empty, error, retry, disabled, success, sync, conflict, and partial-completion states.
+- Permission minimization: request only needed permissions, explain user value, and handle denied/revoked permissions.
+- App identifiers, signing, entitlements, bundle IDs, package names, provisioning, store listing, deep-link, push, and app-store-critical config caution.
+- App Store and Play Store readiness risks: policy-sensitive claims, privacy labels, data collection, age rating, payment rules, and review-only behavior.
+- Release-like build validation rather than assuming Expo Go, debug, hot reload, simulator-only, or development behavior is enough.
+- Performance risks: startup, memory, battery, bridge overhead, image/video cost, expensive re-renders, network waterfall, and slow devices.
+- Localization, RTL, mixed-language text, truncation, long names, currency/date/number formats, and text fitting.
+## Evidence Requirements
+Report which validation mode was used:
+- simulator;
+- physical device;
+- Expo Go;
+- debug build;
+- preview/internal build;
 
 ### security.webview-boundary-review
 
@@ -468,6 +758,24 @@ Run `methods/governance/task-intake-routing-gate.md` first for normal-language W
 Do not use for ordinary browser-only pages with no native shell, bridge, or embedded context.
 ## Required Checks
 - Allowed domains and allowlist policy.
+- URL validation, normalization, redirects, and blocked schemes.
+- External link handling, browser handoff, universal links, app links, and custom schemes.
+- Deep links and return URLs, including tenant/account/user scoping where applicable.
+- Token, session, cookie, local storage, and credential exposure across WebView/native boundaries.
+- Local file access, file URL handling, cache, clipboard, camera, microphone, location, and downloads/uploads.
+- JavaScript bridge and native bridge exposure, method allowlists, origin checks, message validation, and replay risk.
+- Mixed content, insecure transport, certificate handling, and downgrade risk.
+- Navigation interception, blocked navigation, back stack behavior, loading/error/fallback/retry states.
+- Private URL, token, account, tenant, user, and payload leakage in logs, analytics, screenshots, crash reports, and support exports.
+- Upload/download behavior, file type limits, size limits, storage location, and user confirmation.
+- Auth boundary: server remains final authority; client filtering or WebView hiding is not security.
+## Evidence Requirements
+Document allowed origins, blocked origins, link/deep-link handling, bridge methods, storage/cookie/token behavior, and observed validation. Include browser/device logs only when actually collected. State unverified WebView paths plainly.
+No fake validation: do not claim bridge, token, origin, device, browser, or security readiness without observed evidence or an explicitly documented review limit.
+## Stop Conditions
+- Native bridge accepts unvalidated messages.
+- Auth/session/token behavior is unclear.
+- Any untrusted domain can load privileged WebView content.
 
 ### architecture.cross-surface-client-contracts
 
@@ -483,6 +791,24 @@ Do not use for isolated internal refactors with no contract or consumer impact.
 ## Required Checks
 - Identify all consumers: web, mobile, admin, public, backend jobs, third-party integrations, tests, docs, and generated clients.
 - Request/response compatibility: required fields, optional fields, nullability, defaults, pagination, filtering, sorting, and error shape.
+- Enum/status/field compatibility: added, removed, renamed, retyped, deprecated, and unknown future values.
+- Versioning and migration: old client behavior, new client behavior, staged rollout, feature flags, fallback, and data migration.
+- Backwards compatibility and rollback: whether old clients can continue safely during rollout and after rollback.
+- Shared schemas/types where appropriate, with clear runtime validation where trust boundaries exist.
+- Server-side auth remains final authority; client filtering, hiding, routing, or cache keys are not security.
+- Cache-key isolation for tenant/account/user/project/private payloads.
+- Public/private payload split and least-privilege response design.
+- API errors, loading, empty, disabled, retry, partial failure, and failure modes.
+- Contract tests, fixtures, examples, docs, and generated client update requirements.
+- Breaking-change approval, release notes, and rollback.
+## Evidence Requirements
+Report affected consumers, compatibility classification, contract tests/docs/fixtures, commands run, skipped checks, and owner decisions. Do not claim compatibility without evidence or documented review.
+## Stop Conditions
+- Consumer inventory is unknown.
+- Breaking change is possible without owner approval.
+- Public/private payload boundary is unclear.
+- Server-side authorization or cache isolation is uncertain.
+- Contract tests or fixtures are required but missing and no risk decision exists.
 
 ### reliability.coding-time-production-readiness
 
@@ -498,6 +824,12 @@ Provide coding-time governance for production-risk changes without claiming ente
 - Prefer project-owned typecheck, lint, test, build, browser, scanner, and release scripts before proposing new tools.
 - Keep recommended tools separate from executed tools.
 - State dry-run, skipped, unavailable, metadata-only, planned, and partial checks honestly.
+## Evidence Requirements
+Completion evidence must include commands actually run, WARN output, skipped gates, residual risk, and no-fake-validation wording. Do not claim production readiness from metadata, dry-runs, or planned checks.
+## Stop Conditions
+- Required validation fails or cannot run and the risk is material.
+- Rollback is unclear for a user-facing, data, auth, security, package, CI, or deployment change.
+- The task requires unapproved package installs, CI wiring, MCP/global config, deployment config, external service permissions, product repo mutation, secrets, or destructive commands.
 
 ### api.api-contract-and-routing-readiness
 
@@ -513,6 +845,12 @@ Protect API, RPC, server action, route, schema, and client contract changes befo
 - Confirm route ownership, middleware, redirects, deep links, WebView/native clients, generated types, fixtures, and docs where relevant.
 - Prefer existing contract tests, integration tests, typecheck, lint, and build commands before adding tooling.
 ## Evidence Requirements
+Report affected consumers, compatibility decision, validation output, skipped checks, and rollback or staged rollout notes. Do not claim compatibility without observed tests or documented review evidence.
+## Stop Conditions
+- Consumer inventory is unknown.
+- Public/private payload or authorization behavior is unclear.
+- Breaking change is possible without owner approval.
+- Route, cache, or middleware behavior cannot be validated but release readiness is requested.
 
 ### performance.performance-scalability-cache-readiness
 
@@ -528,6 +866,12 @@ Review performance, scalability, and cache risk during coding before broad optim
 - Prefer existing profiler, benchmark, test, browser, query, build, and log evidence when available.
 - Avoid premature rewrites unless measured risk or clear complexity justifies it.
 ## Evidence Requirements
+Report baseline or reproduction evidence when collected, commands actually run, measurement limits, skipped checks, and whether the fix is verified or only risk-reduced.
+## Stop Conditions
+- Cache keys may leak tenant/account/user/private data.
+- Optimization would change behavior without tests or owner approval.
+- Performance readiness is requested without any measurable baseline and the risk is material.
+- Package, CI, deployment, infrastructure, or production-observability changes are needed without approval.
 
 ### reliability.observability-readiness
 
@@ -543,6 +887,11 @@ Ensure coding-time changes leave enough evidence for debugging without leaking s
 - Document how a future maintainer can detect failure: command output, test failure, log message, status code, trace ID, or manual reproduction.
 - Separate local/debug evidence from production observability claims.
 ## Evidence Requirements
+Report observed logs, errors, traces, metrics, screenshots, or command output only when actually collected. Label unavailable or skipped observability evidence.
+## Stop Conditions
+- Debugging would require secret access or private data exposure.
+- New observability service, deployment config, CI wiring, package install, or external permission is required without approval.
+- Release readiness depends on unobserved monitoring behavior.
 
 ### security.application-security-readiness
 
@@ -558,6 +907,11 @@ Review application security risk at coding time across auth, authorization, tena
 - Treat external source and scanner metadata as routing intelligence only.
 - Keep approval-required tools scoped and inactive unless explicitly approved.
 ## Evidence Requirements
+Report findings by severity with file, command, or review evidence. Scanner output counts only when the scanner actually ran. Metadata-only security posture is not validation.
+## Stop Conditions
+- Auth, authorization, tenant isolation, secret, token, cookie, private payload, prompt-injection, source-safety, or supply-chain risk is unresolved.
+- A requested change would weaken security controls.
+- Deep scans, production-impacting scans, package changes, CI changes, MCP/global config, or external permissions are needed without approval.
 
 ### release.release-rollback-readiness
 
@@ -573,6 +927,14 @@ Gate PR, merge, release-candidate, and post-merge decisions on observed evidence
 - Preserve WARN output and skipped/unavailable gates in the report.
 - Define rollback: revert path, config undo, data recovery, feature flag, migration rollback, or manual mitigation.
 - Avoid tags, releases, package publication, CI edits, external submissions, or deployment changes unless separately requested and approved.
+## Evidence Requirements
+Report exact commands run, observed pass/fail output, leak scan/source freshness status where relevant, PR state, merge status, final HEAD after merge, and remaining limitations.
+## Stop Conditions
+- Required checks fail, are pending, or cannot be verified.
+- Review blockers remain.
+- Current-tree leak blockers exist.
+- Rollback is unclear for a production-impacting change.
+- The request would create a tag, release, external submission, deployment, package, CI, MCP/global, or product-repo change outside approved scope.
 
 ## Provenance
 

@@ -88,6 +88,20 @@ Do not apply visual polish rules to backend-only changes unless UI behavior is a
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, QA Test Agent, Reviewer Agent.
 ## Operating Rules
+Check visual hierarchy, accessibility, responsive layout, interaction states, loading/error states, typography, spacing, color contrast, and browser verification.
+## Verification Requirements
+Use screenshots, browser checks, accessibility review, and target workflow testing when UI changes are implemented.
+Minimum evidence:
+- contrast meets WCAG 2.1 AA: 4.5:1 for normal text and 3:1 for large text,
+- all interactive elements are keyboard reachable with visible focus,
+- semantic controls have labels, roles, or accessible names,
+- mobile and desktop breakpoints plus interaction states are covered,
+- screenshots or automated reports from tools such as Axe, Lighthouse, or a color contrast checker are attached or summarized.
+## Risks / Anti-Patterns
+Generic aesthetics, inaccessible controls, untested responsive states, or visual changes without workflow validation.
+## Source Inspiration / License Status
+Inspired by Addy frontend UI engineering, Anthropic restricted-source guidance, and local UI/UX governance.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### matt.grill-me
 
@@ -103,6 +117,17 @@ Do not ask questions that local inspection can answer.
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, UIUX Agent, Reviewer Agent.
 ## Operating Rules
+- Ask material questions one at a time.
+- Prefer concrete choices.
+- Continue until decisions are actionable.
+- Record assumptions when proceeding.
+## Verification Requirements
+The final plan must be decision-complete for the next worker.
+## Risks / Anti-Patterns
+Interrogating users unnecessarily, delaying simple work, or asking vague questions.
+## Source Inspiration / License Status
+Inspired by `mattpocock/skills`, MIT visible during evaluation. Source record: `sources/matt-pocock-skills.md`.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### osmani.frontend-ui-engineering
 
@@ -118,6 +143,17 @@ Do not use for purely backend or data-only changes unless UI contracts are affec
 ## Agent Roles That Should Embed It
 Frontend Agent, UIUX Agent, QA Test Agent, Reviewer Agent.
 ## Operating Rules
+- Respect component boundaries.
+- Design for responsive layout, accessibility, loading states, and error states.
+- Use existing design systems before inventing new patterns.
+- Verify real rendering where practical.
+## Verification Requirements
+Check viewport behavior, keyboard access, contrast-sensitive states, and browser runtime issues.
+## Risks / Anti-Patterns
+Generic layouts, missing states, inaccessible controls, or visual-only changes with broken behavior.
+## Source Inspiration / License Status
+Inspired by `addyosmani/agent-skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.accessibility
 
@@ -133,6 +169,18 @@ Do not treat accessibility as optional polish after visual completion.
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, QA Test Agent, Reviewer Agent.
 ## Operating Rules
+- Use semantic HTML where possible.
+- Provide visible focus.
+- Ensure labels and names for controls.
+- Respect reduced motion.
+- Maintain contrast and readable text.
+## Verification Requirements
+Check keyboard navigation, focus states, labels, contrast-sensitive elements, and responsive readability.
+## Risks / Anti-Patterns
+Clickable divs, hidden focus, icon-only controls without labels, or motion that cannot be reduced.
+## Source Inspiration / License Status
+Inspired by Addy frontend/accessibility references and local UI/UX governance.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.dashboard-ux
 
@@ -148,6 +196,17 @@ Do not use marketing-page composition for dense work surfaces.
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
 ## Operating Rules
+- Prioritize clear navigation, density, filters, empty states, and table/card readability.
+- Keep visual style restrained.
+- Make frequent actions efficient.
+- Surface status and exceptions clearly.
+## Verification Requirements
+Check scan paths, sorting/filtering affordances, responsive density, and empty/error states.
+## Risks / Anti-Patterns
+Oversized hero sections, decorative card-heavy layouts, low information density, or hidden actions.
+## Source Inspiration / License Status
+Inspired by Anthropic restricted-source guidance and toolkit UI/UX rules.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.design-system
 
@@ -163,6 +222,17 @@ Do not create a design system for a one-off page unless reuse is likely.
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, Reviewer Agent.
 ## Operating Rules
+- Prefer existing tokens and components.
+- Define color, type, spacing, radius, elevation, and state rules.
+- Keep component APIs predictable.
+- Avoid one-off visual exceptions without reason.
+## Verification Requirements
+Check consistency across repeated elements and states.
+## Risks / Anti-Patterns
+Token sprawl, nested cards, arbitrary palettes, or design rules that cannot be implemented.
+## Source Inspiration / License Status
+Inspired by Anthropic restricted-source guidance and local UI/UX governance.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.frontend-design
 
@@ -178,6 +248,21 @@ Do not use to add decorative styling that ignores product workflow needs.
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
+- Design for the domain and user workflow.
+- Make hierarchy, spacing, typography, and interaction states intentional.
+- Prefer real, inspectable UI over marketing filler.
+- Verify rendered output.
+## Verification Requirements
+Check desktop and mobile layout, component states, screenshot quality, and accessibility minimums:
+- keyboard-only navigation with reachable interactive elements,
+- visible focus indicators,
+- semantic labels, alt text, or form labels for controls,
+- contrast of at least 4.5:1 for normal text and 3:1 for large text.
+## Risks / Anti-Patterns
+Generic AI aesthetics, inaccessible controls, content overflow, or visual polish that breaks behavior.
+## Source Inspiration / License Status
+Inspired by Anthropic restricted-source guidance, Addy frontend UI engineering, and local UI/UX governance. Licenses vary by source.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.interaction-motion
 
@@ -193,6 +278,17 @@ Do not add motion that slows work, distracts from content, or violates reduced-m
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, QA Test Agent.
 ## Operating Rules
+- Animate meaningful state changes.
+- Keep duration short and predictable.
+- Prefer transform and opacity for performance.
+- Respect `prefers-reduced-motion`.
+## Verification Requirements
+Check interaction timing, reduced-motion behavior, and visual stability during state changes.
+## Risks / Anti-Patterns
+Janky animations, layout-thrashing transitions, infinite distractions, or motion-only affordances.
+## Source Inspiration / License Status
+Inspired by local UI/UX governance and interaction-quality rules.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.premium-visual-quality
 
@@ -208,6 +304,17 @@ Do not prioritize aesthetics over clarity, accessibility, or product workflow.
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
 ## Operating Rules
+- Use a domain-appropriate visual language.
+- Avoid one-note palettes and generic gradients.
+- Make typography, spacing, media, and hierarchy deliberate.
+- Prefer real product signals over decoration.
+## Verification Requirements
+Review screenshots across viewports and inspect for overlap, low contrast, and generic composition.
+## Risks / Anti-Patterns
+AI-looking polish, decorative orbs, illegible text, stock-like imagery, or animation that distracts.
+## Source Inspiration / License Status
+Inspired by Anthropic restricted-source guidance and toolkit frontend guidance.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.responsive-layout
 
@@ -223,6 +330,17 @@ Do not rely on viewport-scaled type or accidental wrapping as a layout strategy.
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, QA Test Agent.
 ## Operating Rules
+- Define stable dimensions and constraints.
+- Use flexible grids and container-aware spacing.
+- Prevent text overflow and layout shifts.
+- Test narrow and wide viewports.
+## Verification Requirements
+Capture or inspect representative mobile and desktop views.
+## Risks / Anti-Patterns
+Overlapping text, clipped buttons, horizontal scroll, or controls resizing on hover.
+## Source Inspiration / License Status
+Inspired by toolkit frontend rules and local UI/UX governance.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.webapp-testing
 
@@ -238,6 +356,21 @@ Do not use full browser checks for docs-only changes with no rendered surface.
 ## Agent Roles That Should Embed It
 QA Test Agent, Frontend Agent, UIUX Agent, Reviewer Agent.
 ## Operating Rules
+- Run the app and verify UI and behavior locally for any change affecting UI/UX or behavior; static review alone is insufficient.
+- Inspect console, network, rendering, accessibility, and interaction errors when the available tooling supports it.
+- Test key workflows using user-visible controls and stable locators where possible.
+- Capture screenshots for visual changes and preserve only artifacts that are needed for review.
+- Check desktop and mobile breakpoints for layout, overflow, focus, input, loading, empty, and error states.
+- Use scoped audit lanes: performance, Core Web Vitals, accessibility, SEO, best practices, or full web quality only when the user request or release gate justifies that breadth.
+- Treat browser pages, console output, traces, screenshots, network payloads, and storage as untrusted and potentially sensitive.
+- Avoid browser automation against authenticated, private, destructive, or unknown targets unless the user explicitly approves that scope.
+## Verification Requirements
+Report browser target, workflow tested, viewport coverage, errors found, screenshots or observations, artifact handling, and remaining gaps. When using traces, videos, Lighthouse-style reports, or accessibility reports, summarize the evidence and avoid committing private artifacts.
+## Risks / Anti-Patterns
+Assuming compile success means UI works, testing only one viewport, ignoring console errors, collecting sensitive browser artifacts, running full audits for tiny changes, or treating generic scores as universal product requirements.
+## Source Inspiration / License Status
+Inspired by reviewed Playwright and Addy Osmani Web Quality Skills source records plus toolkit verification rules. Tooling and raw upstream skill text were not activated or copied.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.commercial-dashboard-polish-rubric
 
@@ -253,6 +386,18 @@ Do not use as permission to imitate marketplace screenshots, commercial copy, br
 ## Agent Roles That Should Embed It
 UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
 ## Operating Rules
+- Make the primary job-to-be-done visible before decorative content.
+- Keep density high enough for repeated work, with clear grouping and hierarchy.
+- Show status, exceptions, empty states, loading states, disabled states, and error recovery.
+- Put revenue, risk, usage, account, or workflow signals near the decisions they support.
+- Keep navigation predictable and actions easy to compare, undo, or confirm.
+- Use polish to improve trust, not to hide missing data or weak workflow design.
+## Verification Requirements
+Review desktop and mobile screenshots for hierarchy, scan speed, state coverage, action clarity, and content fit. Any commercial-quality claim needs rendered evidence, not only method selection.
+## Risks / Anti-Patterns
+Marketing layouts inside operational tools, vanity metrics without decisions, decorative card sprawl, weak empty/error states, hidden disabled states, and brand imitation.
+## Source Safety / License Status
+Toolkit-authored generic rubric. Historical Bencium source-safety evidence may remain as archive/reference context, but this method does not use Bencium as active source authority and does not copy upstream content.
 
 ### mobile.native-mobile-app-quality
 
@@ -268,6 +413,24 @@ Run `methods/governance/task-intake-routing-gate.md` first for normal-language m
 Do not use for backend-only, desktop-only, or docs-only work unless mobile consumers are affected.
 ## Required Review Areas
 - iOS and Android platform expectations, navigation conventions, permission UX, gestures, status surfaces, and store-critical behavior.
+- Safe areas, notches, Dynamic Island, status bars, Android navigation bars, keyboard overlap, and orientation changes.
+- Touch targets, gesture conflicts, scroll behavior, tap latency, haptics expectations, and accidental destructive actions.
+- Accessibility labels, roles, focus order, screen-reader behavior, dynamic type, contrast, reduced motion, and keyboard/external input where relevant.
+- Offline, poor network, captive portal, retry, timeout, stale data, and request cancellation states.
+- Loading, empty, error, retry, disabled, success, sync, conflict, and partial-completion states.
+- Permission minimization: request only needed permissions, explain user value, and handle denied/revoked permissions.
+- App identifiers, signing, entitlements, bundle IDs, package names, provisioning, store listing, deep-link, push, and app-store-critical config caution.
+- App Store and Play Store readiness risks: policy-sensitive claims, privacy labels, data collection, age rating, payment rules, and review-only behavior.
+- Release-like build validation rather than assuming Expo Go, debug, hot reload, simulator-only, or development behavior is enough.
+- Performance risks: startup, memory, battery, bridge overhead, image/video cost, expensive re-renders, network waterfall, and slow devices.
+- Localization, RTL, mixed-language text, truncation, long names, currency/date/number formats, and text fitting.
+## Evidence Requirements
+Report which validation mode was used:
+- simulator;
+- physical device;
+- Expo Go;
+- debug build;
+- preview/internal build;
 
 ## Provenance
 
