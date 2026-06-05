@@ -1,5 +1,5 @@
 ---
-sourceRef: ["anthropic-skills","bencium-marketplace"]
+sourceRef: ["anthropic-skills"]
 lastExtracted: unknown-review-required
 status: approved
 ---
@@ -39,6 +39,6 @@ Token sprawl, nested cards, arbitrary palettes, or design rules that cannot be i
 
 ## Source Inspiration / License Status
 
-Inspired by Bencium design audit ideas and local UI/UX governance.
+Inspired by Anthropic restricted-source guidance and local UI/UX governance.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

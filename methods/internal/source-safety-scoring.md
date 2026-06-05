@@ -1,5 +1,5 @@
 ---
-sourceRef: ["everything-claude-code","ruflo","superpowers"]
+sourceRef: ["everything-claude-code","superpowers"]
 lastExtracted: unknown-review-required
 status: approved
 ---
@@ -54,6 +54,6 @@ Letting high stars override safety findings, missing license uncertainty, ignori
 
 ## Source Inspiration / License Status
 
-Inspired by Skill Scout rules and reviewed records for Everything Claude Code, RuFlo, and Superpowers. These sources are used for normalized safety scoring only. Superpowers and external plugin behavior remain external and must not be duplicated.
+Inspired by Skill Scout rules and reviewed records for Everything Claude Code and Superpowers. These sources are used for normalized safety scoring only. Superpowers and external plugin behavior remain external and must not be duplicated.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

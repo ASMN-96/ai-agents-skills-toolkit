@@ -7,7 +7,7 @@ compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/reviewer-agent.md
 source_profile_refs: ["profiles/audit-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md", "profiles/security-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
-source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.source-discovery-workflow", "internal.source-safety-scoring", "internal.tdd-verification-alignment", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.git-guardrails", "matt.grill-me", "matt.improve-architecture", "matt.tdd", "matt.triage-issue", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.performance-optimization", "osmani.security-hardening", "osmani.shipping-launch", "osmani.test-driven-development", "security.differential-security-review", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.premium-visual-quality", "uiux.webapp-testing", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.source-discovery-workflow", "internal.source-safety-scoring", "internal.tdd-verification-alignment", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.git-guardrails", "matt.grill-me", "matt.improve-architecture", "matt.tdd", "matt.triage-issue", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.performance-optimization", "osmani.security-hardening", "osmani.shipping-launch", "osmani.test-driven-development", "security.differential-security-review", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.premium-visual-quality", "uiux.webapp-testing", "uiux.commercial-dashboard-polish-rubric", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -158,11 +158,11 @@ Source: `methods/internal/simplicity-surgical-change-discipline.md`
 
 # Simplicity Surgical Change Discipline
 ## Purpose
-Keep agent changes focused, understandable, and proportional to the user request.
+Keep changes focused, understandable, reversible, and proportional to the user request.
 ## When To Use
 Use before implementing, reviewing, or refactoring code.
 ## When Not To Use
-Do not use to block necessary migrations or architecture work when the requirement justifies it.
+Do not use to block necessary migrations, architecture work, or validation fixes when the requirement justifies them.
 ## Agent Roles That Should Embed It
 Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
@@ -218,11 +218,11 @@ Source: `methods/karpathy/assumption-surfacing.md`
 
 # Assumption Surfacing
 ## Purpose
-Make agent uncertainty visible before it becomes implementation risk.
+Make uncertainty visible early enough that the user, reviewer, or implementer can correct course before code or release evidence is affected.
 ## When To Use
-Use when a request has ambiguous intent, multiple plausible designs, missing constraints, or conflicting signals.
+Use when intent, constraints, ownership, production risk, or success criteria are not yet concrete enough for a safe implementation decision.
 ## When Not To Use
-Do not over-question discoverable facts that can be resolved by reading local files or docs.
+Do not ask about facts that can be discovered by reading local files, docs, registries, source records, or command output.
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, Reviewer Agent, Skill Scout Agent.
 ## Operating Rules
@@ -233,11 +233,11 @@ Source: `methods/karpathy/goal-driven-execution.md`
 
 # Goal-Driven Execution
 ## Purpose
-Keep agent work tied to the user goal and measurable success criteria.
+Keep implementation, review, and validation tied to the user-visible outcome and the evidence needed to prove it.
 ## When To Use
-Use when implementing features, fixing bugs, planning releases, or verifying outcomes.
+Use when implementing features, fixing bugs, planning releases, auditing source safety, or deciding whether work is complete.
 ## When Not To Use
-Do not use as a shortcut around safety, review, or test gates.
+Do not use as a shortcut around safety, review, source-freshness, leak, runtime, or test gates.
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, QA Test Agent, Release Manager Agent, Reviewer Agent.
 ## Operating Rules
@@ -248,11 +248,11 @@ Source: `methods/karpathy/simplicity-surgical-changes.md`
 
 # Simplicity And Surgical Changes
 ## Purpose
-Keep agent edits small, direct, and proportionate.
+Keep changes understandable, reversible, and proportionate to the request while preserving production correctness.
 ## When To Use
-Use for code changes, refactors, bug fixes, and reviews where scope can drift.
+Use for code changes, refactors, bug fixes, reviews, source cleanup, and registry updates where scope can drift.
 ## When Not To Use
-Do not use to block necessary architecture work when complexity is justified by clear requirements.
+Do not use to block necessary architecture or migration work when the requirement and risk justify it.
 ## Agent Roles That Should Embed It
 Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
@@ -557,6 +557,21 @@ Do not use full browser checks for docs-only changes with no rendered surface.
 QA Test Agent, Frontend Agent, UIUX Agent, Reviewer Agent.
 ## Operating Rules
 
+### uiux.commercial-dashboard-polish-rubric
+
+Source: `methods/uiux/commercial-dashboard-polish-rubric.md`
+
+# Commercial Dashboard Polish Rubric
+## Purpose
+Evaluate whether a dashboard, admin console, CRM, analytics surface, or SaaS operations view feels commercially credible without copying marketplace examples or brand patterns.
+## When To Use
+Use during UI/UX review for customer-facing dashboards, investor-demo admin tools, monetized SaaS surfaces, and dense operational workflows.
+## When Not To Use
+Do not use as permission to imitate marketplace screenshots, commercial copy, brand assets, template layouts, or proprietary examples.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
+## Operating Rules
+
 ### orchestration.context-graph-token-budget
 
 Source: `methods/orchestration/context-graph-token-budget.md`
@@ -616,6 +631,21 @@ Use this method when an audit, plan, or review depends on graph-like context tha
 - generated reports or docs disagree with live runtime files
 - graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
 ## Required Response
+
+### orchestration.static-task-state-handoff-ledger
+
+Source: `methods/orchestration/static-task-state-handoff-ledger.md`
+
+# Static Task State Handoff Ledger
+## Purpose
+Keep complex agent work auditable with explicit task state, handoff facts, replanning triggers, and failure accounting without adopting runtime orchestration.
+## When To Use
+Use for multi-step implementation, source-safety review, PR repair, validation loops, or handoff between agent lenses when work could drift or lose state.
+## When Not To Use
+Do not use to create a daemon, memory layer, background worker, MCP server, file watcher, package script, global config, or runtime persistence.
+## Agent Roles That Should Embed It
+Reviewer Agent, Architect Agent, Release Manager Agent, QA Test Agent, Skill Scout Agent.
+## Required Ledger Fields
 
 ### repo.package-manager-workspace-migration
 
@@ -726,8 +756,8 @@ Gate PR, merge, release-candidate, and post-merge decisions on observed evidence
 
 - Source agent path: `agents/reviewer-agent.md`
 - Profile paths: `profiles/audit-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
-- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `internal.tdd-verification-alignment`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.git-guardrails`, `matt.grill-me`, `matt.improve-architecture`, `matt.tdd`, `matt.triage-issue`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.shipping-launch`, `osmani.test-driven-development`, `security.differential-security-review`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.premium-visual-quality`, `uiux.webapp-testing`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `code-review-graph`, `everything-claude-code`, `karpathy-inspired-skills`, `matt-pocock-skills`, `microsoft-playwright`, `ruflo`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `internal.tdd-verification-alignment`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.git-guardrails`, `matt.grill-me`, `matt.improve-architecture`, `matt.tdd`, `matt.triage-issue`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.shipping-launch`, `osmani.test-driven-development`, `security.differential-security-review`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.premium-visual-quality`, `uiux.webapp-testing`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `matt-pocock-skills`, `microsoft-playwright`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

@@ -7,7 +7,7 @@ compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/release-manager-agent.md
 source_profile_refs: ["profiles/release-profile.md", "profiles/implementation-profile.md"]
-source_method_refs: ["internal.engineering-lifecycle-gates", "internal.skill-anatomy", "karpathy.goal-driven-execution", "matt.git-guardrails", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.shipping-launch", "security.differential-security-review", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "release.release-rollback-readiness"]
+source_method_refs: ["internal.engineering-lifecycle-gates", "internal.skill-anatomy", "karpathy.goal-driven-execution", "matt.git-guardrails", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.shipping-launch", "security.differential-security-review", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -91,11 +91,11 @@ Source: `methods/karpathy/goal-driven-execution.md`
 
 # Goal-Driven Execution
 ## Purpose
-Keep agent work tied to the user goal and measurable success criteria.
+Keep implementation, review, and validation tied to the user-visible outcome and the evidence needed to prove it.
 ## When To Use
-Use when implementing features, fixing bugs, planning releases, or verifying outcomes.
+Use when implementing features, fixing bugs, planning releases, auditing source safety, or deciding whether work is complete.
 ## When Not To Use
-Do not use as a shortcut around safety, review, or test gates.
+Do not use as a shortcut around safety, review, source-freshness, leak, runtime, or test gates.
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, QA Test Agent, Release Manager Agent, Reviewer Agent.
 ## Operating Rules
@@ -250,6 +250,21 @@ Use this method when an audit, plan, or review depends on graph-like context tha
 - graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
 ## Required Response
 
+### orchestration.static-task-state-handoff-ledger
+
+Source: `methods/orchestration/static-task-state-handoff-ledger.md`
+
+# Static Task State Handoff Ledger
+## Purpose
+Keep complex agent work auditable with explicit task state, handoff facts, replanning triggers, and failure accounting without adopting runtime orchestration.
+## When To Use
+Use for multi-step implementation, source-safety review, PR repair, validation loops, or handoff between agent lenses when work could drift or lose state.
+## When Not To Use
+Do not use to create a daemon, memory layer, background worker, MCP server, file watcher, package script, global config, or runtime persistence.
+## Agent Roles That Should Embed It
+Reviewer Agent, Architect Agent, Release Manager Agent, QA Test Agent, Skill Scout Agent.
+## Required Ledger Fields
+
 ### repo.package-manager-workspace-migration
 
 Source: `methods/repo/package-manager-workspace-migration.md`
@@ -299,8 +314,8 @@ Gate PR, merge, release-candidate, and post-merge decisions on observed evidence
 
 - Source agent path: `agents/release-manager-agent.md`
 - Profile paths: `profiles/release-profile.md`, `profiles/implementation-profile.md`
-- Method IDs: `internal.engineering-lifecycle-gates`, `internal.skill-anatomy`, `karpathy.goal-driven-execution`, `matt.git-guardrails`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.shipping-launch`, `security.differential-security-review`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `release.release-rollback-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `karpathy-inspired-skills`, `matt-pocock-skills`, `trailofbits-skills`, `unknown-review-required`
+- Method IDs: `internal.engineering-lifecycle-gates`, `internal.skill-anatomy`, `karpathy.goal-driven-execution`, `matt.git-guardrails`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.shipping-launch`, `security.differential-security-review`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `release.release-rollback-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `matt-pocock-skills`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

@@ -7,7 +7,7 @@ compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/qa-test-agent.md
 source_profile_refs: ["profiles/audit-profile.md", "profiles/frontend-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md", "profiles/fullstack-profile.md"]
-source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.git-guardrails", "matt.tdd", "matt.to-issues", "matt.triage-issue", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.shipping-launch", "osmani.test-driven-development", "uiux.accessibility", "uiux.frontend-design", "uiux.interaction-motion", "uiux.responsive-layout", "uiux.webapp-testing", "orchestration.changed-file-neighborhood-selection", "mobile.native-mobile-app-quality", "security.webview-boundary-review", "architecture.cross-surface-client-contracts", "reliability.coding-time-production-readiness", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.git-guardrails", "matt.tdd", "matt.to-issues", "matt.triage-issue", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.shipping-launch", "osmani.test-driven-development", "uiux.accessibility", "uiux.frontend-design", "uiux.interaction-motion", "uiux.responsive-layout", "uiux.webapp-testing", "orchestration.changed-file-neighborhood-selection", "orchestration.static-task-state-handoff-ledger", "mobile.native-mobile-app-quality", "security.webview-boundary-review", "architecture.cross-surface-client-contracts", "reliability.coding-time-production-readiness", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -145,11 +145,11 @@ Source: `methods/internal/simplicity-surgical-change-discipline.md`
 
 # Simplicity Surgical Change Discipline
 ## Purpose
-Keep agent changes focused, understandable, and proportional to the user request.
+Keep changes focused, understandable, reversible, and proportional to the user request.
 ## When To Use
 Use before implementing, reviewing, or refactoring code.
 ## When Not To Use
-Do not use to block necessary migrations or architecture work when the requirement justifies it.
+Do not use to block necessary migrations, architecture work, or validation fixes when the requirement justifies them.
 ## Agent Roles That Should Embed It
 Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
@@ -175,11 +175,11 @@ Source: `methods/karpathy/goal-driven-execution.md`
 
 # Goal-Driven Execution
 ## Purpose
-Keep agent work tied to the user goal and measurable success criteria.
+Keep implementation, review, and validation tied to the user-visible outcome and the evidence needed to prove it.
 ## When To Use
-Use when implementing features, fixing bugs, planning releases, or verifying outcomes.
+Use when implementing features, fixing bugs, planning releases, auditing source safety, or deciding whether work is complete.
 ## When Not To Use
-Do not use as a shortcut around safety, review, or test gates.
+Do not use as a shortcut around safety, review, source-freshness, leak, runtime, or test gates.
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, QA Test Agent, Release Manager Agent, Reviewer Agent.
 ## Operating Rules
@@ -190,11 +190,11 @@ Source: `methods/karpathy/simplicity-surgical-changes.md`
 
 # Simplicity And Surgical Changes
 ## Purpose
-Keep agent edits small, direct, and proportionate.
+Keep changes understandable, reversible, and proportionate to the request while preserving production correctness.
 ## When To Use
-Use for code changes, refactors, bug fixes, and reviews where scope can drift.
+Use for code changes, refactors, bug fixes, reviews, source cleanup, and registry updates where scope can drift.
 ## When Not To Use
-Do not use to block necessary architecture work when complexity is justified by clear requirements.
+Do not use to block necessary architecture or migration work when the requirement and risk justify it.
 ## Agent Roles That Should Embed It
 Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
@@ -424,6 +424,21 @@ Select the smallest trustworthy neighborhood around the changed files so review 
 4. Referenced methods, skills, profiles, and source records.
 5. Release, security, or public/private boundary docs only when the change crosses those gates.
 
+### orchestration.static-task-state-handoff-ledger
+
+Source: `methods/orchestration/static-task-state-handoff-ledger.md`
+
+# Static Task State Handoff Ledger
+## Purpose
+Keep complex agent work auditable with explicit task state, handoff facts, replanning triggers, and failure accounting without adopting runtime orchestration.
+## When To Use
+Use for multi-step implementation, source-safety review, PR repair, validation loops, or handoff between agent lenses when work could drift or lose state.
+## When Not To Use
+Do not use to create a daemon, memory layer, background worker, MCP server, file watcher, package script, global config, or runtime persistence.
+## Agent Roles That Should Embed It
+Reviewer Agent, Architect Agent, Release Manager Agent, QA Test Agent, Skill Scout Agent.
+## Required Ledger Fields
+
 ### mobile.native-mobile-app-quality
 
 Source: `methods/mobile/native-mobile-app-quality.md`
@@ -563,8 +578,8 @@ Gate PR, merge, release-candidate, and post-merge decisions on observed evidence
 
 - Source agent path: `agents/qa-test-agent.md`
 - Profile paths: `profiles/audit-profile.md`, `profiles/frontend-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/fullstack-profile.md`
-- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.git-guardrails`, `matt.tdd`, `matt.to-issues`, `matt.triage-issue`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.shipping-launch`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.responsive-layout`, `uiux.webapp-testing`, `orchestration.changed-file-neighborhood-selection`, `mobile.native-mobile-app-quality`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `code-review-graph`, `karpathy-inspired-skills`, `matt-pocock-skills`, `microsoft-playwright`, `supabase-agent-skills`, `superpowers`, `unknown-review-required`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.git-guardrails`, `matt.tdd`, `matt.to-issues`, `matt.triage-issue`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.shipping-launch`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.responsive-layout`, `uiux.webapp-testing`, `orchestration.changed-file-neighborhood-selection`, `orchestration.static-task-state-handoff-ledger`, `mobile.native-mobile-app-quality`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `code-review-graph`, `matt-pocock-skills`, `microsoft-playwright`, `supabase-agent-skills`, `superpowers`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

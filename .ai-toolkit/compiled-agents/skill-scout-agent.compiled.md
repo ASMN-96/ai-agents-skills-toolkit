@@ -7,7 +7,7 @@ compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/skill-scout-agent.md
 source_profile_refs: ["profiles/audit-profile.md", "profiles/security-profile.md", "profiles/source-review-profile.md"]
-source_method_refs: ["internal.skill-anatomy", "internal.source-discovery-workflow", "internal.source-safety-scoring", "karpathy.assumption-surfacing", "osmani.security-hardening", "orchestration.context-graph-token-budget", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection"]
+source_method_refs: ["internal.skill-anatomy", "internal.source-discovery-workflow", "internal.source-safety-scoring", "karpathy.assumption-surfacing", "osmani.security-hardening", "orchestration.context-graph-token-budget", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "orchestration.static-task-state-handoff-ledger"]
 compile_contract_version: 1.0.0
 ---
 
@@ -138,11 +138,11 @@ Source: `methods/karpathy/assumption-surfacing.md`
 
 # Assumption Surfacing
 ## Purpose
-Make agent uncertainty visible before it becomes implementation risk.
+Make uncertainty visible early enough that the user, reviewer, or implementer can correct course before code or release evidence is affected.
 ## When To Use
-Use when a request has ambiguous intent, multiple plausible designs, missing constraints, or conflicting signals.
+Use when intent, constraints, ownership, production risk, or success criteria are not yet concrete enough for a safe implementation decision.
 ## When Not To Use
-Do not over-question discoverable facts that can be resolved by reading local files or docs.
+Do not ask about facts that can be discovered by reading local files, docs, registries, source records, or command output.
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, Reviewer Agent, Skill Scout Agent.
 ## Operating Rules
@@ -207,12 +207,27 @@ Use this method when an audit, plan, or review depends on graph-like context tha
 - graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
 ## Required Response
 
+### orchestration.static-task-state-handoff-ledger
+
+Source: `methods/orchestration/static-task-state-handoff-ledger.md`
+
+# Static Task State Handoff Ledger
+## Purpose
+Keep complex agent work auditable with explicit task state, handoff facts, replanning triggers, and failure accounting without adopting runtime orchestration.
+## When To Use
+Use for multi-step implementation, source-safety review, PR repair, validation loops, or handoff between agent lenses when work could drift or lose state.
+## When Not To Use
+Do not use to create a daemon, memory layer, background worker, MCP server, file watcher, package script, global config, or runtime persistence.
+## Agent Roles That Should Embed It
+Reviewer Agent, Architect Agent, Release Manager Agent, QA Test Agent, Skill Scout Agent.
+## Required Ledger Fields
+
 ## Provenance
 
 - Source agent path: `agents/skill-scout-agent.md`
 - Profile paths: `profiles/audit-profile.md`, `profiles/security-profile.md`, `profiles/source-review-profile.md`
-- Method IDs: `internal.skill-anatomy`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `karpathy.assumption-surfacing`, `osmani.security-hardening`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `karpathy-inspired-skills`, `ruflo`, `superpowers`, `unknown-review-required`
+- Method IDs: `internal.skill-anatomy`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `karpathy.assumption-surfacing`, `osmani.security-hardening`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `superpowers`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

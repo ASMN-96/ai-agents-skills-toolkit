@@ -1,5 +1,5 @@
 ---
-sourceRef: ["anthropic-skills","bencium-marketplace"]
+sourceRef: ["anthropic-skills"]
 lastExtracted: unknown-review-required
 status: approved
 ---
@@ -39,6 +39,6 @@ Oversized hero sections, decorative card-heavy layouts, low information density,
 
 ## Source Inspiration / License Status
 
-Inspired by Anthropic frontend-design, Bencium design audit ideas, and toolkit UI/UX rules.
+Inspired by Anthropic restricted-source guidance and toolkit UI/UX rules.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

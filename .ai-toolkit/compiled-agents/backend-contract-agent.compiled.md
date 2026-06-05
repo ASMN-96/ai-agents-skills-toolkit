@@ -121,11 +121,11 @@ Source: `methods/internal/simplicity-surgical-change-discipline.md`
 
 # Simplicity Surgical Change Discipline
 ## Purpose
-Keep agent changes focused, understandable, and proportional to the user request.
+Keep changes focused, understandable, reversible, and proportional to the user request.
 ## When To Use
 Use before implementing, reviewing, or refactoring code.
 ## When Not To Use
-Do not use to block necessary migrations or architecture work when the requirement justifies it.
+Do not use to block necessary migrations, architecture work, or validation fixes when the requirement justifies them.
 ## Agent Roles That Should Embed It
 Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
@@ -151,11 +151,11 @@ Source: `methods/karpathy/simplicity-surgical-changes.md`
 
 # Simplicity And Surgical Changes
 ## Purpose
-Keep agent edits small, direct, and proportionate.
+Keep changes understandable, reversible, and proportionate to the request while preserving production correctness.
 ## When To Use
-Use for code changes, refactors, bug fixes, and reviews where scope can drift.
+Use for code changes, refactors, bug fixes, reviews, source cleanup, and registry updates where scope can drift.
 ## When Not To Use
-Do not use to block necessary architecture work when complexity is justified by clear requirements.
+Do not use to block necessary architecture or migration work when the requirement and risk justify it.
 ## Agent Roles That Should Embed It
 Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
@@ -390,7 +390,7 @@ Review application security risk at coding time across auth, authorization, tena
 - Source agent path: `agents/backend-contract-agent.md`
 - Profile paths: `profiles/backend-profile.md`, `profiles/implementation-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`
 - Method IDs: `backend.supabase-postgres-rls-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.improve-architecture`, `matt.tdd`, `osmani.api-interface-design`, `osmani.incremental-implementation`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.spec-driven-development`, `osmani.test-driven-development`, `security.differential-security-review`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `security.application-security-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `karpathy-inspired-skills`, `matt-pocock-skills`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `matt-pocock-skills`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

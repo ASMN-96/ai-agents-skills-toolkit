@@ -131,21 +131,6 @@
       }
     },
     {
-      "id": "bencium-marketplace",
-      "name": "Bencium Marketplace",
-      "sourceUrl": "https://github.com/bencium/bencium-marketplace",
-      "repoOwner": "bencium",
-      "repoName": "bencium-marketplace",
-      "defaultBranch": "main",
-      "lastReviewedCommit": "c6f5a718d43ba5a5d540bf74efbd4dba81400c72",
-      "lastReviewedDate": "2026-06-03",
-      "sourceRecordPath": "sources/bencium-marketplace.md",
-      "watchedPaths": [],
-      "licenseConcern": "clear",
-      "reviewPriority": "Medium",
-      "neverAutoImport": true
-    },
-    {
       "id": "karpathy-inspired-skills",
       "name": "Karpathy-Inspired Skills",
       "sourceUrl": "https://github.com/forrestchang/andrej-karpathy-skills",

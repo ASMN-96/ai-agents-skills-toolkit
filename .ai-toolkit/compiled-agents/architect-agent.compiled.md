@@ -7,7 +7,7 @@ compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/architect-agent.md
 source_profile_refs: ["profiles/implementation-profile.md", "profiles/backend-profile.md", "profiles/frontend-profile.md", "profiles/planning-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
-source_method_refs: ["internal.engineering-lifecycle-gates", "internal.simplicity-surgical-change-discipline", "internal.skill-anatomy", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.grill-me", "matt.improve-architecture", "matt.to-issues", "matt.to-prd", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.spec-driven-development", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness"]
+source_method_refs: ["internal.engineering-lifecycle-gates", "internal.simplicity-surgical-change-discipline", "internal.skill-anatomy", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.grill-me", "matt.improve-architecture", "matt.to-issues", "matt.to-prd", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.spec-driven-development", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -134,11 +134,11 @@ Source: `methods/internal/simplicity-surgical-change-discipline.md`
 
 # Simplicity Surgical Change Discipline
 ## Purpose
-Keep agent changes focused, understandable, and proportional to the user request.
+Keep changes focused, understandable, reversible, and proportional to the user request.
 ## When To Use
 Use before implementing, reviewing, or refactoring code.
 ## When Not To Use
-Do not use to block necessary migrations or architecture work when the requirement justifies it.
+Do not use to block necessary migrations, architecture work, or validation fixes when the requirement justifies them.
 ## Agent Roles That Should Embed It
 Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
@@ -164,11 +164,11 @@ Source: `methods/karpathy/assumption-surfacing.md`
 
 # Assumption Surfacing
 ## Purpose
-Make agent uncertainty visible before it becomes implementation risk.
+Make uncertainty visible early enough that the user, reviewer, or implementer can correct course before code or release evidence is affected.
 ## When To Use
-Use when a request has ambiguous intent, multiple plausible designs, missing constraints, or conflicting signals.
+Use when intent, constraints, ownership, production risk, or success criteria are not yet concrete enough for a safe implementation decision.
 ## When Not To Use
-Do not over-question discoverable facts that can be resolved by reading local files or docs.
+Do not ask about facts that can be discovered by reading local files, docs, registries, source records, or command output.
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, Reviewer Agent, Skill Scout Agent.
 ## Operating Rules
@@ -179,11 +179,11 @@ Source: `methods/karpathy/goal-driven-execution.md`
 
 # Goal-Driven Execution
 ## Purpose
-Keep agent work tied to the user goal and measurable success criteria.
+Keep implementation, review, and validation tied to the user-visible outcome and the evidence needed to prove it.
 ## When To Use
-Use when implementing features, fixing bugs, planning releases, or verifying outcomes.
+Use when implementing features, fixing bugs, planning releases, auditing source safety, or deciding whether work is complete.
 ## When Not To Use
-Do not use as a shortcut around safety, review, or test gates.
+Do not use as a shortcut around safety, review, source-freshness, leak, runtime, or test gates.
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, QA Test Agent, Release Manager Agent, Reviewer Agent.
 ## Operating Rules
@@ -194,11 +194,11 @@ Source: `methods/karpathy/simplicity-surgical-changes.md`
 
 # Simplicity And Surgical Changes
 ## Purpose
-Keep agent edits small, direct, and proportionate.
+Keep changes understandable, reversible, and proportionate to the request while preserving production correctness.
 ## When To Use
-Use for code changes, refactors, bug fixes, and reviews where scope can drift.
+Use for code changes, refactors, bug fixes, reviews, source cleanup, and registry updates where scope can drift.
 ## When Not To Use
-Do not use to block necessary architecture work when complexity is justified by clear requirements.
+Do not use to block necessary architecture or migration work when the requirement and risk justify it.
 ## Agent Roles That Should Embed It
 Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test Agent.
 ## Operating Rules
@@ -383,6 +383,21 @@ Use this method when an audit, plan, or review depends on graph-like context tha
 - graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
 ## Required Response
 
+### orchestration.static-task-state-handoff-ledger
+
+Source: `methods/orchestration/static-task-state-handoff-ledger.md`
+
+# Static Task State Handoff Ledger
+## Purpose
+Keep complex agent work auditable with explicit task state, handoff facts, replanning triggers, and failure accounting without adopting runtime orchestration.
+## When To Use
+Use for multi-step implementation, source-safety review, PR repair, validation loops, or handoff between agent lenses when work could drift or lose state.
+## When Not To Use
+Do not use to create a daemon, memory layer, background worker, MCP server, file watcher, package script, global config, or runtime persistence.
+## Agent Roles That Should Embed It
+Reviewer Agent, Architect Agent, Release Manager Agent, QA Test Agent, Skill Scout Agent.
+## Required Ledger Fields
+
 ### repo.package-manager-workspace-migration
 
 Source: `methods/repo/package-manager-workspace-migration.md`
@@ -417,8 +432,8 @@ Provide coding-time governance for production-risk changes without claiming ente
 
 - Source agent path: `agents/architect-agent.md`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/backend-profile.md`, `profiles/frontend-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
-- Method IDs: `internal.engineering-lifecycle-gates`, `internal.simplicity-surgical-change-discipline`, `internal.skill-anatomy`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.grill-me`, `matt.improve-architecture`, `matt.to-issues`, `matt.to-prd`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.spec-driven-development`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `karpathy-inspired-skills`, `matt-pocock-skills`, `unknown-review-required`
+- Method IDs: `internal.engineering-lifecycle-gates`, `internal.simplicity-surgical-change-discipline`, `internal.skill-anatomy`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.grill-me`, `matt.improve-architecture`, `matt.to-issues`, `matt.to-prd`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.spec-driven-development`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `matt-pocock-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

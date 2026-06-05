@@ -7,7 +7,7 @@ compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/product-agent.md
 source_profile_refs: ["profiles/implementation-profile.md", "profiles/uiux-profile.md", "profiles/planning-profile.md", "profiles/fullstack-profile.md"]
-source_method_refs: ["internal.engineering-lifecycle-gates", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "matt.grill-me", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.spec-driven-development", "uiux.dashboard-ux", "uiux.premium-visual-quality", "orchestration.context-graph-token-budget", "orchestration.compact-agent-context-pack"]
+source_method_refs: ["internal.engineering-lifecycle-gates", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "matt.grill-me", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.spec-driven-development", "uiux.dashboard-ux", "uiux.premium-visual-quality", "uiux.commercial-dashboard-polish-rubric", "orchestration.context-graph-token-budget", "orchestration.compact-agent-context-pack"]
 compile_contract_version: 1.0.0
 ---
 
@@ -108,11 +108,11 @@ Source: `methods/karpathy/assumption-surfacing.md`
 
 # Assumption Surfacing
 ## Purpose
-Make agent uncertainty visible before it becomes implementation risk.
+Make uncertainty visible early enough that the user, reviewer, or implementer can correct course before code or release evidence is affected.
 ## When To Use
-Use when a request has ambiguous intent, multiple plausible designs, missing constraints, or conflicting signals.
+Use when intent, constraints, ownership, production risk, or success criteria are not yet concrete enough for a safe implementation decision.
 ## When Not To Use
-Do not over-question discoverable facts that can be resolved by reading local files or docs.
+Do not ask about facts that can be discovered by reading local files, docs, registries, source records, or command output.
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, Reviewer Agent, Skill Scout Agent.
 ## Operating Rules
@@ -123,11 +123,11 @@ Source: `methods/karpathy/goal-driven-execution.md`
 
 # Goal-Driven Execution
 ## Purpose
-Keep agent work tied to the user goal and measurable success criteria.
+Keep implementation, review, and validation tied to the user-visible outcome and the evidence needed to prove it.
 ## When To Use
-Use when implementing features, fixing bugs, planning releases, or verifying outcomes.
+Use when implementing features, fixing bugs, planning releases, auditing source safety, or deciding whether work is complete.
 ## When Not To Use
-Do not use as a shortcut around safety, review, or test gates.
+Do not use as a shortcut around safety, review, source-freshness, leak, runtime, or test gates.
 ## Agent Roles That Should Embed It
 Product Agent, Architect Agent, QA Test Agent, Release Manager Agent, Reviewer Agent.
 ## Operating Rules
@@ -237,6 +237,21 @@ Do not prioritize aesthetics over clarity, accessibility, or product workflow.
 UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
 ## Operating Rules
 
+### uiux.commercial-dashboard-polish-rubric
+
+Source: `methods/uiux/commercial-dashboard-polish-rubric.md`
+
+# Commercial Dashboard Polish Rubric
+## Purpose
+Evaluate whether a dashboard, admin console, CRM, analytics surface, or SaaS operations view feels commercially credible without copying marketplace examples or brand patterns.
+## When To Use
+Use during UI/UX review for customer-facing dashboards, investor-demo admin tools, monetized SaaS surfaces, and dense operational workflows.
+## When Not To Use
+Do not use as permission to imitate marketplace screenshots, commercial copy, brand assets, template layouts, or proprietary examples.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
+## Operating Rules
+
 ### orchestration.context-graph-token-budget
 
 Source: `methods/orchestration/context-graph-token-budget.md`
@@ -271,8 +286,8 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 
 - Source agent path: `agents/product-agent.md`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/uiux-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`
-- Method IDs: `internal.engineering-lifecycle-gates`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `matt.grill-me`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.spec-driven-development`, `uiux.dashboard-ux`, `uiux.premium-visual-quality`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `bencium-marketplace`, `code-review-graph`, `karpathy-inspired-skills`, `matt-pocock-skills`
+- Method IDs: `internal.engineering-lifecycle-gates`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `matt.grill-me`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.spec-driven-development`, `uiux.dashboard-ux`, `uiux.premium-visual-quality`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `matt-pocock-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

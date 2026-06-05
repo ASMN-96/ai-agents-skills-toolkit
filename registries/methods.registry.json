@@ -144,13 +144,9 @@
         {
           "path": "sources/anthropic-skills.md",
           "category": "restricted-source"
-        },
-        {
-          "path": "sources/bencium-marketplace.md",
-          "category": "external-source"
         }
       ],
-      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -196,15 +192,15 @@
       ],
       "sourceProvenance": [
         {
-          "path": "sources/karpathy-inspired-skills.md",
-          "category": "external-source"
+          "path": "methods/internal/simplicity-surgical-change-discipline.md",
+          "category": "toolkit-authored"
         },
         {
           "path": "sources/matt-pocock-skills.md",
           "category": "external-source"
         }
       ],
-      "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated. Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied.",
+      "licenseStatus": "Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment. Historical Karpathy-inspired source evidence remains license-caveated and is not active source authority. No raw upstream wording, examples, prompt structure, scripts, code, docs text, or runtime behavior copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -360,15 +356,11 @@
           "category": "external-source"
         },
         {
-          "path": "sources/ruflo.md",
-          "category": "external-source"
-        },
-        {
           "path": "sources/superpowers.md",
           "category": "external-source"
         }
       ],
-      "licenseStatus": "Everything Claude Code source record reports MIT but high config/hook/MCP mutation risk; use governance patterns only. RuFlo source record reports MIT but high daemon/runtime risk; use static governance patterns only. Superpowers source record reports MIT; Superpowers remains external and must not be duplicated.",
+      "licenseStatus": "Everything Claude Code source record reports MIT but high config/hook/MCP mutation risk; use governance patterns only. Superpowers source record reports MIT; Superpowers remains external and must not be duplicated.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -466,11 +458,11 @@
       ],
       "sourceProvenance": [
         {
-          "path": "sources/karpathy-inspired-skills.md",
-          "category": "external-source"
+          "path": "methods/karpathy/assumption-surfacing.md",
+          "category": "toolkit-authored"
         }
       ],
-      "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated.",
+      "licenseStatus": "Toolkit-authored cleanroom method; no raw upstream wording, examples, prompt structure, scripts, code, docs text, or runtime behavior copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -513,11 +505,11 @@
       ],
       "sourceProvenance": [
         {
-          "path": "sources/karpathy-inspired-skills.md",
-          "category": "external-source"
+          "path": "methods/karpathy/goal-driven-execution.md",
+          "category": "toolkit-authored"
         }
       ],
-      "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated.",
+      "licenseStatus": "Toolkit-authored cleanroom method; no raw upstream wording, examples, prompt structure, scripts, code, docs text, or runtime behavior copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -560,11 +552,11 @@
       ],
       "sourceProvenance": [
         {
-          "path": "sources/karpathy-inspired-skills.md",
-          "category": "external-source"
+          "path": "methods/karpathy/simplicity-surgical-changes.md",
+          "category": "toolkit-authored"
         }
       ],
-      "licenseStatus": "Karpathy-inspired source license was unclear during evaluation; keep normalized/paraphrased and caveated.",
+      "licenseStatus": "Toolkit-authored cleanroom method; no raw upstream wording, examples, prompt structure, scripts, code, docs text, or runtime behavior copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -1565,13 +1557,9 @@
         {
           "path": "sources/anthropic-skills.md",
           "category": "restricted-source"
-        },
-        {
-          "path": "sources/bencium-marketplace.md",
-          "category": "external-source"
         }
       ],
-      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -1616,13 +1604,9 @@
         {
           "path": "sources/anthropic-skills.md",
           "category": "restricted-source"
-        },
-        {
-          "path": "sources/bencium-marketplace.md",
-          "category": "external-source"
         }
       ],
-      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -1670,13 +1654,9 @@
         {
           "path": "sources/anthropic-skills.md",
           "category": "restricted-source"
-        },
-        {
-          "path": "sources/bencium-marketplace.md",
-          "category": "external-source"
         }
       ],
-      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -1767,13 +1747,9 @@
         {
           "path": "sources/anthropic-skills.md",
           "category": "restricted-source"
-        },
-        {
-          "path": "sources/bencium-marketplace.md",
-          "category": "external-source"
         }
       ],
-      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. Bencium source is marketplace/design inspiration with source-record caveats; use normalized guidance only.",
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -1880,6 +1856,54 @@
       ],
       "licenseStatus": "Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Playwright source record reports Apache-2.0; no framework source or docs text copied. Addy Osmani Web Quality source record reports MIT; no raw skill bodies copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "uiux.commercial-dashboard-polish-rubric",
+      "displayName": "Commercial Dashboard Polish Rubric",
+      "area": "uiux",
+      "methodPath": "methods/uiux/commercial-dashboard-polish-rubric.md",
+      "purpose": "Evaluate whether a dashboard, admin console, CRM, analytics surface, or SaaS operations view feels commercially credible without copying marketplace examples or brand patterns.",
+      "whenToUse": "Use during UI/UX review for customer-facing dashboards, investor-demo admin tools, monetized SaaS surfaces, and dense operational workflows.",
+      "whenNotToUse": "Do not use as permission to imitate marketplace screenshots, commercial copy, brand assets, template layouts, or proprietary examples.",
+      "passiveConsumerAgents": [
+        "UIUX Agent",
+        "Frontend Agent",
+        "Product Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "dashboard-ui-redesign"
+      ],
+      "riskDomains": [
+        "uiux"
+      ],
+      "validationGates": [
+        "Review desktop and mobile screenshots for hierarchy, scan speed, state coverage, action clarity, and content fit. Any commercial-quality claim needs rendered evidence, not only method selection."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/uiux/commercial-dashboard-polish-rubric.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored generic rubric. Historical Bencium source-safety evidence may remain as archive/reference context, but this method does not use Bencium as active source authority and does not copy upstream content.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, command block, package config, screenshot, brand asset, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
         "available",
@@ -2099,6 +2123,57 @@
       ],
       "licenseStatus": "code-review-graph source record reports an MIT signal for the reviewed commit and active-read-only metadata posture; this method is toolkit-owned and does not activate external graph tooling.",
       "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "orchestration.static-task-state-handoff-ledger",
+      "displayName": "Static Task State Handoff Ledger",
+      "area": "orchestration",
+      "methodPath": "methods/orchestration/static-task-state-handoff-ledger.md",
+      "purpose": "Keep complex agent work auditable with explicit task state, handoff facts, replanning triggers, and failure accounting without adopting runtime orchestration.",
+      "whenToUse": "Use for multi-step implementation, source-safety review, PR repair, validation loops, or handoff between agent lenses when work could drift or lose state.",
+      "whenNotToUse": "Do not use to create a daemon, memory layer, background worker, MCP server, file watcher, package script, global config, or runtime persistence.",
+      "passiveConsumerAgents": [
+        "Reviewer Agent",
+        "Architect Agent",
+        "Release Manager Agent",
+        "QA Test Agent",
+        "Skill Scout Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "source-safety-review",
+        "release-readiness-review"
+      ],
+      "riskDomains": [
+        "orchestration",
+        "internal"
+      ],
+      "validationGates": [
+        "Confirm that the final report can answer what changed, why it changed, what passed, what warned, what failed, what remains blocked, and what should happen next."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/orchestration/static-task-state-handoff-ledger.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored static governance method. Historical RuFlo source-safety review identified useful static concepts, but RuFlo remains REVIEWED_HELD and is not active source authority for this method. No memory hooks, MCP behavior, daemon logic, file watchers, package scripts, runtime persistence, source code, tests, prompts, or configuration copied or activated.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, command block, package config, screenshot, brand asset, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
         "available",

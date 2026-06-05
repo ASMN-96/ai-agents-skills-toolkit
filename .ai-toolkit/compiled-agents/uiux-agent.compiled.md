@@ -7,7 +7,7 @@ compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/uiux-agent.md
 source_profile_refs: ["profiles/uiux-profile.md", "profiles/frontend-profile.md", "profiles/fullstack-profile.md"]
-source_method_refs: ["internal.frontend-uiux-quality-gates", "matt.grill-me", "osmani.frontend-ui-engineering", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing", "mobile.native-mobile-app-quality"]
+source_method_refs: ["internal.frontend-uiux-quality-gates", "matt.grill-me", "osmani.frontend-ui-engineering", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing", "uiux.commercial-dashboard-polish-rubric", "mobile.native-mobile-app-quality"]
 compile_contract_version: 1.0.0
 ---
 
@@ -239,6 +239,21 @@ Do not use full browser checks for docs-only changes with no rendered surface.
 QA Test Agent, Frontend Agent, UIUX Agent, Reviewer Agent.
 ## Operating Rules
 
+### uiux.commercial-dashboard-polish-rubric
+
+Source: `methods/uiux/commercial-dashboard-polish-rubric.md`
+
+# Commercial Dashboard Polish Rubric
+## Purpose
+Evaluate whether a dashboard, admin console, CRM, analytics surface, or SaaS operations view feels commercially credible without copying marketplace examples or brand patterns.
+## When To Use
+Use during UI/UX review for customer-facing dashboards, investor-demo admin tools, monetized SaaS surfaces, and dense operational workflows.
+## When Not To Use
+Do not use as permission to imitate marketplace screenshots, commercial copy, brand assets, template layouts, or proprietary examples.
+## Agent Roles That Should Embed It
+UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
+## Operating Rules
+
 ### mobile.native-mobile-app-quality
 
 Source: `methods/mobile/native-mobile-app-quality.md`
@@ -258,8 +273,8 @@ Do not use for backend-only, desktop-only, or docs-only work unless mobile consu
 
 - Source agent path: `agents/uiux-agent.md`
 - Profile paths: `profiles/uiux-profile.md`, `profiles/frontend-profile.md`, `profiles/fullstack-profile.md`
-- Method IDs: `internal.frontend-uiux-quality-gates`, `matt.grill-me`, `osmani.frontend-ui-engineering`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`, `mobile.native-mobile-app-quality`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `matt-pocock-skills`, `microsoft-playwright`, `unknown-review-required`
+- Method IDs: `internal.frontend-uiux-quality-gates`, `matt.grill-me`, `osmani.frontend-ui-engineering`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`, `uiux.commercial-dashboard-polish-rubric`, `mobile.native-mobile-app-quality`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `matt-pocock-skills`, `microsoft-playwright`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

@@ -1,5 +1,5 @@
 ---
-sourceRef: ["addy-osmani-agent-skills","anthropic-skills","bencium-marketplace"]
+sourceRef: ["addy-osmani-agent-skills","anthropic-skills"]
 lastExtracted: unknown-review-required
 status: approved
 ---
@@ -44,6 +44,6 @@ Generic aesthetics, inaccessible controls, untested responsive states, or visual
 
 ## Source Inspiration / License Status
 
-Inspired by Addy frontend UI engineering, Bencium design audit ideas, and local UI/UX governance.
+Inspired by Addy frontend UI engineering, Anthropic restricted-source guidance, and local UI/UX governance.
 
 This is normalized/paraphrased guidance, not raw upstream activation.
