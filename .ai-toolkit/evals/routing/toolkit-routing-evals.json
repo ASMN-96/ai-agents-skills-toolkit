@@ -66,6 +66,10 @@
         "new-skill",
         "install",
         "activate"
+      ],
+      "forbiddenClaims": [
+        "governance-lite-active-skill",
+        "router-lite-active-skill"
       ]
     },
     {

@@ -141,11 +141,40 @@ async function main() {
     }
   }
 
+  const governanceLiteRoutingEval = (routingEvals.cases || []).find((evalCase) => evalCase.id === "governance-lite-router-method-only");
+  if (
+    !governanceLiteRoutingEval ||
+    governanceLiteRoutingEval.expectedMethod !== "governance.governance-lite-router-mode" ||
+    !includesAll(governanceLiteRoutingEval.expectedSkills || [], ["governance"]) ||
+    (governanceLiteRoutingEval.expectedSkills || []).length !== 1 ||
+    !includesAll(governanceLiteRoutingEval.forbiddenSkills || [], ["governance-lite", "router-lite"]) ||
+    !includesAll(governanceLiteRoutingEval.forbiddenActions || [], ["new-skill", "install", "activate"]) ||
+    !includesAll(governanceLiteRoutingEval.forbiddenClaims || [], ["governance-lite-active-skill", "router-lite-active-skill"])
+  ) {
+    fail(
+      "governance-lite-router-method-only",
+      "routing eval must enforce governance-lite as method-only and forbid active skill, install, activation, and false runtime claims"
+    );
+  }
+
+  const coderabbitCreditEval = (routingEvals.cases || []).find((evalCase) => evalCase.id === "pr-release-coderabbit-credit-fail-owner-review");
+  if (
+    !coderabbitCreditEval ||
+    coderabbitCreditEval.expectedAction !== "targeted-owner-review-support" ||
+    !includesAll(coderabbitCreditEval.expectedSkills || [], ["governance", "pr-release-gate"]) ||
+    !includesAll(coderabbitCreditEval.forbiddenClaims || [], ["coderabbit-passed"])
+  ) {
+    fail(
+      "pr-release-coderabbit-credit-fail-owner-review",
+      "credit-failure routing eval must enforce owner-review-support action and forbid coderabbit-passed claims"
+    );
+  }
+
   const governanceLiteScenario = findScenario(matrix, "governance-lite-router-mode");
   if (!governanceLiteScenario) {
     fail("governance-lite-router-mode", "routing matrix must include governance-lite/router-lite method-only scenario");
   } else {
-    if (!includesAll(governanceLiteScenario.skills || [], ["governance"])) {
+    if (!includesAll(governanceLiteScenario.skills || [], ["governance"]) || (governanceLiteScenario.skills || []).length !== 1) {
       fail("governance-lite-router-mode", "governance-lite routing must use the existing governance skill");
     }
     if ((governanceLiteScenario.skills || []).includes("governance-lite") || (governanceLiteScenario.skills || []).includes("router-lite")) {
@@ -153,6 +182,18 @@ async function main() {
     }
     if (!includesAll(governanceLiteScenario.methodReferences || [], ["governance.governance-lite-router-mode"])) {
       fail("governance-lite-router-mode", "governance-lite routing must reference the passive governance-lite method");
+    }
+    if (governanceLiteScenario.tokenMode !== "concise") {
+      fail("governance-lite-router-mode", "governance-lite routing must default to concise token mode");
+    }
+    if (!includesAll(governanceLiteScenario.stopConditions || [], ["Source freshness fails before source/utilization or release work"])) {
+      fail("governance-lite-router-mode", "governance-lite routing must preserve source freshness stop condition");
+    }
+    if (!includesAll(governanceLiteScenario.validationGates || [], ["Branch and HEAD reported when branch/source truth matters", "Source freshness and runtime count reported when relevant"])) {
+      fail("governance-lite-router-mode", "governance-lite routing must validate branch/source truth and conditional freshness/runtime evidence");
+    }
+    if (!includesAll(governanceLiteScenario.expectedCompletionReport || [], ["branch and HEAD", "runtime count if runtime surfaces are in scope", "source freshness and source-truth status if release/source/public-safety surfaces are in scope"])) {
+      fail("governance-lite-router-mode", "governance-lite completion report must include branch, runtime, and source-truth evidence when relevant");
     }
   }
 

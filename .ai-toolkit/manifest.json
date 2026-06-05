@@ -264,7 +264,7 @@
       "source": "registries/routing-matrix.json",
       "target": ".ai-toolkit/registries/routing-matrix.json",
       "mode": "byte-identical",
-      "sha256": "3f2dfcb1c6d8eb09383534237c9bc186a7e0f6952025f0982c7731773d8bef40"
+      "sha256": "298c1eac6796ae0ed8d502e9c519cf90ce837232e1f818cbba1d65fbbcb57921"
     },
     {
       "source": "registries/skills.registry.json",

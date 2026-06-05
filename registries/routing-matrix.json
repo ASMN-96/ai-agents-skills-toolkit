@@ -1601,22 +1601,28 @@
         "Request would add governance-lite or router-lite as a sixth active skill",
         "Approval-required surface appears",
         "Required validation cannot run",
-        "No-fake-validation boundary would be violated"
+        "No-fake-validation boundary would be violated",
+        "Source freshness fails before source/utilization or release work"
       ],
       "validationGates": [
         "Affected surfaces classified",
         "Selected tools separated from executed tools",
         "Stop conditions stated before risky actions",
-        "Actual output required for validation claims"
+        "Actual output required for validation claims",
+        "Branch and HEAD reported when branch/source truth matters",
+        "Source freshness and runtime count reported when relevant"
       ],
       "expectedCompletionReport": [
+        "branch and HEAD",
         "routing decision",
         "selected vs executed tools",
         "validation evidence",
         "WARN/skipped gates",
+        "runtime count if runtime surfaces are in scope",
+        "source freshness and source-truth status if release/source/public-safety surfaces are in scope",
         "residual risk"
       ],
-      "tokenMode": "standard",
+      "tokenMode": "concise",
       "methodReferences": [
         "governance.governance-lite-router-mode",
         "governance.task-intake-routing-gate"
