@@ -20,6 +20,8 @@ For normal-language tasks, run `methods/governance/task-intake-routing-gate.md` 
 
 For package-manager command recommendations, route through `methods/repo/package-manager-workspace-migration.md`. Detect or owner-confirm the target package manager first, do not assume npm, and stop when package-manager signals are missing or conflicting.
 
+For tool activation, distinguish registry metadata, project-owned tools, and missing tools. Already project-owned tools may be recommended as `active-if-detected` only when safe for the approved scope. Missing tools are `owner-approved-install`; do not install, edit package files, wire CI, configure MCP/global settings, or claim output from metadata.
+
 ## Destructive Command Restrictions
 
 Do not run without explicit approval and verified scope:
@@ -34,6 +36,7 @@ Do not run without explicit approval and verified scope:
 - production-impacting commands;
 - credential, secret, cookie, token, or private environment access unless explicitly required and safe;
 - package, CI, deployment, database, auth, security, MCP, or global config changes.
+- missing-tool install/configuration under an `owner-approved-install` posture.
 
 ## Changed-File Budget
 
@@ -68,3 +71,4 @@ Escalate before package-manager changes, package installs, CI edits, deployment 
 - The command can affect production, secrets, history, database, package manager, CI, deployment, MCP/global config, or product repos.
 - A package-manager command is needed but package-manager signals are missing or conflicting.
 - The agent cannot distinguish selected/recommended tools from executed tools.
+- A missing tool is being treated as already active, or CI blocking is being claimed before calibration and owner approval.

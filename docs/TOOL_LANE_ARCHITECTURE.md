@@ -10,6 +10,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 - Owning agents/skills: governance, product-agent, architect-agent, reviewer-agent, release-manager-agent, skill-scout-agent.
 - Resources/tools: AGENTS.md, README.md, docs/NO_FAKE_VALIDATION_POLICY.md, docs/REAL_PROJECT_READINESS.md, docs/PROJECT_TOOLING_OPERATING_MODEL.md, methods/governance/task-intake-routing-gate.md, GSD and Superpowers as external-only discipline tools.
 - Governance-lite/router-lite posture: `methods/governance/governance-lite-router-mode.md` may be used as concise routing metadata through the existing governance skill. It is not a sixth skill and does not install, activate, configure, or execute anything.
+- GSD-style discipline posture: active governance discipline/reference only when already available; no install, vendoring, package change, global config, or runtime activation without approval.
 - Install posture: external-only or metadata-only; no project install from toolkit registry presence.
 - Evidence required: branch, working tree, source-of-truth files read, selected profile, commands actually run, skipped checks, WARN output, owner decisions.
 - Stop conditions: dirty or wrong branch, missing owner approval for package/CI/MCP/global/product changes, validation claims without output, source/license uncertainty, destructive command risk.
@@ -21,7 +22,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 - Purpose: convert product intent into concrete design acceptance criteria and verify rendered quality with browser evidence.
 - Owning agents/skills: uiux, uiux-agent, frontend-agent, qa-test-agent, reviewer-agent.
 - Resources/tools: UI UX Pro Max as internal premium rubric; Impeccable as primary external UI/UX design intelligence reference; shadcn/ui as design-system and component pattern reference only; Addy Osmani UI/web quality methods; Anthropic UI/frontend guidance as restricted normalized guidance only; toolkit-owned commercial dashboard polish rubric; Uncodixfy anti-generic AI UI guidance; VoltAgent design-context references if already tracked; Playwright, Axe Playwright, and Lighthouse CI as evidence tools.
-- Install posture: UI/UX references are active-reference only. open-design is active-reference. Playwright is default-install for serious UI/browser apps. Axe Playwright and Lighthouse CI are active-install-if-project-type. Impeccable project-local install is approval-required. shadcn/ui is not a default CLI/component import path.
+- Install posture: UI/UX references are active-reference only. open-design is active-reference. Playwright is `active-if-detected` when project-owned, `owner-approved-install` when absent, `ci-advisory` first, and `ci-blocking-after-calibration` only after stable evidence and approval. Axe Playwright and Lighthouse CI are active-install-if-project-type. Impeccable project-local install is approval-required. shadcn/ui is not a default CLI/component import path.
 - Evidence required: acceptance criteria, screenshots or browser observations when claimed, viewport/state/accessibility coverage, actual Playwright/Axe/Lighthouse output when reported.
 - Stop conditions: unclear design criteria, unapproved external design source, raw prompt/source copying risk, CLI/component import request without approval, browser evidence unavailable while browser readiness is being claimed.
 - When to call the lane: UI polish, dashboard, workflow, responsive, accessibility, mobile visual behavior, public web, design-system, and browser-visible quality tasks.
@@ -33,7 +34,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 - Purpose: keep React, TypeScript, hooks, tests, and UI code quality grounded in project-owned executable checks.
 - Owning agents/skills: code-quality, frontend-agent, reviewer-agent, qa-test-agent.
 - Resources/tools: TypeScript/typecheck, ESLint, typescript-eslint, eslint-plugin-react-hooks, Vitest, Testing Library, Playwright, React Doctor, Oxlint, Biome, Knip.
-- Install posture: TypeScript, ESLint, typescript-eslint, eslint-plugin-react-hooks, Vitest, Testing Library, and serious-app Playwright are default-install recommendations for relevant projects. React Doctor is active-install-if-project-type for React projects. Oxlint is active-install-if-project-type for large JS/TS/React acceleration. Biome is use-if-existing or owner-approved migration only. Knip is use-if-existing cleanup/archive only and removed from active/default profiles.
+- Install posture: TypeScript, ESLint, typescript-eslint, eslint-plugin-react-hooks, Vitest, Testing Library, and serious-app Playwright remain recommendation metadata for relevant projects. React Doctor is `active-if-detected` when project-owned and `owner-approved-install` when absent; GitHub Action, PR writes, and agent skill install remain approval-required. Oxlint is `active-if-detected` or `owner-approved-install` for large JS/TS/React acceleration. Biome is use-if-existing or owner-approved migration only. Knip is use-if-existing cleanup/archive only and removed from active/default profiles.
 - Evidence required: project-owned typecheck/lint/test/build output, React Doctor output only when actually run, Playwright output only when actually run, clear skipped/unavailable labels.
 - Stop conditions: missing owner approval for new dependencies or package-manager change, ESLint/Biome/Oxlint conflict unresolved, scanner output being treated as architecture authority, unverified React quality claim.
 - When to call the lane: React/TypeScript implementation, hook changes, frontend tests, build quality, AI-generated code review, large repo lint acceleration.
@@ -44,7 +45,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 - Purpose: protect trust boundaries, auth, authorization, public/private payloads, secrets, dependencies, containers, IaC, and data safety.
 - Owning agents/skills: security-review, security-agent, backend-contract-agent, database-rls-agent, reviewer-agent.
 - Resources/tools: Gitleaks, OSV Scanner, Semgrep, CodeQL, Trivy, Checkov, Socket, TruffleHog, OWASP ZAP baseline, Harden-Runner.
-- Install posture: Gitleaks and OSV Scanner are default-install baseline recommendations. Semgrep is active-install-if-project-type for security-sensitive repos. CodeQL is use-if-existing/platform code scanning. Trivy is active-install-if-project-type when containers/IaC/SBOM exist. Checkov is active-install-if-project-type when IaC/cloud config exists. Socket, TruffleHog, OWASP ZAP, Harden-Runner, and deep networked scans are approval-required.
+- Install posture: Gitleaks and OSV Scanner are `active-if-detected` or `owner-approved-install` baseline security tools. Semgrep is `active-if-detected` when project rules/config exist and `owner-approved-install` when absent; start as `ci-advisory` until rules are scoped. CodeQL is use-if-existing/platform code scanning. Trivy is active-install-if-project-type when containers/IaC/SBOM exist. Checkov is active-install-if-project-type when IaC/cloud config exists. Socket, TruffleHog, OWASP ZAP, Harden-Runner, and deep networked scans are approval-required.
 - Evidence required: actual scanner output when claimed, affected auth/data boundaries, dependency/container/IaC scope, skipped deep-scan rationale, owner approval for approval-required tools.
 - Stop conditions: possible secret exposure, unclear auth boundary, public/private payload uncertainty, tenant isolation risk, production-impacting scan request, deep tool approval missing.
 - When to call the lane: auth, security, secrets, dependency risk, public payloads, tenant data, API trust boundaries, WebView native bridge risk, IaC/container risk.
@@ -66,7 +67,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 - Purpose: harden module boundaries, dependency flow, duplication risk, circular dependency risk, and context selection for large-agent work.
 - Owning agents/skills: governance, architect-agent, reviewer-agent, sre-performance-agent, code-quality.
 - Resources/tools: dependency-cruiser as first architecture hardening tool, Madge for circular dependency risk, eslint-plugin-boundaries only after layers are stable and owner-approved, jscpd for duplication detection, code-review-graph active-read-only source intelligence, context graph/token-budget methods.
-- Install posture: dependency-cruiser, Madge, jscpd, and eslint-plugin-boundaries are active-install-if-project-type where project type and owner approval match. code-review-graph is active-read-only with no MCP/global config/product indexing or scanning by default.
+- Install posture: dependency-cruiser, Madge, and jscpd are `active-if-detected` when project-owned and `owner-approved-install` when absent. eslint-plugin-boundaries is active-install-if-project-type only after layers are stable and owner-approved. code-review-graph is active-read-only with no MCP/global config/product indexing or scanning by default.
 - Evidence required: architecture map, affected boundaries, actual tool output if run, changed-file neighborhood, token/context compacting decisions.
 - Stop conditions: whole-repo dump request, private-overlay exposure, unstable layers for eslint-plugin-boundaries, tool-generated graph claimed without output, indexing/global/MCP request without approval.
 - When to call the lane: architecture hardening, module boundary issues, large repo context planning, circular dependency suspicion, duplication hardening.
@@ -100,6 +101,10 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 - Normal-language tasks enter through the task-intake routing gate before coding.
 - Governance-lite/router-lite remains method/profile/routing metadata only; runtime stays at the approved canonical skill count.
 - Project-owned checks come first.
+- Project-owned tools may be recommended as `active-if-detected` when safe for the approved scope.
+- Missing tools remain `owner-approved-install`; package-manager detection is required before command recommendations.
+- CI starts as `ci-advisory` for noisy or newly adopted tools and becomes `ci-blocking-after-calibration` only with stable evidence and owner approval.
+- RuFlo-style concepts are `held-static-only`; hooks, memory, MCP, daemon, global config, watchers, and runtime persistence are `forbidden-runtime`.
 - Registry presence does not install, activate, configure, or run tools.
 - Selected or recommended tools must be reported separately from actually executed tools.
 - Owner approval is required for new project installs, package-manager changes, CI changes, MCP/global config changes, deep scans, and permission-granting integrations.

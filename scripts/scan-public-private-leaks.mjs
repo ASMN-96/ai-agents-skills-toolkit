@@ -2,6 +2,7 @@
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 
 const ROOT = process.cwd();
 const DEFAULT_OUTPUT = "docs/PUBLIC_PRIVATE_LEAK_REPORT.md";
@@ -113,7 +114,7 @@ function toSlash(filePath) {
 }
 
 function parseArgs(argv) {
-  const args = { output: DEFAULT_OUTPUT, json: null, maxFindings: MAX_FINDINGS };
+  const args = { output: DEFAULT_OUTPUT, json: null, maxFindings: MAX_FINDINGS, check: false };
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === "--output") {
@@ -125,11 +126,16 @@ function parseArgs(argv) {
     } else if (arg === "--max-findings") {
       args.maxFindings = Number(argv[index + 1]);
       index += 1;
+    } else if (arg === "--check" || arg === "--no-write") {
+      args.check = true;
     } else if (arg === "--help" || arg === "-h") {
       args.help = true;
     } else {
       throw new Error(`Unknown argument: ${arg}`);
     }
+  }
+  if (args.check && args.json) {
+    throw new Error("--json cannot be combined with --check/--no-write because check mode does not write report files");
   }
   return args;
 }
@@ -318,6 +324,14 @@ function countBy(findings, key) {
   return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 }
 
+function countCurrentTreeBlockers(findings) {
+  return findings.filter((finding) => finding.classification === "current-tree-blocker").length;
+}
+
+function checkModeExitCode(findings) {
+  return countCurrentTreeBlockers(findings) > 0 ? 1 : 0;
+}
+
 function escapeCell(value) {
   return String(value).replace(/\|/g, "\\|").replace(/\r?\n/g, " ");
 }
@@ -325,7 +339,7 @@ function escapeCell(value) {
 function renderReport(findings, scannedFiles, maxFindings) {
   const limitedFindings = findings.slice(0, maxFindings);
   const truncated = findings.length > limitedFindings.length;
-  const currentTreeBlockers = findings.filter((finding) => finding.classification === "current-tree-blocker").length;
+  const currentTreeBlockers = countCurrentTreeBlockers(findings);
   const publicReleaseStatus = currentTreeBlockers > 0
     ? `blocked by ${currentTreeBlockers} current-tree blocker${currentTreeBlockers === 1 ? "" : "s"}`
     : "no current-tree blockers; remaining findings require explicit owner acceptance or documented exclusion";
@@ -388,13 +402,7 @@ function renderReport(findings, scannedFiles, maxFindings) {
   return `${sections.join("\n")}\n`;
 }
 
-async function main() {
-  const args = parseArgs(process.argv.slice(2));
-  if (args.help) {
-    console.log("Usage: node scripts/scan-public-private-leaks.mjs [--output docs/PUBLIC_PRIVATE_LEAK_REPORT.md] [--json docs/PUBLIC_PRIVATE_LEAK_REPORT.json]");
-    return;
-  }
-
+async function scanTree() {
   const files = [];
   for (const root of INCLUDE_ROOTS) {
     await walk(root, files);
@@ -408,21 +416,70 @@ async function main() {
   }
 
   findings.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line || a.id.localeCompare(b.id));
+  return { uniqueFiles, findings };
+}
+
+function printSummary({ outputLabel, scannedFiles, findings }) {
+  console.log(outputLabel);
+  console.log(`scanned files: ${scannedFiles}`);
+  console.log(`findings: ${findings.length}`);
+  console.log(`Current-tree blockers: ${countCurrentTreeBlockers(findings)}`);
+  for (const [classification, count] of countBy(findings, "classification")) {
+    console.log(`${classification}: ${count}`);
+  }
+}
+
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+  if (args.help) {
+    console.log([
+      "Usage: node scripts/scan-public-private-leaks.mjs [--check|--no-write] [--output docs/PUBLIC_PRIVATE_LEAK_REPORT.md] [--json docs/PUBLIC_PRIVATE_LEAK_REPORT.json] [--max-findings 1200]",
+      "",
+      "Modes:",
+      "  --check, --no-write  Scan the current tree and fail on current-tree blockers without writing Markdown or JSON reports.",
+      "  default              Regenerate the Markdown report and optional JSON report."
+    ].join("\n"));
+    return;
+  }
+
+  const { uniqueFiles, findings } = await scanTree();
+  if (args.check) {
+    printSummary({
+      outputLabel: "PUBLIC_PRIVATE_LEAK_REPORT check-only (no files written)",
+      scannedFiles: uniqueFiles.length,
+      findings
+    });
+    process.exitCode = checkModeExitCode(findings);
+    return;
+  }
+
   const report = renderReport(findings, uniqueFiles.length, args.maxFindings);
   await writeFile(rootPath(args.output), report, "utf8");
   if (args.json) {
     await writeFile(rootPath(args.json), `${JSON.stringify({ scannedFiles: uniqueFiles.length, findings }, null, 2)}\n`, "utf8");
   }
 
-  console.log(`PUBLIC_PRIVATE_LEAK_REPORT ${args.output}`);
-  console.log(`scanned files: ${uniqueFiles.length}`);
-  console.log(`findings: ${findings.length}`);
-  for (const [classification, count] of countBy(findings, "classification")) {
-    console.log(`${classification}: ${count}`);
-  }
+  printSummary({
+    outputLabel: `PUBLIC_PRIVATE_LEAK_REPORT ${args.output}`,
+    scannedFiles: uniqueFiles.length,
+    findings
+  });
 }
 
-await main().catch((error) => {
-  console.error(`FAIL scan-public-private-leaks: ${error.message}`);
-  process.exitCode = 1;
-});
+export {
+  checkModeExitCode,
+  countBy,
+  countCurrentTreeBlockers,
+  parseArgs,
+  scanFile,
+  scanTree
+};
+
+const isDirectRun = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isDirectRun) {
+  await main().catch((error) => {
+    console.error(`FAIL scan-public-private-leaks: ${error.message}`);
+    process.exitCode = 1;
+  });
+}

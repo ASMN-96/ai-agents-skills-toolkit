@@ -2,6 +2,36 @@
 
 Every tool or resource below has exactly one primary v0.2 classification. The classification describes recommended project adoption posture only. It does not install, activate, configure, run, or approve any tool.
 
+## v0.2.2 Activation Vocabulary
+
+The v0.2 project install classes remain for compatibility, but v0.2.2 adds explicit activation levels:
+
+- `active-reference`: guidance only; no execution.
+- `active-if-detected`: if a target repo already owns the tool/config/script, the toolkit may recommend using that project-owned path.
+- `owner-approved-install`: valuable when absent, but installation/configuration requires explicit owner approval.
+- `ci-advisory`: CI signal only while rules, noise, artifacts, and false positives are calibrated.
+- `ci-blocking-after-calibration`: release gate only after stable evidence and explicit owner approval.
+- `held-static-only`: static governance concepts only; no runtime activation.
+- `forbidden-runtime`: no runtime activation because of MCP, daemon, global, memory, watcher, persistence, or security conflict.
+
+Package-manager detection must happen before recommending package-manager commands. No tool output may be claimed unless the tool actually ran and output was observed.
+
+## v0.2.2 Full-Power Posture Overlay
+
+| Tool/category | Activation when already project-owned | When absent | CI posture | Hard boundary |
+|---|---|---|---|---|
+| React Doctor | `active-if-detected` in React projects | `owner-approved-install` | `ci-advisory`; `ci-blocking-after-calibration` only after stable React evidence | GitHub Action, PR writes, and agent skill install require separate approval |
+| Playwright | `active-if-detected` for approved browser targets | `owner-approved-install` | `ci-advisory` first; `ci-blocking-after-calibration` only after stable test evidence | No browser download, MCP, CI, package, or product-repo change from metadata |
+| Gitleaks | `active-if-detected` baseline secret scan | `owner-approved-install` | advisory until policy is calibrated | Deep/history scans remain separately scoped |
+| OSV Scanner | `active-if-detected` dependency baseline | `owner-approved-install` | advisory until dependency policy is calibrated | No vulnerability claim without observed output |
+| Semgrep | `active-if-detected` when rules/config exist | `owner-approved-install` | `ci-advisory` until rules are scoped | Do not turn noisy rules into blockers by default |
+| Oxlint | `active-if-detected` supplement for large JS/TS/React repos | `owner-approved-install` | advisory until lint ownership is clear | Does not replace ESLint or typed rules without approval |
+| dependency-cruiser / Madge | `active-if-detected` architecture/cycle checks | `owner-approved-install` | advisory until boundaries are agreed | Do not claim generated graphs without output |
+| jscpd | `active-if-detected` duplication checks | `owner-approved-install` | advisory until duplication thresholds are accepted | Do not drive broad refactors from scanner output alone |
+| actionlint / zizmor | `active-if-detected` workflow hardening | `owner-approved-install` | advisory until workflow policy is calibrated | No CI rewrite or permissions change from metadata |
+| GSD-style discipline | `active-reference` or external discipline when already available | approval required for any install/vendor/global config | n/a | Do not vendor or duplicate GSD in the toolkit |
+| RuFlo-style concepts | `held-static-only` | not approved for runtime | n/a | Runtime hooks, memory, MCP, daemon, global config, watchers, and persistence are `forbidden-runtime` |
+
 | Tool/resource | Lane | Classification | Install location | When to use | When not to use | Evidence output | Owner approval required | Conflict/overlap notes |
 |---|---|---|---|---|---|---|---|---|
 | TypeScript / typecheck | Frontend Coding and React Quality | default-install | target project dev dependency or existing script | Typed JS/TS projects | Non-TS projects | `typecheck` or equivalent output | Yes for new install | Baseline type evidence, not formatting |

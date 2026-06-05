@@ -139,6 +139,20 @@ The following project install classes are metadata-only recommendation posture. 
 - Base UI: removed-from-current-scope.
 - Figma: removed-from-current-scope.
 
+## v0.2.2 Activation Overlay
+
+The project install classes above remain metadata-only. v0.2.2 adds a stronger detected-tool model:
+
+- React Doctor: `active-if-detected`; `owner-approved-install` when absent; Action/PR write/agent skill install separately approval-gated.
+- Playwright: `active-if-detected`; `ci-advisory` first; `ci-blocking-after-calibration` only after stable evidence and owner approval; source freshness may remain `REVIEWED_HELD` when upstream drift is runtime-sensitive.
+- Gitleaks and OSV Scanner: `active-if-detected` or `owner-approved-install` as baseline security tools.
+- Semgrep: `active-if-detected` when present; `owner-approved-install` when absent; `ci-advisory` until rules are scoped.
+- Oxlint: `active-if-detected` or `owner-approved-install`; supplements ESLint and typed rules.
+- dependency-cruiser, Madge, and jscpd: `active-if-detected` or `owner-approved-install` for architecture and duplication checks.
+- actionlint and zizmor: `active-if-detected` or `owner-approved-install` for GitHub Actions hardening.
+- GSD-style discipline: active governance discipline/reference when already available; no install, vendoring, or global config without approval.
+- RuFlo-style concepts: `held-static-only`; runtime hooks, memory, MCP, daemon, global config, background process, file watcher, and runtime persistence are `forbidden-runtime`.
+
 ## Rejected Operations
 
 - [Reject / not aligned] No raw shadcn CLI/component import, registry JSON import, package install, or MCP setup.

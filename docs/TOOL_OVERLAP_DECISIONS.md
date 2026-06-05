@@ -26,7 +26,7 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 - Default winner: ESLint/React Hooks for baseline React correctness.
 - Complementary tool: React Doctor for React-specific smell, performance, architecture, accessibility, and AI-generated code risk.
 - Conflict rule: React Doctor does not replace lint/type/test/build gates.
-- When to activate: React projects with owner-approved project-local adoption or existing script.
+- When to activate: `active-if-detected` for React projects with an existing project-owned script/config; `owner-approved-install` when absent.
 - When to avoid: non-React projects or automation/PR writes without approval.
 - Evidence requirement: React Doctor output only when actually run.
 
@@ -35,7 +35,7 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 - Default winner: Vitest for fast test execution.
 - Complementary tool: Testing Library for component/user behavior; Playwright for browser/runtime evidence.
 - Conflict rule: unit/component tests do not prove browser behavior; Playwright does not replace unit tests.
-- When to activate: use Vitest/Testing Library for changed UI logic and Playwright for browser-visible workflows.
+- When to activate: use Vitest/Testing Library for changed UI logic and Playwright as `active-if-detected` for browser-visible workflows when project-owned; use `owner-approved-install` when absent.
 - When to avoid: backend-only changes or unavailable browser target without clearly reporting the gap.
 - Evidence requirement: test output, browser output, screenshots/traces only when collected.
 
@@ -44,7 +44,7 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 - Default winner: Gitleaks for baseline current-tree secret scanning.
 - Complementary tool: TruffleHog for deeper secret scanning after approval.
 - Conflict rule: deep history/networked scans require scope and approval.
-- When to activate: Gitleaks for baseline; TruffleHog for approved deep review.
+- When to activate: Gitleaks as `active-if-detected` when project-owned or `owner-approved-install` when absent; TruffleHog for approved deep review.
 - When to avoid: unbounded secret scans or production-impacting access.
 - Evidence requirement: scanner findings and current-tree blocker classification.
 
@@ -53,7 +53,7 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 - Default winner: OSV Scanner for baseline dependency vulnerability checks.
 - Complementary tool: Socket for approved supply-chain risk review.
 - Conflict rule: Socket is approval-required and must not become default from metadata.
-- When to activate: OSV for dependency manifests; Socket for security-sensitive owner-approved analysis.
+- When to activate: OSV as `active-if-detected` when project-owned or `owner-approved-install` when absent; Socket for security-sensitive owner-approved analysis.
 - When to avoid: no dependency manifest or no approval.
 - Evidence requirement: actual dependency scanner output.
 
@@ -62,7 +62,7 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 - Default winner: project-owned Semgrep for security-sensitive repos when approved.
 - Complementary tool: CodeQL if existing as platform code scanning.
 - Conflict rule: do not duplicate findings into noisy blockers; use the project policy to decide authority.
-- When to activate: Semgrep for targeted security rules; CodeQL when already enabled.
+- When to activate: Semgrep as `active-if-detected` when project-owned rules/config exist or `owner-approved-install` when absent; start new CI use as `ci-advisory` until rules are scoped. CodeQL when already enabled.
 - When to avoid: style-only changes or unapproved scanner setup.
 - Evidence requirement: actual scanner findings or alerts.
 
@@ -80,7 +80,7 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 - Default winner: Playwright for browser workflow evidence.
 - Complementary tool: Axe for accessibility checks; Lighthouse for performance/public web quality.
 - Conflict rule: each tool answers a different question and must not be reported as proof of the others.
-- When to activate: Playwright for flows, Axe for accessibility, Lighthouse for performance-sensitive/public/mobile web.
+- When to activate: Playwright as `active-if-detected` for flows when project-owned; Axe/Lighthouse when project-owned or owner-approved. New CI use starts as `ci-advisory`.
 - When to avoid: no browser target or backend-only scope.
 - Evidence requirement: actual report, screenshots, traces, or documented unavailability.
 
@@ -89,7 +89,7 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 - Default winner: dependency-cruiser for architecture hardening.
 - Complementary tool: Madge for circular dependency risk, jscpd for duplication, eslint-plugin-boundaries after layers stabilize and owner approval exists, code-review-graph as active-read-only source intelligence.
 - Conflict rule: do not install graph/indexing/MCP/global tooling or scan product repos by default; do not enforce boundaries before layers are agreed.
-- When to activate: architecture hardening, cycles, dependency boundaries, large-context planning.
+- When to activate: dependency-cruiser, Madge, and jscpd as `active-if-detected` when project-owned or `owner-approved-install` when absent; code-review-graph remains active-read-only source intelligence.
 - When to avoid: small local changes or unapproved indexing.
 - Evidence requirement: tool output when run, architecture assumptions, and context-selection rationale.
 
@@ -125,7 +125,7 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 - Default winner: governance skill inside this toolkit.
 - Complementary tool: GSD as external execution discipline when available.
 - Conflict rule: do not duplicate or vendor GSD in the toolkit.
-- When to activate: planning or execution discipline when the external plugin is already available.
+- When to activate: active governance discipline/reference when the external plugin is already available.
 - When to avoid: simple tasks or any request to install/activate from registry metadata.
 - Evidence requirement: selected/not invoked status or actual observed tool output.
 
@@ -137,3 +137,12 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 - When to activate: complex implementation or validation loops when available and useful.
 - When to avoid: package/global/plugin installation requests without approval.
 - Evidence requirement: selected/not invoked status or actual observed tool output.
+
+## RuFlo-Style Concepts vs Runtime Orchestration
+
+- Default winner: toolkit-authored static governance methods.
+- Complementary tool: RuFlo-style concepts only as `held-static-only` source-safety context.
+- Conflict rule: runtime hooks, memory bridges, MCP, daemons, background processes, global config, file watchers, package scripts, and runtime persistence are `forbidden-runtime`.
+- When to activate: never as runtime; use only static governance ideas already normalized into toolkit-owned methods.
+- When to avoid: any install, package/config change, hook, daemon, MCP, watcher, memory, or persistent runtime request.
+- Evidence requirement: source-safety boundary and explicit no-runtime statement.

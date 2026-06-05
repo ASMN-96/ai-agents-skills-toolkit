@@ -101,6 +101,42 @@ const TOOL_EXPECTATIONS = new Map([
   ["eslint-plugin-boundaries", "active-install-if-project-type"]
 ]);
 
+const ACTIVATION_LEVELS = new Set([
+  "active-reference",
+  "active-if-detected",
+  "owner-approved-install",
+  "ci-advisory",
+  "ci-blocking-after-calibration",
+  "held-static-only",
+  "forbidden-runtime"
+]);
+
+const ACTIVATION_EXPECTATIONS = new Map([
+  ["react-doctor", {
+    levels: ["active-if-detected", "owner-approved-install"],
+    whenDetected: "project-owned",
+    whenAbsent: "Owner-approved install",
+    ciDefault: "ci-advisory",
+    ciPromotion: "ci-blocking-after-calibration"
+  }],
+  ["playwright", {
+    levels: ["active-if-detected", "owner-approved-install", "ci-advisory", "ci-blocking-after-calibration"],
+    whenDetected: "project-owned Playwright",
+    whenAbsent: "Owner-approved install",
+    ciDefault: "ci-advisory first",
+    ciPromotion: "ci-blocking-after-calibration"
+  }],
+  ["gitleaks", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }],
+  ["osv-scanner", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }],
+  ["semgrep", { levels: ["active-if-detected", "owner-approved-install", "ci-advisory"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }],
+  ["oxlint", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }],
+  ["dependency-cruiser", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }],
+  ["madge", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }],
+  ["jscpd", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }],
+  ["actionlint", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }],
+  ["zizmor", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }]
+]);
+
 const ENTERPRISE_READINESS_METHOD_IDS = [
   "governance.task-intake-routing-gate",
   "reliability.coding-time-production-readiness",
@@ -186,6 +222,12 @@ function includesIgnoreCase(haystack, needle) {
   return haystack.toLowerCase().includes(needle.toLowerCase());
 }
 
+function requireTextIncludes(check, location, text, required) {
+  if (!includesIgnoreCase(text || "", required)) {
+    fail(check, location, `missing required text: ${required}`);
+  }
+}
+
 async function validatePlannerAndApply() {
   note("tooling planner/apply behavior");
   const planText = await read("install/tooling-plan.mjs");
@@ -262,6 +304,20 @@ async function validateDocBoundaries() {
   }
   if (!matrix.includes("open-design | UI/UX Design Intelligence and Browser Evidence | active-reference")) {
     fail("project tooling document boundaries", "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md", "open-design must be active-reference");
+  }
+  for (const required of [
+    "active-if-detected",
+    "owner-approved-install",
+    "ci-advisory",
+    "ci-blocking-after-calibration",
+    "held-static-only",
+    "forbidden-runtime",
+    "GSD-style discipline",
+    "RuFlo-style concepts"
+  ]) {
+    if (!matrix.includes(required) && !operating.includes(required)) {
+      fail("project tooling document boundaries", "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md", `missing activation-model wording: ${required}`);
+    }
   }
   for (const required of ["controlled open-source Codex use as a v0.2 release candidate", "not Level 4", "not Level 5", "not enterprise-certified", "not cross-runtime active support", "not automatic tool installation", "controlled dry-run adoption"]) {
     if (!releaseCandidate.includes(required)) {
@@ -358,6 +414,13 @@ async function validateRegistryConsistency() {
   const codeReviewGraphSource = await read("sources/code-review-graph.md");
 
   const tools = new Map((toolsRegistry?.tools || []).map((tool) => [tool.id, tool]));
+  for (const tool of toolsRegistry?.tools || []) {
+    for (const level of tool.activationLevels || []) {
+      if (!ACTIVATION_LEVELS.has(level)) {
+        fail("project tooling registry consistency", `registries/tools.registry.json:${tool.id}`, `unknown activation level ${level}`);
+      }
+    }
+  }
   for (const [id, expected] of TOOL_EXPECTATIONS) {
     const tool = tools.get(id);
     if (!tool) {
@@ -367,6 +430,22 @@ async function validateRegistryConsistency() {
     if (tool.projectInstallClass !== expected) {
       fail("project tooling registry consistency", `registries/tools.registry.json:${id}`, `expected projectInstallClass ${expected}, got ${tool.projectInstallClass || "missing"}`);
     }
+  }
+  for (const [id, expected] of ACTIVATION_EXPECTATIONS) {
+    const tool = tools.get(id);
+    if (!tool) {
+      fail("project tooling registry consistency", `registries/tools.registry.json:${id}`, "missing required activation-model tool entry");
+      continue;
+    }
+    for (const level of expected.levels) {
+      if (!tool.activationLevels?.includes(level)) {
+        fail("project tooling registry consistency", `registries/tools.registry.json:${id}`, `missing activation level ${level}`);
+      }
+    }
+    requireTextIncludes("project tooling registry consistency", `registries/tools.registry.json:${id}:whenDetected`, tool.whenDetected, expected.whenDetected);
+    requireTextIncludes("project tooling registry consistency", `registries/tools.registry.json:${id}:whenAbsent`, tool.whenAbsent, expected.whenAbsent);
+    requireTextIncludes("project tooling registry consistency", `registries/tools.registry.json:${id}:ciDefault`, tool.ciDefault, expected.ciDefault);
+    requireTextIncludes("project tooling registry consistency", `registries/tools.registry.json:${id}:ciPromotion`, tool.ciPromotion, expected.ciPromotion);
   }
   const codeReviewGraph = tools.get("code-review-graph");
   if (codeReviewGraph?.status !== "active-read-only") {
@@ -421,7 +500,7 @@ async function validateRegistryConsistency() {
   }
 
   const packText = JSON.stringify(toolPack || {});
-  for (const required of ["projectInstallClass", "React Doctor", "Knip", "Oxlint", "Biome"]) {
+  for (const required of ["projectInstallClass", "activationLevels", "active-if-detected", "owner-approved-install", "React Doctor", "Knip", "Oxlint", "Biome"]) {
     if (!packText.includes(required)) {
       fail("project tooling registry consistency", ".ai-toolkit/tool-packs/webapp-quality-security.json", `missing ${required}`);
     }

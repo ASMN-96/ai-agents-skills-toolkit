@@ -15,4 +15,4 @@ Owner must review before applying. Codex must not claim output unless the actual
 
 ## Reporting
 
-Report commands run, outputs observed, missing scripts, skipped checks, WARN output, and residual risk. Planned, dry-run, metadata-only, or unavailable checks are not passing checks.
+Report commands run, outputs observed, missing scripts, skipped checks, WARN output, and residual risk. Existing project-owned tools may be recommended as `active-if-detected`; missing tools remain `owner-approved-install`. Planned, dry-run, metadata-only, or unavailable checks are not passing checks.

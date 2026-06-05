@@ -429,7 +429,15 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
-      ]
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
+      ],
+      "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+      "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+      "ciDefault": "ci-advisory when newly introduced; project-owned existing CI policy remains owner-controlled",
+      "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval."
     },
     {
       "id": "knip",
@@ -598,7 +606,15 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
-      ]
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
+      ],
+      "whenDetected": "Use project-owned React Doctor scripts/configuration in React projects when already present; output counts only when the project-owned command actually ran.",
+      "whenAbsent": "Owner-approved install only. React Doctor GitHub Action, PR write permissions, and agent skill install require separate approval.",
+      "ciDefault": "ci-advisory only after project-owned or owner-approved setup; do not create Action or PR-write automation by default.",
+      "ciPromotion": "ci-blocking-after-calibration only after stable React-project evidence and explicit owner approval."
     },
     {
       "id": "vitest",
@@ -856,7 +872,17 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
-      ]
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install",
+        "ci-advisory",
+        "ci-blocking-after-calibration"
+      ],
+      "whenDetected": "Use project-owned Playwright scripts/configuration for browser evidence when already present and the target is approved; browser output counts only when observed.",
+      "whenAbsent": "Owner-approved install/configuration only. Do not download browsers, add packages, wire CI, configure MCP, or touch product repos from toolkit metadata.",
+      "ciDefault": "ci-advisory first for new or changed browser coverage.",
+      "ciPromotion": "ci-blocking-after-calibration only after stable test evidence, artifact hygiene review, and explicit owner approval."
     },
     {
       "id": "axe-playwright",
@@ -1195,7 +1221,16 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
-      ]
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install",
+        "ci-advisory"
+      ],
+      "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+      "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+      "ciDefault": "ci-advisory until rules are scoped and false-positive behavior is known",
+      "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval."
     },
     {
       "id": "gitleaks",
@@ -1279,7 +1314,15 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
-      ]
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
+      ],
+      "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+      "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+      "ciDefault": "ci-advisory when newly introduced; project-owned existing secret-scan policy remains owner-controlled",
+      "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval."
     },
     {
       "id": "trufflehog",
@@ -1447,7 +1490,15 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
-      ]
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
+      ],
+      "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+      "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+      "ciDefault": "ci-advisory when newly introduced; project-owned dependency policy remains owner-controlled",
+      "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval."
     },
     {
       "id": "dependabot",
@@ -2038,7 +2089,15 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
-      ]
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
+      ],
+      "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+      "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+      "ciDefault": "ci-advisory until workflow policy is calibrated",
+      "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval."
     },
     {
       "id": "zizmor",
@@ -2122,7 +2181,15 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
-      ]
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
+      ],
+      "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+      "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+      "ciDefault": "ci-advisory until workflow security policy is calibrated",
+      "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval."
     },
     {
       "id": "harden-runner",
@@ -2784,7 +2851,15 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
-      ]
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
+      ],
+      "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+      "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+      "ciDefault": "ci-advisory when newly introduced; project-owned existing CI policy remains owner-controlled",
+      "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval."
     },
     {
       "id": "eslint-plugin-boundaries",
@@ -2953,7 +3028,15 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
-      ]
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
+      ],
+      "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+      "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+      "ciDefault": "ci-advisory when newly introduced; project-owned existing CI policy remains owner-controlled",
+      "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval."
     },
     {
       "id": "jscpd",
@@ -3037,7 +3120,15 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
-      ]
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
+      ],
+      "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+      "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+      "ciDefault": "ci-advisory when newly introduced; project-owned existing CI policy remains owner-controlled",
+      "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval."
     },
     {
       "id": "eslint",

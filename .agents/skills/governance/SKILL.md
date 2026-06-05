@@ -24,6 +24,7 @@ This skill authorizes routing, planning, read-only checks, capability selection,
 - Route unsafe-command questions through `methods/governance/agent-command-safety.md`.
 - Route package-manager or workspace migration questions through `methods/repo/package-manager-workspace-migration.md`.
 - Use `docs/PROJECT_TOOLING_OPERATING_MODEL.md` for v0.2 project tooling boundaries.
+- Use the v0.2.2 activation model: `active-if-detected` for existing project-owned tools, `owner-approved-install` for absent tools, `ci-advisory` before calibrated CI blocking, `held-static-only` for static concepts, and `forbidden-runtime` for MCP/daemon/global/memory/watcher conflicts.
 
 ## Large-Task Context Pack
 

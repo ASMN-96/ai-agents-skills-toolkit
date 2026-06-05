@@ -5,7 +5,7 @@
 - Owner / publisher: shadcn-ui.
 - Source type: Open component code, registry, documentation, CLI, and AI-oriented UI composition source.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `d84c4a8ca5aeac51a6311023bef36e5b04a3de50` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-04.
+- Pinned repo ref checked: `a1fb619cefefc7991a48fd1961af6fe533ed6adb` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-05.
 - Visible adoption signals: about 113.8k GitHub stars, 8.7k forks, active repository updates on 2026-05-08, and official docs at `ui.shadcn.com`.
 - Trust level: High UI ecosystem trust, medium-high execution risk if CLI or registry behavior is followed blindly.
 - License status: GitHub API reports MIT.
@@ -77,3 +77,11 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `adac7cae1f5bb08c210483b73732100cec51987c` to `cd54e0927f3853a777f700a0bbf34507cf697b9c` using GitHub compare metadata, current commit metadata, repository metadata, license metadata, and patch keyword review only. The compare was 1 commit ahead and touched only `apps/v4/registry/directory.json`. MIT license metadata remained present. The change is registry metadata movement inside the upstream project and does not alter this toolkit's recommendation. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, component source copying, skill import, package changes, lockfile import, source extraction, or product design-system overrides.
 
 Skill Scout read-only source-safety follow-up reviewed upstream default-branch movement from `cd54e0927f3853a777f700a0bbf34507cf697b9c` to `d84c4a8ca5aeac51a6311023bef36e5b04a3de50` using GitHub compare metadata, license metadata, and patch-signal review only. The compare was 1 commit ahead and touched only `apps/v4/registry/directory.json`. MIT license metadata remained present. The change is registry directory metadata movement and does not alter this toolkit's recommendation. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, package changes, lockfile import, source extraction, or product design-system overrides.
+
+## Freshness Review 2026-06-05
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `d84c4a8ca5aeac51a6311023bef36e5b04a3de50` to `a1fb619cefefc7991a48fd1961af6fe533ed6adb` using `git ls-remote`, GitHub compare metadata, current commit metadata, repository metadata, license metadata, and changed-file metadata only. The compare was 1 commit ahead with commit message `feat(card): add spacing and edge-to-edge variants (#10872)`. It touched shadcn card docs, examples, registry JSON/style outputs, and card component/style files under `apps/v4/`. MIT license metadata remained present. The reviewed delta did not touch CLI, MCP, package metadata, lockfiles, build scripts, browser automation, test runner behavior, or security-sensitive tooling surfaces.
+
+Classification: safe source-record refresh / low-risk component docs, examples, registry, and style drift.
+
+Decision: keep shadcn/ui as active-reference/planned normalized design-system source intelligence only. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, package changes, lockfile import, source extraction, product-repo changes, or product design-system overrides.

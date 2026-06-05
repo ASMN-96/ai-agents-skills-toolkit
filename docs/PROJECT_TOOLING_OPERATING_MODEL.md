@@ -18,15 +18,29 @@ This operating model explains how v0.2 project tooling recommendations work. It 
 - External/global tools are not vendored into this toolkit.
 - Approval-required tools need explicit approval and bounded scope before use.
 
+## Activation Levels
+
+v0.2.2 separates recommendation posture from execution posture:
+
+- `active-reference`: guidance only; no execution.
+- `active-if-detected`: if a target repo already owns the tool/config/script, Codex may recommend that project-owned path for the approved scope.
+- `owner-approved-install`: the tool is valuable but absent; install/configuration requires explicit owner approval.
+- `ci-advisory`: CI signal while rules, noise, artifacts, and false positives are calibrated.
+- `ci-blocking-after-calibration`: release gate only after stable results and owner approval.
+- `held-static-only`: static governance concepts only; no runtime activation.
+- `forbidden-runtime`: no runtime activation because of MCP, daemon, global, memory, watcher, persistence, or security conflict.
+
+If a tool is already project-owned and safe for the task, prefer `active-if-detected`. If install/configuration is needed, use `owner-approved-install`. If CI may be noisy, start with `ci-advisory`. Promote to `ci-blocking-after-calibration` only after stable evidence and owner approval.
+
 ## Project Ownership
 
 Every target project owns its package files, lockfiles, CI workflows, deployment config, MCP config, global configuration, and external service permissions. The toolkit may describe a recommended posture, but it must not edit those surfaces unless the target project owner separately approves a scoped task.
 
-When a project already owns a tool, Codex may route to the project-owned script or documented local command. When a tool is not already present, Codex may recommend adoption but must not install, wire CI, grant permissions, or claim output.
+When a project already owns a tool, Codex may route to the project-owned script or documented local command as `active-if-detected`. When a tool is not already present, Codex may recommend `owner-approved-install` adoption but must not install, wire CI, grant permissions, or claim output. Package-manager detection must happen before recommending commands; npm is not the default.
 
 ## React Doctor
 
-React Doctor is active-install-if-project-type for React projects. That means it is a serious React-project recommendation, not pilot-only. However:
+React Doctor is active-install-if-project-type for React projects. In the v0.2.2 activation overlay, it is `active-if-detected` when already project-owned and `owner-approved-install` when absent. That means it is a serious React-project recommendation, not pilot-only. However:
 
 - project-local installation requires owner approval;
 - GitHub Action setup requires owner approval;
@@ -38,7 +52,7 @@ React Doctor complements ESLint, React Hooks, tests, and browser evidence. It do
 
 ## Oxlint, Biome, and Knip
 
-Oxlint is active acceleration for large JS/TS/React repositories. It supplements ESLint and must not replace typed ESLint, React Hooks checks, or existing lint rules without owner approval.
+Oxlint is `active-if-detected` for large JS/TS/React repositories and `owner-approved-install` when absent. It supplements ESLint and must not replace typed ESLint, React Hooks checks, or existing lint rules without owner approval.
 
 Biome is use-if-existing or owner-approved migration only. Because Biome can change linting and formatting ownership, adopting it as a replacement requires a separate migration plan, owner approval, rollback path, and package-manager strategy.
 
@@ -47,6 +61,16 @@ Knip is not part of active full-power profiles. It is a use-if-existing cleanup 
 ## Deep Tools and Approval
 
 Socket, TruffleHog, OWASP ZAP baseline, Harden-Runner, deep networked scans, package-manager/workspace migrations, MCP/global config changes, and permission-granting integrations require explicit owner approval before execution or adoption. The approval must define target, scope, expected outputs, risks, and rollback.
+
+## High-Value Tool Posture
+
+- Playwright: `active-if-detected` when project-owned; `ci-advisory` first; `ci-blocking-after-calibration` only after stable browser evidence and owner approval.
+- Gitleaks and OSV Scanner: `active-if-detected` or `owner-approved-install` as baseline security tools; do not claim findings without observed output.
+- Semgrep: `active-if-detected` when rules/config exist; `owner-approved-install` when absent; `ci-advisory` until rules are scoped.
+- dependency-cruiser, Madge, and jscpd: `active-if-detected` or `owner-approved-install` for architecture and duplication checks; output is evidence, not automatic refactor authority.
+- actionlint and zizmor: `active-if-detected` or `owner-approved-install` for GitHub Actions hardening; no CI rewrite or permission change from metadata.
+- GSD-style discipline: active governance discipline/reference when already available; no install, vendoring, or global config without approval.
+- RuFlo-style concepts: `held-static-only`; memory hooks, MCP, daemon, global config, background processes, file watchers, runtime persistence, and package behavior are `forbidden-runtime`.
 
 ## Final Current-Scope Classifications
 

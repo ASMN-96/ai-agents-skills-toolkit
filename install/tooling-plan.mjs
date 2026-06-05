@@ -43,6 +43,22 @@ const COMMON = {
   approvalRequiredInstallModes: [
     "Impeccable project-local install mode"
   ],
+  activationLevels: [
+    "active-reference: guidance only; no execution.",
+    "active-if-detected: use an existing project-owned script/config/tool when safe and relevant.",
+    "owner-approved-install: absent tool; install/configuration requires explicit owner approval.",
+    "ci-advisory: may run in CI as signal while rules and noise are calibrated.",
+    "ci-blocking-after-calibration: release gate only after stable evidence and owner approval.",
+    "held-static-only: static governance concepts only; no runtime activation.",
+    "forbidden-runtime: no runtime activation because of MCP, daemon, global, memory, watcher, or security conflict."
+  ],
+  activationPolicy: [
+    "Prefer active-if-detected when a target repo already owns the tool/config/script and the run is safe for the approved scope.",
+    "Classify missing tools as owner-approved-install; do not install, edit package files, wire CI, configure MCP/global settings, or change product repos from this planner.",
+    "Start noisy or newly adopted CI checks as ci-advisory; promote to ci-blocking-after-calibration only with stable results and owner approval.",
+    "Package-manager detection must happen before recommending package-manager commands; npm is not the default.",
+    "No tool output may be claimed unless the tool actually ran and output was observed."
+  ],
   useIfExisting: [
     "CodeQL",
     "Dependabot or Renovate, choose one per repo",
@@ -56,6 +72,7 @@ const COMMON = {
     "Owner must review before applying any template.",
     "New dependencies, package files, lockfiles, package-manager changes, CI wiring, MCP/global config, external service permissions, and deep scans require explicit approval.",
     "Detect package manager before recommending package-manager commands; do not assume npm.",
+    "Use existing project-owned tools before recommending new installs.",
     "React Doctor GitHub Action, PR write permissions, and agent skill install require explicit approval.",
     "Impeccable project-local install mode requires explicit approval.",
     "Codex must not claim output unless the actual script or tool ran."
@@ -240,6 +257,8 @@ if (!projectType || !PROJECT_TYPES.includes(projectType)) {
   console.log("Mode: dry-run/read-only. This command never writes files, installs packages, modifies CI, configures MCP, changes global config, or touches product repositories.");
   printList("default-install tools", plan.defaultInstall);
   printList("active-install-if-project-type tools", plan.activeInstallIfProjectType);
+  printList("activation levels", COMMON.activationLevels);
+  printList("active-if-detected and owner-approved-install policy", COMMON.activationPolicy);
   printList("use-if-existing tools", COMMON.useIfExisting);
   printList("external-only resources", COMMON.externalOnly);
   printList("approval-required tools", projectType.includes("react") || projectType === "mobile-webview" || projectType === "deep-release"

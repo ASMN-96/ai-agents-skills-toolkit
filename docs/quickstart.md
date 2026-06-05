@@ -63,7 +63,7 @@ node scripts/validate-toolkit.mjs
 node scripts/ai-toolkit/validate-ai-toolkit.mjs
 node scripts/ai-toolkit/validate-version-consistency.mjs
 node scripts/ai-toolkit/run-toolkit-evals.mjs
-node scripts/scan-public-private-leaks.mjs
+node scripts/scan-public-private-leaks.mjs --check
 ```
 
 For small documentation-only edits, run the narrowest subset first, then broaden if release or public-readiness claims are involved.
