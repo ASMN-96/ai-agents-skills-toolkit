@@ -12,6 +12,7 @@ Allowed classifications:
 - `active-reference`: useful current-scope reference guidance with no install, activation, or raw import.
 - `active-read-only`: current-scope source intelligence with no install, indexing, MCP/global config, product repo scanning, or execution by default.
 - `planned-extraction`: useful source intelligence that should be converted into toolkit-owned methods, routing, or evals.
+- `reviewed-held`: useful or historically relevant source intelligence that was reviewed and explicitly held/reference-only because license, runtime, memory, MCP, daemon, global-config, package, security, or source-safety risk blocks active reliance.
 - `reference-only-with-reason`: useful context that must remain passive because trust, license, runtime, or duplication risk is unresolved.
 - `archive-candidate`: retained for historical context but not worth current extraction.
 - `remove-candidate`: no useful value path or creates noise.
@@ -29,8 +30,8 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | supabase-agent-skills | Supabase Agent Skills | active-method | Do later | `methods/backend/supabase-postgres-rls-gates.md` | Keep RLS/backend gate current | No Supabase CLI or project mutation from source record |
 | trailofbits-skills | Trail of Bits Skills | active-method | Do later | `methods/security/differential-security-review.md` | Keep differential review rubric current | No copied upstream text; license remains caveated |
 | microsoft-playwright | Microsoft Playwright | active-method | Do later | `methods/uiux/webapp-testing.md` | Keep browser-evidence reporting sharp | No browser/pass claims without output |
-| bencium-marketplace | Bencium Marketplace | active-method | Do later | UIUX/dashboard/design-system methods | Keep commercial dashboard quality patterns | No brand/template copying |
-| karpathy-inspired-skills | Karpathy-Inspired Skills | active-method | Do later | Simplicity, assumptions, goal discipline | Keep surgical-change discipline concise | No personal-style absolutism as policy |
+| bencium-marketplace | Bencium Marketplace | archive-candidate | Do later | Historical source-safety evidence only | Re-add only after owner-approved source review | No active monitoring, sourceRef reliance, brand/template copying, install, or runtime use |
+| karpathy-inspired-skills | Karpathy-Inspired Skills | reference-only-with-reason | Do later | Historical cleanroom evidence only | Keep toolkit-authored methods independent of upstream wording | No active source authority, upstream wording, examples, prompt structure, or runtime behavior |
 | matt-pocock-skills | Matt Pocock Skills | active-method | Do later | `methods/matt/*`, TDD, PRD/issues, triage | Monitor and extract only if a new unique method is identified | No duplicate Superpowers/Codex workflow runtime |
 | shadcn-ui | shadcn/ui | planned-extraction | Must do next | UIUX source map, no registered method | Component composition, semantic tokens, accessible defaults, ownership model | No CLI, MCP, registry JSON, component source, package/config import |
 | vercel-agent-skills | Vercel Agent Skills | reference-only-with-reason | Do later | Historical/reference-only source record | Revisit only if a unique toolkit method is identified | Not active authority |
@@ -44,7 +45,7 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | superpowers | Superpowers | active-method | Do later | TDD/verification/source-safety references; external plugin delegation | Keep toolkit-owned guardrails minimal | Do not duplicate plugin workflows |
 | everything-claude-code | Everything Claude Code | active-method | Do later | Source safety scoring | Keep config/hook/MCP risks in source-safety method | No global config, hook, or MCP import |
 | code-review-graph | code-review-graph | active-read-only | Do later | Source-only token governance inspiration | Keep context graph methods tied to source-only planning | No install, CLI, MCP, global config, product indexing/scanning, generated graph output, or whole-repo dump |
-| ruflo | RuFlo | planned-extraction | Must do next | Source safety scoring only | Static task-state, handoff, adaptive replanning, failure accounting | No daemon, worker, hook, MCP, memory, plugin, package, script, or background runtime |
+| ruflo | RuFlo | reviewed-held | Needs owner decision | Reviewed-held source-safety reference; static toolkit method added without active source authority | No further extraction unless owner-approved review changes the hold | No daemon, worker, hook, MCP, memory, plugin, package, script, background runtime, file watcher, global config, or runtime persistence |
 
 ## Internal Audit Artifacts
 

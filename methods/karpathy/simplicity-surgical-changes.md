@@ -1,6 +1,6 @@
 ---
-sourceRef: ["karpathy-inspired-skills"]
-lastExtracted: unknown-review-required
+sourceRef: ["unknown-review-required"]
+lastExtracted: 2026-06-05
 status: approved
 ---
 
@@ -8,15 +8,15 @@ status: approved
 
 ## Purpose
 
-Keep agent edits small, direct, and proportionate.
+Keep changes understandable, reversible, and proportionate to the request while preserving production correctness.
 
 ## When To Use
 
-Use for code changes, refactors, bug fixes, and reviews where scope can drift.
+Use for code changes, refactors, bug fixes, reviews, source cleanup, and registry updates where scope can drift.
 
 ## When Not To Use
 
-Do not use to block necessary architecture work when complexity is justified by clear requirements.
+Do not use to block necessary architecture or migration work when the requirement and risk justify it.
 
 ## Agent Roles That Should Embed It
 
@@ -24,22 +24,22 @@ Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test
 
 ## Operating Rules
 
-- Prefer the simplest design that satisfies the stated goal.
-- Avoid speculative flexibility.
-- Touch only files required by the task.
-- Match local style before introducing new patterns.
-- Mention unrelated cleanup instead of performing it.
+- Keep each edit traceable to the request, a validator failure, or an explicit safety requirement.
+- Match local structure before introducing a new abstraction.
+- Avoid future-proofing that does not remove current risk.
+- Keep unrelated cleanup as a note unless it blocks validation.
+- Prefer small reviewed methods over large cross-cutting rewrites.
 
 ## Verification Requirements
 
-Review the diff and confirm each changed line has a direct reason.
+Review the diff and confirm each changed file has a direct reason and no hidden runtime, package, CI, MCP, or global-config side effect.
 
 ## Risks / Anti-Patterns
 
-Overfitting to minimalism, refusing needed abstraction, or hiding a necessary migration.
+Over-minimizing necessary work, refusing a justified abstraction, or hiding a migration inside a small-looking diff.
 
-## Source Inspiration / License Status
+## Source Safety / License Status
 
-Inspired by Karpathy-style agent behavior guidance from `forrestchang/andrej-karpathy-skills`; license unclear during evaluation.
+Toolkit-authored cleanroom method. Historical Karpathy-inspired source evidence remains license-caveated and is not active source authority for this method.
 
-This is normalized/paraphrased guidance, not raw upstream activation.
+No upstream wording, examples, prompt structure, scripts, or runtime behavior were copied or activated.

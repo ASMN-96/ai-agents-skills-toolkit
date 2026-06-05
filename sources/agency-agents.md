@@ -75,3 +75,7 @@ Skill Scout read-only post-merge follow-up reviewed upstream default-branch move
 ## Active Monitor Status 2026-06-04
 
 This source is removed from `sources/source-watchlist.json` active freshness monitoring after repeated same-session upstream roster movement during release closeout. The source remains documented as archive-candidate evidence only, has no registered affected toolkit methods, and is not approved for extraction, import, install/conversion flow use, new agent creation, source copying, product-repo changes, global config changes, or runtime activation. Re-adding it to active monitoring requires a separate owner-approved source-safety review with a concrete extraction target.
+
+## v0.2.1 Source-Pruning Decision 2026-06-05
+
+Agency Agents remains current-scope-removed and archive-only. No v0.2.1 method extraction, source monitoring, agent creation, roster import, prompt copying, install/conversion flow use, product-repo change, global config change, or runtime activation is approved.

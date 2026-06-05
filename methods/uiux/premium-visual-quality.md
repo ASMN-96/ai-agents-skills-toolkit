@@ -1,5 +1,5 @@
 ---
-sourceRef: ["anthropic-skills","bencium-marketplace"]
+sourceRef: ["anthropic-skills"]
 lastExtracted: unknown-review-required
 status: approved
 ---
@@ -39,6 +39,6 @@ AI-looking polish, decorative orbs, illegible text, stock-like imagery, or anima
 
 ## Source Inspiration / License Status
 
-Inspired by Anthropic frontend-design, Bencium impact/design-audit ideas, and toolkit frontend guidance.
+Inspired by Anthropic restricted-source guidance and toolkit frontend guidance.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

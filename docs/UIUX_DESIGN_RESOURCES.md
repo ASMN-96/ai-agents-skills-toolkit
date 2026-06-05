@@ -10,7 +10,7 @@ The v0.2 UI/UX model uses plural, complementary design references. The goal is b
 - shadcn/ui is a reference and pattern source only.
 - Addy Osmani UI/web quality methods provide normalized engineering and web quality criteria.
 - Anthropic UI/frontend guidance may be used only as restricted normalized guidance.
-- Bencium and commercial dashboard references may inform commercial polish expectations.
+- Use the toolkit-owned commercial dashboard polish rubric for SaaS/dashboard polish. Bencium remains historical source-safety evidence only and is not active source authority.
 - Uncodixfy anti-generic AI UI guidance helps avoid generic AI-looking interfaces.
 - VoltAgent design-context references may be used if already tracked.
 

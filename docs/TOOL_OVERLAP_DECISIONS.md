@@ -5,11 +5,12 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 ## UI UX Pro Max vs Impeccable vs shadcn/ui vs Bencium vs Uncodixfy
 
 - Default winner: UI UX Pro Max for internal acceptance criteria.
-- Complementary tool: Impeccable for external design intelligence, shadcn/ui for component-pattern reference, Bencium for commercial/dashboard polish, Uncodixfy for anti-generic AI UI critique.
+- Complementary tool: Impeccable for external design intelligence, shadcn/ui for component-pattern reference, Uncodixfy for anti-generic AI UI critique, and toolkit-owned commercial dashboard polish rubric for SaaS/dashboard polish.
 - Conflict rule: design references are not harmful overlap; raw copying, blind CLI import, and unmanaged design-system installs are blocked.
 - When to activate: UI polish, dashboard, responsive, workflow, or browser-visible quality tasks.
 - When to avoid: backend/security/release-only work or when no approved design source exists.
 - Evidence requirement: criteria, screenshots/browser observations when claimed, and clear reference/source boundaries.
+- Bencium status: removed from active reliance in v0.2.1; historical source-safety evidence only.
 
 ## ESLint vs Biome vs Oxlint
 

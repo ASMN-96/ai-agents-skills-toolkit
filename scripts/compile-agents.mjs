@@ -8,6 +8,7 @@ const TOOLKIT_VERSION = "0.2.0";
 const COMPILE_CONTRACT_VERSION = "1.0.0";
 const GENERATED_ROOT = "compiled-agents";
 const HARD_WORD_WARNING = 30000;
+const METHOD_SUMMARY_LINES = 28;
 const SOURCE_COMMIT = "deterministic-not-recorded";
 
 function rootPath(relativePath) {
@@ -145,7 +146,7 @@ async function compileAgent(agent, registries, commit) {
     if (!method?.methodPath) continue;
     const methodText = await readText(method.methodPath);
     for (const ref of methodSourceRefs(methodText)) inheritedSourceRefs.add(ref);
-    methodSections.push(`### ${methodId}\n\nSource: \`${method.methodPath}\`\n\n${summarize(methodText, 10) || "No method body available."}`);
+    methodSections.push(`### ${methodId}\n\nSource: \`${method.methodPath}\`\n\n${summarize(methodText, METHOD_SUMMARY_LINES) || "No method body available."}`);
   }
 
   const output = `---

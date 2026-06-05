@@ -113,3 +113,9 @@ Skill Scout read-only source-safety review evaluated upstream default-branch mov
 Classification: `REVIEWED_HELD` / reviewed-held high-risk reference-only.
 
 Decision: keep RuFlo as a high-risk orchestration and source-safety reference only. This review does not approve hooks, memory bridge behavior, MCP behavior, daemon behavior, global behavior, package updates, lockfile updates, global npm lookup behavior, source import, installation, activation, extraction, script execution, product-repo indexing, product-repo changes, or global configuration changes. Future upstream movement beyond `d065b15927c6ba7318623e8af123e7980e4c6681` requires a fresh review.
+
+## v0.2.1 Static-Only Decision 2026-06-05
+
+The toolkit added a toolkit-authored static task-state handoff method that does not use RuFlo as active source authority. RuFlo remains `REVIEWED_HELD` and reference-only under the existing no-import, no-install, no-activation, no-extraction, no-hook, no-memory, no-MCP, no-daemon, no-file-watcher, no-global-config, no-package-script, and no-runtime-persistence boundary.
+
+No RuFlo code, tests, prompts, commands, scripts, package metadata, lockfiles, MCP configuration, memory bridge logic, daemon logic, watcher behavior, generated output, or runtime behavior was copied or activated.

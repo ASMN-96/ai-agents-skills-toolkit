@@ -101,6 +101,17 @@ Do not optimize speculative bottlenecks without measurement.
 ## Agent Roles That Should Embed It
 SRE Performance Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent.
 ## Operating Rules
+- Measure before changing.
+- Prioritize user-visible latency and reliability.
+- Keep changes small enough to attribute impact.
+- Watch bundle size, network waterfalls, rendering cost, and backend hot paths.
+## Verification Requirements
+Record baseline, change, and post-change measurement when feasible.
+## Risks / Anti-Patterns
+Micro-optimizing irrelevant paths, hiding complexity, or improving one metric while harming UX.
+## Source Inspiration / License Status
+Inspired by `addyosmani/agent-skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### osmani.shipping-launch
 
@@ -116,6 +127,17 @@ Do not use for local-only drafts that are not ready for review.
 ## Agent Roles That Should Embed It
 Release Manager Agent, SRE Performance Agent, QA Test Agent, Reviewer Agent.
 ## Operating Rules
+- Confirm release gates.
+- Record change summary and user impact.
+- Define rollback or recovery path.
+- Keep versioning and compatibility visible.
+## Verification Requirements
+Confirm tests, review status, release notes, and rollback notes.
+## Risks / Anti-Patterns
+Shipping without monitoring, skipping changelog, or making irreversible changes without fallback.
+## Source Inspiration / License Status
+Inspired by `addyosmani/agent-skills`, MIT visible during evaluation.
+This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### orchestration.compact-agent-context-pack
 
@@ -131,6 +153,24 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - validation commands and expected evidence
 - stop conditions
 - private-overlay, secret, and product-repo exclusions
+- token mode and budget rationale
+- omitted context and reason
+- graph evidence label: `manual/static` or `tool-generated`
+## Token Modes
+- `concise`: use for narrow tasks where the changed files, direct tests, and one or two policy/source references are enough.
+- `standard`: use for normal implementation plans, PR reviews, and source reviews that need direct neighbors, validators, evals, and relevant policy records.
+- `detailed`: use for high-risk audits or multi-agent planning where additional architecture, security, release, or source provenance context is necessary and explicitly justified.
+## Rules
+- Keep the pack compact enough that the receiving reviewer can identify scope without loading the whole repo.
+- Prefer links or paths to stable docs over pasted policies.
+- Include only actionable source records and methods.
+- Mark tool, browser, CodeRabbit, reviewdog, source freshness, and runtime evidence as `not invoked` unless actual output exists.
+- Label graph evidence as `manual/static` when it comes from repo inspection or source metadata, and `tool-generated` only when an approved tool actually ran and produced output.
+- Treat whole-repo context dumping and global config activation as forbidden unless a later task explicitly approves a different execution mode.
+## Passive Visibility
+This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+## Forbidden Claims
+- Do not say an agent, plugin, browser, graph tool, MCP server, or scanner ran unless it actually ran.
 
 ### mobile.native-mobile-app-quality
 
@@ -146,6 +186,24 @@ Run `methods/governance/task-intake-routing-gate.md` first for normal-language m
 Do not use for backend-only, desktop-only, or docs-only work unless mobile consumers are affected.
 ## Required Review Areas
 - iOS and Android platform expectations, navigation conventions, permission UX, gestures, status surfaces, and store-critical behavior.
+- Safe areas, notches, Dynamic Island, status bars, Android navigation bars, keyboard overlap, and orientation changes.
+- Touch targets, gesture conflicts, scroll behavior, tap latency, haptics expectations, and accidental destructive actions.
+- Accessibility labels, roles, focus order, screen-reader behavior, dynamic type, contrast, reduced motion, and keyboard/external input where relevant.
+- Offline, poor network, captive portal, retry, timeout, stale data, and request cancellation states.
+- Loading, empty, error, retry, disabled, success, sync, conflict, and partial-completion states.
+- Permission minimization: request only needed permissions, explain user value, and handle denied/revoked permissions.
+- App identifiers, signing, entitlements, bundle IDs, package names, provisioning, store listing, deep-link, push, and app-store-critical config caution.
+- App Store and Play Store readiness risks: policy-sensitive claims, privacy labels, data collection, age rating, payment rules, and review-only behavior.
+- Release-like build validation rather than assuming Expo Go, debug, hot reload, simulator-only, or development behavior is enough.
+- Performance risks: startup, memory, battery, bridge overhead, image/video cost, expensive re-renders, network waterfall, and slow devices.
+- Localization, RTL, mixed-language text, truncation, long names, currency/date/number formats, and text fitting.
+## Evidence Requirements
+Report which validation mode was used:
+- simulator;
+- physical device;
+- Expo Go;
+- debug build;
+- preview/internal build;
 
 ### reliability.coding-time-production-readiness
 
@@ -161,6 +219,12 @@ Provide coding-time governance for production-risk changes without claiming ente
 - Prefer project-owned typecheck, lint, test, build, browser, scanner, and release scripts before proposing new tools.
 - Keep recommended tools separate from executed tools.
 - State dry-run, skipped, unavailable, metadata-only, planned, and partial checks honestly.
+## Evidence Requirements
+Completion evidence must include commands actually run, WARN output, skipped gates, residual risk, and no-fake-validation wording. Do not claim production readiness from metadata, dry-runs, or planned checks.
+## Stop Conditions
+- Required validation fails or cannot run and the risk is material.
+- Rollback is unclear for a user-facing, data, auth, security, package, CI, or deployment change.
+- The task requires unapproved package installs, CI wiring, MCP/global config, deployment config, external service permissions, product repo mutation, secrets, or destructive commands.
 
 ### performance.performance-scalability-cache-readiness
 
@@ -176,6 +240,12 @@ Review performance, scalability, and cache risk during coding before broad optim
 - Prefer existing profiler, benchmark, test, browser, query, build, and log evidence when available.
 - Avoid premature rewrites unless measured risk or clear complexity justifies it.
 ## Evidence Requirements
+Report baseline or reproduction evidence when collected, commands actually run, measurement limits, skipped checks, and whether the fix is verified or only risk-reduced.
+## Stop Conditions
+- Cache keys may leak tenant/account/user/private data.
+- Optimization would change behavior without tests or owner approval.
+- Performance readiness is requested without any measurable baseline and the risk is material.
+- Package, CI, deployment, infrastructure, or production-observability changes are needed without approval.
 
 ### reliability.observability-readiness
 
@@ -191,6 +261,11 @@ Ensure coding-time changes leave enough evidence for debugging without leaking s
 - Document how a future maintainer can detect failure: command output, test failure, log message, status code, trace ID, or manual reproduction.
 - Separate local/debug evidence from production observability claims.
 ## Evidence Requirements
+Report observed logs, errors, traces, metrics, screenshots, or command output only when actually collected. Label unavailable or skipped observability evidence.
+## Stop Conditions
+- Debugging would require secret access or private data exposure.
+- New observability service, deployment config, CI wiring, package install, or external permission is required without approval.
+- Release readiness depends on unobserved monitoring behavior.
 
 ## Provenance
 

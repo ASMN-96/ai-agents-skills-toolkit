@@ -1,6 +1,6 @@
 ---
-sourceRef: ["karpathy-inspired-skills"]
-lastExtracted: unknown-review-required
+sourceRef: ["unknown-review-required"]
+lastExtracted: 2026-06-05
 status: approved
 ---
 
@@ -8,15 +8,15 @@ status: approved
 
 ## Purpose
 
-Keep agent work tied to the user goal and measurable success criteria.
+Keep implementation, review, and validation tied to the user-visible outcome and the evidence needed to prove it.
 
 ## When To Use
 
-Use when implementing features, fixing bugs, planning releases, or verifying outcomes.
+Use when implementing features, fixing bugs, planning releases, auditing source safety, or deciding whether work is complete.
 
 ## When Not To Use
 
-Do not use as a shortcut around safety, review, or test gates.
+Do not use as a shortcut around safety, review, source-freshness, leak, runtime, or test gates.
 
 ## Agent Roles That Should Embed It
 
@@ -24,21 +24,22 @@ Product Agent, Architect Agent, QA Test Agent, Release Manager Agent, Reviewer A
 
 ## Operating Rules
 
-- Identify the user-visible goal.
-- Define success before implementation.
-- Favor direct progress over ornamental work.
-- Stop when the outcome cannot be verified.
+- Restate the outcome in terms the user can verify.
+- Define success criteria and non-goals before changing files.
+- Prefer the shortest path that satisfies the outcome without weakening safety boundaries.
+- Treat validation evidence as part of the work, not a postscript.
+- Stop when success cannot be proven honestly.
 
 ## Verification Requirements
 
-Report what proves the goal was met and what remains unproven.
+Report the goal, the proof collected, the checks that were skipped or unavailable, and any remaining uncertainty.
 
 ## Risks / Anti-Patterns
 
-Confusing activity with progress, overbuilding, or declaring completion without evidence.
+Confusing activity with progress, widening scope to look productive, or declaring completion without current evidence.
 
-## Source Inspiration / License Status
+## Source Safety / License Status
 
-Inspired by Karpathy-style agent behavior guidance from `forrestchang/andrej-karpathy-skills`; license unclear during evaluation.
+Toolkit-authored cleanroom method. Historical Karpathy-inspired source evidence remains license-caveated and is not active source authority for this method.
 
-This is normalized/paraphrased guidance, not raw upstream activation.
+No upstream wording, examples, prompt structure, scripts, or runtime behavior were copied or activated.
