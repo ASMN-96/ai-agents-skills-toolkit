@@ -7,7 +7,7 @@ AI Vibe Coding Toolkit is a documentation-first governance repository for AI cod
 - Current-tree blockers are 0.
 - Remaining findings are limited to owner-decision blockers, history-only blockers, safe guardrail/scanner evidence, and false positives.
 - Public package validation is **not** whole-repo publication readiness.
-- `v0.2.2` is the current controlled AI Vibe Coding Toolkit release for agent-assisted governance after toolkit activation hardening, source-freshness review, leak-scan check-mode validation, and release gates.
+- `v0.2.3` is the current controlled AI Vibe Coding Toolkit release for agent-assisted governance after full resource refresh, zero passive source holds, toolkit activation hardening, leak-scan check-mode validation, and release gates.
 - Public-facing release status is based on observed validation evidence; external submissions and publication channels are separate approval-gated decisions.
 
 ## One-paragraph summary
@@ -83,7 +83,7 @@ Public-facing status:
 
 - Canonical runtime is **5 skills and 12 agents**.
 - Public package validation can pass while still not proving whole-repo publication readiness.
-- `v0.2.2` is a controlled toolkit release, not a claim of Level 4, Level 5, enterprise certification, production certification, automatic tool installation, or broad cross-runtime active support.
+- `v0.2.3` is a controlled toolkit release, not a claim of higher maturity, enterprise or production certification, automatic installs, or broad cross-runtime active support.
 - External submissions, marketplace listings, package publication, and broader runtime support remain separate approval-gated actions.
 
 ## Limitations

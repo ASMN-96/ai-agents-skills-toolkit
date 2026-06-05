@@ -13,6 +13,7 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/back
 - Inventory affected API routes, RPCs, server actions, Edge Functions, SDK calls, request payloads, response payloads, and typed interfaces.
 - Check DTOs, schemas, generated types, runtime validation, error models, empty states, loading states, and compatibility expectations.
 - Identify server/client drift, consumer impact, backwards-compatibility risk, rollback impact, and contract-test or validation evidence.
+- For Supabase-backed contracts, inventory Data API/table/view/RPC exposure, generated-type drift, object-ownership checks, and auth/RLS behavior before compatibility claims.
 - Review auth, session, cookie, token, and public/private payload assumptions only to classify risk and route to security or database specialists.
 - Use canonical toolkit skill names only when naming skills: `governance`, `uiux`, `code-quality`, `security-review`, and `pr-release-gate`.
 
@@ -41,6 +42,7 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/back
 - Consumer and compatibility impact.
 - Error, empty, loading, disabled, and failure behavior when API behavior affects UI.
 - Public/private payload boundary review.
+- Object-level authorization/BOLA and exposed table/view/RPC review when user-controlled identifiers or Supabase-generated clients are involved.
 - Rollback, migration, and release impact classification.
 - Contract-test or validation-command evidence, or an explicit unverified gap.
 

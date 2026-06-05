@@ -6,7 +6,7 @@
 - Source type: Skills directory entry plus open skills CLI repository.
 - Source authority level: Historical/reference-only. Not active authority for toolkit methods or runtime.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `a561e790756b2785b9ddb82285c4eb0a08258ac9` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-05.
+- Pinned repo ref checked: `a561e790756b2785b9ddb82285c4eb0a08258ac9` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-06.
 - Visible adoption signals: about 17.5k GitHub stars, 1.4k forks, and about 1.4M skills.sh installs for `find-skills`.
 - Trust level: Medium-high source trust, high execution risk if CLI install/update behavior is followed.
 - License status: GitHub API did not expose a root repo license. `package.json` declares MIT. Per-skill license status should remain unclear until a dedicated license review confirms repository-level applicability.
@@ -67,10 +67,10 @@ Candidate for future normalized discovery-method extraction, pending separate ap
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `b469d6954dd10be20d3e8d9bb59463584d42efbb` to `87dc3636c59d38d7336a1d857f1364699bf38038` using GitHub compare metadata and `git ls-remote` only. The compare was 23 commits ahead and touched `AGENTS.md`, README and package metadata, CLI add/list/sync/update/use surfaces, installer and Git helper code, prompts, types, and tests. License remains unclear at repository level. This source remains historical/reference-only and high risk for install/update/sync behavior. The reviewed change is rejected for active runtime adoption and held from extraction until a separate safety and license review approves a narrow normalized discovery pattern. This refresh updates source tracking only and does not approve CLI execution, skill installation, use/update/sync behavior, raw `SKILL.md` copying, method extraction, source copying, package changes, global config changes, or runtime activation.
 
-## Reviewed-Held Source Safety Review 2026-06-05
+## v0.2.3 Full-Power Resolution 2026-06-06
 
 Skill Scout read-only source-safety follow-up reviewed upstream default-branch movement from `87dc3636c59d38d7336a1d857f1364699bf38038` to `a561e790756b2785b9ddb82285c4eb0a08258ac9` using `git ls-remote`, GitHub compare metadata, repository metadata, and changed-file metadata only. The compare was 2 commits ahead and touched `README.md`, `src/use.ts`, and `src/use.test.ts`; the visible commit message changed skill-selection guidance for docs-related tasks. GitHub repository metadata still did not expose a root repository license, so the repository-level license concern remains unclear.
 
-Classification: `REVIEWED_HELD` / reviewed-held high-risk install/use command reference.
+Outcome: `SYNCED_REFERENCE`.
 
-Decision: keep Vercel find-skills historical/reference-only and hold this upstream movement from active adoption. This review does not approve CLI execution, skill installation, use/update/sync behavior adoption, raw `SKILL.md` copying, method extraction, source copying, package changes, global config changes, product-repo changes, or runtime activation. Future upstream movement beyond `a561e790756b2785b9ddb82285c4eb0a08258ac9` requires a fresh review.
+Decision: keep Vercel find-skills historical/reference-only and current as provenance for missing-capability discovery boundaries. First-party Vercel plugin/docs remain the preferred live Vercel path; this source is not an active execution authority. This review does not approve CLI execution, skill installation, use/update/sync behavior adoption, raw `SKILL.md` copying, method extraction, source copying, package changes, global config changes, product-repo changes, or runtime activation. Future upstream movement beyond `a561e790756b2785b9ddb82285c4eb0a08258ac9` requires a fresh review.

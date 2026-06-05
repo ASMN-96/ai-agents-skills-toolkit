@@ -5,7 +5,7 @@
 - Source URL: https://github.com/tirth8205/code-review-graph
 - Homepage: https://code-review-graph.com
 - Last reviewed commit: 0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8
-- Last reviewed date: 2026-06-05
+- Last reviewed date: 2026-06-06
 - Review level: completed source-safety review for active-read-only metadata
 - Classification: active-read-only source intelligence
 - License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
@@ -59,3 +59,9 @@ Owner approval is required before any install, run, indexing, MCP setup, package
 ## Extraction Rule
 
 Only normalized toolkit governance ideas may be used. Do not copy upstream code, prompts, scripts, package config, generated output, examples, docs, or runtime behavior into this repository.
+
+## v0.2.3 Full-Power Resolution 2026-06-06
+
+Outcome: `SYNCED_ADOPTED`.
+
+code-review-graph remains active inside the embedded toolkit as read-only source intelligence for changed-file neighborhoods, compact context packs, stale graph detection, and token-budget governance. This does not authorize CLI execution, MCP setup, daemon/watch behavior, product-repo indexing, global config changes, package changes, generated graph claims, or whole-repo dumps without separate approval and observed output.

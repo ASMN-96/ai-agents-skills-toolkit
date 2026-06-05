@@ -164,7 +164,7 @@ Each method entry must include:
 
 Method entries are metadata only. They must not define trigger cases, required tools, runtime visibility, install behavior, activation behavior, or hidden routing. `governance` may cite method IDs as passive reference inputs, but methods are never selected as skills, plugins, tools, agents, or active runtime capabilities.
 
-The method file referenced by `methodPath` must include frontmatter with `sourceRef`, `lastExtracted`, and `status`. `sourceRef` values must resolve to `sources/source-watchlist.json` IDs, or use `unknown-review-required` when provenance cannot be mapped. `lastExtracted` must be `YYYY-MM-DD` or `unknown-review-required`; unknown must be used until deterministic extraction evidence exists.
+The method file referenced by `methodPath` must include frontmatter with `sourceRef`, `lastExtracted`, and `status`. `sourceRef` values must resolve to `sources/source-watchlist.json` IDs, use `toolkit-authored` for cleanroom toolkit-owned methods with local authorship provenance, or use `unknown-review-required` when provenance cannot be mapped. `toolkit-authored` is not an external trust mark and must not be used for raw upstream source content. `lastExtracted` must be `YYYY-MM-DD` or `unknown-review-required`; unknown must be used until deterministic extraction evidence exists.
 
 ## Tool Entries
 

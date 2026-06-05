@@ -1,6 +1,6 @@
 ---
-sourceRef: ["anthropic-skills"]
-lastExtracted: unknown-review-required
+sourceRef: ["anthropic-skills","impeccable"]
+lastExtracted: 2026-06-06
 status: approved
 ---
 
@@ -28,6 +28,9 @@ UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
 - Avoid one-note palettes and generic gradients.
 - Make typography, spacing, media, and hierarchy deliberate.
 - Prefer real product signals over decoration.
+- Load relevant product, design-system, and workflow context before visual changes.
+- Evaluate polish through concrete dimensions: hierarchy, spacing, contrast, motion restraint, interaction feedback, responsive fit, copy clarity, and state coverage.
+- Use rendered evidence when making visual-quality claims; do not rely on source records or design vocabulary alone.
 
 ## Verification Requirements
 
@@ -39,6 +42,6 @@ AI-looking polish, decorative orbs, illegible text, stock-like imagery, or anima
 
 ## Source Inspiration / License Status
 
-Inspired by Anthropic restricted-source guidance and toolkit frontend guidance.
+Inspired by Anthropic restricted-source guidance, normalized Impeccable UI quality guidance, and toolkit frontend guidance.
 
 This is normalized/paraphrased guidance, not raw upstream activation.

@@ -24,7 +24,7 @@ This policy defines how the toolkit tracks external sources without auto-importi
 - Freshness issue drafts generated with `--create-issues` are local dry-run review artifacts only. They do not create GitHub issues and do not authorize import, activation, extraction, source-record updates, CI changes, package changes, global config changes, or product-repository changes.
 - If GitHub API metadata returns `403` or `429`, the only allowed fallback is a read-only `git ls-remote` default-branch commit check. Fallback must not clone, checkout, fetch raw files, install, execute scripts, activate anything, or update source records automatically.
 - Pull request CI may use mock freshness checks to avoid flaky rate-limit failures. A scheduled/manual advisory workflow may run live freshness with `--fail-on-change`; failures are review signals and do not authorize import, activation, extraction, or runtime changes.
-- A reviewed-held source may be reported as `REVIEWED_HELD` only for the exact latest upstream commit recorded in `sources/source-watchlist.json`. This means the upstream movement was reviewed and explicitly held/reference-only. It does not approve import, install, activation, extraction, source copying, package updates, CI changes, MCP changes, global config changes, product-repository changes, or runtime behavior changes.
+- `REVIEWED_HELD` is not a final v0.2.3 active-source outcome. It may appear only as historical evidence or an intermediate unresolved signal. Changed or previously held sources must resolve to one of the five final outcomes: `SYNCED_ADOPTED`, `SYNCED_REFERENCE`, `SYNCED_PLUGIN_DELEGATED`, `ARCHIVED_HARD_BLOCKER`, or `REMOVED_REDUNDANT`.
 
 ## 2) Required source data model
 
@@ -55,8 +55,8 @@ Machine tracking is maintained in `sources/source-watchlist.json`.
 - `last reviewed commit`: exact upstream commit reviewed by human.
 - `last extracted date`: date toolkit methods/skills were extracted and documented in a PR.
 - `last extracted commit`: upstream commit/version used for the latest extracted update.
-- `reviewed-held commit`: exact changed upstream commit reviewed and held/reference-only without making it active source material.
-- `reviewed-held date`: human Skill Scout review date for the held commit.
+- `reviewDecision.outcome`: final v0.2.3 outcome for a reviewed changed or formerly held source.
+- `reviewDecision.reviewedCommit`: exact upstream commit reviewed for the final outcome.
 
 No update path in this repository should treat these timestamps/commits as interchangeable.
 
@@ -67,7 +67,7 @@ No update path in this repository should treat these timestamps/commits as inter
 - `source-watchlist.json` is the canonical list for active scouting targets and should retain:
   - source URL and repo identity, with `https://github.com/<owner>/<repo>` matching `repoOwner` and `repoName`,
   - tracking metadata (`lastReviewed*`, extraction metadata),
-  - reviewed-held metadata when a changed upstream source is explicitly reviewed and held without updating active source trust,
+  - final review-decision metadata when a changed or formerly held source is explicitly reviewed and resolved,
   - `neverAutoImport: true` or stronger guardrail equivalent,
   - watched paths for narrowed monitoring.
 - Last checked signals from scripts are published in the freshness report and in PR evidence, not auto-written into source records.
@@ -89,8 +89,9 @@ For toolkit methods, each method file must keep stable `sourceRef`, `lastExtract
   - method extraction,
   - skill creation/update,
   - any sync or activation action.
-- If risk changes are detected, the source is held unless governance flow explicitly approves re-application.
-- Reviewed-held status is allowed only when the review records the exact held commit, review date, classification, decision, and no-import/no-install/no-extraction guardrail. Future upstream movement beyond the held commit is actionable again and requires fresh review.
+- Important risk changes are not a reason to freeze by default. Review, verify, and convert useful guidance into toolkit-owned methods, routing, docs, or evals when safe.
+- Use `SYNCED_PLUGIN_DELEGATED` when live/project execution is already better handled by a first-party or project-owned plugin/tool and the toolkit should keep governance gates only.
+- Use `ARCHIVED_HARD_BLOCKER` or `REMOVED_REDUNDANT` only after proving no useful cleanroom guidance remains, no useful plugin/tool delegation remains to document, no active method/routing/eval depends on the source, sourceRef cleanup is complete, and the reason is explicit.
 
 ## 7) Script alignment
 
@@ -100,7 +101,8 @@ For toolkit methods, each method file must keep stable `sourceRef`, `lastExtract
 - limit GitHub API `403`/`429` fallback to `git ls-remote` default-branch commit checks,
 - reject unsafe or inconsistent watchlist identities before live inspection,
 - support advisory `--fail-on-change` monitoring for changed, failed, unsupported, or review-missing statuses,
-- allow `REVIEWED_HELD` to pass only when the exact latest commit has explicit reviewed-held metadata and no-import/no-install/no-extraction language,
+- fail passive `REVIEWED_HELD` as unresolved for v0.2.3 final checks,
+- report final `reviewDecision.outcome` values for resolved sources,
 - avoid runtime writes outside `docs/SOURCE_FRESHNESS_REPORT.md`,
 - keep `neverAutoImport` behavior,
 - include affected-method hints derived from method `sourceRef` frontmatter,

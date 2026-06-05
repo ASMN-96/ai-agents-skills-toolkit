@@ -57,7 +57,8 @@ async function main() {
     ".ai-toolkit/sources/watchlist.json",
     ".ai-toolkit/tool-packs/webapp-quality-security.json",
     ".ai-toolkit/evals/runtime-activation/runtime-boundary-evals.json",
-    ".ai-toolkit/evals/routing/toolkit-routing-evals.json"
+    ".ai-toolkit/evals/routing/toolkit-routing-evals.json",
+    ".ai-toolkit/evals/routing/enterprise-governance-routing-evals.json"
   ]) {
     await checkJsonVersion(file);
   }

@@ -1,6 +1,6 @@
 ---
 sourceRef: ["supabase-agent-skills"]
-lastExtracted: unknown-review-required
+lastExtracted: 2026-06-06
 status: approved
 ---
 
@@ -27,10 +27,14 @@ Backend Contract Agent, Database RLS Agent, Security Agent, QA Test Agent, Revie
 - Start by classifying the data surface: public, authenticated user, tenant-scoped, admin-only, or service-role-only.
 - Verify the current source of truth before database guidance: local migrations, generated types, Supabase docs, and project-specific repo instructions.
 - Treat RLS, auth, storage, and public API payloads as security surfaces, not just backend implementation details.
+- Treat Supabase Data API/table exposure as a public API boundary. Inventory exposed tables, views, RPC/functions, generated clients, and anon/authenticated access before claiming private-data safety.
 - Prefer read-only inspection until the migration or SQL change is explicitly in scope.
 - Never run live SQL, migrations, seed scripts, Supabase CLI commands, MCP actions, or project config changes without explicit approval and a rollback path.
 - For query-performance work, identify the query shape, indexes, row volume assumptions, locking/concurrency risk, and expected evidence before proposing changes.
-- For migrations, check reversibility, data backfill impact, generated type drift, staging/production differences, and whether policies need to change with schema.
+- For migrations, check reversibility, schema constraints, data backfill impact, generated type drift, staging/production differences, and whether policies need to change with schema.
+- Review SECURITY DEFINER functions for owner, search path, caller role, least privilege, input validation, and RLS bypass risk.
+- Verify auth helper assumptions against current official Supabase docs before depending on role/session behavior in policy or API decisions.
+- Treat BOLA/object-ownership checks and npm/package supply-chain changes as security gates when Supabase client, API, or generated-type behavior is affected.
 - Stop if service-role keys, JWT secrets, database URLs, auth config, or private payloads are needed but not explicitly authorized.
 
 ## Verification Requirements

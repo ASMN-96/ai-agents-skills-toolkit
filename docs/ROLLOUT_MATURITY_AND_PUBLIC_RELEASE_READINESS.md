@@ -1,6 +1,6 @@
 # Rollout Maturity and Public Release Readiness
 
-Status: Level 3 controlled-pilot milestone complete; `v0.2.2` is the controlled AI Vibe Coding Toolkit release path for AI coding-agent governance after v0.2 hardening, activation posture hardening, source-freshness review, and no-write leak-scan validation. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
+Status: Level 3 controlled-pilot milestone complete; `v0.2.3` is the controlled AI Vibe Coding Toolkit release path for AI coding-agent governance after v0.2 hardening, activation posture hardening, full resource refresh with zero passive source holds, and no-write leak-scan validation. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
 
 Date: 2026-06-05
 
@@ -21,7 +21,7 @@ This document is a promotion gate. It does not activate runtimes, publish packag
 
 Current level: Level 3 complete.
 
-Controlled release: `v0.2.2` for AI coding-agent governance after the full local validation gate, PR merge, post-merge verification, tag creation, and GitHub release verification pass. This release is not a Level 4, Level 5, enterprise-certified, production-certified, automatic tool-installation, or broad cross-runtime active-support claim. `v0.1.0` remains the historical first controlled public release, and `docs/V0_2_0_RELEASE_NOTES.md` remains historical v0.2.0 evidence.
+Controlled release: `v0.2.3` for AI coding-agent governance after the full local validation gate, PR merge, post-merge verification, tag creation, and GitHub release verification pass. This release does not claim higher maturity, enterprise or production certification, automatic installs, or broad cross-runtime active support. `v0.1.0` remains the historical first controlled public release, and `docs/V0_2_0_RELEASE_NOTES.md` remains historical v0.2.0 evidence.
 
 Evidence:
 
@@ -47,13 +47,13 @@ Deferred Level 4 evidence backlog:
 Current blockers for Level 5 broad public/package maturity:
 
 - Public package validation is allowlist-only and does not certify the whole repository tree or Git history for public GitHub visibility.
-- Whole-repo publication review retains non-current-tree owner/history findings that are acceptable for the controlled `v0.2.2` path only when owner acceptance is explicit.
+- Whole-repo publication review retains non-current-tree owner/history findings that are acceptable for the controlled `v0.2.3` path only when owner acceptance is explicit.
 - Historical Git exposure remains unresolved until the owner chooses a clean sanitized repository/mirror or verified history cleanup.
 - Public runtime is canonical-only: 5 active skills and 12 active repo-local project agents. Old aliases are not active runtime names.
 - Public package allowlist is enforced by `node scripts/validate-public-package.mjs`; current report is `docs/PUBLIC_PACKAGE_VALIDATION_REPORT.md`.
 - `LICENSE`, `CONTRIBUTING.md`, and `CODE_OF_CONDUCT.md` are present but still require owner/legal/community approval before publication.
 - `SECURITY.md` now defines supported scope and reporting expectations, but the final vulnerability-reporting channel still needs an owner-approved private contact path.
-- Clean-clone verification remains required before any future broad package/distribution claim beyond the controlled `v0.2.2` path.
+- Clean-clone verification remains required before any future broad package/distribution claim beyond the controlled `v0.2.3` path.
 
 ## Required Validators
 
@@ -183,6 +183,18 @@ Forbidden without separate approval:
 - [ ] Release PR was merged to `main`.
 - [ ] Post-merge validation passed on `main`.
 - [ ] `v0.2.2` annotated tag was created only from validated `main`.
+- [ ] GitHub release notes state controlled AI coding-agent toolkit readiness, validation evidence, known exclusions, rollback path, and no external submission.
+
+## Controlled v0.2.3 Release Checklist
+
+- [x] v0.2.3 full resource refresh PR updates source records, source utilization, methods, routing, evals, generated package metadata, and compiled fallbacks.
+- [x] Passive active-source `REVIEWED_HELD` is not a final allowed source outcome.
+- [x] Source freshness model requires `SYNCED_ADOPTED`, `SYNCED_REFERENCE`, `SYNCED_PLUGIN_DELEGATED`, `ARCHIVED_HARD_BLOCKER`, or `REMOVED_REDUNDANT`.
+- [x] Runtime validation target remains 5 active skills and 12 active repo-local project agents.
+- [ ] Full release validation gate passed on the v0.2.3 release branch.
+- [ ] Release PR was merged to `main`.
+- [ ] Post-merge validation passed on `main`.
+- [ ] `v0.2.3` annotated tag was created only from validated `main`.
 - [ ] GitHub release notes state controlled AI coding-agent toolkit readiness, validation evidence, known exclusions, rollback path, and no external submission.
 
 ## Level 5 Checklist

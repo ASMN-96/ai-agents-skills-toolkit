@@ -5,12 +5,12 @@
 - Owner / publisher: Trail of Bits.
 - Source type: Security-focused Claude Code plugin marketplace with Codex sidecar skill support.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `c94841be3deae8a880fa1a9078979adac7ca3dbc` on `main`, checked by read-only remote HEAD on 2026-05-29.
-- Reviewed-held upstream ref: `d5fe2e6a7896236c3102fd5477e833623ad70298` on `main`, checked by read-only remote HEAD on 2026-06-05.
+- Pinned repo ref checked: `d5fe2e6a7896236c3102fd5477e833623ad70298` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-06.
+- v0.2.3 outcome: `SYNCED_ADOPTED` for license-safe, cleanroom differential-security review discipline only.
 - Visible adoption signals: about 5.1k GitHub stars, 443 forks, active repository updates on 2026-05-08, and a broad security plugin catalog.
 - Trust level: High security-domain trust, high execution and workflow-overreach risk if imported blindly.
 - License status: GitHub API reports CC-BY-SA-4.0.
-- Recommendation: Candidate for future normalized security-review method extraction after separate approval. Do not install marketplaces, clone to Codex paths, run install scripts, copy raw skills, or import the plugin roster.
+- Recommendation: Keep as an active security-method source for cleanroom risk-first review concepts. Do not install marketplaces, clone to Codex paths, run install scripts, copy raw skills, copy CC-BY-SA text, or import the plugin roster.
 
 ## Purpose
 
@@ -68,12 +68,12 @@ Blindly importing these skills could add heavyweight review workflows, hidden ru
 
 Candidate for future normalized security-method extraction, pending separate approval and license review. Keep future extraction focused on risk gates, evidence standards, and stop conditions. No raw skill/plugin/repo content was activated.
 
-## Freshness Review 2026-06-05 Validation Follow-Up
+## v0.2.3 Full-Power Resolution 2026-06-06
 
 - Compared reviewed commit `c94841be3deae8a880fa1a9078979adac7ca3dbc` with upstream `main` at `d5fe2e6a7896236c3102fd5477e833623ad70298` using read-only GitHub metadata and `git ls-remote`.
 - Delta included upstream PR #173, "Remove legacy codex compatiblity scripts/shims", and PR #175, "feat(codex): add UI metadata for skills".
 - Changed paths included `.claude-plugin/marketplace.json`, removal of `.codex/INSTALL.md`, removal of `.codex/scripts/install-for-codex.sh`, removal of many `.codex/skills/*` shims, added `.github/scripts/check_claude_loadability.py`, added `.github/scripts/check_codex_loadability.py`, removed `.github/scripts/validate_codex_skills.py`, modified `.github/workflows/validate.yml`, added `AGENTS.md`, modified `CLAUDE.md`, modified `README.md`, updated plugin metadata/hooks including `.mcp.json`, added many `agents/openai.yaml` files, and added vendored `trail-of-bits-mark.svg` assets under plugin skill directories.
-- Decision: `REVIEWED_HELD`.
-- Classification: high-risk plugin/runtime/CI/MCP/loadability/UI-metadata reshape with CC-BY-SA source license concern.
-- No source text, skill body, plugin metadata, script, hook, workflow, MCP configuration, OpenAI agent metadata, SVG asset, installation behavior, loadability behavior, or marketplace behavior was copied, imported, installed, activated, extracted, run, or adopted.
-- Keep this source as a reference-only security-method inspiration until a separate owner-approved license and runtime review is completed.
+- Outcome: `SYNCED_ADOPTED`.
+- Decision: keep the latest upstream commit active as security-review source intelligence, with adoption limited to cleanroom, license-safe concepts already represented in `methods/security/differential-security-review.md`, security routing, and eval stop conditions. The CC-BY-SA license blocks copying or close paraphrase of raw source text, but it does not require freezing independent toolkit-owned review discipline.
+- Adopted guidance: changed-file inventory first, risk-scaled review depth, high-risk trigger escalation, evidence/confidence/coverage limits in findings, and explicit refusal to treat plugin/runtime/CI/MCP metadata as activation.
+- No source text, skill body, plugin metadata, script, hook, workflow, MCP configuration, OpenAI agent metadata, SVG asset, installation behavior, loadability behavior, marketplace behavior, package metadata, or CI behavior was copied, imported, installed, activated, run, or adopted.

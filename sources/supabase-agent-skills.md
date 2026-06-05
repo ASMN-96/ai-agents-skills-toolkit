@@ -5,11 +5,11 @@
 - Owner / publisher: Supabase.
 - Source type: Official Agent Skills repository and official Supabase AI Skills documentation.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `759fddfc29ebc96b88b4bebb89ebb484a39aa6e2` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
+- Pinned repo ref checked: `1356046015476711a769601079262b5635929427` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-06.
 - Visible adoption signals: about 2.1k GitHub stars, 134 forks, and an official `v0.1.1` release on 2026-05-06.
 - Trust level: High publisher trust, high execution and data-risk if applied blindly to live Supabase projects.
 - License status: GitHub API reports MIT.
-- Recommendation: Refresh source record only. Delegate Supabase implementation behavior to the installed Supabase plugin/official docs when needed. No method extraction or skill updates until separately approved. Do not run install commands, activate skills, copy raw `SKILL.md`, or change Supabase projects during source scouting.
+- Recommendation: `SYNCED_PLUGIN_DELEGATED` for v0.2.3. Keep Supabase Agent Skills active as high-value governance/method source intelligence, adopt cleanroom RLS/auth/API/release guidance into toolkit-owned methods and evals, and delegate live/project Supabase operations to the Supabase plugin and official docs. Do not run install commands, activate upstream skills, copy raw `SKILL.md`, or change Supabase projects during source scouting.
 
 ## Purpose
 
@@ -70,10 +70,20 @@ Refresh source record only, pending separate approval. Keep extraction narrow, p
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `577e626421fdb691902f158181e467a3dbf99410` to `759fddfc29ebc96b88b4bebb89ebb484a39aa6e2` using GitHub compare metadata and `git ls-remote` only. The compare was 2 commits ahead and touched release workflow metadata, release-please metadata, `AGENTS.md`, and changelog files for the Supabase and Supabase Postgres best-practices skills. MIT license metadata remained present. Because this source directly affects database, auth, and RLS guidance, the change remains review-sensitive even though no source content was imported. This refresh updates source tracking only and does not approve skill installation, raw `SKILL.md` copying, Supabase CLI execution, MCP configuration, database changes, auth changes, RLS changes, method extraction, product-repo changes, or runtime activation.
 
-## Reviewed-Held Source Safety Review 2026-06-05
+## v0.2.3 Full-Power Resolution 2026-06-06
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `759fddfc29ebc96b88b4bebb89ebb484a39aa6e2` to `1356046015476711a769601079262b5635929427` using live source freshness output and GitHub compare metadata only. The compare was 2 commits ahead and touched release-please metadata plus Supabase and Supabase Postgres best-practices changelogs. The observed changelog delta references safe migration schema constraints, SECURITY DEFINER coverage, `auth.role()` deprecation, BOLA, Data API table exposure, and npm supply-chain guidance.
 
-Classification: `REVIEWED_HELD` / reviewed-held Supabase database/auth/API/migration/security and supply-chain guidance delta.
+Outcome: `SYNCED_PLUGIN_DELEGATED`.
 
-Decision: keep the latest upstream commit as reference-only held source material. This review does not approve source import, installation, activation, extraction, raw skill copying, Supabase CLI execution, MCP configuration, package or lockfile updates, Data API behavior adoption, migration guidance adoption, auth or RLS behavior adoption, security checklist adoption, npm supply-chain guidance adoption, database changes, product-repo changes, global config changes, CI changes, method extraction, or runtime activation. Future upstream movement beyond `1356046015476711a769601079262b5635929427` requires a fresh review.
+Decision: keep the latest upstream commit active inside the toolkit as reviewed source intelligence, not as imported runtime behavior. Useful guidance was converted into toolkit-owned Supabase/RLS, security, API-contract, release, routing, and eval gates. Live Supabase execution remains delegated to the Supabase plugin or project-owned Supabase tooling when explicitly approved for a target project.
+
+Adopted cleanroom guidance:
+
+- Data API exposure is a public API boundary and must be inventoried before claiming tenant or private-data safety.
+- SECURITY DEFINER functions require least-privilege, owner, search-path, and caller-role review.
+- Auth/RLS helpers and assumptions must be checked against current official Supabase docs before implementation.
+- Schema constraints, backfills, and generated-type drift belong in migration rollback planning.
+- BOLA/object-ownership risk and npm/package supply-chain movement are security gates, not incidental backend details.
+
+Boundaries: this review does not approve source import, upstream skill installation, raw skill copying, Supabase CLI execution, MCP configuration, package or lockfile updates, database changes, auth changes, RLS policy changes, migrations, product-repo changes, global config changes, CI changes, or runtime activation. Future upstream movement beyond `1356046015476711a769601079262b5635929427` requires a fresh review.

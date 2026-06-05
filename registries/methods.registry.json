@@ -1604,9 +1604,13 @@
         {
           "path": "sources/anthropic-skills.md",
           "category": "restricted-source"
+        },
+        {
+          "path": "sources/shadcn-ui.md",
+          "category": "external-source"
         }
       ],
-      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; shadcn/ui source record reports MIT. Use normalized guidance only; no raw upstream component, registry, package, or docs text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -1747,9 +1751,13 @@
         {
           "path": "sources/anthropic-skills.md",
           "category": "restricted-source"
+        },
+        {
+          "path": "sources/impeccable.md",
+          "category": "external-source"
         }
       ],
-      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; Impeccable source record reports Apache-2.0. Use normalized UI quality guidance only; no raw upstream skill, CLI, detector, package, or docs text copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -2170,9 +2178,13 @@
         {
           "path": "methods/orchestration/static-task-state-handoff-ledger.md",
           "category": "toolkit-authored"
+        },
+        {
+          "path": "sources/ruflo.md",
+          "category": "external-source"
         }
       ],
-      "licenseStatus": "Toolkit-authored static governance method. Historical RuFlo source-safety review identified useful static concepts, but RuFlo remains REVIEWED_HELD and is not active source authority for this method. No memory hooks, MCP behavior, daemon logic, file watchers, package scripts, runtime persistence, source code, tests, prompts, or configuration copied or activated.",
+      "licenseStatus": "Toolkit-authored static governance method with cleanroom RuFlo task-state and handoff concepts adopted. No memory hooks, MCP behavior, daemon logic, file watchers, package scripts, runtime persistence, source code, tests, prompts, or configuration copied or activated.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, command block, package config, screenshot, brand asset, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -2569,9 +2581,13 @@
         {
           "path": "methods/api/api-contract-and-routing-readiness.md",
           "category": "toolkit-authored"
+        },
+        {
+          "path": "sources/supabase-agent-skills.md",
+          "category": "external-source"
         }
       ],
-      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "licenseStatus": "Toolkit-authored product-neutral method with cleanroom Supabase Agent Skills guidance adopted; Supabase source record reports MIT and no raw upstream source content copied.",
       "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
       "status": [
         "documented",
@@ -2778,9 +2794,13 @@
         {
           "path": "methods/security/application-security-readiness.md",
           "category": "toolkit-authored"
+        },
+        {
+          "path": "sources/supabase-agent-skills.md",
+          "category": "external-source"
         }
       ],
-      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "licenseStatus": "Toolkit-authored product-neutral method with cleanroom Supabase Agent Skills guidance adopted; Supabase source record reports MIT and no raw upstream source content copied.",
       "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
       "status": [
         "documented",
@@ -2831,9 +2851,13 @@
         {
           "path": "methods/release/release-rollback-readiness.md",
           "category": "toolkit-authored"
+        },
+        {
+          "path": "sources/supabase-agent-skills.md",
+          "category": "external-source"
         }
       ],
-      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "licenseStatus": "Toolkit-authored product-neutral method with cleanroom Supabase Agent Skills guidance adopted; Supabase source record reports MIT and no raw upstream source content copied.",
       "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
       "status": [
         "documented",

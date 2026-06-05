@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.2.2",
+  "toolkitVersion": "0.2.3",
   "policy": "Source watchlist is metadata-only and never authorizes import, install, activation, extraction, CI wiring, MCP setup, or global config changes.",
   "sources": [
     {
@@ -543,7 +543,7 @@
       "repoName": "code-review-graph",
       "defaultBranch": "main",
       "lastReviewedCommit": "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
-      "lastReviewedDate": "2026-06-05",
+      "lastReviewedDate": "2026-06-06",
       "sourceRecordPath": ".ai-toolkit/sources/records/code-review-graph.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -553,27 +553,19 @@
       "category": "source-intelligence",
       "purpose": "local-first code intelligence graph for MCP/CLI and large-repo context mapping",
       "recommendedToolkitStatus": "active-read-only",
-      "reviewedHold": {
-        "status": "REVIEWED_HELD",
+      "reviewDecision": {
+        "outcome": "SYNCED_ADOPTED",
         "reviewedCommit": "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
-        "reviewedDate": "2026-06-05",
-        "classification": "active-read-only source intelligence",
-        "decision": "metadata and manual/static source intelligence only; no import, install, activation, package changes, MCP/global config, CI wiring, indexing, product repo scanning, private-overlay indexing, generated graph claims, or raw upstream copying",
-        "noImportNoInstallNoExtraction": true,
-        "forbiddenActions": [
-          "import",
-          "install",
-          "activation",
-          "extraction",
-          "package changes",
-          "MCP setup",
-          "global config",
-          "CI wiring",
-          "indexing",
-          "product repo scanning",
-          "private-overlay indexing",
-          "generated graph claims",
-          "raw upstream copying"
+        "reviewedDate": "2026-06-06",
+        "summary": "Active read-only context graph and token governance concepts adopted into toolkit-owned methods/evals; runtime execution remains approval-required.",
+        "boundaries": [
+          "no CLI install",
+          "no MCP setup",
+          "no daemon or watcher",
+          "no product-repo indexing",
+          "no private-overlay indexing",
+          "no generated graph claims without output",
+          "no raw upstream copying"
         ]
       }
     },

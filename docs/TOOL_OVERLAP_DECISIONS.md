@@ -141,7 +141,7 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 ## RuFlo-Style Concepts vs Runtime Orchestration
 
 - Default winner: toolkit-authored static governance methods.
-- Complementary tool: RuFlo-style concepts only as `held-static-only` source-safety context.
+- Complementary tool: RuFlo-style concepts only as `static-adopted` source-safety context.
 - Conflict rule: runtime hooks, memory bridges, MCP, daemons, background processes, global config, file watchers, package scripts, and runtime persistence are `forbidden-runtime`.
 - When to activate: never as runtime; use only static governance ideas already normalized into toolkit-owned methods.
 - When to avoid: any install, package/config change, hook, daemon, MCP, watcher, memory, or persistent runtime request.

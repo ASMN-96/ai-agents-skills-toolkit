@@ -107,7 +107,7 @@ const ACTIVATION_LEVELS = new Set([
   "owner-approved-install",
   "ci-advisory",
   "ci-blocking-after-calibration",
-  "held-static-only",
+  "static-adopted",
   "forbidden-runtime"
 ]);
 
@@ -310,7 +310,7 @@ async function validateDocBoundaries() {
     "owner-approved-install",
     "ci-advisory",
     "ci-blocking-after-calibration",
-    "held-static-only",
+    "static-adopted",
     "forbidden-runtime",
     "GSD-style discipline",
     "RuFlo-style concepts"

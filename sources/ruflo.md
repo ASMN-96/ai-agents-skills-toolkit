@@ -4,11 +4,11 @@
 - Owner / publisher: ruvnet.
 - Source type: Agent orchestration/runtime framework with daemon, plugins, workers, state, and verification materials.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `844f68dbe5f28c4c2b13c56e8e102528aa63b629` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
+- Pinned repo ref checked: `d065b15927c6ba7318623e8af123e7980e4c6681` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-06.
 - Visible adoption signals: about 56.4k GitHub stars, 6.4k forks, and active alpha release work.
 - Trust level: Medium source trust, very high runtime/daemon risk.
 - License status: GitHub API reports MIT.
-- Recommendation: Candidate for future normalized orchestration-method inspiration after separate approval. Do not import daemon, supervisor, worker, MCP, memory, hooks, federation, swarm, or plugin runtime behavior.
+- Recommendation: `SYNCED_ADOPTED` for v0.2.3 static governance only. Keep RuFlo active as source intelligence for static task-state, handoff, stop-condition, and failure-accounting discipline. Do not import daemon, supervisor, worker, MCP, memory, hooks, federation, swarm, plugin runtime behavior, package metadata, or lockfiles.
 
 ## Purpose
 
@@ -106,16 +106,16 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `08bf1cf3242baae280755fe1348572406b867cb7` to `844f68dbe5f28c4c2b13c56e8e102528aa63b629` using GitHub compare metadata and `git ls-remote` only. The compare was 3 commits ahead and touched CLI MCP client guardrail tests, CLI startup/log filtering/MCP client code, memory bridge code, plugin trust-anchor data, security authorization propagation, plugin integrity verifier code, and related security tests. MIT license metadata remained present from the source record. The source remains very high risk for runtime, daemon, MCP, hook, memory, plugin, package-script, persisted-state, file-write, trust-anchor, and background-process behavior. The recommendation is unchanged. This refresh updates source tracking only and does not approve package install, daemon, worker, hook, MCP, memory, plugin, script execution, trust-anchor import, source-copying, method-extraction, product-repo indexing, or global configuration use.
 
-## Reviewed-Held Source Safety Review 2026-06-04
+## v0.2.3 Full-Power Resolution 2026-06-06
 
 Skill Scout read-only source-safety review evaluated upstream default-branch movement from `844f68dbe5f28c4c2b13c56e8e102528aa63b629` to `d065b15927c6ba7318623e8af123e7980e4c6681` using GitHub compare metadata, license metadata, and patch-signal review only. The compare was 2 commits ahead and touched `.claude/helpers/auto-memory-hook.mjs`, `package.json`, `package-lock.json`, RuFlo and CLI package metadata, CLI embeddings command code, memory package metadata, auto-memory bridge code, and memory bridge tests. MIT license metadata remained present.
 
-Classification: `REVIEWED_HELD` / reviewed-held high-risk reference-only.
+Outcome: `SYNCED_ADOPTED`.
 
-Decision: keep RuFlo as a high-risk orchestration and source-safety reference only. This review does not approve hooks, memory bridge behavior, MCP behavior, daemon behavior, global behavior, package updates, lockfile updates, global npm lookup behavior, source import, installation, activation, extraction, script execution, product-repo indexing, product-repo changes, or global configuration changes. Future upstream movement beyond `d065b15927c6ba7318623e8af123e7980e4c6681` requires a fresh review.
+Decision: keep RuFlo active as cleanroom static orchestration guidance through `methods/orchestration/static-task-state-handoff-ledger.md` and related governance/routing/eval stop conditions. The reviewed upstream drift reinforces why memory hooks, bridge behavior, MCP, daemon, global config, package, and background runtime surfaces remain forbidden. This review does not approve hooks, memory bridge behavior, MCP behavior, daemon behavior, global behavior, package updates, lockfile updates, global npm lookup behavior, source import, installation, activation, script execution, product-repo indexing, product-repo changes, or global configuration changes. Future upstream movement beyond `d065b15927c6ba7318623e8af123e7980e4c6681` requires a fresh review.
 
-## v0.2.1 Static-Only Decision 2026-06-05
+## v0.2.3 Static-Only Adoption Boundary 2026-06-06
 
-The toolkit added a toolkit-authored static task-state handoff method that does not use RuFlo as active source authority. RuFlo remains `REVIEWED_HELD` and reference-only under the existing no-import, no-install, no-activation, no-extraction, no-hook, no-memory, no-MCP, no-daemon, no-file-watcher, no-global-config, no-package-script, and no-runtime-persistence boundary.
+The toolkit uses RuFlo as active cleanroom source intelligence for a toolkit-authored static task-state handoff method. That is full-power adoption inside this repository for the safe part of the source: explicit task state, handoff facts, retry/stop-condition discipline, failure accounting, and no-silent-fallback reporting.
 
 No RuFlo code, tests, prompts, commands, scripts, package metadata, lockfiles, MCP configuration, memory bridge logic, daemon logic, watcher behavior, generated output, or runtime behavior was copied or activated.

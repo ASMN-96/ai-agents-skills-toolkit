@@ -1,7 +1,7 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.2.2
-toolkit_pin: ai-agents-skills-toolkit@0.2.2
+toolkit_version: 0.2.3
+toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
@@ -221,6 +221,15 @@ Provide coding-time governance for production-risk changes without claiming ente
 - State dry-run, skipped, unavailable, metadata-only, planned, and partial checks honestly.
 ## Evidence Requirements
 Completion evidence must include commands actually run, WARN output, skipped gates, residual risk, and no-fake-validation wording. Do not claim production readiness from metadata, dry-runs, or planned checks.
+## Compact Example
+Good pattern:
+- Classify the workflow and risk, edit the smallest needed files, run relevant checks, and report observed output plus rollback notes.
+Bad pattern:
+- Calling a change production-ready because the plan is sound, the validator exists, or a dry-run selected checks.
+Evidence required:
+- Commands actually run, pass/fail output, WARN lines, skipped checks, and residual risk.
+Stop condition:
+- Pause before package, CI, deployment, MCP/global, product repo, secret, destructive, or data-impacting changes without explicit approval.
 ## Stop Conditions
 - Required validation fails or cannot run and the risk is material.
 - Rollback is unclear for a user-facing, data, auth, security, package, CI, or deployment change.
@@ -241,6 +250,15 @@ Review performance, scalability, and cache risk during coding before broad optim
 - Avoid premature rewrites unless measured risk or clear complexity justifies it.
 ## Evidence Requirements
 Report baseline or reproduction evidence when collected, commands actually run, measurement limits, skipped checks, and whether the fix is verified or only risk-reduced.
+## Compact Example
+Good pattern:
+- Identify the exact slow workflow, collect a baseline when feasible, reduce request/query/render/cache cost, and report what improved versus what remains unmeasured.
+Bad pattern:
+- Rewriting broad architecture because something feels slow without reproduction, measurement, or a scoped hypothesis.
+Evidence required:
+- Baseline or reproduction evidence when available, commands run, measurement limits, and verified or risk-reduced status.
+Stop condition:
+- Pause when optimization changes behavior, cache isolation, infrastructure, packages, CI, deployment, or production settings without approval.
 ## Stop Conditions
 - Cache keys may leak tenant/account/user/private data.
 - Optimization would change behavior without tests or owner approval.
@@ -262,6 +280,15 @@ Ensure coding-time changes leave enough evidence for debugging without leaking s
 - Separate local/debug evidence from production observability claims.
 ## Evidence Requirements
 Report observed logs, errors, traces, metrics, screenshots, or command output only when actually collected. Label unavailable or skipped observability evidence.
+## Compact Example
+Good pattern:
+- Add or preserve safe error surfaces, identify where failures appear, and report only logs, traces, screenshots, or output actually observed.
+Bad pattern:
+- Claiming production monitoring coverage from local code review, planned dashboards, or a logger that was not exercised.
+Evidence required:
+- Observed error/log/trace/metric/screenshot/command output, or an explicit unavailable/skipped label.
+Stop condition:
+- Pause if debugging needs secrets/private data or new monitoring service, package, CI, deployment, or external permission changes.
 ## Stop Conditions
 - Debugging would require secret access or private data exposure.
 - New observability service, deployment config, CI wiring, package install, or external permission is required without approval.
@@ -272,7 +299,7 @@ Report observed logs, errors, traces, metrics, screenshots, or command output on
 - Source agent path: `agents/sre-performance-agent.md`
 - Profile paths: `profiles/sre-profile.md`, `profiles/release-profile.md`, `profiles/implementation-profile.md`
 - Method IDs: `osmani.performance-optimization`, `osmani.shipping-launch`, `orchestration.compact-agent-context-pack`, `mobile.native-mobile-app-quality`, `reliability.coding-time-production-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `code-review-graph`, `unknown-review-required`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `code-review-graph`, `toolkit-authored`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

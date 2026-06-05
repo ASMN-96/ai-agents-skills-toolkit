@@ -5,11 +5,11 @@
 - Owner / publisher: shadcn-ui.
 - Source type: Open component code, registry, documentation, CLI, and AI-oriented UI composition source.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `9c6a5ee1b14226efbcd31daf54e9bc2e91f647e9` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-05.
+- Pinned repo ref checked: `7dfd933102fdb881f8abd24fc1ef11a669682b94` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-06.
 - Visible adoption signals: about 113.8k GitHub stars, 8.7k forks, active repository updates on 2026-05-08, and official docs at `ui.shadcn.com`.
 - Trust level: High UI ecosystem trust, medium-high execution risk if CLI or registry behavior is followed blindly.
 - License status: GitHub API reports MIT.
-- Recommendation: Candidate for future normalized UIUX/design-system method extraction after separate approval. Do not run CLI commands, install components, start MCP servers, copy component source, or activate upstream skills during source scouting.
+- Recommendation: `SYNCED_REFERENCE` for v0.2.3 with active design-system guidance retained in toolkit-owned UIUX methods. Do not run CLI commands, install components, start MCP servers, copy component source, import registry/package metadata, or activate upstream skills during source scouting.
 
 ## Purpose
 
@@ -94,10 +94,10 @@ Classification: safe source-record refresh / low-risk registry directory metadat
 
 Decision: keep shadcn/ui as active-reference/planned normalized design-system source intelligence only. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, package changes, lockfile import, source extraction, product-repo changes, or product design-system overrides.
 
-## Reviewed-Held Source Safety Review 2026-06-05 Release Gate
+## v0.2.3 Full-Power Resolution 2026-06-06
 
 Skill Scout read-only release-gate follow-up reviewed upstream default-branch movement from `9c6a5ee1b14226efbcd31daf54e9bc2e91f647e9` to `7dfd933102fdb881f8abd24fc1ef11a669682b94` using GitHub compare metadata, commit metadata, and changed-file metadata only. The compare was 1 commit ahead and touched `.changeset/friendly-foxes-fix.md`, `packages/shadcn/package.json`, and `pnpm-lock.yaml`. The commit message was `fix(cli): move msw to devDependencies (#10851)`.
 
-Classification: `REVIEWED_HELD` / package and lockfile metadata drift in upstream CLI/package surface.
+Outcome: `SYNCED_REFERENCE`.
 
-Decision: keep shadcn/ui as a high-trust design-system source, but hold this upstream movement from active adoption. This review does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, package metadata adoption, lockfile adoption, dependency movement adoption, package changes, product-repo changes, source extraction, or runtime activation.
+Decision: keep shadcn/ui active as design-system/component-ownership reference guidance, while rejecting this specific package/lockfile/CLI drift for toolkit adoption. Existing toolkit-owned design-system guidance now records shadcn/ui as reference intelligence for semantic tokens, accessible component APIs, component ownership, and compatibility gates. This review does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, package metadata adoption, lockfile adoption, dependency movement adoption, package changes, product-repo changes, raw source extraction, or runtime activation.

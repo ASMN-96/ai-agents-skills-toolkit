@@ -1,6 +1,6 @@
 ---
-sourceRef: unknown-review-required
-lastExtracted: unknown-review-required
+sourceRef: ["toolkit-authored"]
+lastExtracted: 2026-06-06
 status: approved
 ---
 
@@ -21,6 +21,24 @@ Ensure coding-time changes leave enough evidence for debugging without leaking s
 ## Evidence Requirements
 
 Report observed logs, errors, traces, metrics, screenshots, or command output only when actually collected. Label unavailable or skipped observability evidence.
+
+## Compact Example
+
+Good pattern:
+
+- Add or preserve safe error surfaces, identify where failures appear, and report only logs, traces, screenshots, or output actually observed.
+
+Bad pattern:
+
+- Claiming production monitoring coverage from local code review, planned dashboards, or a logger that was not exercised.
+
+Evidence required:
+
+- Observed error/log/trace/metric/screenshot/command output, or an explicit unavailable/skipped label.
+
+Stop condition:
+
+- Pause if debugging needs secrets/private data or new monitoring service, package, CI, deployment, or external permission changes.
 
 ## Stop Conditions
 

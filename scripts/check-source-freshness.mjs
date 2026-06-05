@@ -27,12 +27,21 @@ const STATUSES = new Set([
 ]);
 
 const ACTIONABLE_STATUSES = new Set([
+  "REVIEWED_HELD",
   "CHANGED_LOW_RISK",
   "CHANGED_REVIEW_REQUIRED",
   "CHANGED_HIGH_RISK",
   "REVIEW_METADATA_MISSING",
   "UNSUPPORTED_SOURCE_TYPE",
   "CHECK_FAILED"
+]);
+
+const RESOLVED_REVIEW_OUTCOMES = new Set([
+  "SYNCED_ADOPTED",
+  "SYNCED_REFERENCE",
+  "SYNCED_PLUGIN_DELEGATED",
+  "ARCHIVED_HARD_BLOCKER",
+  "REMOVED_REDUNDANT"
 ]);
 
 const COMMIT_SHA_PATTERN = /^[0-9a-f]{40}$/i;
@@ -214,7 +223,7 @@ async function buildMethodImpactIndex() {
 
     const frontmatter = parseMethodFrontmatter(text);
     const sourceRefs = parseSourceRef(frontmatter?.sourceRef || "unknown-review-required")
-      .filter((sourceRef) => sourceRef !== "unknown-review-required");
+      .filter((sourceRef) => !["unknown-review-required", "toolkit-authored"].includes(sourceRef));
     const label = method.displayName ? `${method.id} (${method.displayName})` : method.id;
     for (const sourceRef of sourceRefs) {
       const existing = impactIndex.get(sourceRef) || [];
@@ -277,7 +286,38 @@ function validateWatchlist(watchlist) {
     if (source.lastReviewedDate !== null && typeof source.lastReviewedDate !== "string") {
       throw new Error(`Source ${source.id} lastReviewedDate must be string or null`);
     }
+    validateReviewDecision(source);
     validateReviewedHold(source);
+  }
+}
+
+function validateReviewDecision(source) {
+  if (!("reviewDecision" in source)) {
+    return;
+  }
+  const decision = source.reviewDecision;
+  if (!decision || typeof decision !== "object" || Array.isArray(decision)) {
+    throw new Error(`Source ${source.id} reviewDecision must be an object`);
+  }
+  if (!RESOLVED_REVIEW_OUTCOMES.has(decision.outcome)) {
+    throw new Error(
+      `Source ${source.id} reviewDecision.outcome must be one of ${Array.from(RESOLVED_REVIEW_OUTCOMES).join(", ")}`
+    );
+  }
+  if (typeof decision.reviewedCommit !== "string" || !COMMIT_SHA_PATTERN.test(decision.reviewedCommit)) {
+    throw new Error(`Source ${source.id} reviewDecision.reviewedCommit must be a 40-character Git commit SHA`);
+  }
+  if (source.lastReviewedCommit !== null && decision.reviewedCommit !== source.lastReviewedCommit) {
+    throw new Error(`Source ${source.id} reviewDecision.reviewedCommit must match lastReviewedCommit`);
+  }
+  if (typeof decision.reviewedDate !== "string" || decision.reviewedDate.length === 0) {
+    throw new Error(`Source ${source.id} reviewDecision.reviewedDate must be a non-empty string`);
+  }
+  if (typeof decision.summary !== "string" || decision.summary.length === 0) {
+    throw new Error(`Source ${source.id} reviewDecision.summary must be a non-empty string`);
+  }
+  if (!Array.isArray(decision.boundaries) || decision.boundaries.length === 0) {
+    throw new Error(`Source ${source.id} reviewDecision.boundaries must be a non-empty array`);
   }
 }
 
@@ -580,7 +620,7 @@ function nextStepFor(status) {
     case "UNCHANGED":
       return "no action";
     case "REVIEWED_HELD":
-      return "reviewed-held; no import/install/activation/extraction";
+      return "resolve reviewed hold; use a final v0.2.3 outcome";
     case "CHANGED_LOW_RISK":
       return "refresh source record";
     case "CHANGED_REVIEW_REQUIRED":
@@ -610,7 +650,8 @@ async function buildResults(watchlist, useMock, checkedAt, methodImpactIndex) {
       lastCheckedDate: checkedAt,
       affectedMethods: formatAffectedMethods(methodImpactIndex.get(source.id)),
       nextStep: nextStepFor(inspection.status),
-      reviewedHold: source.reviewedHold || null
+      reviewedHold: source.reviewedHold || null,
+      reviewDecision: source.reviewDecision || null
     });
   }
   return results;
@@ -777,19 +818,19 @@ function renderReport(results, useMock, checkedAt) {
     "",
     "## Sources",
     "",
-    "| Source | Repo | Status | Reviewed | Checked | Latest | Reviewed date | Latest date | License signal | Hold classification | Hold decision | Affected methods | Next step | Notes |",
-    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+    "| Source | Repo | Status | Reviewed | Checked | Latest | Reviewed date | Latest date | License signal | v0.2.3 outcome | Hold classification | Hold decision | Affected methods | Next step | Notes |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
   ];
 
   for (const result of results) {
     lines.push(
-      `| ${escapeCell(result.name)} | ${escapeCell(`${result.repoOwner}/${result.repoName}`)} | ${result.status} | ${shortSha(result.lastReviewedCommit)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.reviewedHold?.classification || "n/a")} | ${escapeCell(result.reviewedHold?.decision || "n/a")} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
+      `| ${escapeCell(result.name)} | ${escapeCell(`${result.repoOwner}/${result.repoName}`)} | ${result.status} | ${shortSha(result.lastReviewedCommit)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | ${escapeCell(result.reviewedHold?.classification || "n/a")} | ${escapeCell(result.reviewedHold?.decision || "n/a")} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
     );
 
     if (result.watchedPathSignals.length > 0) {
       for (const signal of result.watchedPathSignals) {
         lines.push(
-          `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | ${escapeCell(signal.date || "n/a")} | n/a | path commit signal only | n/a | n/a | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | watched-path signal only |`
+          `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | ${escapeCell(signal.date || "n/a")} | n/a | path commit signal only | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | n/a | n/a | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | watched-path signal only |`
         );
       }
     }
@@ -800,7 +841,7 @@ function renderReport(results, useMock, checkedAt) {
     "## Next Step Meanings",
     "",
     "- no action: current default-branch signal matches the reviewed commit; this does not mean the source is safe forever.",
-    "- reviewed-held; no import/install/activation/extraction: upstream changed, the latest commit has a recorded source-safety review, and the source is explicitly held/reference-only for runtime/package/tooling adoption.",
+    "- resolve reviewed hold: `REVIEWED_HELD` is an unresolved/intermediate v0.2.3 status and must be converted to a final outcome or removed from active monitoring.",
     "- refresh source record: upstream changed and a source-record refresh is the next safe step.",
     "- Skill Scout review required: review trust, license, maintenance, prompt-injection risk, dangerous commands, secret access, network behavior, and filesystem writes before any later phase.",
     "- reject/hold due to safety or license concern: do not import or extract until the concern is resolved in a separate reviewed phase.",
@@ -809,7 +850,7 @@ function renderReport(results, useMock, checkedAt) {
     "## Caveats",
     "",
     "- `Last checked` is the freshness scan timestamp and is not persisted back into source records automatically.",
-    "- REVIEWED_HELD is not import approval; it is an explicit no-import/no-install/no-activation/no-extraction hold for the exact reviewed latest commit.",
+    "- REVIEWED_HELD is not import approval and is not a final v0.2.3 active source outcome; final resolved outcomes are stored as `reviewDecision.outcome`.",
     "- Freshness signals only select review priority; they do not authorize source-record edits, extraction, activation, installation, or runtime writes.",
     "- License metadata is a signal only, not approval.",
     "- Watched-path changes are signals only, not approval.",

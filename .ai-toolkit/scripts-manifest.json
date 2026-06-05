@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.2.2",
+  "toolkitVersion": "0.2.3",
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "9e38a67b7ee312c4d0b86c11541b4c4ff5cfbb8db82c44ac8388293a2e0dacf2"
+      "sha256": "9c113b228b21bb251eea32e1058340c31b611a9cdd9ccf38c1799442a75272da"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
@@ -24,19 +24,19 @@
     },
     {
       "path": "scripts/check-source-freshness.mjs",
-      "sha256": "3d3f38e2d268ab521740b0543c92dc8b65e5c07ae7995c83e54dbb33d8a5e5bb"
+      "sha256": "8c12f34d8f6adc4a3b5b52f5a79a4eeebbf3923007114f41df7287eafef34cd1"
     },
     {
       "path": "scripts/validate-project-tooling-profiles.mjs",
-      "sha256": "7a5aa1c795feff3b140d5bb53102573921e7bd1f6fb32c8aa6f20dc126d9ef3b"
+      "sha256": "daecc589296eb3525133fbd6e34193b717894eaa63bb0fcb7a2683657ce99c66"
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "29dfdfeabf9eb6146eb8ffad7ca40a8cb555c857d362a880f87b4adda6737411"
+      "sha256": "7eda8145abbcea90061af7e358fb59d6f4fb3c2204dd1ee9f64d71b86c936a50"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
-      "sha256": "91247d3bd211db379dfeb781161d43c9aba90b71726a31e338bc06c9f16cfbb6"
+      "sha256": "854282278c24376b9842a6b55a5d8bafaf44f7fdeb891bba98c49d88dded62b2"
     },
     {
       "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",
@@ -44,11 +44,11 @@
     },
     {
       "path": "scripts/ai-toolkit/validate-version-consistency.mjs",
-      "sha256": "215cc1fe83530c8779e7bc17a6a3004e388eff75fdd40ccefc03421b5bc94827"
+      "sha256": "8ea8b20992f6428bde1006a3ae4f53e5a67e68b129c36c0599e3f93586607d3d"
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "69d31ba2ccf60e57694738a34528bf27eb70739ca12f34d5d1428f58a68a262c"
+      "sha256": "9a55850b2f4b2760bea87ba8285b50854d8d2499cf5c69b97d604d19f11b66e4"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",
