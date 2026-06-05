@@ -1,6 +1,6 @@
 ---
 sourceRef: ["addy-osmani-agent-skills","anthropic-skills"]
-lastExtracted: unknown-review-required
+lastExtracted: 2026-06-05
 status: approved
 ---
 

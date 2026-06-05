@@ -1,6 +1,6 @@
 ---
 sourceRef: ["everything-claude-code","superpowers"]
-lastExtracted: unknown-review-required
+lastExtracted: 2026-06-05
 status: approved
 ---
 

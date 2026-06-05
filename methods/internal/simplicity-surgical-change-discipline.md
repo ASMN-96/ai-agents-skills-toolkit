@@ -38,6 +38,6 @@ Over-minimizing needed changes, hiding unresolved uncertainty, performing unrela
 
 ## Source Safety / License Status
 
-Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment. Historical Karpathy-inspired source evidence remains license-caveated and is not active source authority for this method.
+Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment. License-caveated historical source-scouting evidence is not active source authority for this method.
 
 No upstream wording, examples, prompt structure, scripts, or runtime behavior were copied or activated.
