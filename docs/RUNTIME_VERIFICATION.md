@@ -31,6 +31,7 @@ Report each capability as:
 
 ## Current Reports
 
+- `docs/V0_2_1_RUNTIME_ADOPTION_PROOF.md` records PR2 repo-local runtime proof and backup-first global cleanup evidence. It does not claim product-repo adoption or a restarted fresh-session UI visibility test.
 - `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09.md` records current-session visibility and fallback status. It does not claim durable fresh-session activation across future sessions.
 - `docs/RUNTIME_VERIFICATION_REPORT_2026-05-09_FRESH_SESSION.md` records Phase 10I fresh-session smoke testing. The initial run exposed a WindowsApps PowerShell startup failure under the elevated Windows sandbox. A follow-up fresh run with a temporary per-command `windows.sandbox="unelevated"` override completed the required checks and certified Level 2 readiness for one controlled pilot, with the same override or another verified shell path required before pilot writes.
 
