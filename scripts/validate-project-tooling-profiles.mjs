@@ -355,6 +355,7 @@ async function validateRegistryConsistency() {
   const routing = await readJson("registries/routing-matrix.json", "project tooling registry consistency");
   const sourceMatrix = await read("docs/SOURCE_UTILIZATION_MATRIX.md");
   const installMatrix = await read("docs/PROJECT_TOOL_INSTALLATION_MATRIX.md");
+  const codeReviewGraphSource = await read("sources/code-review-graph.md");
 
   const tools = new Map((toolsRegistry?.tools || []).map((tool) => [tool.id, tool]));
   for (const [id, expected] of TOOL_EXPECTATIONS) {
@@ -371,12 +372,33 @@ async function validateRegistryConsistency() {
   if (codeReviewGraph?.status !== "active-read-only") {
     fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", "code-review-graph status must be active-read-only");
   }
-  for (const required of ["indexing", "product repo scanning"]) {
+  for (const required of ["indexing", "product repo scanning", "package changes"]) {
     if (!codeReviewGraph?.approvalRequiredFor?.includes(required)) {
       fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", `code-review-graph approvalRequiredFor must include ${required}`);
     }
     if (!JSON.stringify(codeReviewGraph?.forbiddenActions || []).toLowerCase().includes(required)) {
       fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", `code-review-graph forbiddenActions must include ${required}`);
+    }
+  }
+  const codeReviewGraphRisk = codeReviewGraph?.enterpriseRisk || {};
+  for (const field of ["license", "maintenanceSignal", "lastReviewedCommit", "lastReviewedDate", "securityReviewStatus", "defaultEnterpriseStatus"]) {
+    if (!codeReviewGraphRisk[field] || /unknown-review-required|not-yet-verified|source-review-required/i.test(String(codeReviewGraphRisk[field]))) {
+      fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", `code-review-graph enterpriseRisk.${field} must record completed source-safety review evidence`);
+    }
+  }
+  for (const required of [
+    "completed source-safety review",
+    "active-read-only source intelligence",
+    "MIT signal",
+    "no install",
+    "package changes",
+    "MCP setup",
+    "product repo scan",
+    "private-overlay indexing",
+    "raw upstream"
+  ]) {
+    if (!codeReviewGraphSource.toLowerCase().includes(required.toLowerCase())) {
+      fail("project tooling registry consistency", "sources/code-review-graph.md", `code-review-graph source record missing review boundary: ${required}`);
     }
   }
   const eslintBoundaries = tools.get("eslint-plugin-boundaries");

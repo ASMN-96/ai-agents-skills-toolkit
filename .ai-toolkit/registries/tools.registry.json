@@ -2480,6 +2480,7 @@
         "CI wiring",
         "MCP setup",
         "global config",
+        "package changes",
         "indexing",
         "product repo scanning",
         "hooks",
@@ -2493,29 +2494,29 @@
       ],
       "forbiddenUse": [
         "Do not install or activate from registry presence.",
-        "Do not configure CI, MCP, hooks, credentials, indexing, product repo scanning, or global settings.",
+        "Do not configure CI, MCP, hooks, credentials, package changes, indexing, product repo scanning, or global settings.",
         "Do not copy raw upstream files into active runtime paths."
       ],
       "sourceRecordPath": ".ai-toolkit/sources/records/code-review-graph.md",
       "integrationRecordPath": null,
       "notes": "Active-read-only source intelligence; install, MCP, indexing, global config, CI wiring, package changes, and product repo scanning remain approval-required.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-source-review-required",
-        "approvalOwner": "source-intelligence-owner-required",
+        "license": "MIT signal at reviewed commit; not legal approval to copy raw upstream content",
+        "saasOrLocal": "local-first Python package with CLI, MCP, daemon, and VS Code surfaces; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown and approval-required if tool or optional integrations are installed or run",
+        "networkBehavior": "metadata-only in toolkit; upstream includes MCP/HTTP server and optional network-capable integrations, approval required before use",
+        "secretAccessRisk": "high if run against product repositories; no product repo scanning, whole-repo dumping, or private-overlay indexing is approved",
+        "repositoryPermissionsRequired": "none from toolkit metadata; local repo read/index permissions only if separately approved",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains approval-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata; optional external integrations are not approved",
+        "telemetryBehavior": "none approved or activated from toolkit metadata",
+        "commercialVendorDependency": "none for metadata-only posture; optional external integrations remain unapproved",
+        "maintenanceSignal": "active public repo at reviewed commit; not runtime-approved",
+        "lastReviewedCommit": "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
+        "lastReviewedDate": "2026-06-05",
+        "securityReviewStatus": "completed source-safety review for active-read-only metadata; execution, install, indexing, MCP, package changes, CI, and product scanning remain approval-required",
+        "approvalOwner": "source-intelligence-owner-required-before-execution",
         "allowedEnvironments": [
           "metadata-only"
         ],
@@ -2528,7 +2529,7 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only active-read-only source intelligence unless explicitly approved; not enterprise-approved for execution, indexing, MCP, CI, package changes, or product repo scanning"
       },
       "projectInstallClass": "active-read-only",
       "lane": "Architecture, Repo Intelligence, and Token Context",
@@ -2545,6 +2546,7 @@
       "forbiddenActions": [
         "Do not install from registry presence.",
         "Do not run from registry presence.",
+        "Do not make package changes from registry presence.",
         "Do not wire CI from registry presence.",
         "Do not configure MCP, indexing, product repo scanning, or global config from registry presence.",
         "Do not claim output unless the tool actually ran."

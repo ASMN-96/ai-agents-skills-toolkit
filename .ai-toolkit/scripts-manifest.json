@@ -28,11 +28,11 @@
     },
     {
       "path": "scripts/validate-project-tooling-profiles.mjs",
-      "sha256": "fc86af7beef63a211aaecfabe0e730e31d63e28f507041960f600000dacbf63f"
+      "sha256": "2863d31d24da6acc083b4ab2e944bb0c7897ba126212bedb21b225b1f1126eac"
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "565ea0e8f24b04c746ef1cb3a249c0f1cf2f7ee1f0dd0162a53da82787bf9375"
+      "sha256": "06125236a6e8fd04d6d380fee3ae9603f0b4a508fa66b9bcf9d1fda3646e4bf6"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",

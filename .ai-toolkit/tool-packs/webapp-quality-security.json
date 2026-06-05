@@ -889,6 +889,7 @@
         "forbiddenActions": [
           "Do not install from registry presence.",
           "Do not run from registry presence.",
+          "Do not make package changes from registry presence.",
           "Do not wire CI from registry presence.",
           "Do not configure MCP, indexing, product repo scanning, or global config from registry presence.",
           "Do not claim output unless the tool actually ran."

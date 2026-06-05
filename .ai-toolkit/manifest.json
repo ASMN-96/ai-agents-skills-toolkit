@@ -252,7 +252,7 @@
       "source": "registries/methods.registry.json",
       "target": ".ai-toolkit/registries/methods.registry.json",
       "mode": "byte-identical",
-      "sha256": "9aff69c910b5fa577bc8df07c6f8fed730c57e098321d4166749c60e5d0d90c1"
+      "sha256": "f83e664c1c31424723994cba022bb5425de5f9030b2b3b3d40fef9ba450f668b"
     },
     {
       "source": "registries/profiles.registry.json",
@@ -276,7 +276,7 @@
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
-      "sha256": "d302f30a1abaaebaefa8cd6dc00f23e4924ec1487d758eae092684a5824d508a"
+      "sha256": "40f896974461eeb51f7619f1917cc87c7dd5c4426d5f77a1650a7df8d2a88c4c"
     },
     {
       "source": "compiled-agents/product-agent.compiled.md",

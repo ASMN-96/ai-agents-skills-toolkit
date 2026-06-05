@@ -351,12 +351,35 @@
       "repoName": "code-review-graph",
       "defaultBranch": "main",
       "lastReviewedCommit": "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
-      "lastReviewedDate": "2026-05-31",
+      "lastReviewedDate": "2026-06-05",
       "sourceRecordPath": "sources/code-review-graph.md",
       "watchedPaths": [],
-      "licenseConcern": "license-unclear",
+      "licenseConcern": "clear",
       "reviewPriority": "High",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewedHold": {
+        "status": "REVIEWED_HELD",
+        "reviewedCommit": "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
+        "reviewedDate": "2026-06-05",
+        "classification": "active-read-only source intelligence",
+        "decision": "metadata and manual/static source intelligence only; no import, install, activation, package changes, MCP/global config, CI wiring, indexing, product repo scanning, private-overlay indexing, generated graph claims, or raw upstream copying",
+        "noImportNoInstallNoExtraction": true,
+        "forbiddenActions": [
+          "import",
+          "install",
+          "activation",
+          "extraction",
+          "package changes",
+          "MCP setup",
+          "global config",
+          "CI wiring",
+          "indexing",
+          "product repo scanning",
+          "private-overlay indexing",
+          "generated graph claims",
+          "raw upstream copying"
+        ]
+      }
     },
     {
       "id": "ruflo",

@@ -1932,7 +1932,7 @@
           "category": "external-source"
         }
       ],
-      "licenseStatus": "code-review-graph remains source-only with unknown-review-required license status; this method is toolkit-owned and does not copy upstream code, prompts, CLI behavior, MCP setup, or indexing behavior.",
+      "licenseStatus": "code-review-graph source record reports an MIT signal for the reviewed commit and active-read-only metadata posture; this method is toolkit-owned and does not copy upstream code, prompts, CLI behavior, MCP setup, or indexing behavior.",
       "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
       "status": [
         "documented",
@@ -1987,7 +1987,7 @@
           "category": "external-source"
         }
       ],
-      "licenseStatus": "code-review-graph remains source-only with unknown-review-required license status; this method is toolkit-owned and uses only normalized context-selection guidance.",
+      "licenseStatus": "code-review-graph source record reports an MIT signal for the reviewed commit and active-read-only metadata posture; this method is toolkit-owned and uses only normalized context-selection guidance.",
       "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
       "status": [
         "documented",
@@ -2042,7 +2042,7 @@
           "category": "external-source"
         }
       ],
-      "licenseStatus": "code-review-graph remains source-only with unknown-review-required license status; this method is toolkit-owned and does not activate external graph tooling.",
+      "licenseStatus": "code-review-graph source record reports an MIT signal for the reviewed commit and active-read-only metadata posture; this method is toolkit-owned and does not activate external graph tooling.",
       "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
       "status": [
         "documented",
@@ -2097,7 +2097,7 @@
           "category": "external-source"
         }
       ],
-      "licenseStatus": "code-review-graph remains source-only with unknown-review-required license status; this method is toolkit-owned and does not activate external graph tooling.",
+      "licenseStatus": "code-review-graph source record reports an MIT signal for the reviewed commit and active-read-only metadata posture; this method is toolkit-owned and does not activate external graph tooling.",
       "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
       "status": [
         "documented",
