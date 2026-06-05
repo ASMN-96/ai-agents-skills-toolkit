@@ -1,7 +1,7 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.2.0
-toolkit_pin: ai-agents-skills-toolkit@0.2.0
+toolkit_version: 0.2.2
+toolkit_pin: ai-agents-skills-toolkit@0.2.2
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
@@ -464,12 +464,14 @@ Do not use for normal feature work unless package-manager or workspace behavior 
 - Conflicting signals are a stop condition. Missing signals mean no package manager is detected; do not assume npm, and ask or use neutral wording.
 - Command wording after detection only: installs use the detected manager's install operation; dev dependencies use the detected manager's dev-dependency form; scripts use the detected manager's script form; one-off execution uses the detected manager's one-off executor.
 - Do not recommend `npm` or `npx` unless npm is detected or owner-confirmed. Do not run commands, install dependencies, modify package files, or modify lockfiles without explicit approval.
+- Tool activation posture does not bypass detection. `active-if-detected` may use an existing project-owned script/config, but `owner-approved-install` still requires package-manager detection or owner confirmation before any command wording.
 ## Required Procedure
 - Inspect package manager and lockfiles first using the detection policy above.
 - Identify all package artifacts: package.json files, lockfiles, workspace configs, Corepack settings, packageManager field, engines, npmrc/yarnrc/pnpm config, CI commands, deployment commands, Dockerfiles, docs, and scripts.
 - Do not mix npm, pnpm, yarn, and bun lockfiles unless the repo intentionally owns multiple packages with documented boundaries.
 - Do not recommend package-manager commands until the package manager is detected, owner-confirmed, or the ambiguity is reported.
 - Do not run package-manager commands, install dependencies, modify package files, or modify lockfiles without explicit approval.
+- Treat missing tool adoption as `owner-approved-install`, not as a default install path for npm.
 - Choose one committed package-manager strategy with owner approval.
 - Use Corepack/packageManager pinning when appropriate.
 - Review workspace config and nested package handling.
@@ -477,8 +479,6 @@ Do not use for normal feature work unless package-manager or workspace behavior 
 - Update documentation for contributors and release operators.
 - Validate frozen install, typecheck, lint, tests, build, and workspace commands where available.
 - Keep the PR infra-only: no feature work, UI migration, unrelated relocation, dependency upgrades, or architecture churn.
-- Classify failures as migration-caused or pre-existing.
-- Define rollback: restore package manager metadata, lockfile, commands, docs, and CI/deployment changes.
 
 ### reliability.coding-time-production-readiness
 

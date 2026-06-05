@@ -68,9 +68,9 @@ node scripts/scan-public-private-leaks.mjs --check
 
 For small documentation-only edits, run the narrowest subset first, then broaden if release or public-readiness claims are involved.
 
-## v0.2.0 Positioning
+## v0.2.2 Positioning
 
-`v0.2.0` is the controlled public release path for agent-assisted toolkit use. It includes v0.2 hardening, task-intake routing, project-tooling governance, final dry-run adoption evidence, and validated 5-skill/12-agent runtime metadata for this repository. It does not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, package publication, marketplace submission, or broad cross-runtime active support.
+`v0.2.2` is the controlled AI Vibe Coding Toolkit release for agent-assisted governance. It includes v0.2 hardening, task-intake routing, project-tooling governance, no-write leak-scan validation mode, reviewed source-freshness holds, activation posture hardening, public positioning cleanup, and validated 5-skill/12-agent runtime metadata for this repository. It does not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, package publication, marketplace submission, or broad cross-runtime active support.
 
 ## Next Step
 

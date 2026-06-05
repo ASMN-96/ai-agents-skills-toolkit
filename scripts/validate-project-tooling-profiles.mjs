@@ -319,7 +319,7 @@ async function validateDocBoundaries() {
       fail("project tooling document boundaries", "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md", `missing activation-model wording: ${required}`);
     }
   }
-  for (const required of ["controlled open-source Codex use as a v0.2 release candidate", "not Level 4", "not Level 5", "not enterprise-certified", "not cross-runtime active support", "not automatic tool installation", "controlled dry-run adoption"]) {
+  for (const required of ["controlled AI coding-agent use as a v0.2 release candidate", "not Level 4", "not Level 5", "not enterprise-certified", "not cross-runtime active support", "not automatic tool installation", "controlled dry-run adoption"]) {
     if (!releaseCandidate.includes(required)) {
       fail("project tooling document boundaries", "docs/V0_2_RELEASE_CANDIDATE_READINESS.md", `missing release-candidate wording: ${required}`);
     }

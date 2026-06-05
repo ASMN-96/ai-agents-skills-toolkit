@@ -404,7 +404,7 @@ async function projectToolingModelFromRegistry() {
     }));
 
   return {
-    version: "0.2.0-architecture",
+    version: "0.2.2-architecture",
     metadataIsNotExecution: true,
     noAutomaticInstalls: true,
     noFakeValidation: true,

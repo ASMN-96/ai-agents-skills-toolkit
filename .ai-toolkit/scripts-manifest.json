@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.2.0",
+  "toolkitVersion": "0.2.2",
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
@@ -28,11 +28,11 @@
     },
     {
       "path": "scripts/validate-project-tooling-profiles.mjs",
-      "sha256": "161f58adce4e763dedc032b9c3de9c91d9b313e9c661d9420464841ccdec719e"
+      "sha256": "7a5aa1c795feff3b140d5bb53102573921e7bd1f6fb32c8aa6f20dc126d9ef3b"
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "4193b36175959cd7e9ec1de24a5748b07105267a98d931a9ee73cb0f0600f443"
+      "sha256": "29dfdfeabf9eb6146eb8ffad7ca40a8cb555c857d362a880f87b4adda6737411"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",

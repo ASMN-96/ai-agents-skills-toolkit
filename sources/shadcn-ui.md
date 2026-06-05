@@ -93,3 +93,11 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Classification: safe source-record refresh / low-risk registry directory metadata drift.
 
 Decision: keep shadcn/ui as active-reference/planned normalized design-system source intelligence only. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, package changes, lockfile import, source extraction, product-repo changes, or product design-system overrides.
+
+## Reviewed-Held Source Safety Review 2026-06-05 Release Gate
+
+Skill Scout read-only release-gate follow-up reviewed upstream default-branch movement from `9c6a5ee1b14226efbcd31daf54e9bc2e91f647e9` to `7dfd933102fdb881f8abd24fc1ef11a669682b94` using GitHub compare metadata, commit metadata, and changed-file metadata only. The compare was 1 commit ahead and touched `.changeset/friendly-foxes-fix.md`, `packages/shadcn/package.json`, and `pnpm-lock.yaml`. The commit message was `fix(cli): move msw to devDependencies (#10851)`.
+
+Classification: `REVIEWED_HELD` / package and lockfile metadata drift in upstream CLI/package surface.
+
+Decision: keep shadcn/ui as a high-trust design-system source, but hold this upstream movement from active adoption. This review does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, package metadata adoption, lockfile adoption, dependency movement adoption, package changes, product-repo changes, source extraction, or runtime activation.
