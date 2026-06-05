@@ -74,7 +74,38 @@
       "watchedPaths": [],
       "licenseConcern": "clear",
       "reviewPriority": "High",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewedHold": {
+        "status": "REVIEWED_HELD",
+        "reviewedCommit": "1356046015476711a769601079262b5635929427",
+        "reviewedDate": "2026-06-05",
+        "classification": "reviewed-held Supabase database/auth/API/migration/security and supply-chain guidance delta",
+        "decision": "reference-only hold; no import, no install, no activation, no extraction, no skill copying, no Supabase CLI execution, no MCP configuration, no package update, no lockfile update, no method extraction, no Data API behavior adoption, no migration guidance adoption, no auth or RLS behavior adoption, no security checklist adoption, no npm supply-chain guidance adoption, no database changes, no product-repo changes, no global config changes, no CI changes, and no runtime activation",
+        "noImportNoInstallNoExtraction": true,
+        "forbiddenActions": [
+          "import",
+          "install",
+          "activation",
+          "extraction",
+          "skill copying",
+          "Supabase CLI execution",
+          "MCP configuration",
+          "package update",
+          "lockfile update",
+          "method extraction",
+          "Data API behavior adoption",
+          "migration guidance adoption",
+          "auth behavior adoption",
+          "RLS behavior adoption",
+          "security checklist adoption",
+          "npm supply-chain guidance adoption",
+          "database changes",
+          "product-repo changes",
+          "global config changes",
+          "CI changes",
+          "runtime activation"
+        ]
+      }
     },
     {
       "id": "trailofbits-skills",
@@ -414,10 +445,10 @@
       "neverAutoImport": true,
       "reviewedHold": {
         "status": "REVIEWED_HELD",
-        "reviewedCommit": "bc8e12bb80c904a5a9864797ef1fd1212aa82f3d",
-        "reviewedDate": "2026-06-04",
-        "classification": "reviewed-held reference-only",
-        "decision": "reference-only hold; no plugin import, no skill import, no install module import, no control-plane import, no cross-harness runtime support claim, no MCP or global config behavior, no import, no install, no activation, and no extraction",
+        "reviewedCommit": "7113b5bf63694b716f8b2413c5919824a82fc095",
+        "reviewedDate": "2026-06-05",
+        "classification": "reviewed-held cross-harness session/MCP inventory and global config inspection surface",
+        "decision": "reference-only hold; no plugin import, no skill import, no install module import, no control-plane import, no session-adapter import, no MCP inventory import, no cross-harness runtime support claim, no MCP behavior adoption, no global config behavior, no Codex session or config reader adoption, no OpenCode session reader adoption, no Claude config reader adoption, no secret-redaction implementation adoption, no import, no install, no activation, no extraction, no package changes, no CI changes, no product-repo changes, no script execution, and no global configuration changes",
         "noImportNoInstallNoExtraction": true,
         "forbiddenActions": [
           "import",
@@ -428,9 +459,22 @@
           "skill import",
           "install module import",
           "control-plane import",
+          "session-adapter import",
+          "MCP inventory import",
           "cross-harness runtime support claim",
+          "MCP behavior adoption",
+          "global config behavior",
+          "Codex session reader adoption",
+          "Codex config reader adoption",
+          "OpenCode session reader adoption",
+          "Claude config reader adoption",
+          "secret-redaction implementation adoption",
           "MCP behavior",
-          "global config behavior"
+          "package changes",
+          "CI changes",
+          "product-repo changes",
+          "script execution",
+          "global configuration changes"
         ]
       }
     },
