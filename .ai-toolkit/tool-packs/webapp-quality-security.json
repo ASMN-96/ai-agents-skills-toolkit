@@ -227,6 +227,11 @@
         "installLocation": "target project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "typecheck",
         "preferredRole": "baseline type authority",
         "forbiddenActions": [
@@ -251,6 +256,11 @@
         "installLocation": "target project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "lint",
         "preferredRole": "typed lint supplement",
         "forbiddenActions": [
@@ -273,6 +283,11 @@
         "installLocation": "target React project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "react-hooks",
         "preferredRole": "hooks correctness",
         "forbiddenActions": [
@@ -296,6 +311,11 @@
         "installLocation": "target project if already present",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "lint-format-migration",
         "preferredRole": "migration only unless existing",
         "forbiddenActions": [
@@ -320,6 +340,14 @@
         "installLocation": "target project dev dependency/script",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
+        "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+        "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+        "ciDefault": "ci-advisory when newly introduced; project-owned existing CI policy remains owner-controlled",
+        "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval.",
         "conflictGroup": "lint-acceleration",
         "preferredRole": "ESLint supplement",
         "forbiddenActions": [
@@ -342,6 +370,11 @@
         "installLocation": "target project if already present",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "cleanup",
         "preferredRole": "cleanup candidate only",
         "forbiddenActions": [
@@ -365,6 +398,14 @@
         "installLocation": "target React project only",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
+        "whenDetected": "Use project-owned React Doctor scripts/configuration in React projects when already present; output counts only when the project-owned command actually ran.",
+        "whenAbsent": "Owner-approved install only. React Doctor GitHub Action, PR write permissions, and agent skill install require separate approval.",
+        "ciDefault": "ci-advisory only after project-owned or owner-approved setup; do not create Action or PR-write automation by default.",
+        "ciPromotion": "ci-blocking-after-calibration only after stable React-project evidence and explicit owner approval.",
         "conflictGroup": "react-quality",
         "preferredRole": "active React supplement",
         "forbiddenActions": [
@@ -390,6 +431,11 @@
         "installLocation": "target project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "unit-test",
         "preferredRole": "fast test runner",
         "forbiddenActions": [
@@ -413,6 +459,11 @@
         "installLocation": "target project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "component-test",
         "preferredRole": "component/user behavior",
         "forbiddenActions": [
@@ -437,6 +488,16 @@
         "installLocation": "target project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install",
+          "ci-advisory",
+          "ci-blocking-after-calibration"
+        ],
+        "whenDetected": "Use project-owned Playwright scripts/configuration for browser evidence when already present and the target is approved; browser output counts only when observed.",
+        "whenAbsent": "Owner-approved install/configuration only. Do not download browsers, add packages, wire CI, configure MCP, or touch product repos from toolkit metadata.",
+        "ciDefault": "ci-advisory first for new or changed browser coverage.",
+        "ciPromotion": "ci-blocking-after-calibration only after stable test evidence, artifact hygiene review, and explicit owner approval.",
         "conflictGroup": "browser-evidence",
         "preferredRole": "browser workflow evidence",
         "forbiddenActions": [
@@ -460,6 +521,11 @@
         "installLocation": "target UI project dev dependency/script",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "browser-accessibility",
         "preferredRole": "Playwright supplement",
         "forbiddenActions": [
@@ -484,6 +550,11 @@
         "installLocation": "target web project script",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "web-performance",
         "preferredRole": "browser performance evidence",
         "forbiddenActions": [
@@ -506,6 +577,11 @@
         "installLocation": "platform code scanning",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "sast",
         "preferredRole": "platform scanner",
         "forbiddenActions": [
@@ -528,6 +604,15 @@
         "installLocation": "target project scanner/script",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install",
+          "ci-advisory"
+        ],
+        "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+        "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+        "ciDefault": "ci-advisory until rules are scoped and false-positive behavior is known",
+        "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval.",
         "conflictGroup": "sast",
         "preferredRole": "targeted SAST",
         "forbiddenActions": [
@@ -550,6 +635,14 @@
         "installLocation": "target project tool/script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
+        "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+        "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+        "ciDefault": "ci-advisory when newly introduced; project-owned existing secret-scan policy remains owner-controlled",
+        "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval.",
         "conflictGroup": "secret-scan",
         "preferredRole": "baseline secret scan",
         "forbiddenActions": [
@@ -572,6 +665,11 @@
         "installLocation": "target project tool/script only after approval",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "deep-secret-scan",
         "preferredRole": "approval-required",
         "forbiddenActions": [
@@ -594,6 +692,14 @@
         "installLocation": "target project tool/script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
+        "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+        "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+        "ciDefault": "ci-advisory when newly introduced; project-owned dependency policy remains owner-controlled",
+        "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval.",
         "conflictGroup": "dependency-scan",
         "preferredRole": "baseline dependency risk",
         "forbiddenActions": [
@@ -616,6 +722,11 @@
         "installLocation": "target repo service/config",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "dependency-bot",
         "preferredRole": "choose one dependency bot",
         "forbiddenActions": [
@@ -638,6 +749,11 @@
         "installLocation": "target repo service/config",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "dependency-bot",
         "preferredRole": "choose one dependency bot",
         "forbiddenActions": [
@@ -660,6 +776,11 @@
         "installLocation": "target project/service only after approval",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "deep-supply-chain",
         "preferredRole": "approval-required",
         "forbiddenActions": [
@@ -684,6 +805,11 @@
         "installLocation": "target container/IaC/SBOM project tooling",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "container-iac-security",
         "preferredRole": "container/SBOM evidence",
         "forbiddenActions": [
@@ -707,6 +833,11 @@
         "installLocation": "target IaC/cloud project tooling",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "iac-security",
         "preferredRole": "IaC evidence",
         "forbiddenActions": [
@@ -729,6 +860,11 @@
         "installLocation": "bounded test target only",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "dast",
         "preferredRole": "approval-required",
         "forbiddenActions": [
@@ -751,6 +887,14 @@
         "installLocation": "target workflow project tooling/script",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
+        "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+        "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+        "ciDefault": "ci-advisory until workflow policy is calibrated",
+        "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval.",
         "conflictGroup": "workflow-security",
         "preferredRole": "workflow syntax/security",
         "forbiddenActions": [
@@ -773,6 +917,14 @@
         "installLocation": "target workflow project tooling/script",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
+        "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+        "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+        "ciDefault": "ci-advisory until workflow security policy is calibrated",
+        "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval.",
         "conflictGroup": "workflow-security",
         "preferredRole": "workflow security supplement",
         "forbiddenActions": [
@@ -795,6 +947,11 @@
         "installLocation": "GitHub Actions only after approval",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "workflow-runtime",
         "preferredRole": "approval-required",
         "forbiddenActions": [
@@ -817,6 +974,11 @@
         "installLocation": "target repo CI/tooling if already owned",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "pr-feedback",
         "preferredRole": "deterministic scanner reporter",
         "forbiddenActions": [
@@ -839,6 +1001,11 @@
         "installLocation": "already connected external service",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "ai-pr-review",
         "preferredRole": "external service not package dependency",
         "forbiddenActions": [
@@ -861,6 +1028,11 @@
         "installLocation": "local/operator environment",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "repo-ops",
         "preferredRole": "operator tool",
         "forbiddenActions": [
@@ -884,6 +1056,11 @@
         "installLocation": "read-only source/reference",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "context-graph",
         "preferredRole": "read-only source intelligence; no indexing",
         "forbiddenActions": [
@@ -907,6 +1084,11 @@
         "installLocation": "read-only source/reference",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "design-reference",
         "preferredRole": "active-reference design intelligence",
         "forbiddenActions": [
@@ -929,6 +1111,14 @@
         "installLocation": "target project dev dependency/script",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
+        "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+        "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+        "ciDefault": "ci-advisory when newly introduced; project-owned existing CI policy remains owner-controlled",
+        "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval.",
         "conflictGroup": "architecture-boundary",
         "preferredRole": "first architecture hardening tool",
         "forbiddenActions": [
@@ -951,6 +1141,11 @@
         "installLocation": "target project after stable layer model and owner approval",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "architecture-boundary",
         "preferredRole": "only after layers stabilize",
         "forbiddenActions": [
@@ -973,6 +1168,14 @@
         "installLocation": "target project dev dependency/script",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
+        "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+        "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+        "ciDefault": "ci-advisory when newly introduced; project-owned existing CI policy remains owner-controlled",
+        "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval.",
         "conflictGroup": "architecture-cycles",
         "preferredRole": "circular dependency risk",
         "forbiddenActions": [
@@ -995,6 +1198,14 @@
         "installLocation": "target project dev dependency/script",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
+        "whenDetected": "If this tool is already project-owned through a script, config, binary, or documented local command, the toolkit may recommend using that existing project-owned path and must report output only if it actually ran.",
+        "whenAbsent": "If this tool is absent, recommend owner-approved install/configuration only; do not install, edit package files, wire CI, or configure services from toolkit metadata.",
+        "ciDefault": "ci-advisory when newly introduced; project-owned existing CI policy remains owner-controlled",
+        "ciPromotion": "ci-blocking-after-calibration only after stable project evidence and explicit owner approval.",
         "conflictGroup": "duplication",
         "preferredRole": "duplication hardening",
         "forbiddenActions": [
@@ -1020,6 +1231,11 @@
         "installLocation": "target project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
+        "activationLevels": [],
+        "whenDetected": null,
+        "whenAbsent": null,
+        "ciDefault": null,
+        "ciPromotion": null,
         "conflictGroup": "lint",
         "preferredRole": "baseline lint authority",
         "forbiddenActions": [
@@ -1032,10 +1248,16 @@
       }
     ],
     "decisions": {
-      "React Doctor": "active-install-if-project-type for React projects; GitHub Action, PR write permissions, and agent skill install require owner approval",
+      "React Doctor": "active-if-detected when project-owned; owner-approved-install when absent; GitHub Action, PR write permissions, and agent skill install require owner approval",
       "Knip": "use-if-existing cleanup candidate only; removed from active/default profiles",
-      "Oxlint": "active acceleration for large JS/TS/React repos as ESLint supplement",
+      "Oxlint": "active-if-detected when project-owned; owner-approved-install when absent; supplements ESLint for large JS/TS/React repos",
       "Biome": "use-if-existing or owner-approved migration only",
+      "Playwright": "active-if-detected when project-owned; ci-advisory first; ci-blocking-after-calibration only after stable evidence and owner approval",
+      "Gitleaks": "active-if-detected or owner-approved-install baseline secret scanning",
+      "OSV Scanner": "active-if-detected or owner-approved-install dependency vulnerability baseline",
+      "Semgrep": "active-if-detected when present; owner-approved-install when absent; ci-advisory until rules are scoped",
+      "dependency-cruiser / Madge / jscpd": "active-if-detected or owner-approved-install architecture and duplication checks",
+      "actionlint / zizmor": "active-if-detected or owner-approved-install GitHub Actions hardening",
       "code-review-graph": "active-read-only source intelligence; install, indexing, MCP/global config, CI wiring, package changes, and product repo scanning require approval",
       "open-design": "active-reference design intelligence only; install/import/MCP/global config require approval",
       "eslint-plugin-boundaries": "active-install-if-project-type only after architecture layers are stable and owner-approved",

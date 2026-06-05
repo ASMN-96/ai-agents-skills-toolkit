@@ -25,6 +25,7 @@ Do not use for normal feature work unless package-manager or workspace behavior 
 - Conflicting signals are a stop condition. Missing signals mean no package manager is detected; do not assume npm, and ask or use neutral wording.
 - Command wording after detection only: installs use the detected manager's install operation; dev dependencies use the detected manager's dev-dependency form; scripts use the detected manager's script form; one-off execution uses the detected manager's one-off executor.
 - Do not recommend `npm` or `npx` unless npm is detected or owner-confirmed. Do not run commands, install dependencies, modify package files, or modify lockfiles without explicit approval.
+- Tool activation posture does not bypass detection. `active-if-detected` may use an existing project-owned script/config, but `owner-approved-install` still requires package-manager detection or owner confirmation before any command wording.
 
 ## Required Procedure
 
@@ -33,6 +34,7 @@ Do not use for normal feature work unless package-manager or workspace behavior 
 - Do not mix npm, pnpm, yarn, and bun lockfiles unless the repo intentionally owns multiple packages with documented boundaries.
 - Do not recommend package-manager commands until the package manager is detected, owner-confirmed, or the ambiguity is reported.
 - Do not run package-manager commands, install dependencies, modify package files, or modify lockfiles without explicit approval.
+- Treat missing tool adoption as `owner-approved-install`, not as a default npm install path.
 - Choose one committed package-manager strategy with owner approval.
 - Use Corepack/packageManager pinning when appropriate.
 - Review workspace config and nested package handling.

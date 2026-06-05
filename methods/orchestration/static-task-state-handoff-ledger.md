@@ -52,4 +52,4 @@ Silent fallback, fake progress, hidden background state, stale handoff notes, re
 
 Toolkit-authored static governance method. Historical RuFlo source-safety review identified useful static concepts, but RuFlo remains `REVIEWED_HELD` and is not active source authority for this method.
 
-No memory hooks, MCP behavior, daemon logic, file watchers, package scripts, runtime persistence, source code, tests, prompts, or configuration were copied or activated.
+RuFlo-style concepts are `held-static-only`. No memory hooks, MCP behavior, daemon logic, file watchers, package scripts, background processes, runtime persistence, source code, tests, prompts, global config, or configuration were copied or activated. Those runtime surfaces remain `forbidden-runtime`.

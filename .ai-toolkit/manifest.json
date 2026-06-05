@@ -42,13 +42,13 @@
       "source": "skills/governance/SKILL.md",
       "target": ".agents/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "b6c8a45c8d65f6324d2acf183336e452ad0faee867fcb434aacf8e693de79ad9"
+      "sha256": "37db316a08b11e43519c74ce9ab77218ef16a2ac4a356ce83c266236ca6ed7b8"
     },
     {
       "source": "skills/governance/SKILL.md",
       "target": ".ai-toolkit/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "b6c8a45c8d65f6324d2acf183336e452ad0faee867fcb434aacf8e693de79ad9"
+      "sha256": "37db316a08b11e43519c74ce9ab77218ef16a2ac4a356ce83c266236ca6ed7b8"
     },
     {
       "source": "skills/uiux/SKILL.md",
@@ -66,13 +66,13 @@
       "source": "skills/code-quality/SKILL.md",
       "target": ".agents/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "a1f2824e8cfbdb5458b41811ba213d2216c1e139ef7426cc470b591b912eff3f"
+      "sha256": "4cc11b9afa26d61a950f990de57d29059ce14d2abab65ddca3a6cb1caf619450"
     },
     {
       "source": "skills/code-quality/SKILL.md",
       "target": ".ai-toolkit/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "a1f2824e8cfbdb5458b41811ba213d2216c1e139ef7426cc470b591b912eff3f"
+      "sha256": "4cc11b9afa26d61a950f990de57d29059ce14d2abab65ddca3a6cb1caf619450"
     },
     {
       "source": "skills/security-review/SKILL.md",
@@ -276,7 +276,7 @@
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
-      "sha256": "40f896974461eeb51f7619f1917cc87c7dd5c4426d5f77a1650a7df8d2a88c4c"
+      "sha256": "226309125dd935e2863bd5b429da8fc2f05f10a9af3aa73ca733913f5ea61ea2"
     },
     {
       "source": "compiled-agents/product-agent.compiled.md",

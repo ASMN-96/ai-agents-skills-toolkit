@@ -6,7 +6,7 @@ External sources have been evaluated in prior phases and are recorded under `sou
 
 `docs/NO_FAKE_VALIDATION_POLICY.md` is the central rule for reporting real execution, dry-runs, mocks, skipped checks, unavailable tools, metadata-only records, fallbacks, and WARN output honestly.
 
-`docs/PUBLIC_PRIVATE_LEAK_REPORT.md` is the report-only public/private naming and leakage scan. It classifies project-specific terms, local paths, private repo/org references, and contact-like data without deleting, renaming, relocating, or activating anything.
+`docs/PUBLIC_PRIVATE_LEAK_REPORT.md` is the report-only public/private naming and leakage scan. Normal validation should run `node scripts/scan-public-private-leaks.mjs --check` so the current tree is scanned without rewriting generated reports. Run `node scripts/scan-public-private-leaks.mjs` only when intentionally regenerating the Markdown report.
 
 `docs/GENERIC_NAMING_COMPATIBILITY.md` defines the current canonical public runtime naming boundary.
 

@@ -64,7 +64,7 @@ Level 3 requires:
 - `node scripts/ai-toolkit/validate-codex-runtime.mjs`
 - `node scripts/ai-toolkit/validate-version-consistency.mjs`
 - `node scripts/ai-toolkit/run-toolkit-evals.mjs`
-- `node scripts/scan-public-private-leaks.mjs`
+- `node scripts/scan-public-private-leaks.mjs --check`
 - `node scripts/classify-stale-unverified-data.mjs --output docs/STALE_UNVERIFIED_DATA_CLASSIFICATION.md`
 - `git diff --check`
 
