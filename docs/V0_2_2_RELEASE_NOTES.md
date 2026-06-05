@@ -65,6 +65,7 @@ This release is not:
 - Microsoft Playwright moved from `c30ccc68f833378087338ed9168175e1ce942c00` to `ae106c05e5a40486ab5b9704234c32f0499e9719`. The drift touched injected script, test-runner, config-loader, plugin, web-server, type, and test surfaces, so it is `REVIEWED_HELD`.
 - shadcn/ui moved from `9c6a5ee1b14226efbcd31daf54e9bc2e91f647e9` to `7dfd933102fdb881f8abd24fc1ef11a669682b94`. The drift touched package metadata and `pnpm-lock.yaml`, so it is `REVIEWED_HELD`.
 - Impeccable moved from `198aa9171948af0bea6d58596ad575cb2de67af7` to `6c7c04866cc98d992b0cdead355f361ceebc7d2a`. The drift touched only public-site light-mode CSS and was safely refreshed as low-risk source-record metadata.
+- Post-merge validation then detected Impeccable movement from `6c7c04866cc98d992b0cdead355f361ceebc7d2a` to `347a0c06a2781578f0d3c6fe2cc3a8b64ad5b62d`. That drift touched `bun.lock`, `package.json`, and CLI skill-bundle extraction code, so it is `REVIEWED_HELD`.
 
 These decisions do not approve importing, copying, installing, activating, extracting, running scripts, updating package files, wiring CI, configuring MCP/global settings, or changing product repositories.
 

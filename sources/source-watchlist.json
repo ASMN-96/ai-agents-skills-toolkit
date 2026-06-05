@@ -345,7 +345,28 @@
       "watchedPaths": [],
       "licenseConcern": "clear",
       "reviewPriority": "Medium",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewedHold": {
+        "status": "REVIEWED_HELD",
+        "reviewedCommit": "347a0c06a2781578f0d3c6fe2cc3a8b64ad5b62d",
+        "reviewedDate": "2026-06-05",
+        "classification": "reviewed-held package, lockfile, and CLI skill-bundle extraction drift",
+        "decision": "reference-only hold; no import, no install, no activation, no extraction, no CLI execution, no package metadata adoption, no lockfile adoption, no skill-bundle extraction behavior adoption, no runtime configuration, no product-repo changes, and no script execution",
+        "noImportNoInstallNoExtraction": true,
+        "forbiddenActions": [
+          "import",
+          "install",
+          "activation",
+          "extraction",
+          "CLI execution",
+          "package metadata adoption",
+          "lockfile adoption",
+          "skill-bundle extraction behavior adoption",
+          "runtime configuration",
+          "product-repo changes",
+          "script execution"
+        ]
+      }
     },
     {
       "id": "uncodixfy",
