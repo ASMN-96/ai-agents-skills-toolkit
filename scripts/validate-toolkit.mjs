@@ -55,6 +55,7 @@ const SOURCE_UTILIZATION_CLASSIFICATIONS = new Set([
   "active-reference",
   "active-read-only",
   "planned-extraction",
+  "reviewed-held",
   "reference-only-with-reason",
   "archive-candidate",
   "remove-candidate",
@@ -622,7 +623,7 @@ async function validateSourceUtilizationClassification(watchlist, registryState)
   const requiredRows = new Map([
     ["code-review-graph", "active-read-only"],
     ["shadcn-ui", "planned-extraction"],
-    ["ruflo", "planned-extraction"],
+    ["ruflo", "reviewed-held"],
     ["open-design", "active-reference"]
   ]);
   for (const [id, expected] of requiredRows) {

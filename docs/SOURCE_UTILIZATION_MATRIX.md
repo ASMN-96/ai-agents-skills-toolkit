@@ -12,6 +12,7 @@ Allowed classifications:
 - `active-reference`: useful current-scope reference guidance with no install, activation, or raw import.
 - `active-read-only`: current-scope source intelligence with no install, indexing, MCP/global config, product repo scanning, or execution by default.
 - `planned-extraction`: useful source intelligence that should be converted into toolkit-owned methods, routing, or evals.
+- `reviewed-held`: useful or historically relevant source intelligence that was reviewed and explicitly held/reference-only because license, runtime, memory, MCP, daemon, global-config, package, security, or source-safety risk blocks active reliance.
 - `reference-only-with-reason`: useful context that must remain passive because trust, license, runtime, or duplication risk is unresolved.
 - `archive-candidate`: retained for historical context but not worth current extraction.
 - `remove-candidate`: no useful value path or creates noise.
@@ -44,7 +45,7 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | superpowers | Superpowers | active-method | Do later | TDD/verification/source-safety references; external plugin delegation | Keep toolkit-owned guardrails minimal | Do not duplicate plugin workflows |
 | everything-claude-code | Everything Claude Code | active-method | Do later | Source safety scoring | Keep config/hook/MCP risks in source-safety method | No global config, hook, or MCP import |
 | code-review-graph | code-review-graph | active-read-only | Do later | Source-only token governance inspiration | Keep context graph methods tied to source-only planning | No install, CLI, MCP, global config, product indexing/scanning, generated graph output, or whole-repo dump |
-| ruflo | RuFlo | planned-extraction | Must do next | Reviewed-held source-safety reference; static toolkit method added without active source authority | No further extraction unless owner-approved review changes the hold | No daemon, worker, hook, MCP, memory, plugin, package, script, background runtime, file watcher, global config, or runtime persistence |
+| ruflo | RuFlo | reviewed-held | Needs owner decision | Reviewed-held source-safety reference; static toolkit method added without active source authority | No further extraction unless owner-approved review changes the hold | No daemon, worker, hook, MCP, memory, plugin, package, script, background runtime, file watcher, global config, or runtime persistence |
 
 ## Internal Audit Artifacts
 
