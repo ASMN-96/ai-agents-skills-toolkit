@@ -8,6 +8,10 @@ Provide a release-evidence posture for high-risk PRs and release candidates afte
 
 `deep-release`
 
+## Task-Intake Routing Gate
+
+Classify normal-language requests before coding: affected surfaces, required agents/skills/methods/tools, validation gates, stop conditions, and out-of-scope items.
+
 ## Default Tools
 
 - TypeScript / typecheck where applicable
@@ -25,6 +29,7 @@ Provide a release-evidence posture for high-risk PRs and release candidates afte
 - Lighthouse CI for public/mobile/performance-sensitive web apps
 - Semgrep for security-sensitive projects
 - dependency-cruiser for architecture hardening
+- eslint-plugin-boundaries after architecture layers are stable and owner-approved
 - actionlint for GitHub Actions projects
 - zizmor for GitHub Actions security
 - Trivy for Docker/container/IaC/SBOM projects
@@ -59,6 +64,8 @@ Provide a release-evidence posture for high-risk PRs and release candidates afte
 - MCP/global config changes
 - React Doctor GitHub Action / PR write permissions / agent skill install
 - package-manager/workspace migrations
+- Impeccable project-local install mode
+- code-review-graph install, indexing, MCP/global config, or product repo scanning
 
 ## Active-Reference Resources
 
@@ -66,17 +73,11 @@ Provide a release-evidence posture for high-risk PRs and release candidates afte
 - no-fake-validation policy
 - review/security routing docs
 - owner approval checklist
+- open-design read-only design reference
 
-## Pilot-Only Tools
+## Active-Read-Only Resources
 
-- code-review-graph
-- open-design
-- eslint-plugin-boundaries until architecture layers are stable
-
-## Archive/Removed Tools
-
-- Base UI
-- Figma
+- code-review-graph source intelligence with no install, package change, indexing, MCP/global config, CI wiring, product repo scanning, or evidence claim without actual output
 
 ## Recommended Package Scripts
 

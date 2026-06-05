@@ -98,8 +98,8 @@
       "repoOwner": "microsoft",
       "repoName": "playwright",
       "defaultBranch": "main",
-      "lastReviewedCommit": "16601141918a7163b87a7ec84060451f6c1bbbfd",
-      "lastReviewedDate": "2026-06-03",
+      "lastReviewedCommit": "e3f61c1d798795e2e93f6c36e934853bbdab1e75",
+      "lastReviewedDate": "2026-06-04",
       "sourceRecordPath": "sources/playwright.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -107,7 +107,7 @@
       "neverAutoImport": true,
       "reviewedHold": {
         "status": "REVIEWED_HELD",
-        "reviewedCommit": "b0f1008d9d1da8ee4b6d1ac293ed4878932b588f",
+        "reviewedCommit": "e3f61c1d798795e2e93f6c36e934853bbdab1e75",
         "reviewedDate": "2026-06-04",
         "classification": "reviewed runtime-sensitive browser payload reference",
         "decision": "reference-only hold; no import, no install, no activation, no extraction, no package update, no CI update, no runtime update, no browser binary download, no upstream test or code copy, and no script execution",
@@ -351,12 +351,35 @@
       "repoName": "code-review-graph",
       "defaultBranch": "main",
       "lastReviewedCommit": "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
-      "lastReviewedDate": "2026-05-31",
+      "lastReviewedDate": "2026-06-05",
       "sourceRecordPath": "sources/code-review-graph.md",
       "watchedPaths": [],
-      "licenseConcern": "license-unclear",
+      "licenseConcern": "clear",
       "reviewPriority": "High",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewedHold": {
+        "status": "REVIEWED_HELD",
+        "reviewedCommit": "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
+        "reviewedDate": "2026-06-05",
+        "classification": "active-read-only source intelligence",
+        "decision": "metadata and manual/static source intelligence only; no import, install, activation, package changes, MCP/global config, CI wiring, indexing, product repo scanning, private-overlay indexing, generated graph claims, or raw upstream copying",
+        "noImportNoInstallNoExtraction": true,
+        "forbiddenActions": [
+          "import",
+          "install",
+          "activation",
+          "extraction",
+          "package changes",
+          "MCP setup",
+          "global config",
+          "CI wiring",
+          "indexing",
+          "product repo scanning",
+          "private-overlay indexing",
+          "generated graph claims",
+          "raw upstream copying"
+        ]
+      }
     },
     {
       "id": "ruflo",

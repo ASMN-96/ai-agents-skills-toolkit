@@ -8,6 +8,10 @@ Provide a scoped tooling posture for architecture boundaries, dependency flow, c
 
 `architecture-hardening`
 
+## Task-Intake Routing Gate
+
+Classify normal-language requests before coding: affected surfaces, required agents/skills/methods/tools, validation gates, stop conditions, and out-of-scope items.
+
 ## Default Tools
 
 - TypeScript / typecheck where applicable
@@ -20,6 +24,7 @@ Provide a scoped tooling posture for architecture boundaries, dependency flow, c
 ## Active-Install-If-Project-Type Tools
 
 - dependency-cruiser for architecture hardening
+- eslint-plugin-boundaries after architecture layers are stable and owner-approved
 - Madge for circular dependency risk
 - jscpd for duplication-hardening projects
 - Oxlint for large JS/TS/React repos as acceleration/supplement
@@ -51,6 +56,7 @@ Provide a scoped tooling posture for architecture boundaries, dependency flow, c
 - deep networked scans
 - MCP/global config changes
 - package-manager/workspace migrations
+- code-review-graph install, indexing, MCP/global config, or product repo scanning
 
 ## Active-Reference Resources
 
@@ -59,16 +65,9 @@ Provide a scoped tooling posture for architecture boundaries, dependency flow, c
 - compact agent context pack
 - stale context graph detection
 
-## Pilot-Only Tools
+## Active-Read-Only Resources
 
-- code-review-graph
-- eslint-plugin-boundaries until architecture layers are stable
-- open-design when UI architecture is in scope
-
-## Archive/Removed Tools
-
-- Base UI
-- Figma
+- code-review-graph source intelligence with no install, package change, indexing, MCP/global config, CI wiring, product repo scanning, or evidence claim without actual output
 
 ## Recommended Package Scripts
 
@@ -96,7 +95,7 @@ New architecture tools, lint-boundary rules, package changes, CI wiring, global/
 
 ## No-Fake-Validation Rules
 
-Static/manual review, metadata-only routing, and pilot-only graph ideas must be labeled separately from executed architecture tools.
+Static/manual review, metadata-only routing, and read-only source intelligence must be labeled separately from executed architecture tools.
 
 ## Rollback Notes
 

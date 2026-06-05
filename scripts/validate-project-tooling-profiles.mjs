@@ -22,10 +22,18 @@ const REQUIRED_DOCS = [
   "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md",
   "docs/TOOL_OVERLAP_DECISIONS.md",
   "docs/UIUX_DESIGN_RESOURCES.md",
-  "docs/REVIEW_SECURITY_AGENT_ROUTING.md"
+  "docs/REVIEW_SECURITY_AGENT_ROUTING.md",
+  "docs/V0_2_RELEASE_CANDIDATE_READINESS.md"
 ];
 
 const REQUIRED_METHODS = [
+  "methods/governance/task-intake-routing-gate.md",
+  "methods/reliability/coding-time-production-readiness.md",
+  "methods/api/api-contract-and-routing-readiness.md",
+  "methods/performance/performance-scalability-cache-readiness.md",
+  "methods/reliability/observability-readiness.md",
+  "methods/security/application-security-readiness.md",
+  "methods/release/release-rollback-readiness.md",
   "methods/mobile/native-mobile-app-quality.md",
   "methods/security/webview-boundary-review.md",
   "methods/architecture/cross-surface-client-contracts.md",
@@ -45,7 +53,7 @@ const REQUIRED_TEMPLATES = [
   "templates/tooling/quality-gates.md",
   "templates/tooling/owner-approval-checklist.md",
   "templates/tooling/react-doctor-adoption-checklist.md",
-  "templates/tooling/code-review-graph-pilot-checklist.md",
+  "templates/tooling/code-review-graph-read-only-checklist.md",
   "templates/tooling/reviewdog-output-policy.md"
 ];
 
@@ -88,10 +96,42 @@ const TOOL_EXPECTATIONS = new Map([
   ["trufflehog", "approval-required"],
   ["owasp-zap-baseline", "approval-required"],
   ["harden-runner", "approval-required"],
-  ["code-review-graph", "pilot-only"],
-  ["open-design", "pilot-only"],
-  ["eslint-plugin-boundaries", "pilot-only"]
+  ["code-review-graph", "active-read-only"],
+  ["open-design", "active-reference"],
+  ["eslint-plugin-boundaries", "active-install-if-project-type"]
 ]);
+
+const ENTERPRISE_READINESS_METHOD_IDS = [
+  "governance.task-intake-routing-gate",
+  "reliability.coding-time-production-readiness",
+  "api.api-contract-and-routing-readiness",
+  "performance.performance-scalability-cache-readiness",
+  "reliability.observability-readiness",
+  "security.application-security-readiness",
+  "release.release-rollback-readiness"
+];
+
+const ENTERPRISE_READINESS_SCENARIOS = [
+  "task-intake-routing-gate",
+  "coding-time-production-readiness",
+  "api-contract-and-routing-readiness",
+  "performance-scalability-cache-readiness",
+  "observability-readiness",
+  "application-security-readiness",
+  "release-rollback-readiness"
+];
+
+const CURRENT_SCOPE_CLASSIFICATION_FILES = [
+  "install/tooling-plan.mjs",
+  "install/tooling-apply.mjs",
+  ".ai-toolkit/tool-packs/webapp-quality-security.json",
+  "registries/tools.registry.json",
+  "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md",
+  "docs/SOURCE_UTILIZATION_MATRIX.md",
+  ...REQUIRED_PROFILES
+];
+
+const REMOVED_CURRENT_SCOPE_RESOURCES = ["Base UI", "Figma"];
 
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
@@ -142,6 +182,10 @@ function section(text, heading) {
   return match ? match[1] : "";
 }
 
+function includesIgnoreCase(haystack, needle) {
+  return haystack.toLowerCase().includes(needle.toLowerCase());
+}
+
 async function validatePlannerAndApply() {
   note("tooling planner/apply behavior");
   const planText = await read("install/tooling-plan.mjs");
@@ -159,6 +203,18 @@ async function validatePlannerAndApply() {
     }
   }
 
+  if (/pilot-only/i.test(planText) || /pilot-only/i.test(applyText)) {
+    fail("tooling planner/apply behavior", "install/tooling-plan.mjs", "planner/apply must not expose pilot-only current-scope classifications");
+  }
+  if (!planText.includes("active-read-only resources") || !planText.includes("code-review-graph source intelligence")) {
+    fail("tooling planner/apply behavior", "install/tooling-plan.mjs", "planner must expose code-review-graph as active-read-only source intelligence");
+  }
+  for (const resource of REMOVED_CURRENT_SCOPE_RESOURCES) {
+    if (includesIgnoreCase(planText, resource) || includesIgnoreCase(applyText, resource)) {
+      fail("tooling planner/apply behavior", "install/tooling-plan.mjs", `${resource} must not appear in planner/apply output`);
+    }
+  }
+
   if (!applyText.includes("--confirm-write") || !applyText.includes("Default mode is dry-run") || !applyText.includes("Mode: dry-run; no files will be written.")) {
     fail("tooling planner/apply behavior", "install/tooling-apply.mjs", "apply script must default to dry-run and require --confirm-write for writes");
   }
@@ -167,6 +223,9 @@ async function validatePlannerAndApply() {
   }
   if (!applyText.includes("package.json") || !applyText.includes("run package managers") || !applyText.includes("configure MCP")) {
     fail("tooling planner/apply behavior", "install/tooling-apply.mjs", "apply script must state forbidden package/CI/MCP/global behavior");
+  }
+  if (!applyText.includes("code-review-graph-read-only-checklist.md")) {
+    fail("tooling planner/apply behavior", "install/tooling-apply.mjs", "apply script must use the read-only code-review-graph checklist");
   }
 
   const packageManagerInstallPattern = /\b(?:npm|pnpm|yarn|bun)\s+(?:install|i|add|dlx|create)\b/i;
@@ -182,6 +241,7 @@ async function validateDocBoundaries() {
   const operating = await read("docs/PROJECT_TOOLING_OPERATING_MODEL.md");
   const matrix = await read("docs/PROJECT_TOOL_INSTALLATION_MATRIX.md");
   const uiux = await read("docs/UIUX_DESIGN_RESOURCES.md");
+  const releaseCandidate = await read("docs/V0_2_RELEASE_CANDIDATE_READINESS.md");
 
   for (const required of ["No automatic install", "No fake validation"]) {
     if (!operating.includes(required) && !matrix.includes(required)) {
@@ -191,13 +251,22 @@ async function validateDocBoundaries() {
   if (!uiux.includes("No Base UI") || !uiux.includes("No Figma")) {
     fail("project tooling document boundaries", "docs/UIUX_DESIGN_RESOURCES.md", "Base UI and Figma must be excluded from current-scope recommendations");
   }
-  for (const row of ["| Base UI |", "| Figma |"]) {
-    if (!matrix.includes(row) || !matrix.includes("archive/remove-from-active")) {
-      fail("project tooling document boundaries", "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md", `${row} must be classified archive/remove-from-active`);
-    }
-  }
   if (!matrix.includes("React Doctor for React projects | Frontend Coding and React Quality | active-install-if-project-type")) {
     fail("project tooling document boundaries", "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md", "React Doctor must be active-install-if-project-type for React projects");
+  }
+  if (!operating.includes("methods/governance/task-intake-routing-gate.md") || !operating.includes("No final current-scope project-tooling resource may remain `pilot-only`")) {
+    fail("project tooling document boundaries", "docs/PROJECT_TOOLING_OPERATING_MODEL.md", "operating model must document task intake and no-pilot-only boundaries");
+  }
+  if (!matrix.includes("code-review-graph | Architecture, Repo Intelligence, and Token Context | active-read-only")) {
+    fail("project tooling document boundaries", "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md", "code-review-graph must be active-read-only");
+  }
+  if (!matrix.includes("open-design | UI/UX Design Intelligence and Browser Evidence | active-reference")) {
+    fail("project tooling document boundaries", "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md", "open-design must be active-reference");
+  }
+  for (const required of ["controlled open-source Codex use as a v0.2 release candidate", "not Level 4", "not Level 5", "not enterprise-certified", "not cross-runtime active support", "not automatic tool installation", "controlled dry-run adoption"]) {
+    if (!releaseCandidate.includes(required)) {
+      fail("project tooling document boundaries", "docs/V0_2_RELEASE_CANDIDATE_READINESS.md", `missing release-candidate wording: ${required}`);
+    }
   }
 }
 
@@ -208,14 +277,14 @@ async function validateProfiles() {
     const requiredSections = [
       "## Purpose",
       "## Project Type",
+      "## Task-Intake Routing Gate",
       "## Default Tools",
       "## Active-Install-If-Project-Type Tools",
       "## Use-If-Existing Tools",
       "## External-Only Tools",
       "## Approval-Required Tools",
       "## Active-Reference Resources",
-      "## Pilot-Only Tools",
-      "## Archive/Removed Tools",
+      "## Active-Read-Only Resources",
       "## Recommended Package Scripts",
       "## Evidence Requirements",
       "## Stop Conditions",
@@ -230,11 +299,33 @@ async function validateProfiles() {
     }
     const defaultTools = section(text, "Default Tools");
     const activeTools = section(text, "Active-Install-If-Project-Type Tools");
+    const activeReference = section(text, "Active-Reference Resources");
+    const activeReadOnly = section(text, "Active-Read-Only Resources");
     if (/Knip/i.test(defaultTools) || /Knip/i.test(activeTools)) {
       fail("project tooling profiles", profile, "Knip must not be in default or active-install-if-project-type tools");
     }
+    if (/pilot-only/i.test(text) || text.includes("## Pilot-Only Tools")) {
+      fail("project tooling profiles", profile, "pilot-only must not remain in current-scope project tooling profiles");
+    }
+    for (const resource of REMOVED_CURRENT_SCOPE_RESOURCES) {
+      if (includesIgnoreCase(text, resource)) {
+        fail("project tooling profiles", profile, `${resource} must not appear in project tooling profiles`);
+      }
+      if (includesIgnoreCase(activeReference, resource) || includesIgnoreCase(activeReadOnly, resource) || includesIgnoreCase(defaultTools, resource) || includesIgnoreCase(activeTools, resource)) {
+        fail("project tooling profiles", profile, `${resource} must not appear in active/default/current-scope sections`);
+      }
+    }
+    if (!activeReadOnly.includes("code-review-graph")) {
+      fail("project tooling profiles", profile, "code-review-graph must be active-read-only source intelligence");
+    }
+    if (includesIgnoreCase(activeReference, "code-review-graph") || includesIgnoreCase(defaultTools, "code-review-graph") || includesIgnoreCase(activeTools, "code-review-graph")) {
+      fail("project tooling profiles", profile, "code-review-graph must be exclusively in Active-Read-Only Resources");
+    }
     if (!text.includes("No-Fake-Validation")) {
       fail("project tooling profiles", profile, "profile must include no-fake-validation rules");
+    }
+    if (!text.includes("Classify normal-language requests before coding")) {
+      fail("project tooling profiles", profile, "profile must include task-intake routing gate wording");
     }
   }
 
@@ -264,6 +355,7 @@ async function validateRegistryConsistency() {
   const routing = await readJson("registries/routing-matrix.json", "project tooling registry consistency");
   const sourceMatrix = await read("docs/SOURCE_UTILIZATION_MATRIX.md");
   const installMatrix = await read("docs/PROJECT_TOOL_INSTALLATION_MATRIX.md");
+  const codeReviewGraphSource = await read("sources/code-review-graph.md");
 
   const tools = new Map((toolsRegistry?.tools || []).map((tool) => [tool.id, tool]));
   for (const [id, expected] of TOOL_EXPECTATIONS) {
@@ -274,6 +366,48 @@ async function validateRegistryConsistency() {
     }
     if (tool.projectInstallClass !== expected) {
       fail("project tooling registry consistency", `registries/tools.registry.json:${id}`, `expected projectInstallClass ${expected}, got ${tool.projectInstallClass || "missing"}`);
+    }
+  }
+  const codeReviewGraph = tools.get("code-review-graph");
+  if (codeReviewGraph?.status !== "active-read-only") {
+    fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", "code-review-graph status must be active-read-only");
+  }
+  for (const required of ["indexing", "product repo scanning", "package changes"]) {
+    if (!codeReviewGraph?.approvalRequiredFor?.includes(required)) {
+      fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", `code-review-graph approvalRequiredFor must include ${required}`);
+    }
+    if (!JSON.stringify(codeReviewGraph?.forbiddenActions || []).toLowerCase().includes(required)) {
+      fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", `code-review-graph forbiddenActions must include ${required}`);
+    }
+  }
+  const codeReviewGraphRisk = codeReviewGraph?.enterpriseRisk || {};
+  for (const field of ["license", "maintenanceSignal", "lastReviewedCommit", "lastReviewedDate", "securityReviewStatus", "defaultEnterpriseStatus"]) {
+    if (!codeReviewGraphRisk[field] || /unknown-review-required|not-yet-verified|source-review-required/i.test(String(codeReviewGraphRisk[field]))) {
+      fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", `code-review-graph enterpriseRisk.${field} must record completed source-safety review evidence`);
+    }
+  }
+  for (const required of [
+    "completed source-safety review",
+    "active-read-only source intelligence",
+    "MIT signal",
+    "no install",
+    "package changes",
+    "MCP setup",
+    "product repo scan",
+    "private-overlay indexing",
+    "raw upstream"
+  ]) {
+    if (!codeReviewGraphSource.toLowerCase().includes(required.toLowerCase())) {
+      fail("project tooling registry consistency", "sources/code-review-graph.md", `code-review-graph source record missing review boundary: ${required}`);
+    }
+  }
+  const eslintBoundaries = tools.get("eslint-plugin-boundaries");
+  if (eslintBoundaries?.status !== "active-install-if-project-type") {
+    fail("project tooling registry consistency", "registries/tools.registry.json:eslint-plugin-boundaries", "eslint-plugin-boundaries status must be active-install-if-project-type");
+  }
+  for (const tool of toolsRegistry?.tools || []) {
+    if (tool.projectInstallClass === "pilot-only" || tool.status === "pilot-only") {
+      fail("project tooling registry consistency", `registries/tools.registry.json:${tool.id}`, "pilot-only must not remain in current-scope tool registry classification");
     }
   }
 
@@ -292,9 +426,21 @@ async function validateRegistryConsistency() {
       fail("project tooling registry consistency", ".ai-toolkit/tool-packs/webapp-quality-security.json", `missing ${required}`);
     }
   }
+  if (/pilot-only/i.test(packText)) {
+    fail("project tooling registry consistency", ".ai-toolkit/tool-packs/webapp-quality-security.json", "tool pack must not expose pilot-only current-scope classifications");
+  }
+  for (const resource of REMOVED_CURRENT_SCOPE_RESOURCES) {
+    if (includesIgnoreCase(packText, resource)) {
+      fail("project tooling registry consistency", ".ai-toolkit/tool-packs/webapp-quality-security.json", `${resource} must not appear in tool-pack routes/model`);
+    }
+  }
+  if (!packText.includes("active-read-only") || !packText.includes("active-reference")) {
+    fail("project tooling registry consistency", ".ai-toolkit/tool-packs/webapp-quality-security.json", "tool pack must carry active-read-only and active-reference classifications");
+  }
 
   const methodIds = new Set((methodsRegistry?.methods || []).map((method) => method.id));
   for (const id of [
+    ...ENTERPRISE_READINESS_METHOD_IDS,
     "mobile.native-mobile-app-quality",
     "security.webview-boundary-review",
     "architecture.cross-surface-client-contracts",
@@ -308,6 +454,7 @@ async function validateRegistryConsistency() {
 
   const scenarioIds = new Set((routing?.scenarios || []).map((scenario) => scenario.scenario));
   for (const scenario of [
+    ...ENTERPRISE_READINESS_SCENARIOS,
     "mobile-native-app-quality",
     "webview-boundary-review",
     "cross-surface-api-contracts",
@@ -319,6 +466,52 @@ async function validateRegistryConsistency() {
   ]) {
     if (!scenarioIds.has(scenario)) {
       fail("project tooling registry consistency", `registries/routing-matrix.json:${scenario}`, "missing routing scenario");
+    }
+  }
+  const scenariosById = new Map((routing?.scenarios || []).map((scenario) => [scenario.scenario, scenario]));
+  for (const scenario of ["mobile-native-app-quality", "webview-boundary-review"]) {
+    const methodReferences = scenariosById.get(scenario)?.methodReferences || [];
+    if (methodReferences[0] !== "governance.task-intake-routing-gate") {
+      fail("project tooling registry consistency", `registries/routing-matrix.json:${scenario}`, "normal-language mobile/WebView scenarios must route through task-intake first");
+    }
+  }
+  const routedMethodIds = new Set();
+  for (const scenario of routing?.scenarios || []) {
+    for (const methodReference of scenario.methodReferences || []) {
+      routedMethodIds.add(methodReference);
+    }
+  }
+  for (const id of ENTERPRISE_READINESS_METHOD_IDS) {
+    if (!routedMethodIds.has(id)) {
+      fail("project tooling registry consistency", `registries/routing-matrix.json:${id}`, "enterprise readiness method is not routed");
+    }
+  }
+}
+
+async function validateNoCurrentScopePilotOnly() {
+  note("no current-scope pilot-only classifications");
+  for (const file of CURRENT_SCOPE_CLASSIFICATION_FILES) {
+    const text = await read(file);
+    if (/pilot-only/i.test(text)) {
+      fail("no current-scope pilot-only classifications", file, "pilot-only remains in a current-scope classification surface");
+    }
+  }
+}
+
+async function validateNoRemovedResourcesInCurrentScope() {
+  note("removed resources excluded from current scope");
+  const currentScopeFiles = [
+    "install/tooling-plan.mjs",
+    "install/tooling-apply.mjs",
+    ".ai-toolkit/tool-packs/webapp-quality-security.json",
+    ...REQUIRED_PROFILES
+  ];
+  for (const file of currentScopeFiles) {
+    const text = await read(file);
+    for (const resource of REMOVED_CURRENT_SCOPE_RESOURCES) {
+      if (includesIgnoreCase(text, resource)) {
+        fail("removed resources excluded from current scope", file, `${resource} appears in a current-scope planner/profile/tool-pack surface`);
+      }
     }
   }
 }
@@ -334,6 +527,8 @@ async function main() {
   await validateProfiles();
   await validateTemplates();
   await validateRegistryConsistency();
+  await validateNoCurrentScopePilotOnly();
+  await validateNoRemovedResourcesInCurrentScope();
 
   const status = failures.length === 0 ? "PASS" : "FAIL";
   console.log(status);

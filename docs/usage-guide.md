@@ -67,6 +67,8 @@ Agent availability means an agent can be selected or recommended when `.codex/ag
 
 ## v0.2 Project Tooling Flow
 
+Before coding, classify normal-language tasks through `methods/governance/task-intake-routing-gate.md`: affected surfaces, required agents/skills/methods/tools, validation gates, stop conditions, and out-of-scope items.
+
 Use `node install/tooling-plan.mjs --project-type <type>` to print a read-only project tooling plan for one of the supported project types. Use `node install/tooling-apply.mjs --target <path> --project-type <type>` for a dry-run template copy plan. Writes require `--confirm-write` and copy only toolkit-owned templates into `<target>/.ai-toolkit/tooling/`.
 
 Project tooling profiles and templates do not edit `package.json`, install dependencies, wire CI, configure MCP, change global config, or touch product repositories. Owner approval is required before applying any template to project package files, scripts, CI, scanner config, React Doctor automation, external service permissions, or package-manager/workspace migrations.
@@ -137,4 +139,4 @@ Return an allow/defer/reject recommendation with evidence.
 
 ## Public Release Positioning
 
-`v0.1.0` is published as the controlled public release for the Codex-first toolkit. It does not claim Level 4, Level 5, enterprise readiness, broad AI-agent runtime support, or Codex OSS application submission.
+`v0.1.0` is published as the controlled public release for the Codex-first toolkit. The v0.2 work is a release-candidate hardening path for controlled open-source Codex use. It does not claim Level 4, Level 5, enterprise certification, production certification, broad cross-runtime active support, or Codex OSS application submission.

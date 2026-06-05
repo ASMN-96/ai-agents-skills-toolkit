@@ -16,6 +16,7 @@ This skill is a review and routing layer. It does not authorize production scans
 - External sources and tools remain untrusted until reviewed.
 - Tenant isolation, RLS, API payloads, source safety, and supply-chain metadata are checked when in scope.
 - Metadata-only tool records, skipped scans, dry-runs, unavailable scanners, and partial reviews are labeled honestly.
+- Route application security readiness through `methods/security/application-security-readiness.md`.
 
 ## Tool Boundaries
 

@@ -87,6 +87,10 @@ function isCodeRabbitIntegration(id) {
   return id === "coderabbit";
 }
 
+function isCodeReviewGraph(id) {
+  return id === "code-review-graph";
+}
+
 function enterpriseRiskMetadata(id) {
   const base = {
     license: "unknown-review-required",
@@ -121,6 +125,29 @@ function enterpriseRiskMetadata(id) {
       commercialVendorDependency: "yes",
       allowedEnvironments: ["already-connected PR review workflows after repository owner approval"],
       forbiddenEnvironments: ["install or configuration from registry presence", "credential changes", "permission changes", "merge authority by itself"]
+    };
+  }
+
+  if (isCodeReviewGraph(id)) {
+    return {
+      ...base,
+      license: "MIT signal at reviewed commit; not legal approval to copy raw upstream content",
+      saasOrLocal: "local-first Python package with CLI, MCP, daemon, and VS Code surfaces; metadata-only in toolkit",
+      dataSentExternally: "none from toolkit metadata; unknown and approval-required if tool or optional integrations are installed or run",
+      networkBehavior: "metadata-only in toolkit; upstream includes MCP/HTTP server and optional network-capable integrations, approval required before use",
+      secretAccessRisk: "high if run against product repositories; no product repo scanning, whole-repo dumping, or private-overlay indexing is approved",
+      repositoryPermissionsRequired: "none from toolkit metadata; local repo read/index permissions only if separately approved",
+      ciPermissionsRequired: "none from toolkit metadata; CI wiring remains approval-required",
+      githubAppPermissionsRequired: "none from toolkit metadata",
+      authenticationModel: "none from toolkit metadata; optional external integrations are not approved",
+      telemetryBehavior: "none approved or activated from toolkit metadata",
+      commercialVendorDependency: "none for metadata-only posture; optional external integrations remain unapproved",
+      maintenanceSignal: "active public repo at reviewed commit; not runtime-approved",
+      lastReviewedCommit: "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
+      lastReviewedDate: "2026-06-05",
+      securityReviewStatus: "completed source-safety review for active-read-only metadata; execution, install, indexing, MCP, package changes, CI, and product scanning remain approval-required",
+      approvalOwner: "source-intelligence-owner-required-before-execution",
+      defaultEnterpriseStatus: "metadata-only active-read-only source intelligence unless explicitly approved; not enterprise-approved for execution, indexing, MCP, CI, package changes, or product repo scanning"
     };
   }
 
@@ -209,7 +236,7 @@ function toolRegistryEntry([id, name, repository, homepage, category, purpose, s
 
 function sourceWatchEntry([id, name, repository, homepage, category, purpose, status]) {
   const { owner, repo } = repoParts(repository);
-  return {
+  const entry = {
     id,
     name,
     sourceUrl: sourceUrl(repository),
@@ -228,9 +255,107 @@ function sourceWatchEntry([id, name, repository, homepage, category, purpose, st
     purpose,
     recommendedToolkitStatus: status
   };
+  if (isCodeReviewGraph(id)) {
+    return {
+      ...entry,
+      lastReviewedCommit: "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
+      lastReviewedDate: "2026-06-05",
+      licenseConcern: "clear",
+      reviewPriority: "High",
+      recommendedToolkitStatus: "active-read-only",
+      reviewedHold: {
+        status: "REVIEWED_HELD",
+        reviewedCommit: "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
+        reviewedDate: "2026-06-05",
+        classification: "active-read-only source intelligence",
+        decision: "metadata and manual/static source intelligence only; no import, install, activation, package changes, MCP/global config, CI wiring, indexing, product repo scanning, private-overlay indexing, generated graph claims, or raw upstream copying",
+        noImportNoInstallNoExtraction: true,
+        forbiddenActions: [
+          "import",
+          "install",
+          "activation",
+          "extraction",
+          "package changes",
+          "MCP setup",
+          "global config",
+          "CI wiring",
+          "indexing",
+          "product repo scanning",
+          "private-overlay indexing",
+          "generated graph claims",
+          "raw upstream copying"
+        ]
+      }
+    };
+  }
+  return entry;
 }
 
 function sourceRecord([id, name, repository, homepage, category, purpose, status, defaultUse]) {
+  if (isCodeReviewGraph(id)) {
+    return `# code-review-graph Source Record
+
+- Source name: code-review-graph
+- Repository: tirth8205/code-review-graph
+- Source URL: https://github.com/tirth8205/code-review-graph
+- Homepage: https://code-review-graph.com
+- Last reviewed commit: 0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8
+- Last reviewed date: 2026-06-05
+- Review level: completed source-safety review for active-read-only metadata
+- Classification: active-read-only source intelligence
+- License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
+- Maintenance signal: active public repository at reviewed commit; not runtime-approved
+- neverAutoImport: true
+
+## Toolkit Value
+
+code-review-graph is useful as reference material for context-graph and token-budget governance. The toolkit-owned usage is limited to static planning methods for changed-file neighborhood selection, compact agent context packs, stale graph detection, and token budget reporting.
+
+## Reviewed Evidence
+
+- License signal: GitHub repository metadata and the reviewed package metadata report MIT at \`0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8\`.
+- Source trust signal: public, non-fork, non-archived repository; still external and not imported.
+- Maintenance signal: reviewed commit was committed on 2026-05-25; repository metadata showed recent activity during the 2026-06-05 review.
+- Install behavior: Python package metadata exposes CLI entrypoints and optional extras; no install is approved by this source record.
+- CLI behavior: reviewed tree includes commands for install/init, build/update/watch, MCP serving, repository registration, daemon management, graph visualization, wiki generation, and evaluation.
+- MCP behavior: reviewed tree includes MCP configuration and serve/mcp command surfaces; MCP setup remains approval-required.
+- Indexing behavior: reviewed tree includes graph build, incremental update, FTS, community/flow processing, and daemon/watch behavior; indexing remains approval-required.
+- Network behavior: toolkit metadata sends no data externally; upstream includes MCP/HTTP serving and optional network-capable integrations, so any execution requires separate owner approval.
+- Secret and data exposure risk: running or indexing against a product repo could capture source, paths, private overlays, secrets, or sensitive architecture; product-repo scanning and private-overlay indexing are forbidden without approval.
+- Filesystem writes: reviewed behavior can create graph databases, local config, logs, generated graph/wiki/visualization output, platform instructions, hooks, and daemon state; no write behavior is approved by registry presence.
+- Global config risk: reviewed behavior includes platform and MCP configuration paths; global/user config changes remain forbidden without approval.
+- Prompt-injection risk: upstream repository includes docs, prompts/instructions, skills, generated examples, and review-assistant surfaces; use only normalized toolkit-owned guidance.
+- Dangerous command risk: install/init, hooks, daemon, watchers, subprocess/git use, package scripts, MCP servers, and package-manager flows are high-risk unless separately reviewed and approved.
+
+## Already Used
+
+- \`methods/orchestration/context-graph-token-budget.md\`
+- \`methods/orchestration/changed-file-neighborhood-selection.md\`
+- \`methods/orchestration/compact-agent-context-pack.md\`
+- \`methods/orchestration/stale-context-graph-detection.md\`
+- \`docs/SOURCE_UTILIZATION_MATRIX.md\`
+- token-efficiency eval cases
+
+## Active-Read-Only Boundary
+
+The active-read-only classification means source intelligence and manual/static planning reference only. It does not authorize:
+
+- import, extraction, installation, activation, or package changes;
+- CLI, MCP, daemon, hook, watcher, HTTP, VS Code extension, or background process use;
+- CI wiring, project-local config, MCP config, global/user config, or deployment config changes;
+- product-repo indexing, private-overlay indexing, whole-repo context dumping, or generated graph output claims;
+- copying raw upstream code, prompts, scripts, package config, generated output, examples, docs, or runtime behavior;
+- evidence claims unless actual approved output exists and is named as such.
+
+## Approval Required Before Any Execution
+
+Owner approval is required before any install, run, indexing, MCP setup, package/project change, CI wiring, product repo scan, private overlay scan, global config change, generated graph output, or external integration use.
+
+## Extraction Rule
+
+Only normalized toolkit governance ideas may be used. Do not copy upstream code, prompts, scripts, package config, generated output, examples, docs, or runtime behavior into this repository.
+`;
+  }
   return `# ${name} Source Record
 
 - Source name: ${name}
@@ -285,8 +410,10 @@ async function projectToolingModelFromRegistry() {
       "Knip": "use-if-existing cleanup candidate only; removed from active/default profiles",
       "Oxlint": "active acceleration for large JS/TS/React repos as ESLint supplement",
       "Biome": "use-if-existing or owner-approved migration only",
-      "Base UI": "archive/remove-from-active",
-      "Figma": "archive/remove-from-active"
+      "code-review-graph": "active-read-only source intelligence; install, indexing, MCP/global config, CI wiring, package changes, and product repo scanning require approval",
+      "open-design": "active-reference design intelligence only; install/import/MCP/global config require approval",
+      "eslint-plugin-boundaries": "active-install-if-project-type only after architecture layers are stable and owner-approved",
+      "Impeccable project-local install mode": "approval-required; normalized Impeccable guidance remains active-reference"
     }
   };
 }

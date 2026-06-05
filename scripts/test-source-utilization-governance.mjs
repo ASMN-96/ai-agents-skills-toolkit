@@ -40,6 +40,8 @@ test("source utilization report classifies every watched source and registered t
 
   assert.match(report, /# Source Utilization Matrix/);
   assert.match(report, /active-method/);
+  assert.match(report, /active-read-only/);
+  assert.match(report, /active-reference/);
   assert.match(report, /planned-extraction/);
   assert.match(report, /reference-only-with-reason/);
   assert.match(report, /Reject \/ not aligned/);

@@ -24,6 +24,8 @@ Use normalized guidance from reviewed UI/UX source maps and methods only. Do not
 
 For v0.2 project tooling, use `docs/UIUX_DESIGN_RESOURCES.md` for design-resource boundaries and `methods/mobile/native-mobile-app-quality.md` for mobile quality routing. Base UI and Figma are excluded from current-scope recommendations.
 
+Use `methods/governance/task-intake-routing-gate.md` before coding normal-language UI requests, then route performance-sensitive UI through `methods/performance/performance-scalability-cache-readiness.md` when needed.
+
 ## Handoff
 
 UIUX defines acceptance criteria. Frontend Agent implements, code-quality validates, QA Test verifies, and PR Release Gate decides readiness.

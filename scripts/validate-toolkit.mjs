@@ -52,6 +52,8 @@ const SOURCE_UTILIZATION_CLASSIFICATIONS = new Set([
   "active-method",
   "active-skill-rule",
   "active-profile-route",
+  "active-reference",
+  "active-read-only",
   "planned-extraction",
   "reference-only-with-reason",
   "archive-candidate",
@@ -618,10 +620,10 @@ async function validateSourceUtilizationClassification(watchlist, registryState)
   }
 
   const requiredRows = new Map([
-    ["code-review-graph", "planned-extraction"],
+    ["code-review-graph", "active-read-only"],
     ["shadcn-ui", "planned-extraction"],
     ["ruflo", "planned-extraction"],
-    ["open-design", "reference-only-with-reason"]
+    ["open-design", "active-reference"]
   ]);
   for (const [id, expected] of requiredRows) {
     const actual = rows.get(id)?.classification;

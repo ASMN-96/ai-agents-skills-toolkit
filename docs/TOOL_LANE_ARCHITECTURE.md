@@ -8,7 +8,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 
 - Purpose: establish scope, source of truth, branch discipline, validation honesty, owner decisions, and stop conditions before project changes.
 - Owning agents/skills: governance, product-agent, architect-agent, reviewer-agent, release-manager-agent, skill-scout-agent.
-- Resources/tools: AGENTS.md, README.md, docs/NO_FAKE_VALIDATION_POLICY.md, docs/REAL_PROJECT_READINESS.md, docs/PROJECT_TOOLING_OPERATING_MODEL.md, GSD and Superpowers as external-only discipline tools.
+- Resources/tools: AGENTS.md, README.md, docs/NO_FAKE_VALIDATION_POLICY.md, docs/REAL_PROJECT_READINESS.md, docs/PROJECT_TOOLING_OPERATING_MODEL.md, methods/governance/task-intake-routing-gate.md, GSD and Superpowers as external-only discipline tools.
 - Install posture: external-only or metadata-only; no project install from toolkit registry presence.
 - Evidence required: branch, working tree, source-of-truth files read, selected profile, commands actually run, skipped checks, WARN output, owner decisions.
 - Stop conditions: dirty or wrong branch, missing owner approval for package/CI/MCP/global/product changes, validation claims without output, source/license uncertainty, destructive command risk.
@@ -20,7 +20,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 - Purpose: convert product intent into concrete design acceptance criteria and verify rendered quality with browser evidence.
 - Owning agents/skills: uiux, uiux-agent, frontend-agent, qa-test-agent, reviewer-agent.
 - Resources/tools: UI UX Pro Max as internal premium rubric; Impeccable as primary external UI/UX design intelligence reference; shadcn/ui as design-system and component pattern reference only; Addy Osmani UI/web quality methods; Anthropic UI/frontend guidance as restricted normalized guidance only; Bencium and commercial dashboard references; Uncodixfy anti-generic AI UI guidance; VoltAgent design-context references if already tracked; Playwright, Axe Playwright, and Lighthouse CI as evidence tools.
-- Install posture: UI/UX references are active-reference only. Playwright is default-install for serious UI/browser apps. Axe Playwright and Lighthouse CI are active-install-if-project-type. Impeccable project-local install is pilot-only and requires separate approval. shadcn/ui is not a default CLI/component import path.
+- Install posture: UI/UX references are active-reference only. open-design is active-reference. Playwright is default-install for serious UI/browser apps. Axe Playwright and Lighthouse CI are active-install-if-project-type. Impeccable project-local install is approval-required. shadcn/ui is not a default CLI/component import path.
 - Evidence required: acceptance criteria, screenshots or browser observations when claimed, viewport/state/accessibility coverage, actual Playwright/Axe/Lighthouse output when reported.
 - Stop conditions: unclear design criteria, unapproved external design source, raw prompt/source copying risk, CLI/component import request without approval, browser evidence unavailable while browser readiness is being claimed.
 - When to call the lane: UI polish, dashboard, workflow, responsive, accessibility, mobile visual behavior, public web, design-system, and browser-visible quality tasks.
@@ -64,8 +64,8 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 
 - Purpose: harden module boundaries, dependency flow, duplication risk, circular dependency risk, and context selection for large-agent work.
 - Owning agents/skills: governance, architect-agent, reviewer-agent, sre-performance-agent, code-quality.
-- Resources/tools: dependency-cruiser as first architecture hardening tool, Madge for circular dependency risk, eslint-plugin-boundaries only after layers are stable, jscpd for duplication detection, code-review-graph pilot-only/read-only, context graph/token-budget methods.
-- Install posture: dependency-cruiser, Madge, and jscpd are active-install-if-project-type. eslint-plugin-boundaries is pilot-only until architecture layers are stable. code-review-graph is pilot-only/read-only with no MCP/global config/product indexing by default.
+- Resources/tools: dependency-cruiser as first architecture hardening tool, Madge for circular dependency risk, eslint-plugin-boundaries only after layers are stable and owner-approved, jscpd for duplication detection, code-review-graph active-read-only source intelligence, context graph/token-budget methods.
+- Install posture: dependency-cruiser, Madge, jscpd, and eslint-plugin-boundaries are active-install-if-project-type where project type and owner approval match. code-review-graph is active-read-only with no MCP/global config/product indexing or scanning by default.
 - Evidence required: architecture map, affected boundaries, actual tool output if run, changed-file neighborhood, token/context compacting decisions.
 - Stop conditions: whole-repo dump request, private-overlay exposure, unstable layers for eslint-plugin-boundaries, tool-generated graph claimed without output, indexing/global/MCP request without approval.
 - When to call the lane: architecture hardening, module boundary issues, large repo context planning, circular dependency suspicion, duplication hardening.
@@ -96,6 +96,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 ## Global Lane Rules
 
 - Metadata is not execution.
+- Normal-language tasks enter through the task-intake routing gate before coding.
 - Project-owned checks come first.
 - Registry presence does not install, activate, configure, or run tools.
 - Selected or recommended tools must be reported separately from actually executed tools.

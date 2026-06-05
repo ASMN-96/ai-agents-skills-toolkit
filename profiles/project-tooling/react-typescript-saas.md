@@ -8,6 +8,10 @@ Provide a full-power but owner-controlled tooling posture for serious React/Type
 
 `react-typescript-saas`
 
+## Task-Intake Routing Gate
+
+Classify normal-language requests before coding: affected surfaces, required agents/skills/methods/tools, validation gates, stop conditions, and out-of-scope items.
+
 ## Default Tools
 
 - TypeScript / typecheck
@@ -28,6 +32,7 @@ Provide a full-power but owner-controlled tooling posture for serious React/Type
 - Lighthouse CI for public/mobile/performance-sensitive web apps
 - Semgrep for security-sensitive projects
 - dependency-cruiser for architecture hardening
+- eslint-plugin-boundaries after architecture layers are stable and owner-approved
 - Madge for circular dependency risk
 - jscpd for duplication-hardening projects
 
@@ -58,6 +63,8 @@ Provide a full-power but owner-controlled tooling posture for serious React/Type
 - MCP/global config changes
 - React Doctor GitHub Action / PR write permissions / agent skill install
 - package-manager/workspace migrations
+- Impeccable project-local install mode
+- code-review-graph install, indexing, MCP/global config, or product repo scanning
 
 ## Active-Reference Resources
 
@@ -69,18 +76,11 @@ Provide a full-power but owner-controlled tooling posture for serious React/Type
 - Bencium dashboard/commercial polish references
 - Uncodixfy anti-generic AI UI guidance
 - VoltAgent design references if already tracked
+- open-design read-only design reference
 
-## Pilot-Only Tools
+## Active-Read-Only Resources
 
-- code-review-graph
-- open-design
-- eslint-plugin-boundaries until architecture layers are stable
-- Impeccable project-local install mode
-
-## Archive/Removed Tools
-
-- Base UI
-- Figma
+- code-review-graph source intelligence with no install, package change, indexing, MCP/global config, CI wiring, product repo scanning, or evidence claim without actual output
 
 ## Recommended Package Scripts
 

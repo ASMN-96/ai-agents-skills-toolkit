@@ -4,7 +4,7 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "ca9b128f7cc813235279c635896a49eea4ddadb527415fa44cca101d3cf1396d"
+      "sha256": "822f18125637a99e39428f5f5b0b983ae512dd77bc42c598e070cf7c8e6201e4"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
@@ -28,11 +28,11 @@
     },
     {
       "path": "scripts/validate-project-tooling-profiles.mjs",
-      "sha256": "50a821a9822bb13685de3c94ea33268af2f4e29b889bb3c3b13029a619b3683e"
+      "sha256": "2863d31d24da6acc083b4ab2e944bb0c7897ba126212bedb21b225b1f1126eac"
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "d3e5b445594e57f9ea5728ccf59ce7fe1a1bc0f43a4dce2c0a4c0023de038aef"
+      "sha256": "06125236a6e8fd04d6d380fee3ae9603f0b4a508fa66b9bcf9d1fda3646e4bf6"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",

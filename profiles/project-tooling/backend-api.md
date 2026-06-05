@@ -8,6 +8,10 @@ Provide a secure, contract-first tooling posture for backend APIs, RPCs, service
 
 `backend-api`
 
+## Task-Intake Routing Gate
+
+Classify normal-language requests before coding: affected surfaces, required agents/skills/methods/tools, validation gates, stop conditions, and out-of-scope items.
+
 ## Default Tools
 
 - TypeScript / typecheck
@@ -21,6 +25,7 @@ Provide a secure, contract-first tooling posture for backend APIs, RPCs, service
 
 - Semgrep for security-sensitive projects
 - dependency-cruiser for architecture hardening
+- eslint-plugin-boundaries after architecture layers are stable and owner-approved
 - actionlint for GitHub Actions projects
 - zizmor for GitHub Actions security
 - Trivy for Docker/container/IaC/SBOM projects
@@ -54,6 +59,7 @@ Provide a secure, contract-first tooling posture for backend APIs, RPCs, service
 - deep networked scans
 - MCP/global config changes
 - package-manager/workspace migrations
+- code-review-graph install, indexing, MCP/global config, or product repo scanning
 
 ## Active-Reference Resources
 
@@ -61,15 +67,9 @@ Provide a secure, contract-first tooling posture for backend APIs, RPCs, service
 - cross-surface client contracts method
 - WebView boundary review when embedded/native clients consume the API
 
-## Pilot-Only Tools
+## Active-Read-Only Resources
 
-- code-review-graph
-- eslint-plugin-boundaries until architecture layers are stable
-
-## Archive/Removed Tools
-
-- Base UI
-- Figma
+- code-review-graph source intelligence with no install, package change, indexing, MCP/global config, CI wiring, product repo scanning, or evidence claim without actual output
 
 ## Recommended Package Scripts
 

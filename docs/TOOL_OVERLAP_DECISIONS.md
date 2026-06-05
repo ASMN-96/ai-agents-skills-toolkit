@@ -86,8 +86,8 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 ## dependency-cruiser vs Madge vs eslint-plugin-boundaries vs code-review-graph
 
 - Default winner: dependency-cruiser for architecture hardening.
-- Complementary tool: Madge for circular dependency risk, jscpd for duplication, eslint-plugin-boundaries after layers stabilize, code-review-graph as pilot-only read-only source intelligence.
-- Conflict rule: do not install graph/indexing/MCP/global tooling by default; do not enforce boundaries before layers are agreed.
+- Complementary tool: Madge for circular dependency risk, jscpd for duplication, eslint-plugin-boundaries after layers stabilize and owner approval exists, code-review-graph as active-read-only source intelligence.
+- Conflict rule: do not install graph/indexing/MCP/global tooling or scan product repos by default; do not enforce boundaries before layers are agreed.
 - When to activate: architecture hardening, cycles, dependency boundaries, large-context planning.
 - When to avoid: small local changes or unapproved indexing.
 - Evidence requirement: tool output when run, architecture assumptions, and context-selection rationale.

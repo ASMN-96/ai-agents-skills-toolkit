@@ -51,7 +51,9 @@
       "methodReferences": [
         "internal.engineering-lifecycle-gates",
         "internal.simplicity-surgical-change-discipline",
-        "orchestration.compact-agent-context-pack"
+        "orchestration.compact-agent-context-pack",
+        "governance.task-intake-routing-gate",
+        "reliability.coding-time-production-readiness"
       ]
     },
     {
@@ -291,7 +293,8 @@
       "methodReferences": [
         "osmani.performance-optimization",
         "uiux.webapp-testing",
-        "internal.frontend-uiux-quality-gates"
+        "internal.frontend-uiux-quality-gates",
+        "performance.performance-scalability-cache-readiness"
       ]
     },
     {
@@ -390,7 +393,8 @@
         "orchestration.context-graph-token-budget",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.stale-context-graph-detection",
+        "performance.performance-scalability-cache-readiness"
       ]
     },
     {
@@ -441,7 +445,8 @@
         "orchestration.context-graph-token-budget",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.stale-context-graph-detection",
+        "api.api-contract-and-routing-readiness"
       ]
     },
     {
@@ -488,7 +493,8 @@
         "orchestration.context-graph-token-budget",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.stale-context-graph-detection",
+        "security.application-security-readiness"
       ]
     },
     {
@@ -581,7 +587,9 @@
       "methodReferences": [
         "osmani.performance-optimization",
         "internal.engineering-lifecycle-gates",
-        "orchestration.changed-file-neighborhood-selection"
+        "orchestration.changed-file-neighborhood-selection",
+        "performance.performance-scalability-cache-readiness",
+        "reliability.observability-readiness"
       ]
     },
     {
@@ -684,7 +692,10 @@
         "orchestration.context-graph-token-budget",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.stale-context-graph-detection",
+        "reliability.coding-time-production-readiness",
+        "reliability.observability-readiness",
+        "release.release-rollback-readiness"
       ]
     },
     {
@@ -1031,7 +1042,8 @@
         "orchestration.context-graph-token-budget",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.stale-context-graph-detection",
+        "security.application-security-readiness"
       ]
     },
     {
@@ -1082,7 +1094,8 @@
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
         "orchestration.context-graph-token-budget",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.stale-context-graph-detection",
+        "release.release-rollback-readiness"
       ]
     },
     {
@@ -1243,7 +1256,10 @@
         "orchestration.context-graph-token-budget",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.stale-context-graph-detection",
+        "governance.task-intake-routing-gate",
+        "reliability.coding-time-production-readiness",
+        "release.release-rollback-readiness"
       ]
     },
     {
@@ -1281,6 +1297,7 @@
       ],
       "tokenMode": "standard",
       "methodReferences": [
+        "governance.task-intake-routing-gate",
         "mobile.native-mobile-app-quality"
       ]
     },
@@ -1319,7 +1336,9 @@
       ],
       "tokenMode": "detailed",
       "methodReferences": [
-        "security.webview-boundary-review"
+        "governance.task-intake-routing-gate",
+        "security.webview-boundary-review",
+        "security.application-security-readiness"
       ]
     },
     {
@@ -1359,7 +1378,8 @@
       ],
       "tokenMode": "detailed",
       "methodReferences": [
-        "architecture.cross-surface-client-contracts"
+        "architecture.cross-surface-client-contracts",
+        "api.api-contract-and-routing-readiness"
       ]
     },
     {
@@ -1553,6 +1573,315 @@
       "methodReferences": [
         "uiux.premium-visual-quality",
         "mobile.native-mobile-app-quality"
+      ]
+    },
+    {
+      "scenario": "task-intake-routing-gate",
+      "userLanguageExamples": [
+        "Build this safely.",
+        "Make this enterprise-style ready without overclaiming."
+      ],
+      "inferredIntent": "Classify normal-language requests before coding.",
+      "riskLevel": "medium",
+      "selectedProfile": "planning-profile",
+      "agents": [
+        "product-agent",
+        "architect-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "governance"
+      ],
+      "supportTools": [
+        "GitHub/gh when needed",
+        "Superpowers when useful"
+      ],
+      "stopConditions": [
+        "Approval-required surface appears",
+        "Required validation cannot run",
+        "No-fake-validation boundary would be violated"
+      ],
+      "validationGates": [
+        "Affected surfaces classified",
+        "Selected tools separated from executed tools",
+        "Actual output required for validation claims"
+      ],
+      "expectedCompletionReport": [
+        "routing decision",
+        "validation evidence",
+        "skipped gates",
+        "residual risk"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "governance.task-intake-routing-gate"
+      ]
+    },
+    {
+      "scenario": "coding-time-production-readiness",
+      "userLanguageExamples": [
+        "Make this production-grade.",
+        "Harden this before release."
+      ],
+      "inferredIntent": "Apply production-style coding-time gates without certification claims.",
+      "riskLevel": "medium",
+      "selectedProfile": "planning-profile",
+      "agents": [
+        "architect-agent",
+        "reviewer-agent",
+        "qa-test-agent",
+        "release-manager-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality"
+      ],
+      "supportTools": [
+        "GitHub/gh when needed",
+        "Superpowers when useful"
+      ],
+      "stopConditions": [
+        "Approval-required surface appears",
+        "Required validation cannot run",
+        "No-fake-validation boundary would be violated"
+      ],
+      "validationGates": [
+        "Affected surfaces classified",
+        "Selected tools separated from executed tools",
+        "Actual output required for validation claims"
+      ],
+      "expectedCompletionReport": [
+        "routing decision",
+        "validation evidence",
+        "skipped gates",
+        "residual risk"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "reliability.coding-time-production-readiness",
+        "governance.task-intake-routing-gate"
+      ]
+    },
+    {
+      "scenario": "api-contract-and-routing-readiness",
+      "userLanguageExamples": [
+        "Change this API safely.",
+        "Check route compatibility."
+      ],
+      "inferredIntent": "Review API contracts, routes, consumers, auth, and rollback.",
+      "riskLevel": "high",
+      "selectedProfile": "backend-profile",
+      "agents": [
+        "backend-contract-agent",
+        "security-agent",
+        "qa-test-agent"
+      ],
+      "skills": [
+        "governance",
+        "security-review",
+        "code-quality"
+      ],
+      "supportTools": [
+        "GitHub/gh when needed",
+        "Superpowers when useful"
+      ],
+      "stopConditions": [
+        "Approval-required surface appears",
+        "Required validation cannot run",
+        "No-fake-validation boundary would be violated"
+      ],
+      "validationGates": [
+        "Affected surfaces classified",
+        "Selected tools separated from executed tools",
+        "Actual output required for validation claims"
+      ],
+      "expectedCompletionReport": [
+        "routing decision",
+        "validation evidence",
+        "skipped gates",
+        "residual risk"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "api.api-contract-and-routing-readiness",
+        "governance.task-intake-routing-gate"
+      ]
+    },
+    {
+      "scenario": "performance-scalability-cache-readiness",
+      "userLanguageExamples": [
+        "This is slow.",
+        "Review cache/scaling risk."
+      ],
+      "inferredIntent": "Review performance, scale, cache, query, and measurement gates.",
+      "riskLevel": "medium",
+      "selectedProfile": "sre-profile",
+      "agents": [
+        "sre-performance-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality"
+      ],
+      "supportTools": [
+        "GitHub/gh when needed",
+        "Superpowers when useful"
+      ],
+      "stopConditions": [
+        "Approval-required surface appears",
+        "Required validation cannot run",
+        "No-fake-validation boundary would be violated"
+      ],
+      "validationGates": [
+        "Affected surfaces classified",
+        "Selected tools separated from executed tools",
+        "Actual output required for validation claims"
+      ],
+      "expectedCompletionReport": [
+        "routing decision",
+        "validation evidence",
+        "skipped gates",
+        "residual risk"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "performance.performance-scalability-cache-readiness",
+        "governance.task-intake-routing-gate"
+      ]
+    },
+    {
+      "scenario": "observability-readiness",
+      "userLanguageExamples": [
+        "Make this debuggable.",
+        "Check observability gaps."
+      ],
+      "inferredIntent": "Review safe logs, errors, traces, and debugging evidence.",
+      "riskLevel": "medium",
+      "selectedProfile": "sre-profile",
+      "agents": [
+        "sre-performance-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "governance",
+        "security-review"
+      ],
+      "supportTools": [
+        "GitHub/gh when needed",
+        "Superpowers when useful"
+      ],
+      "stopConditions": [
+        "Approval-required surface appears",
+        "Required validation cannot run",
+        "No-fake-validation boundary would be violated"
+      ],
+      "validationGates": [
+        "Affected surfaces classified",
+        "Selected tools separated from executed tools",
+        "Actual output required for validation claims"
+      ],
+      "expectedCompletionReport": [
+        "routing decision",
+        "validation evidence",
+        "skipped gates",
+        "residual risk"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "reliability.observability-readiness",
+        "governance.task-intake-routing-gate"
+      ]
+    },
+    {
+      "scenario": "application-security-readiness",
+      "userLanguageExamples": [
+        "Is this secure?",
+        "Check tenant isolation."
+      ],
+      "inferredIntent": "Review auth, tenant, secrets, payload, input, and supply-chain risk.",
+      "riskLevel": "high",
+      "selectedProfile": "security-profile",
+      "agents": [
+        "security-agent",
+        "backend-contract-agent",
+        "database-rls-agent",
+        "qa-test-agent"
+      ],
+      "skills": [
+        "governance",
+        "security-review"
+      ],
+      "supportTools": [
+        "GitHub/gh when needed",
+        "Superpowers when useful"
+      ],
+      "stopConditions": [
+        "Approval-required surface appears",
+        "Required validation cannot run",
+        "No-fake-validation boundary would be violated"
+      ],
+      "validationGates": [
+        "Affected surfaces classified",
+        "Selected tools separated from executed tools",
+        "Actual output required for validation claims"
+      ],
+      "expectedCompletionReport": [
+        "routing decision",
+        "validation evidence",
+        "skipped gates",
+        "residual risk"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "security.application-security-readiness",
+        "governance.task-intake-routing-gate"
+      ]
+    },
+    {
+      "scenario": "release-rollback-readiness",
+      "userLanguageExamples": [
+        "Merge if clean.",
+        "Prepare release candidate."
+      ],
+      "inferredIntent": "Review PR, merge, rollback, and post-merge evidence.",
+      "riskLevel": "high",
+      "selectedProfile": "release-profile",
+      "agents": [
+        "release-manager-agent",
+        "reviewer-agent",
+        "qa-test-agent"
+      ],
+      "skills": [
+        "governance",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "GitHub/gh when needed",
+        "Superpowers when useful"
+      ],
+      "stopConditions": [
+        "Approval-required surface appears",
+        "Required validation cannot run",
+        "No-fake-validation boundary would be violated"
+      ],
+      "validationGates": [
+        "Affected surfaces classified",
+        "Selected tools separated from executed tools",
+        "Actual output required for validation claims"
+      ],
+      "expectedCompletionReport": [
+        "routing decision",
+        "validation evidence",
+        "skipped gates",
+        "residual risk"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "release.release-rollback-readiness",
+        "governance.task-intake-routing-gate"
       ]
     }
   ]

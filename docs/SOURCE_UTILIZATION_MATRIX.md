@@ -9,6 +9,8 @@ Allowed classifications:
 - `active-method`: already powers normalized toolkit methods.
 - `active-skill-rule`: already influences active skill behavior or acceptance rules.
 - `active-profile-route`: already supports profiles, routing, or delegated tool selection.
+- `active-reference`: useful current-scope reference guidance with no install, activation, or raw import.
+- `active-read-only`: current-scope source intelligence with no install, indexing, MCP/global config, product repo scanning, or execution by default.
 - `planned-extraction`: useful source intelligence that should be converted into toolkit-owned methods, routing, or evals.
 - `reference-only-with-reason`: useful context that must remain passive because trust, license, runtime, or duplication risk is unresolved.
 - `archive-candidate`: retained for historical context but not worth current extraction.
@@ -41,7 +43,7 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | agency-agents | Agency Agents | archive-candidate | Archived from active freshness monitoring | Source record only | Re-add only if a concrete owner-approved method emerges | No agent/runtime import |
 | superpowers | Superpowers | active-method | Do later | TDD/verification/source-safety references; external plugin delegation | Keep toolkit-owned guardrails minimal | Do not duplicate plugin workflows |
 | everything-claude-code | Everything Claude Code | active-method | Do later | Source safety scoring | Keep config/hook/MCP risks in source-safety method | No global config, hook, or MCP import |
-| code-review-graph | code-review-graph | planned-extraction | Must do next | Source-only token governance inspiration | Keep context graph methods tied to source-only planning | No install, CLI, MCP, global config, product indexing, generated graph output, or whole-repo dump |
+| code-review-graph | code-review-graph | active-read-only | Do later | Source-only token governance inspiration | Keep context graph methods tied to source-only planning | No install, CLI, MCP, global config, product indexing/scanning, generated graph output, or whole-repo dump |
 | ruflo | RuFlo | planned-extraction | Must do next | Source safety scoring only | Static task-state, handoff, adaptive replanning, failure accounting | No daemon, worker, hook, MCP, memory, plugin, package, script, or background runtime |
 
 ## Internal Audit Artifacts
@@ -84,11 +86,11 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | reviewdog | reviewdog | active-profile-route | Do later | Deterministic PR feedback metadata | Scanner-output transport only | Do not duplicate CodeRabbit AI review |
 | coderabbit | CodeRabbit | active-profile-route | Needs owner decision | Delegated contextual PR review integration | Use only when connected and approved per repo | No install/config/GitHub app permission change |
 | github-gh | GitHub/gh | active-profile-route | Do later | Delegated repo operations | PR/check/status evidence | No PR write/merge without explicit task |
-| code-review-graph | code-review-graph | planned-extraction | Must do next | Metadata-only source intelligence | Context graph and token budget governance methods | No install, CLI, MCP, global config, product indexing, or whole-repo dump |
-| open-design | open-design | reference-only-with-reason | Needs owner decision | Metadata-only UIUX reference | Archive or review before extraction | No install, MCP, or raw design-system import |
+| code-review-graph | code-review-graph | active-read-only | Do later | Metadata-only source intelligence | Context graph and token budget governance methods | No install, CLI, MCP, global config, product indexing/scanning, or whole-repo dump |
+| open-design | open-design | active-reference | Do later | Metadata-only UIUX reference | Keep as read-only design intelligence | No install, MCP, global config, raw design-system import, or unmanaged persistence |
 | openssf-scorecard | OpenSSF Scorecard | planned-extraction | Do later | Source-trust metadata | Source safety scoring criteria | No tool execution by default |
 | dependency-cruiser | dependency-cruiser | active-profile-route | Do later | Active-install-if-project-type architecture hardening metadata | Dependency-boundary review heuristics | No install or generated graph by default |
-| eslint-plugin-boundaries | eslint-plugin-boundaries | planned-extraction | Do later | Pilot-only boundary metadata until architecture layers are stable | Layer/import ownership policy after owner decision | No config rewrite |
+| eslint-plugin-boundaries | eslint-plugin-boundaries | active-profile-route | Do later | Active-install-if-project-type only after architecture layers are stable and owner-approved | Layer/import ownership policy after owner decision | No install, package/config rewrite, or CI wiring from metadata |
 | madge | Madge | active-profile-route | Do later | Active-install-if-project-type circular-dependency metadata | Dependency cycle review heuristic | No install or generated graph by default |
 | jscpd | jscpd | active-profile-route | Do later | Active-install-if-project-type duplication metadata | Copy/paste duplication review heuristic | No install or cleanup churn |
 
@@ -129,9 +131,12 @@ The following project install classes are metadata-only recommendation posture. 
 - trufflehog: approval-required.
 - owasp-zap-baseline: approval-required.
 - harden-runner: approval-required.
-- code-review-graph: pilot-only.
-- open-design: pilot-only.
-- eslint-plugin-boundaries: pilot-only.
+- code-review-graph: active-read-only.
+- open-design: active-reference.
+- eslint-plugin-boundaries: active-install-if-project-type.
+- Impeccable project-local install mode: approval-required.
+- Base UI: removed-from-current-scope.
+- Figma: removed-from-current-scope.
 
 ## Rejected Operations
 
