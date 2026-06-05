@@ -302,7 +302,7 @@
       "repoOwner": "pbakaus",
       "repoName": "impeccable",
       "defaultBranch": "main",
-      "lastReviewedCommit": "6788085015400c3900cbf3a46b76f76bf489b3e3",
+      "lastReviewedCommit": "08d50f215bddaf3bc6561c07d33eba78caaaecfa",
       "lastReviewedDate": "2026-06-06",
       "sourceRecordPath": "sources/impeccable.md",
       "watchedPaths": [],
@@ -311,9 +311,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_ADOPTED",
-        "reviewedCommit": "6788085015400c3900cbf3a46b76f76bf489b3e3",
+        "reviewedCommit": "08d50f215bddaf3bc6561c07d33eba78caaaecfa",
         "reviewedDate": "2026-06-06",
-        "summary": "Latest llms.txt public-site metadata drift reviewed; UI quality guidance remains adopted as toolkit-owned review criteria without importing upstream install, CLI, live-browser, detector, or skill-bundle behavior.",
+        "summary": "Latest detector/test false-positive fix, Dependabot config, and CI action-version drift reviewed; only the cleanroom accessibility-hidden text overflow review principle is adopted, without importing upstream install, CLI, live-browser, detector, Dependabot, CI workflow, package, or skill-bundle behavior.",
         "boundaries": [
           "no CLI execution",
           "no live-browser workflow activation",
@@ -321,6 +321,8 @@
           "no package metadata adoption",
           "no lockfile adoption",
           "no script execution",
+          "no Dependabot config adoption",
+          "no CI workflow adoption",
           "no raw llms.txt import"
         ]
       }

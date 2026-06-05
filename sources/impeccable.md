@@ -7,7 +7,7 @@
 - Retrieval date: 2026-05-29.
 - Last checked date: 2026-06-06.
 - Last reviewed date: 2026-06-06.
-- Last reviewed commit: `6788085015400c3900cbf3a46b76f76bf489b3e3`.
+- Last reviewed commit: `08d50f215bddaf3bc6561c07d33eba78caaaecfa`.
 - Normalization review date: 2026-05-22.
 - Normalization review commit: `642f03d5a10eb3deb91bd511241e387e23b9aa39`.
 - Visible adoption signals: 28,106 GitHub stars, 1,517 forks, and repository push activity on 2026-05-15 from read-only GitHub metadata.
@@ -34,6 +34,7 @@ Normalization is limited to toolkit-owned guidance. Raw upstream skill text, com
 - Separate typography, color, spatial layout, motion, interaction, responsive behavior, and UX writing as review dimensions.
 - Use critique, polish, audit, and hardening vocabulary to make UI findings actionable.
 - Detect design anti-patterns before implementation rather than after visual QA.
+- Avoid false visual-defect findings on intentionally hidden accessibility text unless rendered evidence shows a user-visible overflow or layout issue.
 
 ## Rejected Patterns
 
@@ -136,6 +137,22 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_ADOPTED`.
 
 Decision: keep Impeccable active as normalized UI quality source intelligence. The new public-site metadata is useful as provenance/context only; no raw `llms.txt` content, install guidance, command catalog, site docs, CLI behavior, live-browser workflow, detector behavior, package metadata, skill body, script, or runtime behavior was copied, installed, activated, or run.
+
+## v0.2.3 Post-Merge Follow-up Freshness Review 2026-06-06
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `6788085015400c3900cbf3a46b76f76bf489b3e3` to `17eedd67bbbc35bc6cba4878025e857088b318c4` using GitHub compare metadata, commit metadata, and changed-file metadata only. The compare was 2 commits ahead. It updated detector/runtime copies and tests for an `sr-only` text-overflow false-positive fix, then added `.github/dependabot.yml`.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep Impeccable active as normalized UI quality source intelligence and adopt only the cleanroom review principle that intentionally hidden accessibility text should not be reported as a visible text-overflow defect without rendered evidence. No upstream detector code, tests, fixtures, CLI behavior, Dependabot configuration, package metadata, skill bundles, live-browser workflow, scripts, or runtime behavior were copied, installed, activated, configured, or run.
+
+## v0.2.3 Post-Merge CI Freshness Review 2026-06-06
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `17eedd67bbbc35bc6cba4878025e857088b318c4` to `08d50f215bddaf3bc6561c07d33eba78caaaecfa` using `git ls-remote`, GitHub compare metadata, commit metadata, and changed-file metadata only. The compare was 1 signed Dependabot commit that updated `.github/workflows/ci.yml` action versions for `actions/checkout`, `actions/setup-node`, and `actions/upload-artifact`.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep Impeccable active as normalized UI quality source intelligence. This CI dependency drift was reviewed for freshness only and does not change toolkit methods, routing, evals, or runtime posture. No upstream workflow YAML, GitHub Actions versions, Dependabot behavior, CI wiring, package metadata, scripts, detector behavior, live-browser workflow, skill bundle, or runtime behavior were copied, installed, activated, configured, or run.
 
 ## Source Provenance (Stable)
 

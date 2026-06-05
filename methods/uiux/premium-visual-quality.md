@@ -30,11 +30,12 @@ UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
 - Prefer real product signals over decoration.
 - Load relevant product, design-system, and workflow context before visual changes.
 - Evaluate polish through concrete dimensions: hierarchy, spacing, contrast, motion restraint, interaction feedback, responsive fit, copy clarity, and state coverage.
+- Treat intentionally hidden accessibility text as semantic support first; only flag it as visual overflow when rendered evidence shows a user-visible fit or layout defect.
 - Use rendered evidence when making visual-quality claims; do not rely on source records or design vocabulary alone.
 
 ## Verification Requirements
 
-Review screenshots across viewports and inspect for overlap, low contrast, and generic composition.
+Review screenshots across viewports and inspect for overlap, low contrast, visible text overflow, and generic composition. Distinguish visible copy defects from accessibility-only hidden labels before reporting fit issues.
 
 ## Risks / Anti-Patterns
 
