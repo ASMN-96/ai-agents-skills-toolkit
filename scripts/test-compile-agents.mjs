@@ -81,7 +81,7 @@ test("confirm-write generates metadata-rich compiled agent and reports provenanc
     assert.match(result.stdout, /compile-agents mode: confirm-write/);
     assert.match(result.stdout, /wrote/);
     const compiled = readFileSync(path.join(fixture, "compiled-agents", "reviewer-agent.compiled.md"), "utf8");
-    assert.match(compiled, /toolkit_version: 0\.2\.0/);
+    assert.match(compiled, /toolkit_version: 0\.2\.2/);
     assert.match(compiled, /source_commit: deterministic-not-recorded/);
     assert.match(compiled, /source_agent: agents\/reviewer-agent\.md/);
     assert.match(compiled, /source_profile_refs:/);

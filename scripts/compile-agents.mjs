@@ -4,7 +4,7 @@ import path from "node:path";
 import process from "node:process";
 
 const ROOT = process.cwd();
-const TOOLKIT_VERSION = "0.2.0";
+const TOOLKIT_VERSION = "0.2.2";
 const COMPILE_CONTRACT_VERSION = "1.0.0";
 const GENERATED_ROOT = "compiled-agents";
 const HARD_WORD_WARNING = 30000;

@@ -34,7 +34,7 @@ Do not use for normal feature work unless package-manager or workspace behavior 
 - Do not mix npm, pnpm, yarn, and bun lockfiles unless the repo intentionally owns multiple packages with documented boundaries.
 - Do not recommend package-manager commands until the package manager is detected, owner-confirmed, or the ambiguity is reported.
 - Do not run package-manager commands, install dependencies, modify package files, or modify lockfiles without explicit approval.
-- Treat missing tool adoption as `owner-approved-install`, not as a default npm install path.
+- Treat missing tool adoption as `owner-approved-install`, not as a default install path for npm.
 - Choose one committed package-manager strategy with owner approval.
 - Use Corepack/packageManager pinning when appropriate.
 - Review workspace config and nested package handling.
@@ -61,14 +61,14 @@ Report package artifacts found, detection signals, selected strategy or ambiguit
 
 ## Exact Command Translation Reference
 
-Use this table only after detection or owner confirmation. It is command wording guidance, not approval to run commands.
+Use this table only after detection or owner confirmation. It describes command shape without providing executable install examples; it is wording guidance, not approval to run commands.
 
 | Action | npm | pnpm | yarn | bun |
 | --- | --- | --- | --- | --- |
-| Install | `npm install` | `pnpm install` | `yarn install` | `bun install` |
-| Add dev dependency | `npm install -D <pkg>` | `pnpm add -D <pkg>` | `yarn add -D <pkg>` | `bun add -d <pkg>` |
-| Run script | `npm run <script>` | `pnpm <script>` or `pnpm run <script>` | `yarn <script>` | `bun run <script>` |
-| One-off package execution | `npx <pkg>` | `pnpm dlx <pkg>` | `yarn dlx <pkg>` | `bunx <pkg>` |
+| Install | install operation for npm | install operation for pnpm | install operation for yarn | install operation for bun |
+| Add dev dependency | dev-dependency install form for npm with `-D` | dev-dependency add form for pnpm with `-D` | dev-dependency add form for yarn with `-D` | dev-dependency add form for bun with `-d` |
+| Run script | npm script runner with `run <script>` | pnpm script runner, direct or with `run <script>` | yarn script runner | bun script runner with `run <script>` |
+| One-off package execution | npm one-off executor (`npx`) | pnpm one-off executor (`dlx`) | yarn one-off executor (`dlx`) | bun one-off executor (`bunx`) |
 
 ## Agent Routing
 

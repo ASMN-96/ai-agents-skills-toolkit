@@ -4,7 +4,7 @@ This document defines when the toolkit can be used in real product repositories.
 
 ## Current Classification
 
-After the 2026-05-30 first representative pilot, the toolkit is Level 3 certified and the current controlled-pilot milestone is closed. It is ready for controlled real-project AI coding-agent use when the same governed branch, PR, dry-run, validation, and owner-approval flow is followed. `v0.2.0` is the controlled public release path for this agent-assisted state after v0.2 hardening, final dry-run adoption evidence, release validation, and tag/release execution. Level 4 enterprise rollout and Level 5 broad public/package maturity remain separate future gates; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command runtime override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global config was changed.
+After the 2026-05-30 first representative pilot, the toolkit is Level 3 complete and the current controlled-pilot milestone is closed. It is ready for controlled real-project AI coding-agent use when the same governed branch, PR, dry-run, validation, and owner-approval flow is followed. `v0.2.2` is the controlled public release path for this agent-assisted state after v0.2 hardening, activation posture hardening, no-write leak-scan validation, source-freshness verification, release validation, and tag/release execution. Level 4 enterprise rollout and Level 5 broad public/package maturity remain separate future gates; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command runtime override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global config was changed.
 
 Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project-owned checks, PR review, and passing required checks. This does not authorize automatic rollout, product-repository writes without a project PR, runtime/global activation, package/CI/MCP changes, external installs, secret access, or broad cross-runtime active support.
 
@@ -21,9 +21,9 @@ Phase 10L governance UX hardening did not upgrade readiness by itself. The Level
 | 0 | Repository complete | Toolkit files, docs, registries, compiled agents, and policies exist | Toolkit development only |
 | 1 | Current-session visible | Current Codex session can see `governance` and validated compiled fallbacks | Toolkit review and planning |
 | 2 | Fresh-session verified | A new Codex session confirms skill visibility, agent native/fallback status, support-tool availability, and no silent fallback | One controlled real-project pilot |
-| 3 | Pilot validated | One representative project sync is reviewed, version-pinned, validated, and merged through PR | Controlled Codex use in comparable real projects |
+| 3 | Pilot validated | One representative project sync is reviewed, version-pinned, validated, and merged through PR | Controlled AI coding-agent use in comparable real projects |
 | 4 | Broad rollout | Multiple project pilots pass with no governance drift or unsafe sync behavior | Wider rollout, still phase-gated |
-| 5 | Broad public/package maturity | Public/private blockers, license/contribution/security policy gaps, package allowlist, clean-clone release validation, and broader rollout evidence are resolved | Broad public/package distribution beyond the controlled `v0.2.0` path |
+| 5 | Broad public/package maturity | Public/private blockers, license/contribution/security policy gaps, package allowlist, clean-clone release validation, and broader rollout evidence are resolved | Broad public/package distribution beyond the controlled `v0.2.2` path |
 
 ## Level 2 Gate
 

@@ -2,7 +2,7 @@
 
 ## Position
 
-The toolkit is ready for controlled open-source Codex use as a v0.2 release candidate when the validation gate passes on this branch and after post-merge verification passes on `main`.
+The toolkit is ready for controlled AI coding-agent use as a v0.2 release candidate when the validation gate passes on this branch and after post-merge verification passes on `main`.
 
 This is enterprise-style coding-time governance: task intake, routing, readiness gates, project-tooling boundaries, validation honesty, and controlled evidence reporting.
 

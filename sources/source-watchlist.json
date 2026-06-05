@@ -133,10 +133,10 @@
       "neverAutoImport": true,
       "reviewedHold": {
         "status": "REVIEWED_HELD",
-        "reviewedCommit": "c30ccc68f833378087338ed9168175e1ce942c00",
+        "reviewedCommit": "ae106c05e5a40486ab5b9704234c32f0499e9719",
         "reviewedDate": "2026-06-05",
-        "classification": "reviewed runtime-sensitive browser payload reference",
-        "decision": "reference-only hold; no import, no install, no activation, no extraction, no package update, no CI update, no runtime update, no browser binary download, no MCP activation, no remote browser endpoint behavior adoption, no remote header behavior adoption, no CLI/session behavior adoption, no build-tool behavior adoption, no Chromium service worker behavior adoption, no protocol/client/server behavior adoption, no upstream test or code copy, and no script execution",
+        "classification": "reviewed runtime-sensitive browser/test-runner/config reference",
+        "decision": "reference-only hold; no import, no install, no activation, no extraction, no package update, no CI update, no runtime update, no browser binary download, no MCP activation, no remote browser endpoint behavior adoption, no remote header behavior adoption, no CLI/session behavior adoption, no build-tool behavior adoption, no injected-script behavior adoption, no test-runner or web-server behavior adoption, no config-loader behavior adoption, no protocol/client/server behavior adoption, no upstream test or code copy, and no script execution",
         "noImportNoInstallNoExtraction": true,
         "forbiddenActions": [
           "import",
@@ -152,7 +152,10 @@
           "remote header behavior adoption",
           "CLI/session behavior adoption",
           "build-tool behavior adoption",
-          "Chromium service worker behavior adoption",
+          "injected-script behavior adoption",
+          "test-runner behavior adoption",
+          "web-server behavior adoption",
+          "config-loader behavior adoption",
           "protocol/client/server behavior adoption",
           "upstream code copy",
           "upstream test copy",
@@ -203,7 +206,32 @@
       "watchedPaths": [],
       "licenseConcern": "clear",
       "reviewPriority": "Medium",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewedHold": {
+        "status": "REVIEWED_HELD",
+        "reviewedCommit": "7dfd933102fdb881f8abd24fc1ef11a669682b94",
+        "reviewedDate": "2026-06-05",
+        "classification": "reviewed-held package and lockfile metadata drift in upstream CLI/package surface",
+        "decision": "reference-only hold; no import, no install, no activation, no extraction, no CLI execution, no MCP setup, no registry import, no component source copying, no skill import, no package metadata adoption, no lockfile adoption, no dependency movement adoption, no package changes, no product-repo changes, and no runtime activation",
+        "noImportNoInstallNoExtraction": true,
+        "forbiddenActions": [
+          "import",
+          "install",
+          "activation",
+          "extraction",
+          "CLI execution",
+          "MCP setup",
+          "registry import",
+          "component source copying",
+          "skill import",
+          "package metadata adoption",
+          "lockfile adoption",
+          "dependency movement adoption",
+          "package changes",
+          "product-repo changes",
+          "runtime activation"
+        ]
+      }
     },
     {
       "id": "vercel-agent-skills",
@@ -311,7 +339,7 @@
       "repoOwner": "pbakaus",
       "repoName": "impeccable",
       "defaultBranch": "main",
-      "lastReviewedCommit": "198aa9171948af0bea6d58596ad575cb2de67af7",
+      "lastReviewedCommit": "6c7c04866cc98d992b0cdead355f361ceebc7d2a",
       "lastReviewedDate": "2026-06-05",
       "sourceRecordPath": "sources/impeccable.md",
       "watchedPaths": [],

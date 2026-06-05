@@ -139,4 +139,4 @@ Return an allow/defer/reject recommendation with evidence.
 
 ## Public Release Positioning
 
-`v0.2.0` is the controlled public release path for the AI coding-agent toolkit after the v0.2 hardening, final dry-run adoption, source-freshness verification, leak scan, runtime validation, and release validation gates. It does not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, package publication, marketplace submission, broad cross-runtime active support, or external submission.
+`v0.2.2` is the controlled AI Vibe Coding Toolkit release after v0.2 hardening, no-write leak-scan validation mode, activation posture hardening, source-freshness verification, runtime validation, public positioning cleanup, and release validation gates. It does not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, package publication, marketplace submission, broad cross-runtime active support, or external submission.
