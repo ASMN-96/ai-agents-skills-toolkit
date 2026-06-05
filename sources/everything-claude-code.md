@@ -80,3 +80,11 @@ Skill Scout read-only source-safety review evaluated upstream default-branch mov
 Classification: `REVIEWED_HELD` / reviewed-held reference-only.
 
 Decision: keep Everything Claude Code as source-safety and harness-boundary reference material only. This review does not approve plugin import, skill import, install module import, control-plane import, cross-harness runtime support claims, MCP behavior, global config behavior, source import, installation, activation, extraction, package changes, CI changes, product-repo changes, script execution, or global configuration changes. Future upstream movement beyond `bc8e12bb80c904a5a9864797ef1fd1212aa82f3d` requires a fresh review.
+
+## Reviewed-Held Source Safety Review 2026-06-05
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `bc8e12bb80c904a5a9864797ef1fd1212aa82f3d` to `7113b5bf63694b716f8b2413c5919824a82fc095` using live source freshness output and GitHub compare metadata only. The compare was 2 commits ahead. The observed commit messages and file list add Codex worktree and OpenCode session adapters plus an MCP inventory surface that reads Claude, Codex, and OpenCode MCP configuration formats, normalizes cross-harness MCP records, and includes secret-redaction logic and tests.
+
+Classification: `REVIEWED_HELD` / reviewed-held cross-harness session/MCP inventory and global config inspection surface.
+
+Decision: keep the latest upstream commit as reference-only held source material. This review does not approve plugin import, skill import, install module import, control-plane import, session-adapter import, MCP inventory import, cross-harness runtime support claims, MCP behavior adoption, global config behavior, Codex session or config reader adoption, OpenCode session reader adoption, Claude config reader adoption, secret-redaction implementation adoption, source import, installation, activation, extraction, package changes, CI changes, product-repo changes, script execution, or global configuration changes. Future upstream movement beyond `7113b5bf63694b716f8b2413c5919824a82fc095` requires a fresh review.

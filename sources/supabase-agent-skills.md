@@ -69,3 +69,11 @@ Refresh source record only, pending separate approval. Keep extraction narrow, p
 ## Freshness Review 2026-06-03
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `577e626421fdb691902f158181e467a3dbf99410` to `759fddfc29ebc96b88b4bebb89ebb484a39aa6e2` using GitHub compare metadata and `git ls-remote` only. The compare was 2 commits ahead and touched release workflow metadata, release-please metadata, `AGENTS.md`, and changelog files for the Supabase and Supabase Postgres best-practices skills. MIT license metadata remained present. Because this source directly affects database, auth, and RLS guidance, the change remains review-sensitive even though no source content was imported. This refresh updates source tracking only and does not approve skill installation, raw `SKILL.md` copying, Supabase CLI execution, MCP configuration, database changes, auth changes, RLS changes, method extraction, product-repo changes, or runtime activation.
+
+## Reviewed-Held Source Safety Review 2026-06-05
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `759fddfc29ebc96b88b4bebb89ebb484a39aa6e2` to `1356046015476711a769601079262b5635929427` using live source freshness output and GitHub compare metadata only. The compare was 2 commits ahead and touched release-please metadata plus Supabase and Supabase Postgres best-practices changelogs. The observed changelog delta references safe migration schema constraints, SECURITY DEFINER coverage, `auth.role()` deprecation, BOLA, Data API table exposure, and npm supply-chain guidance.
+
+Classification: `REVIEWED_HELD` / reviewed-held Supabase database/auth/API/migration/security and supply-chain guidance delta.
+
+Decision: keep the latest upstream commit as reference-only held source material. This review does not approve source import, installation, activation, extraction, raw skill copying, Supabase CLI execution, MCP configuration, package or lockfile updates, Data API behavior adoption, migration guidance adoption, auth or RLS behavior adoption, security checklist adoption, npm supply-chain guidance adoption, database changes, product-repo changes, global config changes, CI changes, method extraction, or runtime activation. Future upstream movement beyond `1356046015476711a769601079262b5635929427` requires a fresh review.
