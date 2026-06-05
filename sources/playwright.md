@@ -5,7 +5,7 @@
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `78c9dfd4c7245973a5d3f56a34971555cfcf3000` on `main`, checked by read-only GitHub compare/commit metadata on 2026-06-04.
+- Pinned repo ref checked: `c8fc23bb1254432b911f2021c03c23932c8a37b8` on `main`, checked by read-only GitHub compare/commit/license metadata on 2026-06-05.
 - Visible adoption signals: about 89.8k GitHub stars, 5.8k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
@@ -138,3 +138,11 @@ Skill Scout read-only source-safety follow-up reviewed upstream default-branch m
 Classification: `REVIEWED_HELD` / reviewed runtime-sensitive browser payload reference.
 
 Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, CLI/session behavior adoption, build-tool behavior adoption, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `e8916e894be57feabf2b6dbe304ff9fc3323b125` requires a fresh review.
+
+## Reviewed-Held Source Safety Review 2026-06-05 PR3 Gate Follow-up
+
+Skill Scout read-only source-safety follow-up reviewed upstream default-branch movement from `e8916e894be57feabf2b6dbe304ff9fc3323b125` to `c8fc23bb1254432b911f2021c03c23932c8a37b8` using GitHub compare metadata, commit metadata, changed-file metadata, and license metadata only. The compare was 1 commit ahead and touched Playwright MCP remote browser endpoint/header handling in `packages/playwright-core/src/tools/mcp/browserFactory.ts`, `packages/playwright-core/src/tools/mcp/config.ts`, `packages/playwright-core/src/tools/mcp/program.ts`, and `tests/mcp/remote-endpoint.spec.ts`. Apache-2.0 license metadata remained present.
+
+Classification: `REVIEWED_HELD` / reviewed runtime-sensitive browser payload reference.
+
+Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, remote browser endpoint behavior adoption, remote header behavior adoption, CLI/session behavior adoption, build-tool behavior adoption, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `c8fc23bb1254432b911f2021c03c23932c8a37b8` requires a fresh review.

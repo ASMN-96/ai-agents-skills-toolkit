@@ -107,10 +107,10 @@
       "neverAutoImport": true,
       "reviewedHold": {
         "status": "REVIEWED_HELD",
-        "reviewedCommit": "e8916e894be57feabf2b6dbe304ff9fc3323b125",
+        "reviewedCommit": "c8fc23bb1254432b911f2021c03c23932c8a37b8",
         "reviewedDate": "2026-06-05",
         "classification": "reviewed runtime-sensitive browser payload reference",
-        "decision": "reference-only hold; no import, no install, no activation, no extraction, no package update, no CI update, no runtime update, no browser binary download, no MCP activation, no CLI/session behavior adoption, no build-tool behavior adoption, no upstream test or code copy, and no script execution",
+        "decision": "reference-only hold; no import, no install, no activation, no extraction, no package update, no CI update, no runtime update, no browser binary download, no MCP activation, no remote browser endpoint behavior adoption, no remote header behavior adoption, no CLI/session behavior adoption, no build-tool behavior adoption, no upstream test or code copy, and no script execution",
         "noImportNoInstallNoExtraction": true,
         "forbiddenActions": [
           "import",
@@ -122,6 +122,8 @@
           "runtime update",
           "browser binary download",
           "MCP activation",
+          "remote browser endpoint behavior adoption",
+          "remote header behavior adoption",
           "CLI/session behavior adoption",
           "build-tool behavior adoption",
           "upstream code copy",

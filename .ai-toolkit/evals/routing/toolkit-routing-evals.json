@@ -50,6 +50,35 @@
         "real-execution",
         "quality-passed"
       ]
+    },
+    {
+      "id": "governance-lite-router-method-only",
+      "input": "Use governance-lite/router-lite for a small implementation",
+      "expectedSkills": [
+        "governance"
+      ],
+      "expectedMethod": "governance.governance-lite-router-mode",
+      "forbiddenSkills": [
+        "governance-lite",
+        "router-lite"
+      ],
+      "forbiddenActions": [
+        "new-skill",
+        "install",
+        "activate"
+      ]
+    },
+    {
+      "id": "pr-release-coderabbit-credit-fail-owner-review",
+      "input": "CodeRabbit failed due credits; finish PR review support",
+      "expectedSkills": [
+        "governance",
+        "pr-release-gate"
+      ],
+      "expectedAction": "targeted-owner-review-support",
+      "forbiddenClaims": [
+        "coderabbit-passed"
+      ]
     }
   ]
 }

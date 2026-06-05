@@ -1576,6 +1576,53 @@
       ]
     },
     {
+      "scenario": "governance-lite-router-mode",
+      "userLanguageExamples": [
+        "Use governance-lite for this small implementation.",
+        "Route this quickly but keep the safety gates.",
+        "Do this with router-lite, but do not overcomplicate it."
+      ],
+      "inferredIntent": "Apply concise governance routing through the existing governance skill and passive method metadata without adding a new active skill.",
+      "riskLevel": "medium",
+      "selectedProfile": "planning-profile",
+      "agents": [
+        "product-agent",
+        "architect-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "governance"
+      ],
+      "supportTools": [
+        "GitHub/gh when branch or PR state matters",
+        "Superpowers when useful"
+      ],
+      "stopConditions": [
+        "Request would add governance-lite or router-lite as a sixth active skill",
+        "Approval-required surface appears",
+        "Required validation cannot run",
+        "No-fake-validation boundary would be violated"
+      ],
+      "validationGates": [
+        "Affected surfaces classified",
+        "Selected tools separated from executed tools",
+        "Stop conditions stated before risky actions",
+        "Actual output required for validation claims"
+      ],
+      "expectedCompletionReport": [
+        "routing decision",
+        "selected vs executed tools",
+        "validation evidence",
+        "WARN/skipped gates",
+        "residual risk"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "governance.governance-lite-router-mode",
+        "governance.task-intake-routing-gate"
+      ]
+    },
+    {
       "scenario": "task-intake-routing-gate",
       "userLanguageExamples": [
         "Build this safely.",

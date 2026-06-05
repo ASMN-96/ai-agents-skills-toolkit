@@ -51,6 +51,9 @@
       ],
       "riskLevel": "medium",
       "evalStatus": "scaffolded",
+      "evalSuites": [
+        "evals/skills/governance-proof-evals.json"
+      ],
       "sourceProvenance": [
         {
           "path": "skills/governance/SKILL.md",

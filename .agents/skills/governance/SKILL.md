@@ -19,6 +19,7 @@ This skill authorizes routing, planning, read-only checks, capability selection,
 - Preserve WARN output in completion reports even when aggregate validation passes.
 - Stop before security-sensitive, destructive, global, package, CI, or product-repository changes unless separately approved.
 - Route normal-language tasks through `methods/governance/task-intake-routing-gate.md` before coding.
+- Use `methods/governance/governance-lite-router-mode.md` as a concise method-only governance mode for small/medium tasks; do not create or activate a `governance-lite` or `router-lite` skill.
 - Route serious implementation through `methods/reliability/coding-time-production-readiness.md` when production-style coding-time gates are needed.
 - Route unsafe-command questions through `methods/governance/agent-command-safety.md`.
 - Route package-manager or workspace migration questions through `methods/repo/package-manager-workspace-migration.md`.

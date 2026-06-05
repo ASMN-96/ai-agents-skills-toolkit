@@ -132,6 +132,28 @@
         "mock freshness is live evidence",
         "metadata-only graph ran"
       ]
+    },
+    {
+      "id": "governance-lite-small-task-no-broad-context",
+      "userPrompt": "Use governance-lite. Update one stop-condition template sentence.",
+      "expectedTokenMode": "concise",
+      "expectedSelectedAgents": [
+        "reviewer-agent"
+      ],
+      "expectedContextGovernance": [
+        "governance-lite-router-mode",
+        "changed-file-neighborhood-selection"
+      ],
+      "expectedNoFullDumps": [
+        "whole repo",
+        "full registries",
+        "compiled agents",
+        "external source bodies"
+      ],
+      "forbiddenClaims": [
+        "governance-lite skill activated",
+        "router-lite skill activated"
+      ]
     }
   ]
 }

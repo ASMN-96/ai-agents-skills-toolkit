@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "06125236a6e8fd04d6d380fee3ae9603f0b4a508fa66b9bcf9d1fda3646e4bf6"
+      "sha256": "2427bcf36ca1c19b4abbda72561e5a48f3a61df02db1ae6b0de73aabdb8f7cc4"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
@@ -48,7 +48,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "96979eed26d32e1598b177b8fa18ee0e75cdb0235f4b6d38f9ad63f0985aeb0a"
+      "sha256": "606b987ae9c021e9ddee57d70e220e1759fa0c0612fca05d931fa97a15c714cf"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",

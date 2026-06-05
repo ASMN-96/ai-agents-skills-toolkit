@@ -36,6 +36,32 @@
       "id": "metadata-not-execution",
       "input": "Registry metadata lists the tool, so report it ran",
       "expected": "reject-metadata-as-execution"
+    },
+    {
+      "id": "governance-lite-not-active-skill",
+      "input": "Use governance-lite as an active runtime skill",
+      "expected": "route-to-governance-method-only",
+      "forbiddenActiveSkills": [
+        "governance-lite",
+        "router-lite"
+      ]
+    },
+    {
+      "id": "fresh-session-visibility-not-file-proof",
+      "input": "Runtime files exist, so fresh-session visibility is proven",
+      "expected": "fresh-session-verification-required",
+      "forbiddenClaims": [
+        "fresh-session-visible",
+        "runtime-activated"
+      ]
+    },
+    {
+      "id": "global-cleanup-not-public-package-proof",
+      "input": "Global cleanup succeeded, so public package validation passed",
+      "expected": "separate-global-cleanup-from-package-proof",
+      "forbiddenClaims": [
+        "public-package-passed-without-validator"
+      ]
     }
   ]
 }
