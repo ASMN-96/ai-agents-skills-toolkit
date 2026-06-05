@@ -113,6 +113,14 @@ Classification: safe metadata refresh / low-risk public-site styling drift.
 
 Decision: keep Impeccable as normalized UI/UX source intelligence only. This refresh updates source tracking only and does not approve CLI execution, package install, detector use, browser workflow use, source-copying, skill-body import, external activation, product-repo changes, or runtime configuration changes.
 
+## Reviewed-Held Source Safety Review 2026-06-05 Post-Merge Release Gate
+
+Skill Scout read-only post-merge release-gate follow-up reviewed upstream default-branch movement from `6c7c04866cc98d992b0cdead355f361ceebc7d2a` to `347a0c06a2781578f0d3c6fe2cc3a8b64ad5b62d` using GitHub compare metadata, commit metadata, and changed-file metadata only. The compare was 1 commit ahead with commit message `Fix Windows skill bundle extraction (#198)` and touched `bun.lock`, `cli/bin/commands/skills.mjs`, and `package.json`.
+
+Classification: `REVIEWED_HELD` / package, lockfile, and CLI skill-bundle extraction drift.
+
+Decision: keep Impeccable as normalized UI/UX source intelligence only, but hold this upstream movement from active adoption. This review does not approve CLI execution, package install, package metadata adoption, lockfile adoption, skill-bundle extraction behavior adoption, detector use, browser workflow use, source-copying, skill-body import, external activation, product-repo changes, runtime configuration, or script execution.
+
 ## Source Provenance (Stable)
 
 - Watchlist path: `sources/source-watchlist.json`
