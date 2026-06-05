@@ -33,7 +33,7 @@ const COMMON = {
     "shadcn/ui reference only",
     "Addy Osmani UI/web quality methods",
     "Anthropic UIUX normalized guidance",
-    "Bencium dashboard/commercial polish references",
+    "Toolkit-owned commercial dashboard polish rubric",
     "Uncodixfy anti-generic AI UI guidance",
     "VoltAgent design references if already tracked"
   ],

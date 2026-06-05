@@ -2,9 +2,10 @@
 
 ## Scope
 
-- Scope is read-only verification of current global availability expectations for this toolkit repository.
-- Repository-only checks: no writes to global configuration or global runtime state are performed by this audit.
-- Source of global state evidence: `<codex-home>/agents/ai-toolkit-agents-manifest.json` and `~/.codex/agents/*.toml`.
+- Scope is verification of current global availability expectations for this toolkit repository.
+- Repository-local runtime proof remains independent of machine-specific global cleanup.
+- v0.2.1 PR2 performed backup-first cleanup of toolkit-owned global runtime files only; it did not edit global Codex config, MCP settings, plugin cache, product repositories, package files, or lockfiles.
+- Source of global state evidence: `<codex-home>/agents/ai-toolkit-agents-manifest.json`, `~/.codex/agents/*.toml`, and the five canonical toolkit skill files in `~/.codex/skills/<skill>/SKILL.md`.
 
 ## What is Repo-Discoverable
 
@@ -17,6 +18,12 @@
 
 ## What is Globally Available
 
+- Canonical global skills present in `~/.codex/skills`:
+  - `governance`
+  - `uiux`
+  - `code-quality`
+  - `security-review`
+  - `pr-release-gate`
 - Global TOML agents present in `~/.codex/agents`:
   - `architect-agent`
   - `backend-contract-agent`
@@ -39,20 +46,21 @@
 
 ## What is Intentionally Not Global
 
-- Repo skills are not globally mirrored by default.
+- Non-canonical repo skills are not globally mirrored by default.
 - Retired helper aliases are not globally mirrored by default.
 - External global Codex settings and plugin install/state are unchanged in this scope.
 
 ## How to Safely Globalize Later
 
-- Update/refresh global registry generation tooling.
-- Run an approved global availability workflow.
-- Regenerate `~/.codex/agents/ai-toolkit-agents-manifest.json`.
+- Run an approved backup-first global availability workflow.
+- Refresh only toolkit-owned canonical runtime files unless owner approval explicitly expands scope.
+- Regenerate `~/.codex/agents/ai-toolkit-agents-manifest.json` only as toolkit-owned runtime metadata.
 - Revalidate manifest + runtime session visibility before claiming durable global visibility.
 
 ## Files to Keep in Toolkit Management
 
 - `docs/CODEX_GLOBAL_AVAILABILITY.md`
+- `docs/V0_2_1_RUNTIME_ADOPTION_PROOF.md`
 - Registry entries in `registries/*`
 - Manifest source of truth in `~/.codex/agents/ai-toolkit-agents-manifest.json`
 
@@ -63,3 +71,4 @@
   - Product repositories
   - Unapproved external upstream skill artifacts
   - Third-party runtime or security-critical files
+  - Uncertain global skills, agents, plugins, caches, auth files, databases, or MCP settings
