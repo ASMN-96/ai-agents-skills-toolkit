@@ -130,3 +130,11 @@ Skill Scout read-only source-safety follow-up reviewed upstream default-branch m
 Classification: `REVIEWED_HELD` / reviewed runtime-sensitive browser payload reference.
 
 Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `e3f61c1d798795e2e93f6c36e934853bbdab1e75` requires a fresh review.
+
+## Reviewed-Held Source Safety Review 2026-06-05
+
+Skill Scout read-only source-safety follow-up reviewed upstream default-branch movement from `e3f61c1d798795e2e93f6c36e934853bbdab1e75` to `e8916e894be57feabf2b6dbe304ff9fc3323b125` using `git ls-remote`, GitHub repository metadata, license metadata, compare commit metadata, and changed-file metadata only. The initial compare to `017cfab2ccd542d94fed70405f87ef3fbca17915` was 2 commits ahead and touched Playwright MCP/backend navigation behavior, CLI client output/program/session behavior, and MCP/CLI tests. A same-session follow-up to `e8916e894be57feabf2b6dbe304ff9fc3323b125` was 1 commit ahead and touched `utils/build/build.js`, changing build-tool process behavior for watcher tooling. Apache-2.0 license metadata remained present.
+
+Classification: `REVIEWED_HELD` / reviewed runtime-sensitive browser payload reference.
+
+Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, CLI/session behavior adoption, build-tool behavior adoption, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `e8916e894be57feabf2b6dbe304ff9fc3323b125` requires a fresh review.
