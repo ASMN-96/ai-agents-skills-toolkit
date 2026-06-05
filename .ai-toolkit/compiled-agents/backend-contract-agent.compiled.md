@@ -1,13 +1,13 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.1.0
-toolkit_pin: ai-agents-skills-toolkit@0.1.0
+toolkit_version: 0.2.0
+toolkit_pin: ai-agents-skills-toolkit@0.2.0
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/backend-contract-agent.md
 source_profile_refs: ["profiles/backend-profile.md", "profiles/implementation-profile.md", "profiles/security-profile.md", "profiles/fullstack-profile.md"]
-source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.api-interface-design", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.security-hardening", "osmani.spec-driven-development", "osmani.test-driven-development", "security.differential-security-review"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.api-interface-design", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.security-hardening", "osmani.spec-driven-development", "osmani.test-driven-development", "security.differential-security-review", "security.webview-boundary-review", "architecture.cross-surface-client-contracts", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "security.application-security-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -310,12 +310,87 @@ Do not use as a full audit of unrelated code when the user asked for a narrow ty
 Security Agent, Reviewer Agent, Backend Contract Agent, Database RLS Agent, Release Manager Agent.
 ## Operating Rules
 
+### security.webview-boundary-review
+
+Source: `methods/security/webview-boundary-review.md`
+
+# WebView Boundary Review
+## Purpose
+Treat WebView content as a trust boundary. WebView work can blend web, native, auth, tokens, storage, links, downloads, uploads, analytics, and crash reporting in ways that create security and privacy risk.
+## When To Use
+Use for native apps, hybrid apps, embedded browser surfaces, Expo DOM/WebView usage, OAuth or payment WebViews, deep links, external content, and native bridge behavior.
+Run `methods/governance/task-intake-routing-gate.md` first for normal-language WebView requests so native, API, auth, token, link, package/config, and release surfaces are separated before implementation.
+## When Not To Use
+Do not use for ordinary browser-only pages with no native shell, bridge, or embedded context.
+## Required Checks
+- Allowed domains and allowlist policy.
+
+### architecture.cross-surface-client-contracts
+
+Source: `methods/architecture/cross-surface-client-contracts.md`
+
+# Cross-Surface Client Contracts
+## Purpose
+Protect compatibility across web, mobile, admin, public, backend, API, SDK, worker, and integration consumers. Client convenience must not become security authority.
+## When To Use
+Use when API, RPC, server action, SDK, schema, enum, status, payload, auth, cache, or contract behavior affects more than one consumer.
+## When Not To Use
+Do not use for isolated internal refactors with no contract or consumer impact.
+## Required Checks
+- Identify all consumers: web, mobile, admin, public, backend jobs, third-party integrations, tests, docs, and generated clients.
+- Request/response compatibility: required fields, optional fields, nullability, defaults, pagination, filtering, sorting, and error shape.
+
+### api.api-contract-and-routing-readiness
+
+Source: `methods/api/api-contract-and-routing-readiness.md`
+
+# API Contract And Routing Readiness
+## Purpose
+Protect API, RPC, server action, route, schema, and client contract changes before implementation or release claims.
+## Required Checks
+- Identify providers, consumers, request shape, response shape, error shape, auth model, cache keys, pagination, filtering, sorting, and version behavior.
+- Classify compatibility: additive, behavioral, breaking, deprecated, or unknown.
+- Check public/private payload boundaries and server-side authorization.
+- Confirm route ownership, middleware, redirects, deep links, WebView/native clients, generated types, fixtures, and docs where relevant.
+- Prefer existing contract tests, integration tests, typecheck, lint, and build commands before adding tooling.
+## Evidence Requirements
+
+### performance.performance-scalability-cache-readiness
+
+Source: `methods/performance/performance-scalability-cache-readiness.md`
+
+# Performance Scalability Cache Readiness
+## Purpose
+Review performance, scalability, and cache risk during coding before broad optimization or release claims.
+## Required Checks
+- Identify the smallest user workflow, route, query, component, job, or cache path affected.
+- Separate observed bottlenecks from assumptions.
+- Check request count, query shape, indexes, cache keys, invalidation, stale data, tenant/user isolation, bundle/runtime cost, rendering cost, memory, and concurrency risk.
+- Prefer existing profiler, benchmark, test, browser, query, build, and log evidence when available.
+- Avoid premature rewrites unless measured risk or clear complexity justifies it.
+## Evidence Requirements
+
+### security.application-security-readiness
+
+Source: `methods/security/application-security-readiness.md`
+
+# Application Security Readiness
+## Purpose
+Review application security risk at coding time across auth, authorization, tenant isolation, public/private payloads, secrets, input validation, source safety, and supply-chain boundaries.
+## Required Checks
+- Identify trust boundaries, actors, roles, permissions, data classes, and externally controlled inputs.
+- Check auth/session handling, object ownership, IDOR risk, tenant isolation, RLS/database impact, file upload/download paths, redirects, CORS/CSP-sensitive behavior, and token/cookie handling.
+- Prefer project-owned security checks and existing scanners before recommending new tools.
+- Treat external source and scanner metadata as routing intelligence only.
+- Keep approval-required tools scoped and inactive unless explicitly approved.
+## Evidence Requirements
+
 ## Provenance
 
 - Source agent path: `agents/backend-contract-agent.md`
 - Profile paths: `profiles/backend-profile.md`, `profiles/implementation-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`
-- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.improve-architecture`, `matt.tdd`, `osmani.api-interface-design`, `osmani.incremental-implementation`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.spec-driven-development`, `osmani.test-driven-development`, `security.differential-security-review`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `karpathy-inspired-skills`, `matt-pocock-skills`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.improve-architecture`, `matt.tdd`, `osmani.api-interface-design`, `osmani.incremental-implementation`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.spec-driven-development`, `osmani.test-driven-development`, `security.differential-security-review`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `security.application-security-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `karpathy-inspired-skills`, `matt-pocock-skills`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

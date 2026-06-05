@@ -1,13 +1,13 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.1.0
-toolkit_pin: ai-agents-skills-toolkit@0.1.0
+toolkit_version: 0.2.0
+toolkit_pin: ai-agents-skills-toolkit@0.2.0
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/frontend-agent.md
 source_profile_refs: ["profiles/frontend-profile.md", "profiles/implementation-profile.md", "profiles/uiux-profile.md", "profiles/fullstack-profile.md"]
-source_method_refs: ["internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.spec-driven-development", "osmani.test-driven-development", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing"]
+source_method_refs: ["internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.spec-driven-development", "osmani.test-driven-development", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing", "mobile.native-mobile-app-quality", "performance.performance-scalability-cache-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -381,12 +381,42 @@ Do not use full browser checks for docs-only changes with no rendered surface.
 QA Test Agent, Frontend Agent, UIUX Agent, Reviewer Agent.
 ## Operating Rules
 
+### mobile.native-mobile-app-quality
+
+Source: `methods/mobile/native-mobile-app-quality.md`
+
+# Native Mobile App Quality
+## Purpose
+Review native mobile and mobile-web app quality without treating mobile as just small web. Mobile validation must account for platform conventions, device constraints, release-like builds, permissions, and real user failure modes.
+## When To Use
+Use for iOS, Android, Expo, React Native, Capacitor, WebView-heavy, mobile-web, or app-store-bound experiences.
+Run `methods/governance/task-intake-routing-gate.md` first for normal-language mobile requests so native, WebView, API, security, release, and package/config surfaces are separated before implementation.
+## When Not To Use
+Do not use for backend-only, desktop-only, or docs-only work unless mobile consumers are affected.
+## Required Review Areas
+- iOS and Android platform expectations, navigation conventions, permission UX, gestures, status surfaces, and store-critical behavior.
+
+### performance.performance-scalability-cache-readiness
+
+Source: `methods/performance/performance-scalability-cache-readiness.md`
+
+# Performance Scalability Cache Readiness
+## Purpose
+Review performance, scalability, and cache risk during coding before broad optimization or release claims.
+## Required Checks
+- Identify the smallest user workflow, route, query, component, job, or cache path affected.
+- Separate observed bottlenecks from assumptions.
+- Check request count, query shape, indexes, cache keys, invalidation, stale data, tenant/user isolation, bundle/runtime cost, rendering cost, memory, and concurrency risk.
+- Prefer existing profiler, benchmark, test, browser, query, build, and log evidence when available.
+- Avoid premature rewrites unless measured risk or clear complexity justifies it.
+## Evidence Requirements
+
 ## Provenance
 
 - Source agent path: `agents/frontend-agent.md`
 - Profile paths: `profiles/frontend-profile.md`, `profiles/implementation-profile.md`, `profiles/uiux-profile.md`, `profiles/fullstack-profile.md`
-- Method IDs: `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.improve-architecture`, `matt.tdd`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.performance-optimization`, `osmani.spec-driven-development`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `karpathy-inspired-skills`, `matt-pocock-skills`, `microsoft-playwright`, `superpowers`
+- Method IDs: `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.improve-architecture`, `matt.tdd`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.performance-optimization`, `osmani.spec-driven-development`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`, `mobile.native-mobile-app-quality`, `performance.performance-scalability-cache-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `karpathy-inspired-skills`, `matt-pocock-skills`, `microsoft-playwright`, `superpowers`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

@@ -1,13 +1,13 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.1.0
-toolkit_pin: ai-agents-skills-toolkit@0.1.0
+toolkit_version: 0.2.0
+toolkit_pin: ai-agents-skills-toolkit@0.2.0
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/database-rls-agent.md
 source_profile_refs: ["profiles/backend-profile.md", "profiles/security-profile.md", "profiles/implementation-profile.md", "profiles/fullstack-profile.md"]
-source_method_refs: ["backend.supabase-postgres-rls-gates", "osmani.api-interface-design", "osmani.incremental-implementation", "osmani.security-hardening", "security.differential-security-review"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "osmani.api-interface-design", "osmani.incremental-implementation", "osmani.security-hardening", "security.differential-security-review", "security.application-security-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -175,12 +175,27 @@ Do not use as a full audit of unrelated code when the user asked for a narrow ty
 Security Agent, Reviewer Agent, Backend Contract Agent, Database RLS Agent, Release Manager Agent.
 ## Operating Rules
 
+### security.application-security-readiness
+
+Source: `methods/security/application-security-readiness.md`
+
+# Application Security Readiness
+## Purpose
+Review application security risk at coding time across auth, authorization, tenant isolation, public/private payloads, secrets, input validation, source safety, and supply-chain boundaries.
+## Required Checks
+- Identify trust boundaries, actors, roles, permissions, data classes, and externally controlled inputs.
+- Check auth/session handling, object ownership, IDOR risk, tenant isolation, RLS/database impact, file upload/download paths, redirects, CORS/CSP-sensitive behavior, and token/cookie handling.
+- Prefer project-owned security checks and existing scanners before recommending new tools.
+- Treat external source and scanner metadata as routing intelligence only.
+- Keep approval-required tools scoped and inactive unless explicitly approved.
+## Evidence Requirements
+
 ## Provenance
 
 - Source agent path: `agents/database-rls-agent.md`
 - Profile paths: `profiles/backend-profile.md`, `profiles/security-profile.md`, `profiles/implementation-profile.md`, `profiles/fullstack-profile.md`
-- Method IDs: `backend.supabase-postgres-rls-gates`, `osmani.api-interface-design`, `osmani.incremental-implementation`, `osmani.security-hardening`, `security.differential-security-review`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `supabase-agent-skills`, `trailofbits-skills`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `osmani.api-interface-design`, `osmani.incremental-implementation`, `osmani.security-hardening`, `security.differential-security-review`, `security.application-security-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `supabase-agent-skills`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

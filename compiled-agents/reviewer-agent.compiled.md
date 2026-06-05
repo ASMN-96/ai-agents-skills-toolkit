@@ -1,13 +1,13 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.1.0
-toolkit_pin: ai-agents-skills-toolkit@0.1.0
+toolkit_version: 0.2.0
+toolkit_pin: ai-agents-skills-toolkit@0.2.0
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/reviewer-agent.md
 source_profile_refs: ["profiles/audit-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md", "profiles/security-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
-source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.source-discovery-workflow", "internal.source-safety-scoring", "internal.tdd-verification-alignment", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.git-guardrails", "matt.grill-me", "matt.improve-architecture", "matt.tdd", "matt.triage-issue", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.performance-optimization", "osmani.security-hardening", "osmani.shipping-launch", "osmani.test-driven-development", "security.differential-security-review", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.premium-visual-quality", "uiux.webapp-testing", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.source-discovery-workflow", "internal.source-safety-scoring", "internal.tdd-verification-alignment", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.git-guardrails", "matt.grill-me", "matt.improve-architecture", "matt.tdd", "matt.triage-issue", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.performance-optimization", "osmani.security-hardening", "osmani.shipping-launch", "osmani.test-driven-development", "security.differential-security-review", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.premium-visual-quality", "uiux.webapp-testing", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -617,11 +617,116 @@ Use this method when an audit, plan, or review depends on graph-like context tha
 - graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
 ## Required Response
 
+### repo.package-manager-workspace-migration
+
+Source: `methods/repo/package-manager-workspace-migration.md`
+
+# Package Manager and Workspace Migration
+## Purpose
+Control package-manager and workspace migrations as infra-only changes with explicit approval, frozen install evidence, and rollback. Do not force pnpm, Turbo, Nx, yarn, npm, or bun by preference alone.
+## When To Use
+Use for package manager changes, lockfile strategy, workspace layout, monorepo tooling, Corepack/packageManager pinning, nested package cleanup, or package-script migration.
+## When Not To Use
+Do not use for normal feature work unless package-manager or workspace behavior is directly in scope.
+## Required Procedure
+- Inspect package manager and lockfiles first.
+- Identify all package artifacts: package.json files, lockfiles, workspace configs, Corepack settings, packageManager field, engines, npmrc/yarnrc/pnpm config, CI commands, deployment commands, Dockerfiles, docs, and scripts.
+
+### reliability.coding-time-production-readiness
+
+Source: `methods/reliability/coding-time-production-readiness.md`
+
+# Coding-Time Production Readiness
+## Purpose
+Provide coding-time governance for production-risk changes without claiming enterprise certification, Level 4, Level 5, broad runtime support, or production certification.
+## Required Checks
+- Identify user-impacting workflows, failure modes, and rollback path before editing.
+- Confirm source of truth, branch state, affected files, and owner approvals.
+- Preserve existing auth, data, privacy, package, CI, deployment, MCP/global, and product-repo boundaries.
+- Prefer project-owned typecheck, lint, test, build, browser, scanner, and release scripts before proposing new tools.
+- Keep recommended tools separate from executed tools.
+- State dry-run, skipped, unavailable, metadata-only, planned, and partial checks honestly.
+
+### api.api-contract-and-routing-readiness
+
+Source: `methods/api/api-contract-and-routing-readiness.md`
+
+# API Contract And Routing Readiness
+## Purpose
+Protect API, RPC, server action, route, schema, and client contract changes before implementation or release claims.
+## Required Checks
+- Identify providers, consumers, request shape, response shape, error shape, auth model, cache keys, pagination, filtering, sorting, and version behavior.
+- Classify compatibility: additive, behavioral, breaking, deprecated, or unknown.
+- Check public/private payload boundaries and server-side authorization.
+- Confirm route ownership, middleware, redirects, deep links, WebView/native clients, generated types, fixtures, and docs where relevant.
+- Prefer existing contract tests, integration tests, typecheck, lint, and build commands before adding tooling.
+## Evidence Requirements
+
+### performance.performance-scalability-cache-readiness
+
+Source: `methods/performance/performance-scalability-cache-readiness.md`
+
+# Performance Scalability Cache Readiness
+## Purpose
+Review performance, scalability, and cache risk during coding before broad optimization or release claims.
+## Required Checks
+- Identify the smallest user workflow, route, query, component, job, or cache path affected.
+- Separate observed bottlenecks from assumptions.
+- Check request count, query shape, indexes, cache keys, invalidation, stale data, tenant/user isolation, bundle/runtime cost, rendering cost, memory, and concurrency risk.
+- Prefer existing profiler, benchmark, test, browser, query, build, and log evidence when available.
+- Avoid premature rewrites unless measured risk or clear complexity justifies it.
+## Evidence Requirements
+
+### reliability.observability-readiness
+
+Source: `methods/reliability/observability-readiness.md`
+
+# Observability Readiness
+## Purpose
+Ensure coding-time changes leave enough evidence for debugging without leaking secrets, private data, or unsupported production claims.
+## Required Checks
+- Identify important failure points, user-visible errors, retry boundaries, background work, external calls, and state transitions.
+- Prefer clear application errors and project-owned logs over new monitoring dependencies.
+- Keep logs safe: no secrets, tokens, cookies, private payloads, tenant data, credentials, or raw PII.
+- Document how a future maintainer can detect failure: command output, test failure, log message, status code, trace ID, or manual reproduction.
+- Separate local/debug evidence from production observability claims.
+## Evidence Requirements
+
+### security.application-security-readiness
+
+Source: `methods/security/application-security-readiness.md`
+
+# Application Security Readiness
+## Purpose
+Review application security risk at coding time across auth, authorization, tenant isolation, public/private payloads, secrets, input validation, source safety, and supply-chain boundaries.
+## Required Checks
+- Identify trust boundaries, actors, roles, permissions, data classes, and externally controlled inputs.
+- Check auth/session handling, object ownership, IDOR risk, tenant isolation, RLS/database impact, file upload/download paths, redirects, CORS/CSP-sensitive behavior, and token/cookie handling.
+- Prefer project-owned security checks and existing scanners before recommending new tools.
+- Treat external source and scanner metadata as routing intelligence only.
+- Keep approval-required tools scoped and inactive unless explicitly approved.
+## Evidence Requirements
+
+### release.release-rollback-readiness
+
+Source: `methods/release/release-rollback-readiness.md`
+
+# Release Rollback Readiness
+## Purpose
+Gate PR, merge, release-candidate, and post-merge decisions on observed evidence, rollback clarity, and honest limitations.
+## Required Checks
+- Confirm branch, upstream, working tree, PR, checks, review status, and source freshness when relevant.
+- Confirm changed files do not include forbidden surfaces unless explicitly approved.
+- Run project-owned validation before merge or release claims.
+- Preserve WARN output and skipped/unavailable gates in the report.
+- Define rollback: revert path, config undo, data recovery, feature flag, migration rollback, or manual mitigation.
+- Avoid tags, releases, package publication, CI edits, external submissions, or deployment changes unless separately requested and approved.
+
 ## Provenance
 
 - Source agent path: `agents/reviewer-agent.md`
 - Profile paths: `profiles/audit-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
-- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `internal.tdd-verification-alignment`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.git-guardrails`, `matt.grill-me`, `matt.improve-architecture`, `matt.tdd`, `matt.triage-issue`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.shipping-launch`, `osmani.test-driven-development`, `security.differential-security-review`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.premium-visual-quality`, `uiux.webapp-testing`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `internal.tdd-verification-alignment`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.git-guardrails`, `matt.grill-me`, `matt.improve-architecture`, `matt.tdd`, `matt.triage-issue`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.shipping-launch`, `osmani.test-driven-development`, `security.differential-security-review`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.premium-visual-quality`, `uiux.webapp-testing`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `code-review-graph`, `everything-claude-code`, `karpathy-inspired-skills`, `matt-pocock-skills`, `microsoft-playwright`, `ruflo`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 

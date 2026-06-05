@@ -1,13 +1,13 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.1.0
-toolkit_pin: ai-agents-skills-toolkit@0.1.0
+toolkit_version: 0.2.0
+toolkit_pin: ai-agents-skills-toolkit@0.2.0
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/security-agent.md
 source_profile_refs: ["profiles/security-profile.md", "profiles/audit-profile.md", "profiles/backend-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
-source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.source-discovery-workflow", "internal.source-safety-scoring", "osmani.code-review-quality", "osmani.security-hardening", "security.differential-security-review", "orchestration.changed-file-neighborhood-selection", "orchestration.stale-context-graph-detection"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.source-discovery-workflow", "internal.source-safety-scoring", "osmani.code-review-quality", "osmani.security-hardening", "security.differential-security-review", "orchestration.changed-file-neighborhood-selection", "orchestration.stale-context-graph-detection", "security.webview-boundary-review", "architecture.cross-surface-client-contracts", "api.api-contract-and-routing-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -214,11 +214,101 @@ Use this method when an audit, plan, or review depends on graph-like context tha
 - graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
 ## Required Response
 
+### security.webview-boundary-review
+
+Source: `methods/security/webview-boundary-review.md`
+
+# WebView Boundary Review
+## Purpose
+Treat WebView content as a trust boundary. WebView work can blend web, native, auth, tokens, storage, links, downloads, uploads, analytics, and crash reporting in ways that create security and privacy risk.
+## When To Use
+Use for native apps, hybrid apps, embedded browser surfaces, Expo DOM/WebView usage, OAuth or payment WebViews, deep links, external content, and native bridge behavior.
+Run `methods/governance/task-intake-routing-gate.md` first for normal-language WebView requests so native, API, auth, token, link, package/config, and release surfaces are separated before implementation.
+## When Not To Use
+Do not use for ordinary browser-only pages with no native shell, bridge, or embedded context.
+## Required Checks
+- Allowed domains and allowlist policy.
+
+### architecture.cross-surface-client-contracts
+
+Source: `methods/architecture/cross-surface-client-contracts.md`
+
+# Cross-Surface Client Contracts
+## Purpose
+Protect compatibility across web, mobile, admin, public, backend, API, SDK, worker, and integration consumers. Client convenience must not become security authority.
+## When To Use
+Use when API, RPC, server action, SDK, schema, enum, status, payload, auth, cache, or contract behavior affects more than one consumer.
+## When Not To Use
+Do not use for isolated internal refactors with no contract or consumer impact.
+## Required Checks
+- Identify all consumers: web, mobile, admin, public, backend jobs, third-party integrations, tests, docs, and generated clients.
+- Request/response compatibility: required fields, optional fields, nullability, defaults, pagination, filtering, sorting, and error shape.
+
+### api.api-contract-and-routing-readiness
+
+Source: `methods/api/api-contract-and-routing-readiness.md`
+
+# API Contract And Routing Readiness
+## Purpose
+Protect API, RPC, server action, route, schema, and client contract changes before implementation or release claims.
+## Required Checks
+- Identify providers, consumers, request shape, response shape, error shape, auth model, cache keys, pagination, filtering, sorting, and version behavior.
+- Classify compatibility: additive, behavioral, breaking, deprecated, or unknown.
+- Check public/private payload boundaries and server-side authorization.
+- Confirm route ownership, middleware, redirects, deep links, WebView/native clients, generated types, fixtures, and docs where relevant.
+- Prefer existing contract tests, integration tests, typecheck, lint, and build commands before adding tooling.
+## Evidence Requirements
+
+### reliability.observability-readiness
+
+Source: `methods/reliability/observability-readiness.md`
+
+# Observability Readiness
+## Purpose
+Ensure coding-time changes leave enough evidence for debugging without leaking secrets, private data, or unsupported production claims.
+## Required Checks
+- Identify important failure points, user-visible errors, retry boundaries, background work, external calls, and state transitions.
+- Prefer clear application errors and project-owned logs over new monitoring dependencies.
+- Keep logs safe: no secrets, tokens, cookies, private payloads, tenant data, credentials, or raw PII.
+- Document how a future maintainer can detect failure: command output, test failure, log message, status code, trace ID, or manual reproduction.
+- Separate local/debug evidence from production observability claims.
+## Evidence Requirements
+
+### security.application-security-readiness
+
+Source: `methods/security/application-security-readiness.md`
+
+# Application Security Readiness
+## Purpose
+Review application security risk at coding time across auth, authorization, tenant isolation, public/private payloads, secrets, input validation, source safety, and supply-chain boundaries.
+## Required Checks
+- Identify trust boundaries, actors, roles, permissions, data classes, and externally controlled inputs.
+- Check auth/session handling, object ownership, IDOR risk, tenant isolation, RLS/database impact, file upload/download paths, redirects, CORS/CSP-sensitive behavior, and token/cookie handling.
+- Prefer project-owned security checks and existing scanners before recommending new tools.
+- Treat external source and scanner metadata as routing intelligence only.
+- Keep approval-required tools scoped and inactive unless explicitly approved.
+## Evidence Requirements
+
+### release.release-rollback-readiness
+
+Source: `methods/release/release-rollback-readiness.md`
+
+# Release Rollback Readiness
+## Purpose
+Gate PR, merge, release-candidate, and post-merge decisions on observed evidence, rollback clarity, and honest limitations.
+## Required Checks
+- Confirm branch, upstream, working tree, PR, checks, review status, and source freshness when relevant.
+- Confirm changed files do not include forbidden surfaces unless explicitly approved.
+- Run project-owned validation before merge or release claims.
+- Preserve WARN output and skipped/unavailable gates in the report.
+- Define rollback: revert path, config undo, data recovery, feature flag, migration rollback, or manual mitigation.
+- Avoid tags, releases, package publication, CI edits, external submissions, or deployment changes unless separately requested and approved.
+
 ## Provenance
 
 - Source agent path: `agents/security-agent.md`
 - Profile paths: `profiles/security-profile.md`, `profiles/audit-profile.md`, `profiles/backend-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
-- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `osmani.code-review-quality`, `osmani.security-hardening`, `security.differential-security-review`, `orchestration.changed-file-neighborhood-selection`, `orchestration.stale-context-graph-detection`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `osmani.code-review-quality`, `osmani.security-hardening`, `security.differential-security-review`, `orchestration.changed-file-neighborhood-selection`, `orchestration.stale-context-graph-detection`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `api.api-contract-and-routing-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `ruflo`, `supabase-agent-skills`, `superpowers`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 

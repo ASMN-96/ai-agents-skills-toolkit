@@ -139,4 +139,4 @@ Return an allow/defer/reject recommendation with evidence.
 
 ## Public Release Positioning
 
-`v0.1.0` is published as the controlled public release for the Codex-first toolkit. The v0.2 work is a release-candidate hardening path for controlled open-source Codex use. It does not claim Level 4, Level 5, enterprise certification, production certification, broad cross-runtime active support, or Codex OSS application submission.
+`v0.2.0` is the controlled public release path for the Codex-first toolkit after the v0.2 hardening, final dry-run adoption, source-freshness verification, leak scan, runtime validation, and release validation gates. It does not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, broad cross-runtime active support, or Codex OSS application submission.

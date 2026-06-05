@@ -57,4 +57,6 @@ This check ran on `main` after the v0.2 hardening merge `069a2ce Finalize v0.2 e
 
 ## Recommended Next Step
 
-Before tagging or releasing v0.2.0, make a controlled owner-approved adoption decision using the controlled dry-run adoption evidence above. Any actual tag or GitHub release remains a separate release action and must not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, broad cross-runtime active support, or project-repository mutation.
+The controlled owner-approved adoption decision has been made for the v0.2.0 release process using the controlled dry-run adoption evidence above. This document remains the release-candidate evidence record; the release execution record is `docs/V0_2_0_RELEASE_NOTES.md`.
+
+Any v0.2.0 tag or GitHub release must be created only from validated `main` after the release branch merges. The release must not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, broad cross-runtime active support, or project-repository mutation.

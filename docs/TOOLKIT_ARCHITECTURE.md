@@ -63,7 +63,7 @@ Phase 10F adds a passive method registry and optional routing `methodReferences`
 
 Phase 10O adds read-only/report-only source freshness monitoring for tracked GitHub sources. It detects upstream change signals and may generate a local Markdown report, but it does not approve source import, install or activate external skills, extract methods, update source records automatically, change global configuration, or modify product repositories. This behavior is governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.md`.
 
-Phase v0.2 project tooling architecture adds lane docs, project-tooling profiles, templates, a dry-run planner, a confirm-write template copier, and a validator. It is a feature architecture milestone, not a release. It does not tag `v0.2.0`, create a GitHub release, install tools, change package files, change lockfiles, wire CI, configure MCP, or claim tool execution.
+Phase v0.2 project tooling architecture adds lane docs, project-tooling profiles, templates, a dry-run planner, a confirm-write template copier, and a validator. The architecture milestone itself did not tag `v0.2.0`, create a GitHub release, install tools, change package files, change lockfiles, wire CI, configure MCP, or claim tool execution. Any `v0.2.0` tag or GitHub release is a separate owner-approved release action tracked through `docs/V0_2_0_RELEASE_NOTES.md`.
 
 Freshness and extraction are separated by timeline:
 - `last checked` = monitored signal only (freshness script/report),

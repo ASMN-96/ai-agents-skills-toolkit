@@ -1,13 +1,13 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.1.0
-toolkit_pin: ai-agents-skills-toolkit@0.1.0
+toolkit_version: 0.2.0
+toolkit_pin: ai-agents-skills-toolkit@0.2.0
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/uiux-agent.md
 source_profile_refs: ["profiles/uiux-profile.md", "profiles/frontend-profile.md", "profiles/fullstack-profile.md"]
-source_method_refs: ["internal.frontend-uiux-quality-gates", "matt.grill-me", "osmani.frontend-ui-engineering", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing"]
+source_method_refs: ["internal.frontend-uiux-quality-gates", "matt.grill-me", "osmani.frontend-ui-engineering", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing", "mobile.native-mobile-app-quality"]
 compile_contract_version: 1.0.0
 ---
 
@@ -239,12 +239,27 @@ Do not use full browser checks for docs-only changes with no rendered surface.
 QA Test Agent, Frontend Agent, UIUX Agent, Reviewer Agent.
 ## Operating Rules
 
+### mobile.native-mobile-app-quality
+
+Source: `methods/mobile/native-mobile-app-quality.md`
+
+# Native Mobile App Quality
+## Purpose
+Review native mobile and mobile-web app quality without treating mobile as just small web. Mobile validation must account for platform conventions, device constraints, release-like builds, permissions, and real user failure modes.
+## When To Use
+Use for iOS, Android, Expo, React Native, Capacitor, WebView-heavy, mobile-web, or app-store-bound experiences.
+Run `methods/governance/task-intake-routing-gate.md` first for normal-language mobile requests so native, WebView, API, security, release, and package/config surfaces are separated before implementation.
+## When Not To Use
+Do not use for backend-only, desktop-only, or docs-only work unless mobile consumers are affected.
+## Required Review Areas
+- iOS and Android platform expectations, navigation conventions, permission UX, gestures, status surfaces, and store-critical behavior.
+
 ## Provenance
 
 - Source agent path: `agents/uiux-agent.md`
 - Profile paths: `profiles/uiux-profile.md`, `profiles/frontend-profile.md`, `profiles/fullstack-profile.md`
-- Method IDs: `internal.frontend-uiux-quality-gates`, `matt.grill-me`, `osmani.frontend-ui-engineering`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `matt-pocock-skills`, `microsoft-playwright`
+- Method IDs: `internal.frontend-uiux-quality-gates`, `matt.grill-me`, `osmani.frontend-ui-engineering`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`, `mobile.native-mobile-app-quality`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `bencium-marketplace`, `matt-pocock-skills`, `microsoft-playwright`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.
