@@ -1,6 +1,6 @@
 # Rollout Maturity and Public Release Readiness
 
-Status: Level 3 controlled-pilot milestone complete; `v0.1.0` is published as the first controlled public release for Codex-first real-project use. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
+Status: Level 3 controlled-pilot milestone complete; `v0.2.0` is the controlled public release path for Codex-first toolkit use after v0.2 hardening and final dry-run adoption evidence. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
 
 Date: 2026-05-30
 
@@ -21,7 +21,7 @@ This document is a promotion gate. It does not activate runtimes, publish packag
 
 Current level: Level 3 complete.
 
-Controlled release: `v0.1.0` for Codex-first real-project use after the full local validation gate, PR merge, post-merge verification, tag creation, and GitHub release verification passed. This release is not a Level 4, Level 5, enterprise, or broad non-Codex runtime claim.
+Controlled release: `v0.2.0` for Codex-first toolkit use after the full local validation gate, PR merge, post-merge verification, tag creation, and GitHub release verification pass. This release is not a Level 4, Level 5, enterprise-certified, production-certified, automatic tool-installation, or broad non-Codex runtime claim. `v0.1.0` remains the historical first controlled public release.
 
 Evidence:
 
@@ -47,13 +47,13 @@ Deferred Level 4 evidence backlog:
 Current blockers for Level 5 broad public/package maturity:
 
 - Public package validation is allowlist-only and does not certify the whole repository tree or Git history for public GitHub visibility.
-- Whole-repo publication review retains non-current-tree owner/history findings that are acceptable for the controlled `v0.1.0` path only when owner acceptance is explicit.
+- Whole-repo publication review retains non-current-tree owner/history findings that are acceptable for the controlled `v0.2.0` path only when owner acceptance is explicit.
 - The project-specific private overlay was removed from the current tree, but historical Git exposure remains unresolved until the owner chooses a clean sanitized repository/mirror or verified history cleanup.
 - Public runtime is canonical-only: 5 active skills and 12 active repo-local project agents. Old aliases are not active runtime names.
 - Public package allowlist is enforced by `node scripts/validate-public-package.mjs`; current report is `docs/PUBLIC_PACKAGE_VALIDATION_REPORT.md`.
 - `LICENSE`, `CONTRIBUTING.md`, and `CODE_OF_CONDUCT.md` are present but still require owner/legal/community approval before publication.
 - `SECURITY.md` now defines supported scope and reporting expectations, but the final vulnerability-reporting channel still needs an owner-approved private contact path.
-- Clean-clone verification remains required before any future broad package/distribution claim beyond the controlled `v0.1.0` path.
+- Clean-clone verification remains required before any future broad package/distribution claim beyond the controlled `v0.2.0` path.
 
 ## Required Validators
 
@@ -160,6 +160,21 @@ Forbidden without separate approval:
 - [x] Runtime validation proves 5 active skills and 12 active repo-local project agents.
 - [x] `v0.1.0` annotated tag was created only from validated `main`.
 - [x] GitHub release notes state Codex-first controlled real-project readiness, validation evidence, known exclusions, and no Codex OSS submission.
+
+## Controlled v0.2.0 Release Checklist
+
+- [x] v0.2 hardening PR merged with task-intake routing and modular coding-time readiness methods.
+- [x] Final release-candidate check merged with controlled React/TypeScript SaaS dry-run adoption evidence.
+- [x] Runtime validation proves 5 active skills and 12 active repo-local project agents.
+- [x] Source freshness reports no actionable changes.
+- [x] Leak scan reports `0` current-tree blockers.
+- [x] Compiled agents were regenerated through the deterministic compiler with dry-run and confirm-write evidence.
+- [x] Embedded package mirrors were regenerated through the repository build script.
+- [ ] Full release validation gate passed on the v0.2.0 release branch.
+- [ ] Release PR was merged to `main`.
+- [ ] Post-merge validation passed on `main`.
+- [ ] `v0.2.0` annotated tag was created only from validated `main`.
+- [ ] GitHub release notes state controlled Codex toolkit readiness, validation evidence, known exclusions, rollback path, and no Codex OSS submission.
 
 ## Level 5 Checklist
 

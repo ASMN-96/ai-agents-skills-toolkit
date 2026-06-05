@@ -1,13 +1,13 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.1.0
-toolkit_pin: ai-agents-skills-toolkit@0.1.0
+toolkit_version: 0.2.0
+toolkit_pin: ai-agents-skills-toolkit@0.2.0
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/release-manager-agent.md
 source_profile_refs: ["profiles/release-profile.md", "profiles/implementation-profile.md"]
-source_method_refs: ["internal.engineering-lifecycle-gates", "internal.skill-anatomy", "karpathy.goal-driven-execution", "matt.git-guardrails", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.shipping-launch", "security.differential-security-review", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection"]
+source_method_refs: ["internal.engineering-lifecycle-gates", "internal.skill-anatomy", "karpathy.goal-driven-execution", "matt.git-guardrails", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.shipping-launch", "security.differential-security-review", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -250,11 +250,56 @@ Use this method when an audit, plan, or review depends on graph-like context tha
 - graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
 ## Required Response
 
+### repo.package-manager-workspace-migration
+
+Source: `methods/repo/package-manager-workspace-migration.md`
+
+# Package Manager and Workspace Migration
+## Purpose
+Control package-manager and workspace migrations as infra-only changes with explicit approval, frozen install evidence, and rollback. Do not force pnpm, Turbo, Nx, yarn, npm, or bun by preference alone.
+## When To Use
+Use for package manager changes, lockfile strategy, workspace layout, monorepo tooling, Corepack/packageManager pinning, nested package cleanup, or package-script migration.
+## When Not To Use
+Do not use for normal feature work unless package-manager or workspace behavior is directly in scope.
+## Required Procedure
+- Inspect package manager and lockfiles first.
+- Identify all package artifacts: package.json files, lockfiles, workspace configs, Corepack settings, packageManager field, engines, npmrc/yarnrc/pnpm config, CI commands, deployment commands, Dockerfiles, docs, and scripts.
+
+### reliability.coding-time-production-readiness
+
+Source: `methods/reliability/coding-time-production-readiness.md`
+
+# Coding-Time Production Readiness
+## Purpose
+Provide coding-time governance for production-risk changes without claiming enterprise certification, Level 4, Level 5, broad runtime support, or production certification.
+## Required Checks
+- Identify user-impacting workflows, failure modes, and rollback path before editing.
+- Confirm source of truth, branch state, affected files, and owner approvals.
+- Preserve existing auth, data, privacy, package, CI, deployment, MCP/global, and product-repo boundaries.
+- Prefer project-owned typecheck, lint, test, build, browser, scanner, and release scripts before proposing new tools.
+- Keep recommended tools separate from executed tools.
+- State dry-run, skipped, unavailable, metadata-only, planned, and partial checks honestly.
+
+### release.release-rollback-readiness
+
+Source: `methods/release/release-rollback-readiness.md`
+
+# Release Rollback Readiness
+## Purpose
+Gate PR, merge, release-candidate, and post-merge decisions on observed evidence, rollback clarity, and honest limitations.
+## Required Checks
+- Confirm branch, upstream, working tree, PR, checks, review status, and source freshness when relevant.
+- Confirm changed files do not include forbidden surfaces unless explicitly approved.
+- Run project-owned validation before merge or release claims.
+- Preserve WARN output and skipped/unavailable gates in the report.
+- Define rollback: revert path, config undo, data recovery, feature flag, migration rollback, or manual mitigation.
+- Avoid tags, releases, package publication, CI edits, external submissions, or deployment changes unless separately requested and approved.
+
 ## Provenance
 
 - Source agent path: `agents/release-manager-agent.md`
 - Profile paths: `profiles/release-profile.md`, `profiles/implementation-profile.md`
-- Method IDs: `internal.engineering-lifecycle-gates`, `internal.skill-anatomy`, `karpathy.goal-driven-execution`, `matt.git-guardrails`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.shipping-launch`, `security.differential-security-review`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`
+- Method IDs: `internal.engineering-lifecycle-gates`, `internal.skill-anatomy`, `karpathy.goal-driven-execution`, `matt.git-guardrails`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.shipping-launch`, `security.differential-security-review`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `release.release-rollback-readiness`
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `karpathy-inspired-skills`, `matt-pocock-skills`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 

@@ -1,13 +1,13 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.1.0
-toolkit_pin: ai-agents-skills-toolkit@0.1.0
+toolkit_version: 0.2.0
+toolkit_pin: ai-agents-skills-toolkit@0.2.0
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
 source_agent: agents/sre-performance-agent.md
 source_profile_refs: ["profiles/sre-profile.md", "profiles/release-profile.md", "profiles/implementation-profile.md"]
-source_method_refs: ["osmani.performance-optimization", "osmani.shipping-launch", "orchestration.compact-agent-context-pack"]
+source_method_refs: ["osmani.performance-optimization", "osmani.shipping-launch", "orchestration.compact-agent-context-pack", "mobile.native-mobile-app-quality", "reliability.coding-time-production-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -132,12 +132,72 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - stop conditions
 - private-overlay, secret, and product-repo exclusions
 
+### mobile.native-mobile-app-quality
+
+Source: `methods/mobile/native-mobile-app-quality.md`
+
+# Native Mobile App Quality
+## Purpose
+Review native mobile and mobile-web app quality without treating mobile as just small web. Mobile validation must account for platform conventions, device constraints, release-like builds, permissions, and real user failure modes.
+## When To Use
+Use for iOS, Android, Expo, React Native, Capacitor, WebView-heavy, mobile-web, or app-store-bound experiences.
+Run `methods/governance/task-intake-routing-gate.md` first for normal-language mobile requests so native, WebView, API, security, release, and package/config surfaces are separated before implementation.
+## When Not To Use
+Do not use for backend-only, desktop-only, or docs-only work unless mobile consumers are affected.
+## Required Review Areas
+- iOS and Android platform expectations, navigation conventions, permission UX, gestures, status surfaces, and store-critical behavior.
+
+### reliability.coding-time-production-readiness
+
+Source: `methods/reliability/coding-time-production-readiness.md`
+
+# Coding-Time Production Readiness
+## Purpose
+Provide coding-time governance for production-risk changes without claiming enterprise certification, Level 4, Level 5, broad runtime support, or production certification.
+## Required Checks
+- Identify user-impacting workflows, failure modes, and rollback path before editing.
+- Confirm source of truth, branch state, affected files, and owner approvals.
+- Preserve existing auth, data, privacy, package, CI, deployment, MCP/global, and product-repo boundaries.
+- Prefer project-owned typecheck, lint, test, build, browser, scanner, and release scripts before proposing new tools.
+- Keep recommended tools separate from executed tools.
+- State dry-run, skipped, unavailable, metadata-only, planned, and partial checks honestly.
+
+### performance.performance-scalability-cache-readiness
+
+Source: `methods/performance/performance-scalability-cache-readiness.md`
+
+# Performance Scalability Cache Readiness
+## Purpose
+Review performance, scalability, and cache risk during coding before broad optimization or release claims.
+## Required Checks
+- Identify the smallest user workflow, route, query, component, job, or cache path affected.
+- Separate observed bottlenecks from assumptions.
+- Check request count, query shape, indexes, cache keys, invalidation, stale data, tenant/user isolation, bundle/runtime cost, rendering cost, memory, and concurrency risk.
+- Prefer existing profiler, benchmark, test, browser, query, build, and log evidence when available.
+- Avoid premature rewrites unless measured risk or clear complexity justifies it.
+## Evidence Requirements
+
+### reliability.observability-readiness
+
+Source: `methods/reliability/observability-readiness.md`
+
+# Observability Readiness
+## Purpose
+Ensure coding-time changes leave enough evidence for debugging without leaking secrets, private data, or unsupported production claims.
+## Required Checks
+- Identify important failure points, user-visible errors, retry boundaries, background work, external calls, and state transitions.
+- Prefer clear application errors and project-owned logs over new monitoring dependencies.
+- Keep logs safe: no secrets, tokens, cookies, private payloads, tenant data, credentials, or raw PII.
+- Document how a future maintainer can detect failure: command output, test failure, log message, status code, trace ID, or manual reproduction.
+- Separate local/debug evidence from production observability claims.
+## Evidence Requirements
+
 ## Provenance
 
 - Source agent path: `agents/sre-performance-agent.md`
 - Profile paths: `profiles/sre-profile.md`, `profiles/release-profile.md`, `profiles/implementation-profile.md`
-- Method IDs: `osmani.performance-optimization`, `osmani.shipping-launch`, `orchestration.compact-agent-context-pack`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `code-review-graph`
+- Method IDs: `osmani.performance-optimization`, `osmani.shipping-launch`, `orchestration.compact-agent-context-pack`, `mobile.native-mobile-app-quality`, `reliability.coding-time-production-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `code-review-graph`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

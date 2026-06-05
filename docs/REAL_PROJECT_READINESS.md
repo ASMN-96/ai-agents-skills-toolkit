@@ -4,13 +4,13 @@ This document defines when the toolkit can be used in real product repositories.
 
 ## Current Classification
 
-After the 2026-05-30 first representative pilot, the toolkit is Level 3 certified and the current controlled-pilot milestone is closed. It is ready for controlled real-project Codex use when the same governed branch, PR, dry-run, validation, and owner-approval flow is followed. `v0.1.0` is published as the controlled public release for this Codex-first state after final validation and tag/release execution. Level 4 enterprise rollout and Level 5 broad public/package maturity remain separate future gates; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
+After the 2026-05-30 first representative pilot, the toolkit is Level 3 certified and the current controlled-pilot milestone is closed. It is ready for controlled real-project Codex use when the same governed branch, PR, dry-run, validation, and owner-approval flow is followed. `v0.2.0` is the controlled public release path for this Codex-first state after v0.2 hardening, final dry-run adoption evidence, release validation, and tag/release execution. Level 4 enterprise rollout and Level 5 broad public/package maturity remain separate future gates; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
 
 Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project-owned checks, PR review, and passing required checks. This does not authorize automatic rollout, product-repository writes without a project PR, runtime/global activation, package/CI/MCP changes, external installs, secret access, or broad non-Codex runtime support.
 
 The v0.2 project tooling architecture is a recommendation and evidence model on top of this Level 3 readiness position. It is not a readiness-level promotion, not Level 4, not Level 5, not enterprise-certified, not production-certified, not a tool installation, not CI wiring, not MCP/global configuration, not cross-runtime active support, and not proof that any recommended tool ran.
 
-For v0.2 release-candidate use, normal-language implementation requests first pass through `methods/governance/task-intake-routing-gate.md` so affected surfaces, required agents/skills/methods/tools, validation gates, stop conditions, and out-of-scope items are explicit before coding.
+For v0.2 use, normal-language implementation requests first pass through `methods/governance/task-intake-routing-gate.md` so affected surfaces, required agents/skills/methods/tools, validation gates, stop conditions, and out-of-scope items are explicit before coding.
 
 Phase 10L governance UX hardening did not upgrade readiness by itself. The Level 3 upgrade is based on the merged representative project-sync pilot recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`. Retired helper skill names are not active runtime skills.
 
@@ -23,7 +23,7 @@ Phase 10L governance UX hardening did not upgrade readiness by itself. The Level
 | 2 | Fresh-session verified | A new Codex session confirms skill visibility, agent native/fallback status, support-tool availability, and no silent fallback | One controlled real-project pilot |
 | 3 | Pilot validated | One representative project sync is reviewed, version-pinned, validated, and merged through PR | Controlled Codex use in comparable real projects |
 | 4 | Broad rollout | Multiple project pilots pass with no governance drift or unsafe sync behavior | Wider rollout, still phase-gated |
-| 5 | Broad public/package maturity | Public/private blockers, license/contribution/security policy gaps, package allowlist, clean-clone release validation, and broader rollout evidence are resolved | Broad public/package distribution beyond the controlled `v0.1.0` path |
+| 5 | Broad public/package maturity | Public/private blockers, license/contribution/security policy gaps, package allowlist, clean-clone release validation, and broader rollout evidence are resolved | Broad public/package distribution beyond the controlled `v0.2.0` path |
 
 ## Level 2 Gate
 

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.1.0",
+  "toolkitVersion": "0.2.0",
   "packageType": "route-metadata",
   "installPolicy": "Routes do not install, activate, configure CI, configure MCP, or change package files.",
   "routes": [
