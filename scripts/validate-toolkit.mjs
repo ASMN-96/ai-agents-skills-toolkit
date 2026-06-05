@@ -718,16 +718,16 @@ async function validateSkills(registryState) {
 
   for (const removedName of [
     "ai-project-governance",
-    "riss-governance",
+    "legacy-governance",
     "premium-uiux-review",
-    "vd-premium-uiux",
+    "legacy-uiux-review",
     "webapp-code-quality",
-    "riss-code-quality",
+    "legacy-code-quality",
     "app-security-review",
-    "riss-security-review",
-    "riss-release-gate",
-    "riss-agent-governance",
-    "riss-skill-governance"
+    "legacy-security-review",
+    "legacy-release-gate",
+    "legacy-agent-governance",
+    "legacy-skill-governance"
   ]) {
     if (registryState.skills.has(removedName)) {
       fail("canonical skill naming", `registries/skills.registry.json:${removedName}`, "old alias/helper skill must not remain registered");

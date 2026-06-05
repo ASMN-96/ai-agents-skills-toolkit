@@ -4,9 +4,9 @@ This document defines when the toolkit can be used in real product repositories.
 
 ## Current Classification
 
-After the 2026-05-30 first representative pilot, the toolkit is Level 3 certified and the current controlled-pilot milestone is closed. It is ready for controlled real-project Codex use when the same governed branch, PR, dry-run, validation, and owner-approval flow is followed. `v0.2.0` is the controlled public release path for this Codex-first state after v0.2 hardening, final dry-run adoption evidence, release validation, and tag/release execution. Level 4 enterprise rollout and Level 5 broad public/package maturity remain separate future gates; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command Codex CLI override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global Codex config was changed.
+After the 2026-05-30 first representative pilot, the toolkit is Level 3 certified and the current controlled-pilot milestone is closed. It is ready for controlled real-project AI coding-agent use when the same governed branch, PR, dry-run, validation, and owner-approval flow is followed. `v0.2.0` is the controlled public release path for this agent-assisted state after v0.2 hardening, final dry-run adoption evidence, release validation, and tag/release execution. Level 4 enterprise rollout and Level 5 broad public/package maturity remain separate future gates; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command runtime override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global config was changed.
 
-Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project-owned checks, PR review, and passing required checks. This does not authorize automatic rollout, product-repository writes without a project PR, runtime/global activation, package/CI/MCP changes, external installs, secret access, or broad non-Codex runtime support.
+Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project-owned checks, PR review, and passing required checks. This does not authorize automatic rollout, product-repository writes without a project PR, runtime/global activation, package/CI/MCP changes, external installs, secret access, or broad cross-runtime active support.
 
 The v0.2 project tooling architecture is a recommendation and evidence model on top of this Level 3 readiness position. It is not a readiness-level promotion, not Level 4, not Level 5, not enterprise-certified, not production-certified, not a tool installation, not CI wiring, not MCP/global configuration, not cross-runtime active support, and not proof that any recommended tool ran.
 
@@ -76,7 +76,7 @@ Passing Level 3 means the toolkit is ready for normal use in comparable real pro
 
 The current Level 3 project-sync evidence is recorded in `docs/PROJECT_SYNC_VALIDATION_REPORT_2026-05-30.md`.
 
-## Controlled Real-Project Codex Use
+## Controlled Real-Project Agent Use
 
 For real projects, use the toolkit as a governance and evidence layer:
 
@@ -130,4 +130,4 @@ Stop before project use if:
 
 ## What This Does Not Authorize
 
-This readiness gate does not authorize automatic rollout, external skill activation, plugin duplication, Superpowers duplication, hooks, daemons, background workers, MCP servers, global memory, federation, global Codex config changes, product repo changes outside an approved project PR, Codex OSS application submission, enterprise readiness, Level 4 readiness, Level 5 readiness, or active runtime support outside Codex.
+This readiness gate does not authorize automatic rollout, external skill activation, plugin duplication, Superpowers duplication, hooks, daemons, background workers, MCP servers, global memory, federation, global/user agent config changes, product repo changes outside an approved project PR, external submissions, enterprise readiness, Level 4 readiness, Level 5 readiness, or broad cross-runtime active support.

@@ -35,7 +35,7 @@ Beta use must follow the Level 3 operator workflow:
 - Public release or public package distribution.
 - Level 4 enterprise rollout claims.
 - Level 5 public readiness claims.
-- Runtime adapter activation beyond the current Codex-first workflow.
+- Runtime adapter activation beyond the current validated agent workflow.
 - MCP setup or global Codex configuration changes.
 - External tool installs or activation.
 - Product-repository writes outside approved project PRs.

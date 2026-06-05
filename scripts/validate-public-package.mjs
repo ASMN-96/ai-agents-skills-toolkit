@@ -47,7 +47,7 @@ const PATTERNS = [
   },
   {
     label: "project-specific naming",
-    regex: /\bRISS\b|\briss-[a-z0-9-]+\b|\bVD\b|\bvd-[a-z0-9-]+\b|\bVDTwin\b|\bVisual\s+Twin\b|\blocal-vd-authored\b/gi
+    regex: /\bprivate-project-marker\b|\binternal-project-marker\b|\blegacy-project-marker\b/gi
   },
   {
     label: "public release removal marker",

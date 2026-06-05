@@ -21,9 +21,8 @@ This audit covers public GitHub repository readiness for the whole repository tr
 
 | File/path | Finding | Risk | Action taken | Owner decision needed |
 | --- | --- | --- | --- | --- |
-| `.ai-toolkit/private-overlays/riss-v2/` | Private RISS V2-specific overlay content existed in historical commits. | blocker | Removed from current tree. | If still needed, keep it only in a separate private repository or private branch. Do not reintroduce it into a public path. |
-| Repository Git history | Removed private overlay content may still exist in historical commits. | blocker | Documented the history exposure risk. | Publish from a clean sanitized repository/mirror when creating candidates, or apply owner-approved history disclosure controls for this public path. |
-| `docs/PUBLIC_PRIVATE_LEAK_REPORT.md` | Leak scan is report-only and now lists 87 findings across the whole tree: 0 current-tree blockers, 9 history-only blockers, 10 owner-decision blockers, 64 safe guardrail/scanner evidence findings, and 4 false positives. The earlier baseline was 221 findings, including 51 private-overlay findings. | blocker | Neutralized current-tree metadata and docs references, regenerated the scan, and kept publication evidence explicit instead of treating allowlist validation as whole-repo approval. Scanner detection rules were preserved. | Keep history-only and owner-decision findings under the active owner publication path. |
+| Repository Git history | Historical commits are outside allowlist package validation. | blocker | Documented the history exposure risk without preserving private-project details in current public docs. | Publish from a clean sanitized repository/mirror when creating candidates, or apply owner-approved history disclosure controls for this public path. |
+| `docs/PUBLIC_PRIVATE_LEAK_REPORT.md` | Leak scan is report-only and lists classified current-tree findings with zero current-tree blockers after validation. | blocker | Neutralized current-tree metadata and docs references, regenerated the scan, and kept publication evidence explicit instead of treating allowlist validation as whole-repo approval. Scanner detection rules were preserved. | Keep history-only and owner-decision findings under the active owner publication path. |
 | `docs/PUBLICATION_REVIEW.md` | Publication decision is active under owner-approved public visibility. | acceptable | Added owner-decision table. | Keep updated until publication is either rejected or approved through a separate decision. |
 | `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md` | Required stale alias compatibility claims needed correction after PR #52. | blocker | Updated to canonical-only runtime and stricter Level 5 blockers. | Owner must approve final Level 5 criteria and policy docs before any broad public/package maturity claim. |
 | `docs/PUBLIC_LAUNCH_CHECKLIST.md` | Launch checklist still referenced mirror-only publication steps. | blocker | Updated checklist language for current public-path execution. | Complete every listed gate before release actions. |
@@ -42,6 +41,6 @@ This audit covers public GitHub repository readiness for the whole repository tr
 
 ## Non-Approval Statement
 
-This audit supports the published controlled `v0.1.0` release. It does not approve Level 4 or Level 5, product repositories, global/user Codex files, package files, lockfiles, CI, MCP, deployment config, external services, or Codex OSS application submission.
+This audit supports the published controlled `v0.1.0` release. It does not approve Level 4 or Level 5, product repositories, global/user agent files, package files, lockfiles, CI, MCP, deployment config, external services, package publication, marketplace submission, or external submissions.
 
 Public package validation is a package-surface check only. It must not be treated as whole-repository readiness while history-only or owner-decision blockers remain.

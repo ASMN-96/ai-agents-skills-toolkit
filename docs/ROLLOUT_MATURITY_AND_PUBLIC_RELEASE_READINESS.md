@@ -1,6 +1,6 @@
 # Rollout Maturity and Public Release Readiness
 
-Status: Level 3 controlled-pilot milestone complete; `v0.2.0` is the controlled public release path for Codex-first toolkit use after v0.2 hardening and final dry-run adoption evidence. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
+Status: Level 3 controlled-pilot milestone complete; `v0.2.0` is the controlled public release path for AI coding-agent toolkit use after v0.2 hardening and final dry-run adoption evidence. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
 
 Date: 2026-05-30
 
@@ -11,9 +11,9 @@ This document is a promotion gate. It does not activate runtimes, publish packag
 | Level | Name | Promotion Evidence | Allowed Use | Not Allowed |
 | --- | --- | --- | --- | --- |
 | 0 | Repository scaffold | Core files exist and local docs explain intent | Toolkit-only development | Project sync, runtime claims |
-| 1 | Current-session usable | Current Codex session can read the repo, validators pass, no-fake-validation policy exists | Planning and local governance work | Real-project writes |
+| 1 | Current-session usable | Current AI coding-agent session can read the repo, validators pass, no-fake-validation policy exists | Planning and local governance work | Real-project writes |
 | 2 | Fresh-session verified | Independent fresh-session smoke test proves skill/router visibility, fallback status, support-tool status, and no silent fallback | One controlled pilot plan | Broad rollout |
-| 3 | Controlled-pilot validated | At least one representative project sync is version-pinned, validated, reviewed, and merged through PR | Controlled Codex use in comparable projects using the same governed PR sync flow | Enterprise rollout, broad public/package maturity |
+| 3 | Controlled-pilot validated | At least one representative project sync is version-pinned, validated, reviewed, and merged through PR | Controlled AI coding-agent use in comparable projects using the same governed PR sync flow | Enterprise rollout, broad public/package maturity |
 | 4 | Enterprise rollout ready | Multiple pilots across project types pass, enterprise tool metadata is reviewed, warning thresholds are enforced, rollback evidence exists | Wider internal rollout with owners and gates | Broad public/package maturity |
 | 5 | Broad public/package maturity | Public/private leak blockers resolved or explicitly accepted, license/contribution/security/community policy gaps closed, public package allowlist enforced, release artifacts reproducible, and broader rollout evidence reviewed | Broad public repository/package distribution | Unreviewed private overlays or runtime expansion |
 
@@ -21,7 +21,7 @@ This document is a promotion gate. It does not activate runtimes, publish packag
 
 Current level: Level 3 complete.
 
-Controlled release: `v0.2.0` for Codex-first toolkit use after the full local validation gate, PR merge, post-merge verification, tag creation, and GitHub release verification pass. This release is not a Level 4, Level 5, enterprise-certified, production-certified, automatic tool-installation, or broad non-Codex runtime claim. `v0.1.0` remains the historical first controlled public release.
+Controlled release: `v0.2.0` for AI coding-agent toolkit use after the full local validation gate, PR merge, post-merge verification, tag creation, and GitHub release verification pass. This release is not a Level 4, Level 5, enterprise-certified, production-certified, automatic tool-installation, or broad cross-runtime active-support claim. `v0.1.0` remains the historical first controlled public release.
 
 Evidence:
 
@@ -42,13 +42,13 @@ Deferred Level 4 evidence backlog:
 - Multiple project-type pilots have not been completed.
 - Warning thresholds for Level 4 are not yet owner-approved.
 - Rollback rehearsal evidence for a Level 4 rollout is not recorded.
-- Runtime adapter support beyond Codex is documentation-only.
+- Runtime adapter support beyond the current validated repository runtime is documentation-only.
 
 Current blockers for Level 5 broad public/package maturity:
 
 - Public package validation is allowlist-only and does not certify the whole repository tree or Git history for public GitHub visibility.
 - Whole-repo publication review retains non-current-tree owner/history findings that are acceptable for the controlled `v0.2.0` path only when owner acceptance is explicit.
-- The project-specific private overlay was removed from the current tree, but historical Git exposure remains unresolved until the owner chooses a clean sanitized repository/mirror or verified history cleanup.
+- Historical Git exposure remains unresolved until the owner chooses a clean sanitized repository/mirror or verified history cleanup.
 - Public runtime is canonical-only: 5 active skills and 12 active repo-local project agents. Old aliases are not active runtime names.
 - Public package allowlist is enforced by `node scripts/validate-public-package.mjs`; current report is `docs/PUBLIC_PACKAGE_VALIDATION_REPORT.md`.
 - `LICENSE`, `CONTRIBUTING.md`, and `CODE_OF_CONDUCT.md` are present but still require owner/legal/community approval before publication.
@@ -82,7 +82,7 @@ Level 5 broad public/package maturity additionally requires:
 - public package allowlist validation,
 - public/private leak scan with zero unresolved public-release blockers in public package paths,
 - whole-repo publication review with zero unresolved public-repository blockers,
-- resolved private overlay and Git history decision,
+- resolved repository-history decision,
 - canonical-only runtime validation for 5 active skills and 12 active project agents,
 - license/contribution/security/community policy files approved,
 - owner-approved security disclosure channel,
@@ -122,7 +122,7 @@ Owner decisions still required:
 - security disclosure owner,
 - community/contribution owner,
 - release owner.
-- private overlay/history cleanup owner.
+- repository-history cleanup owner.
 
 Until these are assigned, Level 4 remains deferred and Level 5 remains not started.
 
@@ -130,7 +130,7 @@ Until these are assigned, Level 4 remains deferred and Level 5 remains not start
 
 Allowed now:
 
-- Codex-first governance through the current active repo skills and project custom-agent artifacts.
+- AI coding-agent governance through the current active repo skills and project custom-agent artifacts.
 - Project sync through reviewed `.ai-toolkit/` project artifacts on feature branches.
 - Private beta with invited users under the Level 3 operator checklist.
 
@@ -159,7 +159,7 @@ Forbidden without separate approval:
 - [x] Source freshness reports no actionable changes.
 - [x] Runtime validation proves 5 active skills and 12 active repo-local project agents.
 - [x] `v0.1.0` annotated tag was created only from validated `main`.
-- [x] GitHub release notes state Codex-first controlled real-project readiness, validation evidence, known exclusions, and no Codex OSS submission.
+- [x] GitHub release notes state controlled real-project readiness, validation evidence, known exclusions, and no external submission.
 
 ## Controlled v0.2.0 Release Checklist
 
@@ -174,14 +174,14 @@ Forbidden without separate approval:
 - [ ] Release PR was merged to `main`.
 - [ ] Post-merge validation passed on `main`.
 - [ ] `v0.2.0` annotated tag was created only from validated `main`.
-- [ ] GitHub release notes state controlled Codex toolkit readiness, validation evidence, known exclusions, rollback path, and no Codex OSS submission.
+- [ ] GitHub release notes state controlled AI coding-agent toolkit readiness, validation evidence, known exclusions, rollback path, and no external submission.
 
 ## Level 5 Checklist
 
 - Public/private leak scan has zero unresolved blockers for public package paths.
 - Whole-repo publication review has zero unresolved blockers.
-- Private overlay and Git history exposure decisions are resolved.
-- Stale/unverified classification has no private overlay markers or unresolved `review-required` content in public package output.
+- Repository-history exposure decisions are resolved.
+- Stale/unverified classification has no unresolved `review-required` content in public package output.
 - Public runtime is canonical-only: 5 active skills and 12 active project agents.
 - `sourceRef`, `lastExtracted`, and method status are present and validated.
 - External tool enterprise metadata is complete for any tool described as approved.

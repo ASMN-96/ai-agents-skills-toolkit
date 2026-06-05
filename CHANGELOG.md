@@ -15,11 +15,11 @@ All notable changes to AI Agent Skills Toolkit will be documented here.
 - Added Phase 5 dry-run-first project install, update, and validation workflow scripts.
 - Added Phase 5 project sync workflow and install safety documentation.
 - Added a `.ai-toolkit` config example for selected agent/profile installs.
-- Added `riss-governance` as a RISS-specific governance skill for serious project work.
+- Added an early scoped governance entrypoint that was later migrated to canonical runtime names.
 - Added Phase 6 project-managed skill sync for selected toolkit-owned skills under `.ai-toolkit/skills/`.
 - Added Phase 7 governance-only toolchain policy: GSD is an external core governance tool alongside Superpowers, not a vendored toolkit dependency.
 - Added Phase 8 global Codex custom-agent governance: native custom agents are preferred when runtime-visible, with compiled-agent fallback and restart verification requirements.
-- Added Phase 9 global `riss-governance` entrypoint policy for scoped RISS/AI Toolkit governance, router-agent coordination, and restart/new-session visibility verification.
+- Added Phase 9 global governance entrypoint policy for scoped AI Toolkit governance, router-agent coordination, and restart/new-session visibility verification.
 - Added Phase 10A/10B governance spine docs, registry contracts, external-source backlog, registries, routing/eval scaffolding, missing-skill discovery policy, token-efficiency policy, and runtime verification docs.
 - Reconciled toolkit docs to reflect existing evaluated source records, profiles, compiled agents, and external support-tool boundaries.
 - Updated Phase 10C batch 1 source records for Anthropic skills, Vercel find-skills, and skills.sh as read-only scouting records only.

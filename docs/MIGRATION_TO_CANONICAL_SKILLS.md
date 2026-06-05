@@ -25,6 +25,6 @@ The active project agent set remains unchanged at twelve agents:
 - `skill-scout-agent`
 - `sre-performance-agent`
 
-The following old aliases and helper names were removed from active runtime and public package skill surfaces: `ai-project-governance`, `riss-governance`, `premium-uiux-review`, `vd-premium-uiux`, `webapp-code-quality`, `riss-code-quality`, `app-security-review`, `riss-security-review`, `riss-release-gate`, `riss-agent-governance`, and `riss-skill-governance`.
+The following old aliases and helper names were removed from active runtime and public package skill surfaces: `ai-project-governance`, `legacy-governance`, `premium-uiux-review`, `legacy-uiux-review`, `webapp-code-quality`, `legacy-code-quality`, `app-security-review`, `legacy-security-review`, `legacy-release-gate`, `legacy-agent-governance`, and `legacy-skill-governance`.
 
 Product repositories should update toolkit sync selections to use the five canonical skills. This migration does not sync product repositories, touch global Codex files, install tools, change CI/MCP/deployment config, or claim Level 4/public/enterprise readiness.

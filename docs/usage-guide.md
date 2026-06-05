@@ -2,19 +2,19 @@
 
 ## Repository Purpose
 
-Use this repository to standardize Codex-first agent behavior, source review, validation honesty, and release evidence before changes are synced into product projects.
+Use this repository to standardize AI coding-agent behavior, source review, validation honesty, and release evidence before changes are synced into product projects.
 
-The toolkit is a governance and workflow layer. It is not a product runtime, package installer, CI manager, MCP configurator, or global Codex configuration surface.
+The toolkit is a governance and workflow layer. It is not a product runtime, package installer, CI manager, MCP configurator, or global/user agent configuration surface.
 
 ## Scope Rules
 
 - Do not edit product repositories unless a separate project-specific PR explicitly authorizes that work.
-- Do not change package files, lockfiles, CI, MCP, deployment config, global/user Codex config, secrets, or credentials unless a separate owner-approved task authorizes the exact change.
-- Do not claim scanner, browser, runtime, validation, GitHub, CodeRabbit, reviewdog, tag, release, or OSS application execution unless current output was actually observed.
+- Do not change package files, lockfiles, CI, MCP, deployment config, global/user agent config, secrets, or credentials unless a separate owner-approved task authorizes the exact change.
+- Do not claim scanner, browser, runtime, validation, GitHub, CodeRabbit, reviewdog, tag, release, package publication, marketplace submission, or external submission execution unless current output was actually observed.
 - Do not describe `.ai-toolkit` package metadata, registries, source records, dry-runs, or compiled fallbacks as runtime activation.
 - Keep selected or recommended agents separate from agents that actually spawned.
 
-## Codex Use Modes
+## AI Coding-Agent Use Modes
 
 ### Planning-Only Mode
 
@@ -38,7 +38,7 @@ Canonical active skills:
 - `security-review`
 - `pr-release-gate`
 
-Canonical active repo-local Codex project agents:
+Canonical active repo-local project agents:
 
 - `product-agent`
 - `architect-agent`
@@ -104,7 +104,7 @@ Stop and escalate to the owner or GPT-5.5 review when:
 
 ```text
 Mode: planning-only.
-Use this toolkit as Codex governance for a real project audit.
+Use this toolkit as AI coding-agent governance for a real project audit. Codex, Claude Code, or a similar project-owned agent may be in use, but do not assume one runtime unless the repository proves it.
 Scope: inspect the current feature request, architecture risk, security risk, validation plan, and PR sequence.
 Do not edit files. Do not change package files, CI, MCP, global config, or product repositories.
 Report selected skills/agents separately from agents actually spawned, and include stop conditions.
@@ -139,4 +139,4 @@ Return an allow/defer/reject recommendation with evidence.
 
 ## Public Release Positioning
 
-`v0.2.0` is the controlled public release path for the Codex-first toolkit after the v0.2 hardening, final dry-run adoption, source-freshness verification, leak scan, runtime validation, and release validation gates. It does not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, broad cross-runtime active support, or Codex OSS application submission.
+`v0.2.0` is the controlled public release path for the AI coding-agent toolkit after the v0.2 hardening, final dry-run adoption, source-freshness verification, leak scan, runtime validation, and release validation gates. It does not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, package publication, marketplace submission, broad cross-runtime active support, or external submission.

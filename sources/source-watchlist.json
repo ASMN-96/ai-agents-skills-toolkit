@@ -89,7 +89,33 @@
       "watchedPaths": [],
       "licenseConcern": "cc-by-sa",
       "reviewPriority": "High",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewedHold": {
+        "status": "REVIEWED_HELD",
+        "reviewedCommit": "d5fe2e6a7896236c3102fd5477e833623ad70298",
+        "reviewedDate": "2026-06-05",
+        "classification": "reviewed-held high-risk plugin/runtime/CI/MCP/loadability/UI-metadata reshape with CC-BY-SA license concern",
+        "decision": "reference-only hold; no plugin import, no skill import, no marketplace behavior adoption, no install command adoption, no script execution, no loadability checker adoption, no CI workflow adoption, no MCP configuration adoption, no OpenAI agent metadata adoption, no SVG asset copying, no raw skill shim copying, no source copying, no package changes, no global config changes, no runtime activation, and no extraction",
+        "noImportNoInstallNoExtraction": true,
+        "forbiddenActions": [
+          "plugin import",
+          "skill import",
+          "marketplace behavior adoption",
+          "install command adoption",
+          "script execution",
+          "loadability checker adoption",
+          "CI workflow adoption",
+          "MCP configuration adoption",
+          "OpenAI agent metadata adoption",
+          "SVG asset copying",
+          "raw skill shim copying",
+          "source copying",
+          "package changes",
+          "global config changes",
+          "runtime activation",
+          "extraction"
+        ]
+      }
     },
     {
       "id": "microsoft-playwright",
@@ -171,7 +197,7 @@
       "repoOwner": "shadcn-ui",
       "repoName": "ui",
       "defaultBranch": "main",
-      "lastReviewedCommit": "a1fb619cefefc7991a48fd1961af6fe533ed6adb",
+      "lastReviewedCommit": "9c6a5ee1b14226efbcd31daf54e9bc2e91f647e9",
       "lastReviewedDate": "2026-06-05",
       "sourceRecordPath": "sources/shadcn-ui.md",
       "watchedPaths": [],

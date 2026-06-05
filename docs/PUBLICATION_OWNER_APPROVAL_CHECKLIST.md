@@ -1,16 +1,16 @@
 # Publication Owner Approval Checklist
 
-Status: owner approval recorded for making the current toolkit repository public with visible PR/commit history accepted for OpenAI Codex OSS review. `v0.1.0` is published as the first controlled public release for Codex-first real-project use. This checklist does not submit the Codex open-source application.
+Status: owner approval recorded for making the current toolkit repository public through the controlled repository release path. `v0.1.0` is published as the first controlled public release for governed AI coding-agent use. This checklist does not publish packages, submit marketplace listings, or make external submissions.
 
 ## Owner Decision Entry - 2026-06-03
 
 - Owner approves this repository as the active public publication path.
-- Owner accepts that real PR and commit history is intentionally visible for OpenAI Codex OSS review.
+- Owner accepts that real PR and commit history is intentionally visible for the controlled repository publication path.
 - Owner confirms no current-tree blockers remain after final validation.
 - Owner accepts the non-current-tree findings for this publication path: safe guardrail/scanner evidence, owner-decision blockers, history-only blockers, and false positives.
 - Owner confirms all other repositories remain private unless separately approved.
 - Owner confirms `v0.1.0` release execution is approved after all technical gates pass.
-- Owner confirms Codex OSS application submission is not approved in this task.
+- Owner confirms package publication, marketplace submission, and external submissions are not approved in this task.
 - Owner confirms the security disclosure path must be GitHub private vulnerability reporting if available, or an owner-approved contact later.
 - Owner confirms this approval applies only to this repository and does not authorize changes to any other repository, profile repository, global/user Codex config, package files, lockfiles, CI, MCP, deployment config, external services, releases, tags, or product repositories.
 
@@ -27,7 +27,7 @@ Status: owner approval recorded for making the current toolkit repository public
 
 - Active publication path: current repository (public), not a sanitized mirror.
 - Visible public Git history is an explicit owner decision.
-- Do not reintroduce private overlays, product repo content, old branch/tags context, or private action metadata into future public-ready artifacts.
+- Do not reintroduce non-public project content, stale branch/tag context, or private action metadata into future public-ready artifacts.
 - Keep this repository in its approved public scope.
 
 ## Security Disclosure Path
@@ -55,8 +55,8 @@ Preferred path: enable GitHub private vulnerability reporting on this repository
 - [ ] Approve GitHub topic: `software-governance`.
 - [ ] Approve GitHub topic: `release-engineering`.
 - [x] Approve `v0.1.0` release only after final launch and validation approval.
-- [x] Confirm Codex OSS application submission remains pending.
+- [x] Confirm no package publication, marketplace submission, or external submission is authorized in this checklist.
 
 ## Non-Approval Statement
 
-This approval does not authorize changing GitHub profile visibility, editing a profile README repository, submitting the Codex OSS application, modifying product repositories, touching global/user Codex config, or modifying package, lockfile, CI, MCP, deployment, or external service configuration. Release tag authority was limited to `v0.1.0`.
+This approval does not authorize changing GitHub profile visibility, editing a profile README repository, publishing packages, submitting marketplace listings, making external submissions, modifying product repositories, touching global/user agent config, or modifying package, lockfile, CI, MCP, deployment, or external service configuration. Release tag authority was limited to `v0.1.0`.

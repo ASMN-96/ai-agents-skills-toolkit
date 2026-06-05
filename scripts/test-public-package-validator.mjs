@@ -59,7 +59,7 @@ test("fails when public package paths contain private or release-blocking identi
     await writeFile(
       path.join(fixture, "README.md"),
       [
-        "Internal path C:\\Users\\Example and ASMN-96 plus RISS",
+        "Internal path C:\\Users\\Example and ASMN-96 plus private-project-marker",
         "must-remove-before-public-release",
         "private-overlay-only",
         "unresolved-public-blocker",
