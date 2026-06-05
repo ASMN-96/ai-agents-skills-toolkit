@@ -40,7 +40,7 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | addyosmani-web-quality-skills | Addy Osmani Web Quality Skills | active-method | Do later | `methods/uiux/webapp-testing.md` | Connect more tightly to axe/Lighthouse/browser evidence | No fake browser or quality claims |
 | voltagent-awesome-design-md | VoltAgent Awesome Design.md | planned-extraction | Do later | UIUX source map | Design-context loading and DESIGN.md checks | No brand/template copying |
 | voltagent-awesome-agent-skills | VoltAgent Awesome Agent Skills | reference-only-with-reason | Do later | Source record only | Compare orchestration ideas after RuFlo extraction | No raw agent activation |
-| impeccable | Impeccable | active-skill-rule | Do later | v0.2.3 `SYNCED_ADOPTED`; UIUX source map, `methods/uiux/premium-visual-quality.md`, and skill behavior | Motion, polish, context-loading, and rendered-evidence acceptance criteria | No CLI, detector, live-browser workflow, package, or skill-bundle activation |
+| impeccable | Impeccable | active-skill-rule | Do later | v0.2.3 `SYNCED_ADOPTED`; UIUX source map, `methods/uiux/premium-visual-quality.md`, and skill behavior | Motion, polish, context-loading, rendered-evidence, and accessibility-hidden overflow false-positive criteria | No CLI, detector, live-browser workflow, package, Dependabot config, CI workflow, or skill-bundle activation |
 | uncodixfy | Uncodixfy | active-skill-rule | Do later | Anti-generic UIUX guidance | Generic-AI UI smell rubric and evals | No raw prompt copying |
 | agency-agents | Agency Agents | archive-candidate | Archived from active freshness monitoring | Source record only | Re-add only if a concrete owner-approved method emerges | No agent/runtime import |
 | superpowers | Superpowers | active-method | Do later | TDD/verification/source-safety references; external plugin delegation | Keep toolkit-owned guardrails minimal | Do not duplicate plugin workflows |
@@ -161,7 +161,7 @@ The project install classes above remain metadata-only. v0.2.2 adds a stronger d
 - Microsoft Playwright: `SYNCED_PLUGIN_DELEGATED`; browser-evidence guidance adopted, execution delegated to project-owned Playwright/browser tooling.
 - shadcn/ui: `SYNCED_REFERENCE`; active design-system reference guidance retained, package/lockfile/CLI drift rejected.
 - Vercel find-skills: `SYNCED_REFERENCE`; historical discovery reference only, first-party Vercel plugin/docs preferred for live Vercel work.
-- Impeccable: `SYNCED_ADOPTED`; UI quality concepts adopted, CLI/live-browser/detector/package behavior rejected.
+- Impeccable: `SYNCED_ADOPTED`; UI quality concepts adopted, including accessibility-hidden text overflow false-positive discipline; CLI/live-browser/detector/package/Dependabot/CI workflow behavior rejected.
 - Everything Claude Code: `SYNCED_REFERENCE`; cross-harness source-safety awareness retained, no active cross-runtime support claims.
 - code-review-graph: `SYNCED_ADOPTED`; active read-only context/token governance methods retained.
 - RuFlo: `SYNCED_ADOPTED`; static task-state/handoff discipline adopted, runtime memory/hooks/MCP/daemon/global behavior forbidden.
