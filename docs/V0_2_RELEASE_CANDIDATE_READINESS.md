@@ -43,6 +43,18 @@ In plain language: this is not Level 4, not Level 5, not enterprise-certified, n
 - Impeccable normalized guidance remains active-reference; project-local install mode is approval-required.
 - Base UI and Figma are excluded from current v0.2 recommendations.
 
+## Final Pre-Release Check - 2026-06-05
+
+This check ran on `main` after the v0.2 hardening merge `069a2ce Finalize v0.2 enterprise readiness hardening`.
+
+- Task intake routing was used before implementation. The affected surfaces were release evidence docs, generated source/leak reports, project-tooling planner/apply dry-run output, and validation evidence.
+- Runtime remained exactly `5 skills, 12 project agents` by `node scripts/ai-toolkit/validate-codex-runtime.mjs`.
+- Live source freshness passed with `UNCHANGED 19`, `REVIEWED_HELD 2`, and `CHECK_FAILED 0`; the committed `docs/SOURCE_FRESHNESS_REPORT.md` was refreshed only through `node scripts/check-source-freshness.mjs --output docs/SOURCE_FRESHNESS_REPORT.md --fail-on-change`.
+- Public/private leak scan reported `Current-tree blockers: 0`.
+- Controlled dry-run adoption used `node install/tooling-plan.mjs --project-type react-typescript-saas` and `node install/tooling-apply.mjs --target ./tmp-v0.2-release-candidate-dry-run-target --project-type react-typescript-saas`.
+- The apply command stayed in dry-run mode and reported template files it would copy into `<target>/.ai-toolkit/tooling/`; it did not write to a product repository.
+- No tools were installed, no package files or lockfiles were changed, no CI was wired, no MCP/global/deployment config changed, no external service was configured, no product repo was touched, and no tag or GitHub release was created.
+
 ## Recommended Next Step
 
-Before tagging or releasing v0.2.0, run a controlled dry-run adoption against one target repository. The dry run should use the v0.2 profiles, task-intake routing gate, readiness methods, and no-fake-validation reporting without package changes, CI wiring, MCP/global config changes, external service changes, or product repository mutation.
+Before tagging or releasing v0.2.0, make a controlled owner-approved adoption decision using the controlled dry-run adoption evidence above. Any actual tag or GitHub release remains a separate release action and must not claim Level 4, Level 5, enterprise certification, production certification, automatic tool installation, broad cross-runtime active support, or project-repository mutation.
