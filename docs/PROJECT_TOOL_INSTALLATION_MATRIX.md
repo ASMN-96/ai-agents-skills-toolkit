@@ -11,7 +11,7 @@ The v0.2 project install classes remain for compatibility, but v0.2.2 adds expli
 - `owner-approved-install`: valuable when absent, but installation/configuration requires explicit owner approval.
 - `ci-advisory`: CI signal only while rules, noise, artifacts, and false positives are calibrated.
 - `ci-blocking-after-calibration`: release gate only after stable evidence and explicit owner approval.
-- `held-static-only`: static governance concepts only; no runtime activation.
+- `static-adopted`: static governance concepts are active in toolkit-owned methods; no runtime activation.
 - `forbidden-runtime`: no runtime activation because of MCP, daemon, global, memory, watcher, persistence, or security conflict.
 
 Package-manager detection must happen before recommending package-manager commands. No tool output may be claimed unless the tool actually ran and output was observed.
@@ -30,7 +30,7 @@ Package-manager detection must happen before recommending package-manager comman
 | jscpd | `active-if-detected` duplication checks | `owner-approved-install` | advisory until duplication thresholds are accepted | Do not drive broad refactors from scanner output alone |
 | actionlint / zizmor | `active-if-detected` workflow hardening | `owner-approved-install` | advisory until workflow policy is calibrated | No CI rewrite or permissions change from metadata |
 | GSD-style discipline | `active-reference` or external discipline when already available | approval required for any install/vendor/global config | n/a | Do not vendor or duplicate GSD in the toolkit |
-| RuFlo-style concepts | `held-static-only` | not approved for runtime | n/a | Runtime hooks, memory, MCP, daemon, global config, watchers, and persistence are `forbidden-runtime` |
+| RuFlo-style concepts | `static-adopted` | not approved for runtime | n/a | Runtime hooks, memory, MCP, daemon, global config, watchers, and persistence are `forbidden-runtime` |
 
 | Tool/resource | Lane | Classification | Install location | When to use | When not to use | Evidence output | Owner approval required | Conflict/overlap notes |
 |---|---|---|---|---|---|---|---|---|

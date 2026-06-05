@@ -1,6 +1,6 @@
 # Embedded AI Toolkit Distribution Package
 
-Version: 0.2.2
+Version: 0.2.3
 
 This directory is the main toolkit repository's embedded distribution and governance package. It is not a product-repo install state and it is not a Codex runtime activation surface by itself.
 

@@ -14,6 +14,7 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/data
 - Classify data surface as public, authenticated user, tenant-scoped, admin-only, or service-role-only.
 - Review RLS enabled/disabled assumptions and SELECT, INSERT, UPDATE, and DELETE policy behavior.
 - Check tenant, project, organization, and user isolation assumptions.
+- Treat Supabase Data API/table/view/RPC exposure, SECURITY DEFINER functions, auth-helper assumptions, generated-type drift, and schema constraints as explicit review gates.
 - Review service-role versus client-role boundaries, secret exposure risk, migration safety, destructive operations, audit/logging impact, rollback plan, and validation evidence.
 - Use canonical toolkit skill names only when naming skills: `governance`, `uiux`, `code-quality`, `security-review`, and `pr-release-gate`.
 
@@ -37,9 +38,10 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/data
 - Table, view, function, policy, migration, storage, and generated-type affected area.
 - Supabase/Postgres RLS assumptions, including whether RLS is enabled and whether access depends on anon, authenticated, or service-role behavior.
 - RLS enablement and policy behavior for SELECT, INSERT, UPDATE, and DELETE.
+- Data API exposure, table/view/RPC access, object ownership/BOLA risk, SECURITY DEFINER behavior, and auth/session role assumptions.
 - Tenant, project, organization, user, admin, and service-role isolation.
 - Public/private payload and seed/mock-data exposure risk.
-- Destructive operation, locking, backfill, rollback, and audit/logging impact.
+- Destructive operation, schema constraint, locking, backfill, rollback, generated-type drift, and audit/logging impact.
 - Verification query, type-generation, migration dry-run, or validation-command evidence, when approved and available.
 
 ## Stop Conditions

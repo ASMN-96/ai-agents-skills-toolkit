@@ -20,7 +20,7 @@ Methods are passive reference material. They do not install, activate, route, or
 
 Each method file must start with frontmatter containing:
 
-- `sourceRef`: source-watchlist IDs that influenced the normalized method, or `unknown-review-required` when provenance cannot be mapped safely.
+- `sourceRef`: source-watchlist IDs that influenced the normalized method, `toolkit-authored` for cleanroom toolkit-owned methods, or `unknown-review-required` when provenance cannot be mapped safely.
 - `lastExtracted`: the deterministic extraction date, or `unknown-review-required` until a compile/extraction contract records it.
 - `status`: the method status mirrored from the registry, or `unknown-review-required`.
 

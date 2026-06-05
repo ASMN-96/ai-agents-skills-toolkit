@@ -5,15 +5,15 @@
 - Source type: External GitHub source for AI-assisted design critique, design-system context, and UI/UX quality vocabulary.
 - Source status: Reviewed source record; approved only for narrow normalized guidance in `uiux`.
 - Retrieval date: 2026-05-29.
-- Last checked date: 2026-06-05.
-- Last reviewed date: 2026-06-05.
-- Last reviewed commit: `6c7c04866cc98d992b0cdead355f361ceebc7d2a`.
+- Last checked date: 2026-06-06.
+- Last reviewed date: 2026-06-06.
+- Last reviewed commit: `6788085015400c3900cbf3a46b76f76bf489b3e3`.
 - Normalization review date: 2026-05-22.
 - Normalization review commit: `642f03d5a10eb3deb91bd511241e387e23b9aa39`.
 - Visible adoption signals: 28,106 GitHub stars, 1,517 forks, and repository push activity on 2026-05-15 from read-only GitHub metadata.
 - Trust level: Medium-high design-source trust, with medium-high execution risk if CLI, install, detector, or live workflow guidance is followed.
 - License status: GitHub API reports Apache-2.0.
-- Recommendation: Use only as a normalized source basis for design context loading, critique vocabulary, polish/audit framing, motion/spatial/interaction awareness, and anti-pattern detection concepts.
+- Recommendation: `SYNCED_ADOPTED` for v0.2.3. Use as an active normalized source basis for design context loading, critique vocabulary, polish/audit framing, motion/spatial/interaction awareness, anti-pattern detection concepts, and UI quality evals. Do not activate the CLI, live-browser workflows, detector scripts, package metadata, or skill-bundle behavior.
 
 ## Purpose
 
@@ -113,7 +113,7 @@ Classification: safe metadata refresh / low-risk public-site styling drift.
 
 Decision: keep Impeccable as normalized UI/UX source intelligence only. This refresh updates source tracking only and does not approve CLI execution, package install, detector use, browser workflow use, source-copying, skill-body import, external activation, product-repo changes, or runtime configuration changes.
 
-## Reviewed-Held Source Safety Review 2026-06-05 Post-Merge Release Gate
+## Historical Source Safety Review 2026-06-05 Post-Merge Release Gate
 
 Skill Scout read-only post-merge release-gate follow-up reviewed upstream default-branch movement from `6c7c04866cc98d992b0cdead355f361ceebc7d2a` to `347a0c06a2781578f0d3c6fe2cc3a8b64ad5b62d` using GitHub compare metadata, commit metadata, and changed-file metadata only. The compare was 1 commit ahead with commit message `Fix Windows skill bundle extraction (#198)` and touched `bun.lock`, `cli/bin/commands/skills.mjs`, and `package.json`.
 
@@ -121,9 +121,25 @@ Classification: `REVIEWED_HELD` / package, lockfile, and CLI skill-bundle extrac
 
 Decision: keep Impeccable as normalized UI/UX source intelligence only, but hold this upstream movement from active adoption. This review does not approve CLI execution, package install, package metadata adoption, lockfile adoption, skill-bundle extraction behavior adoption, detector use, browser workflow use, source-copying, skill-body import, external activation, product-repo changes, runtime configuration, or script execution.
 
+## v0.2.3 Full-Power Resolution 2026-06-06
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `347a0c06a2781578f0d3c6fe2cc3a8b64ad5b62d` to `5fb30e03e6ca0fa826c0b3eff0d1402fce871818` using `git ls-remote` and GitHub compare metadata only. The compare was 3 commits ahead and touched live-browser/live-event/live-server/live-vocabulary scripts across harness skill folders, plugin skill scripts, site demo pages/styles, and tests.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep Impeccable active as normalized UI quality source intelligence and adopt only cleanroom UI quality concepts into toolkit-owned UIUX methods/evals. The live-browser, CLI, package, detector, and skill-bundle surfaces remain forbidden runtime. Useful adoption is limited to stronger UI review expectations around context loading, visual hierarchy, interaction polish, viewport evidence, artifact hygiene, and avoiding generic AI-looking design. No upstream scripts, CLI behavior, package metadata, lockfiles, skill bodies, live-browser workflows, tests, examples, or detector behavior were copied, installed, activated, or run.
+
+## v0.2.3 Follow-up Freshness Review 2026-06-06
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `5fb30e03e6ca0fa826c0b3eff0d1402fce871818` to `6788085015400c3900cbf3a46b76f76bf489b3e3` using `git ls-remote`, GitHub compare metadata, and commit metadata only. The compare was 1 commit ahead and added `site/public/llms.txt` as public site/LLM documentation metadata. No upstream package metadata, lockfile, CLI implementation, detector script, live-browser workflow code, skill body, tests, runtime configuration, or project-sync material changed in this reviewed drift.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep Impeccable active as normalized UI quality source intelligence. The new public-site metadata is useful as provenance/context only; no raw `llms.txt` content, install guidance, command catalog, site docs, CLI behavior, live-browser workflow, detector behavior, package metadata, skill body, script, or runtime behavior was copied, installed, activated, or run.
+
 ## Source Provenance (Stable)
 
 - Watchlist path: `sources/source-watchlist.json`
 - Reviewed by: Codex controlled implementation pass
 - Review decision: Source-record plus narrow normalized `uiux` guidance
-- Last review evidence: Source freshness report, GitHub compare metadata, and `git ls-remote` HEAD SHA on 2026-06-03
+- Last review evidence: Source freshness report, GitHub compare metadata, and `git ls-remote` HEAD SHA on 2026-06-06

@@ -1,6 +1,6 @@
 ---
-sourceRef: unknown-review-required
-lastExtracted: unknown-review-required
+sourceRef: ["toolkit-authored"]
+lastExtracted: 2026-06-06
 status: approved
 ---
 
@@ -21,6 +21,24 @@ Review performance, scalability, and cache risk during coding before broad optim
 ## Evidence Requirements
 
 Report baseline or reproduction evidence when collected, commands actually run, measurement limits, skipped checks, and whether the fix is verified or only risk-reduced.
+
+## Compact Example
+
+Good pattern:
+
+- Identify the exact slow workflow, collect a baseline when feasible, reduce request/query/render/cache cost, and report what improved versus what remains unmeasured.
+
+Bad pattern:
+
+- Rewriting broad architecture because something feels slow without reproduction, measurement, or a scoped hypothesis.
+
+Evidence required:
+
+- Baseline or reproduction evidence when available, commands run, measurement limits, and verified or risk-reduced status.
+
+Stop condition:
+
+- Pause when optimization changes behavior, cache isolation, infrastructure, packages, CI, deployment, or production settings without approval.
 
 ## Stop Conditions
 

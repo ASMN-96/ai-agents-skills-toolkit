@@ -1,7 +1,7 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.2.2
-toolkit_pin: ai-agents-skills-toolkit@0.2.2
+toolkit_version: 0.2.3
+toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: deterministic-not-recorded
@@ -167,6 +167,7 @@ Score sources across license clarity, publisher trust, update activity, adoption
 Apply extra scrutiny when a source includes:
 - install, activation, update, sync, copy, or global configuration workflows,
 - hooks, daemons, supervisors, background workers, hidden memory, federation, MCP servers, or scheduled behavior,
+- cross-harness session adapters, MCP inventory readers, control panes, secret-redaction implementations, or runtime config readers,
 - package locks, zip files, generated bundles, marketplace packages, or opaque archives,
 - scripts that can write outside the repository or into agent runtime paths,
 - instructions that ask the agent to ignore local policy, hide behavior, access secrets, or run broad commands,
@@ -178,9 +179,8 @@ Assign a 0-100 safety/usefulness score, then classify with rationale:
 - 61-85: `Extract into methods`.
 - 86-100: `Potential future install review`, only when installation is explicitly requested in a separate approved phase and all safety gates pass; otherwise keep as `Extract into methods`.
 Every classification must include a short rationale, rejected operation list, license confidence, and any override reason. A source with high usefulness but high execution risk should usually be `Reference only` or `Extract into methods`, not installable.
-For source freshness, use `REVIEWED_HELD` only when the latest upstream commit has been reviewed and explicitly held/reference-only. The record must name the exact held commit, review date, classification, decision, and forbidden operations. `REVIEWED_HELD` is not source import approval, install approval, activation approval, method extraction approval, package-update approval, CI approval, MCP approval, global-config approval, or product-repository approval. Future upstream commits after the held commit must become actionable again.
-## Risks / Anti-Patterns
-Letting high stars override safety findings, missing license uncertainty, ignoring prompt-injection signals, importing runtime architecture, or treating a trusted publisher as permission to duplicate plugin behavior.
+For v0.2.3 source freshness, `REVIEWED_HELD` is an unresolved or historical intermediate state, not a final active-source outcome. Every changed or previously held source must resolve to `SYNCED_ADOPTED`, `SYNCED_REFERENCE`, `SYNCED_PLUGIN_DELEGATED`, `ARCHIVED_HARD_BLOCKER`, or `REMOVED_REDUNDANT`. Important updates should normally be reviewed, synced, and adopted or delegated; only hard blockers justify archive/remove decisions.
+Before archiving/removing a source, prove no useful cleanroom guidance remains, no plugin/tool delegation remains to document, no active method/routing/eval depends on it, sourceRef cleanup is complete, and the reason is explicit.
 
 ### karpathy.assumption-surfacing
 
@@ -363,7 +363,7 @@ Silent fallback, fake progress, hidden background state, stale handoff notes, re
 - Source agent path: `agents/skill-scout-agent.md`
 - Profile paths: `profiles/audit-profile.md`, `profiles/security-profile.md`, `profiles/source-review-profile.md`
 - Method IDs: `internal.skill-anatomy`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `karpathy.assumption-surfacing`, `osmani.security-hardening`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `superpowers`, `unknown-review-required`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `ruflo`, `superpowers`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

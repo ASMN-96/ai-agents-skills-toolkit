@@ -104,7 +104,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 - Project-owned tools may be recommended as `active-if-detected` when safe for the approved scope.
 - Missing tools remain `owner-approved-install`; package-manager detection is required before command recommendations.
 - CI starts as `ci-advisory` for noisy or newly adopted tools and becomes `ci-blocking-after-calibration` only with stable evidence and owner approval.
-- RuFlo-style concepts are `held-static-only`; hooks, memory, MCP, daemon, global config, watchers, and runtime persistence are `forbidden-runtime`.
+- RuFlo-style concepts are `static-adopted`; task-state and handoff discipline are active in toolkit-owned methods, while hooks, memory, MCP, daemon, global config, watchers, and runtime persistence are `forbidden-runtime`.
 - Registry presence does not install, activate, configure, or run tools.
 - Selected or recommended tools must be reported separately from actually executed tools.
 - Owner approval is required for new project installs, package-manager changes, CI changes, MCP/global config changes, deep scans, and permission-granting integrations.

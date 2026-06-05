@@ -4,11 +4,11 @@
 - Owner / publisher: affaan-m.
 - Source type: Cross-harness Claude Code ecosystem repository with skills, agents, commands, hooks, manifests, MCP config, plugins, rules, and install scripts.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `0f84c0e2796703fbda87d577b2636351418c7442` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-03.
+- Pinned repo ref checked: `7113b5bf63694b716f8b2413c5919824a82fc095` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-06.
 - Visible adoption signals: about 175.8k GitHub stars, 27.2k forks, and large multi-harness surface area.
 - Trust level: Medium source trust, very high execution/config-mutation risk.
 - License status: GitHub API reports MIT.
-- Recommendation: Candidate for future normalized harness-hardening method extraction after separate approval. Do not install, sync, run hooks, copy skills, activate MCP config, or import the repository structure.
+- Recommendation: `SYNCED_REFERENCE` for v0.2.3. Use as cross-runtime source-safety awareness for source review and runtime-boundary scoring. Do not install, sync, run hooks, copy skills, activate MCP config, claim active Claude/Cursor/Cline/OpenHands support, or import the repository structure.
 
 ## Purpose
 
@@ -81,10 +81,10 @@ Classification: `REVIEWED_HELD` / reviewed-held reference-only.
 
 Decision: keep Everything Claude Code as source-safety and harness-boundary reference material only. This review does not approve plugin import, skill import, install module import, control-plane import, cross-harness runtime support claims, MCP behavior, global config behavior, source import, installation, activation, extraction, package changes, CI changes, product-repo changes, script execution, or global configuration changes. Future upstream movement beyond `bc8e12bb80c904a5a9864797ef1fd1212aa82f3d` requires a fresh review.
 
-## Reviewed-Held Source Safety Review 2026-06-05
+## v0.2.3 Full-Power Resolution 2026-06-06
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `bc8e12bb80c904a5a9864797ef1fd1212aa82f3d` to `7113b5bf63694b716f8b2413c5919824a82fc095` using live source freshness output and GitHub compare metadata only. The compare was 2 commits ahead. The observed commit messages and file list add Codex worktree and OpenCode session adapters plus an MCP inventory surface that reads Claude, Codex, and OpenCode MCP configuration formats, normalizes cross-harness MCP records, and includes secret-redaction logic and tests.
 
-Classification: `REVIEWED_HELD` / reviewed-held cross-harness session/MCP inventory and global config inspection surface.
+Outcome: `SYNCED_REFERENCE`.
 
-Decision: keep the latest upstream commit as reference-only held source material. This review does not approve plugin import, skill import, install module import, control-plane import, session-adapter import, MCP inventory import, cross-harness runtime support claims, MCP behavior adoption, global config behavior, Codex session or config reader adoption, OpenCode session reader adoption, Claude config reader adoption, secret-redaction implementation adoption, source import, installation, activation, extraction, package changes, CI changes, product-repo changes, script execution, or global configuration changes. Future upstream movement beyond `7113b5bf63694b716f8b2413c5919824a82fc095` requires a fresh review.
+Decision: keep the latest upstream commit active as source-safety awareness for cross-harness risk scoring. Useful guidance remains in `methods/internal/source-safety-scoring.md`: MCP inventory/config readers, session adapters, control panes, and secret-redaction implementations are high-risk runtime/control-plane surfaces that require separate approval and must not be treated as toolkit runtime support. This review does not approve plugin import, skill import, install module import, control-plane import, session-adapter import, MCP inventory import, cross-harness runtime support claims, MCP behavior adoption, global config behavior, Codex session or config reader adoption, OpenCode session reader adoption, Claude config reader adoption, secret-redaction implementation adoption, source import, installation, activation, package changes, CI changes, product-repo changes, script execution, or global configuration changes. Future upstream movement beyond `7113b5bf63694b716f8b2413c5919824a82fc095` requires a fresh review.

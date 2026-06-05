@@ -95,7 +95,7 @@ test("--fail-on-change reports actionable freshness statuses", async () => {
   });
 });
 
-test("--fail-on-change allows exact reviewed-held source commits", async () => {
+test("--fail-on-change reports exact reviewed-held source commits as unresolved", async () => {
   const reviewedCommit = "a8924c2a35cfa290458852c4fad17c9133054c2e";
   const heldCommit = `feed${reviewedCommit.slice(4)}`;
   const sources = [
@@ -119,9 +119,30 @@ test("--fail-on-change allows exact reviewed-held source commits", async () => {
   await withWatchlist(sources, async (cwd) => {
     const result = await runFreshness(cwd, ["--mock", "--fail-on-change"]);
 
-    assert.equal(result.code, 0, result.stderr);
+    assert.notEqual(result.code, 0);
     assert.match(result.stdout, /REVIEWED_HELD/);
-    assert.doesNotMatch(result.stderr, /actionable source freshness status/i);
+    assert.match(result.stderr, /actionable source freshness status/i);
+  });
+});
+
+test("mock report renders resolved v0.2.3 source decisions", async () => {
+  const reviewedCommit = "a8924c2a35cfa290458852c4fad17c9133054c2e";
+  await withWatchlist([
+    source({
+      reviewDecision: {
+        outcome: "SYNCED_PLUGIN_DELEGATED",
+        reviewedCommit,
+        reviewedDate: "2026-06-06",
+        summary: "Latest upstream reviewed; execution delegated to a first-party plugin.",
+        boundaries: ["no import", "no install", "no activation"]
+      }
+    })
+  ], async (cwd) => {
+    const result = await runFreshness(cwd, ["--mock"]);
+
+    assert.equal(result.code, 0, result.stderr);
+    assert.match(result.stdout, /v0\.2\.3 outcome/);
+    assert.match(result.stdout, /SYNCED_PLUGIN_DELEGATED/);
   });
 });
 

@@ -55,7 +55,6 @@ const SOURCE_UTILIZATION_CLASSIFICATIONS = new Set([
   "active-reference",
   "active-read-only",
   "planned-extraction",
-  "reviewed-held",
   "reference-only-with-reason",
   "archive-candidate",
   "remove-candidate",
@@ -67,6 +66,14 @@ const SOURCE_UTILIZATION_RECOMMENDATIONS = new Set([
   "Do later",
   "Needs owner decision",
   "Reject / not aligned"
+]);
+
+const RESOLVED_REVIEW_OUTCOMES = new Set([
+  "SYNCED_ADOPTED",
+  "SYNCED_REFERENCE",
+  "SYNCED_PLUGIN_DELEGATED",
+  "ARCHIVED_HARD_BLOCKER",
+  "REMOVED_REDUNDANT"
 ]);
 
 const REQUIRED_CONTEXT_METHODS = [
@@ -95,6 +102,11 @@ const METHOD_TRACEABILITY_FIELDS = new Set([
   "sourceRef",
   "lastExtracted",
   "status"
+]);
+
+const SPECIAL_METHOD_SOURCE_REFS = new Set([
+  "unknown-review-required",
+  "toolkit-authored"
 ]);
 
 const COMMIT_SHA_PATTERN = /^[0-9a-f]{40}$/i;
@@ -386,19 +398,23 @@ async function validateMethodFrontmatter(method, sourceIdByRecordPath, watchlist
   }
 
   for (const sourceRef of sourceRefs) {
-    if (sourceRef !== "unknown-review-required" && !watchlistSourceIds.has(sourceRef)) {
+    if (!SPECIAL_METHOD_SOURCE_REFS.has(sourceRef) && !watchlistSourceIds.has(sourceRef)) {
       fail("method sourceRef traceability", method.methodPath, `sourceRef does not resolve to source-watchlist id: ${sourceRef}`);
     }
   }
 
   const expectedRefs = new Set();
+  let hasToolkitAuthoredProvenance = false;
   for (const entry of asArray(method.sourceProvenance)) {
+    if (entry?.category === "toolkit-authored") {
+      hasToolkitAuthoredProvenance = true;
+    }
     if (entry?.path?.startsWith("sources/")) {
       expectedRefs.add(sourceIdByRecordPath.get(entry.path) || "unknown-review-required");
     }
   }
   if (expectedRefs.size === 0) {
-    expectedRefs.add("unknown-review-required");
+    expectedRefs.add(hasToolkitAuthoredProvenance && sourceRefs.includes("toolkit-authored") ? "toolkit-authored" : "unknown-review-required");
   }
   for (const expectedRef of expectedRefs) {
     if (!sourceRefs.includes(expectedRef)) {
@@ -622,8 +638,8 @@ async function validateSourceUtilizationClassification(watchlist, registryState)
 
   const requiredRows = new Map([
     ["code-review-graph", "active-read-only"],
-    ["shadcn-ui", "planned-extraction"],
-    ["ruflo", "reviewed-held"],
+    ["shadcn-ui", "active-reference"],
+    ["ruflo", "active-method"],
     ["open-design", "active-reference"]
   ]);
   for (const [id, expected] of requiredRows) {
@@ -808,6 +824,28 @@ async function validateSourcePolicy(watchlist, registryState) {
     }
     if (!Array.isArray(source.watchedPaths)) {
       fail("source-watchlist", location, "watchedPaths must be an array");
+    }
+    if ("reviewedHold" in source) {
+      fail("source policy", location, "reviewedHold is an unresolved/passive hold and must not remain on active v0.2.3 watched sources");
+    }
+    if ("reviewDecision" in source) {
+      const decision = source.reviewDecision;
+      if (!decision || typeof decision !== "object" || Array.isArray(decision)) {
+        fail("source-watchlist", location, "reviewDecision must be an object");
+      } else {
+        if (!RESOLVED_REVIEW_OUTCOMES.has(decision.outcome)) {
+          fail("source-watchlist", location, `invalid reviewDecision outcome: ${decision.outcome}`);
+        }
+        if (source.lastReviewedCommit && decision.reviewedCommit !== source.lastReviewedCommit) {
+          fail("source-watchlist", location, "reviewDecision.reviewedCommit must match lastReviewedCommit");
+        }
+        if (typeof decision.summary !== "string" || decision.summary.length === 0) {
+          fail("source-watchlist", location, "reviewDecision.summary must be a non-empty string");
+        }
+        if (!Array.isArray(decision.boundaries) || decision.boundaries.length === 0) {
+          fail("source-watchlist", location, "reviewDecision.boundaries must be a non-empty array");
+        }
+      }
     }
   }
 

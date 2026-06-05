@@ -2,9 +2,9 @@
 
 This checklist is a release gate. It does not publish artifacts or approve distribution by itself.
 
-`v0.2.2` is a controlled AI Vibe Coding Toolkit release for AI coding-agent governance. It is not a Level 4, Level 5, enterprise-certified, production-certified, broad package-distribution, automatic tool-installation, or broad cross-runtime active-support claim.
+`v0.2.3` is a controlled AI Vibe Coding Toolkit release for AI coding-agent governance. It does not claim higher maturity, enterprise or production certification, broad package distribution, automatic installs, or broad cross-runtime active support.
 
-Current release state: `v0.2.2` is the owner-approved release path and targets the validated `main` release commit after this release branch, post-merge verification, annotated tag, and GitHub release verification complete. `v0.1.0` remains the historical first controlled public release, and `docs/V0_2_0_RELEASE_NOTES.md` remains historical v0.2.0 evidence.
+Current release state: `v0.2.3` is the owner-approved release path and targets the validated `main` release commit after this release branch, post-merge verification, annotated tag, and GitHub release verification complete. `v0.1.0` remains the historical first controlled public release, and `docs/V0_2_0_RELEASE_NOTES.md` remains historical v0.2.0 evidence.
 
 - Public package allowlist is explicit.
 - `node scripts/validate-public-package.mjs` passes.
@@ -47,12 +47,24 @@ Current release state: `v0.2.2` is the owner-approved release path and targets t
 - [x] v0.2.2 toolkit activation hardening was merged.
 - [x] No-write leak-scan check mode exists and is used for validation.
 - [x] Tool activation posture distinguishes `active-if-detected`, `owner-approved-install`, advisory CI, calibrated CI blocking, static-only holds, and forbidden runtime activation.
-- [x] Source freshness drift is narrowed through safe refresh or reviewed-held decisions.
+- [x] Source freshness drift is narrowed through safe refresh, adoption, reference sync, or plugin delegation decisions.
 - [x] Runtime validation remained canonical: 5 active skills and 12 active repo-local project agents.
 - [ ] Full release validation gate passes on the v0.2.2 release branch.
 - [ ] Release PR is merged to `main`.
 - [ ] Post-merge release verification passes on `main`.
 - [ ] Annotated tag `v0.2.2` is created only from validated `main`.
+- [ ] GitHub release notes state the controlled AI coding-agent toolkit posture, validation evidence, known exclusions, rollback path, and no package publication or external submission.
+
+## v0.2.3 Gate
+
+- [x] v0.2.3 full resource refresh plan is represented in source records, methods, routing, evals, and release notes.
+- [x] Passive active-source `REVIEWED_HELD` is no longer a final allowed source outcome.
+- [x] High-value source updates are adopted, delegated, or reference-synced instead of archived for cosmetic cleanliness.
+- [x] Runtime validation target remains canonical: 5 active skills and 12 active repo-local project agents.
+- [ ] Full release validation gate passes on the v0.2.3 release branch.
+- [ ] Release PR is merged to `main`.
+- [ ] Post-merge release verification passes on `main`.
+- [ ] Annotated tag `v0.2.3` is created only from validated `main`.
 - [ ] GitHub release notes state the controlled AI coding-agent toolkit posture, validation evidence, known exclusions, rollback path, and no package publication or external submission.
 
 ## Clean-Clone Verification

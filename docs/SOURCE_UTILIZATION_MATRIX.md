@@ -12,11 +12,12 @@ Allowed classifications:
 - `active-reference`: useful current-scope reference guidance with no install, activation, or raw import.
 - `active-read-only`: current-scope source intelligence with no install, indexing, MCP/global config, product repo scanning, or execution by default.
 - `planned-extraction`: useful source intelligence that should be converted into toolkit-owned methods, routing, or evals.
-- `reviewed-held`: useful or historically relevant source intelligence that was reviewed and explicitly held/reference-only because license, runtime, memory, MCP, daemon, global-config, package, security, or source-safety risk blocks active reliance.
 - `reference-only-with-reason`: useful context that must remain passive because trust, license, runtime, or duplication risk is unresolved.
 - `archive-candidate`: retained for historical context but not worth current extraction.
 - `remove-candidate`: no useful value path or creates noise.
 - `reject`: should not be used.
+
+v0.2.3 source-review outcomes are recorded separately from classifications: `SYNCED_ADOPTED`, `SYNCED_REFERENCE`, `SYNCED_PLUGIN_DELEGATED`, `ARCHIVED_HARD_BLOCKER`, or `REMOVED_REDUNDANT`. No active watched source may remain in passive `REVIEWED_HELD`.
 
 Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Reject / not aligned`.
 
@@ -27,25 +28,25 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | anthropic-skills | Anthropic Skills | active-method | Do later | Skill anatomy, source discovery, UIUX methods | Keep restricted normalized guidance only | No raw skill copying or active authority |
 | openai-skills | OpenAI Skills | reference-only-with-reason | Needs owner decision | Source record only | Decide whether unique packaging guidance exists | No raw skill import or activation |
 | addy-osmani-agent-skills | Addy Osmani Agent Skills | active-method | Do later | `methods/osmani/*`, lifecycle gates | Add eval coverage where method routing is weak | No raw prompt/body copying |
-| supabase-agent-skills | Supabase Agent Skills | active-method | Do later | `methods/backend/supabase-postgres-rls-gates.md` | Keep RLS/backend gate current | No Supabase CLI or project mutation from source record |
-| trailofbits-skills | Trail of Bits Skills | active-method | Do later | `methods/security/differential-security-review.md` | Keep differential review rubric current | No copied upstream text; license remains caveated |
-| microsoft-playwright | Microsoft Playwright | active-method | Do later | `methods/uiux/webapp-testing.md` | Keep browser-evidence reporting sharp | No browser/pass claims without output |
+| supabase-agent-skills | Supabase Agent Skills | active-method | Do later | v0.2.3 `SYNCED_PLUGIN_DELEGATED`; `methods/backend/supabase-postgres-rls-gates.md`, `methods/security/application-security-readiness.md`, `methods/api/api-contract-and-routing-readiness.md`, and `methods/release/release-rollback-readiness.md` | Keep RLS/auth/API/release gates current; delegate live operations to Supabase plugin/tooling | No Supabase CLI, database, RLS, migration, env, MCP, or product-repo mutation from source record |
+| trailofbits-skills | Trail of Bits Skills | active-method | Do later | v0.2.3 `SYNCED_ADOPTED`; `methods/security/differential-security-review.md` | Keep differential review rubric current with cleanroom concepts | No copied upstream text; license remains caveated |
+| microsoft-playwright | Microsoft Playwright | active-method | Do later | v0.2.3 `SYNCED_PLUGIN_DELEGATED`; `methods/uiux/webapp-testing.md` and project-owned browser-tool routing | Keep browser-evidence reporting sharp | No browser/pass claims without output |
 | bencium-marketplace | Bencium Marketplace | archive-candidate | Do later | Historical source-safety evidence only | Re-add only after owner-approved source review | No active monitoring, sourceRef reliance, brand/template copying, install, or runtime use |
 | karpathy-inspired-skills | Karpathy-Inspired Skills | reference-only-with-reason | Do later | Historical cleanroom evidence only | Keep toolkit-authored methods independent of upstream wording | No active source authority, upstream wording, examples, prompt structure, or runtime behavior |
 | matt-pocock-skills | Matt Pocock Skills | active-method | Do later | `methods/matt/*`, TDD, PRD/issues, triage | Monitor and extract only if a new unique method is identified | No duplicate Superpowers/Codex workflow runtime |
-| shadcn-ui | shadcn/ui | planned-extraction | Must do next | UIUX source map, no registered method | Component composition, semantic tokens, accessible defaults, ownership model | No CLI, MCP, registry JSON, component source, package/config import |
+| shadcn-ui | shadcn/ui | active-reference | Do later | v0.2.3 `SYNCED_REFERENCE`; `methods/uiux/design-system.md` reference guidance | Keep semantic tokens, accessible defaults, ownership model, and compatibility gates current | No CLI, MCP, registry JSON, component source, package/config import |
 | vercel-agent-skills | Vercel Agent Skills | reference-only-with-reason | Do later | Historical/reference-only source record | Revisit only if a unique toolkit method is identified | Not active authority |
-| vercel-find-skills | Vercel find-skills | reference-only-with-reason | Do later | Historical/reference-only source record | Revisit only through Skill Scout | Not active authority |
+| vercel-find-skills | Vercel find-skills | reference-only-with-reason | Do later | v0.2.3 `SYNCED_REFERENCE`; historical/reference-only source record | Revisit only through Skill Scout; prefer first-party Vercel plugin/docs for live work | Not active execution authority |
 | addyosmani-web-quality-skills | Addy Osmani Web Quality Skills | active-method | Do later | `methods/uiux/webapp-testing.md` | Connect more tightly to axe/Lighthouse/browser evidence | No fake browser or quality claims |
 | voltagent-awesome-design-md | VoltAgent Awesome Design.md | planned-extraction | Do later | UIUX source map | Design-context loading and DESIGN.md checks | No brand/template copying |
 | voltagent-awesome-agent-skills | VoltAgent Awesome Agent Skills | reference-only-with-reason | Do later | Source record only | Compare orchestration ideas after RuFlo extraction | No raw agent activation |
-| impeccable | Impeccable | active-skill-rule | Do later | UIUX source map and skill behavior | Motion, polish, and context-loading acceptance criteria | No tool activation |
+| impeccable | Impeccable | active-skill-rule | Do later | v0.2.3 `SYNCED_ADOPTED`; UIUX source map, `methods/uiux/premium-visual-quality.md`, and skill behavior | Motion, polish, context-loading, and rendered-evidence acceptance criteria | No CLI, detector, live-browser workflow, package, or skill-bundle activation |
 | uncodixfy | Uncodixfy | active-skill-rule | Do later | Anti-generic UIUX guidance | Generic-AI UI smell rubric and evals | No raw prompt copying |
 | agency-agents | Agency Agents | archive-candidate | Archived from active freshness monitoring | Source record only | Re-add only if a concrete owner-approved method emerges | No agent/runtime import |
 | superpowers | Superpowers | active-method | Do later | TDD/verification/source-safety references; external plugin delegation | Keep toolkit-owned guardrails minimal | Do not duplicate plugin workflows |
-| everything-claude-code | Everything Claude Code | active-method | Do later | Source safety scoring | Keep config/hook/MCP risks in source-safety method | No global config, hook, or MCP import |
-| code-review-graph | code-review-graph | active-read-only | Do later | Source-only token governance inspiration | Keep context graph methods tied to source-only planning | No install, CLI, MCP, global config, product indexing/scanning, generated graph output, or whole-repo dump |
-| ruflo | RuFlo | reviewed-held | Needs owner decision | Reviewed-held source-safety reference; static toolkit method added without active source authority | No further extraction unless owner-approved review changes the hold | No daemon, worker, hook, MCP, memory, plugin, package, script, background runtime, file watcher, global config, or runtime persistence |
+| everything-claude-code | Everything Claude Code | active-method | Do later | v0.2.3 `SYNCED_REFERENCE`; `methods/internal/source-safety-scoring.md` | Keep cross-harness config/hook/MCP/session risks in source-safety method | No active Claude/Cursor/Cline/OpenHands support claim, global config, hook, session adapter, control-plane, or MCP import |
+| code-review-graph | code-review-graph | active-read-only | Do later | v0.2.3 `SYNCED_ADOPTED`; context graph/token governance methods | Keep context graph methods tied to source-only planning | No install, CLI, MCP, global config, product indexing/scanning, generated graph output, or whole-repo dump |
+| ruflo | RuFlo | active-method | Do later | v0.2.3 `SYNCED_ADOPTED`; `methods/orchestration/static-task-state-handoff-ledger.md` | Keep static task-state, handoff, stop-condition, and failure-accounting discipline current | No daemon, worker, hook, MCP, memory, plugin, package, script, background runtime, file watcher, global config, or runtime persistence |
 
 ## Internal Audit Artifacts
 
@@ -144,14 +145,26 @@ The following project install classes are metadata-only recommendation posture. 
 The project install classes above remain metadata-only. v0.2.2 adds a stronger detected-tool model:
 
 - React Doctor: `active-if-detected`; `owner-approved-install` when absent; Action/PR write/agent skill install separately approval-gated.
-- Playwright: `active-if-detected`; `ci-advisory` first; `ci-blocking-after-calibration` only after stable evidence and owner approval; source freshness may remain `REVIEWED_HELD` when upstream drift is runtime-sensitive.
+- Playwright: `active-if-detected`; `ci-advisory` first; `ci-blocking-after-calibration` only after stable evidence and owner approval; v0.2.3 source freshness resolves runtime-sensitive drift through `SYNCED_PLUGIN_DELEGATED`.
 - Gitleaks and OSV Scanner: `active-if-detected` or `owner-approved-install` as baseline security tools.
 - Semgrep: `active-if-detected` when present; `owner-approved-install` when absent; `ci-advisory` until rules are scoped.
 - Oxlint: `active-if-detected` or `owner-approved-install`; supplements ESLint and typed rules.
 - dependency-cruiser, Madge, and jscpd: `active-if-detected` or `owner-approved-install` for architecture and duplication checks.
 - actionlint and zizmor: `active-if-detected` or `owner-approved-install` for GitHub Actions hardening.
 - GSD-style discipline: active governance discipline/reference when already available; no install, vendoring, or global config without approval.
-- RuFlo-style concepts: `held-static-only`; runtime hooks, memory, MCP, daemon, global config, background process, file watcher, and runtime persistence are `forbidden-runtime`.
+- RuFlo-style concepts: `static-adopted`; runtime hooks, memory, MCP, daemon, global config, background process, file watcher, and runtime persistence are `forbidden-runtime`.
+
+## v0.2.3 Zero Passive Holds Overlay
+
+- Supabase Agent Skills: `SYNCED_PLUGIN_DELEGATED`; cleanroom RLS/auth/API/release gates adopted, live operations delegated to the Supabase plugin/project tooling.
+- Trail of Bits Skills: `SYNCED_ADOPTED`; license-safe differential-security review discipline adopted, raw CC-BY-SA text and plugin/runtime behavior rejected.
+- Microsoft Playwright: `SYNCED_PLUGIN_DELEGATED`; browser-evidence guidance adopted, execution delegated to project-owned Playwright/browser tooling.
+- shadcn/ui: `SYNCED_REFERENCE`; active design-system reference guidance retained, package/lockfile/CLI drift rejected.
+- Vercel find-skills: `SYNCED_REFERENCE`; historical discovery reference only, first-party Vercel plugin/docs preferred for live Vercel work.
+- Impeccable: `SYNCED_ADOPTED`; UI quality concepts adopted, CLI/live-browser/detector/package behavior rejected.
+- Everything Claude Code: `SYNCED_REFERENCE`; cross-harness source-safety awareness retained, no active cross-runtime support claims.
+- code-review-graph: `SYNCED_ADOPTED`; active read-only context/token governance methods retained.
+- RuFlo: `SYNCED_ADOPTED`; static task-state/handoff discipline adopted, runtime memory/hooks/MCP/daemon/global behavior forbidden.
 
 ## Rejected Operations
 

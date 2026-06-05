@@ -26,18 +26,33 @@ function includesAll(actual, expected) {
   return expected.every((item) => actual.includes(item));
 }
 
+function includesNone(actual, forbidden) {
+  return forbidden.every((item) => !actual.includes(item));
+}
+
+function containsAllText(actual, expected) {
+  const text = actual.join(" ");
+  return expected.every((item) => text.includes(item));
+}
+
 async function main() {
   const skills = await readJson("registries/skills.registry.json");
+  const agentsRegistry = await readJson("registries/agents.registry.json");
+  const methodsRegistry = await readJson("registries/methods.registry.json");
   const matrix = await readJson("registries/routing-matrix.json");
   const runtimeEvals = await readJson(".ai-toolkit/evals/runtime-activation/runtime-boundary-evals.json");
   const routingEvals = await readJson(".ai-toolkit/evals/routing/toolkit-routing-evals.json");
+  const enterpriseRoutingEvals = await readJson("evals/routing/enterprise-governance-routing-evals.json");
   const stopConditionEvals = await readJson("evals/stop-conditions/unsafe-request-evals.json");
   const tokenEfficiencyEvals = await readJson("evals/token-efficiency/low-risk-concise-routing-evals.json");
   const namingEvals = await readJson("evals/skills/generic-naming-compatibility-evals.json");
   const governanceProofEvals = await readJson("evals/skills/governance-proof-evals.json");
   const uiuxEvals = await readJson("evals/skills/uiux-evals.json");
+  const embeddedEnterpriseRoutingEvals = await readJson(".ai-toolkit/evals/routing/enterprise-governance-routing-evals.json");
   const embeddedGovernanceProofEvals = await readJson(".ai-toolkit/evals/skills/governance-proof-evals.json");
   const embeddedUiuxEvals = await readJson(".ai-toolkit/evals/skills/uiux-evals.json");
+  const knownMethods = new Set((methodsRegistry.methods || []).map((method) => method.id));
+  const knownAgents = new Set((agentsRegistry.agents || []).map((agent) => agent.name));
 
   for (const name of [
     "governance",
@@ -168,6 +183,72 @@ async function main() {
       "pr-release-coderabbit-credit-fail-owner-review",
       "credit-failure routing eval must enforce owner-review-support action and forbid coderabbit-passed claims"
     );
+  }
+
+  if (JSON.stringify(enterpriseRoutingEvals) !== JSON.stringify(embeddedEnterpriseRoutingEvals)) {
+    fail("enterprise-routing-embedded-evals", "embedded enterprise governance routing eval suite must match top-level eval suite");
+  }
+
+  const enterpriseRoutingIds = new Set((enterpriseRoutingEvals.cases || []).map((evalCase) => evalCase.id));
+  for (const required of [
+    "normal-language-feature-request",
+    "api-change-web-mobile-consumers",
+    "performance-cache-complaint",
+    "mobile-webview-auth-issue",
+    "package-manager-workspace-migration",
+    "unsafe-command-prompt-injection",
+    "negative-docs-typo-lightweight",
+    "negative-simple-ui-copy-no-package-migration"
+  ]) {
+    if (!enterpriseRoutingIds.has(required)) {
+      fail(`enterprise-routing-${required}`, "expected enterprise governance routing eval missing");
+    }
+  }
+
+  for (const evalCase of enterpriseRoutingEvals.cases || []) {
+    const scenario = findScenario(matrix, evalCase.scenario);
+    if (!scenario) {
+      fail(`enterprise-routing-${evalCase.id}`, `routing matrix scenario missing: ${evalCase.scenario}`);
+      continue;
+    }
+
+    if (evalCase.expectedProfile && scenario.selectedProfile !== evalCase.expectedProfile) {
+      fail(`enterprise-routing-${evalCase.id}`, `expected profile ${evalCase.expectedProfile}, got ${scenario.selectedProfile}`);
+    }
+    if (!includesAll(scenario.skills || [], evalCase.expectedSkills || [])) {
+      fail(`enterprise-routing-${evalCase.id}`, "scenario is missing expected skills");
+    }
+    if (!includesNone(scenario.skills || [], evalCase.forbiddenSkills || [])) {
+      fail(`enterprise-routing-${evalCase.id}`, "scenario includes forbidden skills");
+    }
+    if (!includesAll(scenario.agents || [], evalCase.expectedAgents || [])) {
+      fail(`enterprise-routing-${evalCase.id}`, "scenario is missing expected agents");
+    }
+    for (const expectedAgent of evalCase.expectedAgents || []) {
+      if (!knownAgents.has(expectedAgent)) {
+        fail(`enterprise-routing-${evalCase.id}`, `expected agent is not registered: ${expectedAgent}`);
+      }
+    }
+    if (!includesAll(scenario.methodReferences || [], evalCase.expectedMethods || [])) {
+      fail(`enterprise-routing-${evalCase.id}`, "scenario is missing expected method references");
+    }
+    if (!includesNone(scenario.methodReferences || [], evalCase.forbiddenMethods || [])) {
+      fail(`enterprise-routing-${evalCase.id}`, "scenario includes forbidden method references");
+    }
+    for (const expectedMethod of evalCase.expectedMethods || []) {
+      if (!knownMethods.has(expectedMethod)) {
+        fail(`enterprise-routing-${evalCase.id}`, `expected method is not registered: ${expectedMethod}`);
+      }
+    }
+    if (!containsAllText(scenario.stopConditions || [], evalCase.requiredStopConditionContains || [])) {
+      fail(`enterprise-routing-${evalCase.id}`, "scenario stop conditions are missing expected approval or safety wording");
+    }
+    if (!containsAllText(scenario.validationGates || [], evalCase.requiredValidationGateContains || [])) {
+      fail(`enterprise-routing-${evalCase.id}`, "scenario validation gates are missing expected evidence wording");
+    }
+    if (!Array.isArray(evalCase.forbiddenClaims) || evalCase.forbiddenClaims.length === 0) {
+      fail(`enterprise-routing-${evalCase.id}`, "eval must include no-fake-validation forbiddenClaims");
+    }
   }
 
   const governanceLiteScenario = findScenario(matrix, "governance-lite-router-mode");

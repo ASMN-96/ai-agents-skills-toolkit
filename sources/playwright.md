@@ -5,11 +5,11 @@
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `c30ccc68f833378087338ed9168175e1ce942c00` on `main`, checked by read-only GitHub compare/commit/license metadata on 2026-06-05.
+- Pinned repo ref checked: `ae106c05e5a40486ab5b9704234c32f0499e9719` on `main`, checked by read-only GitHub compare/commit/license metadata on 2026-06-06.
 - Visible adoption signals: about 89.8k GitHub stars, 5.8k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
-- Recommendation: Candidate for future normalized runtime-verification method extraction after separate approval. Do not install browsers, run tests, start MCP servers, copy source code, or activate Playwright tooling during source scouting.
+- Recommendation: `SYNCED_PLUGIN_DELEGATED` for v0.2.3. Keep Playwright active as browser-evidence and UI-validation guidance, delegate execution to project-owned Playwright/browser tooling when available, and do not install browsers, run upstream tests, start MCP servers, copy source code, or activate upstream tooling during source scouting.
 
 ## Purpose
 
@@ -155,10 +155,10 @@ Classification: `REVIEWED_HELD` / reviewed runtime-sensitive browser payload ref
 
 Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, remote browser endpoint behavior adoption, remote header behavior adoption, CLI/session behavior adoption, build-tool behavior adoption, Chromium service worker behavior adoption, protocol/client/server behavior adoption, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `c30ccc68f833378087338ed9168175e1ce942c00` requires a fresh review.
 
-## Reviewed-Held Source Safety Review 2026-06-05 Release Gate
+## v0.2.3 Full-Power Resolution 2026-06-06
 
 Skill Scout read-only release-gate follow-up reviewed upstream default-branch movement from `c30ccc68f833378087338ed9168175e1ce942c00` to `ae106c05e5a40486ab5b9704234c32f0499e9719` using GitHub compare metadata, commit metadata, changed-file metadata, repository metadata, and license metadata only. The compare was 2 commits ahead and touched Playwright docs, injected script code, test-runner config/config-loader/plugin/web-server/task code, Playwright test API types, test-runner tests, and generated type overrides. The latest commit message was `Revert "feat(test): support per-project webServer configuration (#40869)" (#41167)`. Apache-2.0 license metadata remained present.
 
-Classification: `REVIEWED_HELD` / reviewed runtime-sensitive browser/test-runner/config reference.
+Outcome: `SYNCED_PLUGIN_DELEGATED`.
 
-Decision: keep Playwright as a high-trust browser-evidence source, but hold this upstream movement from active adoption. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, injected-script behavior adoption, test-runner or web-server behavior adoption, config-loader behavior adoption, protocol/client/server behavior adoption, method extraction, product-repo changes, or global configuration changes. Future upstream movement beyond `ae106c05e5a40486ab5b9704234c32f0499e9719` requires a fresh review.
+Decision: keep Playwright active for toolkit-owned browser-evidence standards and routing. The useful v0.2.3 adoption is not upstream runtime import; it is stricter evidence language in `methods/uiux/webapp-testing.md` and project-tooling routing that uses project-owned Playwright/browser tooling when already available. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, injected-script behavior adoption, test-runner or web-server behavior adoption, config-loader behavior adoption, protocol/client/server behavior adoption, product-repo changes, or global configuration changes. Future upstream movement beyond `ae106c05e5a40486ab5b9704234c32f0499e9719` requires a fresh review.

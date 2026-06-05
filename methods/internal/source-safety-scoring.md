@@ -1,6 +1,6 @@
 ---
 sourceRef: ["everything-claude-code","superpowers"]
-lastExtracted: 2026-06-05
+lastExtracted: 2026-06-06
 status: approved
 ---
 
@@ -30,6 +30,7 @@ Apply extra scrutiny when a source includes:
 
 - install, activation, update, sync, copy, or global configuration workflows,
 - hooks, daemons, supervisors, background workers, hidden memory, federation, MCP servers, or scheduled behavior,
+- cross-harness session adapters, MCP inventory readers, control panes, secret-redaction implementations, or runtime config readers,
 - package locks, zip files, generated bundles, marketplace packages, or opaque archives,
 - scripts that can write outside the repository or into agent runtime paths,
 - instructions that ask the agent to ignore local policy, hide behavior, access secrets, or run broad commands,
@@ -46,7 +47,9 @@ Assign a 0-100 safety/usefulness score, then classify with rationale:
 
 Every classification must include a short rationale, rejected operation list, license confidence, and any override reason. A source with high usefulness but high execution risk should usually be `Reference only` or `Extract into methods`, not installable.
 
-For source freshness, use `REVIEWED_HELD` only when the latest upstream commit has been reviewed and explicitly held/reference-only. The record must name the exact held commit, review date, classification, decision, and forbidden operations. `REVIEWED_HELD` is not source import approval, install approval, activation approval, method extraction approval, package-update approval, CI approval, MCP approval, global-config approval, or product-repository approval. Future upstream commits after the held commit must become actionable again.
+For v0.2.3 source freshness, `REVIEWED_HELD` is an unresolved or historical intermediate state, not a final active-source outcome. Every changed or previously held source must resolve to `SYNCED_ADOPTED`, `SYNCED_REFERENCE`, `SYNCED_PLUGIN_DELEGATED`, `ARCHIVED_HARD_BLOCKER`, or `REMOVED_REDUNDANT`. Important updates should normally be reviewed, synced, and adopted or delegated; only hard blockers justify archive/remove decisions.
+
+Before archiving/removing a source, prove no useful cleanroom guidance remains, no plugin/tool delegation remains to document, no active method/routing/eval depends on it, sourceRef cleanup is complete, and the reason is explicit.
 
 ## Risks / Anti-Patterns
 

@@ -1,6 +1,6 @@
 ---
-sourceRef: unknown-review-required
-lastExtracted: unknown-review-required
+sourceRef: ["toolkit-authored"]
+lastExtracted: 2026-06-06
 status: approved
 ---
 
@@ -22,6 +22,24 @@ Provide coding-time governance for production-risk changes without claiming ente
 ## Evidence Requirements
 
 Completion evidence must include commands actually run, WARN output, skipped gates, residual risk, and no-fake-validation wording. Do not claim production readiness from metadata, dry-runs, or planned checks.
+
+## Compact Example
+
+Good pattern:
+
+- Classify the workflow and risk, edit the smallest needed files, run relevant checks, and report observed output plus rollback notes.
+
+Bad pattern:
+
+- Calling a change production-ready because the plan is sound, the validator exists, or a dry-run selected checks.
+
+Evidence required:
+
+- Commands actually run, pass/fail output, WARN lines, skipped checks, and residual risk.
+
+Stop condition:
+
+- Pause before package, CI, deployment, MCP/global, product repo, secret, destructive, or data-impacting changes without explicit approval.
 
 ## Stop Conditions
 

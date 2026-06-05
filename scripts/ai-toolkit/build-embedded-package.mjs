@@ -144,8 +144,8 @@ function enterpriseRiskMetadata(id) {
       commercialVendorDependency: "none for metadata-only posture; optional external integrations remain unapproved",
       maintenanceSignal: "active public repo at reviewed commit; not runtime-approved",
       lastReviewedCommit: "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
-      lastReviewedDate: "2026-06-05",
-      securityReviewStatus: "completed source-safety review for active-read-only metadata; execution, install, indexing, MCP, package changes, CI, and product scanning remain approval-required",
+      lastReviewedDate: "2026-06-06",
+      securityReviewStatus: "completed v0.2.3 source-safety review for active-read-only metadata; execution, install, indexing, MCP, package changes, CI, and product scanning remain approval-required",
       approvalOwner: "source-intelligence-owner-required-before-execution",
       defaultEnterpriseStatus: "metadata-only active-read-only source intelligence unless explicitly approved; not enterprise-approved for execution, indexing, MCP, CI, package changes, or product repo scanning"
     };
@@ -259,31 +259,23 @@ function sourceWatchEntry([id, name, repository, homepage, category, purpose, st
     return {
       ...entry,
       lastReviewedCommit: "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
-      lastReviewedDate: "2026-06-05",
+      lastReviewedDate: "2026-06-06",
       licenseConcern: "clear",
       reviewPriority: "High",
       recommendedToolkitStatus: "active-read-only",
-      reviewedHold: {
-        status: "REVIEWED_HELD",
+      reviewDecision: {
+        outcome: "SYNCED_ADOPTED",
         reviewedCommit: "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
-        reviewedDate: "2026-06-05",
-        classification: "active-read-only source intelligence",
-        decision: "metadata and manual/static source intelligence only; no import, install, activation, package changes, MCP/global config, CI wiring, indexing, product repo scanning, private-overlay indexing, generated graph claims, or raw upstream copying",
-        noImportNoInstallNoExtraction: true,
-        forbiddenActions: [
-          "import",
-          "install",
-          "activation",
-          "extraction",
-          "package changes",
-          "MCP setup",
-          "global config",
-          "CI wiring",
-          "indexing",
-          "product repo scanning",
-          "private-overlay indexing",
-          "generated graph claims",
-          "raw upstream copying"
+        reviewedDate: "2026-06-06",
+        summary: "Active read-only context graph and token governance concepts adopted into toolkit-owned methods/evals; runtime execution remains approval-required.",
+        boundaries: [
+          "no CLI install",
+          "no MCP setup",
+          "no daemon or watcher",
+          "no product-repo indexing",
+          "no private-overlay indexing",
+          "no generated graph claims without output",
+          "no raw upstream copying"
         ]
       }
     };
@@ -300,7 +292,7 @@ function sourceRecord([id, name, repository, homepage, category, purpose, status
 - Source URL: https://github.com/tirth8205/code-review-graph
 - Homepage: https://code-review-graph.com
 - Last reviewed commit: 0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8
-- Last reviewed date: 2026-06-05
+- Last reviewed date: 2026-06-06
 - Review level: completed source-safety review for active-read-only metadata
 - Classification: active-read-only source intelligence
 - License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
@@ -354,6 +346,12 @@ Owner approval is required before any install, run, indexing, MCP setup, package
 ## Extraction Rule
 
 Only normalized toolkit governance ideas may be used. Do not copy upstream code, prompts, scripts, package config, generated output, examples, docs, or runtime behavior into this repository.
+
+## v0.2.3 Full-Power Resolution 2026-06-06
+
+Outcome: \`SYNCED_ADOPTED\`.
+
+code-review-graph remains active inside the embedded toolkit as read-only source intelligence for changed-file neighborhoods, compact context packs, stale graph detection, and token-budget governance. This does not authorize CLI execution, MCP setup, daemon/watch behavior, product-repo indexing, global config changes, package changes, generated graph claims, or whole-repo dumps without separate approval and observed output.
 `;
   }
   return `# ${name} Source Record
@@ -404,7 +402,7 @@ async function projectToolingModelFromRegistry() {
     }));
 
   return {
-    version: "0.2.2-architecture",
+    version: "0.2.3-architecture",
     metadataIsNotExecution: true,
     noAutomaticInstalls: true,
     noFakeValidation: true,
@@ -650,6 +648,7 @@ async function writeEvals() {
       { id: "pr-release-coderabbit-credit-fail-owner-review", input: "CodeRabbit failed due credits; finish PR review support", expectedSkills: ["governance", "pr-release-gate"], expectedAction: "targeted-owner-review-support", forbiddenClaims: ["coderabbit-passed"] }
     ]
   });
+  await writeJson(`${AI_ROOT}/evals/routing/enterprise-governance-routing-evals.json`, await readJson("evals/routing/enterprise-governance-routing-evals.json"));
   await writeJson(`${AI_ROOT}/evals/skills/governance-proof-evals.json`, await readJson("evals/skills/governance-proof-evals.json"));
   await writeJson(`${AI_ROOT}/evals/skills/generic-naming-compatibility-evals.json`, await readJson("evals/skills/generic-naming-compatibility-evals.json"));
   await writeJson(`${AI_ROOT}/evals/skills/uiux-evals.json`, await readJson("evals/skills/uiux-evals.json"));

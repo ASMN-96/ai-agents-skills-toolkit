@@ -27,7 +27,7 @@ v0.2.2 separates recommendation posture from execution posture:
 - `owner-approved-install`: the tool is valuable but absent; install/configuration requires explicit owner approval.
 - `ci-advisory`: CI signal while rules, noise, artifacts, and false positives are calibrated.
 - `ci-blocking-after-calibration`: release gate only after stable results and owner approval.
-- `held-static-only`: static governance concepts only; no runtime activation.
+- `static-adopted`: static governance concepts are active in toolkit-owned methods; no runtime activation.
 - `forbidden-runtime`: no runtime activation because of MCP, daemon, global, memory, watcher, persistence, or security conflict.
 
 If a tool is already project-owned and safe for the task, prefer `active-if-detected`. If install/configuration is needed, use `owner-approved-install`. If CI may be noisy, start with `ci-advisory`. Promote to `ci-blocking-after-calibration` only after stable evidence and owner approval.
@@ -70,7 +70,7 @@ Socket, TruffleHog, OWASP ZAP baseline, Harden-Runner, deep networked scans, pac
 - dependency-cruiser, Madge, and jscpd: `active-if-detected` or `owner-approved-install` for architecture and duplication checks; output is evidence, not automatic refactor authority.
 - actionlint and zizmor: `active-if-detected` or `owner-approved-install` for GitHub Actions hardening; no CI rewrite or permission change from metadata.
 - GSD-style discipline: active governance discipline/reference when already available; no install, vendoring, or global config without approval.
-- RuFlo-style concepts: `held-static-only`; memory hooks, MCP, daemon, global config, background processes, file watchers, runtime persistence, and package behavior are `forbidden-runtime`.
+- RuFlo-style concepts: `static-adopted`; task-state and handoff discipline are active in toolkit-owned methods, while memory hooks, MCP, daemon, global config, background processes, file watchers, runtime persistence, and package behavior are `forbidden-runtime`.
 
 ## Final Current-Scope Classifications
 

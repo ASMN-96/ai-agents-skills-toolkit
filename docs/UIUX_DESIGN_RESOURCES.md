@@ -16,8 +16,8 @@ The v0.2 UI/UX model uses plural, complementary design references. The goal is b
 
 ## Exclusions
 
-- No Base UI in this v0.2.2 model.
-- No Figma in this v0.2.2 model.
+- No Base UI in this v0.2.3 model.
+- No Figma in this v0.2.3 model.
 - No Impeccable install unless separately approved.
 - No open-design install, MCP/global config, raw design-system import, or unmanaged persistence unless separately approved.
 - No CLI/component import from shadcn/ui by default.

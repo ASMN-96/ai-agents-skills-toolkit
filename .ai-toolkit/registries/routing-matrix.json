@@ -294,7 +294,8 @@
         "osmani.performance-optimization",
         "uiux.webapp-testing",
         "internal.frontend-uiux-quality-gates",
-        "performance.performance-scalability-cache-readiness"
+        "performance.performance-scalability-cache-readiness",
+        "reliability.observability-readiness"
       ]
     },
     {
@@ -318,7 +319,7 @@
         "security-review"
       ],
       "supportTools": [
-        "Supabase tooling/docs",
+        "Supabase plugin or project-owned Supabase tooling/docs",
         "GitHub/gh",
         "Superpowers"
       ],
@@ -329,6 +330,7 @@
       ],
       "validationGates": [
         "RLS/policy impact checked",
+        "Data API/table/view/RPC exposure and SECURITY DEFINER impact checked when relevant",
         "Migration risk documented",
         "Generated type/consumer impact considered"
       ],
@@ -368,7 +370,7 @@
         "security-review"
       ],
       "supportTools": [
-        "Supabase tooling/docs",
+        "Supabase plugin or project-owned Supabase tooling/docs",
         "Superpowers"
       ],
       "stopConditions": [
@@ -377,6 +379,7 @@
       ],
       "validationGates": [
         "Query impact reviewed",
+        "RLS/Data API exposure and object ownership checked when relevant",
         "Index/migration risk documented",
         "Rollback or mitigation noted"
       ],
@@ -430,6 +433,7 @@
       "validationGates": [
         "Payload shape documented",
         "Consumers checked",
+        "Object-level authorization and public/private payload boundary checked",
         "Contract tests or equivalent validation run"
       ],
       "expectedCompletionReport": [
@@ -1337,6 +1341,7 @@
       "tokenMode": "detailed",
       "methodReferences": [
         "governance.task-intake-routing-gate",
+        "mobile.native-mobile-app-quality",
         "security.webview-boundary-review",
         "security.application-security-readiness"
       ]
@@ -1421,7 +1426,9 @@
       ],
       "tokenMode": "detailed",
       "methodReferences": [
-        "repo.package-manager-workspace-migration"
+        "repo.package-manager-workspace-migration",
+        "governance.agent-command-safety",
+        "release.release-rollback-readiness"
       ]
     },
     {
@@ -1457,7 +1464,8 @@
       ],
       "tokenMode": "standard",
       "methodReferences": [
-        "governance.agent-command-safety"
+        "governance.agent-command-safety",
+        "governance.task-intake-routing-gate"
       ]
     },
     {
@@ -1804,6 +1812,7 @@
       "tokenMode": "standard",
       "methodReferences": [
         "performance.performance-scalability-cache-readiness",
+        "reliability.observability-readiness",
         "governance.task-intake-routing-gate"
       ]
     },

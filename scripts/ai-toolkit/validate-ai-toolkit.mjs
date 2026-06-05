@@ -37,6 +37,10 @@ const ENTERPRISE_RISK_FIELDS = [
   "defaultEnterpriseStatus"
 ];
 const METHOD_TRACEABILITY_FIELDS = ["sourceRef", "lastExtracted", "status"];
+const SPECIAL_METHOD_SOURCE_REFS = new Set([
+  "unknown-review-required",
+  "toolkit-authored"
+]);
 
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
@@ -349,19 +353,23 @@ async function validateMethodTraceability() {
 
     const sourceRefs = parseSourceRefs(frontmatter.sourceRef, method.methodPath);
     for (const sourceRef of sourceRefs) {
-      if (sourceRef !== "unknown-review-required" && !sourceIds.has(sourceRef)) {
+      if (!SPECIAL_METHOD_SOURCE_REFS.has(sourceRef) && !sourceIds.has(sourceRef)) {
         fail(method.methodPath, `sourceRef does not resolve to source-watchlist id: ${sourceRef}`);
       }
     }
 
     const expectedRefs = new Set();
+    let hasToolkitAuthoredProvenance = false;
     for (const entry of method.sourceProvenance || []) {
+      if (entry?.category === "toolkit-authored") {
+        hasToolkitAuthoredProvenance = true;
+      }
       if (entry?.path?.startsWith("sources/")) {
         expectedRefs.add(sourceIdByRecordPath.get(entry.path) || "unknown-review-required");
       }
     }
     if (expectedRefs.size === 0) {
-      expectedRefs.add("unknown-review-required");
+      expectedRefs.add(hasToolkitAuthoredProvenance && sourceRefs.includes("toolkit-authored") ? "toolkit-authored" : "unknown-review-required");
     }
     for (const expectedRef of expectedRefs) {
       if (!sourceRefs.includes(expectedRef)) {

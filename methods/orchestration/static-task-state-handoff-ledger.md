@@ -1,6 +1,6 @@
 ---
-sourceRef: ["unknown-review-required"]
-lastExtracted: 2026-06-05
+sourceRef: ["ruflo"]
+lastExtracted: 2026-06-06
 status: approved
 ---
 
@@ -50,6 +50,6 @@ Silent fallback, fake progress, hidden background state, stale handoff notes, re
 
 ## Source Safety / License Status
 
-Toolkit-authored static governance method. Historical RuFlo source-safety review identified useful static concepts, but RuFlo remains `REVIEWED_HELD` and is not active source authority for this method.
+Toolkit-authored static governance method. RuFlo source-safety review identified useful static concepts now adopted as cleanroom task-state and handoff guidance.
 
-RuFlo-style concepts are `held-static-only`. No memory hooks, MCP behavior, daemon logic, file watchers, package scripts, background processes, runtime persistence, source code, tests, prompts, global config, or configuration were copied or activated. Those runtime surfaces remain `forbidden-runtime`.
+RuFlo-style concepts are `SYNCED_ADOPTED` for static task-state and handoff discipline only. No memory hooks, MCP behavior, daemon logic, file watchers, package scripts, background processes, runtime persistence, source code, tests, prompts, global config, or configuration were copied or activated. Those runtime surfaces remain `forbidden-runtime`.

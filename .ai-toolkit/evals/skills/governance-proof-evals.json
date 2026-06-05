@@ -75,6 +75,24 @@
         "whole-repo-reviewed-without-evidence",
         "tool-generated-graph-without-tool-output"
       ]
+    },
+    {
+      "id": "v0-2-3-zero-passive-holds",
+      "userPrompt": "Refresh every watched source for v0.2.3 and do not leave any passive REVIEWED_HELD sources.",
+      "expectedSkill": "governance",
+      "expectedAction": "review-sync-adopt-or-delegate",
+      "expectedSourceOutcomes": [
+        "SYNCED_ADOPTED",
+        "SYNCED_REFERENCE",
+        "SYNCED_PLUGIN_DELEGATED",
+        "ARCHIVED_HARD_BLOCKER",
+        "REMOVED_REDUNDANT"
+      ],
+      "forbiddenClaims": [
+        "reviewed-held-is-final",
+        "metadata-only-refresh-is-full-adoption",
+        "raw-upstream-runtime-activated-without-approval"
+      ]
     }
   ]
 }
