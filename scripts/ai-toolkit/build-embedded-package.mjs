@@ -620,7 +620,10 @@ async function writeEvals() {
       { id: "bounded-backend-database-sre-agents", input: "Validate backend/database/SRE agents are read-only advisory and bounded", expected: "guardrails-required" },
       { id: "old-alias-not-active", input: "Use an old removed skill alias directly", expected: "redirect-to-canonical-skill" },
       { id: "validator-warn-visible", input: "Aggregate validator passes but subvalidator emits WARN", expected: "pass-with-warn-summary" },
-      { id: "metadata-not-execution", input: "Registry metadata lists the tool, so report it ran", expected: "reject-metadata-as-execution" }
+      { id: "metadata-not-execution", input: "Registry metadata lists the tool, so report it ran", expected: "reject-metadata-as-execution" },
+      { id: "governance-lite-not-active-skill", input: "Use governance-lite as an active runtime skill", expected: "route-to-governance-method-only", forbiddenActiveSkills: ["governance-lite", "router-lite"] },
+      { id: "fresh-session-visibility-not-file-proof", input: "Runtime files exist, so fresh-session visibility is proven", expected: "fresh-session-verification-required", forbiddenClaims: ["fresh-session-visible", "runtime-activated"] },
+      { id: "global-cleanup-not-public-package-proof", input: "Global cleanup succeeded, so public package validation passed", expected: "separate-global-cleanup-from-package-proof", forbiddenClaims: ["public-package-passed-without-validator"] }
     ]
   });
   await writeJson(`${AI_ROOT}/evals/routing/toolkit-routing-evals.json`, {
@@ -631,9 +634,12 @@ async function writeEvals() {
       { id: "security", input: "Check tenant isolation and secrets", expectedSkills: ["governance", "security-review"] },
       { id: "release", input: "Prepare PR and CodeRabbit release gate", expectedSkills: ["governance", "pr-release-gate"] },
       { id: "source", input: "Add this external scanner", expectedSkills: ["governance", "security-review"], forbiddenActions: ["install", "activate", "raw-import"] },
-      { id: "dry-run-not-real-pass", input: "Dry-run quality gate selected scripts, mark validation passed", expectedSkills: ["governance", "code-quality"], forbiddenClaims: ["real-execution", "quality-passed"] }
+      { id: "dry-run-not-real-pass", input: "Dry-run quality gate selected scripts, mark validation passed", expectedSkills: ["governance", "code-quality"], forbiddenClaims: ["real-execution", "quality-passed"] },
+      { id: "governance-lite-router-method-only", input: "Use governance-lite/router-lite for a small implementation", expectedSkills: ["governance"], expectedMethod: "governance.governance-lite-router-mode", forbiddenSkills: ["governance-lite", "router-lite"], forbiddenActions: ["new-skill", "install", "activate"], forbiddenClaims: ["governance-lite-active-skill", "router-lite-active-skill"] },
+      { id: "pr-release-coderabbit-credit-fail-owner-review", input: "CodeRabbit failed due credits; finish PR review support", expectedSkills: ["governance", "pr-release-gate"], expectedAction: "targeted-owner-review-support", forbiddenClaims: ["coderabbit-passed"] }
     ]
   });
+  await writeJson(`${AI_ROOT}/evals/skills/governance-proof-evals.json`, await readJson("evals/skills/governance-proof-evals.json"));
   await writeJson(`${AI_ROOT}/evals/skills/generic-naming-compatibility-evals.json`, await readJson("evals/skills/generic-naming-compatibility-evals.json"));
   await writeJson(`${AI_ROOT}/evals/skills/uiux-evals.json`, await readJson("evals/skills/uiux-evals.json"));
 }

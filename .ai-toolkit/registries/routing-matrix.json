@@ -1404,14 +1404,17 @@
         "GitHub/gh"
       ],
       "stopConditions": [
-        "Owner approval missing or feature work mixed into migration"
+        "Owner approval missing or feature work mixed into migration",
+        "Package-manager signals missing or conflicting when package-manager commands are needed"
       ],
       "validationGates": [
         "package-manager-workspace-migration method applied",
+        "package-manager detection order applied",
         "no package files changed without approval"
       ],
       "expectedCompletionReport": [
         "artifacts inspected",
+        "package-manager signals",
         "strategy",
         "validation",
         "rollback"
@@ -1573,6 +1576,59 @@
       "methodReferences": [
         "uiux.premium-visual-quality",
         "mobile.native-mobile-app-quality"
+      ]
+    },
+    {
+      "scenario": "governance-lite-router-mode",
+      "userLanguageExamples": [
+        "Use governance-lite for this small implementation.",
+        "Route this quickly but keep the safety gates.",
+        "Do this with router-lite, but do not overcomplicate it."
+      ],
+      "inferredIntent": "Apply concise governance routing through the existing governance skill and passive method metadata without adding a new active skill.",
+      "riskLevel": "medium",
+      "selectedProfile": "planning-profile",
+      "agents": [
+        "product-agent",
+        "architect-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "governance"
+      ],
+      "supportTools": [
+        "GitHub/gh when branch or PR state matters",
+        "Superpowers when useful"
+      ],
+      "stopConditions": [
+        "Request would add governance-lite or router-lite as a sixth active skill",
+        "Approval-required surface appears",
+        "Required validation cannot run",
+        "No-fake-validation boundary would be violated",
+        "Source freshness fails before source/utilization or release work"
+      ],
+      "validationGates": [
+        "Affected surfaces classified",
+        "Selected tools separated from executed tools",
+        "Stop conditions stated before risky actions",
+        "Actual output required for validation claims",
+        "Branch and HEAD reported when branch/source truth matters",
+        "Source freshness and runtime count reported when relevant"
+      ],
+      "expectedCompletionReport": [
+        "branch and HEAD",
+        "routing decision",
+        "selected vs executed tools",
+        "validation evidence",
+        "WARN/skipped gates",
+        "runtime count if runtime surfaces are in scope",
+        "source freshness and source-truth status if release/source/public-safety surfaces are in scope",
+        "residual risk"
+      ],
+      "tokenMode": "concise",
+      "methodReferences": [
+        "governance.governance-lite-router-mode",
+        "governance.task-intake-routing-gate"
       ]
     },
     {

@@ -55,6 +55,7 @@ const COMMON = {
   ownerApprovalChecklist: [
     "Owner must review before applying any template.",
     "New dependencies, package files, lockfiles, package-manager changes, CI wiring, MCP/global config, external service permissions, and deep scans require explicit approval.",
+    "Detect package manager before recommending package-manager commands; do not assume npm.",
     "React Doctor GitHub Action, PR write permissions, and agent skill install require explicit approval.",
     "Impeccable project-local install mode requires explicit approval.",
     "Codex must not claim output unless the actual script or tool ran."

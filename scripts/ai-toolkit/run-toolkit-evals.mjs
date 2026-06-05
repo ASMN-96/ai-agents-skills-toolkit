@@ -34,7 +34,9 @@ async function main() {
   const stopConditionEvals = await readJson("evals/stop-conditions/unsafe-request-evals.json");
   const tokenEfficiencyEvals = await readJson("evals/token-efficiency/low-risk-concise-routing-evals.json");
   const namingEvals = await readJson("evals/skills/generic-naming-compatibility-evals.json");
+  const governanceProofEvals = await readJson("evals/skills/governance-proof-evals.json");
   const uiuxEvals = await readJson("evals/skills/uiux-evals.json");
+  const embeddedGovernanceProofEvals = await readJson(".ai-toolkit/evals/skills/governance-proof-evals.json");
   const embeddedUiuxEvals = await readJson(".ai-toolkit/evals/skills/uiux-evals.json");
 
   for (const name of [
@@ -103,7 +105,10 @@ async function main() {
     "old-alias-not-active",
     "bounded-backend-database-sre-agents",
     "validator-warn-visible",
-    "metadata-not-execution"
+    "metadata-not-execution",
+    "governance-lite-not-active-skill",
+    "fresh-session-visibility-not-file-proof",
+    "global-cleanup-not-public-package-proof"
   ]) {
     if (!runtimeEvalIds.has(required)) {
       fail(`runtime-no-fake-${required}`, "expected embedded no-fake-validation runtime eval missing");
@@ -126,12 +131,83 @@ async function main() {
     fail("dry-run-not-real-pass", "dry-run eval must forbid real execution and quality-passed claims");
   }
 
+  const routingEvalIds = new Set((routingEvals.cases || []).map((evalCase) => evalCase.id));
+  for (const required of [
+    "governance-lite-router-method-only",
+    "pr-release-coderabbit-credit-fail-owner-review"
+  ]) {
+    if (!routingEvalIds.has(required)) {
+      fail(`governance-routing-${required}`, "expected governance proof routing eval missing");
+    }
+  }
+
+  const governanceLiteRoutingEval = (routingEvals.cases || []).find((evalCase) => evalCase.id === "governance-lite-router-method-only");
+  if (
+    !governanceLiteRoutingEval ||
+    governanceLiteRoutingEval.expectedMethod !== "governance.governance-lite-router-mode" ||
+    !includesAll(governanceLiteRoutingEval.expectedSkills || [], ["governance"]) ||
+    (governanceLiteRoutingEval.expectedSkills || []).length !== 1 ||
+    !includesAll(governanceLiteRoutingEval.forbiddenSkills || [], ["governance-lite", "router-lite"]) ||
+    !includesAll(governanceLiteRoutingEval.forbiddenActions || [], ["new-skill", "install", "activate"]) ||
+    !includesAll(governanceLiteRoutingEval.forbiddenClaims || [], ["governance-lite-active-skill", "router-lite-active-skill"])
+  ) {
+    fail(
+      "governance-lite-router-method-only",
+      "routing eval must enforce governance-lite as method-only and forbid active skill, install, activation, and false runtime claims"
+    );
+  }
+
+  const coderabbitCreditEval = (routingEvals.cases || []).find((evalCase) => evalCase.id === "pr-release-coderabbit-credit-fail-owner-review");
+  if (
+    !coderabbitCreditEval ||
+    coderabbitCreditEval.expectedAction !== "targeted-owner-review-support" ||
+    !includesAll(coderabbitCreditEval.expectedSkills || [], ["governance", "pr-release-gate"]) ||
+    !includesAll(coderabbitCreditEval.forbiddenClaims || [], ["coderabbit-passed"])
+  ) {
+    fail(
+      "pr-release-coderabbit-credit-fail-owner-review",
+      "credit-failure routing eval must enforce owner-review-support action and forbid coderabbit-passed claims"
+    );
+  }
+
+  const governanceLiteScenario = findScenario(matrix, "governance-lite-router-mode");
+  if (!governanceLiteScenario) {
+    fail("governance-lite-router-mode", "routing matrix must include governance-lite/router-lite method-only scenario");
+  } else {
+    if (!includesAll(governanceLiteScenario.skills || [], ["governance"]) || (governanceLiteScenario.skills || []).length !== 1) {
+      fail("governance-lite-router-mode", "governance-lite routing must use the existing governance skill");
+    }
+    if ((governanceLiteScenario.skills || []).includes("governance-lite") || (governanceLiteScenario.skills || []).includes("router-lite")) {
+      fail("governance-lite-router-mode", "governance-lite/router-lite must not be active skills");
+    }
+    if (!includesAll(governanceLiteScenario.methodReferences || [], ["governance.governance-lite-router-mode"])) {
+      fail("governance-lite-router-mode", "governance-lite routing must reference the passive governance-lite method");
+    }
+    if (governanceLiteScenario.tokenMode !== "concise") {
+      fail("governance-lite-router-mode", "governance-lite routing must default to concise token mode");
+    }
+    if (!includesAll(governanceLiteScenario.stopConditions || [], ["Source freshness fails before source/utilization or release work"])) {
+      fail("governance-lite-router-mode", "governance-lite routing must preserve source freshness stop condition");
+    }
+    if (!includesAll(governanceLiteScenario.validationGates || [], ["Branch and HEAD reported when branch/source truth matters", "Source freshness and runtime count reported when relevant"])) {
+      fail("governance-lite-router-mode", "governance-lite routing must validate branch/source truth and conditional freshness/runtime evidence");
+    }
+    if (!includesAll(governanceLiteScenario.expectedCompletionReport || [], ["branch and HEAD", "runtime count if runtime surfaces are in scope", "source freshness and source-truth status if release/source/public-safety surfaces are in scope"])) {
+      fail("governance-lite-router-mode", "governance-lite completion report must include branch, runtime, and source-truth evidence when relevant");
+    }
+  }
+
   const stopConditionIds = new Set((stopConditionEvals.cases || []).map((evalCase) => evalCase.id));
   for (const required of [
     "dry-run-quality-gate-not-real-pass",
     "registry-entry-not-tool-execution",
     "coderabbit-status-unavailable",
-    "validator-warnings-not-hidden"
+    "validator-warnings-not-hidden",
+    "governance-lite-sixth-skill-request",
+    "prompt-injection-generated-file",
+    "global-cleanup-without-backup",
+    "coderabbit-credit-failure-not-pass",
+    "ambiguous-package-manager-no-npm-default"
   ]) {
     if (!stopConditionIds.has(required)) {
       fail(`no-fake-validation-${required}`, "expected no-fake-validation stop-condition eval missing");
@@ -143,7 +219,8 @@ async function main() {
     "large-task-compact-context-pack",
     "changed-file-neighborhood-no-whole-repo-dump",
     "private-overlay-exclusion-required",
-    "stale-context-graph-detection-required"
+    "stale-context-graph-detection-required",
+    "governance-lite-small-task-no-broad-context"
   ]) {
     if (!tokenEvalIds.has(required)) {
       fail(`token-context-${required}`, "expected compact context/token governance eval missing");
@@ -172,8 +249,36 @@ async function main() {
     fail("uiux-eval-suite", "uiux skill registry entry must reference the generic eval suite");
   }
 
+  const governanceSkill = skills.skills.find((entry) => entry.name === "governance");
+  if (!governanceSkill?.evalSuites?.includes("evals/skills/governance-proof-evals.json")) {
+    fail("governance-proof-eval-suite", "governance skill registry entry must reference the governance proof eval suite");
+  }
+
   if (JSON.stringify(uiuxEvals) !== JSON.stringify(embeddedUiuxEvals)) {
     fail("uiux-embedded-evals", "embedded UI/UX eval suite must match top-level eval suite");
+  }
+
+  if (JSON.stringify(governanceProofEvals) !== JSON.stringify(embeddedGovernanceProofEvals)) {
+    fail("governance-proof-embedded-evals", "embedded governance proof eval suite must match top-level eval suite");
+  }
+
+  const governanceProofEvalIds = new Set((governanceProofEvals.cases || []).map((evalCase) => evalCase.id));
+  for (const required of [
+    "governance-lite-not-sixth-skill",
+    "code-quality-dry-run-not-pass",
+    "security-review-prompt-injection",
+    "pr-release-coderabbit-credit-failure",
+    "runtime-visibility-not-file-proof",
+    "token-discipline-large-review"
+  ]) {
+    if (!governanceProofEvalIds.has(required)) {
+      fail(`governance-proof-${required}`, "expected governance proof eval missing");
+    }
+  }
+
+  const governanceLiteEval = (governanceProofEvals.cases || []).find((evalCase) => evalCase.id === "governance-lite-not-sixth-skill");
+  if (!governanceLiteEval || !includesAll(governanceLiteEval.forbiddenSkills || [], ["governance-lite", "router-lite"])) {
+    fail("governance-proof-no-sixth-skill", "governance-lite eval must forbid governance-lite and router-lite as active skills");
   }
 
   if (uiuxEvals.canonicalSkill !== "uiux" || uiuxEvals.currentCanonicalSkill !== "uiux") {

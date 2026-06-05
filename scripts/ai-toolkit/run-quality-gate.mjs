@@ -44,27 +44,55 @@ async function exists(relativePath) {
   }
 }
 
-async function detectPackageManager() {
-  const locks = [
+function parsePackageManagerField(value) {
+  if (!value || typeof value !== "string") {
+    return null;
+  }
+  const normalized = value.trim().toLowerCase();
+  const match = normalized.match(/^([a-z0-9_-]+)(?:@|$)/);
+  if (!match) {
+    return "unsupported";
+  }
+  const manager = match[1];
+  return ["npm", "pnpm", "yarn", "bun"].includes(manager) ? manager : "unsupported";
+}
+
+async function detectPackageManager(packageJson) {
+  const signals = [];
+  const fieldManager = parsePackageManagerField(packageJson.packageManager);
+  if (fieldManager) {
+    signals.push({
+      source: "package.json:packageManager",
+      manager: fieldManager
+    });
+  }
+
+  const orderedSignals = [
     ["pnpm-lock.yaml", "pnpm"],
-    ["yarn.lock", "yarn"],
+    ["pnpm-workspace.yaml", "pnpm"],
     ["package-lock.json", "npm"],
-    ["bun.lockb", "bun"],
-    ["bun.lock", "bun"]
+    ["yarn.lock", "yarn"],
+    ["bun.lock", "bun"],
+    ["bun.lockb", "bun"]
   ];
-  const found = [];
-  for (const [file, manager] of locks) {
+  for (const [file, manager] of orderedSignals) {
     if (await exists(file)) {
-      found.push(manager);
+      signals.push({ source: file, manager });
     }
   }
-  if (found.length === 1) {
-    return found[0];
+
+  if (signals.length === 0) {
+    return { status: "not-detected", manager: null, signals };
   }
-  if (found.length > 1) {
-    return "ambiguous";
+  if (signals.some((signal) => signal.manager === "unsupported")) {
+    return { status: "ambiguous", manager: null, signals };
   }
-  return null;
+
+  const managers = [...new Set(signals.map((signal) => signal.manager))];
+  if (managers.length > 1) {
+    return { status: "ambiguous", manager: null, signals };
+  }
+  return { status: "detected", manager: managers[0], signals };
 }
 
 function commandFor(manager, script) {
@@ -120,24 +148,27 @@ async function main() {
     return;
   }
 
-  const manager = await detectPackageManager();
-  if (!manager || manager === "ambiguous") {
-    console.log(`package manager: ${manager || "not detected"}`);
+  const packageJson = JSON.parse(await readFile(path.resolve(process.cwd(), "package.json"), "utf8"));
+  const detection = await detectPackageManager(packageJson);
+  if (detection.status !== "detected") {
+    console.log(`package manager: ${detection.status === "ambiguous" ? "ambiguous" : "not detected"}`);
+    console.log(`package manager signals: ${detection.signals.map((signal) => `${signal.source}=${signal.manager}`).join(", ") || "none"}`);
     console.log("scripts run: none");
     console.log("quality status: not-run");
-    console.log("missing scripts: package manager could not be safely inferred from a single existing lockfile");
+    console.log("missing scripts: package manager could not be safely inferred from packageManager/workspace/lockfile signals");
     if (!args.dryRun) {
       process.exitCode = 1;
     }
     return;
   }
 
-  const packageJson = JSON.parse(await readFile(path.resolve(process.cwd(), "package.json"), "utf8"));
+  const manager = detection.manager;
   const scripts = packageJson.scripts || {};
   const wanted = SCRIPT_CANDIDATES[args.mode];
   const runnable = wanted.filter((script) => scripts[script]);
   const missing = wanted.filter((script) => !scripts[script]);
   console.log(`package manager: ${manager}`);
+  console.log(`package manager signals: ${detection.signals.map((signal) => signal.source).join(", ")}`);
   console.log(`scripts detected: ${Object.keys(scripts).sort().join(", ") || "none"}`);
   console.log(`scripts selected: ${runnable.join(", ") || "none"}`);
   console.log(`missing scripts: ${missing.join(", ") || "none"}`);

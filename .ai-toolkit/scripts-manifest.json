@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "06125236a6e8fd04d6d380fee3ae9603f0b4a508fa66b9bcf9d1fda3646e4bf6"
+      "sha256": "2aee1847c82e08ccbd8ed9142a236b1cc06f7bb19a55a309303aaf119c6dfcb0"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
@@ -48,7 +48,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "96979eed26d32e1598b177b8fa18ee0e75cdb0235f4b6d38f9ad63f0985aeb0a"
+      "sha256": "f36a90a85371246ce35b755d53587903c8ef4b49e69845e4c91da1f858ad3eb8"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",
@@ -56,7 +56,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-quality-gate.mjs",
-      "sha256": "6dcf9cc6aaa1b9c23ac1121e7c02cb5d46f0713ea9282f6d97bed4895a79d919"
+      "sha256": "3f823d9eb9ecc870577395164929b46417582ed61fe074728776a9d60eb1c1c2"
     }
   ]
 }

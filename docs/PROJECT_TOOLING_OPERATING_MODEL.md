@@ -56,6 +56,12 @@ No final current-scope project-tooling resource may remain `pilot-only`. code-re
 
 Normal-language tasks should pass through `methods/governance/task-intake-routing-gate.md` before coding. The front door classifies affected surfaces, required agents/skills/methods/tools, validation gates, stop conditions, and out-of-scope items so coding starts with explicit boundaries.
 
+Governance-lite/router-lite is a concise method or mode only. It must route through the existing `governance` skill and `methods/governance/governance-lite-router-mode.md`; it must not become a sixth active skill, plugin, MCP server, package, global configuration, or runtime activation surface.
+
+## Enterprise-Risk Metadata
+
+Default-tool enterprise-risk review is recorded in `docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md`. Keep `unknown-review-required` wherever evidence is missing. Do not invent license, telemetry, data-flow, permission, scanner, or enterprise-readiness claims from default-install status.
+
 ## Rollback and Removal
 
 Tooling templates must be reversible:

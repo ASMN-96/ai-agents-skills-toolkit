@@ -2345,8 +2345,8 @@
       "displayName": "Package Manager and Workspace Migration",
       "area": "repo",
       "methodPath": "methods/repo/package-manager-workspace-migration.md",
-      "purpose": "Control package-manager and workspace migrations as infra-only owner-approved changes with frozen install validation and rollback.",
-      "whenToUse": "Use for package manager and workspace migration tasks in target projects when the scenario is in scope.",
+      "purpose": "Control package-manager and workspace migrations as infra-only owner-approved changes with package-manager detection, frozen install validation, and rollback.",
+      "whenToUse": "Use for package manager and workspace migration tasks, package-manager command recommendations, lockfile strategy, and workspace layout in target projects when the scenario is in scope.",
       "whenNotToUse": "Do not use as approval to install tools, change packages, wire CI, configure MCP, change global config, or touch product repositories.",
       "passiveConsumerAgents": [
         "Architect Agent",
@@ -2362,7 +2362,7 @@
         "release"
       ],
       "validationGates": [
-        "Report actual evidence, skipped checks, owner approvals, no-fake-validation boundaries, and stop conditions."
+        "Report package-manager detection signals, selected strategy or ambiguity, actual evidence, skipped checks, owner approvals, no-fake-validation boundaries, and stop conditions."
       ],
       "sourceProvenance": [
         {
@@ -2674,6 +2674,55 @@
       "sourceProvenance": [
         {
           "path": "methods/reliability/observability-readiness.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "governance.governance-lite-router-mode",
+      "displayName": "Governance-Lite Router Mode",
+      "area": "governance",
+      "methodPath": "methods/governance/governance-lite-router-mode.md",
+      "purpose": "Provide concise governance routing, validation honesty, stop conditions, and source-of-truth checks without adding another active skill.",
+      "whenToUse": "Use for small or medium governed implementation, PR repair, docs/registry updates, and release-support work where routing and stop conditions matter but a full audit would be excessive.",
+      "whenNotToUse": "Do not use to approve package, lockfile, CI, MCP/global config, product-repo, database, auth, security, secret, install, activation, or runtime-shape changes.",
+      "passiveConsumerAgents": [
+        "All internal agents"
+      ],
+      "relatedRoutingScenarios": [
+        "governance-lite-router-mode",
+        "task-intake-routing-gate",
+        "release-rollback-readiness"
+      ],
+      "riskDomains": [
+        "governance",
+        "routing",
+        "validation"
+      ],
+      "validationGates": [
+        "Report branch/source truth, affected surfaces, selected vs executed tools, stop conditions, commands run, WARN/skipped checks, runtime count if relevant, and no-fake-validation limits."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/governance/governance-lite-router-mode.md",
           "category": "toolkit-authored"
         }
       ],

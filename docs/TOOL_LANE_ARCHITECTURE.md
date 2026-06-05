@@ -9,6 +9,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 - Purpose: establish scope, source of truth, branch discipline, validation honesty, owner decisions, and stop conditions before project changes.
 - Owning agents/skills: governance, product-agent, architect-agent, reviewer-agent, release-manager-agent, skill-scout-agent.
 - Resources/tools: AGENTS.md, README.md, docs/NO_FAKE_VALIDATION_POLICY.md, docs/REAL_PROJECT_READINESS.md, docs/PROJECT_TOOLING_OPERATING_MODEL.md, methods/governance/task-intake-routing-gate.md, GSD and Superpowers as external-only discipline tools.
+- Governance-lite/router-lite posture: `methods/governance/governance-lite-router-mode.md` may be used as concise routing metadata through the existing governance skill. It is not a sixth skill and does not install, activate, configure, or execute anything.
 - Install posture: external-only or metadata-only; no project install from toolkit registry presence.
 - Evidence required: branch, working tree, source-of-truth files read, selected profile, commands actually run, skipped checks, WARN output, owner decisions.
 - Stop conditions: dirty or wrong branch, missing owner approval for package/CI/MCP/global/product changes, validation claims without output, source/license uncertainty, destructive command risk.
@@ -97,6 +98,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 
 - Metadata is not execution.
 - Normal-language tasks enter through the task-intake routing gate before coding.
+- Governance-lite/router-lite remains method/profile/routing metadata only; runtime stays at the approved canonical skill count.
 - Project-owned checks come first.
 - Registry presence does not install, activate, configure, or run tools.
 - Selected or recommended tools must be reported separately from actually executed tools.
