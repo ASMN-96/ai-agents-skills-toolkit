@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { execFileSync, spawnSync } from "node:child_process";
-import { existsSync, mkdtempSync, rmSync, writeFileSync, appendFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync, appendFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -95,7 +95,14 @@ test("project sync core remains dry-run-first and validates confirmed installs",
       "--confirm-write"
     ]);
     assert.equal(install.status, 0, install.output);
-    assert.equal(existsSync(path.join(repo, ".ai-toolkit", ".ai-toolkit-manifest.json")), true);
+    const manifestPath = path.join(repo, ".ai-toolkit", ".ai-toolkit-manifest.json");
+    assert.equal(existsSync(manifestPath), true);
+    const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+    const assetsByPath = new Map(manifest.assets.map((asset) => [asset.path, asset]));
+    assert.equal(existsSync(path.join(repo, ".ai-toolkit", "methods", "governance", "task-intake-routing-gate.md")), true);
+    assert.equal(assetsByPath.get("methods/governance/task-intake-routing-gate.md")?.type, "method");
+    assert.equal(existsSync(path.join(repo, ".ai-toolkit", "docs", "PROJECT_TOOLING_OPERATING_MODEL.md")), true);
+    assert.equal(assetsByPath.get("docs/PROJECT_TOOLING_OPERATING_MODEL.md")?.type, "support-doc");
     const installedVersion = JSON.parse(run("node", ["-e", `console.log(require('fs').readFileSync(${JSON.stringify(path.join(repo, ".ai-toolkit", ".ai-toolkit-version"))}, 'utf8'))`]));
     assert.equal(installedVersion.toolkitVersion, canonicalToolkitVersion());
 

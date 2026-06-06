@@ -4,7 +4,7 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "9c113b228b21bb251eea32e1058340c31b611a9cdd9ccf38c1799442a75272da"
+      "sha256": "607b283238d31788c76ec5c1fb902ed53fdb14dc4ee35fca4ed914424367e79b"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
@@ -32,11 +32,19 @@
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "7eda8145abbcea90061af7e358fb59d6f4fb3c2204dd1ee9f64d71b86c936a50"
+      "sha256": "a6711dd74b238b44df928614bb8edf7763d2e5da14aeb55a9f2bab4844608333"
+    },
+    {
+      "path": "scripts/ai-toolkit/reference-closure.mjs",
+      "sha256": "783de98cdc60b8ab0bda06eeb7a93c8db72a22a5e551e40d315533ce196a7424"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
-      "sha256": "854282278c24376b9842a6b55a5d8bafaf44f7fdeb891bba98c49d88dded62b2"
+      "sha256": "d849f76c0f8440f03a84a212787f7cb03a12bbc6a23741af34376da079c9eb88"
+    },
+    {
+      "path": "scripts/ai-toolkit/validate-reference-closure.mjs",
+      "sha256": "c6654801204eff2a3be8605a602f0aaa2d63cf9d95f96dc3d2739f020d4406eb"
     },
     {
       "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",

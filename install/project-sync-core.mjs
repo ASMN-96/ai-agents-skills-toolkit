@@ -14,6 +14,12 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { TOOLKIT_VERSION } from "../scripts/ai-toolkit/embedded-data.mjs";
+import {
+  collectReferencedSupportAssets,
+  collectReferenceClosureFailures,
+  supportDestinationForSourcePath,
+  supportAssetTypeForSourcePath
+} from "../scripts/ai-toolkit/reference-closure.mjs";
 
 const TOOLKIT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -307,6 +313,28 @@ function buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedS
     });
   }
 
+  const supportSeeds = plan
+    .filter((item) => ["compiled-agent", "profile", "skill"].includes(item.type))
+    .map((item) => normalizeRelative(path.relative(TOOLKIT_ROOT, item.source)));
+  for (const asset of collectReferencedSupportAssets({
+    root: TOOLKIT_ROOT,
+    seedFiles: supportSeeds,
+    includeTransitive: true
+  })) {
+    const relativePath = supportDestinationForSourcePath(asset.sourcePath).replace(/^\.ai-toolkit\//, "");
+    const type = supportAssetTypeForSourcePath(asset.sourcePath);
+    const source = path.join(TOOLKIT_ROOT, ...asset.sourcePath.split("/"));
+    const destination = path.join(aiRoot, ...relativePath.split("/"));
+    plan.push({
+      type,
+      name: asset.sourcePath,
+      action: fileAction(source, destination, missingLabel),
+      source,
+      destination,
+      relativePath
+    });
+  }
+
   return plan;
 }
 
@@ -314,7 +342,10 @@ function printCopyPlan(plan) {
   const sections = [
     ["compiled-agent", "Planned copied agents"],
     ["profile", "Planned copied profiles"],
-    ["skill", "Planned copied skills"]
+    ["skill", "Planned copied skills"],
+    ["method", "Planned copied methods"],
+    ["template", "Planned copied templates"],
+    ["support-doc", "Planned copied support docs"]
   ];
 
   for (const [type, label] of sections) {
@@ -426,6 +457,9 @@ function runInstall(options) {
   mkdirSync(path.join(aiRoot, "compiled-agents"), { recursive: true });
   mkdirSync(path.join(aiRoot, "profiles"), { recursive: true });
   mkdirSync(path.join(aiRoot, "skills"), { recursive: true });
+  mkdirSync(path.join(aiRoot, "methods"), { recursive: true });
+  mkdirSync(path.join(aiRoot, "templates"), { recursive: true });
+  mkdirSync(path.join(aiRoot, "docs"), { recursive: true });
   copyPlanFiles(plan);
   writeInstallRecords({ aiRoot, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated: false });
   writeJson(path.join(aiRoot, ".ai-toolkit-manifest.json"), toolkitManifest(plan, toolkitCommit));
@@ -480,7 +514,7 @@ function runUpdate(options) {
   const plan = buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedSkills, updateMode: true });
   const managedPaths = new Set(plan.map((item) => normalizeRelative(item.relativePath)));
   const unmanaged = [];
-  for (const folder of ["compiled-agents", "profiles", "skills"]) {
+  for (const folder of ["compiled-agents", "profiles", "skills", "methods", "templates", "docs"]) {
     for (const filePath of collectFiles(path.join(aiRoot, folder))) {
       const relative = managedRelativePath(aiRoot, filePath);
       if (!managedPaths.has(relative)) unmanaged.push(filePath);
@@ -510,6 +544,9 @@ function runUpdate(options) {
   mkdirSync(path.join(aiRoot, "compiled-agents"), { recursive: true });
   mkdirSync(path.join(aiRoot, "profiles"), { recursive: true });
   mkdirSync(path.join(aiRoot, "skills"), { recursive: true });
+  mkdirSync(path.join(aiRoot, "methods"), { recursive: true });
+  mkdirSync(path.join(aiRoot, "templates"), { recursive: true });
+  mkdirSync(path.join(aiRoot, "docs"), { recursive: true });
   copyPlanFiles(plan);
   writeInstallRecords({ aiRoot, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated: true });
   writeJson(path.join(aiRoot, ".ai-toolkit-manifest.json"), toolkitManifest(plan, toolkitCommit));
@@ -650,6 +687,10 @@ function runValidate(options) {
         failures.push(...testManifestAsset({ aiRoot, manifestAssets, relativePath, type: "skill", name }));
         failures.push(...testSkillFrontmatter(fullPath, name));
       }
+    }
+
+    for (const failure of collectReferenceClosureFailures({ root: targetRoot })) {
+      failures.push(`[${failure.check}] ${failure.location}: ${failure.message}`);
     }
 
     const contextNames = new Set(["AGENTS.md", "STATE.md", "DECISIONS.md", "PROJECT_CONTEXT.md", "RELEASE_GATES.md"]);

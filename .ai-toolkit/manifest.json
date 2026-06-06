@@ -42,61 +42,61 @@
       "source": "skills/governance/SKILL.md",
       "target": ".agents/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "58555420637aa944318af8374d1dac2090099a94d0fbcb124408898683371627"
+      "sha256": "2ce0fadb3f4aa88cb644f47a67aa500f4d514c5e32ae08164e42dabc9f9cf448"
     },
     {
       "source": "skills/governance/SKILL.md",
       "target": ".ai-toolkit/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "58555420637aa944318af8374d1dac2090099a94d0fbcb124408898683371627"
+      "sha256": "2ce0fadb3f4aa88cb644f47a67aa500f4d514c5e32ae08164e42dabc9f9cf448"
     },
     {
       "source": "skills/uiux/SKILL.md",
       "target": ".agents/skills/uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "45421f059af504a95e30863cf7180787d06706ca9fb4e42beca1285469fc6584"
+      "sha256": "f54012e531207d10d54a6d2456c16ba46fe539d6b1dec2fb2a4be08e1b345c33"
     },
     {
       "source": "skills/uiux/SKILL.md",
       "target": ".ai-toolkit/skills/uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "45421f059af504a95e30863cf7180787d06706ca9fb4e42beca1285469fc6584"
+      "sha256": "f54012e531207d10d54a6d2456c16ba46fe539d6b1dec2fb2a4be08e1b345c33"
     },
     {
       "source": "skills/code-quality/SKILL.md",
       "target": ".agents/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "4cc11b9afa26d61a950f990de57d29059ce14d2abab65ddca3a6cb1caf619450"
+      "sha256": "4d6c765b7f884cec2758bd7a9e3ccca6fea58d783fdee9d202e32be8eaf2359b"
     },
     {
       "source": "skills/code-quality/SKILL.md",
       "target": ".ai-toolkit/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "4cc11b9afa26d61a950f990de57d29059ce14d2abab65ddca3a6cb1caf619450"
+      "sha256": "4d6c765b7f884cec2758bd7a9e3ccca6fea58d783fdee9d202e32be8eaf2359b"
     },
     {
       "source": "skills/security-review/SKILL.md",
       "target": ".agents/skills/security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "8d1beeb5ff626d5191eb32bf51871af2b3f10736e7dafa581130cf827376eb07"
+      "sha256": "6bf802ca7848a480c43ea22ea57a532a00ce8424bc7f10366d1be509c4613d23"
     },
     {
       "source": "skills/security-review/SKILL.md",
       "target": ".ai-toolkit/skills/security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "8d1beeb5ff626d5191eb32bf51871af2b3f10736e7dafa581130cf827376eb07"
+      "sha256": "6bf802ca7848a480c43ea22ea57a532a00ce8424bc7f10366d1be509c4613d23"
     },
     {
       "source": "skills/pr-release-gate/SKILL.md",
       "target": ".agents/skills/pr-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "9de986be1db77adcaa4cb0af8d87a0ef6af33a74ad96465b966eb7dcb65b9bda"
+      "sha256": "a958eda3ba7678b3c55425c77f57b1e550cfb5c179004900c3cd2a02dc7e4d00"
     },
     {
       "source": "skills/pr-release-gate/SKILL.md",
       "target": ".ai-toolkit/skills/pr-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "9de986be1db77adcaa4cb0af8d87a0ef6af33a74ad96465b966eb7dcb65b9bda"
+      "sha256": "a958eda3ba7678b3c55425c77f57b1e550cfb5c179004900c3cd2a02dc7e4d00"
     },
     {
       "source": ".codex/agents/product-agent.toml",
@@ -349,6 +349,402 @@
       "target": ".ai-toolkit/compiled-agents/sre-performance-agent.compiled.md",
       "mode": "packaged-source-hash",
       "sha256": "32223d2d8d9024b24cc509c2a1dba7c9a62f533cfb384802be1a3a35a7ef6bb3"
+    },
+    {
+      "source": "docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md",
+      "target": ".ai-toolkit/docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md",
+      "mode": "packaged-support-asset",
+      "sha256": "189f2e04bd4b4b896d25155604db09dceb3ac76752774498b51bb863c057e187"
+    },
+    {
+      "source": "docs/NO_FAKE_VALIDATION_POLICY.md",
+      "target": ".ai-toolkit/docs/NO_FAKE_VALIDATION_POLICY.md",
+      "mode": "packaged-support-asset",
+      "sha256": "19759062e303e2fe8d696ea82000001be5478162780155b4538e6d9ee5f5de1c"
+    },
+    {
+      "source": "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md",
+      "target": ".ai-toolkit/docs/PROJECT_TOOL_INSTALLATION_MATRIX.md",
+      "mode": "packaged-support-asset",
+      "sha256": "397fa2148ea3d2201542e11db3b65c43d6724c6b605813154a715bcbe25f5e1a"
+    },
+    {
+      "source": "docs/PROJECT_TOOLING_OPERATING_MODEL.md",
+      "target": ".ai-toolkit/docs/PROJECT_TOOLING_OPERATING_MODEL.md",
+      "mode": "packaged-support-asset",
+      "sha256": "4020498060dc85e2b4ace53b1a228eeee2a49d60507d8870c92544af24d87168"
+    },
+    {
+      "source": "docs/PUBLIC_PRIVATE_LEAK_REPORT.md",
+      "target": ".ai-toolkit/docs/PUBLIC_PRIVATE_LEAK_REPORT.md",
+      "mode": "packaged-support-asset",
+      "sha256": "d8578812a936255fb47b48b7417425e514db6cfb322ea93cd93489f5b71b8426"
+    },
+    {
+      "source": "docs/SOURCE_UTILIZATION_MATRIX.md",
+      "target": ".ai-toolkit/docs/SOURCE_UTILIZATION_MATRIX.md",
+      "mode": "packaged-support-asset",
+      "sha256": "efd3fab89594e8996e7fdf6d6bac34a9cfcbcd2164c728ca457907f2594ef720"
+    },
+    {
+      "source": "docs/UI_UX_PRO_MAX_AUDIT.md",
+      "target": ".ai-toolkit/docs/UI_UX_PRO_MAX_AUDIT.md",
+      "mode": "packaged-support-asset",
+      "sha256": "9bdbe5094f000af321fa247c71a9aea0e10a5079e4deb86bc8cb64a8666fe4b1"
+    },
+    {
+      "source": "docs/UIUX_DESIGN_RESOURCES.md",
+      "target": ".ai-toolkit/docs/UIUX_DESIGN_RESOURCES.md",
+      "mode": "packaged-support-asset",
+      "sha256": "13fac0b3f44f9ea16a829d71a8826bb0c5409b066e83c42436429fd06cfb9a8b"
+    },
+    {
+      "source": "methods/api/api-contract-and-routing-readiness.md",
+      "target": ".ai-toolkit/methods/api/api-contract-and-routing-readiness.md",
+      "mode": "packaged-support-asset",
+      "sha256": "c2611659e586cf42e2275b664d59b5a69a650ddd5082f88f91f01b4d8cc0a21c"
+    },
+    {
+      "source": "methods/architecture/cross-surface-client-contracts.md",
+      "target": ".ai-toolkit/methods/architecture/cross-surface-client-contracts.md",
+      "mode": "packaged-support-asset",
+      "sha256": "7b5f8a5fcde499c5a7f89d782b1011f890c3bc4e00393306aea88331bc453aba"
+    },
+    {
+      "source": "methods/backend/supabase-postgres-rls-gates.md",
+      "target": ".ai-toolkit/methods/backend/supabase-postgres-rls-gates.md",
+      "mode": "packaged-support-asset",
+      "sha256": "83b4282b88063731566b9b812abd959f698625477146fe8efb4b2f9edb80767a"
+    },
+    {
+      "source": "methods/governance/agent-command-safety.md",
+      "target": ".ai-toolkit/methods/governance/agent-command-safety.md",
+      "mode": "packaged-support-asset",
+      "sha256": "0c2c39ccefbf18c1c3cb520e7e2975d2bfc11289b6000156360bbbbd068e68c3"
+    },
+    {
+      "source": "methods/governance/governance-lite-router-mode.md",
+      "target": ".ai-toolkit/methods/governance/governance-lite-router-mode.md",
+      "mode": "packaged-support-asset",
+      "sha256": "a73294080dda4819dd480686d48bd76224684b33270f8d571f014ec5c522ffa9"
+    },
+    {
+      "source": "methods/governance/task-intake-routing-gate.md",
+      "target": ".ai-toolkit/methods/governance/task-intake-routing-gate.md",
+      "mode": "packaged-support-asset",
+      "sha256": "2ac98d7d4d2e5e4a7fd14d171f5c3ef44365a7f8d5a47549553ed56da9ac6271"
+    },
+    {
+      "source": "methods/internal/engineering-lifecycle-gates.md",
+      "target": ".ai-toolkit/methods/internal/engineering-lifecycle-gates.md",
+      "mode": "packaged-support-asset",
+      "sha256": "9bc9b283758f3ffdacf120b462cf6e9fefa0657d1c07a05436b836e957ece4de"
+    },
+    {
+      "source": "methods/internal/frontend-uiux-quality-gates.md",
+      "target": ".ai-toolkit/methods/internal/frontend-uiux-quality-gates.md",
+      "mode": "packaged-support-asset",
+      "sha256": "f8eb8f0a520860c464bb4ac4936a5bfa6cb19db1fdf6d4042b0fd466a6492a70"
+    },
+    {
+      "source": "methods/internal/simplicity-surgical-change-discipline.md",
+      "target": ".ai-toolkit/methods/internal/simplicity-surgical-change-discipline.md",
+      "mode": "packaged-support-asset",
+      "sha256": "4087f93e86295f409f0b889128c94f54066bc96561269ed8038f04fc91dc6b27"
+    },
+    {
+      "source": "methods/internal/skill-anatomy.md",
+      "target": ".ai-toolkit/methods/internal/skill-anatomy.md",
+      "mode": "packaged-support-asset",
+      "sha256": "c2c952125dcd36f8be9379ce717fe281adf12d0a89bfeaa7cdd3fe2deac21588"
+    },
+    {
+      "source": "methods/internal/source-discovery-workflow.md",
+      "target": ".ai-toolkit/methods/internal/source-discovery-workflow.md",
+      "mode": "packaged-support-asset",
+      "sha256": "9bca7e0930f3a1faeef0bb80c0378fe9e467b13a44a8fa3e3d608c1f14c2e2a6"
+    },
+    {
+      "source": "methods/internal/source-safety-scoring.md",
+      "target": ".ai-toolkit/methods/internal/source-safety-scoring.md",
+      "mode": "packaged-support-asset",
+      "sha256": "88baa0a448b206e8ed8b6a6434e941e59586be481a142e7924907a90e4b2e15c"
+    },
+    {
+      "source": "methods/internal/tdd-verification-alignment.md",
+      "target": ".ai-toolkit/methods/internal/tdd-verification-alignment.md",
+      "mode": "packaged-support-asset",
+      "sha256": "0929e561e6ac0d8a1306e320c0f39fbeffc2aca98ddde41228c6b42f7c4611b3"
+    },
+    {
+      "source": "methods/karpathy/assumption-surfacing.md",
+      "target": ".ai-toolkit/methods/karpathy/assumption-surfacing.md",
+      "mode": "packaged-support-asset",
+      "sha256": "0a7da7056c58a44427af0bc467166ea2e6ced2e459f4337a4fb908178cccd267"
+    },
+    {
+      "source": "methods/karpathy/goal-driven-execution.md",
+      "target": ".ai-toolkit/methods/karpathy/goal-driven-execution.md",
+      "mode": "packaged-support-asset",
+      "sha256": "1f44630d3c19493a3f47913ee2cdc2c77a374952124f005fa258a1d32be803c9"
+    },
+    {
+      "source": "methods/karpathy/simplicity-surgical-changes.md",
+      "target": ".ai-toolkit/methods/karpathy/simplicity-surgical-changes.md",
+      "mode": "packaged-support-asset",
+      "sha256": "145c213a07135dbd92db64799a9c630992a8aa8fe7476fe2b7c1a6a885f46330"
+    },
+    {
+      "source": "methods/matt/design-interface.md",
+      "target": ".ai-toolkit/methods/matt/design-interface.md",
+      "mode": "packaged-support-asset",
+      "sha256": "563708720b5cddcb526b81adf6a08546373ad65d650954d561792ed687df44df"
+    },
+    {
+      "source": "methods/matt/git-guardrails.md",
+      "target": ".ai-toolkit/methods/matt/git-guardrails.md",
+      "mode": "packaged-support-asset",
+      "sha256": "b2cf0ad4e1be777b51560373008b675fdc9aa9d432ac4f63459057f289f03e64"
+    },
+    {
+      "source": "methods/matt/grill-me.md",
+      "target": ".ai-toolkit/methods/matt/grill-me.md",
+      "mode": "packaged-support-asset",
+      "sha256": "78311874f56a8c9fe4102f29101db43a5066c6c03b844cf74c3200f849d21f17"
+    },
+    {
+      "source": "methods/matt/improve-architecture.md",
+      "target": ".ai-toolkit/methods/matt/improve-architecture.md",
+      "mode": "packaged-support-asset",
+      "sha256": "249a4d251c29d94340bc6b6448f51a782dca6a80407844a7ab2902778735551e"
+    },
+    {
+      "source": "methods/matt/tdd.md",
+      "target": ".ai-toolkit/methods/matt/tdd.md",
+      "mode": "packaged-support-asset",
+      "sha256": "3eba9c03df3d290dc345bddb898a915cc5ecb6d8a9066fae29dfea019fd76318"
+    },
+    {
+      "source": "methods/matt/to-issues.md",
+      "target": ".ai-toolkit/methods/matt/to-issues.md",
+      "mode": "packaged-support-asset",
+      "sha256": "5402968d7637a037a5128d6017a2de5a7d7650a0885e90ec4e22b74f7a368411"
+    },
+    {
+      "source": "methods/matt/to-prd.md",
+      "target": ".ai-toolkit/methods/matt/to-prd.md",
+      "mode": "packaged-support-asset",
+      "sha256": "6dad072a182c35e4799d58303d8be827a59d0a6612e9263d98f0bf65d164f62e"
+    },
+    {
+      "source": "methods/matt/triage-issue.md",
+      "target": ".ai-toolkit/methods/matt/triage-issue.md",
+      "mode": "packaged-support-asset",
+      "sha256": "f939bef2c79029b7e6ba6bd703ad676fa2bd33857541ba03f3efe8b67f9e041b"
+    },
+    {
+      "source": "methods/mobile/native-mobile-app-quality.md",
+      "target": ".ai-toolkit/methods/mobile/native-mobile-app-quality.md",
+      "mode": "packaged-support-asset",
+      "sha256": "c265b65d58023aaf671cddfe9cdf95aad4295c15b25a7be6a11a4dbb6569d7eb"
+    },
+    {
+      "source": "methods/orchestration/changed-file-neighborhood-selection.md",
+      "target": ".ai-toolkit/methods/orchestration/changed-file-neighborhood-selection.md",
+      "mode": "packaged-support-asset",
+      "sha256": "075813e43fc0472826bd63bfa61d187043218d447621f1ab752c7360266a9316"
+    },
+    {
+      "source": "methods/orchestration/compact-agent-context-pack.md",
+      "target": ".ai-toolkit/methods/orchestration/compact-agent-context-pack.md",
+      "mode": "packaged-support-asset",
+      "sha256": "f57245c39d869fda52d406aafe65c838943cabbea3ef88496657c564c5994977"
+    },
+    {
+      "source": "methods/orchestration/context-graph-token-budget.md",
+      "target": ".ai-toolkit/methods/orchestration/context-graph-token-budget.md",
+      "mode": "packaged-support-asset",
+      "sha256": "d6b2899fde4331953026d32874eaa54ea67b673a6f6f24ce0892d4029a41ad55"
+    },
+    {
+      "source": "methods/orchestration/stale-context-graph-detection.md",
+      "target": ".ai-toolkit/methods/orchestration/stale-context-graph-detection.md",
+      "mode": "packaged-support-asset",
+      "sha256": "74a2a04203d6f373fdb948fb1265bd23fb56478410aae9632615357c1f34ae45"
+    },
+    {
+      "source": "methods/orchestration/static-task-state-handoff-ledger.md",
+      "target": ".ai-toolkit/methods/orchestration/static-task-state-handoff-ledger.md",
+      "mode": "packaged-support-asset",
+      "sha256": "6d02ea02d57104501858c62a1b485b594565d47711891fc372b6363b8a711913"
+    },
+    {
+      "source": "methods/osmani/api-interface-design.md",
+      "target": ".ai-toolkit/methods/osmani/api-interface-design.md",
+      "mode": "packaged-support-asset",
+      "sha256": "0f07016787a1f32b5d06f9b9701492729d483c290015d89b0d991fe49844e2d0"
+    },
+    {
+      "source": "methods/osmani/code-review-quality.md",
+      "target": ".ai-toolkit/methods/osmani/code-review-quality.md",
+      "mode": "packaged-support-asset",
+      "sha256": "8c49735458af775ad5b2b8c1c2e642bfbf762544b9987563bedd31c03376faa2"
+    },
+    {
+      "source": "methods/osmani/engineering-lifecycle-gates.md",
+      "target": ".ai-toolkit/methods/osmani/engineering-lifecycle-gates.md",
+      "mode": "packaged-support-asset",
+      "sha256": "2b7960f26d00968265d7101db0769ad138c4aae6aa64a9bf700dc519a45f9683"
+    },
+    {
+      "source": "methods/osmani/frontend-ui-engineering.md",
+      "target": ".ai-toolkit/methods/osmani/frontend-ui-engineering.md",
+      "mode": "packaged-support-asset",
+      "sha256": "41f74d77b93bb5c88e199b7238594cb92beb1cf15d4e5da584fc0be6e7c4e8be"
+    },
+    {
+      "source": "methods/osmani/incremental-implementation.md",
+      "target": ".ai-toolkit/methods/osmani/incremental-implementation.md",
+      "mode": "packaged-support-asset",
+      "sha256": "3966cb00ebb66f2b08b11ee51d40689bb7236de1051280cfd5cb3166aa5b38a4"
+    },
+    {
+      "source": "methods/osmani/performance-optimization.md",
+      "target": ".ai-toolkit/methods/osmani/performance-optimization.md",
+      "mode": "packaged-support-asset",
+      "sha256": "c0a4d800fc469110700dbaa8dd6529bdc3dbb855edbbf8c6d121a5a2b49277c9"
+    },
+    {
+      "source": "methods/osmani/security-hardening.md",
+      "target": ".ai-toolkit/methods/osmani/security-hardening.md",
+      "mode": "packaged-support-asset",
+      "sha256": "7276408b6f2286214adcd4d54f98ad574f6758df54a5c753f7601fa77ef2396e"
+    },
+    {
+      "source": "methods/osmani/shipping-launch.md",
+      "target": ".ai-toolkit/methods/osmani/shipping-launch.md",
+      "mode": "packaged-support-asset",
+      "sha256": "4512c721847989f6aa4e8ca85d35e6fb6fc038fc4c8e523cad5431a767079073"
+    },
+    {
+      "source": "methods/osmani/spec-driven-development.md",
+      "target": ".ai-toolkit/methods/osmani/spec-driven-development.md",
+      "mode": "packaged-support-asset",
+      "sha256": "e6fbbce3370e4cde89c7b9a7554ee567d09fe674229f615937ed32fdd019389b"
+    },
+    {
+      "source": "methods/osmani/test-driven-development.md",
+      "target": ".ai-toolkit/methods/osmani/test-driven-development.md",
+      "mode": "packaged-support-asset",
+      "sha256": "3793f2f05b25f3dfb0879ad144937a4f61f5ad813d5192813f2d493025f1b7f0"
+    },
+    {
+      "source": "methods/performance/performance-scalability-cache-readiness.md",
+      "target": ".ai-toolkit/methods/performance/performance-scalability-cache-readiness.md",
+      "mode": "packaged-support-asset",
+      "sha256": "de526d15c26d54755d95be9befdae16cd896d3dd3f9f2d345f40f7d477b4a268"
+    },
+    {
+      "source": "methods/release/release-rollback-readiness.md",
+      "target": ".ai-toolkit/methods/release/release-rollback-readiness.md",
+      "mode": "packaged-support-asset",
+      "sha256": "421409d2ef1db635c4bb0c2dab7b84822a7ef2d7dae1903a5fb6453d9446c07d"
+    },
+    {
+      "source": "methods/reliability/coding-time-production-readiness.md",
+      "target": ".ai-toolkit/methods/reliability/coding-time-production-readiness.md",
+      "mode": "packaged-support-asset",
+      "sha256": "5ca70bff31992b0c6d3baa80b0956c963a56c47ffb5529000ad0904c3580e555"
+    },
+    {
+      "source": "methods/reliability/observability-readiness.md",
+      "target": ".ai-toolkit/methods/reliability/observability-readiness.md",
+      "mode": "packaged-support-asset",
+      "sha256": "068ea604250a96b206bb2b2d37eec54312c26389f6b091aa75c9d806c566b0e6"
+    },
+    {
+      "source": "methods/repo/package-manager-workspace-migration.md",
+      "target": ".ai-toolkit/methods/repo/package-manager-workspace-migration.md",
+      "mode": "packaged-support-asset",
+      "sha256": "7acec5b7cc6a2ee2b080bba715a0da284af3676fdbd6c742726cba1058d5d949"
+    },
+    {
+      "source": "methods/security/application-security-readiness.md",
+      "target": ".ai-toolkit/methods/security/application-security-readiness.md",
+      "mode": "packaged-support-asset",
+      "sha256": "8038f35aa60a55d53d7507ae1beb409d9a41e5bb501c92ca4852ee595f3ed524"
+    },
+    {
+      "source": "methods/security/differential-security-review.md",
+      "target": ".ai-toolkit/methods/security/differential-security-review.md",
+      "mode": "packaged-support-asset",
+      "sha256": "64b25c475ebaab2bfc02f0b9c5f3b85a9c4156bfd7d76f67c31349c6e12502b5"
+    },
+    {
+      "source": "methods/security/webview-boundary-review.md",
+      "target": ".ai-toolkit/methods/security/webview-boundary-review.md",
+      "mode": "packaged-support-asset",
+      "sha256": "596db872080e5886bd6a5b6f1eb114fa4da8a627469f265e980b2eb1583c9fb7"
+    },
+    {
+      "source": "methods/uiux/accessibility.md",
+      "target": ".ai-toolkit/methods/uiux/accessibility.md",
+      "mode": "packaged-support-asset",
+      "sha256": "31d71fcb6922dcae935a21d407efeab6b654b37b38c89cc811f0a81329adbfc2"
+    },
+    {
+      "source": "methods/uiux/commercial-dashboard-polish-rubric.md",
+      "target": ".ai-toolkit/methods/uiux/commercial-dashboard-polish-rubric.md",
+      "mode": "packaged-support-asset",
+      "sha256": "f62aa3644c414e1a1f8596b117f4ab1033776ea33eb7a65f1b61dbf41faab9e9"
+    },
+    {
+      "source": "methods/uiux/dashboard-ux.md",
+      "target": ".ai-toolkit/methods/uiux/dashboard-ux.md",
+      "mode": "packaged-support-asset",
+      "sha256": "b745ae096016cf56c41a21305e8e4887f7406297b7e6d11e682dab24ee372f3e"
+    },
+    {
+      "source": "methods/uiux/design-system.md",
+      "target": ".ai-toolkit/methods/uiux/design-system.md",
+      "mode": "packaged-support-asset",
+      "sha256": "17b5f097a59c94539382a2e1ef241b4055c45be4b72e3f7274c09446d7d04d52"
+    },
+    {
+      "source": "methods/uiux/frontend-design.md",
+      "target": ".ai-toolkit/methods/uiux/frontend-design.md",
+      "mode": "packaged-support-asset",
+      "sha256": "09cccda8d3a51be863290590dd88efb496bc6f443e6dcacace152b00213d1c8c"
+    },
+    {
+      "source": "methods/uiux/interaction-motion.md",
+      "target": ".ai-toolkit/methods/uiux/interaction-motion.md",
+      "mode": "packaged-support-asset",
+      "sha256": "53e17cdd0b4f6a20a827419a7f12232f844c04adee3fb005e46cdef8b6be9bc4"
+    },
+    {
+      "source": "methods/uiux/premium-visual-quality.md",
+      "target": ".ai-toolkit/methods/uiux/premium-visual-quality.md",
+      "mode": "packaged-support-asset",
+      "sha256": "619a173538c405ac415c22e6bb90d959806172f06dce7f313ddc53dca4c20929"
+    },
+    {
+      "source": "methods/uiux/responsive-layout.md",
+      "target": ".ai-toolkit/methods/uiux/responsive-layout.md",
+      "mode": "packaged-support-asset",
+      "sha256": "3ecfa8f9fdc0ca2c4e3b9636f3c9ca142698be15b1b6d3442773136cd659be0d"
+    },
+    {
+      "source": "methods/uiux/webapp-testing.md",
+      "target": ".ai-toolkit/methods/uiux/webapp-testing.md",
+      "mode": "packaged-support-asset",
+      "sha256": "41ba7089055b41fe6cbfaf38ea897546af4d1670a01739502730b0989babc3f0"
+    },
+    {
+      "source": "templates/tooling/reviewdog-output-policy.md",
+      "target": ".ai-toolkit/templates/tooling/reviewdog-output-policy.md",
+      "mode": "packaged-support-asset",
+      "sha256": "fc349e705fa5ab7dd3f0281386a54016cbebcf9eb2c548b282a63c848fdf6a94"
     }
   ],
   "generatedArtifacts": [
