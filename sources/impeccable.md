@@ -7,7 +7,7 @@
 - Retrieval date: 2026-05-29.
 - Last checked date: 2026-06-06.
 - Last reviewed date: 2026-06-06.
-- Last reviewed commit: `08d50f215bddaf3bc6561c07d33eba78caaaecfa`.
+- Last reviewed commit: `1aedbcf538e3fa6694ccbf00294cc18e59ba1f21`.
 - Normalization review date: 2026-05-22.
 - Normalization review commit: `642f03d5a10eb3deb91bd511241e387e23b9aa39`.
 - Visible adoption signals: 28,106 GitHub stars, 1,517 forks, and repository push activity on 2026-05-15 from read-only GitHub metadata.
@@ -153,6 +153,14 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_ADOPTED`.
 
 Decision: keep Impeccable active as normalized UI quality source intelligence. This CI dependency drift was reviewed for freshness only and does not change toolkit methods, routing, evals, or runtime posture. No upstream workflow YAML, GitHub Actions versions, Dependabot behavior, CI wiring, package metadata, scripts, detector behavior, live-browser workflow, skill bundle, or runtime behavior were copied, installed, activated, configured, or run.
+
+## v0.2.3 Closeout Freshness Review 2026-06-06
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `08d50f215bddaf3bc6561c07d33eba78caaaecfa` to `1aedbcf538e3fa6694ccbf00294cc18e59ba1f21` using `git ls-remote` and GitHub compare metadata only. The compare was 9 commits ahead and touched CI, package, CLI, site, script, style, and test surfaces: `.github/workflows/ci.yml`, `README.md`, `README.npm.md`, `bun.lock`, `cli/bin/cli.js`, `cli/bin/commands/skills.mjs`, `package.json`, site Astro pages/components, site scripts/styles, and `tests/skills-cli.test.js`.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep Impeccable active only as normalized UI quality source intelligence and provenance for existing toolkit-owned UI review principles. This review explicitly rejects adopting upstream CLI behavior, package metadata, lockfile changes, CI workflow changes, site scripts, skill-bundle behavior, detector behavior, live-browser workflow behavior, test behavior, install guidance, raw documentation text, product-repo changes, or runtime configuration. No upstream files, scripts, package metadata, lockfiles, workflow YAML, tests, CLI commands, live-browser workflows, detector behavior, or skill bodies were copied, installed, activated, configured, executed, or imported.
 
 ## Source Provenance (Stable)
 

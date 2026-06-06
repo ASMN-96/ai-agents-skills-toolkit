@@ -22,9 +22,9 @@ This skill produces UX critique, design intent, acceptance criteria, and impleme
 
 Use normalized guidance from reviewed UI/UX source maps and methods only. Do not activate open-design, UI UX Pro Max, shadcn CLI/MCP, external design scripts, raw prompts, registry JSON, component source, blocks, package config, or unmanaged design-system files.
 
-For v0.2 project tooling, use `docs/UIUX_DESIGN_RESOURCES.md` for design-resource boundaries and `methods/mobile/native-mobile-app-quality.md` for mobile quality routing. Base UI and Figma are excluded from current-scope recommendations.
+For v0.2 project tooling, use `.ai-toolkit/docs/UIUX_DESIGN_RESOURCES.md` for design-resource boundaries and `.ai-toolkit/methods/mobile/native-mobile-app-quality.md` for mobile quality routing. Canonical toolkit sources: `docs/UIUX_DESIGN_RESOURCES.md` and `methods/mobile/native-mobile-app-quality.md`. Base UI and Figma are excluded from current-scope recommendations.
 
-Use `methods/governance/task-intake-routing-gate.md` before coding normal-language UI requests, then route performance-sensitive UI through `methods/performance/performance-scalability-cache-readiness.md` when needed.
+Use `.ai-toolkit/methods/governance/task-intake-routing-gate.md` before coding normal-language UI requests, then route performance-sensitive UI through `.ai-toolkit/methods/performance/performance-scalability-cache-readiness.md` when needed. Canonical toolkit sources: `methods/governance/task-intake-routing-gate.md` and `methods/performance/performance-scalability-cache-readiness.md`.
 
 ## Handoff
 

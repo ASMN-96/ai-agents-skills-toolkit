@@ -12,6 +12,7 @@ import {
   TOOL_ENTRIES,
   TOOLKIT_VERSION
 } from "./embedded-data.mjs";
+import { collectReferencedSupportAssets } from "./reference-closure.mjs";
 
 const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
@@ -688,6 +689,25 @@ async function copyMirrors() {
     await copyFileTracked(`compiled-agents/${file}`, `${AI_ROOT}/compiled-agents/${file}`, mirrors, "packaged-source-hash");
   }
 
+  const registryFiles = (await readdir(rootPath("registries")))
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => `registries/${file}`);
+  const supportSeeds = [
+    ...ACTIVE_SKILLS.map((skill) => `skills/${skill}/SKILL.md`),
+    ...ACTIVE_AGENT_FILES.map((agentFile) => `agents/${agentFile.replace(/\.toml$/, ".md")}`),
+    ...ACTIVE_AGENT_FILES.map((agentFile) => `compiled-agents/${agentFile.replace(/\.toml$/, ".compiled.md")}`),
+    ...registryFiles,
+    `${AI_ROOT}/tool-packs/webapp-quality-security.json`
+  ];
+  const supportAssets = collectReferencedSupportAssets({
+    root: ROOT,
+    seedFiles: supportSeeds,
+    includeTransitive: true
+  });
+  for (const asset of supportAssets) {
+    await copyFileTracked(asset.sourcePath, asset.destinationPath, mirrors, "packaged-support-asset");
+  }
+
   return mirrors;
 }
 
@@ -701,7 +721,9 @@ async function writeManifest(mirrors) {
     "scripts/check-source-freshness.mjs",
     "scripts/validate-project-tooling-profiles.mjs",
     "scripts/ai-toolkit/build-embedded-package.mjs",
+    "scripts/ai-toolkit/reference-closure.mjs",
     "scripts/ai-toolkit/validate-ai-toolkit.mjs",
+    "scripts/ai-toolkit/validate-reference-closure.mjs",
     "scripts/ai-toolkit/validate-codex-runtime.mjs",
     "scripts/ai-toolkit/validate-version-consistency.mjs",
     "scripts/ai-toolkit/run-toolkit-evals.mjs",

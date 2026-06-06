@@ -10,6 +10,7 @@ import {
   TOOLKIT_VERSION,
   UNSAFE_COMMAND_PATTERNS
 } from "./embedded-data.mjs";
+import { collectReferenceClosureFailures } from "./reference-closure.mjs";
 
 const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
@@ -174,7 +175,7 @@ function parseSourceRefs(value, location) {
 }
 
 async function validatePackageShape() {
-  for (const dir of ["skills", "agents", "compiled-agents", "registries", "tool-packs", "checklists", "sources", "integrations", "templates", "evals"]) {
+  for (const dir of ["skills", "agents", "compiled-agents", "registries", "tool-packs", "checklists", "sources", "integrations", "templates", "evals", "methods", "docs"]) {
     if (!(await exists(`${AI_ROOT}/${dir}`))) {
       fail(`${AI_ROOT}/${dir}`, "missing embedded package directory");
     }
@@ -446,6 +447,12 @@ async function validateRuntimeBoundaryDocs() {
   }
 }
 
+function validateReferenceClosure() {
+  for (const failure of collectReferenceClosureFailures({ root: ROOT })) {
+    fail(failure.location, `[${failure.check}] ${failure.message}`);
+  }
+}
+
 async function main() {
   await validatePackageShape();
   await validateManifest();
@@ -455,6 +462,7 @@ async function main() {
   await validateWatchlist();
   await validateUnsafeText();
   await validateRuntimeBoundaryDocs();
+  validateReferenceClosure();
 
   if (warnings.length > 0) {
     console.log("WARN validate-ai-toolkit");

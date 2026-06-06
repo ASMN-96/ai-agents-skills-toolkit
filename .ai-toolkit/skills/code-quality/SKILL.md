@@ -23,9 +23,9 @@ Prefer available project-owned checks in this order: typecheck, lint, focused te
 - Dry-run, skipped, unavailable, metadata-only, or planned quality gates are not reported as real execution.
 - Route React projects to React Doctor as `active-if-detected` when project-owned and `owner-approved-install` when absent; it supplements ESLint, React Hooks, tests, and browser evidence.
 - Treat Playwright, Oxlint, Semgrep, dependency-cruiser, Madge, jscpd, actionlint, zizmor, Gitleaks, and OSV Scanner as usable only when project-owned or owner-approved. Start new/noisy CI use as `ci-advisory`; promote to blocking only after calibration and owner approval.
-- Route performance, scalability, and cache-sensitive changes through `methods/performance/performance-scalability-cache-readiness.md`.
-- Route cross-surface API/client compatibility through `methods/architecture/cross-surface-client-contracts.md` when frontend changes affect multiple consumers.
-  Use `methods/api/api-contract-and-routing-readiness.md` for explicit API route or contract readiness.
+- Route performance, scalability, and cache-sensitive changes through `.ai-toolkit/methods/performance/performance-scalability-cache-readiness.md`. Canonical toolkit source: `methods/performance/performance-scalability-cache-readiness.md`.
+- Route cross-surface API/client compatibility through `.ai-toolkit/methods/architecture/cross-surface-client-contracts.md` when frontend changes affect multiple consumers. Canonical toolkit source: `methods/architecture/cross-surface-client-contracts.md`.
+  Use `.ai-toolkit/methods/api/api-contract-and-routing-readiness.md` for explicit API route or contract readiness. Canonical toolkit source: `methods/api/api-contract-and-routing-readiness.md`.
 
 ## Completion Evidence
 
