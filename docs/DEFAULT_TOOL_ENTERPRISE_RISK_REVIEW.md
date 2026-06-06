@@ -49,4 +49,3 @@ When recommending any default tool, report:
 - Do not claim license compatibility beyond reviewed source-record evidence.
 - Do not claim telemetry, data-flow, permissions, or vendor posture when evidence is missing.
 - Do not treat `.ai-toolkit`, source records, templates, or dry-run planner output as execution.
-

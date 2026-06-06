@@ -354,7 +354,7 @@
       "source": "docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md",
       "target": ".ai-toolkit/docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md",
       "mode": "packaged-support-asset",
-      "sha256": "189f2e04bd4b4b896d25155604db09dceb3ac76752774498b51bb863c057e187"
+      "sha256": "e30eaf9c18299a7cffc98ac13079fa97303a949600dae5d746cb58e4ac15c655"
     },
     {
       "source": "docs/NO_FAKE_VALIDATION_POLICY.md",
