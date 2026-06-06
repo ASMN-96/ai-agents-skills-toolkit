@@ -5,8 +5,8 @@
 - Owner / publisher: shadcn-ui.
 - Source type: Open component code, registry, documentation, CLI, and AI-oriented UI composition source.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `7dfd933102fdb881f8abd24fc1ef11a669682b94` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-06.
-- Visible adoption signals: about 113.8k GitHub stars, 8.7k forks, active repository updates on 2026-05-08, and official docs at `ui.shadcn.com`.
+- Pinned repo ref checked: `8da4592308472f31f4e622309214f51fc272cbf0` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-07.
+- Visible adoption signals: about 115.9k GitHub stars, 9.0k forks, active repository updates on 2026-06-06, and official docs at `ui.shadcn.com`.
 - Trust level: High UI ecosystem trust, medium-high execution risk if CLI or registry behavior is followed blindly.
 - License status: GitHub API reports MIT.
 - Recommendation: `SYNCED_REFERENCE` for v0.2.3 with active design-system guidance retained in toolkit-owned UIUX methods. Do not run CLI commands, install components, start MCP servers, copy component source, import registry/package metadata, or activate upstream skills during source scouting.
@@ -101,3 +101,13 @@ Skill Scout read-only release-gate follow-up reviewed upstream default-branch mo
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep shadcn/ui active as design-system/component-ownership reference guidance, while rejecting this specific package/lockfile/CLI drift for toolkit adoption. Existing toolkit-owned design-system guidance now records shadcn/ui as reference intelligence for semantic tokens, accessible component APIs, component ownership, and compatibility gates. This review does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, package metadata adoption, lockfile adoption, dependency movement adoption, package changes, product-repo changes, raw source extraction, or runtime activation.
+
+## Freshness Review 2026-06-07
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `7dfd933102fdb881f8abd24fc1ef11a669682b94` to `8da4592308472f31f4e622309214f51fc272cbf0` using `git ls-remote`, GitHub compare metadata, current commit metadata, repository metadata, license metadata, and changed-file metadata only. The compare was 3 commits ahead with commit messages `feat(registry): update @stepper logo (#10875)`, `feat(registry): update diceui registry url to support style (#10881)`, and `feat: update registry build commands (#10880)`. It touched `CONTRIBUTING.md`, added `apps/v4/registry/README.md`, modified `apps/v4/registry/directory.json`, and modified `apps/v4/scripts/build-registry.mts`. MIT license metadata remained present.
+
+Classification: source-record refresh / reference-only registry docs, registry directory metadata, and registry build-script drift. The script/build-command change keeps execution risk explicit, but no upstream scripts, CLI behavior, registry content, component source, package metadata, lockfiles, dependencies, or product files were copied, run, installed, activated, extracted, or adopted.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep shadcn/ui active only as design-system/component-ownership reference guidance for toolkit-owned UIUX methods. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, upstream script execution, build command adoption, package metadata adoption, lockfile adoption, dependency changes, package changes, product-repo changes, raw source extraction, or runtime activation.
