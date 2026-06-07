@@ -366,8 +366,8 @@
       "repoOwner": "affaan-m",
       "repoName": "everything-claude-code",
       "defaultBranch": "main",
-      "lastReviewedCommit": "7113b5bf63694b716f8b2413c5919824a82fc095",
-      "lastReviewedDate": "2026-06-06",
+      "lastReviewedCommit": "eef31ad39ce92f437339c2b26edb1b71d3075666",
+      "lastReviewedDate": "2026-06-07",
       "sourceRecordPath": "sources/everything-claude-code.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -375,16 +375,19 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "7113b5bf63694b716f8b2413c5919824a82fc095",
-        "reviewedDate": "2026-06-06",
-        "summary": "Latest cross-harness session/MCP/control-plane changes reviewed; retained as source-safety awareness only without active cross-runtime support claims.",
+        "reviewedCommit": "eef31ad39ce92f437339c2b26edb1b71d3075666",
+        "reviewedDate": "2026-06-07",
+        "summary": "Latest Codex/Cursor/Kiro/OpenCode/Trae config, workflow, command, hook, script, skill, agent, translation, and bundled-default drift reviewed; retained as source-safety awareness only without active cross-runtime support claims.",
         "boundaries": [
           "no Claude/Cursor/Cline/OpenHands runtime support claim",
           "no MCP inventory import",
           "no session-adapter import",
           "no control-plane import",
           "no global config behavior",
-          "no script execution"
+          "no script execution",
+          "no worktree-lifecycle service import",
+          "no Kiro agent, skill, hook, or install import",
+          "no workflow, command, or bundled-default adoption"
         ]
       }
     },

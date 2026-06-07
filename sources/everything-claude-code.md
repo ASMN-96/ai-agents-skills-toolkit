@@ -4,7 +4,7 @@
 - Owner / publisher: affaan-m.
 - Source type: Cross-harness Claude Code ecosystem repository with skills, agents, commands, hooks, manifests, MCP config, plugins, rules, and install scripts.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `7113b5bf63694b716f8b2413c5919824a82fc095` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-06.
+- Pinned repo ref checked: `eef31ad39ce92f437339c2b26edb1b71d3075666` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-07.
 - Visible adoption signals: about 175.8k GitHub stars, 27.2k forks, and large multi-harness surface area.
 - Trust level: Medium source trust, very high execution/config-mutation risk.
 - License status: GitHub API reports MIT.
@@ -88,3 +88,11 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep the latest upstream commit active as source-safety awareness for cross-harness risk scoring. Useful guidance remains in `methods/internal/source-safety-scoring.md`: MCP inventory/config readers, session adapters, control panes, and secret-redaction implementations are high-risk runtime/control-plane surfaces that require separate approval and must not be treated as toolkit runtime support. This review does not approve plugin import, skill import, install module import, control-plane import, session-adapter import, MCP inventory import, cross-harness runtime support claims, MCP behavior adoption, global config behavior, Codex session or config reader adoption, OpenCode session reader adoption, Claude config reader adoption, secret-redaction implementation adoption, source import, installation, activation, package changes, CI changes, product-repo changes, script execution, or global configuration changes. Future upstream movement beyond `7113b5bf63694b716f8b2413c5919824a82fc095` requires a fresh review.
+
+## Release-Gate Freshness Review 2026-06-07
+
+Skill Scout/read-only release-gate follow-up reviewed upstream movement from `7113b5bf63694b716f8b2413c5919824a82fc095` to `eef31ad39ce92f437339c2b26edb1b71d3075666` using `git ls-remote`, GitHub repository metadata, and GitHub compare metadata only. The compare was 49 commits ahead and 300 files changed. GitHub repository metadata still reports MIT license, default branch `main`, and pushed-at timestamp `2026-06-07T05:37:46Z`. The observed compare surface includes Codex and Cursor configuration, GitHub workflows, Kiro agents, Kiro skills, Kiro hooks, install scripts, OpenCode and Trae config, commands, scripts, translations, worktree-lifecycle services, and bundled-default changes.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep the latest upstream commit active as source-safety awareness only. This review does not approve worktree-lifecycle service import, Kiro agent/skill/hook/import or install behavior, Codex/Cursor/OpenCode/Trae configuration adoption, workflow import, command import, bundled-default adoption, plugin import, skill import, install module import, control-plane import, session-adapter import, MCP inventory import, cross-harness runtime support claims, MCP behavior adoption, global config behavior, source import, installation, activation, extraction, package changes, CI changes, product-repo changes, script execution, or global configuration changes. Future upstream movement beyond `eef31ad39ce92f437339c2b26edb1b71d3075666` requires a fresh review.
