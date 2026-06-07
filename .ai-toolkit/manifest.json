@@ -276,7 +276,7 @@
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
-      "sha256": "f0156c54955390fe9e2aa78a16e9aae7b4dd8d216fc89bf64cc4e73e6ae4b5cf"
+      "sha256": "f0f4e57ea06888b4baa6c21dc0b7495931b7699a812ac8e8c3fd6cdcd6607349"
     },
     {
       "source": "compiled-agents/product-agent.compiled.md",
@@ -384,7 +384,7 @@
       "source": "docs/SOURCE_UTILIZATION_MATRIX.md",
       "target": ".ai-toolkit/docs/SOURCE_UTILIZATION_MATRIX.md",
       "mode": "packaged-support-asset",
-      "sha256": "2ce1b4422c4ecb05ed4e4923d148f6d09387180e5ec795707a85a48779458f25"
+      "sha256": "a29a43c7c99ff6f4bc8fda0ccb996fa98bf3b4665d12b25a71500808cea8ca91"
     },
     {
       "source": "docs/UI_UX_PRO_MAX_AUDIT.md",

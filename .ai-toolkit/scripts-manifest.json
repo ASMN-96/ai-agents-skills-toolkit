@@ -24,7 +24,7 @@
     },
     {
       "path": "scripts/check-source-freshness.mjs",
-      "sha256": "49d39dceb1608cc6dfc82d94e469e60af1f86d04795e79409359cd31d0dad771"
+      "sha256": "9192f2e93462bfa64edcfc3cc8a0607752ab5b0128efbbef14fa29a505ea6938"
     },
     {
       "path": "scripts/validate-project-tooling-profiles.mjs",
@@ -56,7 +56,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "7bdbe09b77349ebf789e79a437d58e2c142d0d59598b3ccf382c0c8307205517"
+      "sha256": "6d044560a75ae60979075fd35ea518c4cb977dc902e22961900d4e8b1fffb141"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",

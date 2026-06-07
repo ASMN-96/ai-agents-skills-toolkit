@@ -98,6 +98,32 @@ function summarize(text, maxLines = 18) {
     .join("\n");
 }
 
+function normalizeMarkdownHeadingSpacing(text) {
+  const lines = text.split("\n");
+  const output = [];
+  let inFence = false;
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    if (line.startsWith("```")) {
+      inFence = !inFence;
+      output.push(line);
+      continue;
+    }
+
+    const isHeading = !inFence && /^#{1,6}\s+\S/.test(line);
+    if (isHeading && output.length > 0 && output[output.length - 1] !== "") {
+      output.push("");
+    }
+    output.push(line);
+    if (isHeading && index + 1 < lines.length && lines[index + 1] !== "") {
+      output.push("");
+    }
+  }
+
+  return output.join("\n");
+}
+
 function methodSourceRefs(text) {
   const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!match) return ["unknown-review-required"];
@@ -217,7 +243,7 @@ External source records are provenance only. They do not authorize raw copying, 
   return {
     agent: agent.name,
     target: agent.compiledFallbackPath || `compiled-agents/${agent.name}.compiled.md`,
-    text: output,
+    text: normalizeMarkdownHeadingSpacing(output),
     words: output.trim().split(/\s+/).filter(Boolean).length
   };
 }

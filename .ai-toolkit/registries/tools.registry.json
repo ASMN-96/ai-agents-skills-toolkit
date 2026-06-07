@@ -365,8 +365,8 @@
         "Do not claim output unless the tool actually ran."
       ],
       "activationLevels": [
-        "static-adopted",
-        "forbidden-runtime"
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -2763,7 +2763,8 @@
         "Do not claim output unless the tool actually ran."
       ],
       "activationLevels": [
-        "owner-approved-install"
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {
@@ -2852,7 +2853,8 @@
         "Do not claim output unless the tool actually ran."
       ],
       "activationLevels": [
-        "owner-approved-install"
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {

@@ -321,8 +321,8 @@
         "defaultInstall": false,
         "requiresOwnerApproval": true,
         "activationLevels": [
-          "static-adopted",
-          "forbidden-runtime"
+          "active-if-detected",
+          "owner-approved-install"
         ],
         "whenDetected": null,
         "whenAbsent": null,
@@ -1120,7 +1120,8 @@
         "defaultInstall": false,
         "requiresOwnerApproval": true,
         "activationLevels": [
-          "owner-approved-install"
+          "static-adopted",
+          "forbidden-runtime"
         ],
         "whenDetected": null,
         "whenAbsent": null,
@@ -1150,7 +1151,8 @@
         "defaultInstall": false,
         "requiresOwnerApproval": true,
         "activationLevels": [
-          "owner-approved-install"
+          "static-adopted",
+          "forbidden-runtime"
         ],
         "whenDetected": null,
         "whenAbsent": null,

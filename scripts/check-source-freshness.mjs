@@ -287,6 +287,18 @@ function validateWatchlist(watchlist) {
       if (!source.manualReview || typeof source.manualReview !== "object" || Array.isArray(source.manualReview)) {
         throw new Error(`Source ${source.id} manual-reviewed-doc sources must include manualReview metadata`);
       }
+      for (const field of ["publisher", "cadence", "reason"]) {
+        if (typeof source.manualReview[field] !== "string" || source.manualReview[field].trim().length === 0) {
+          throw new Error(`Source ${source.id} manualReview.${field} must be a non-empty string`);
+        }
+      }
+      if (
+        !Array.isArray(source.manualReview.forbiddenClaims) ||
+        source.manualReview.forbiddenClaims.length === 0 ||
+        source.manualReview.forbiddenClaims.some((claim) => typeof claim !== "string" || claim.trim().length === 0)
+      ) {
+        throw new Error(`Source ${source.id} manualReview.forbiddenClaims must be a non-empty string array`);
+      }
       if (source.lastReviewedCommit !== null) {
         throw new Error(`Source ${source.id} manual-reviewed-doc sources must use lastReviewedCommit: null`);
       }
@@ -795,7 +807,7 @@ function sourceTableRows(result) {
   if (result.watchedPathSignals.length > 0) {
     for (const signal of result.watchedPathSignals) {
       rows.push(
-        `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | ${escapeCell(signal.date || "n/a")} | n/a | path commit signal only | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | n/a | n/a | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | watched-path signal only |`
+        `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | n/a | ${escapeCell(signal.date || "n/a")} | path commit signal only | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | n/a | n/a | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | watched-path signal only |`
       );
     }
   }

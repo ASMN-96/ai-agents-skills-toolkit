@@ -463,7 +463,7 @@
         "cadence": "periodic owner review of the official docs URL and source-record notes",
         "reason": "Official documentation page has no immutable GitHub commit checkpoint in this repository.",
         "forbiddenClaims": [
-          "live GitHub freshness proof",
+          "live GitHub/GitLab freshness proof",
           "runtime support",
           "install or activation approval",
           "raw docs extraction approval"
@@ -488,7 +488,7 @@
         "cadence": "periodic owner review of the official docs URL and source-record notes",
         "reason": "Official documentation page has no immutable GitHub commit checkpoint in this repository.",
         "forbiddenClaims": [
-          "live GitHub freshness proof",
+          "live GitHub/GitLab freshness proof",
           "runtime support",
           "install or activation approval",
           "raw docs extraction approval"

@@ -4,7 +4,7 @@ This is documentation only. It is not installed, activated, or wired into Git ho
 
 Suggested local checks before committing toolkit changes:
 
-```powershell
+```sh
 node scripts/validate-toolkit.mjs
 node scripts/ai-toolkit/run-toolkit-evals.mjs
 git diff --check

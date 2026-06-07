@@ -98,19 +98,7 @@ async function main() {
     }
   }
 
-  for (const removedName of [
-    "ai-project-governance",
-    "legacy-governance",
-    "premium-uiux-review",
-    "legacy-uiux-review",
-    "webapp-code-quality",
-    "legacy-code-quality",
-    "app-security-review",
-    "legacy-security-review",
-    "legacy-release-gate",
-    "legacy-agent-governance",
-    "legacy-skill-governance"
-  ]) {
+  for (const removedName of REMOVED_OR_METHOD_ONLY_ALIASES) {
     if (skills.skills.some((entry) => entry.name === removedName)) {
       fail(`removed-skill-${removedName}`, "old alias/helper skill must not remain in the active skills registry");
     }
@@ -336,7 +324,10 @@ async function main() {
     if (!hasNonEmptyArray(evalCase.forbiddenClaims)) {
       fail(`unsafe-contract-${evalCase.id}`, "unsafe eval must include forbiddenClaims");
     }
-    if (!hasNonEmptyArray(evalCase.expectedStopConditions) && typeof evalCase.expectedSafeResponse !== "string") {
+    const hasSafeResponse =
+      typeof evalCase.expectedSafeResponse === "string" &&
+      evalCase.expectedSafeResponse.trim().length > 0;
+    if (!hasNonEmptyArray(evalCase.expectedStopConditions) && !hasSafeResponse) {
       fail(`unsafe-contract-${evalCase.id}`, "unsafe eval must include expectedStopConditions or expectedSafeResponse");
     }
   }
@@ -471,8 +462,11 @@ async function main() {
   }
 
   const responsiveNoEvidence = (uiuxEvals.cases || []).find((evalCase) => evalCase.id === "responsive-qa-without-viewport-evidence");
-  if (!responsiveNoEvidence || !includesAll(responsiveNoEvidence.forbiddenClaims || [], ["responsive-verified", "mobile-verified", "desktop-verified"])) {
-    fail("premium-uiux-no-fake-responsive", "responsive no-evidence eval must forbid responsive, mobile, and desktop verification claims without viewport evidence");
+  if (!responsiveNoEvidence || !includesAll(
+    responsiveNoEvidence.forbiddenClaims || [],
+    ["responsive-verified", "mobile-verified", "desktop-verified", "visual-qa-passed"]
+  )) {
+    fail("premium-uiux-no-fake-responsive", "responsive no-evidence eval must forbid responsive, mobile, desktop, and visual QA verification claims without viewport evidence");
   }
 
   if (failures.length === 0) {

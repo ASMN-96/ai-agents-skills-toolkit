@@ -2,6 +2,8 @@
 
 Current controlled release evidence: `v0.2.3`
 
+Controlled release evidence is an internal evidence-state marker until a matching git tag or GitHub Release is created; it is not, by itself, publication proof.
+
 Current working state: `Unreleased` audit remediation is in progress on top of v0.2.3 evidence.
 
 ## Runtime Boundary

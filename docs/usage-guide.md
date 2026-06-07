@@ -57,6 +57,8 @@ Agent availability means an agent can be selected or recommended when `.codex/ag
 
 Compiled fallbacks live under `compiled-agents/<agent>.compiled.md`. A project or reviewer may use a compiled fallback inline when native spawning is unavailable, but the completion report must say that the compiled fallback was used inline and must not claim a spawned agent ran.
 
+In this guide, a lens is an inline perspective or review frame selected from an agent or method without proving separate runtime execution. Spawn proof means current-task evidence that a native agent actually executed, not file presence, registry metadata, or compiled fallback availability.
+
 Example consumer note:
 
 ```text

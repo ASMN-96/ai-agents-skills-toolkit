@@ -11,7 +11,7 @@ __pycache__/
 *.log
 *.tmp
 *.bak
-*.local
+.env*.local
 reports/tmp/
 reports/scratch/
 docs/tmp/
