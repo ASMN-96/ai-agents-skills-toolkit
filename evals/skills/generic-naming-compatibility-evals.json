@@ -10,7 +10,22 @@
       "expectedAliases": [
         "governance"
       ],
-      "expectedBehavior": "canonical-final-routes"
+      "expectedBehavior": "canonical-final-routes",
+      "forbiddenAliases": [
+        "ai-project-governance",
+        "legacy-governance",
+        "premium-uiux-review",
+        "legacy-uiux-review",
+        "webapp-code-quality",
+        "legacy-code-quality",
+        "app-security-review",
+        "legacy-security-review",
+        "legacy-release-gate",
+        "legacy-agent-governance",
+        "legacy-skill-governance",
+        "governance-lite",
+        "router-lite"
+      ]
     },
     {
       "id": "canonical-uiux-final-active",
@@ -19,7 +34,22 @@
       "expectedAliases": [
         "uiux"
       ],
-      "expectedBehavior": "canonical-final-routes"
+      "expectedBehavior": "canonical-final-routes",
+      "forbiddenAliases": [
+        "ai-project-governance",
+        "legacy-governance",
+        "premium-uiux-review",
+        "legacy-uiux-review",
+        "webapp-code-quality",
+        "legacy-code-quality",
+        "app-security-review",
+        "legacy-security-review",
+        "legacy-release-gate",
+        "legacy-agent-governance",
+        "legacy-skill-governance",
+        "governance-lite",
+        "router-lite"
+      ]
     },
     {
       "id": "canonical-quality-final-active",
@@ -28,7 +58,22 @@
       "expectedAliases": [
         "code-quality"
       ],
-      "expectedBehavior": "canonical-final-routes"
+      "expectedBehavior": "canonical-final-routes",
+      "forbiddenAliases": [
+        "ai-project-governance",
+        "legacy-governance",
+        "premium-uiux-review",
+        "legacy-uiux-review",
+        "webapp-code-quality",
+        "legacy-code-quality",
+        "app-security-review",
+        "legacy-security-review",
+        "legacy-release-gate",
+        "legacy-agent-governance",
+        "legacy-skill-governance",
+        "governance-lite",
+        "router-lite"
+      ]
     },
     {
       "id": "canonical-security-final-active",
@@ -37,7 +82,22 @@
       "expectedAliases": [
         "security-review"
       ],
-      "expectedBehavior": "canonical-final-routes"
+      "expectedBehavior": "canonical-final-routes",
+      "forbiddenAliases": [
+        "ai-project-governance",
+        "legacy-governance",
+        "premium-uiux-review",
+        "legacy-uiux-review",
+        "webapp-code-quality",
+        "legacy-code-quality",
+        "app-security-review",
+        "legacy-security-review",
+        "legacy-release-gate",
+        "legacy-agent-governance",
+        "legacy-skill-governance",
+        "governance-lite",
+        "router-lite"
+      ]
     },
     {
       "id": "canonical-release-final-active",
@@ -46,7 +106,22 @@
       "expectedAliases": [
         "pr-release-gate"
       ],
-      "expectedBehavior": "canonical-final-routes"
+      "expectedBehavior": "canonical-final-routes",
+      "forbiddenAliases": [
+        "ai-project-governance",
+        "legacy-governance",
+        "premium-uiux-review",
+        "legacy-uiux-review",
+        "webapp-code-quality",
+        "legacy-code-quality",
+        "app-security-review",
+        "legacy-security-review",
+        "legacy-release-gate",
+        "legacy-agent-governance",
+        "legacy-skill-governance",
+        "governance-lite",
+        "router-lite"
+      ]
     },
     {
       "id": "old-aliases-removed-from-runtime",
@@ -58,7 +133,37 @@
         "security-review",
         "pr-release-gate"
       ],
-      "expectedBehavior": "old-aliases-are-not-active-runtime"
+      "expectedBehavior": "old-aliases-are-not-active-runtime",
+      "forbiddenAliases": [
+        "ai-project-governance",
+        "legacy-governance",
+        "premium-uiux-review",
+        "legacy-uiux-review",
+        "webapp-code-quality",
+        "legacy-code-quality",
+        "app-security-review",
+        "legacy-security-review",
+        "legacy-release-gate",
+        "legacy-agent-governance",
+        "legacy-skill-governance",
+        "governance-lite",
+        "router-lite"
+      ]
     }
+  ],
+  "forbiddenAliases": [
+    "ai-project-governance",
+    "legacy-governance",
+    "premium-uiux-review",
+    "legacy-uiux-review",
+    "webapp-code-quality",
+    "legacy-code-quality",
+    "app-security-review",
+    "legacy-security-review",
+    "legacy-release-gate",
+    "legacy-agent-governance",
+    "legacy-skill-governance",
+    "governance-lite",
+    "router-lite"
   ]
 }
