@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "purpose": "Read-only source freshness monitoring for reviewed external GitHub repository sources.",
+  "purpose": "Read-only source freshness monitoring for reviewed external GitHub repository sources and manual reviewed documentation sources.",
   "policy": {
     "readOnly": true,
     "neverAutoImport": true,
@@ -442,6 +442,56 @@
           "no daemon behavior",
           "no global config",
           "no package or lockfile update"
+        ]
+      }
+    },
+    {
+      "id": "gitlab-agent-skills",
+      "name": "GitLab Agent Skills Docs",
+      "sourceUrl": "https://docs.gitlab.com/ee/development/ai_features/agent_skills/",
+      "sourceType": "manual-reviewed-doc",
+      "watchMode": "manual-reviewed-doc",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": "2026-05-15",
+      "sourceRecordPath": "sources/gitlab-agent-skills.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "Medium",
+      "neverAutoImport": true,
+      "manualReview": {
+        "publisher": "GitLab",
+        "cadence": "periodic owner review of the official docs URL and source-record notes",
+        "reason": "Official documentation page has no immutable GitHub commit checkpoint in this repository.",
+        "forbiddenClaims": [
+          "live GitHub freshness proof",
+          "runtime support",
+          "install or activation approval",
+          "raw docs extraction approval"
+        ]
+      }
+    },
+    {
+      "id": "gitlab-agentic-tool-development",
+      "name": "GitLab Agentic Tool Development Docs",
+      "sourceUrl": "https://docs.gitlab.com/ee/development/ai_features/agentic_tool_development/",
+      "sourceType": "manual-reviewed-doc",
+      "watchMode": "manual-reviewed-doc",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": "2026-05-15",
+      "sourceRecordPath": "sources/gitlab-agentic-tool-development.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "Medium",
+      "neverAutoImport": true,
+      "manualReview": {
+        "publisher": "GitLab",
+        "cadence": "periodic owner review of the official docs URL and source-record notes",
+        "reason": "Official documentation page has no immutable GitHub commit checkpoint in this repository.",
+        "forbiddenClaims": [
+          "live GitHub freshness proof",
+          "runtime support",
+          "install or activation approval",
+          "raw docs extraction approval"
         ]
       }
     }

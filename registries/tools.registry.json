@@ -38,21 +38,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -66,7 +66,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",
@@ -88,6 +90,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -125,21 +131,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -153,7 +159,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",
@@ -174,6 +182,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -211,21 +223,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -239,7 +251,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",
@@ -258,6 +272,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -295,21 +313,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -323,7 +341,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Frontend Coding and React Quality",
@@ -343,6 +363,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {
@@ -380,21 +404,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -408,7 +432,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Frontend Coding and React Quality",
@@ -474,21 +500,21 @@
       "integrationRecordPath": null,
       "notes": "Knip must not appear in default or active project tooling profiles.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -502,7 +528,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Frontend Coding and React Quality",
@@ -521,6 +549,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -558,21 +590,21 @@
       "integrationRecordPath": null,
       "notes": "React Doctor is active-install-if-project-type for React projects; automation remains approval-required.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -586,7 +618,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Frontend Coding and React Quality",
@@ -651,21 +685,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -679,7 +713,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",
@@ -701,6 +737,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -738,21 +778,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -766,7 +806,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",
@@ -786,6 +828,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -823,21 +869,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -851,7 +897,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "default-install",
       "lane": "UI/UX Design Intelligence and Browser Evidence",
@@ -919,21 +967,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -947,7 +995,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "UI/UX Design Intelligence and Browser Evidence",
@@ -967,6 +1017,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -1004,21 +1058,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1032,7 +1086,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "UI/UX Design Intelligence and Browser Evidence",
@@ -1053,6 +1109,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -1090,21 +1150,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1118,7 +1178,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Backend, Security, Data Safety",
@@ -1137,6 +1199,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {
@@ -1174,21 +1240,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1202,7 +1268,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Backend, Security, Data Safety",
@@ -1267,21 +1335,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1295,7 +1363,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "default-install",
       "lane": "Backend, Security, Data Safety",
@@ -1359,21 +1429,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1387,7 +1457,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "approval-required",
       "lane": "Backend, Security, Data Safety",
@@ -1406,6 +1478,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {
@@ -1443,21 +1519,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1471,7 +1547,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "default-install",
       "lane": "Backend, Security, Data Safety",
@@ -1535,21 +1613,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "dependency-automation-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1563,7 +1641,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Backend, Security, Data Safety",
@@ -1582,6 +1662,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {
@@ -1619,21 +1703,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "dependency-automation-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1647,7 +1731,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Backend, Security, Data Safety",
@@ -1666,6 +1752,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {
@@ -1703,21 +1793,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1731,7 +1821,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "approval-required",
       "lane": "Backend, Security, Data Safety",
@@ -1750,6 +1842,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {
@@ -1787,21 +1883,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1815,7 +1911,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Backend, Security, Data Safety",
@@ -1836,6 +1934,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -1873,21 +1975,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1901,7 +2003,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Backend, Security, Data Safety",
@@ -1921,6 +2025,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -1958,21 +2066,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1986,7 +2094,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "approval-required",
       "lane": "Backend, Security, Data Safety",
@@ -2005,6 +2115,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {
@@ -2042,21 +2156,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "platform-security-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -2070,7 +2184,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Backend, Security, Data Safety",
@@ -2134,21 +2250,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "platform-security-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -2162,7 +2278,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Backend, Security, Data Safety",
@@ -2226,21 +2344,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "platform-security-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -2254,7 +2372,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "approval-required",
       "lane": "Backend, Security, Data Safety",
@@ -2273,6 +2393,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {
@@ -2310,21 +2434,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-delegated-service-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "release-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -2338,7 +2462,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Review, PR Feedback, and Release Evidence",
@@ -2357,6 +2483,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {
@@ -2413,19 +2543,21 @@
           "metadata-only"
         ],
         "forbiddenEnvironments": [
-          "install or configuration from registry presence",
-          "credential changes",
-          "permission changes",
-          "merge authority by itself",
           "local execution",
           "CI",
           "staging",
           "production",
           "global config",
           "MCP",
-          "product repositories"
+          "product repositories",
+          "install or configuration from registry presence",
+          "credential changes",
+          "permission changes",
+          "merge authority by itself"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "metadata-only-owner-review-required",
+        "reviewEvidence": "Delegated service metadata is recorded, but owner review is required before any runtime integration, repository permission grant, or CI/PR write workflow."
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Review, PR Feedback, and Release Evidence",
@@ -2444,6 +2576,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -2481,21 +2617,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-repo-permission-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "release-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -2509,7 +2645,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Review, PR Feedback, and Release Evidence",
@@ -2528,6 +2666,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "static-adopted",
+        "forbidden-runtime"
       ]
     },
     {
@@ -2596,7 +2738,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only active-read-only source intelligence unless explicitly approved; not enterprise-approved for execution, indexing, MCP, CI, package changes, or product repo scanning"
+        "defaultEnterpriseStatus": "metadata-only active-read-only source intelligence unless explicitly approved; not enterprise-approved for execution, indexing, MCP, CI, package changes, or product repo scanning",
+        "reviewState": "reviewed",
+        "reviewEvidence": "Recorded active-read-only source-safety metadata exists in this registry; execution, install, indexing, MCP, package changes, and product-repository writes remain forbidden unless separately approved."
       },
       "projectInstallClass": "active-read-only",
       "lane": "Architecture, Repo Intelligence, and Token Context",
@@ -2617,6 +2761,9 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP, indexing, product repo scanning, or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "owner-approved-install"
       ]
     },
     {
@@ -2654,21 +2801,21 @@
       "integrationRecordPath": null,
       "notes": "Active-reference design intelligence only; install, MCP/global config, raw design-system import, package changes, and unmanaged persistence remain approval-required.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-reference-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "product-design-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -2682,7 +2829,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-reference",
       "lane": "UI/UX Design Intelligence and Browser Evidence",
@@ -2701,6 +2850,9 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "owner-approved-install"
       ]
     },
     {
@@ -2738,21 +2890,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-source-trust-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -2766,8 +2918,14 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
-      }
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+      },
+      "activationLevels": [
+        "static-adopted",
+        "forbidden-runtime"
+      ]
     },
     {
       "id": "dependency-cruiser",
@@ -2804,21 +2962,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "architecture-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -2832,7 +2990,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Architecture, Repo Intelligence, and Token Context",
@@ -2896,28 +3056,27 @@
       "integrationRecordPath": null,
       "notes": "Active-install-if-project-type only when architecture layers are stable and owner-approved; install, package/config change, and CI wiring remain approval-required.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "architecture-tool-owner-required",
         "allowedEnvironments": [
-          "metadata-only",
-          "target project after stable layer model and owner approval"
+          "metadata-only"
         ],
         "forbiddenEnvironments": [
-          "automatic local execution",
+          "local execution",
           "CI",
           "staging",
           "production",
@@ -2925,7 +3084,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; active-install-if-project-type only after stable architecture layers, owner approval, and project-local evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Architecture, Repo Intelligence, and Token Context",
@@ -2944,6 +3105,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {
@@ -2981,21 +3146,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "architecture-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -3009,7 +3174,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Architecture, Repo Intelligence, and Token Context",
@@ -3073,21 +3240,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "architecture-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -3101,7 +3268,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Architecture, Repo Intelligence, and Token Context",
@@ -3165,21 +3334,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "unknown-review-required",
-        "saasOrLocal": "unknown-review-required",
-        "dataSentExternally": "unknown-review-required",
-        "networkBehavior": "unknown-review-required",
-        "secretAccessRisk": "unknown-review-required",
-        "repositoryPermissionsRequired": "unknown-review-required",
-        "ciPermissionsRequired": "unknown-review-required",
-        "githubAppPermissionsRequired": "unknown-review-required",
-        "authenticationModel": "unknown-review-required",
-        "telemetryBehavior": "unknown-review-required",
-        "commercialVendorDependency": "unknown-review-required",
-        "maintenanceSignal": "unknown-review-required",
-        "lastReviewedCommit": "unknown-review-required",
-        "lastReviewedDate": "unknown-review-required",
-        "securityReviewStatus": "metadata-only-owner-review-required",
+        "license": "not-reviewed-owner-required",
+        "saasOrLocal": "not-reviewed-owner-required",
+        "dataSentExternally": "not-reviewed-owner-required",
+        "networkBehavior": "not-reviewed-owner-required",
+        "secretAccessRisk": "not-reviewed-owner-required",
+        "repositoryPermissionsRequired": "not-reviewed-owner-required",
+        "ciPermissionsRequired": "not-reviewed-owner-required",
+        "githubAppPermissionsRequired": "not-reviewed-owner-required",
+        "authenticationModel": "not-reviewed-owner-required",
+        "telemetryBehavior": "not-reviewed-owner-required",
+        "commercialVendorDependency": "not-reviewed-owner-required",
+        "maintenanceSignal": "not-reviewed-owner-required",
+        "lastReviewedCommit": "not-reviewed-owner-required",
+        "lastReviewedDate": "not-reviewed-owner-required",
+        "securityReviewStatus": "unreviewed-blocked",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -3193,7 +3362,9 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence"
+        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
+        "reviewState": "unreviewed-blocked",
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",
@@ -3215,6 +3386,10 @@
         "Do not wire CI from registry presence.",
         "Do not configure MCP or global config from registry presence.",
         "Do not claim output unless the tool actually ran."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
       ]
     }
   ]

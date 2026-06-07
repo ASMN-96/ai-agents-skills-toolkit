@@ -227,7 +227,10 @@
         "installLocation": "target project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -256,7 +259,10 @@
         "installLocation": "target project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -283,7 +289,10 @@
         "installLocation": "target React project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -311,7 +320,10 @@
         "installLocation": "target project if already present",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "static-adopted",
+          "forbidden-runtime"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -370,7 +382,10 @@
         "installLocation": "target project if already present",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -431,7 +446,10 @@
         "installLocation": "target project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -459,7 +477,10 @@
         "installLocation": "target project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -521,7 +542,10 @@
         "installLocation": "target UI project dev dependency/script",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -550,7 +574,10 @@
         "installLocation": "target web project script",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -577,7 +604,10 @@
         "installLocation": "platform code scanning",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "static-adopted",
+          "forbidden-runtime"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -665,7 +695,10 @@
         "installLocation": "target project tool/script only after approval",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "static-adopted",
+          "forbidden-runtime"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -722,7 +755,10 @@
         "installLocation": "target repo service/config",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "static-adopted",
+          "forbidden-runtime"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -749,7 +785,10 @@
         "installLocation": "target repo service/config",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "static-adopted",
+          "forbidden-runtime"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -776,7 +815,10 @@
         "installLocation": "target project/service only after approval",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "static-adopted",
+          "forbidden-runtime"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -805,7 +847,10 @@
         "installLocation": "target container/IaC/SBOM project tooling",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -833,7 +878,10 @@
         "installLocation": "target IaC/cloud project tooling",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -860,7 +908,10 @@
         "installLocation": "bounded test target only",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "static-adopted",
+          "forbidden-runtime"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -947,7 +998,10 @@
         "installLocation": "GitHub Actions only after approval",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "static-adopted",
+          "forbidden-runtime"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -974,7 +1028,10 @@
         "installLocation": "target repo CI/tooling if already owned",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "static-adopted",
+          "forbidden-runtime"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -1001,7 +1058,10 @@
         "installLocation": "already connected external service",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -1028,7 +1088,10 @@
         "installLocation": "local/operator environment",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "static-adopted",
+          "forbidden-runtime"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -1056,7 +1119,9 @@
         "installLocation": "read-only source/reference",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -1084,7 +1149,9 @@
         "installLocation": "read-only source/reference",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -1141,7 +1208,10 @@
         "installLocation": "target project after stable layer model and owner approval",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,
@@ -1231,7 +1301,10 @@
         "installLocation": "target project dev dependency or existing script",
         "defaultInstall": true,
         "requiresOwnerApproval": true,
-        "activationLevels": [],
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
         "whenDetected": null,
         "whenAbsent": null,
         "ciDefault": null,

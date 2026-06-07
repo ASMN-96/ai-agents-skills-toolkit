@@ -29,11 +29,31 @@ Each tool entry must include:
 - `allowedEnvironments`
 - `forbiddenEnvironments`
 - `defaultEnterpriseStatus`
+- `reviewState`
+- `reviewEvidence`
+
+`reviewState` must be one of:
+
+- `reviewed`: specific evidence is recorded in this repository, but runtime/install/CI permission still depends on the tool's allowed environment scope.
+- `unreviewed-blocked`: no current enterprise evidence is recorded; the tool is metadata-only and blocked from execution/install until owner review.
+- `metadata-only-owner-review-required`: delegated or partial metadata exists, but owner review is still required before runtime use, repository permissions, CI wiring, MCP setup, or product-repository use.
+
+## Controlled Posture Values
+
+Tool posture labels are stored in `activationLevels` and must use only this vocabulary:
+
+- `active-if-detected`
+- `owner-approved-install`
+- `ci-advisory`
+- `ci-blocking-after-calibration`
+- `static-adopted`
+- `forbidden-runtime`
 
 ## Default Rules
 
 - `defaultEnterpriseStatus` must stay metadata-only unless a later review PR records approval evidence.
 - `securityReviewStatus` must not say approved or enterprise-approved without evidence.
+- No tool may keep all core enterprise-risk fields as `unknown-review-required`; an unreviewed tool must say `unreviewed-blocked` and use explicit owner-review-required field values.
 - `allowedEnvironments` must not imply execution approval from registry presence.
 - `forbiddenEnvironments` must block local execution, CI, staging, production, global config, MCP, and product repositories unless separately approved.
 - CodeRabbit remains delegated integration metadata, not a source repo and not merge authority by itself.
