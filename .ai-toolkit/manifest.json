@@ -108,7 +108,7 @@
       "source": "agents/product-agent.md",
       "target": ".ai-toolkit/agents/product-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "8680b706576f099e0c9628e36154a613983e03810ec7f36f360a7998ac656231"
+      "sha256": "dea8399e9ae5b96a56fc7592a83d77a8cfb6b6dd049183853b6a3f094c32a612"
     },
     {
       "source": ".codex/agents/architect-agent.toml",
@@ -120,7 +120,7 @@
       "source": "agents/architect-agent.md",
       "target": ".ai-toolkit/agents/architect-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "ae84b5ce5d303313bed05edb56f55ed1f8b5e4acac6b60b6c1455fb0edb0c162"
+      "sha256": "ffe4d4550b2d4c94f43444c9c7e5022532ed05b27536b0c2e972a3dcccfd00d9"
     },
     {
       "source": ".codex/agents/reviewer-agent.toml",
@@ -132,7 +132,7 @@
       "source": "agents/reviewer-agent.md",
       "target": ".ai-toolkit/agents/reviewer-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "dcb2cd176e1e217ee94aaee42ae66e2577b0c2811e5c2f59a620078f7a0d25e6"
+      "sha256": "e8db7ecd82fa124a4d81fc471e740770fe22dca181a17dc2d7397307eeda7b0b"
     },
     {
       "source": ".codex/agents/uiux-agent.toml",
@@ -144,7 +144,7 @@
       "source": "agents/uiux-agent.md",
       "target": ".ai-toolkit/agents/uiux-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "5bed6dd418ee3fde0aa7afebc987e0833b96d4428fd0d34cb101316fdc5c07cc"
+      "sha256": "a126a976e09559f7cf45eba69795ec6ce437e39f65e73d5531eb28d390cd457b"
     },
     {
       "source": ".codex/agents/frontend-agent.toml",
@@ -156,7 +156,7 @@
       "source": "agents/frontend-agent.md",
       "target": ".ai-toolkit/agents/frontend-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "6bfd7ee44710f16ffe5174a660e6252ee04983a8b999abe6f3d8785d33e898ab"
+      "sha256": "a9de072925fc69a6d8f598b2eb1d9d4f3d28644eccb273a227fd249810848240"
     },
     {
       "source": ".codex/agents/backend-contract-agent.toml",
@@ -168,7 +168,7 @@
       "source": "agents/backend-contract-agent.md",
       "target": ".ai-toolkit/agents/backend-contract-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "0aef8450820fb19fdfba903fdb6cc56ee4e03cfa47849806ff4e76d1d980478e"
+      "sha256": "c6f39f97d818c429d9e997167dd6fb3a42b82bf6e0b677601cf0e2386d83c62c"
     },
     {
       "source": ".codex/agents/database-rls-agent.toml",
@@ -180,7 +180,7 @@
       "source": "agents/database-rls-agent.md",
       "target": ".ai-toolkit/agents/database-rls-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "c9216c743a5f79b1f0cf91c9421bd2e2793698f81f4a76ac3223ad42adb738ad"
+      "sha256": "611430e9332db2aa9d64717245f59dda73b9019132b47989b420a1d632a79f1b"
     },
     {
       "source": ".codex/agents/security-agent.toml",
@@ -192,7 +192,7 @@
       "source": "agents/security-agent.md",
       "target": ".ai-toolkit/agents/security-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "529fac11338845e786cf4d29dd5b4f66cc816ba29b2c28d7136d6ea0c9db900a"
+      "sha256": "e958c2eaab9799786ffbe6b822e7ca590b904537deeeaf6a161c29b6891340c4"
     },
     {
       "source": ".codex/agents/qa-test-agent.toml",
@@ -204,7 +204,7 @@
       "source": "agents/qa-test-agent.md",
       "target": ".ai-toolkit/agents/qa-test-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "0626082b33e44a49a044845ee400886738c340097f834d5351ebb2b7782a9131"
+      "sha256": "d309a132f3ffe77466dcb82d7e152a9d050239760df22817822621392077348d"
     },
     {
       "source": ".codex/agents/release-manager-agent.toml",
@@ -216,7 +216,7 @@
       "source": "agents/release-manager-agent.md",
       "target": ".ai-toolkit/agents/release-manager-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "bff2e3a7f0a9aea31ff51cbda11011f7b8f595df7db114bdb84769f334fe6ce8"
+      "sha256": "6e184350cbf14b6e9f494544de3b147dd68ddd1d98e84c02bc2cc33ab67c3520"
     },
     {
       "source": ".codex/agents/skill-scout-agent.toml",
@@ -228,7 +228,7 @@
       "source": "agents/skill-scout-agent.md",
       "target": ".ai-toolkit/agents/skill-scout-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "c34c84e977de7bccef108d2e90e8c92173c26f90afb50216b51cd59ab1d3457c"
+      "sha256": "7418e8a7c277f776e6089c443d32fcd10b93f33c256cd3c3f7e4c8786844b647"
     },
     {
       "source": ".codex/agents/sre-performance-agent.toml",
@@ -240,7 +240,7 @@
       "source": "agents/sre-performance-agent.md",
       "target": ".ai-toolkit/agents/sre-performance-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "76c9ad4886fb2b8724faabdbcd62dfee45291c4b94fe3acadcf4aff0b003f3ca"
+      "sha256": "6501ac39290df9c2dad58a7b56bc704d256f4a416ad73bf5de7605a893f8f60f"
     },
     {
       "source": "registries/agents.registry.json",
@@ -282,73 +282,73 @@
       "source": "compiled-agents/product-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/product-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "8065174994868b46fefff52c68c8f91d3b8e421b6e2968844ef739b36e8daddf"
+      "sha256": "96c659b4a15661bc084fe78b38e3d93ecd2855203ba4d8f6cad9ea25b6dd91f9"
     },
     {
       "source": "compiled-agents/architect-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/architect-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "b6153c8066567c52c09dc09620d7f146b9174070438734e3d35983704b59b851"
+      "sha256": "8b96b53cbd3e208595f8728fa898bb32a5b3c9a76e0337f57a97b46458b4d714"
     },
     {
       "source": "compiled-agents/reviewer-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/reviewer-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "fa75bcede19bf1d0cd380d9036793eb6b1227d631e475f03f7f5e0f7ea7ed399"
+      "sha256": "81aed91a4bd136a219250cbfc439ec1bdca5d01925ed7dc6e0a37d368b05fb9a"
     },
     {
       "source": "compiled-agents/uiux-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/uiux-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "24d4d50e0286cfd5dc0254840985d2615bc46ed273d2d118c7230534fbcee25a"
+      "sha256": "519698b07eef1726a1461617013c6981c0a279ef340eece42a7634beadf413d9"
     },
     {
       "source": "compiled-agents/frontend-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/frontend-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "31fc9eb3687e42b4d53384e8e28b2d7acabe9bce364596a076243c696b58fd2b"
+      "sha256": "69a70e71a8859228606d8b36e601674fc4622a6f9c4a9f20acbb0296c156a6cc"
     },
     {
       "source": "compiled-agents/backend-contract-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/backend-contract-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "1a7233f77d4552174641e435b0752534c63ffef47480f387b8dc56dada4bb3e7"
+      "sha256": "9c777acf38963cf58137d2ba137b5ee5bec8e215ee785ffec8022fc195f31996"
     },
     {
       "source": "compiled-agents/database-rls-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/database-rls-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "f08d41fd540bbd81cf8fdc8e879610e0391d8a85793ed04fdbe84adbb2e53ed9"
+      "sha256": "2488c323681b8cc5a5cd15e548c8fd26350fe3da9ef91c82c0225bbacfeee64e"
     },
     {
       "source": "compiled-agents/security-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/security-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "6e4d2caddcd55cd56adb7af5ddec6bbcc00c3ef176a9ec4126eebec9cd88bd44"
+      "sha256": "f2769b62bdf125efdc05a983917ad7aa5ef98c8122eab834fbfd3bf2eff90bc6"
     },
     {
       "source": "compiled-agents/qa-test-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/qa-test-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "fbee9c95d3e87b879e200f3e54e536df2bc9a327fd630529f8d7e8caf47f626e"
+      "sha256": "ea30635620e5de1e5ee960dd6d5c009371c6db73ac067f5f28ec2d98f5c06221"
     },
     {
       "source": "compiled-agents/release-manager-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/release-manager-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "53b9ff9198aa2c08bc8f05d71335053322c6ad14b82b874c249c00d70a8f7060"
+      "sha256": "6417d0c70ff6169255d377f2908ac7072fc8e2edf20dfa118e6438b233106b0d"
     },
     {
       "source": "compiled-agents/skill-scout-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/skill-scout-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "bceb404519d3c47a2665894f1c7c77c1958b7c0e5f642a41a0ce8ea9fed8e09b"
+      "sha256": "6449e2cdd73e22d8d8033a102e80962342e1c347a82f29620564430883656751"
     },
     {
       "source": "compiled-agents/sre-performance-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/sre-performance-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "dac7a62e845a3691698eb4094e6e883adea49546054ffdb7c59eece964fcb4cd"
+      "sha256": "d25ca1a5574ee1810a6780323dae70e3bd57b5e22328cc1cdc3b31a776a04f0a"
     },
     {
       "source": "docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md",

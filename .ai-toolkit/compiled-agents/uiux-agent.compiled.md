@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 30056029d7f1fb6d347337b4f93ee0b84d6fd814
+source_commit: a98cda9df4707b6704b6ca327d4f07c8a5665a72
 source_agent: agents/uiux-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
