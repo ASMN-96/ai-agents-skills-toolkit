@@ -9,6 +9,8 @@ compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit:
 source_agent:
+compiler: scripts/compile-agents.mjs
+registry_input: registries/agents.registry.json
 source_profile_refs: []
 source_method_refs: []
 compile_contract_version:

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { execFile } from "node:child_process";
+import { execFile, execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -55,6 +55,12 @@ async function withCompilerFixture(callback) {
       }]
     }, null, 2)}\n`, "utf8");
 
+    execFileSync("git", ["init"], { cwd: fixture, stdio: "ignore" });
+    execFileSync("git", ["config", "user.email", "toolkit-test@example.invalid"], { cwd: fixture });
+    execFileSync("git", ["config", "user.name", "Toolkit Test"], { cwd: fixture });
+    execFileSync("git", ["add", "."], { cwd: fixture, stdio: "ignore" });
+    execFileSync("git", ["commit", "-m", "fixture"], { cwd: fixture, stdio: "ignore" });
+
     return await callback(fixture);
   } finally {
     rmSync(fixture, { recursive: true, force: true });
@@ -82,12 +88,23 @@ test("confirm-write generates metadata-rich compiled agent and reports provenanc
     assert.match(result.stdout, /wrote/);
     const compiled = readFileSync(path.join(fixture, "compiled-agents", "reviewer-agent.compiled.md"), "utf8");
     assert.match(compiled, /toolkit_version: 0\.2\.3/);
-    assert.match(compiled, /source_commit: deterministic-not-recorded/);
+    assert.match(compiled, /source_commit: [0-9a-f]{40}/);
     assert.match(compiled, /source_agent: agents\/reviewer-agent\.md/);
+    assert.match(compiled, /compiler: scripts\/compile-agents\.mjs/);
+    assert.match(compiled, /registry_input: registries\/agents\.registry\.json/);
     assert.match(compiled, /source_profile_refs:/);
     assert.match(compiled, /source_method_refs:/);
     assert.match(compiled, /compile_contract_version: 1\.0\.0/);
     assert.match(compiled, /## Provenance/);
     assert.match(compiled, /internal\.review/);
+  });
+});
+
+test("--only fails clearly when no registered agent matches", async () => {
+  await withCompilerFixture(async (fixture) => {
+    const result = await runCompiler(fixture, ["--only", "missing-agent", "--dry-run"]);
+
+    assert.notEqual(result.code, 0);
+    assert.match(result.stderr, /--only did not match any registered agent: missing-agent/);
   });
 });

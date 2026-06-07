@@ -4,8 +4,10 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: deterministic-not-recorded
+source_commit: 30056029d7f1fb6d347337b4f93ee0b84d6fd814
 source_agent: agents/reviewer-agent.md
+compiler: scripts/compile-agents.mjs
+registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/audit-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md", "profiles/security-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
 source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.source-discovery-workflow", "internal.source-safety-scoring", "internal.tdd-verification-alignment", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.git-guardrails", "matt.grill-me", "matt.improve-architecture", "matt.tdd", "matt.triage-issue", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.performance-optimization", "osmani.security-hardening", "osmani.shipping-launch", "osmani.test-driven-development", "security.differential-security-review", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.premium-visual-quality", "uiux.webapp-testing", "uiux.commercial-dashboard-polish-rubric", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
@@ -888,9 +890,10 @@ UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
 - Prefer real product signals over decoration.
 - Load relevant product, design-system, and workflow context before visual changes.
 - Evaluate polish through concrete dimensions: hierarchy, spacing, contrast, motion restraint, interaction feedback, responsive fit, copy clarity, and state coverage.
+- Treat intentionally hidden accessibility text as semantic support first; only flag it as visual overflow when rendered evidence shows a user-visible fit or layout defect.
 - Use rendered evidence when making visual-quality claims; do not rely on source records or design vocabulary alone.
 ## Verification Requirements
-Review screenshots across viewports and inspect for overlap, low contrast, and generic composition.
+Review screenshots across viewports and inspect for overlap, low contrast, visible text overflow, and generic composition. Distinguish visible copy defects from accessibility-only hidden labels before reporting fit issues.
 ## Risks / Anti-Patterns
 AI-looking polish, decorative orbs, illegible text, stock-like imagery, or animation that distracts.
 ## Source Inspiration / License Status
@@ -1330,6 +1333,8 @@ Stop condition:
 ## Provenance
 
 - Source agent path: `agents/reviewer-agent.md`
+- Compiler: `scripts/compile-agents.mjs`
+- Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/audit-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
 - Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `internal.tdd-verification-alignment`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.git-guardrails`, `matt.grill-me`, `matt.improve-architecture`, `matt.tdd`, `matt.triage-issue`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.shipping-launch`, `osmani.test-driven-development`, `security.differential-security-review`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.premium-visual-quality`, `uiux.webapp-testing`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `impeccable`, `matt-pocock-skills`, `microsoft-playwright`, `ruflo`, `shadcn-ui`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`

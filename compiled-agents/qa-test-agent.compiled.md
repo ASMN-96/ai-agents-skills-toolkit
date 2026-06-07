@@ -4,8 +4,10 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: deterministic-not-recorded
+source_commit: 30056029d7f1fb6d347337b4f93ee0b84d6fd814
 source_agent: agents/qa-test-agent.md
+compiler: scripts/compile-agents.mjs
+registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/audit-profile.md", "profiles/frontend-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md", "profiles/fullstack-profile.md"]
 source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.git-guardrails", "matt.tdd", "matt.to-issues", "matt.triage-issue", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.shipping-launch", "osmani.test-driven-development", "uiux.accessibility", "uiux.frontend-design", "uiux.interaction-motion", "uiux.responsive-layout", "uiux.webapp-testing", "orchestration.changed-file-neighborhood-selection", "orchestration.static-task-state-handoff-ledger", "mobile.native-mobile-app-quality", "security.webview-boundary-review", "architecture.cross-surface-client-contracts", "reliability.coding-time-production-readiness", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
@@ -1007,6 +1009,8 @@ Stop condition:
 ## Provenance
 
 - Source agent path: `agents/qa-test-agent.md`
+- Compiler: `scripts/compile-agents.mjs`
+- Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/audit-profile.md`, `profiles/frontend-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/fullstack-profile.md`
 - Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.git-guardrails`, `matt.tdd`, `matt.to-issues`, `matt.triage-issue`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.shipping-launch`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.responsive-layout`, `uiux.webapp-testing`, `orchestration.changed-file-neighborhood-selection`, `orchestration.static-task-state-handoff-ledger`, `mobile.native-mobile-app-quality`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `code-review-graph`, `matt-pocock-skills`, `microsoft-playwright`, `ruflo`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `unknown-review-required`

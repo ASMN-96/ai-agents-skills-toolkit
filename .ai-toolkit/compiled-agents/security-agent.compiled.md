@@ -4,8 +4,10 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: deterministic-not-recorded
+source_commit: 30056029d7f1fb6d347337b4f93ee0b84d6fd814
 source_agent: agents/security-agent.md
+compiler: scripts/compile-agents.mjs
+registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/security-profile.md", "profiles/audit-profile.md", "profiles/backend-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
 source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.source-discovery-workflow", "internal.source-safety-scoring", "osmani.code-review-quality", "osmani.security-hardening", "security.differential-security-review", "orchestration.changed-file-neighborhood-selection", "orchestration.stale-context-graph-detection", "security.webview-boundary-review", "architecture.cross-surface-client-contracts", "api.api-contract-and-routing-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
@@ -520,6 +522,8 @@ Stop condition:
 ## Provenance
 
 - Source agent path: `agents/security-agent.md`
+- Compiler: `scripts/compile-agents.mjs`
+- Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/security-profile.md`, `profiles/audit-profile.md`, `profiles/backend-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
 - Method IDs: `backend.supabase-postgres-rls-gates`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `osmani.code-review-quality`, `osmani.security-hardening`, `security.differential-security-review`, `orchestration.changed-file-neighborhood-selection`, `orchestration.stale-context-graph-detection`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `api.api-contract-and-routing-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`

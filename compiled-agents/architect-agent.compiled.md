@@ -4,8 +4,10 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: deterministic-not-recorded
+source_commit: 30056029d7f1fb6d347337b4f93ee0b84d6fd814
 source_agent: agents/architect-agent.md
+compiler: scripts/compile-agents.mjs
+registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/implementation-profile.md", "profiles/backend-profile.md", "profiles/frontend-profile.md", "profiles/planning-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
 source_method_refs: ["internal.engineering-lifecycle-gates", "internal.simplicity-surgical-change-discipline", "internal.skill-anatomy", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.grill-me", "matt.improve-architecture", "matt.to-issues", "matt.to-prd", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.spec-driven-development", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness"]
 compile_contract_version: 1.0.0
@@ -700,9 +702,11 @@ Stop condition:
 ## Provenance
 
 - Source agent path: `agents/architect-agent.md`
+- Compiler: `scripts/compile-agents.mjs`
+- Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/backend-profile.md`, `profiles/frontend-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
 - Method IDs: `internal.engineering-lifecycle-gates`, `internal.simplicity-surgical-change-discipline`, `internal.skill-anatomy`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.grill-me`, `matt.improve-architecture`, `matt.to-issues`, `matt.to-prd`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.spec-driven-development`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `matt-pocock-skills`, `ruflo`, `toolkit-authored`, `unknown-review-required`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `gitlab-agent-skills`, `matt-pocock-skills`, `ruflo`, `toolkit-authored`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

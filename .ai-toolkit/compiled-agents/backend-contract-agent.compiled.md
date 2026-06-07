@@ -4,8 +4,10 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: deterministic-not-recorded
+source_commit: 30056029d7f1fb6d347337b4f93ee0b84d6fd814
 source_agent: agents/backend-contract-agent.md
+compiler: scripts/compile-agents.mjs
+registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/backend-profile.md", "profiles/implementation-profile.md", "profiles/security-profile.md", "profiles/fullstack-profile.md"]
 source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.api-interface-design", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.security-hardening", "osmani.spec-driven-development", "osmani.test-driven-development", "security.differential-security-review", "security.webview-boundary-review", "architecture.cross-surface-client-contracts", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "security.application-security-readiness"]
 compile_contract_version: 1.0.0
@@ -636,6 +638,8 @@ Stop condition:
 ## Provenance
 
 - Source agent path: `agents/backend-contract-agent.md`
+- Compiler: `scripts/compile-agents.mjs`
+- Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/backend-profile.md`, `profiles/implementation-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`
 - Method IDs: `backend.supabase-postgres-rls-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.improve-architecture`, `matt.tdd`, `osmani.api-interface-design`, `osmani.incremental-implementation`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.spec-driven-development`, `osmani.test-driven-development`, `security.differential-security-review`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `security.application-security-readiness`
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `matt-pocock-skills`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`

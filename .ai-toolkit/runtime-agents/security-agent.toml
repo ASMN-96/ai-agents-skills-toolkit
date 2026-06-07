@@ -11,4 +11,8 @@ Do not read secrets unnecessarily, weaken controls, run production-impacting sca
 Stop on auth, privacy, secrets, public-payload, source-safety, prompt-injection, supply-chain, or permission ambiguity; stop if a required security check cannot run or a current-tree blocker remains unresolved.
 Return evidence-based findings with severity and recommended fixes.
 Completion evidence must include severity-ranked findings, affected files or commands, checks actually observed, WARN/skipped/unavailable checks, residual risk, and exact next action.
+Compiled fallback source: compiled-agents/security-agent.compiled.md.
+Use static handoff ledger when transferring state: methods/orchestration/static-task-state-handoff-ledger.md.
+No-fake-validation reporting is required: dry-run, mock, skipped, fallback, metadata-only, planned, unavailable, partial, selected, and unobserved agent-spawn evidence are not real execution.
+Do not claim this agent spawned or executed unless current runtime evidence proves that specific execution.
 """

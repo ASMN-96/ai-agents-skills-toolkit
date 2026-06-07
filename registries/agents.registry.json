@@ -1,15 +1,14 @@
 {
   "schemaVersion": "1.0.0",
   "registryType": "agents",
-  "activationPolicy": "Registry presence never implies native visibility or activation.",
+  "activationPolicy": "Registry presence documents selectable agent lenses and file availability only; it is not proof that an agent spawned or executed.",
   "statusValues": [
     "documented",
     "available",
     "native-visible",
     "compiled-fallback",
     "draft",
-    "approved",
-    "active"
+    "approved"
   ],
   "agents": [
     {
@@ -69,6 +68,10 @@
         {
           "path": "compiled-agents/product-agent.compiled.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/product-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -76,8 +79,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -85,8 +87,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -94,7 +95,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/product-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/product-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/product-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/product-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     },
     {
       "name": "architect-agent",
@@ -157,6 +167,10 @@
         {
           "path": "compiled-agents/architect-agent.compiled.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/architect-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -164,8 +178,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -173,8 +186,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -182,7 +194,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/architect-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/architect-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/architect-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/architect-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     },
     {
       "name": "frontend-agent",
@@ -243,6 +264,10 @@
         {
           "path": "compiled-agents/frontend-agent.compiled.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/frontend-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -250,8 +275,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -259,8 +283,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -268,7 +291,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/frontend-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/frontend-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/frontend-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/frontend-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     },
     {
       "name": "uiux-agent",
@@ -328,6 +360,10 @@
         {
           "path": "compiled-agents/uiux-agent.compiled.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/uiux-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -335,8 +371,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -344,8 +379,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -353,7 +387,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/uiux-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/uiux-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/uiux-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/uiux-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     },
     {
       "name": "backend-contract-agent",
@@ -413,6 +456,10 @@
         {
           "path": "compiled-agents/backend-contract-agent.compiled.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/backend-contract-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -420,8 +467,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -429,8 +475,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -438,7 +483,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/backend-contract-agent.toml after stub removal and bounded read-only advisory hardening. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/backend-contract-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/backend-contract-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/backend-contract-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     },
     {
       "name": "database-rls-agent",
@@ -499,6 +553,10 @@
         {
           "path": "compiled-agents/database-rls-agent.compiled.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/database-rls-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -506,8 +564,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -515,8 +572,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -524,7 +580,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/database-rls-agent.toml after stub removal and bounded read-only advisory hardening. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/database-rls-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/database-rls-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/database-rls-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     },
     {
       "name": "security-agent",
@@ -585,6 +650,10 @@
         {
           "path": "compiled-agents/security-agent.compiled.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/security-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -592,8 +661,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -601,8 +669,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -610,7 +677,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/security-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/security-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/security-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/security-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     },
     {
       "name": "qa-test-agent",
@@ -671,6 +747,10 @@
         {
           "path": "compiled-agents/qa-test-agent.compiled.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/qa-test-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -678,8 +758,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -687,8 +766,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -696,7 +774,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/qa-test-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/qa-test-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/qa-test-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/qa-test-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     },
     {
       "name": "reviewer-agent",
@@ -763,6 +850,10 @@
         {
           "path": "skills/governance/SKILL.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/reviewer-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -770,8 +861,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -779,8 +869,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -788,7 +877,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/reviewer-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/reviewer-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/reviewer-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/reviewer-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     },
     {
       "name": "release-manager-agent",
@@ -848,6 +946,10 @@
         {
           "path": "compiled-agents/release-manager-agent.compiled.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/release-manager-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -855,8 +957,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -864,8 +965,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -873,7 +973,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/release-manager-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/release-manager-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/release-manager-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/release-manager-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     },
     {
       "name": "sre-performance-agent",
@@ -932,6 +1041,10 @@
         {
           "path": "compiled-agents/sre-performance-agent.compiled.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/sre-performance-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -939,8 +1052,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -948,8 +1060,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -957,7 +1068,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/sre-performance-agent.toml after stub removal and bounded read-only advisory hardening. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/sre-performance-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/sre-performance-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/sre-performance-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     },
     {
       "name": "skill-scout-agent",
@@ -1019,6 +1139,10 @@
         {
           "path": "compiled-agents/skill-scout-agent.compiled.md",
           "category": "internal-artifact"
+        },
+        {
+          "path": ".codex/agents/skill-scout-agent.toml",
+          "category": "internal-artifact"
         }
       ],
       "status": [
@@ -1026,8 +1150,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "provenanceType": "toolkit-authored",
       "activationStatus": [
@@ -1035,8 +1158,7 @@
         "available",
         "compiled-fallback",
         "approved",
-        "native-visible",
-        "active"
+        "native-visible"
       ],
       "registrySurface": "internal-helper",
       "visibility": [
@@ -1044,7 +1166,16 @@
         "global",
         "project-sync"
       ],
-      "runtimeActivationNotes": "Active repo-local project custom agent via .codex/agents/skill-scout-agent.toml. Registry, profile, and routing references still describe selected or recommended lenses unless current runtime evidence proves an agent actually spawned."
+      "runtimeActivationNotes": "Repo-local TOML at .codex/agents/skill-scout-agent.toml is present as a selectable project-agent definition. Registry metadata, profile references, TOML presence, native visibility labels, and compiled fallback presence are not proof that this agent spawned or executed; actualSpawnProof remains null until observed runtime evidence is recorded for a specific task.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/skill-scout-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": "compiled-agents/skill-scout-agent.compiled.md",
+        "compiledFallbackPresent": true
+      },
+      "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
     }
   ]
 }

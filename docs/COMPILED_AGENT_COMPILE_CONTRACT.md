@@ -45,18 +45,21 @@ Every compiled agent must include frontmatter with:
 - `compiled_at` or `compiled_at: deterministic-not-recorded`
 - `source_commit`
 - `source_agent`
+- `compiler`
+- `registry_input`
 - `source_profile_refs`
 - `source_method_refs`
 - `compile_contract_version`
 
-Unknown values must be explicit as `unknown-review-required`; they must not be guessed.
-Because a commit cannot contain generated files that already know their own final commit hash, checked-in compiled artifacts use `source_commit: deterministic-not-recorded` for reproducibility. Release evidence must pair the compiled artifacts with the Git commit that contains them.
+Unknown values must be explicit as `unknown-review-required`; they must not be guessed. `source_commit` must be resolved from `git rev-parse HEAD` at compile time. `compiled_at` may remain `deterministic-not-recorded` so regenerated outputs stay stable when the same source commit and inputs are used.
 
 ## Provenance Requirements
 
 Compiled outputs must list:
 
 - source agent path,
+- compiler path,
+- registry input path,
 - profile paths used,
 - method IDs and method paths used,
 - sourceRef IDs inherited from method frontmatter,

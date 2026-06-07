@@ -4,8 +4,10 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: deterministic-not-recorded
+source_commit: 30056029d7f1fb6d347337b4f93ee0b84d6fd814
 source_agent: agents/product-agent.md
+compiler: scripts/compile-agents.mjs
+registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/implementation-profile.md", "profiles/uiux-profile.md", "profiles/planning-profile.md", "profiles/fullstack-profile.md"]
 source_method_refs: ["internal.engineering-lifecycle-gates", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "matt.grill-me", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.spec-driven-development", "uiux.dashboard-ux", "uiux.premium-visual-quality", "uiux.commercial-dashboard-polish-rubric", "orchestration.context-graph-token-budget", "orchestration.compact-agent-context-pack"]
 compile_contract_version: 1.0.0
@@ -340,9 +342,10 @@ UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
 - Prefer real product signals over decoration.
 - Load relevant product, design-system, and workflow context before visual changes.
 - Evaluate polish through concrete dimensions: hierarchy, spacing, contrast, motion restraint, interaction feedback, responsive fit, copy clarity, and state coverage.
+- Treat intentionally hidden accessibility text as semantic support first; only flag it as visual overflow when rendered evidence shows a user-visible fit or layout defect.
 - Use rendered evidence when making visual-quality claims; do not rely on source records or design vocabulary alone.
 ## Verification Requirements
-Review screenshots across viewports and inspect for overlap, low contrast, and generic composition.
+Review screenshots across viewports and inspect for overlap, low contrast, visible text overflow, and generic composition. Distinguish visible copy defects from accessibility-only hidden labels before reporting fit issues.
 ## Risks / Anti-Patterns
 AI-looking polish, decorative orbs, illegible text, stock-like imagery, or animation that distracts.
 ## Source Inspiration / License Status
@@ -445,9 +448,11 @@ This approved method may be visible to project-sync consumers as passive governa
 ## Provenance
 
 - Source agent path: `agents/product-agent.md`
+- Compiler: `scripts/compile-agents.mjs`
+- Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/uiux-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`
 - Method IDs: `internal.engineering-lifecycle-gates`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `matt.grill-me`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.spec-driven-development`, `uiux.dashboard-ux`, `uiux.premium-visual-quality`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `impeccable`, `matt-pocock-skills`, `unknown-review-required`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `impeccable`, `matt-pocock-skills`, `toolkit-authored`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

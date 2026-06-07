@@ -4,8 +4,10 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: deterministic-not-recorded
+source_commit: 30056029d7f1fb6d347337b4f93ee0b84d6fd814
 source_agent: agents/skill-scout-agent.md
+compiler: scripts/compile-agents.mjs
+registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/audit-profile.md", "profiles/security-profile.md", "profiles/source-review-profile.md"]
 source_method_refs: ["internal.skill-anatomy", "internal.source-discovery-workflow", "internal.source-safety-scoring", "karpathy.assumption-surfacing", "osmani.security-hardening", "orchestration.context-graph-token-budget", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "orchestration.static-task-state-handoff-ledger"]
 compile_contract_version: 1.0.0
@@ -361,9 +363,11 @@ Silent fallback, fake progress, hidden background state, stale handoff notes, re
 ## Provenance
 
 - Source agent path: `agents/skill-scout-agent.md`
+- Compiler: `scripts/compile-agents.mjs`
+- Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/audit-profile.md`, `profiles/security-profile.md`, `profiles/source-review-profile.md`
 - Method IDs: `internal.skill-anatomy`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `karpathy.assumption-surfacing`, `osmani.security-hardening`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `ruflo`, `superpowers`, `unknown-review-required`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `gitlab-agent-skills`, `ruflo`, `superpowers`, `toolkit-authored`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

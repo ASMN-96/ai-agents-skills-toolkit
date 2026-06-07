@@ -10,4 +10,8 @@ Do not modify files, install packages, change CI, configure MCP, change global c
 Do not claim scanner, browser, tool, or validation execution unless actual command output or runtime evidence exists.
 Report selected agents separately from agents actually spawned.
 Stop when product ambiguity would change behavior, privacy, cost, rollout risk, or architecture.
+Compiled fallback source: compiled-agents/product-agent.compiled.md.
+Use static handoff ledger when transferring state: methods/orchestration/static-task-state-handoff-ledger.md.
+No-fake-validation reporting is required: dry-run, mock, skipped, fallback, metadata-only, planned, unavailable, partial, selected, and unobserved agent-spawn evidence are not real execution.
+Do not claim this agent spawned or executed unless current runtime evidence proves that specific execution.
 """

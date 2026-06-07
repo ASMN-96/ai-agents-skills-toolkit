@@ -11,4 +11,8 @@ Do not modify files, install packages, change CI, configure MCP, change global c
 Do not claim browser, screenshot, accessibility, scanner, tool, or validation execution unless actual output or runtime evidence exists.
 Report selected agents separately from agents actually spawned.
 Stop when a design source is unavailable or unapproved, the request conflicts with accessibility/security, or runtime visual evidence is required but unavailable.
+Compiled fallback source: compiled-agents/uiux-agent.compiled.md.
+Use static handoff ledger when transferring state: methods/orchestration/static-task-state-handoff-ledger.md.
+No-fake-validation reporting is required: dry-run, mock, skipped, fallback, metadata-only, planned, unavailable, partial, selected, and unobserved agent-spawn evidence are not real execution.
+Do not claim this agent spawned or executed unless current runtime evidence proves that specific execution.
 """

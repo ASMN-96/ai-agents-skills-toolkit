@@ -4,8 +4,10 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: deterministic-not-recorded
+source_commit: 30056029d7f1fb6d347337b4f93ee0b84d6fd814
 source_agent: agents/sre-performance-agent.md
+compiler: scripts/compile-agents.mjs
+registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/sre-profile.md", "profiles/release-profile.md", "profiles/implementation-profile.md"]
 source_method_refs: ["osmani.performance-optimization", "osmani.shipping-launch", "orchestration.compact-agent-context-pack", "mobile.native-mobile-app-quality", "reliability.coding-time-production-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness"]
 compile_contract_version: 1.0.0
@@ -297,6 +299,8 @@ Stop condition:
 ## Provenance
 
 - Source agent path: `agents/sre-performance-agent.md`
+- Compiler: `scripts/compile-agents.mjs`
+- Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/sre-profile.md`, `profiles/release-profile.md`, `profiles/implementation-profile.md`
 - Method IDs: `osmani.performance-optimization`, `osmani.shipping-launch`, `orchestration.compact-agent-context-pack`, `mobile.native-mobile-app-quality`, `reliability.coding-time-production-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `code-review-graph`, `toolkit-authored`

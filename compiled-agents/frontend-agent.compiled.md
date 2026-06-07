@@ -4,8 +4,10 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: deterministic-not-recorded
+source_commit: 30056029d7f1fb6d347337b4f93ee0b84d6fd814
 source_agent: agents/frontend-agent.md
+compiler: scripts/compile-agents.mjs
+registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/frontend-profile.md", "profiles/implementation-profile.md", "profiles/uiux-profile.md", "profiles/fullstack-profile.md"]
 source_method_refs: ["internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.spec-driven-development", "osmani.test-driven-development", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing", "uiux.commercial-dashboard-polish-rubric", "mobile.native-mobile-app-quality", "performance.performance-scalability-cache-readiness"]
 compile_contract_version: 1.0.0
@@ -551,9 +553,10 @@ UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
 - Prefer real product signals over decoration.
 - Load relevant product, design-system, and workflow context before visual changes.
 - Evaluate polish through concrete dimensions: hierarchy, spacing, contrast, motion restraint, interaction feedback, responsive fit, copy clarity, and state coverage.
+- Treat intentionally hidden accessibility text as semantic support first; only flag it as visual overflow when rendered evidence shows a user-visible fit or layout defect.
 - Use rendered evidence when making visual-quality claims; do not rely on source records or design vocabulary alone.
 ## Verification Requirements
-Review screenshots across viewports and inspect for overlap, low contrast, and generic composition.
+Review screenshots across viewports and inspect for overlap, low contrast, visible text overflow, and generic composition. Distinguish visible copy defects from accessibility-only hidden labels before reporting fit issues.
 ## Risks / Anti-Patterns
 AI-looking polish, decorative orbs, illegible text, stock-like imagery, or animation that distracts.
 ## Source Inspiration / License Status
@@ -711,6 +714,8 @@ Stop condition:
 ## Provenance
 
 - Source agent path: `agents/frontend-agent.md`
+- Compiler: `scripts/compile-agents.mjs`
+- Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/frontend-profile.md`, `profiles/implementation-profile.md`, `profiles/uiux-profile.md`, `profiles/fullstack-profile.md`
 - Method IDs: `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.improve-architecture`, `matt.tdd`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.performance-optimization`, `osmani.spec-driven-development`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`, `uiux.commercial-dashboard-polish-rubric`, `mobile.native-mobile-app-quality`, `performance.performance-scalability-cache-readiness`
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `impeccable`, `matt-pocock-skills`, `microsoft-playwright`, `shadcn-ui`, `superpowers`, `toolkit-authored`, `unknown-review-required`

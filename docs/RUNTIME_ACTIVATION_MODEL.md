@@ -29,7 +29,7 @@ Active repo skills are limited to five reviewed canonical runtime entries.
 - `.agents/skills/security-review/SKILL.md`
 - `.agents/skills/pr-release-gate/SKILL.md`
 
-Active project custom agents are limited to twelve approved repo-local TOML files:
+Repo-local project custom-agent files are limited to twelve approved `.codex/agents/*.toml` files:
 
 - `.codex/agents/product-agent.toml`
 - `.codex/agents/architect-agent.toml`
@@ -44,11 +44,33 @@ Active project custom agents are limited to twelve approved repo-local TOML file
 - `.codex/agents/skill-scout-agent.toml`
 - `.codex/agents/sre-performance-agent.toml`
 
-The seven specialist agents added in this activation pass are read-only advisory agents. They expand repo-local runtime visibility for product framing, architecture framing, UI/UX criteria, backend/API contract review, database/RLS review, source-safety scouting, and SRE/performance review, but they do not authorize package changes, CI changes, MCP configuration, global Codex config changes, product-repository sync, secret access, production/data/destructive changes, external source import, scanner execution, or fake validation claims.
+The seven specialist agents added in this activation pass are read-only advisory agent files. They expand repo-local custom-agent file availability for product framing, architecture framing, UI/UX criteria, backend/API contract review, database/RLS review, source-safety scouting, and SRE/performance review, but they do not prove an agent spawned and do not authorize package changes, CI changes, MCP configuration, global Codex config changes, product-repository sync, secret access, production/data/destructive changes, external source import, scanner execution, or fake validation claims.
 
 Backend Contract, Database RLS, and SRE Performance were upgraded from stubs to bounded read-only advisory agents before activation. Their hardening is anchored in OpenAPI/OAI contract description, OWASP API Security Top 10 risk categories, Supabase/Postgres RLS documentation, public/private leak gates, Google SRE golden signals, OpenTelemetry signals, and existing toolkit governance, security-review, code-quality, performance, release, and no-fake-validation methods. They still cannot approve production database changes, weaken RLS, perform security signoff alone, change deployment/CI/infrastructure, access secrets, or claim scanner/browser/runtime evidence without actual output.
 
-Skill, profile, and routing registry references to agents describe selected or recommended agent lenses unless current runtime evidence proves a spawned agent actually ran. Completion reports must distinguish selected or recommended agent, active runtime `.codex/agents` TOML, compiled fallback, inline lens, and actually spawned agent.
+Skill, profile, and routing registry references to agents describe selected or recommended agent lenses unless current runtime evidence proves a spawned agent actually ran. Completion reports must distinguish selected or recommended agent, `.codex/agents` TOML file presence, compiled fallback file presence, inline lens use, and actually spawned agent proof.
+
+## Agent File Presence Is Not Spawn Proof
+
+`registries/agents.registry.json` now separates four signals:
+
+- `.codex/agents/<agent>.toml` file presence.
+- `compiled-agents/<agent>.compiled.md` fallback presence.
+- Registry recommendation as a selectable agent lens.
+- Actual spawn proof, which must remain absent/null unless observed in the current task.
+
+Native visibility and compiled fallback are useful routing evidence, but neither is execution evidence. Do not say an agent spawned, ran, reviewed, delegated, or validated unless the current task has observed runtime proof.
+
+```mermaid
+flowchart LR
+  A["Registry recommendation"] --> B["Agent lens selected"]
+  C[".codex/agents TOML present"] --> B
+  D["compiled-agents fallback present"] --> E["Inline fallback available"]
+  B --> F["May be used if runtime supports it"]
+  E --> G["May be used inline"]
+  F --> H["Spawn proof only when observed"]
+  G --> I["Inline work, not spawned agent"]
+```
 
 ## Global/User Codex Skill Audit Boundary
 

@@ -32,9 +32,10 @@ Before the first real-project pilot, run a fresh-session smoke test and record a
 - The exact toolkit commit being certified.
 - `governance` is visible in the new session.
 - Retired helper aliases are not silently assumed active.
-- The 12 core agents are either native-visible or have present compiled fallback files.
+- The 12 core agents report native-visible TOML file presence and compiled fallback file presence separately.
 - Superpowers, GSD, GitHub/gh, browser/Playwright, Supabase, CodeRabbit, and other support tools are reported as available, unavailable with fallback, or not needed.
 - No fallback from native agent to compiled instructions is hidden.
+- No agent spawn, delegated review, or runtime execution is claimed from file presence alone.
 - Repository state is clean and aligned with `origin/main`.
 - JSON validation passes.
 - No unsafe generated or secret artifacts are present.
@@ -81,8 +82,8 @@ The current Level 3 project-sync evidence is recorded in `docs/PROJECT_SYNC_VALI
 For real projects, use the toolkit as a governance and evidence layer:
 
 - Start in planning-only or review mode unless a project owner has approved implementation.
-- Select the smallest useful set from the 5 canonical skills and 12 repo-local Codex project agents.
-- Report selected or recommended agents separately from agents that actually spawned.
+- Select the smallest useful set from the 5 canonical skills and 12 repo-local Codex project agent lenses.
+- Report selected or recommended agents, `.codex/agents` TOML file presence, compiled fallback presence, inline fallback use, and agents that actually spawned as separate facts.
 - Prefer project-owned checks before proposing new tools.
 - Use v0.2 project tooling profiles as recommendation posture only; registry/profile/template presence is not tool execution.
 - Use dry-run-first sync where toolkit artifacts are copied into a project.
