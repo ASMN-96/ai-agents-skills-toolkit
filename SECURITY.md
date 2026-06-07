@@ -46,6 +46,8 @@ Report security concerns without including secrets, tokens, cookies, credentials
 
 Use a private maintainer/security contact when available. If no private channel is configured yet, open a minimal public issue that requests a private disclosure path and does not include sensitive details.
 
+Until a private vulnerability reporting channel is enabled, do not paste exploit details, working payloads, customer data, local paths, environment values, or credential material into public issues. Use the smallest public report needed to request a private handoff.
+
 ## Response Expectations
 
 - Acknowledge valid reports when a maintainer/security owner is available.
@@ -58,3 +60,9 @@ Record security concerns in source evaluation notes before any extraction or ins
 ## Public Release Gap
 
 Before Level 5 public release, assign a maintainer/security owner and private reporting channel. Until those owner decisions are recorded, this policy is sufficient for public-safe repository hygiene but not a complete managed vulnerability disclosure program.
+
+Current owner-decision backlog:
+
+- assign security maintainer or owner group,
+- enable GitHub private vulnerability reporting or publish an equivalent private disclosure path,
+- document response targets after the private path exists.

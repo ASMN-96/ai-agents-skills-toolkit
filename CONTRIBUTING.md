@@ -24,3 +24,16 @@ Run the narrowest relevant checks first, then broader validators before release 
 ## Review Expectations
 
 Pull requests should explain scope, files changed, validation run, WARN output, skipped checks, residual risk, and rollback expectations.
+
+## Method Quality Rubric
+
+Method, skill, profile, routing, or eval contributions should:
+
+- state purpose, trigger, negative trigger, operating boundary, verification requirement, and stop conditions,
+- include source provenance and license/trust boundary when external sources influenced the work,
+- avoid raw upstream copying and close paraphrase from restricted or license-caveated sources,
+- separate routing metadata from runtime/tool execution,
+- include no-fake-validation boundaries for dry-run, mock, fallback, skipped, metadata-only, unavailable, or partial checks,
+- add or update focused evals when behavior or routing changes.
+
+Do not add root package management, pre-commit hooks, generated artifacts, global config, CI behavior, external services, or product-repository sync changes unless the PR scope explicitly approves that architecture.

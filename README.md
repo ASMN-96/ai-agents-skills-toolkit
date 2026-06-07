@@ -9,6 +9,8 @@ AI Vibe Coding Toolkit is a documentation-first governance repository for AI cod
 - Public package validation is **not** whole-repo publication readiness.
 - `v0.2.3` is the current controlled AI Vibe Coding Toolkit release for agent-assisted governance after full resource refresh, zero passive source holds, toolkit activation hardening, leak-scan check-mode validation, and release gates.
 - Public-facing release status is based on observed validation evidence; external submissions and publication channels are separate approval-gated decisions.
+- See `STATUS.md` for the current boundary snapshot and `MIGRATION.md` for version migration notes.
+- This repository intentionally has no root `package.json`; run direct `node scripts/...` commands from the repository root.
 
 ## One-paragraph summary
 
@@ -37,7 +39,7 @@ The toolkit defines how to discover, evaluate, and operationalize reusable AI co
 - **Validators**: command-gated checks for runtime consistency, package surface rules, and public/private safety policy.
 - **Source records**: explicit provenance records (license, freshness, trust review, extraction limits).
 
-Current canonical runtime is **5 skills + 12 agents**.
+Current canonical runtime is **5 skills + 12 repo-local agent files**. Agent file presence, compiled fallback presence, registry recommendation, inline fallback use, and actual spawned-agent proof are separate facts.
 
 ## Quick start
 
@@ -61,7 +63,7 @@ Typical flow:
 3. Run validation commands.
 4. Open a PR with explicit blockers and remaining risk.
 
-For real projects, treat the toolkit as an AI coding-agent governance and evidence layer. Select or recommend the 5 canonical skills and 12 repo-local project agents explicitly where this runtime is used, report which agents actually spawned separately, and use project-owned checks before proposing new tools.
+For real projects, treat the toolkit as an AI coding-agent governance and evidence layer. Select or recommend the 5 canonical skills and 12 repo-local project agent lenses explicitly where this runtime is used, report TOML file presence, compiled fallback presence, inline fallback use, and actually spawned agents separately, and use project-owned checks before proposing new tools.
 
 ## Validation commands
 
@@ -76,6 +78,8 @@ Optional, when release context is requested:
 - `git status --short`
 
 Only report checks that were actually executed.
+
+There is no dependency install step for the toolkit itself. Do not run `npm install`, create a root package manifest, or activate hooks unless a separate owner-approved task changes that architecture.
 
 ## External-facing status
 

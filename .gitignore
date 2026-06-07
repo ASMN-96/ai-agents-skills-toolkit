@@ -1,4 +1,7 @@
-.env*
+.env
+.env.*
+*.pem
+*.key
 node_modules/
 dist/
 build/
@@ -6,6 +9,13 @@ build/
 .venv/
 __pycache__/
 *.log
+*.tmp
+*.bak
+*.local
+reports/tmp/
+reports/scratch/
+docs/tmp/
+docs/scratch/
 .DS_Store
 Thumbs.db
 scratch/

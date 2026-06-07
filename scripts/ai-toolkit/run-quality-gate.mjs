@@ -124,6 +124,10 @@ async function main() {
     console.log("Usage: node scripts/ai-toolkit/run-quality-gate.mjs --mode fast-local --dry-run");
     console.log("       node scripts/ai-toolkit/run-quality-gate.mjs --mode fast-local");
     console.log("Dry-run is capability detection only. Non-dry-run requires runnable project scripts.");
+    console.log("Exit codes:");
+    console.log("  0 = dry-run completed, no runnable scripts were required, or all selected scripts passed");
+    console.log("  1 = package.json/package-manager/scripts are missing or ambiguous for non-dry-run execution");
+    console.log("  n = selected project script exited with non-zero code n");
     return;
   }
 

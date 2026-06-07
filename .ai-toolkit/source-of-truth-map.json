@@ -13,18 +13,18 @@
     {
       "domain": "agents",
       "canonicalSource": "agents/*.md",
-      "runtimeCopy": ".codex/agents/*.toml for the twelve active project custom agents only",
+      "runtimeCopy": ".codex/agents/*.toml records repo-local custom-agent file presence only; it is not spawn proof",
       "distributionCopy": ".ai-toolkit/agents/*.md for packaged agent source material",
       "historicalArchive": "Existing non-active agent specs remain top-level documented assets",
-      "driftControl": "manifest hashes plus TOML field validation for active agents"
+      "driftControl": "manifest hashes plus TOML field validation; report TOML presence separately from compiled fallback and actual spawn proof"
     },
     {
       "domain": "compiled-agents",
       "canonicalSource": "compiled-agents/*.compiled.md",
-      "runtimeCopy": "none",
+      "runtimeCopy": "none; compiled agents are fallback documentation and inline-use material, not native spawn proof",
       "distributionCopy": ".ai-toolkit/compiled-agents/*.compiled.md when packaged",
       "historicalArchive": "Older compiled-agent versions remain explicit drift until provenance is updated",
-      "driftControl": "manifest hashes; no broad version restamp in this pass"
+      "driftControl": "manifest hashes plus source_commit/compiler/registry provenance"
     },
     {
       "domain": "registries",
