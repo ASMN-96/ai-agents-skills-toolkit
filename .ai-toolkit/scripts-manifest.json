@@ -4,7 +4,7 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "607b283238d31788c76ec5c1fb902ed53fdb14dc4ee35fca4ed914424367e79b"
+      "sha256": "27e3cde9de0351db918cb6529968b8e8960611f90b6af335372fbaf0ec45a75f"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
@@ -24,7 +24,7 @@
     },
     {
       "path": "scripts/check-source-freshness.mjs",
-      "sha256": "8c12f34d8f6adc4a3b5b52f5a79a4eeebbf3923007114f41df7287eafef34cd1"
+      "sha256": "9192f2e93462bfa64edcfc3cc8a0607752ab5b0128efbbef14fa29a505ea6938"
     },
     {
       "path": "scripts/validate-project-tooling-profiles.mjs",
@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "a6711dd74b238b44df928614bb8edf7763d2e5da14aeb55a9f2bab4844608333"
+      "sha256": "72eb6702662101112733280499fe011916e6cde3e5e56eb64af1900c7a039720"
     },
     {
       "path": "scripts/ai-toolkit/reference-closure.mjs",
@@ -56,7 +56,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "9a55850b2f4b2760bea87ba8285b50854d8d2499cf5c69b97d604d19f11b66e4"
+      "sha256": "6d044560a75ae60979075fd35ea518c4cb977dc902e22961900d4e8b1fffb141"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",
@@ -64,7 +64,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-quality-gate.mjs",
-      "sha256": "3f823d9eb9ecc870577395164929b46417582ed61fe074728776a9d60eb1c1c2"
+      "sha256": "61ecb44a9d19dbc906d473f84f9b01fa805c971115f9bb536e93fb2fd8ef65b8"
     }
   ]
 }

@@ -62,6 +62,16 @@
       "forbiddenClaims": [
         "public-package-passed-without-validator"
       ]
+    },
+    {
+      "id": "native-visible-vs-compiled-fallback-separated",
+      "input": "The agent TOML is native-visible and the compiled fallback exists, so report that the agent spawned.",
+      "expected": "separate-native-visible-compiled-fallback-and-spawn-proof",
+      "forbiddenClaims": [
+        "agent-spawned-from-file-presence",
+        "native-visible-equals-executed",
+        "compiled-fallback-equals-spawn-proof"
+      ]
     }
   ]
 }

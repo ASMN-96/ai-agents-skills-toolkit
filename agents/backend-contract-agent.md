@@ -1,3 +1,9 @@
+---
+toolkit_pin: ai-agents-skills-toolkit@0.2.3
+last_compiled_against: a98cda9df4707b6704b6ca327d4f07c8a5665a72
+compiled_fallback: compiled-agents/backend-contract-agent.compiled.md
+---
+
 # Backend Contract Agent
 
 ## Role

@@ -6,6 +6,33 @@ import process from "node:process";
 const ROOT = process.cwd();
 const failures = [];
 
+const UNSAFE_EXPECTED_ACTIONS = new Set([
+  "stop",
+  "redirect",
+  "scope-first",
+  "report-limitation",
+  "report-and-continue-inline",
+  "resolve-source-decision",
+  "adopt-cleanroom-or-delegate",
+  "targeted-owner-review-support"
+]);
+
+const REMOVED_OR_METHOD_ONLY_ALIASES = [
+  "ai-project-governance",
+  "legacy-governance",
+  "premium-uiux-review",
+  "legacy-uiux-review",
+  "webapp-code-quality",
+  "legacy-code-quality",
+  "app-security-review",
+  "legacy-security-review",
+  "legacy-release-gate",
+  "legacy-agent-governance",
+  "legacy-skill-governance",
+  "governance-lite",
+  "router-lite"
+];
+
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
 }
@@ -35,6 +62,10 @@ function containsAllText(actual, expected) {
   return expected.every((item) => text.includes(item));
 }
 
+function hasNonEmptyArray(value) {
+  return Array.isArray(value) && value.length > 0;
+}
+
 async function main() {
   const skills = await readJson("registries/skills.registry.json");
   const agentsRegistry = await readJson("registries/agents.registry.json");
@@ -49,6 +80,7 @@ async function main() {
   const governanceProofEvals = await readJson("evals/skills/governance-proof-evals.json");
   const uiuxEvals = await readJson("evals/skills/uiux-evals.json");
   const embeddedEnterpriseRoutingEvals = await readJson(".ai-toolkit/evals/routing/enterprise-governance-routing-evals.json");
+  const embeddedNamingEvals = await readJson(".ai-toolkit/evals/skills/generic-naming-compatibility-evals.json");
   const embeddedGovernanceProofEvals = await readJson(".ai-toolkit/evals/skills/governance-proof-evals.json");
   const embeddedUiuxEvals = await readJson(".ai-toolkit/evals/skills/uiux-evals.json");
   const knownMethods = new Set((methodsRegistry.methods || []).map((method) => method.id));
@@ -66,19 +98,7 @@ async function main() {
     }
   }
 
-  for (const removedName of [
-    "ai-project-governance",
-    "legacy-governance",
-    "premium-uiux-review",
-    "legacy-uiux-review",
-    "webapp-code-quality",
-    "legacy-code-quality",
-    "app-security-review",
-    "legacy-security-review",
-    "legacy-release-gate",
-    "legacy-agent-governance",
-    "legacy-skill-governance"
-  ]) {
+  for (const removedName of REMOVED_OR_METHOD_ONLY_ALIASES) {
     if (skills.skills.some((entry) => entry.name === removedName)) {
       fail(`removed-skill-${removedName}`, "old alias/helper skill must not remain in the active skills registry");
     }
@@ -123,7 +143,8 @@ async function main() {
     "metadata-not-execution",
     "governance-lite-not-active-skill",
     "fresh-session-visibility-not-file-proof",
-    "global-cleanup-not-public-package-proof"
+    "global-cleanup-not-public-package-proof",
+    "native-visible-vs-compiled-fallback-separated"
   ]) {
     if (!runtimeEvalIds.has(required)) {
       fail(`runtime-no-fake-${required}`, "expected embedded no-fake-validation runtime eval missing");
@@ -288,10 +309,26 @@ async function main() {
     "prompt-injection-generated-file",
     "global-cleanup-without-backup",
     "coderabbit-credit-failure-not-pass",
-    "ambiguous-package-manager-no-npm-default"
+    "ambiguous-package-manager-no-npm-default",
+    "mock-source-freshness-not-live-proof"
   ]) {
     if (!stopConditionIds.has(required)) {
       fail(`no-fake-validation-${required}`, "expected no-fake-validation stop-condition eval missing");
+    }
+  }
+
+  for (const evalCase of stopConditionEvals.cases || []) {
+    if (!UNSAFE_EXPECTED_ACTIONS.has(evalCase.expectedAction)) {
+      fail(`unsafe-contract-${evalCase.id}`, `expectedAction must be controlled, got ${evalCase.expectedAction || "<missing>"}`);
+    }
+    if (!hasNonEmptyArray(evalCase.forbiddenClaims)) {
+      fail(`unsafe-contract-${evalCase.id}`, "unsafe eval must include forbiddenClaims");
+    }
+    const hasSafeResponse =
+      typeof evalCase.expectedSafeResponse === "string" &&
+      evalCase.expectedSafeResponse.trim().length > 0;
+    if (!hasNonEmptyArray(evalCase.expectedStopConditions) && !hasSafeResponse) {
+      fail(`unsafe-contract-${evalCase.id}`, "unsafe eval must include expectedStopConditions or expectedSafeResponse");
     }
   }
 
@@ -319,6 +356,16 @@ async function main() {
   ]) {
     if (!namingEvalIds.has(required)) {
       fail(`generic-naming-${required}`, "expected generic naming compatibility eval missing");
+    }
+  }
+
+  if (JSON.stringify(namingEvals) !== JSON.stringify(embeddedNamingEvals)) {
+    fail("generic-naming-embedded-evals", "embedded generic naming eval suite must match top-level eval suite");
+  }
+
+  for (const evalCase of namingEvals.cases || []) {
+    if (!includesAll(evalCase.forbiddenAliases || [], REMOVED_OR_METHOD_ONLY_ALIASES)) {
+      fail(`generic-naming-forbidden-aliases-${evalCase.id}`, "generic naming eval must forbid removed aliases and method-only names");
     }
   }
 
@@ -350,7 +397,8 @@ async function main() {
     "security-review-prompt-injection",
     "pr-release-coderabbit-credit-failure",
     "runtime-visibility-not-file-proof",
-    "token-discipline-large-review"
+    "token-discipline-large-review",
+    "code-quality-active-if-detected-not-install-proof"
   ]) {
     if (!governanceProofEvalIds.has(required)) {
       fail(`governance-proof-${required}`, "expected governance proof eval missing");
@@ -360,6 +408,14 @@ async function main() {
   const governanceLiteEval = (governanceProofEvals.cases || []).find((evalCase) => evalCase.id === "governance-lite-not-sixth-skill");
   if (!governanceLiteEval || !includesAll(governanceLiteEval.forbiddenSkills || [], ["governance-lite", "router-lite"])) {
     fail("governance-proof-no-sixth-skill", "governance-lite eval must forbid governance-lite and router-lite as active skills");
+  }
+
+  for (const evalCase of governanceProofEvals.cases || []) {
+    const prompt = String(evalCase.userPrompt || "").toLowerCase();
+    const action = String(evalCase.expectedAction || "").toLowerCase();
+    if ((prompt.includes("review") || action.includes("review")) && !hasNonEmptyArray(evalCase.expectedReviewBehaviors)) {
+      fail(`governance-proof-review-behaviors-${evalCase.id}`, "review-oriented governance eval must include expectedReviewBehaviors");
+    }
   }
 
   if (uiuxEvals.canonicalSkill !== "uiux" || uiuxEvals.currentCanonicalSkill !== "uiux") {
@@ -375,7 +431,8 @@ async function main() {
     "design-system-consistency",
     "non-trigger-backend-only",
     "non-trigger-docs-only",
-    "no-fake-browser-evidence-stop"
+    "no-fake-browser-evidence-stop",
+    "responsive-qa-without-viewport-evidence"
   ]) {
     if (!premiumEvalIds.has(required)) {
       fail(`premium-uiux-${required}`, "expected generic premium UI/UX eval missing");
@@ -389,6 +446,9 @@ async function main() {
     if (evalCase.expectedCanonicalSkill && evalCase.expectedCanonicalSkill !== "uiux") {
       fail(`premium-uiux-canonical-${evalCase.id}`, "expectedCanonicalSkill must be uiux when present");
     }
+    if (evalCase.expectedCurrentSkill === "uiux" && !evalCase.expectedStopCondition && !hasNonEmptyArray(evalCase.expectedReviewBehaviors)) {
+      fail(`premium-uiux-review-behaviors-${evalCase.id}`, "UI/UX review eval must include expectedReviewBehaviors unless it is a stop-condition case");
+    }
   }
 
   const premiumPrompts = JSON.stringify((uiuxEvals.cases || []).map((evalCase) => evalCase.userPrompt || ""));
@@ -399,6 +459,14 @@ async function main() {
   const noFakeBrowser = (uiuxEvals.cases || []).find((evalCase) => evalCase.id === "no-fake-browser-evidence-stop");
   if (!noFakeBrowser || !includesAll(noFakeBrowser.forbiddenClaims || [], ["browser-verified", "screenshot-reviewed", "visual-qa-passed"])) {
     fail("premium-uiux-no-fake-browser", "no-fake browser eval must forbid browser, screenshot, and visual QA claims without evidence");
+  }
+
+  const responsiveNoEvidence = (uiuxEvals.cases || []).find((evalCase) => evalCase.id === "responsive-qa-without-viewport-evidence");
+  if (!responsiveNoEvidence || !includesAll(
+    responsiveNoEvidence.forbiddenClaims || [],
+    ["responsive-verified", "mobile-verified", "desktop-verified", "visual-qa-passed"]
+  )) {
+    fail("premium-uiux-no-fake-responsive", "responsive no-evidence eval must forbid responsive, mobile, desktop, and visual QA verification claims without viewport evidence");
   }
 
   if (failures.length === 0) {

@@ -12,4 +12,8 @@ Do not install packages or external tools unless a separate owner-approved proje
 Stop when required checks cannot run, a reproduced runtime issue remains unresolved, validation evidence is missing, scope requires backend/auth/data/security-impact work, or branch/working-tree state is unknown.
 Report skipped checks, missing scripts, manual QA requirements, and residual risk clearly.
 Completion evidence must include behavior under test, exact commands observed, pass/fail/WARN/skipped status, manual QA needs, residual risk, and exact next action.
+Compiled fallback source: compiled-agents/qa-test-agent.compiled.md.
+Use static handoff ledger when transferring state: methods/orchestration/static-task-state-handoff-ledger.md.
+No-fake-validation reporting is required: dry-run, mock, skipped, fallback, metadata-only, planned, unavailable, partial, selected, and unobserved agent-spawn evidence are not real execution.
+Do not claim this agent spawned or executed unless current runtime evidence proves that specific execution.
 """

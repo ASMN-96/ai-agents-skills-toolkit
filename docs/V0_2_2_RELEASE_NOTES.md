@@ -1,5 +1,7 @@
 # v0.2.2 Controlled Toolkit Release Notes
 
+> Historical release evidence. `v0.2.2` is superseded by `v0.2.3` as the current controlled toolkit release evidence. Use this file for historical context only, not current source-freshness or release-readiness claims.
+
 ## Release Type
 
 `v0.2.2` is a controlled toolkit-only hardening release for the AI Vibe Coding Toolkit.

@@ -38,7 +38,7 @@ Canonical active skills:
 - `security-review`
 - `pr-release-gate`
 
-Canonical active repo-local project agents:
+Canonical repo-local project agent files:
 
 - `product-agent`
 - `architect-agent`
@@ -54,6 +54,20 @@ Canonical active repo-local project agents:
 - `sre-performance-agent`
 
 Agent availability means an agent can be selected or recommended when `.codex/agents/<agent>.toml` is present. It does not mean automatic spawning. Runtime behavior is constrained by the TOML sandbox and instructions.
+
+Compiled fallbacks live under `compiled-agents/<agent>.compiled.md`. A project or reviewer may use a compiled fallback inline when native spawning is unavailable, but the completion report must say that the compiled fallback was used inline and must not claim a spawned agent ran.
+
+In this guide, a lens is an inline perspective or review frame selected from an agent or method without proving separate runtime execution. Spawn proof means current-task evidence that a native agent actually executed, not file presence, registry metadata, or compiled fallback availability.
+
+Example consumer note:
+
+```text
+Selected lens: reviewer-agent.
+TOML file present: .codex/agents/reviewer-agent.toml.
+Compiled fallback present: compiled-agents/reviewer-agent.compiled.md.
+Spawn proof: not observed.
+Execution claim: inline reviewer-agent lens only; no spawned agent ran.
+```
 
 ## Real-Project Flow
 

@@ -31,13 +31,21 @@ Each compiled agent starts with a metadata block containing:
 - `toolkit_version`
 - `toolkit_pin`
 - `compiled_status`
+- `compiled_at`
+- `source_commit`
+- `source_agent`
+- `compiler`
+- `registry_input`
+- `source_profile_refs`
+- `source_method_refs`
+- `compile_contract_version`
 
 This metadata is required at the top of every `*.compiled.md` file for downstream pinning and audit.
 
-Compiled agents are documentation artifacts until a project intentionally syncs a pinned toolkit version. They do not activate skills, install external packs, overwrite project `AGENTS.md`, or change Codex global config.
+Compiled agents are fallback documentation artifacts until a project intentionally syncs a pinned toolkit version or a user explicitly uses them inline. Their presence does not prove native custom-agent visibility, agent spawning, delegated review, executed validation, tool execution, source freshness, or runtime activation. They do not activate skills, install external packs, overwrite project `AGENTS.md`, or change Codex global config.
 
 Superpowers is referenced only as an external Codex execution-discipline plugin. Context7, Playwright, and Figma are support triggers only when available, configured, and relevant.
 
 ## Phase 10 Registry Status
 
-Compiled agents remain the canonical fallback source for the 12 core agents. Phase 10A/10B indexes them in `registries/agents.registry.json` with `compiled-fallback` status. That registry entry does not prove native custom-agent runtime visibility and does not activate compiled agents.
+Compiled agents remain the canonical fallback source for the 12 core agents. The registry now reports compiled fallback presence separately from `.codex/agents` TOML presence, registry recommendation, and actual spawn proof. Registry entries and compiled files do not prove native custom-agent runtime visibility and do not activate compiled agents.

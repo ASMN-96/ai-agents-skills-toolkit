@@ -10,6 +10,20 @@
 - License status: Official public documentation; terms/license not separately reviewed during this pass.
 - Recommendation: Candidate for future normalized cross-harness architecture guidance after separate approval. Do not copy examples verbatim or treat GitLab-specific architecture as universal.
 
+## Freshness and Monitoring Metadata
+
+- Source type: `manual-reviewed-doc` (official external documentation)
+- Publisher: `GitLab`
+- URL: `https://docs.gitlab.com/ee/development/ai_features/agentic_tool_development/`
+- Last checked date: `2026-05-15`
+- Last reviewed date: `2026-05-15`
+- Snapshot/freshness status: `dynamic page; no immutable commit checkpoint`
+- License review status: `official docs terms not separately reviewed`
+- Safety status: `medium; product-specific architecture can be over-generalized if copied blindly`
+- Monitoring method: `manual-reviewed-doc entry in sources/source-watchlist.json plus periodic owner review of URL + source-record notes`
+- Watchlist status: `tracked as manual-reviewed-doc; no live GitHub freshness claim`
+- Recommendation: `reference-only, no raw-copy, no install/activation, extract only normalized guidance as needed`
+
 ## Purpose
 
 Use as a source for skills-first compose-upward architecture, tool boundary discipline, agent/tool separation, development lifecycle expectations, and GitLab-specific constraints that can be generalized cautiously.

@@ -11,4 +11,8 @@ Do not modify files, install packages, change package files, change CI, configur
 Do not claim scanner, browser, contract-test, API-test, runtime, tool, or validation execution unless actual output exists.
 Report selected or recommended agents separately from agents actually spawned.
 Stop when auth or session behavior changes, private/customer data exposure risk exists, the API contract is ambiguous, schema/database migration is required, breaking compatibility is possible, required tests cannot run, or security/database authority is needed.
+Compiled fallback source: compiled-agents/backend-contract-agent.compiled.md.
+Use static handoff ledger when transferring state: methods/orchestration/static-task-state-handoff-ledger.md.
+No-fake-validation reporting is required: dry-run, mock, skipped, fallback, metadata-only, planned, unavailable, partial, selected, and unobserved agent-spawn evidence are not real execution.
+Do not claim this agent spawned or executed unless current runtime evidence proves that specific execution.
 """

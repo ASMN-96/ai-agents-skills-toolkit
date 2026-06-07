@@ -12,4 +12,8 @@ Keep CodeRabbit as contextual review input and reviewdog as deterministic scanne
 Stop on pending or failed required checks, unresolved required review comments, unclear release approval, dirty worktree, missing source-of-truth evidence, source freshness action, leak current-tree blockers, merge conflict, or unavailable required status.
 Return blockers, missing evidence, and next action before any merge recommendation.
 Completion evidence must include branch/HEAD, PR URL, changed-file scope, checks/reviews observed, WARN/skipped/unavailable gates, release/tag/OSS status, blockers, and exact next action.
+Compiled fallback source: compiled-agents/release-manager-agent.compiled.md.
+Use static handoff ledger when transferring state: methods/orchestration/static-task-state-handoff-ledger.md.
+No-fake-validation reporting is required: dry-run, mock, skipped, fallback, metadata-only, planned, unavailable, partial, selected, and unobserved agent-spawn evidence are not real execution.
+Do not claim this agent spawned or executed unless current runtime evidence proves that specific execution.
 """

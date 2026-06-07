@@ -46,6 +46,38 @@ const ENTERPRISE_RISK_FIELDS = [
   "defaultEnterpriseStatus"
 ];
 
+const ENTERPRISE_CORE_RISK_FIELDS = [
+  "license",
+  "saasOrLocal",
+  "dataSentExternally",
+  "networkBehavior",
+  "secretAccessRisk",
+  "repositoryPermissionsRequired",
+  "ciPermissionsRequired",
+  "githubAppPermissionsRequired",
+  "authenticationModel",
+  "telemetryBehavior",
+  "commercialVendorDependency",
+  "maintenanceSignal",
+  "lastReviewedCommit",
+  "lastReviewedDate"
+];
+
+const ENTERPRISE_REVIEW_STATES = new Set([
+  "reviewed",
+  "unreviewed-blocked",
+  "metadata-only-owner-review-required"
+]);
+
+const TOOL_POSTURE_VALUES = new Set([
+  "active-if-detected",
+  "owner-approved-install",
+  "ci-advisory",
+  "ci-blocking-after-calibration",
+  "static-adopted",
+  "forbidden-runtime"
+]);
+
 const SOURCE_UTILIZATION_REPORT = "docs/SOURCE_UTILIZATION_MATRIX.md";
 
 const SOURCE_UTILIZATION_CLASSIFICATIONS = new Set([
@@ -74,6 +106,11 @@ const RESOLVED_REVIEW_OUTCOMES = new Set([
   "SYNCED_PLUGIN_DELEGATED",
   "ARCHIVED_HARD_BLOCKER",
   "REMOVED_REDUNDANT"
+]);
+
+const SOURCE_TYPES = new Set([
+  "github-repo",
+  "manual-reviewed-doc"
 ]);
 
 const REQUIRED_CONTEXT_METHODS = [
@@ -560,6 +597,16 @@ async function validateEnterpriseToolMetadata(registryState) {
       }
     }
 
+    const allCoreUnknown = ENTERPRISE_CORE_RISK_FIELDS.every((field) => tool.enterpriseRisk[field] === "unknown-review-required");
+    if (allCoreUnknown) {
+      fail("enterprise tool metadata", location, "core enterpriseRisk fields must not all be unknown-review-required; use an explicit reviewState such as unreviewed-blocked");
+    }
+    if (!ENTERPRISE_REVIEW_STATES.has(tool.enterpriseRisk.reviewState)) {
+      fail("enterprise tool metadata", location, `invalid reviewState: ${tool.enterpriseRisk.reviewState || "<missing>"}`);
+    }
+    if (typeof tool.enterpriseRisk.reviewEvidence !== "string" || tool.enterpriseRisk.reviewEvidence.length === 0) {
+      fail("enterprise tool metadata", location, "reviewEvidence must be a non-empty string");
+    }
     if (!String(tool.enterpriseRisk.defaultEnterpriseStatus || "").includes("metadata-only")) {
       fail("enterprise tool metadata", location, "defaultEnterpriseStatus must remain metadata-only unless explicitly approved");
     }
@@ -571,6 +618,19 @@ async function validateEnterpriseToolMetadata(registryState) {
     }
     if (!Array.isArray(tool.enterpriseRisk.forbiddenEnvironments) || tool.enterpriseRisk.forbiddenEnvironments.length === 0) {
       fail("enterprise tool metadata", location, "forbiddenEnvironments must be a non-empty array");
+    }
+    for (const requiredEnvironment of ["local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"]) {
+      if (!tool.enterpriseRisk.forbiddenEnvironments.includes(requiredEnvironment)) {
+        fail("enterprise tool metadata", location, `forbiddenEnvironments missing ${requiredEnvironment}`);
+      }
+    }
+    if (!Array.isArray(tool.activationLevels) || tool.activationLevels.length === 0) {
+      fail("enterprise tool metadata", location, "activationLevels must be a non-empty controlled posture array");
+    }
+    for (const posture of asArray(tool.activationLevels)) {
+      if (!TOOL_POSTURE_VALUES.has(posture)) {
+        fail("enterprise tool metadata", location, `unknown activationLevel posture value: ${posture}`);
+      }
     }
   }
 }
@@ -803,10 +863,14 @@ async function validateSourcePolicy(watchlist, registryState) {
 
   for (const source of sources) {
     const location = `sources/source-watchlist.json:${source.id || "<unknown>"}`;
-    for (const field of ["id", "name", "sourceUrl", "repoOwner", "repoName", "defaultBranch", "sourceRecordPath", "watchedPaths", "neverAutoImport"]) {
+    const sourceType = source.sourceType || "github-repo";
+    for (const field of ["id", "name", "sourceUrl", "lastReviewedCommit", "lastReviewedDate", "sourceRecordPath", "watchedPaths", "neverAutoImport"]) {
       if (!(field in source)) {
         fail("source-watchlist", location, `missing ${field}`);
       }
+    }
+    if (!SOURCE_TYPES.has(sourceType)) {
+      fail("source-watchlist", location, `unsupported sourceType: ${sourceType}`);
     }
     if (ids.has(source.id)) {
       fail("source-watchlist", location, "duplicate source id");
@@ -815,7 +879,25 @@ async function validateSourcePolicy(watchlist, registryState) {
     if (source.neverAutoImport !== true) {
       fail("source policy", location, "neverAutoImport must be true");
     }
-    validateGithubSourceIdentity(source, location);
+    if (sourceType === "github-repo") {
+      for (const field of ["repoOwner", "repoName", "defaultBranch"]) {
+        if (!(field in source)) {
+          fail("source-watchlist", location, `missing ${field}`);
+        }
+      }
+      validateGithubSourceIdentity(source, location);
+    }
+    if (sourceType === "manual-reviewed-doc") {
+      if (source.watchMode !== "manual-reviewed-doc") {
+        fail("source-watchlist", location, "manual-reviewed-doc sources must set watchMode: manual-reviewed-doc");
+      }
+      if (source.lastReviewedCommit !== null) {
+        fail("source-watchlist", location, "manual-reviewed-doc sources must use lastReviewedCommit: null");
+      }
+      if (!source.manualReview || typeof source.manualReview !== "object" || Array.isArray(source.manualReview)) {
+        fail("source-watchlist", location, "manual-reviewed-doc sources must include manualReview metadata");
+      }
+    }
     if (source.lastReviewedCommit !== null && (typeof source.lastReviewedCommit !== "string" || !COMMIT_SHA_PATTERN.test(source.lastReviewedCommit))) {
       fail("source-watchlist", location, "lastReviewedCommit must be null or a 40-character Git commit SHA");
     }
@@ -861,6 +943,39 @@ async function validateSourcePolicy(watchlist, registryState) {
       const text = await readFile(rootPath(vercelRecord), "utf8");
       if (!/Historical\/reference-only/i.test(text) || !/Not active authority/i.test(text)) {
         fail("source policy", vercelRecord, "Vercel Labs sources must remain historical/reference-only and not active authority");
+      }
+    }
+  }
+
+  const everythingClaude = sources.find((entry) => entry.id === "everything-claude-code");
+  if (everythingClaude) {
+    const boundaries = asArray(everythingClaude.reviewDecision?.boundaries).join(" | ").toLowerCase();
+    for (const requiredBoundary of [
+      "no claude/cursor/cline/openhands runtime support claim",
+      "no mcp inventory import",
+      "no session-adapter import",
+      "no control-plane import",
+      "no global config behavior",
+      "no script execution"
+    ]) {
+      if (!boundaries.includes(requiredBoundary)) {
+        fail("source policy", "sources/source-watchlist.json:everything-claude-code", `missing rejected-pattern boundary: ${requiredBoundary}`);
+      }
+    }
+  }
+  if (await exists("sources/everything-claude-code.md")) {
+    const text = (await readFile(rootPath("sources/everything-claude-code.md"), "utf8")).toLowerCase();
+    for (const requiredText of [
+      "do not run `install.sh`",
+      "do not activate `.mcp.json`",
+      "do not copy raw skills",
+      "do not modify global claude/codex/cursor/opencode/gemini paths",
+      "session-adapter import",
+      "mcp inventory import",
+      "cross-harness runtime support claims"
+    ]) {
+      if (!text.includes(requiredText)) {
+        fail("source policy", "sources/everything-claude-code.md", `missing rejected-pattern text: ${requiredText}`);
       }
     }
   }

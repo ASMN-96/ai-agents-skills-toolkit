@@ -20,8 +20,8 @@
 - Snapshot/freshness status: `dynamic page; no immutable commit checkpoint`
 - License review status: `official docs terms not separately reviewed`
 - Safety status: `medium; harness-specific recommendations, docs examples could over-select on trigger behavior if copied blindly`
-- Monitoring method: `manual periodic review of URL + source-of-truth page diff notes + checklist-based safety gating in the method registry`
-- Reason not in source-watchlist.json: `non-GitHub source URL is not supported by current watchlist schema`
+- Monitoring method: `manual-reviewed-doc entry in sources/source-watchlist.json plus periodic owner review of URL + source-record notes + checklist-based safety gating in the method registry`
+- Watchlist status: `tracked as manual-reviewed-doc; no live GitHub freshness claim`
 - Recommendation: `reference-only, no raw-copy, no install/activation, extract only normalized guidance as needed`
 
 ## Purpose

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
+import { execFile } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { promisify } from "node:util";
 
 const ROOT = process.cwd();
 const TOOLKIT_VERSION = "0.2.3";
@@ -9,18 +11,25 @@ const COMPILE_CONTRACT_VERSION = "1.0.0";
 const GENERATED_ROOT = "compiled-agents";
 const HARD_WORD_WARNING = 30000;
 const METHOD_SUMMARY_LINES = 28;
-const SOURCE_COMMIT = "deterministic-not-recorded";
+const execFileAsync = promisify(execFile);
 
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
 }
 
 function parseArgs(argv) {
-  const args = { confirmWrite: false, help: false };
-  for (const arg of argv) {
+  const args = { confirmWrite: false, help: false, only: null };
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
     if (arg === "--help" || arg === "-h") args.help = true;
     else if (arg === "--dry-run") args.confirmWrite = false;
     else if (arg === "--confirm-write") args.confirmWrite = true;
+    else if (arg === "--only") {
+      const value = argv[index + 1];
+      if (!value) throw new Error("--only requires an agent id");
+      args.only = value;
+      index += 1;
+    }
     else throw new Error(`Unknown argument: ${arg}`);
   }
   return args;
@@ -30,6 +39,7 @@ function usage() {
   return `Usage:
   node scripts/compile-agents.mjs --dry-run
   node scripts/compile-agents.mjs --confirm-write
+  node scripts/compile-agents.mjs --only reviewer-agent --dry-run
 
 Reads only reviewed repo-owned agent, profile, method, and registry inputs.
 Write mode updates compiled-agents/*.compiled.md only.
@@ -52,8 +62,17 @@ async function readText(relativePath, fallback = "") {
   }
 }
 
-function sourceCommit() {
-  return SOURCE_COMMIT;
+async function sourceCommit() {
+  try {
+    const { stdout } = await execFileAsync("git", ["rev-parse", "HEAD"], {
+      cwd: ROOT,
+      timeout: 10_000,
+      maxBuffer: 1024 * 1024
+    });
+    return stdout.trim();
+  } catch (error) {
+    throw new Error(`could not resolve source commit with git rev-parse HEAD: ${error.message}`);
+  }
 }
 
 function asArray(value) {
@@ -77,6 +96,32 @@ function summarize(text, maxLines = 18) {
     .filter(Boolean)
     .slice(0, maxLines)
     .join("\n");
+}
+
+function normalizeMarkdownHeadingSpacing(text) {
+  const lines = text.split("\n");
+  const output = [];
+  let inFence = false;
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    if (line.startsWith("```")) {
+      inFence = !inFence;
+      output.push(line);
+      continue;
+    }
+
+    const isHeading = !inFence && /^#{1,6}\s+\S/.test(line);
+    if (isHeading && output.length > 0 && output[output.length - 1] !== "") {
+      output.push("");
+    }
+    output.push(line);
+    if (isHeading && index + 1 < lines.length && lines[index + 1] !== "") {
+      output.push("");
+    }
+  }
+
+  return output.join("\n");
 }
 
 function methodSourceRefs(text) {
@@ -157,6 +202,8 @@ compiled_status: review
 compiled_at: deterministic-not-recorded
 source_commit: ${commit}
 source_agent: ${sourceAgent}
+compiler: scripts/compile-agents.mjs
+registry_input: registries/agents.registry.json
 source_profile_refs: ${blockList(profileRefs.map((profile) => `profiles/${profile}.md`))}
 source_method_refs: ${blockList(methodRefs)}
 compile_contract_version: ${COMPILE_CONTRACT_VERSION}
@@ -183,6 +230,8 @@ ${methodSections.length > 0 ? methodSections.join("\n\n") : "No passive method r
 ## Provenance
 
 - Source agent path: \`${sourceAgent}\`
+- Compiler: \`scripts/compile-agents.mjs\`
+- Agent registry input: \`registries/agents.registry.json\`
 - Profile paths: ${profileRefs.length > 0 ? profileRefs.map((profile) => `\`profiles/${profile}.md\``).join(", ") : "none"}
 - Method IDs: ${methodRefs.length > 0 ? methodRefs.map((method) => `\`${method}\``).join(", ") : "none"}
 - Inherited sourceRef IDs: ${inheritedSourceRefs.size > 0 ? [...inheritedSourceRefs].sort().map((ref) => `\`${ref}\``).join(", ") : "`unknown-review-required`"}
@@ -194,7 +243,7 @@ External source records are provenance only. They do not authorize raw copying, 
   return {
     agent: agent.name,
     target: agent.compiledFallbackPath || `compiled-agents/${agent.name}.compiled.md`,
-    text: output,
+    text: normalizeMarkdownHeadingSpacing(output),
     words: output.trim().split(/\s+/).filter(Boolean).length
   };
 }
@@ -216,7 +265,12 @@ async function main() {
   const commit = await sourceCommit();
   const outputs = [];
 
-  for (const agent of asArray(agentsRegistry.agents)) {
+  const selectedAgents = asArray(agentsRegistry.agents).filter((agent) => !args.only || agent?.name === args.only);
+  if (args.only && selectedAgents.length === 0) {
+    throw new Error(`--only did not match any registered agent: ${args.only}`);
+  }
+
+  for (const agent of selectedAgents) {
     if (!agent?.name || !agent?.compiledFallbackPath) continue;
     outputs.push(await compileAgent(agent, registries, commit));
   }

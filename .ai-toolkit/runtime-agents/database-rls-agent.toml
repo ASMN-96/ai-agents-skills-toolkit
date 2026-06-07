@@ -11,4 +11,8 @@ Do not own API contract compatibility or final security/release approval; route 
 Do not claim Supabase validation, policy proof, query performance, scanner, browser, runtime, tool, or validation execution unless actual output exists.
 Report selected or recommended agents separately from agents actually spawned.
 Stop when production data could be touched, destructive migration is possible, RLS policy behavior cannot be proven safe, service-role key or secret access is requested, tenant isolation is unclear, rollback path is missing, or required validation cannot run.
+Compiled fallback source: compiled-agents/database-rls-agent.compiled.md.
+Use static handoff ledger when transferring state: methods/orchestration/static-task-state-handoff-ledger.md.
+No-fake-validation reporting is required: dry-run, mock, skipped, fallback, metadata-only, planned, unavailable, partial, selected, and unobserved agent-spawn evidence are not real execution.
+Do not claim this agent spawned or executed unless current runtime evidence proves that specific execution.
 """

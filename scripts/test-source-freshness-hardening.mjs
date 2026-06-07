@@ -146,6 +146,66 @@ test("mock report renders resolved v0.2.3 source decisions", async () => {
   });
 });
 
+test("manual reviewed-doc sources are tracked without live GitHub or GitLab freshness claims", async () => {
+  await withWatchlist([
+    source({
+      id: "gitlab-agent-skills",
+      name: "GitLab Agent Skills Docs",
+      sourceUrl: "https://docs.gitlab.com/ee/development/ai_features/agent_skills/",
+      sourceType: "manual-reviewed-doc",
+      watchMode: "manual-reviewed-doc",
+      repoOwner: undefined,
+      repoName: undefined,
+      defaultBranch: undefined,
+      lastReviewedCommit: null,
+      lastReviewedDate: "2026-05-15",
+      sourceRecordPath: "sources/gitlab-agent-skills.md",
+      licenseConcern: "official-docs-terms-not-reviewed",
+      manualReview: {
+        publisher: "GitLab",
+        cadence: "periodic owner review",
+        reason: "Official docs page without immutable commit checkpoint.",
+        forbiddenClaims: [
+          "live GitHub/GitLab freshness proof",
+          "runtime support"
+        ]
+      }
+    })
+  ], async (cwd) => {
+    const result = await runFreshness(cwd, ["--mock", "--fail-on-change"]);
+
+    assert.equal(result.code, 0, result.stderr);
+    assert.match(result.stdout, /MANUAL_REVIEW_TRACKED/);
+    assert.match(result.stdout, /manual-reviewed-doc/);
+    assert.doesNotMatch(result.stderr, /actionable source freshness status/i);
+  });
+});
+
+test("manual reviewed-doc sources require complete manualReview metadata", async () => {
+  await withWatchlist([
+    source({
+      id: "gitlab-agent-skills",
+      name: "GitLab Agent Skills Docs",
+      sourceUrl: "https://docs.gitlab.com/ee/development/ai_features/agent_skills/",
+      sourceType: "manual-reviewed-doc",
+      watchMode: "manual-reviewed-doc",
+      repoOwner: undefined,
+      repoName: undefined,
+      defaultBranch: undefined,
+      lastReviewedCommit: null,
+      lastReviewedDate: "2026-05-15",
+      sourceRecordPath: "sources/gitlab-agent-skills.md",
+      licenseConcern: "official-docs-terms-not-reviewed",
+      manualReview: {}
+    })
+  ], async (cwd) => {
+    const result = await runFreshness(cwd, ["--mock"]);
+
+    assert.notEqual(result.code, 0);
+    assert.match(result.stderr, /manualReview\.publisher must be a non-empty string/);
+  });
+});
+
 test("mock report includes affected methods from method sourceRef frontmatter", async () => {
   await withWatchlist([source()], async (cwd) => {
     await mkdir(path.join(cwd, "registries"));

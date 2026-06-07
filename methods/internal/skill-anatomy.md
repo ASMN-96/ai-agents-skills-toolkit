@@ -1,5 +1,5 @@
 ---
-sourceRef: ["anthropic-skills","unknown-review-required"]
+sourceRef: ["anthropic-skills","gitlab-agent-skills"]
 lastExtracted: unknown-review-required
 status: approved
 ---

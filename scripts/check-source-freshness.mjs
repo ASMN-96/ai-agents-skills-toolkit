@@ -17,6 +17,7 @@ const ISSUE_DRAFT_DISCLAIMER =
 
 const STATUSES = new Set([
   "UNCHANGED",
+  "MANUAL_REVIEW_TRACKED",
   "REVIEWED_HELD",
   "CHANGED_LOW_RISK",
   "CHANGED_REVIEW_REQUIRED",
@@ -102,6 +103,7 @@ Usage:
 Behavior:
   - Reads ${WATCHLIST_PATH}
   - Checks GitHub repository metadata without cloning, installing, activating, or copying external files
+  - Tracks manual reviewed-doc sources without pretending live GitHub freshness exists
   - Falls back to read-only git ls-remote default-branch checks for GitHub API 403/429 responses
   - Prints a Markdown report to stdout by default
   - With --fail-on-change, exits non-zero after reporting actionable statuses
@@ -245,13 +247,11 @@ function validateWatchlist(watchlist) {
 
   const ids = new Set();
   for (const source of watchlist.sources) {
+    const sourceType = source.sourceType || "github-repo";
     const required = [
       "id",
       "name",
       "sourceUrl",
-      "repoOwner",
-      "repoName",
-      "defaultBranch",
       "lastReviewedCommit",
       "lastReviewedDate",
       "sourceRecordPath",
@@ -270,10 +270,41 @@ function validateWatchlist(watchlist) {
       throw new Error(`Duplicate source id: ${source.id}`);
     }
     ids.add(source.id);
-    if (source.neverAutoImport !== true) {
+      if (source.neverAutoImport !== true) {
       throw new Error(`Source ${source.id} must set neverAutoImport: true`);
     }
-    validateGithubSourceIdentity(source);
+    if (sourceType === "github-repo") {
+      for (const field of ["repoOwner", "repoName", "defaultBranch"]) {
+        if (!(field in source)) {
+          throw new Error(`Source ${source.id || "<unknown>"} is missing ${field}`);
+        }
+      }
+      validateGithubSourceIdentity(source);
+    } else if (sourceType === "manual-reviewed-doc") {
+      if (source.watchMode !== "manual-reviewed-doc") {
+        throw new Error(`Source ${source.id} manual-reviewed-doc sources must set watchMode: manual-reviewed-doc`);
+      }
+      if (!source.manualReview || typeof source.manualReview !== "object" || Array.isArray(source.manualReview)) {
+        throw new Error(`Source ${source.id} manual-reviewed-doc sources must include manualReview metadata`);
+      }
+      for (const field of ["publisher", "cadence", "reason"]) {
+        if (typeof source.manualReview[field] !== "string" || source.manualReview[field].trim().length === 0) {
+          throw new Error(`Source ${source.id} manualReview.${field} must be a non-empty string`);
+        }
+      }
+      if (
+        !Array.isArray(source.manualReview.forbiddenClaims) ||
+        source.manualReview.forbiddenClaims.length === 0 ||
+        source.manualReview.forbiddenClaims.some((claim) => typeof claim !== "string" || claim.trim().length === 0)
+      ) {
+        throw new Error(`Source ${source.id} manualReview.forbiddenClaims must be a non-empty string array`);
+      }
+      if (source.lastReviewedCommit !== null) {
+        throw new Error(`Source ${source.id} manual-reviewed-doc sources must use lastReviewedCommit: null`);
+      }
+    } else {
+      throw new Error(`Source ${source.id} has unsupported sourceType: ${sourceType}`);
+    }
     if (!Array.isArray(source.watchedPaths)) {
       throw new Error(`Source ${source.id} watchedPaths must be an array`);
     }
@@ -505,6 +536,18 @@ async function inspectGithubSource(source) {
   }
 }
 
+function inspectManualReviewedDocSource(source) {
+  return {
+    status: "MANUAL_REVIEW_TRACKED",
+    latestCommit: null,
+    latestCommitDate: source.lastReviewedDate || "manual review only",
+    releaseSignal: "manual reviewed-doc source; no live repository release check",
+    licenseSignal: source.licenseConcern || "manual reviewed-doc source",
+    watchedPathSignals: [],
+    notes: `Manual reviewed-doc source tracked by watchlist; review URL on cadence (${source.manualReview?.cadence || "owner-defined cadence"}) without import, install, activation, extraction, or runtime changes.`
+  };
+}
+
 async function inspectGithubSourceWithLsRemoteFallback(source, reason) {
   try {
     const branch = source.defaultBranch || "main";
@@ -586,6 +629,14 @@ function isReviewedHeldForLatestCommit(source, latestCommit) {
 }
 
 function mockInspection(source, index) {
+  if ((source.sourceType || "github-repo") === "manual-reviewed-doc") {
+    return {
+      ...inspectManualReviewedDocSource(source),
+      releaseSignal: "mock: manual reviewed-doc source; no live repository release check",
+      notes: "Mock: manual reviewed-doc source tracked without live GitHub freshness claim."
+    };
+  }
+
   if (source.lastReviewedCommit === null) {
     return {
       status: "REVIEW_METADATA_MISSING",
@@ -619,6 +670,8 @@ function nextStepFor(status) {
   switch (status) {
     case "UNCHANGED":
       return "no action";
+    case "MANUAL_REVIEW_TRACKED":
+      return "manual review cadence";
     case "REVIEWED_HELD":
       return "resolve reviewed hold; use a final v0.2.3 outcome";
     case "CHANGED_LOW_RISK":
@@ -640,7 +693,11 @@ async function buildResults(watchlist, useMock, checkedAt, methodImpactIndex) {
   const results = [];
   for (let index = 0; index < watchlist.sources.length; index += 1) {
     const source = watchlist.sources[index];
-    const inspection = useMock ? mockInspection(source, index) : await inspectGithubSource(source);
+    const inspection = useMock
+      ? mockInspection(source, index)
+      : (source.sourceType || "github-repo") === "manual-reviewed-doc"
+        ? inspectManualReviewedDocSource(source)
+        : await inspectGithubSource(source);
     if (!STATUSES.has(inspection.status)) {
       throw new Error(`Internal error: unknown status ${inspection.status}`);
     }
@@ -682,6 +739,8 @@ function issueLabels(result) {
     labels.push("unsupported-source");
   } else if (result.status === "CHECK_FAILED") {
     labels.push("check-failed");
+  } else if (result.status === "MANUAL_REVIEW_TRACKED") {
+    labels.push("manual-reviewed-doc");
   }
   return labels;
 }
@@ -700,7 +759,7 @@ function renderIssueBody(result) {
     "",
     `- Source ID: ${result.id}`,
     `- Source name: ${result.name}`,
-    `- Repository: ${result.repoOwner}/${result.repoName}`,
+    `- Repository/source mode: ${sourceLocation(result)}`,
     `- Source URL: ${result.sourceUrl}`,
     `- Source record: ${result.sourceRecordPath}`,
     "",
@@ -731,6 +790,29 @@ function renderIssueBody(result) {
   ];
 
   return lines.join("\n");
+}
+
+function sourceTableHeader() {
+  return [
+    "| Source | Repo | Status | Reviewed | Checked | Latest | Reviewed date | Latest date | License signal | v0.2.3 outcome | Hold classification | Hold decision | Affected methods | Next step | Notes |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+  ];
+}
+
+function sourceTableRows(result) {
+  const rows = [
+    `| ${escapeCell(result.name)} | ${escapeCell(sourceLocation(result))} | ${result.status} | ${shortSha(result.lastReviewedCommit)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | ${escapeCell(result.reviewedHold?.classification || "n/a")} | ${escapeCell(result.reviewedHold?.decision || "n/a")} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
+  ];
+
+  if (result.watchedPathSignals.length > 0) {
+    for (const signal of result.watchedPathSignals) {
+      rows.push(
+        `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | n/a | ${escapeCell(signal.date || "n/a")} | path commit signal only | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | n/a | n/a | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | watched-path signal only |`
+      );
+    }
+  }
+
+  return rows;
 }
 
 function renderIssueDrafts(results, useMock, checkedAt) {
@@ -816,23 +898,17 @@ function renderReport(results, useMock, checkedAt) {
     "| --- | ---: |",
     ...Array.from(counts.entries()).map(([status, count]) => `| ${status} | ${count} |`),
     "",
-    "## Sources",
-    "",
-    "| Source | Repo | Status | Reviewed | Checked | Latest | Reviewed date | Latest date | License signal | v0.2.3 outcome | Hold classification | Hold decision | Affected methods | Next step | Notes |",
-    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+    "## Sources"
   ];
 
-  for (const result of results) {
-    lines.push(
-      `| ${escapeCell(result.name)} | ${escapeCell(`${result.repoOwner}/${result.repoName}`)} | ${result.status} | ${shortSha(result.lastReviewedCommit)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | ${escapeCell(result.reviewedHold?.classification || "n/a")} | ${escapeCell(result.reviewedHold?.decision || "n/a")} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
-    );
-
-    if (result.watchedPathSignals.length > 0) {
-      for (const signal of result.watchedPathSignals) {
-        lines.push(
-          `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | ${escapeCell(signal.date || "n/a")} | n/a | path commit signal only | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | n/a | n/a | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | watched-path signal only |`
-        );
-      }
+  for (const status of STATUSES) {
+    const group = results.filter((result) => result.status === status);
+    if (group.length === 0) {
+      continue;
+    }
+    lines.push("", `### ${status}`, "", ...sourceTableHeader());
+    for (const result of group) {
+      lines.push(...sourceTableRows(result));
     }
   }
 
@@ -841,6 +917,7 @@ function renderReport(results, useMock, checkedAt) {
     "## Next Step Meanings",
     "",
     "- no action: current default-branch signal matches the reviewed commit; this does not mean the source is safe forever.",
+    "- manual review cadence: non-GitHub reviewed documentation is tracked as a manual source and requires periodic owner review; it is not live freshness proof.",
     "- resolve reviewed hold: `REVIEWED_HELD` is an unresolved/intermediate v0.2.3 status and must be converted to a final outcome or removed from active monitoring.",
     "- refresh source record: upstream changed and a source-record refresh is the next safe step.",
     "- Skill Scout review required: review trust, license, maintenance, prompt-injection risk, dangerous commands, secret access, network behavior, and filesystem writes before any later phase.",
@@ -856,6 +933,7 @@ function renderReport(results, useMock, checkedAt) {
     "- Watched-path changes are signals only, not approval.",
     "- CHECK_FAILED is per source and does not authorize fallback import or activation.",
     "- GitHub API 403/429 fallback is limited to `git ls-remote` default-branch commit checks.",
+    "- Manual reviewed-doc sources intentionally do not use GitHub API or `git ls-remote` and must not be reported as live freshness proof.",
     "- Affected methods are derived from method `sourceRef` frontmatter and are review-routing hints only.",
     "- `--create-issues` generates local dry-run issue drafts with dedupe keys and labels; it does not call GitHub or create issues.",
     "- This monitor never clones repositories, runs external scripts, copies raw files, installs skills, activates plugins, or updates source records."
@@ -868,6 +946,13 @@ function escapeCell(value) {
   return String(value ?? "")
     .replaceAll("|", "\\|")
     .replaceAll("\n", " ");
+}
+
+function sourceLocation(source) {
+  if ((source.sourceType || "github-repo") === "manual-reviewed-doc") {
+    return `${source.watchMode || "manual-reviewed-doc"}: ${source.sourceUrl}`;
+  }
+  return `${source.repoOwner}/${source.repoName}`;
 }
 
 async function main() {

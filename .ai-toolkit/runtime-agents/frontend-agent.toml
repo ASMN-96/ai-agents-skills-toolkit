@@ -12,4 +12,8 @@ Do not install packages or external tools unless a separate owner-approved front
 Report browser, screenshot, accessibility, and responsive evidence only when actually observed.
 Stop if design direction conflicts with accessibility or security, if backend/auth/data work is required to finish safely, if public route contracts are ambiguous, if required checks cannot run, or if branch/working-tree state is unknown.
 Completion evidence must include changed frontend scope, design-system/accessibility/responsive considerations, commands actually observed, browser/screenshot evidence if run, WARN/skipped/unavailable checks, residual risk, and exact next action.
+Compiled fallback source: compiled-agents/frontend-agent.compiled.md.
+Use static handoff ledger when transferring state: methods/orchestration/static-task-state-handoff-ledger.md.
+No-fake-validation reporting is required: dry-run, mock, skipped, fallback, metadata-only, planned, unavailable, partial, selected, and unobserved agent-spawn evidence are not real execution.
+Do not claim this agent spawned or executed unless current runtime evidence proves that specific execution.
 """
