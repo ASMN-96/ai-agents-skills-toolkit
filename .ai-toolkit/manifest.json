@@ -42,13 +42,13 @@
       "source": "skills/governance/SKILL.md",
       "target": ".agents/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "2ce0fadb3f4aa88cb644f47a67aa500f4d514c5e32ae08164e42dabc9f9cf448"
+      "sha256": "8d0c92d47576856409869ccf7d9fc94437c3f28416791d791264daaea9a6fd57"
     },
     {
       "source": "skills/governance/SKILL.md",
       "target": ".ai-toolkit/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "2ce0fadb3f4aa88cb644f47a67aa500f4d514c5e32ae08164e42dabc9f9cf448"
+      "sha256": "8d0c92d47576856409869ccf7d9fc94437c3f28416791d791264daaea9a6fd57"
     },
     {
       "source": "skills/uiux/SKILL.md",
@@ -66,13 +66,13 @@
       "source": "skills/code-quality/SKILL.md",
       "target": ".agents/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "4d6c765b7f884cec2758bd7a9e3ccca6fea58d783fdee9d202e32be8eaf2359b"
+      "sha256": "d2495b8420340eec5ccc7382a4f0627348fcf71a1be63f6e2ac7f78316453096"
     },
     {
       "source": "skills/code-quality/SKILL.md",
       "target": ".ai-toolkit/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "4d6c765b7f884cec2758bd7a9e3ccca6fea58d783fdee9d202e32be8eaf2359b"
+      "sha256": "d2495b8420340eec5ccc7382a4f0627348fcf71a1be63f6e2ac7f78316453096"
     },
     {
       "source": "skills/security-review/SKILL.md",
@@ -252,7 +252,7 @@
       "source": "registries/methods.registry.json",
       "target": ".ai-toolkit/registries/methods.registry.json",
       "mode": "byte-identical",
-      "sha256": "f1de6b55b67b543267b66877d328e35f1697f9ba9922a0a6360e3cc2e88f6d1c"
+      "sha256": "baf35f7b70abe16d284a3c6229ff33c16ed71331cf16f9e7950b8cce1cb29b92"
     },
     {
       "source": "registries/profiles.registry.json",
@@ -264,13 +264,13 @@
       "source": "registries/routing-matrix.json",
       "target": ".ai-toolkit/registries/routing-matrix.json",
       "mode": "byte-identical",
-      "sha256": "d91c67d3708c48e816a1878117a1e88d58629865ebb4b94ea85cfaac4094c0cb"
+      "sha256": "7de7781d630c5bf7423f294ee7ea6a756964f663318e169a773f831996a4646d"
     },
     {
       "source": "registries/skills.registry.json",
       "target": ".ai-toolkit/registries/skills.registry.json",
       "mode": "byte-identical",
-      "sha256": "2528371fb4ef66a83c2afdb444ccb1ebba5ca11cb415deff67f5450c645449b5"
+      "sha256": "3dffdbb3bb14f4de3908580e493a85d370bf4794e224f576c499d267273db326"
     },
     {
       "source": "registries/tools.registry.json",
@@ -384,7 +384,7 @@
       "source": "docs/SOURCE_UTILIZATION_MATRIX.md",
       "target": ".ai-toolkit/docs/SOURCE_UTILIZATION_MATRIX.md",
       "mode": "packaged-support-asset",
-      "sha256": "a29a43c7c99ff6f4bc8fda0ccb996fa98bf3b4665d12b25a71500808cea8ca91"
+      "sha256": "6a45ff7c8faef1696acb93389dd355c01be4092f8091dbde25262fc83d7eb60f"
     },
     {
       "source": "docs/UI_UX_PRO_MAX_AUDIT.md",
@@ -426,13 +426,19 @@
       "source": "methods/governance/governance-lite-router-mode.md",
       "target": ".ai-toolkit/methods/governance/governance-lite-router-mode.md",
       "mode": "packaged-support-asset",
-      "sha256": "a73294080dda4819dd480686d48bd76224684b33270f8d571f014ec5c522ffa9"
+      "sha256": "a132b7a1d83e3dae235010ff8cff7ae59ceb2499eb2889fdf66c2ec3c96ea62e"
     },
     {
       "source": "methods/governance/task-intake-routing-gate.md",
       "target": ".ai-toolkit/methods/governance/task-intake-routing-gate.md",
       "mode": "packaged-support-asset",
-      "sha256": "2ac98d7d4d2e5e4a7fd14d171f5c3ef44365a7f8d5a47549553ed56da9ac6271"
+      "sha256": "2e8512077dbd846bc37ee562267d657f061591749c71bbd6258d134ae716ab73"
+    },
+    {
+      "source": "methods/internal/documentation-accuracy-guard.md",
+      "target": ".ai-toolkit/methods/internal/documentation-accuracy-guard.md",
+      "mode": "packaged-support-asset",
+      "sha256": "267736bba2be0abfb856edb89619ae481c111daf538ce211d9dbcfd0f1251bf1"
     },
     {
       "source": "methods/internal/engineering-lifecycle-gates.md",
@@ -450,7 +456,7 @@
       "source": "methods/internal/simplicity-surgical-change-discipline.md",
       "target": ".ai-toolkit/methods/internal/simplicity-surgical-change-discipline.md",
       "mode": "packaged-support-asset",
-      "sha256": "4087f93e86295f409f0b889128c94f54066bc96561269ed8038f04fc91dc6b27"
+      "sha256": "77ec4584b893b256351dfe092ad3cc3c406f7a7b84a6cb585c704c1965172d31"
     },
     {
       "source": "methods/internal/skill-anatomy.md",
@@ -474,7 +480,7 @@
       "source": "methods/internal/tdd-verification-alignment.md",
       "target": ".ai-toolkit/methods/internal/tdd-verification-alignment.md",
       "mode": "packaged-support-asset",
-      "sha256": "0929e561e6ac0d8a1306e320c0f39fbeffc2aca98ddde41228c6b42f7c4611b3"
+      "sha256": "2a8ea520951e6f5273b70571b9e8831faab3337fbbc02b03b03a283fcaefade2"
     },
     {
       "source": "methods/karpathy/assumption-surfacing.md",

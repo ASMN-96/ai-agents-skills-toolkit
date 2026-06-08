@@ -4,7 +4,7 @@
 - Owner / publisher: ruvnet.
 - Source type: Agent orchestration/runtime framework with daemon, plugins, workers, state, and verification materials.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `d065b15927c6ba7318623e8af123e7980e4c6681` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-06.
+- Pinned repo ref checked: `6c1abcf0217b71baa131fd7155dddc41813d6851` on `main`, checked by read-only GitHub compare metadata on 2026-06-08.
 - Visible adoption signals: about 56.4k GitHub stars, 6.4k forks, and active alpha release work.
 - Trust level: Medium source trust, very high runtime/daemon risk.
 - License status: GitHub API reports MIT.
@@ -119,3 +119,19 @@ Decision: keep RuFlo active as cleanroom static orchestration guidance through `
 The toolkit uses RuFlo as active cleanroom source intelligence for a toolkit-authored static task-state handoff method. That is full-power adoption inside this repository for the safe part of the source: explicit task state, handoff facts, retry/stop-condition discipline, failure accounting, and no-silent-fallback reporting.
 
 No RuFlo code, tests, prompts, commands, scripts, package metadata, lockfiles, MCP configuration, memory bridge logic, daemon logic, watcher behavior, generated output, or runtime behavior was copied or activated.
+
+## Freshness Review 2026-06-08
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `d065b15927c6ba7318623e8af123e7980e4c6681` to `05f20eaa56bf942d7dc741061dbe4d249e82ed2b` using GitHub compare metadata only. The compare was 6 commits ahead and touched CI workflow configuration, package and lockfile data, witness verification script code, added the opt-in `plugins/ruflo-arena` runtime/plugin surface, and changed graph-trajectory smoke behavior. The source remains high risk for runtime, daemon, MCP, hook, plugin, package-script, memory, persisted-state, file-write, CI, and background-process behavior.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep only the existing toolkit-authored static task-state and handoff discipline as adopted source intelligence. This refresh updates source tracking only and does not approve package install, package or lockfile update, CI workflow adoption, witness script execution, arena plugin adoption, daemon, worker, hook, MCP, memory, plugin, script, model-routing import, persisted-state import, source-copying, method-extraction, product-repo indexing, product-repo changes, or global configuration use.
+
+## Freshness Review 2026-06-08 Follow-up
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `05f20eaa56bf942d7dc741061dbe4d249e82ed2b` to `6c1abcf0217b71baa131fd7155dddc41813d6851` using GitHub compare metadata only. The compare was 1 commit ahead and touched only `plugins/ruflo-arena` implementation files for post-merge review patches. The source remains high risk for runtime, daemon, MCP, hook, plugin, package-script, memory, persisted-state, file-write, CI, and background-process behavior.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep only the existing toolkit-authored static task-state and handoff discipline as adopted source intelligence. This refresh updates source tracking only and does not approve package install, package or lockfile update, CI workflow adoption, arena plugin adoption, daemon, worker, hook, MCP, memory, plugin, script, model-routing import, persisted-state import, source-copying, method-extraction, product-repo indexing, product-repo changes, or global configuration use.

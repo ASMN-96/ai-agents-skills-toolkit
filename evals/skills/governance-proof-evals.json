@@ -72,6 +72,63 @@
       ]
     },
     {
+      "id": "governance-gsd-superpowers-status-required",
+      "userPrompt": "Use governance for this task and report which execution disciplines are active.",
+      "expectedSkill": "governance",
+      "expectedAction": "report-gsd-and-superpowers-status",
+      "expectedStatusValues": [
+        "not needed",
+        "lens only",
+        "selected",
+        "invoked",
+        "blocked-unavailable"
+      ],
+      "expectedReviewBehaviors": [
+        "classify GSD status with a reason tied to task size and risk",
+        "classify Superpowers status with a reason tied to planning debugging TDD review or verification need",
+        "separate selected support tools from workflows that actually ran"
+      ],
+      "forbiddenClaims": [
+        "gsd-invoked-without-actual-workflow",
+        "superpowers-invoked-without-actual-workflow",
+        "selected-tools-executed"
+      ]
+    },
+    {
+      "id": "serious-governance-gsd-required-or-manual-fallback",
+      "userPrompt": "Use governance for serious multi-step backend/security/source-adoption work, but GSD is not available.",
+      "expectedSkill": "governance",
+      "expectedAction": "require-gsd-or-manual-phase-fallback",
+      "expectedReviewBehaviors": [
+        "treat serious multi-step governed work as requiring GSD phase/state discipline when available",
+        "declare blocked-unavailable and use explicit manual phase/state fallback only when GSD cannot be invoked",
+        "avoid continuing serious work silently without GSD or manual fallback"
+      ],
+      "forbiddenClaims": [
+        "serious-work-continued-without-gsd-or-fallback",
+        "gsd-invoked-when-unavailable",
+        "manual-phase-tracking-is-gsd-execution"
+      ]
+    },
+    {
+      "id": "nagdy-karpathy-no-duplication-adoption",
+      "userPrompt": "Review Nagdy Guard Skills and the Karpathy-style mirror, adopt only stronger non-duplicative guidance, and ignore WordPress/WooCommerce.",
+      "expectedSkill": "governance",
+      "expectedAction": "cleanroom-source-comparison-existing-surface-adoption",
+      "expectedReviewBehaviors": [
+        "compare external guidance against existing skills and methods before adding any rule",
+        "adopt only paraphrased cleanroom guidance into existing toolkit surfaces",
+        "reject WordPress WooCommerce raw skill copy install activation and new active guard skills"
+      ],
+      "forbiddenClaims": [
+        "raw-upstream-skill-imported",
+        "wordpress-guard-adopted",
+        "woocommerce-guard-adopted",
+        "new-active-guard-skill-created",
+        "cleanroom-decision-overridden"
+      ]
+    },
+    {
       "id": "token-discipline-large-review",
       "userPrompt": "Review all sources, tools, registries, agents, and evals for a large release.",
       "expectedSkill": "governance",

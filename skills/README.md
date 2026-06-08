@@ -23,6 +23,7 @@ Old alias and helper skill folders were removed from active runtime. See `docs/M
 
 - GSD is an external core governance tool for serious multi-step work, audits, migrations, backend work, security/SRE audits, and release programs. It tracks phase/state/roadmap/release gates and must not be vendored into this toolkit.
 - Superpowers remains the external core execution-discipline plugin for systematic debugging, TDD, code review, and verification-before-completion.
+- Governance reports must classify GSD and Superpowers status every run. Tiny tasks can report GSD as `not needed` or `lens only`; serious governed work must use GSD or declare a manual GSD-equivalent fallback.
 - Use only the minimum required tools for a task. Do not activate every plugin, tool, agent, or profile by default.
 
 ## Phase 10 Registry Boundary

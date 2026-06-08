@@ -19,6 +19,8 @@ Prefer available project-owned checks in this order: typecheck, lint, focused te
 - React hooks, async state, and rendering behavior are correct.
 - Loading, error, empty, disabled, failure, and recovery states are handled.
 - Tests cover changed behavior or critical regression risk.
+- Generated or changed production code receives a guard pass for broad error swallowing, hardcoded success paths, invented APIs, copy-from-similar mistakes, unnecessary abstractions, and dead code introduced by the change.
+- Generated or changed tests are reviewed for behavior assertions, justified system-boundary mocks, real state/value objects, data-driven variants where appropriate, preserved production regressions, and removal of tests that only verify framework guarantees.
 - Existing TypeScript, typed ESLint, React Hooks, Vitest, Testing Library, and build scripts are used when project-owned.
 - Dry-run, skipped, unavailable, metadata-only, or planned quality gates are not reported as real execution.
 - Route React projects to React Doctor as `active-if-detected` when project-owned and `owner-approved-install` when absent; it supplements ESLint, React Hooks, tests, and browser evidence.
@@ -26,6 +28,10 @@ Prefer available project-owned checks in this order: typecheck, lint, focused te
 - Route performance, scalability, and cache-sensitive changes through `.ai-toolkit/methods/performance/performance-scalability-cache-readiness.md`. Canonical toolkit source: `methods/performance/performance-scalability-cache-readiness.md`.
 - Route cross-surface API/client compatibility through `.ai-toolkit/methods/architecture/cross-surface-client-contracts.md` when frontend changes affect multiple consumers. Canonical toolkit source: `methods/architecture/cross-surface-client-contracts.md`.
   Use `.ai-toolkit/methods/api/api-contract-and-routing-readiness.md` for explicit API route or contract readiness. Canonical toolkit source: `methods/api/api-contract-and-routing-readiness.md`.
+
+## Guard-Pass Boundaries
+
+Guard-pass review is reviewer judgment unless a project-owned command actually ran and output was observed. Do not create or invoke external `clean-code-guard`, `test-guard`, or `docs-guard` skills from this toolkit. Documentation claim checks route through `governance` and `.ai-toolkit/methods/internal/documentation-accuracy-guard.md` when docs mention concrete symbols, commands, flags, routes, config keys, paths, examples, or behavior.
 
 ## Completion Evidence
 

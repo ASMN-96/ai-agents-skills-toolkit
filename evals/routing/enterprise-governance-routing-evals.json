@@ -31,6 +31,126 @@
       ]
     },
     {
+      "id": "tiny-governance-task-gsd-lightweight",
+      "input": "Use governance, but only fix this typo in one docs paragraph.",
+      "scenario": "small-low-risk-typo-doc-change",
+      "expectedProfile": "implementation-profile",
+      "expectedSkills": [
+        "governance"
+      ],
+      "expectedAgents": [
+        "reviewer-agent"
+      ],
+      "expectedMethods": [
+        "internal.simplicity-surgical-change-discipline",
+        "internal.documentation-accuracy-guard"
+      ],
+      "requiredValidationGateContains": [
+        "GSD and Superpowers status"
+      ],
+      "forbiddenSkills": [
+        "security-review",
+        "pr-release-gate"
+      ],
+      "forbiddenClaims": [
+        "heavy-enterprise-gates-required-for-typo",
+        "gsd-invoked-without-actual-workflow",
+        "superpowers-invoked-without-actual-workflow"
+      ]
+    },
+    {
+      "id": "medium-governance-task-status-contract",
+      "input": "Use governance to route this implementation safely, but keep it lightweight unless risk appears.",
+      "scenario": "task-intake-routing-gate",
+      "expectedProfile": "planning-profile",
+      "expectedSkills": [
+        "governance"
+      ],
+      "expectedAgents": [
+        "product-agent",
+        "architect-agent",
+        "reviewer-agent"
+      ],
+      "expectedMethods": [
+        "governance.task-intake-routing-gate"
+      ],
+      "requiredValidationGateContains": [
+        "GSD and Superpowers status"
+      ],
+      "forbiddenClaims": [
+        "validation-passed-without-output",
+        "gsd-invoked-without-actual-workflow",
+        "selected-tools-executed"
+      ]
+    },
+    {
+      "id": "serious-governance-task-requires-gsd-or-fallback",
+      "input": "Use governance to plan and implement this cross-surface release safely, with validation and PR readiness.",
+      "scenario": "large-governed-implementation",
+      "expectedProfile": "fullstack-profile",
+      "expectedSkills": [
+        "governance",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
+      ],
+      "expectedAgents": [
+        "product-agent",
+        "architect-agent",
+        "frontend-agent",
+        "backend-contract-agent",
+        "security-agent",
+        "qa-test-agent",
+        "reviewer-agent",
+        "release-manager-agent"
+      ],
+      "expectedMethods": [
+        "governance.task-intake-routing-gate",
+        "reliability.coding-time-production-readiness",
+        "release.release-rollback-readiness"
+      ],
+      "requiredStopConditionContains": [
+        "GSD",
+        "manual phase/state fallback"
+      ],
+      "requiredValidationGateContains": [
+        "GSD phase/state",
+        "Superpowers workflow/status"
+      ],
+      "forbiddenClaims": [
+        "serious-work-continued-without-gsd-or-fallback",
+        "validation-passed-without-output",
+        "draft-pr-ready-without-final-validation"
+      ]
+    },
+    {
+      "id": "gsd-unavailable-manual-fallback",
+      "input": "Use governance for a serious task, but GSD is unavailable in this runtime.",
+      "scenario": "large-governed-implementation",
+      "expectedProfile": "fullstack-profile",
+      "expectedSkills": [
+        "governance",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
+      ],
+      "expectedMethods": [
+        "governance.task-intake-routing-gate",
+        "reliability.coding-time-production-readiness"
+      ],
+      "requiredStopConditionContains": [
+        "manual phase/state fallback"
+      ],
+      "requiredValidationGateContains": [
+        "manual fallback recorded"
+      ],
+      "forbiddenClaims": [
+        "gsd-invoked-when-unavailable",
+        "serious-work-continued-without-gsd-or-fallback",
+        "validation-passed-without-output"
+      ]
+    },
+    {
       "id": "api-change-web-mobile-consumers",
       "input": "This API response affects web and mobile clients, and the payload includes user data.",
       "scenario": "cross-surface-api-contracts",
@@ -162,9 +282,13 @@
     {
       "id": "negative-docs-typo-lightweight",
       "input": "Fix a typo in a docs paragraph.",
-      "scenario": "plain-language-product-request",
+      "scenario": "small-low-risk-typo-doc-change",
       "expectedSkills": [
         "governance"
+      ],
+      "expectedMethods": [
+        "internal.simplicity-surgical-change-discipline",
+        "internal.documentation-accuracy-guard"
       ],
       "forbiddenMethods": [
         "repo.package-manager-workspace-migration",
@@ -177,6 +301,38 @@
       ],
       "forbiddenClaims": [
         "heavy-enterprise-gates-required-for-typo"
+      ]
+    },
+    {
+      "id": "nagdy-karpathy-no-duplication-adoption-gate",
+      "input": "Compare Nagdy Guard Skills and the Karpathy-style mirror, adopt only stronger non-duplicative guidance, and ignore WordPress/WooCommerce.",
+      "scenario": "external-skill-source-audit",
+      "expectedProfile": "source-review-profile",
+      "expectedSkills": [
+        "governance",
+        "security-review"
+      ],
+      "expectedAgents": [
+        "skill-scout-agent",
+        "security-agent",
+        "reviewer-agent"
+      ],
+      "expectedMethods": [
+        "internal.source-discovery-workflow",
+        "internal.source-safety-scoring",
+        "internal.documentation-accuracy-guard"
+      ],
+      "requiredValidationGateContains": [
+        "No-duplication adoption gate",
+        "No install",
+        "GSD and Superpowers status"
+      ],
+      "forbiddenClaims": [
+        "raw-upstream-skill-imported",
+        "wordpress-guard-adopted",
+        "woocommerce-guard-adopted",
+        "new-active-guard-skill-created",
+        "cleanroom-decision-overridden"
       ]
     },
     {

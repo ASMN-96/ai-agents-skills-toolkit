@@ -4,7 +4,7 @@
 - Owner / publisher: affaan-m.
 - Source type: Cross-harness Claude Code ecosystem repository with skills, agents, commands, hooks, manifests, MCP config, plugins, rules, and install scripts.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `eef31ad39ce92f437339c2b26edb1b71d3075666` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-07.
+- Pinned repo ref checked: `90dfd9505dc860714cf3cc8216ad7bbb96d93365` on `main`, checked by read-only GitHub compare metadata on 2026-06-07.
 - Visible adoption signals: about 175.8k GitHub stars, 27.2k forks, and large multi-harness surface area.
 - Trust level: Medium source trust, very high execution/config-mutation risk.
 - License status: GitHub API reports MIT.
@@ -96,3 +96,11 @@ Skill Scout/read-only release-gate follow-up reviewed upstream movement from `71
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep the latest upstream commit active as source-safety awareness only. This review does not approve worktree-lifecycle service import, Kiro agent/skill/hook/import or install behavior, Codex/Cursor/OpenCode/Trae configuration adoption, workflow import, command import, bundled-default adoption, plugin import, skill import, install module import, control-plane import, session-adapter import, MCP inventory import, cross-harness runtime support claims, MCP behavior adoption, global config behavior, source import, installation, activation, extraction, package changes, CI changes, product-repo changes, script execution, or global configuration changes. Future upstream movement beyond `eef31ad39ce92f437339c2b26edb1b71d3075666` requires a fresh review.
+
+## Release-Gate Freshness Review 2026-06-07 Follow-Up
+
+Skill Scout/read-only follow-up reviewed upstream movement from `eef31ad39ce92f437339c2b26edb1b71d3075666` to `90dfd9505dc860714cf3cc8216ad7bbb96d93365` using GitHub compare metadata only. The compare was 2 commits ahead and touched plugin marketplace metadata, plugin metadata, `AGENTS.md`, README files, command registry documentation, localized docs, plugin hook bootstrap code, tests, and added `orch-*` command and skill wrapper files for an orchestrated research/plan/TDD/review/commit pipeline.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep the latest upstream commit active as source-safety awareness only. The plugin-hook fix and orchestrator skill family are useful risk signals for hook/runtime and orchestration-source reviews, but they are not adopted into this toolkit. This review does not approve plugin hook behavior import, `orch-*` skill or command import, orchestration pipeline import, workflow import, command import, bundled-default adoption, plugin import, skill import, install module import, control-plane import, session-adapter import, MCP inventory import, cross-harness runtime support claims, MCP behavior adoption, global config behavior, source import, installation, activation, extraction, package changes, CI changes, product-repo changes, script execution, or global configuration changes. Future upstream movement beyond `90dfd9505dc860714cf3cc8216ad7bbb96d93365` requires a fresh review.

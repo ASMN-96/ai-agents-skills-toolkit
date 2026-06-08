@@ -90,9 +90,11 @@ External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.m
 
 - GSD is treated as an external core governance tool, not a vendored toolkit dependency.
 - Superpowers remains the external core execution-discipline plugin.
+- Every `governance` run must report GSD and Superpowers status with a concise reason, even when one or both are `not needed`.
+- Tiny governed tasks may classify GSD as `not needed` or `lens only` and Superpowers as `not needed` when full workflow invocation would create noise.
 - Serious multi-step work must declare GSD phase/state usage, selected agents/profile, selected support tools, mode, scope, do-not-touch list, and validation plan before execution.
-- If GSD is unavailable for serious multi-phase work, stop and ask whether to install/configure GSD, continue with manual phase tracking, or stop.
-- Do not silently continue without GSD on serious multi-phase work unless the user explicitly approves manual phase tracking.
+- If GSD is unavailable for serious multi-phase work, declare `blocked-unavailable` and either use an explicit manual GSD-equivalent phase/state fallback or stop for approval.
+- Do not silently continue without GSD on serious multi-phase work unless manual phase tracking is explicitly declared.
 - Do not install GSD globally, install other support tools, or modify Codex global config without explicit approval.
 - Use only the minimum required plugins/tools for the task.
 

@@ -13,6 +13,9 @@ This skill authorizes routing, planning, read-only checks, capability selection,
 
 - Verify repository source of truth before readiness, release, or implementation claims.
 - Select the smallest useful profile, agent, skill, support-tool, and method surface.
+- Classify GSD and Superpowers on every governance run as `not needed`, `lens only`, `selected`, `invoked`, or `blocked-unavailable`; include a one-line reason for each status.
+- Treat GSD as required for serious multi-step work, audits, migrations, backend/database/security/SRE work, source adoption, release programs, and cross-repo/toolkit sync unless an explicit manual GSD-equivalent phase/state fallback is declared.
+- Use GSD as `not needed` or `lens only` for tiny tasks where invoking it would create planning noise or unnecessary `.planning/` churn.
 - Use compact context packs for large tasks instead of whole-repo or whole-registry dumps.
 - Keep selected agents separate from agents actually spawned.
 - Treat registries, source records, dry-runs, reports, and metadata as evidence, not execution.
@@ -25,6 +28,17 @@ This skill authorizes routing, planning, read-only checks, capability selection,
 - Route package-manager or workspace migration questions through `.ai-toolkit/methods/repo/package-manager-workspace-migration.md`. Canonical toolkit source: `methods/repo/package-manager-workspace-migration.md`.
 - Use `.ai-toolkit/docs/PROJECT_TOOLING_OPERATING_MODEL.md` for v0.2 project tooling boundaries. Canonical toolkit source: `docs/PROJECT_TOOLING_OPERATING_MODEL.md`.
 - Use the v0.2.3 activation model: `active-if-detected` for existing project-owned tools, `owner-approved-install` for absent tools, `ci-advisory` before calibrated CI blocking, `static-adopted` for safe toolkit-owned static concepts, and `forbidden-runtime` for MCP/daemon/global/memory/watcher conflicts.
+- Use `.ai-toolkit/methods/internal/documentation-accuracy-guard.md` when docs mention concrete symbols, commands, flags, routes, config keys, paths, examples, or behavior. Canonical toolkit source: `methods/internal/documentation-accuracy-guard.md`.
+
+## External Discipline Status Contract
+
+Every governance report must include:
+
+- `GSD status`: `not needed`, `lens only`, `selected`, `invoked`, or `blocked-unavailable`.
+- `Superpowers status`: `not needed`, `selected`, `invoked`, or `blocked-unavailable`.
+- Reason: a concise explanation tied to task size, risk, state tracking, planning, debugging, TDD, review, or verification need.
+
+Do not claim GSD or Superpowers were invoked unless their workflows actually ran. Selected support tools, manual lenses, source records, registries, dry-runs, and planned follow-ups are not execution evidence.
 
 ## Large-Task Context Pack
 
@@ -41,3 +55,5 @@ For large tasks, source reviews, implementation plans, PR reviews, or multi-agen
 ## Completion Evidence
 
 Report branch/baseline, selected lenses or agents, files changed, validation commands, skipped checks, WARN output, residual risk, and the next release action.
+
+Also report GSD and Superpowers status for governed work, even when one or both were not needed.

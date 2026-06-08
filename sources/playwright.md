@@ -5,7 +5,7 @@
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `ae106c05e5a40486ab5b9704234c32f0499e9719` on `main`, checked by read-only GitHub compare/commit/license metadata on 2026-06-06.
+- Pinned repo ref checked: `3ba155ee28e3c50af63c9f517283d41afb6800a4` on `main`, checked by read-only GitHub compare metadata on 2026-06-08.
 - Visible adoption signals: about 89.8k GitHub stars, 5.8k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
@@ -162,3 +162,19 @@ Skill Scout read-only release-gate follow-up reviewed upstream default-branch mo
 Outcome: `SYNCED_PLUGIN_DELEGATED`.
 
 Decision: keep Playwright active for toolkit-owned browser-evidence standards and routing. The useful v0.2.3 adoption is not upstream runtime import; it is stricter evidence language in `methods/uiux/webapp-testing.md` and project-tooling routing that uses project-owned Playwright/browser tooling when already available. This review does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, injected-script behavior adoption, test-runner or web-server behavior adoption, config-loader behavior adoption, protocol/client/server behavior adoption, product-repo changes, or global configuration changes. Future upstream movement beyond `ae106c05e5a40486ab5b9704234c32f0499e9719` requires a fresh review.
+
+## Freshness Review 2026-06-08
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `ae106c05e5a40486ab5b9704234c32f0499e9719` to `26e3dc2b8d0fed23409ddfea7cb7175b4e9b2163` using GitHub compare metadata only. The compare was 8 commits ahead and touched Playwright docs, credentials/auth docs, screencast runtime/type surfaces, network/HAR internals, MCP tests, and regression tests. Apache-2.0 license metadata remained present from the live source-freshness scan.
+
+Outcome: `SYNCED_PLUGIN_DELEGATED`.
+
+Decision: keep Playwright active for toolkit-owned browser-evidence standards and routing while delegating execution to project-owned Playwright or browser tooling. This refresh updates source tracking only and does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, credentials/auth behavior adoption, screencast behavior adoption, HAR/network behavior adoption, product-repo changes, or global configuration changes.
+
+## Freshness Review 2026-06-08 Follow-up
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `26e3dc2b8d0fed23409ddfea7cb7175b4e9b2163` to `3ba155ee28e3c50af63c9f517283d41afb6800a4` using GitHub compare metadata only. The compare was 1 commit ahead and touched credential API docs, WebAuthn example removal, protocol/type surfaces, client/server credentials code, dispatcher code, and related tests. Apache-2.0 license metadata remained present from the live source-freshness scan.
+
+Outcome: `SYNCED_PLUGIN_DELEGATED`.
+
+Decision: keep Playwright active for toolkit-owned browser-evidence standards and routing while delegating execution to project-owned Playwright or browser tooling. This refresh updates source tracking only and does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, credentials/auth behavior adoption, WebAuthn behavior adoption, protocol/client/server behavior adoption, product-repo changes, or global configuration changes.

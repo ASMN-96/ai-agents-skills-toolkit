@@ -198,9 +198,13 @@
         {
           "path": "sources/matt-pocock-skills.md",
           "category": "external-source"
+        },
+        {
+          "path": "sources/nagdy-guard-skills.md",
+          "category": "external-source"
         }
       ],
-      "licenseStatus": "Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment. Historical Karpathy-inspired source evidence remains license-caveated and is not active source authority. No raw upstream wording, examples, prompt structure, scripts, code, docs text, or runtime behavior copied.",
+      "licenseStatus": "Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment and Nagdy Guard Skills used for normalized guard-pass concepts. Historical Karpathy-inspired source evidence remains license-caveated and is not active source authority. No raw upstream wording, examples, prompt structure, scripts, code, docs text, or runtime behavior copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",
@@ -412,9 +416,67 @@
         {
           "path": "sources/superpowers.md",
           "category": "external-source"
+        },
+        {
+          "path": "sources/nagdy-guard-skills.md",
+          "category": "external-source"
         }
       ],
-      "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied. Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Superpowers source record reports MIT; Superpowers remains external and must not be duplicated.",
+      "licenseStatus": "Matt Pocock source record reports MIT-visible status; no raw upstream skill text copied. Addy Osmani source record reports MIT-visible status where evaluated; no raw upstream skill text copied. Superpowers source record reports MIT and remains external. Nagdy Guard Skills source record reports MIT; only cleanroom test guard-pass concepts were adopted.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "internal.documentation-accuracy-guard",
+      "displayName": "Documentation Accuracy Guard",
+      "area": "internal",
+      "methodPath": "methods/internal/documentation-accuracy-guard.md",
+      "purpose": "Treat technical documentation as verifiable claims about the repository instead of prose generated from memory.",
+      "whenToUse": "Use when writing or reviewing READMEs, API docs, docstrings, changelogs, tutorials, config examples, command references, or generated docs that mention concrete code behavior.",
+      "whenNotToUse": "Do not use for marketing copy, visual site theming, or docs changes that make no technical claims.",
+      "passiveConsumerAgents": [
+        "Reviewer Agent",
+        "QA Test Agent",
+        "Product Agent",
+        "Backend Contract Agent",
+        "Frontend Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "plain-language-product-request",
+        "task-intake-routing-gate",
+        "small-low-risk-typo-doc-change",
+        "external-skill-source-audit"
+      ],
+      "riskDomains": [
+        "internal",
+        "docs",
+        "validation"
+      ],
+      "validationGates": [
+        "Verify referenced symbols, commands, flags, endpoints, config keys, paths, samples, and behavior against repository evidence. Report unverified samples or claims as gaps instead of proof."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "sources/nagdy-guard-skills.md",
+          "category": "external-source"
+        }
+      ],
+      "licenseStatus": "Nagdy Guard Skills source record reports MIT; no raw upstream skill text, examples, reference files, prompt structure, scripts, code, docs text, or runtime behavior copied.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",

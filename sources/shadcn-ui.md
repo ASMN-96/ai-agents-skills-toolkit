@@ -5,7 +5,7 @@
 - Owner / publisher: shadcn-ui.
 - Source type: Open component code, registry, documentation, CLI, and AI-oriented UI composition source.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `8da4592308472f31f4e622309214f51fc272cbf0` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-07.
+- Pinned repo ref checked: `5bd81beebf47a3e889c9989de66146e0eef1a49d` on `main`, checked by read-only GitHub compare metadata on 2026-06-08.
 - Visible adoption signals: about 115.9k GitHub stars, 9.0k forks, active repository updates on 2026-06-06, and official docs at `ui.shadcn.com`.
 - Trust level: High UI ecosystem trust, medium-high execution risk if CLI or registry behavior is followed blindly.
 - License status: GitHub API reports MIT.
@@ -111,3 +111,19 @@ Classification: source-record refresh / reference-only registry docs, registry d
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep shadcn/ui active only as design-system/component-ownership reference guidance for toolkit-owned UIUX methods. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, upstream script execution, build command adoption, package metadata adoption, lockfile adoption, dependency changes, package changes, product-repo changes, raw source extraction, or runtime activation.
+
+## Freshness Review 2026-06-08
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `8da4592308472f31f4e622309214f51fc272cbf0` to `3f2ff18157924e1cf101e05953219d4c959c0777` using GitHub compare metadata only. The compare was 3 commits ahead and touched registry directory metadata, CLI search command implementation/tests, MCP search utilities, registry search implementation/tests, package metadata, lockfile data, changelog, and shadcn skill docs. MIT license metadata remained present from the live source-freshness scan.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep shadcn/ui active only as design-system/component-ownership reference guidance for toolkit-owned UIUX methods. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, upstream script execution, search command behavior adoption, MCP behavior adoption, package metadata adoption, lockfile adoption, dependency changes, package changes, product-repo changes, raw source extraction, or runtime activation.
+
+## Freshness Review 2026-06-08 Follow-up
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `3f2ff18157924e1cf101e05953219d4c959c0777` to `5bd81beebf47a3e889c9989de66146e0eef1a49d` using GitHub compare metadata only. The compare was 1 commit ahead and added shadcn registry API reference documentation plus registry docs metadata. MIT license metadata remained present from the live source-freshness scan.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep shadcn/ui active only as design-system/component-ownership reference guidance for toolkit-owned UIUX methods. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, upstream script execution, API reference behavior adoption, package metadata adoption, lockfile adoption, dependency changes, package changes, product-repo changes, raw source extraction, or runtime activation.
