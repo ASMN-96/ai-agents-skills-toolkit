@@ -123,20 +123,20 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 ## GSD vs governance skill
 
 - Default winner: governance skill inside this toolkit.
-- Complementary tool: GSD as external execution discipline when available.
+- Complementary tool: GSD as external phase/state execution discipline when available.
 - Conflict rule: do not duplicate or vendor GSD in the toolkit.
-- When to activate: active governance discipline/reference when the external plugin is already available.
-- When to avoid: simple tasks or any request to install/activate from registry metadata.
-- Evidence requirement: selected/not invoked status or actual observed tool output.
+- When to activate: classify GSD status on every governance run; select or invoke it for serious multi-step work, audits, migrations, backend/database/security/SRE work, source adoption, release programs, and cross-repo/toolkit sync.
+- When to avoid: full GSD invocation for tiny tasks where `not needed` or `lens only` avoids planning noise, or any request to install/activate from registry metadata.
+- Evidence requirement: `not needed`, `lens only`, `selected`, `invoked`, or `blocked-unavailable` with a reason; actual observed GSD output only when it really ran.
 
 ## Superpowers vs governance skill
 
 - Default winner: governance skill for toolkit policy and source-of-truth enforcement.
 - Complementary tool: Superpowers as external planning, debugging, TDD, and verification discipline.
 - Conflict rule: do not duplicate Superpowers or treat it as project dependency.
-- When to activate: complex implementation or validation loops when available and useful.
+- When to activate: classify Superpowers status on governance runs; invoke a specific workflow only when planning, debugging, TDD, review, or verification discipline is materially useful.
 - When to avoid: package/global/plugin installation requests without approval.
-- Evidence requirement: selected/not invoked status or actual observed tool output.
+- Evidence requirement: `not needed`, `selected`, `invoked`, or `blocked-unavailable` with a reason; actual observed workflow output only when it really ran.
 
 ## RuFlo-Style Concepts vs Runtime Orchestration
 

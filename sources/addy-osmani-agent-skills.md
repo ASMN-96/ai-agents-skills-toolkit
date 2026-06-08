@@ -7,7 +7,7 @@
 - Purpose: Production engineering workflow skills for AI coding agents.
 - Trust level: High-medium.
 - License if visible: MIT.
-- Commit / update activity: `2e0dfbfb436ef3307bbe8ba172f14996de980784` from read-only remote HEAD and compare metadata checks on 2026-06-06.
+- Commit / update activity: `c076972e2626fe2acc30b00a6c7240d4c5fb786a` from read-only remote HEAD and compare metadata checks on 2026-06-08.
 - Recommendation: Passive reference for normalized governance and method-quality patterns. Do not copy raw skill bodies or duplicate Codex/plugin behavior.
 
 ## Summary
@@ -41,3 +41,11 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Classification: safe metadata refresh / low-risk marketplace metadata drift.
 
 Decision: keep Addy Osmani Agent Skills as passive reference for normalized production engineering workflow patterns only. This refresh updates source tracking only and does not approve plugin installation, repository cloning into active runtime, hook execution, slash-command activation, raw skill copying, global git or agent configuration changes, product-repo changes, or runtime configuration changes.
+
+## Freshness Review 2026-06-08
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `2e0dfbfb436ef3307bbe8ba172f14996de980784` to `c076972e2626fe2acc30b00a6c7240d4c5fb786a` using GitHub compare metadata only. The compare was 6 commits ahead and touched `skills/security-and-hardening/SKILL.md`, `references/security-checklist.md`, and `agents/security-auditor.md`, adding threat-modeling, SSRF, supply-chain, and AI/LLM security coverage. These concepts are already covered by this toolkit's security-review and governance surfaces, so no new active skill or duplicated rule is needed.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep Addy Osmani Agent Skills as passive reference for normalized production engineering workflow patterns only. This refresh updates source tracking only and does not approve plugin installation, repository cloning into active runtime, hook execution, slash-command activation, raw skill copying, upstream security-skill import, global git or agent configuration changes, product-repo changes, or runtime configuration changes.

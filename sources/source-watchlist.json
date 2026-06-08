@@ -21,15 +21,33 @@
       "repoOwner": "anthropics",
       "repoName": "skills",
       "defaultBranch": "main",
-      "lastReviewedCommit": "da20c92503b2e8ff1cf28ca81a0df4673debdbf7",
-      "lastReviewedDate": "2026-05-29",
+      "lastReviewedCommit": "c30d329f5814647c1e2f071020c1e8c1c9893ef1",
+      "lastReviewedDate": "2026-06-08",
       "sourceRecordPath": "sources/anthropic-skills.md",
       "watchedPaths": [
         "skills/skill-creator"
       ],
       "licenseConcern": "mixed-license",
       "reviewPriority": "High",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewDecision": {
+        "outcome": "SYNCED_REFERENCE",
+        "reviewedCommit": "c30d329f5814647c1e2f071020c1e8c1c9893ef1",
+        "reviewedDate": "2026-06-08",
+        "summary": "Upstream changed only claude-api docs/API guidance outside watched skill-creator path; retained as restricted reference-only source intelligence.",
+        "boundaries": [
+          "no raw skill copying",
+          "no restricted document-skill extraction",
+          "no Claude API skill import",
+          "no Anthropic CLI guidance adoption",
+          "no Managed Agents behavior adoption",
+          "no SDK guidance adoption",
+          "no tool/runtime activation",
+          "no installation",
+          "no product-repo changes",
+          "no global configuration changes"
+        ]
+      }
     },
     {
       "id": "openai-skills",
@@ -53,13 +71,30 @@
       "repoOwner": "addyosmani",
       "repoName": "agent-skills",
       "defaultBranch": "main",
-      "lastReviewedCommit": "2e0dfbfb436ef3307bbe8ba172f14996de980784",
-      "lastReviewedDate": "2026-06-06",
+      "lastReviewedCommit": "c076972e2626fe2acc30b00a6c7240d4c5fb786a",
+      "lastReviewedDate": "2026-06-08",
       "sourceRecordPath": "sources/addy-osmani-agent-skills.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
       "reviewPriority": "Medium",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewDecision": {
+        "outcome": "SYNCED_REFERENCE",
+        "reviewedCommit": "c076972e2626fe2acc30b00a6c7240d4c5fb786a",
+        "reviewedDate": "2026-06-08",
+        "summary": "Security hardening drift reviewed; concepts already covered by toolkit security-review and governance surfaces without new active skills or duplicated rules.",
+        "boundaries": [
+          "no plugin installation",
+          "no repository cloning into active runtime",
+          "no hook execution",
+          "no slash-command activation",
+          "no raw skill copying",
+          "no upstream security-skill import",
+          "no global git or agent configuration changes",
+          "no product-repo changes",
+          "no runtime configuration changes"
+        ]
+      }
     },
     {
       "id": "supabase-agent-skills",
@@ -126,8 +161,8 @@
       "repoOwner": "microsoft",
       "repoName": "playwright",
       "defaultBranch": "main",
-      "lastReviewedCommit": "ae106c05e5a40486ab5b9704234c32f0499e9719",
-      "lastReviewedDate": "2026-06-06",
+      "lastReviewedCommit": "26e3dc2b8d0fed23409ddfea7cb7175b4e9b2163",
+      "lastReviewedDate": "2026-06-08",
       "sourceRecordPath": "sources/playwright.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -135,16 +170,20 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_PLUGIN_DELEGATED",
-        "reviewedCommit": "ae106c05e5a40486ab5b9704234c32f0499e9719",
-        "reviewedDate": "2026-06-06",
-        "summary": "Latest runtime-sensitive browser/test-runner/config changes reviewed; browser-evidence guidance is adopted while execution delegates to project-owned Playwright or browser tooling.",
+        "reviewedCommit": "26e3dc2b8d0fed23409ddfea7cb7175b4e9b2163",
+        "reviewedDate": "2026-06-08",
+        "summary": "Docs/runtime/test-runner drift reviewed; browser-evidence guidance remains adopted while execution delegates to project-owned Playwright/browser tooling.",
         "boundaries": [
+          "no source import",
           "no package update",
+          "no CI update",
+          "no runtime update",
+          "no upstream test/code copy",
+          "no script execution",
           "no browser binary download",
-          "no test-runner import",
-          "no config-loader import",
           "no MCP activation",
-          "no CI update"
+          "no product-repo changes",
+          "no global configuration changes"
         ]
       }
     },
@@ -161,7 +200,58 @@
       "watchedPaths": [],
       "licenseConcern": "license-unclear",
       "reviewPriority": "Medium",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewDecision": {
+        "outcome": "SYNCED_REFERENCE",
+        "reviewedCommit": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+        "reviewedDate": "2026-06-08",
+        "summary": "Cleanroom-only Karpathy-style guidance retained as historical/reference evidence; existing toolkit methods already cover assumption surfacing, simplicity, surgical changes, and goal-driven execution without raw upstream text.",
+        "boundaries": [
+          "no raw upstream text copying",
+          "no skill installation",
+          "no active runtime skill creation",
+          "no source authority claim",
+          "no license-unclear content extraction",
+          "no raw skill copying",
+          "no global skill activation",
+          "no product-repo changes"
+        ]
+      }
+    },
+    {
+      "id": "nagdy-guard-skills",
+      "name": "Nagdy Guard Skills",
+      "sourceUrl": "https://github.com/mabdeltawab/Nagdy_guard-skills",
+      "repoOwner": "mabdeltawab",
+      "repoName": "Nagdy_guard-skills",
+      "defaultBranch": "master",
+      "lastReviewedCommit": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
+      "lastReviewedDate": "2026-06-07",
+      "sourceRecordPath": "sources/nagdy-guard-skills.md",
+      "watchedPaths": [
+        "skills/clean-code-guard",
+        "skills/test-guard",
+        "skills/docs-guard"
+      ],
+      "licenseConcern": "clear",
+      "reviewPriority": "Medium",
+      "neverAutoImport": true,
+      "reviewDecision": {
+        "outcome": "SYNCED_ADOPTED",
+        "reviewedCommit": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
+        "reviewedDate": "2026-06-07",
+        "summary": "Cleanroom guard-pass guidance adopted for code, tests, and docs while keeping the active skill surface unchanged.",
+        "boundaries": [
+          "no npx skills add",
+          "no raw SKILL.md copying",
+          "no reference file copying",
+          "no new active guard skills",
+          "no WordPress guard adoption",
+          "no WooCommerce guard adoption",
+          "no global skill activation",
+          "no product-repo changes"
+        ]
+      }
     },
     {
       "id": "matt-pocock-skills",
@@ -170,13 +260,29 @@
       "repoOwner": "mattpocock",
       "repoName": "skills",
       "defaultBranch": "main",
-      "lastReviewedCommit": "be55a7970319ede7965edbb02b5e41cba1ca82c9",
-      "lastReviewedDate": "2026-06-06",
+      "lastReviewedCommit": "2bf70051928429983de3b5718d277150926f8c89",
+      "lastReviewedDate": "2026-06-08",
       "sourceRecordPath": "sources/matt-pocock-skills.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
       "reviewPriority": "Medium",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewDecision": {
+        "outcome": "SYNCED_REFERENCE",
+        "reviewedCommit": "2bf70051928429983de3b5718d277150926f8c89",
+        "reviewedDate": "2026-06-08",
+        "summary": "Teaching skill catalog movement reviewed; retained as passive TypeScript/code-quality and planning reference only.",
+        "boundaries": [
+          "no npx skills add",
+          "no setup command execution",
+          "no raw skill copying",
+          "no skill activation",
+          "no global skill sync",
+          "no external runtime behavior",
+          "no product-repo changes",
+          "no duplication of Codex or Superpowers execution discipline"
+        ]
+      }
     },
     {
       "id": "shadcn-ui",
@@ -185,8 +291,8 @@
       "repoOwner": "shadcn-ui",
       "repoName": "ui",
       "defaultBranch": "main",
-      "lastReviewedCommit": "8da4592308472f31f4e622309214f51fc272cbf0",
-      "lastReviewedDate": "2026-06-07",
+      "lastReviewedCommit": "5bd81beebf47a3e889c9989de66146e0eef1a49d",
+      "lastReviewedDate": "2026-06-08",
       "sourceRecordPath": "sources/shadcn-ui.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -194,18 +300,20 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "8da4592308472f31f4e622309214f51fc272cbf0",
-        "reviewedDate": "2026-06-07",
-        "summary": "Latest registry documentation, directory metadata, and registry build-script drift reviewed; source remains design-system reference only with no active toolkit runtime change.",
+        "reviewedCommit": "5bd81beebf47a3e889c9989de66146e0eef1a49d",
+        "reviewedDate": "2026-06-08",
+        "summary": "Registry, CLI search, MCP utility, package, skill-doc, and API reference docs drift reviewed; retained only as design-system/component-ownership reference guidance.",
         "boundaries": [
           "no component source copying",
           "no registry import",
           "no CLI execution",
+          "no MCP setup",
           "no upstream script execution",
-          "no build command adoption",
+          "no search command behavior adoption",
           "no package metadata adoption",
           "no lockfile adoption",
-          "no dependency changes"
+          "no dependency changes",
+          "no product-repo changes"
         ]
       }
     },
@@ -274,13 +382,29 @@
       "repoOwner": "VoltAgent",
       "repoName": "awesome-design-md",
       "defaultBranch": "main",
-      "lastReviewedCommit": "6d10c1457484c971cdae35563a1386102b4337c6",
-      "lastReviewedDate": "2026-05-30",
+      "lastReviewedCommit": "962e08c334dc5c42de3f9d14d2aa8ead9cc6cff9",
+      "lastReviewedDate": "2026-06-08",
       "sourceRecordPath": "sources/voltagent-awesome-design-md.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
       "reviewPriority": "Medium",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "reviewDecision": {
+        "outcome": "SYNCED_REFERENCE",
+        "reviewedCommit": "962e08c334dc5c42de3f9d14d2aa8ead9cc6cff9",
+        "reviewedDate": "2026-06-08",
+        "summary": "Nintendo-branded design catalog addition reviewed; retained only as design-source-of-truth structure reference with brand-copying risk explicit.",
+        "boundaries": [
+          "no brand-specific DESIGN.md copying",
+          "no preview execution",
+          "no source import",
+          "no method extraction",
+          "no project DESIGN.md writes",
+          "no runtime activation",
+          "no brand imitation",
+          "no global configuration use"
+        ]
+      }
     },
     {
       "id": "voltagent-awesome-agent-skills",
@@ -366,7 +490,7 @@
       "repoOwner": "affaan-m",
       "repoName": "everything-claude-code",
       "defaultBranch": "main",
-      "lastReviewedCommit": "eef31ad39ce92f437339c2b26edb1b71d3075666",
+      "lastReviewedCommit": "90dfd9505dc860714cf3cc8216ad7bbb96d93365",
       "lastReviewedDate": "2026-06-07",
       "sourceRecordPath": "sources/everything-claude-code.md",
       "watchedPaths": [],
@@ -375,9 +499,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "eef31ad39ce92f437339c2b26edb1b71d3075666",
+        "reviewedCommit": "90dfd9505dc860714cf3cc8216ad7bbb96d93365",
         "reviewedDate": "2026-06-07",
-        "summary": "Latest Codex/Cursor/Kiro/OpenCode/Trae config, workflow, command, hook, script, skill, agent, translation, and bundled-default drift reviewed; retained as source-safety awareness only without active cross-runtime support claims.",
+        "summary": "Latest plugin hook bootstrap and orch-* command/skill wrapper drift reviewed; retained as source-safety awareness only without active cross-runtime or orchestration runtime support claims.",
         "boundaries": [
           "no Claude/Cursor/Cline/OpenHands runtime support claim",
           "no MCP inventory import",
@@ -385,6 +509,8 @@
           "no control-plane import",
           "no global config behavior",
           "no script execution",
+          "no plugin hook behavior import",
+          "no orch-* skill, command, or pipeline import",
           "no worktree-lifecycle service import",
           "no Kiro agent, skill, hook, or install import",
           "no workflow, command, or bundled-default adoption"
@@ -426,8 +552,8 @@
       "repoOwner": "ruvnet",
       "repoName": "ruflo",
       "defaultBranch": "main",
-      "lastReviewedCommit": "d065b15927c6ba7318623e8af123e7980e4c6681",
-      "lastReviewedDate": "2026-06-06",
+      "lastReviewedCommit": "05f20eaa56bf942d7dc741061dbe4d249e82ed2b",
+      "lastReviewedDate": "2026-06-08",
       "sourceRecordPath": "sources/ruflo.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -435,16 +561,25 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_ADOPTED",
-        "reviewedCommit": "d065b15927c6ba7318623e8af123e7980e4c6681",
-        "reviewedDate": "2026-06-06",
-        "summary": "Latest memory/hook/package drift reviewed; static task-state and handoff discipline adopted while runtime memory/hooks/MCP/daemon/global behavior remain forbidden.",
+        "reviewedCommit": "05f20eaa56bf942d7dc741061dbe4d249e82ed2b",
+        "reviewedDate": "2026-06-08",
+        "summary": "CI, package, witness, arena plugin, and smoke drift reviewed; only existing static task-state and handoff discipline remains adopted.",
         "boundaries": [
-          "no memory bridge",
-          "no hooks",
-          "no MCP behavior",
-          "no daemon behavior",
-          "no global config",
-          "no package or lockfile update"
+          "no package install",
+          "no package or lockfile update",
+          "no CI workflow adoption",
+          "no witness script execution",
+          "no arena plugin adoption",
+          "no daemon",
+          "no worker",
+          "no hook",
+          "no MCP",
+          "no memory",
+          "no plugin",
+          "no script",
+          "no persisted-state import",
+          "no product-repo indexing",
+          "no global configuration use"
         ]
       }
     },

@@ -7,7 +7,7 @@
 - Purpose: Personal engineering skills focused on planning, domain language, TDD, QA, triage, and refactoring.
 - Trust level: Medium-high.
 - License if visible: MIT.
-- Commit / update activity: `be55a7970319ede7965edbb02b5e41cba1ca82c9` from read-only remote HEAD and compare metadata checks on 2026-06-06.
+- Commit / update activity: `2bf70051928429983de3b5718d277150926f8c89` from read-only remote HEAD and compare metadata checks on 2026-06-08.
 - Recommendation: Passive reference for normalized TypeScript/code-quality patterns. Do not copy raw skill bodies or duplicate Codex/Superpowers execution discipline.
 
 ## Summary
@@ -43,5 +43,13 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `aaf2453fbdfe7a15c07f11d861224f34ab4b53cb` to `be55a7970319ede7965edbb02b5e41cba1ca82c9` using `git ls-remote` and GitHub compare metadata only. The compare was 4 commits ahead and touched only `skills/in-progress/teach/SKILL.md`. The changed surface remains an in-progress personal teaching skill, not a toolkit runtime dependency or required execution path.
 
 Classification: safe metadata refresh / low-risk in-progress reference drift.
+
+Decision: keep Matt Pocock Skills as passive reference for normalized TypeScript/code-quality, planning, TDD, triage, interface, architecture, and git-guardrail patterns only. This refresh updates source tracking only and does not approve `npx skills add`, setup command execution, raw skill copying, skill activation, global skill sync, external runtime behavior, product-repo changes, or duplication of Codex/Superpowers execution discipline.
+
+## Freshness Review 2026-06-08
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `be55a7970319ede7965edbb02b5e41cba1ca82c9` to `2bf70051928429983de3b5718d277150926f8c89` using GitHub compare metadata only. The compare was 1 commit ahead and moved the in-progress teaching skill into the productivity catalog while updating small README/plugin metadata. No toolkit runtime, package, setup, or governance surface changed.
+
+Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep Matt Pocock Skills as passive reference for normalized TypeScript/code-quality, planning, TDD, triage, interface, architecture, and git-guardrail patterns only. This refresh updates source tracking only and does not approve `npx skills add`, setup command execution, raw skill copying, skill activation, global skill sync, external runtime behavior, product-repo changes, or duplication of Codex/Superpowers execution discipline.
