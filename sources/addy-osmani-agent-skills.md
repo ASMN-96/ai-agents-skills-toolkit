@@ -44,7 +44,7 @@ Decision: keep Addy Osmani Agent Skills as passive reference for normalized prod
 
 ## Freshness Review 2026-06-08
 
-Skill Scout read-only follow-up reviewed upstream default-branch movement from `2e0dfbfb436ef3307bbe8ba172f14996de980784` to `c076972e2626fe2acc30b00a6c7240d4c5fb786a` using GitHub compare metadata only. The compare was 6 commits ahead and touched `skills/security-and-hardening/SKILL.md`, `references/security-checklist.md`, and `agents/security-auditor.md`, adding threat-modeling, SSRF, supply-chain, and AI/LLM security coverage. These concepts are already covered by this toolkit's security-review and governance surfaces, so no new active skill or duplicated rule is needed.
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `2e0dfbfb436ef3307bbe8ba172f14996de980784` to `c076972e2626fe2acc30b00a6c7240d4c5fb786a` using GitHub compare metadata only. The compare was 6 commits ahead and touched `skills/security-and-hardening/SKILL.md`, `references/security-checklist.md`, and `agents/security-auditor.md`, adding threat-modeling, SSRF, supply-chain, and AI/LLM security coverage. This toolkit already covers those concepts through its security-review and governance surfaces, so no new active skill or duplicated rule is needed.
 
 Outcome: `SYNCED_REFERENCE`.
 

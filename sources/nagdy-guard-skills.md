@@ -6,11 +6,11 @@
 - Source type: GitHub repository of focused guard skills.
 - Source status: Reviewed source record; approved only for narrow cleanroom guard-pass guidance.
 - Retrieval date: 2026-06-07.
-- Last checked date: 2026-06-07.
-- Last reviewed date: 2026-06-07.
-- Last reviewed commit: `d63607391ffd6b2763a3e62cb05a8e00b891a937`.
-- Last extracted date: 2026-06-07.
-- Last extracted commit: `d63607391ffd6b2763a3e62cb05a8e00b891a937`.
+- Checked date: 2026-06-07.
+- Reviewed date: 2026-06-07.
+- Reviewed commit: `d63607391ffd6b2763a3e62cb05a8e00b891a937`.
+- Extracted date: 2026-06-07.
+- Extracted commit: `d63607391ffd6b2763a3e62cb05a8e00b891a937`.
 - Trust level: Medium.
 - License status: GitHub API and root LICENSE report MIT.
 - Tool enterprise-risk record, if applicable: n/a.
@@ -37,12 +37,12 @@ Capture the useful second-pass review discipline from `clean-code-guard`, `test-
 
 ## Rejected Patterns
 
-- Do not install with `npx skills add` or any other skills CLI command.
-- Do not copy raw upstream `SKILL.md` bodies, reference files, examples, prompt structure, or wording.
-- Do not create new active toolkit skills for `clean-code-guard`, `test-guard`, or `docs-guard`.
-- Do not adopt hard universal numeric code limits when local project conventions or language idioms require different thresholds.
-- Do not import `wp-guard` or `woo-guard`; WordPress and WooCommerce are explicitly out of scope.
-- Do not treat upstream guard skill invocation as proof that tests, docs, linters, scanners, or runtime checks actually ran.
+- Reject installation with `npx skills add` or any other skills CLI command.
+- Keep raw upstream `SKILL.md` bodies, reference files, examples, prompt structure, and wording out of this toolkit.
+- Avoid new active toolkit skills for `clean-code-guard`, `test-guard`, or `docs-guard`.
+- Preserve local project conventions instead of adopting hard universal numeric code limits.
+- Exclude `wp-guard` and `woo-guard`; WordPress and WooCommerce are explicitly out of scope.
+- Treat upstream guard skill invocation as reviewer judgment only, not proof that tests, docs, linters, scanners, or runtime checks actually ran.
 
 ## Security Risks
 
