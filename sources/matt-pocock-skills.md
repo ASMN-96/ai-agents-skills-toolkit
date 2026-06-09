@@ -46,17 +46,17 @@ Classification: safe metadata refresh / low-risk in-progress reference drift.
 
 Decision: keep Matt Pocock Skills as passive reference for normalized TypeScript/code-quality, planning, TDD, triage, interface, architecture, and git-guardrail patterns only. This refresh updates source tracking only and does not approve `npx skills add`, setup command execution, raw skill copying, skill activation, global skill sync, external runtime behavior, product-repo changes, or duplication of Codex/Superpowers execution discipline.
 
-## Freshness Review 2026-06-09
+## Freshness Review 2026-06-08
 
-Skill Scout read-only follow-up reviewed upstream default-branch movement from `2bf70051928429983de3b5718d277150926f8c89` to `e3d8b735ef92ec9554b07f11f408089d81289eed` using GitHub compare metadata and remote HEAD resolution only. The compare was 2 commits ahead and touched only `skills/productivity/teach/SKILL.md`. The changed surface remains a personal teaching/productivity skill, not a toolkit runtime dependency.
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `be55a7970319ede7965edbb02b5e41cba1ca82c9` to `2bf70051928429983de3b5718d277150926f8c89` using GitHub compare metadata only. The compare was 1 commit ahead and moved the in-progress teaching skill into the productivity catalog while updating small README/plugin metadata. No toolkit runtime, package, setup, or governance surface changed.
 
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep Matt Pocock Skills as passive reference for normalized TypeScript/code-quality, planning, TDD, triage, interface, architecture, and git-guardrail patterns only. This refresh updates source tracking only and does not approve `npx skills add`, setup command execution, raw skill copying, skill activation, global skill sync, external runtime behavior, product-repo changes, or duplication of Codex/Superpowers execution discipline.
 
-## Freshness Review 2026-06-08
+## Freshness Review 2026-06-09
 
-Skill Scout read-only follow-up reviewed upstream default-branch movement from `be55a7970319ede7965edbb02b5e41cba1ca82c9` to `2bf70051928429983de3b5718d277150926f8c89` using GitHub compare metadata only. The compare was 1 commit ahead and moved the in-progress teaching skill into the productivity catalog while updating small README/plugin metadata. No toolkit runtime, package, setup, or governance surface changed.
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `2bf70051928429983de3b5718d277150926f8c89` to `e3d8b735ef92ec9554b07f11f408089d81289eed` using GitHub compare metadata and remote HEAD resolution only. The compare was 2 commits ahead and touched only `skills/productivity/teach/SKILL.md`. The changed surface remains a personal teaching/productivity skill, not a toolkit runtime dependency.
 
 Outcome: `SYNCED_REFERENCE`.
 
