@@ -61,6 +61,60 @@
       ]
     },
     {
+      "id": "backend.database-access-isolation-gates",
+      "displayName": "Database Access Isolation Gates",
+      "area": "backend",
+      "methodPath": "methods/backend/database-access-isolation-gates.md",
+      "purpose": "Define portable safety gates for Postgres, ORM, auth, query, migration, and tenant-isolation work before implementation or review claims.",
+      "whenToUse": "Use when a task touches Postgres schemas, hosted Postgres providers, SQL migrations, ORM models or queries, generated clients, auth/session ownership checks, tenant isolation, public/private payloads, or database performance.",
+      "whenNotToUse": "Do not use for frontend-only changes, static docs changes, or backend work that does not touch data access, auth, persistence, authorization, or database behavior. Use the Supabase RLS method for Supabase project settings, Supabase Data API exposure, storage policies, or RLS policy behavior.",
+      "passiveConsumerAgents": [
+        "Backend Contract Agent",
+        "Database RLS Agent",
+        "Security Agent",
+        "QA Test Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "generic-postgres-orm-data-isolation",
+        "postgres-query-performance",
+        "application-security-readiness",
+        "api-contract-change"
+      ],
+      "riskDomains": [
+        "backend",
+        "database",
+        "security"
+      ],
+      "validationGates": [
+        "Report the data surface, files or migrations reviewed, access paths, ownership and tenant-isolation checks, validation command or reason it could not run, and remaining manual checks. For implementation work, include migration/test evidence and rollback or recovery notes."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/backend/database-access-isolation-gates.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored product-neutral method; no raw upstream source content copied.",
+      "rawCopyPolicy": "No raw upstream skill, prompt, code, template, docs text, provider CLI behavior, or external runtime behavior may be copied into this method registry.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
       "id": "internal.engineering-lifecycle-gates",
       "displayName": "Engineering Lifecycle Gates",
       "area": "internal",

@@ -4,12 +4,12 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: e0cc353fa30c69091c068e3a06febbcb3b39575b
+source_commit: 0302f92cee82aba32ef543a246072bb5dba40994
 source_agent: agents/frontend-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/frontend-profile.md", "profiles/implementation-profile.md", "profiles/uiux-profile.md", "profiles/fullstack-profile.md"]
-source_method_refs: ["internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.spec-driven-development", "osmani.test-driven-development", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing", "uiux.commercial-dashboard-polish-rubric", "mobile.native-mobile-app-quality", "performance.performance-scalability-cache-readiness"]
+source_method_refs: ["internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "internal.documentation-accuracy-guard", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.improve-architecture", "matt.tdd", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.performance-optimization", "osmani.spec-driven-development", "osmani.test-driven-development", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing", "uiux.commercial-dashboard-polish-rubric", "mobile.native-mobile-app-quality", "performance.performance-scalability-cache-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -170,11 +170,12 @@ Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test
 ## Operating Rules
 
 State assumptions, avoid speculative abstractions, touch only necessary files, match existing style, remove only dead code created by the current change, and surface unrelated issues without editing them.
+After generated or changed production code exists, run a guard pass on the diff before delivery. Check for broad error swallowing, hardcoded success paths, invented APIs, copy-from-similar mistakes, unnecessary abstractions, dead code introduced by the change, and comments that explain obvious code instead of intent.
 When source-safety or registry work is in scope, keep runtime, package, CI, MCP, global-config, and product-repository boundaries explicit in the diff.
 
 ## Verification Requirements
 
-Every changed line should trace to the request, the plan, a source-safety rule, or a verification fix.
+Every changed line should trace to the request, the plan, a source-safety rule, or a verification fix. For generated-code review, report guard-pass findings as reviewer judgment unless a project-owned tool or test actually ran and output was observed.
 
 ## Risks / Anti-Patterns
 
@@ -182,7 +183,7 @@ Over-minimizing needed changes, hiding unresolved uncertainty, performing unrela
 
 ## Source Safety / License Status
 
-Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment. License-caveated historical source-scouting evidence is not active source authority for this method.
+Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment and Nagdy Guard Skills used only for normalized guard-pass concepts. License-caveated historical Karpathy source-scouting evidence is not active source authority for this method.
 No upstream wording, examples, prompt structure, scripts, or runtime behavior were copied or activated.
 
 ### internal.tdd-verification-alignment
@@ -210,10 +211,17 @@ QA Test Agent, Reviewer Agent, Backend Contract Agent, Frontend Agent.
 ## Operating Rules
 
 Prefer red-green-refactor for risky behavior changes. Claims must be backed by fresh verification evidence. Tests should prove user-visible behavior rather than implementation trivia.
+When reviewing generated or changed tests, run a focused test-quality guard pass:
+- assert behavior and observable effects, not private helper calls;
+- mock only real system boundaries such as network, database, filesystem, clock, randomness, third-party SDKs, and LLM APIs;
+- use real state/value objects instead of mocks when construction is practical;
+- collapse near-duplicate variants into data-driven tests when setup and assertions are the same;
+- keep production-regression tests even when they look narrow;
+- remove tests that only verify framework guarantees, constants, constructor pass-throughs, or type-system-impossible inputs.
 
 ## Verification Requirements
 
-Record the command run, expected result, actual result, run timestamp, commit or PR reference, and any remaining test gap.
+Record the command run, expected result, actual result, run timestamp, commit or PR reference, and any remaining test gap. If only a guard review was performed, label it as review judgment and do not report it as test execution.
 
 ## Risks / Anti-Patterns
 
@@ -221,8 +229,51 @@ Passing tests without reading output, testing implementation details, or claimin
 
 ## Source Inspiration / License Status
 
-Inspired by Addy Osmani, Matt Pocock, and existing Superpowers verification discipline.
-This is normalized/paraphrased guidance, not raw upstream activation or duplication.
+Inspired by Addy Osmani, Matt Pocock, existing Superpowers verification discipline, and Nagdy Guard Skills test-review concepts.
+This is normalized/paraphrased guidance, not raw upstream activation, raw skill copying, or duplication.
+
+### internal.documentation-accuracy-guard
+
+Source: `methods/internal/documentation-accuracy-guard.md`
+
+# Documentation Accuracy Guard
+
+## Purpose
+
+Treat technical documentation as verifiable claims about the repository instead of prose generated from memory.
+
+## When To Use
+
+Use when writing or reviewing READMEs, API docs, docstrings, changelogs, tutorials, config examples, command references, or generated docs that mention concrete code behavior.
+
+## When Not To Use
+
+Do not use for marketing copy, visual site theming, or docs changes that make no technical claims.
+
+## Agent Roles That Should Embed It
+
+Reviewer Agent, QA Test Agent, Product Agent, Backend Contract Agent, Frontend Agent.
+
+## Operating Rules
+
+- Verify every referenced symbol, file path, command, flag, endpoint, config key, environment variable, and API shape against the source, schema, route table, CLI help, or current docs.
+- Document actual behavior, not intended behavior; if code and docs disagree, flag the mismatch instead of silently choosing one.
+- Remove unverifiable scale, performance, compatibility, and production-readiness claims unless they have repository evidence.
+- Keep code samples runnable on a clean machine without local paths, real credentials, or hidden prior state.
+- When code behavior changes, search related docs for the old symbol, flag, route, or behavior and update all affected surfaces in the same scoped change.
+- Do not paraphrase external documentation as local truth; link to upstream docs and describe only how this project uses the external dependency.
+
+## Verification Requirements
+
+For docs updates, report which claim surfaces were checked and what evidence was used. If samples, commands, or links were not executed or verified, label that gap explicitly.
+
+## Risks / Anti-Patterns
+
+Hallucinated function names, stale flags, broken examples, unsupported compatibility claims, docstrings that restate signatures, and documentation updates that drift from actual code.
+
+## Source Safety / License Status
+
+Toolkit-authored cleanroom method inspired by Nagdy Guard Skills docs-review concepts. No upstream wording, examples, prompt structure, scripts, reference files, or runtime behavior were copied or activated.
 
 ### karpathy.simplicity-surgical-changes
 
@@ -1092,8 +1143,8 @@ Stop condition:
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/frontend-profile.md`, `profiles/implementation-profile.md`, `profiles/uiux-profile.md`, `profiles/fullstack-profile.md`
-- Method IDs: `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.improve-architecture`, `matt.tdd`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.performance-optimization`, `osmani.spec-driven-development`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`, `uiux.commercial-dashboard-polish-rubric`, `mobile.native-mobile-app-quality`, `performance.performance-scalability-cache-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `impeccable`, `matt-pocock-skills`, `microsoft-playwright`, `shadcn-ui`, `superpowers`, `toolkit-authored`, `unknown-review-required`
+- Method IDs: `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `internal.documentation-accuracy-guard`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.improve-architecture`, `matt.tdd`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.performance-optimization`, `osmani.spec-driven-development`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`, `uiux.commercial-dashboard-polish-rubric`, `mobile.native-mobile-app-quality`, `performance.performance-scalability-cache-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `impeccable`, `matt-pocock-skills`, `microsoft-playwright`, `nagdy-guard-skills`, `shadcn-ui`, `superpowers`, `toolkit-authored`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

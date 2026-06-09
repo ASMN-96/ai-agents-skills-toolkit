@@ -4,7 +4,7 @@
 - Owner / publisher: affaan-m.
 - Source type: Cross-harness Claude Code ecosystem repository with skills, agents, commands, hooks, manifests, MCP config, plugins, rules, and install scripts.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `90dfd9505dc860714cf3cc8216ad7bbb96d93365` on `main`, checked by read-only GitHub compare metadata on 2026-06-07.
+- Pinned repo ref checked: `edebcc89efa09dc2705748151d98286ff3bb6023` on `main`, checked by read-only GitHub compare metadata on 2026-06-10.
 - Visible adoption signals: about 175.8k GitHub stars, 27.2k forks, and large multi-harness surface area.
 - Trust level: Medium source trust, very high execution/config-mutation risk.
 - License status: GitHub API reports MIT.
@@ -104,3 +104,11 @@ Skill Scout/read-only follow-up reviewed upstream movement from `eef31ad39ce92f4
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep the latest upstream commit active as source-safety awareness only. The plugin-hook fix and orchestrator skill family are useful risk signals for hook/runtime and orchestration-source reviews, but they are not adopted into this toolkit. This review does not approve plugin hook behavior import, `orch-*` skill or command import, orchestration pipeline import, workflow import, command import, bundled-default adoption, plugin import, skill import, install module import, control-plane import, session-adapter import, MCP inventory import, cross-harness runtime support claims, MCP behavior adoption, global config behavior, source import, installation, activation, extraction, package changes, CI changes, product-repo changes, script execution, or global configuration changes. Future upstream movement beyond `90dfd9505dc860714cf3cc8216ad7bbb96d93365` requires a fresh review.
+
+## Freshness Review 2026-06-10
+
+Skill Scout/read-only follow-up reviewed upstream movement from `90dfd9505dc860714cf3cc8216ad7bbb96d93365` to `edebcc89efa09dc2705748151d98286ff3bb6023` using GitHub compare metadata and remote HEAD resolution only. The compare was 1 commit ahead and touched `.github/workflows/release-announce.yml` and `scripts/discord/release-announce.mjs`. The source remains very high risk for workflow/script execution and cross-harness config mutation if followed directly.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep the latest upstream commit active as source-safety awareness only. The release announcement workflow and Discord script are not adopted into this toolkit. This review does not approve release-announcement workflow import, Discord script import, plugin hook behavior import, `orch-*` skill or command import, orchestration pipeline import, workflow import, command import, bundled-default adoption, plugin import, skill import, install module import, control-plane import, session-adapter import, MCP inventory import, cross-harness runtime support claims, MCP behavior adoption, global config behavior, source import, installation, activation, extraction, package changes, CI changes, product-repo changes, script execution, or global configuration changes.

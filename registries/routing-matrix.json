@@ -361,6 +361,61 @@
       ]
     },
     {
+      "scenario": "generic-postgres-orm-data-isolation",
+      "userLanguageExamples": [
+        "This Neon Postgres and Drizzle change affects tenant data.",
+        "Check Better Auth and database isolation before we merge.",
+        "Review this Prisma migration and query path for user ownership."
+      ],
+      "inferredIntent": "Review generic Postgres, ORM, auth, migration, and tenant-isolation risk without assuming Supabase-only tooling.",
+      "riskLevel": "high",
+      "selectedProfile": "backend-profile",
+      "agents": [
+        "backend-contract-agent",
+        "database-rls-agent",
+        "security-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "skills": [
+        "governance",
+        "security-review",
+        "code-quality"
+      ],
+      "supportTools": [
+        "project-owned database/auth tooling or docs",
+        "GitHub/gh",
+        "Superpowers"
+      ],
+      "stopConditions": [
+        "Authorization or tenant isolation risk is unclear",
+        "Migration could cause data loss without rollback plan",
+        "Required validation cannot run"
+      ],
+      "validationGates": [
+        "Access paths and object ownership checked",
+        "ORM/server-side authorization and tenant isolation checked",
+        "Migration and generated-type impact documented",
+        "Validation evidence or skipped-gate reason reported"
+      ],
+      "expectedCompletionReport": [
+        "Database access impact",
+        "Tenant isolation and ownership gates",
+        "Validation evidence",
+        "Rollback notes"
+      ],
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "backend.database-access-isolation-gates",
+        "security.differential-security-review",
+        "api.api-contract-and-routing-readiness",
+        "orchestration.context-graph-token-budget",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack",
+        "orchestration.stale-context-graph-detection"
+      ]
+    },
+    {
       "scenario": "postgres-query-performance",
       "userLanguageExamples": [
         "This query is too slow.",
@@ -380,7 +435,7 @@
         "security-review"
       ],
       "supportTools": [
-        "Supabase plugin or project-owned Supabase tooling/docs",
+        "project-owned database tooling/docs",
         "Superpowers"
       ],
       "stopConditions": [
@@ -389,7 +444,7 @@
       ],
       "validationGates": [
         "Query impact reviewed",
-        "RLS/Data API exposure and object ownership checked when relevant",
+        "Tenant isolation, object ownership, ORM/query filters, and RLS/Data API exposure checked when relevant",
         "Index/migration risk documented",
         "Rollback or mitigation noted"
       ],
@@ -401,6 +456,7 @@
       ],
       "tokenMode": "detailed",
       "methodReferences": [
+        "backend.database-access-isolation-gates",
         "backend.supabase-postgres-rls-gates",
         "osmani.performance-optimization",
         "orchestration.context-graph-token-budget",
@@ -1931,6 +1987,7 @@
       ],
       "tokenMode": "standard",
       "methodReferences": [
+        "backend.database-access-isolation-gates",
         "security.application-security-readiness",
         "governance.task-intake-routing-gate"
       ]

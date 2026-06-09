@@ -126,13 +126,13 @@
       "source": ".codex/agents/reviewer-agent.toml",
       "target": ".ai-toolkit/runtime-agents/reviewer-agent.toml",
       "mode": "byte-identical",
-      "sha256": "1cf2a932596e7f1f85d34190ec718a8e83fe6c6ca47ab08f2519474c48257ec1"
+      "sha256": "df695f4c2fac4438f66d46ae9560fcc490731f3997072901386c8501735e5973"
     },
     {
       "source": "agents/reviewer-agent.md",
       "target": ".ai-toolkit/agents/reviewer-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "e8db7ecd82fa124a4d81fc471e740770fe22dca181a17dc2d7397307eeda7b0b"
+      "sha256": "e5514d8070619e516b4cc3e1459ff90314bfd8014aa8d1de6072f2d2b79c88b8"
     },
     {
       "source": ".codex/agents/uiux-agent.toml",
@@ -174,13 +174,13 @@
       "source": ".codex/agents/database-rls-agent.toml",
       "target": ".ai-toolkit/runtime-agents/database-rls-agent.toml",
       "mode": "byte-identical",
-      "sha256": "163d480630c6c936b0b8f5a97faa0e836fc33299e0db149f875d0d8a4bdf2a67"
+      "sha256": "b5f4df6321d32885bf5f0fb4bde9466bc9af9eae8fe38b30ad4fdd0f5a37c939"
     },
     {
       "source": "agents/database-rls-agent.md",
       "target": ".ai-toolkit/agents/database-rls-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "611430e9332db2aa9d64717245f59dda73b9019132b47989b420a1d632a79f1b"
+      "sha256": "b124ed9964a8f265f1ea96d8b300a0da54c5084ab83f3fee443b62c2a9b1aa66"
     },
     {
       "source": ".codex/agents/security-agent.toml",
@@ -246,13 +246,13 @@
       "source": "registries/agents.registry.json",
       "target": ".ai-toolkit/registries/agents.registry.json",
       "mode": "byte-identical",
-      "sha256": "f79734b2588d76897690eb8de06c7c697846914e18f0e7481f7e03cd059d7cf2"
+      "sha256": "c85f75e6836220ee0daccadbe405910a9e7c4fd292a9a4521d3562013a41a547"
     },
     {
       "source": "registries/methods.registry.json",
       "target": ".ai-toolkit/registries/methods.registry.json",
       "mode": "byte-identical",
-      "sha256": "baf35f7b70abe16d284a3c6229ff33c16ed71331cf16f9e7950b8cce1cb29b92"
+      "sha256": "04e54870445930dd7be1e808b8a3bda1628793c9e85066e212a59a596616bc55"
     },
     {
       "source": "registries/profiles.registry.json",
@@ -264,7 +264,7 @@
       "source": "registries/routing-matrix.json",
       "target": ".ai-toolkit/registries/routing-matrix.json",
       "mode": "byte-identical",
-      "sha256": "7de7781d630c5bf7423f294ee7ea6a756964f663318e169a773f831996a4646d"
+      "sha256": "7e0c2d2c23e02b46aefadc0a8628fe0c3577fa927a5da7ea96cb75401933ab46"
     },
     {
       "source": "registries/skills.registry.json",
@@ -282,79 +282,91 @@
       "source": "compiled-agents/product-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/product-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "0f422b2c2d1c132c6eb705edfcc19792b06ce829fbf56ac13483cb80a92312f5"
+      "sha256": "900d4d11820175e0ef2fa85c939b01e16fa3ae35f56175caaaad8ffd88123e9f"
     },
     {
       "source": "compiled-agents/architect-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/architect-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "96ce3a55ca78d76c46f813a53b22d97b04cccd2c290ebdfe1148ada2140da9d8"
+      "sha256": "a7dc5c48a447099339be602fd2880db49dc93bff5dc4a017e4c759e6f3058618"
     },
     {
       "source": "compiled-agents/reviewer-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/reviewer-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "62c6b64d3d15b33ac5b30416d4e9b1df91042bdf32aff16c274f3b923fc5aacb"
+      "sha256": "5ab82590727cc7916a270299454ec504eb75e8a0bf6bda5525f12fba0731aaaf"
     },
     {
       "source": "compiled-agents/uiux-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/uiux-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "d1a368b58fc1d71d24c34cdcfd322b743b375a2cba5feeab24b12fd77c346353"
+      "sha256": "224ed6a36a4800c4dd7c484e00af10548ea2f79caa53c869ecb0564a76734911"
     },
     {
       "source": "compiled-agents/frontend-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/frontend-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "6b8808943f204eda97cb215af41ceacfc3a5d671b60269b29bed7a1e7e2765f8"
+      "sha256": "cf0f49f75bdbee0f119a9f995fc60cc127af2c5f23566be0c2cb4cd00d43b393"
     },
     {
       "source": "compiled-agents/backend-contract-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/backend-contract-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "79d64239a2f790185d71705eeee0661ee63258c9a2c98be4733ae98559212a91"
+      "sha256": "f81088cfb078302272228ef2289e905edfefeddf358985aed779104608360165"
     },
     {
       "source": "compiled-agents/database-rls-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/database-rls-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "5caa1b0cfff1fe1be4e130ac287f310f372c4d4e2c55ec2d8526151c7a1ac593"
+      "sha256": "f347cb5614dd8ca740a753791a16556cf3aa46aebab9c218fe275ae291cc6ed5"
     },
     {
       "source": "compiled-agents/security-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/security-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "7590eda88f0fe6a969c5dccec2555143ecca892808a7eb5db4e6b0b820f14292"
+      "sha256": "44e8756133c5731c0156b2c34e25e8f93d30d4c33f145a55712142405491b1fc"
     },
     {
       "source": "compiled-agents/qa-test-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/qa-test-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "53c4ae3873eafbac129517a3904eb136e07f37320a2d7448b2de6ec0eeb1b9c3"
+      "sha256": "b1e38356b1a1c6b74d127765dbf38dd3a8fdc46fb5481d89273aabc39850e8ff"
     },
     {
       "source": "compiled-agents/release-manager-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/release-manager-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "fca9009a1d25a9134ae5d7c9d44e61165d655008a8fc59f01e3c0e86eb32bb7d"
+      "sha256": "ddcc7cf28b8acda4fec4ef564e5cd3f3b09c088619d226af5214bd7501b4361e"
     },
     {
       "source": "compiled-agents/skill-scout-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/skill-scout-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "1587d7aa7e7736ef042e92aec2c4da3597ea04aa5d8ded390801720454d42b77"
+      "sha256": "e0c71ce6484d48f3998b8beb12361e47b30477f9b01c8d7b0aea739fd2013f6e"
     },
     {
       "source": "compiled-agents/sre-performance-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/sre-performance-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "b9984d2bd5767f107bb43d05782abd7b666ebccd9b221b3e78bf77f5d6b9a23c"
+      "sha256": "44f4213331d6e726bb6d09624cf98de6062deaee0f56905a3bce21c69a5cc5cf"
     },
     {
       "source": "docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md",
       "target": ".ai-toolkit/docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md",
       "mode": "packaged-support-asset",
       "sha256": "e30eaf9c18299a7cffc98ac13079fa97303a949600dae5d746cb58e4ac15c655"
+    },
+    {
+      "source": "docs/ENTERPRISE_EXTERNAL_TOOL_RISK_METADATA.md",
+      "target": ".ai-toolkit/docs/ENTERPRISE_EXTERNAL_TOOL_RISK_METADATA.md",
+      "mode": "packaged-support-asset",
+      "sha256": "8234107951e1b1e109b870631c2af20cd5279fb11bd0db579343c60f0a4954b8"
+    },
+    {
+      "source": "docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md",
+      "target": ".ai-toolkit/docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md",
+      "mode": "packaged-support-asset",
+      "sha256": "c7eda5e4b7299b645563f54dfd41e5e7a53035b0dbde93d8404d66caa4787c7d"
     },
     {
       "source": "docs/NO_FAKE_VALIDATION_POLICY.md",
@@ -379,6 +391,30 @@
       "target": ".ai-toolkit/docs/PUBLIC_PRIVATE_LEAK_REPORT.md",
       "mode": "packaged-support-asset",
       "sha256": "d8578812a936255fb47b48b7417425e514db6cfb322ea93cd93489f5b71b8426"
+    },
+    {
+      "source": "docs/REGISTRY_CONTRACT.md",
+      "target": ".ai-toolkit/docs/REGISTRY_CONTRACT.md",
+      "mode": "packaged-support-asset",
+      "sha256": "d64e9ac2840c33414c006ecc2849d902f80b6c7dffcc78a43d3f6373b5af4730"
+    },
+    {
+      "source": "docs/REGISTRY_GENERATION_DESIGN.md",
+      "target": ".ai-toolkit/docs/REGISTRY_GENERATION_DESIGN.md",
+      "mode": "packaged-support-asset",
+      "sha256": "494c611490e2104ec7f194a27b09feba1592153ffd3bb8108747b8b512846efa"
+    },
+    {
+      "source": "docs/REGISTRY_GENERATION_READINESS_REPORT.md",
+      "target": ".ai-toolkit/docs/REGISTRY_GENERATION_READINESS_REPORT.md",
+      "mode": "packaged-support-asset",
+      "sha256": "ef3954b81359ddec94cc5730cfcacf400b50f5bb7d1469264f1e1fced107b89c"
+    },
+    {
+      "source": "docs/RUNTIME_ACTIVATION_MODEL.md",
+      "target": ".ai-toolkit/docs/RUNTIME_ACTIVATION_MODEL.md",
+      "mode": "packaged-support-asset",
+      "sha256": "c8329e107b184cf10ba614c195a443b80e107ea6ce496f3a20f0c4ff7c8335a4"
     },
     {
       "source": "docs/SOURCE_UTILIZATION_MATRIX.md",
@@ -409,6 +445,12 @@
       "target": ".ai-toolkit/methods/architecture/cross-surface-client-contracts.md",
       "mode": "packaged-support-asset",
       "sha256": "7b5f8a5fcde499c5a7f89d782b1011f890c3bc4e00393306aea88331bc453aba"
+    },
+    {
+      "source": "methods/backend/database-access-isolation-gates.md",
+      "target": ".ai-toolkit/methods/backend/database-access-isolation-gates.md",
+      "mode": "packaged-support-asset",
+      "sha256": "f1d6e2894cc10c05b396e4e5c893f88dff3a41d7af3b1c1666351ff393a9c25b"
     },
     {
       "source": "methods/backend/supabase-postgres-rls-gates.md",

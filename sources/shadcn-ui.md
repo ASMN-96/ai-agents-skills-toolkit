@@ -5,7 +5,7 @@
 - Owner / publisher: shadcn-ui.
 - Source type: Open component code, registry, documentation, CLI, and AI-oriented UI composition source.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `5bd81beebf47a3e889c9989de66146e0eef1a49d` on `main`, checked by read-only GitHub compare metadata on 2026-06-08.
+- Pinned repo ref checked: `ced2a5beb5069e87df5cdc08b1f034a38e8f37a3` on `main`, checked by read-only GitHub compare metadata on 2026-06-10.
 - Visible adoption signals: about 115.9k GitHub stars, 9.0k forks, active repository updates on 2026-06-06, and official docs at `ui.shadcn.com`.
 - Trust level: High UI ecosystem trust, medium-high execution risk if CLI or registry behavior is followed blindly.
 - License status: GitHub API reports MIT.
@@ -127,3 +127,11 @@ Skill Scout read-only source-freshness follow-up reviewed upstream default-branc
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep shadcn/ui active only as design-system/component-ownership reference guidance for toolkit-owned UIUX methods. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, upstream script execution, API reference behavior adoption, package metadata adoption, lockfile adoption, dependency changes, package changes, product-repo changes, raw source extraction, or runtime activation.
+
+## Freshness Review 2026-06-10
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `5bd81beebf47a3e889c9989de66146e0eef1a49d` to `ced2a5beb5069e87df5cdc08b1f034a38e8f37a3` using GitHub compare metadata and remote HEAD resolution only. The compare was 3 commits ahead and touched `apps/v4/app/globals.css` and `apps/v4/registry/directory.json`. MIT license metadata remained present from the source record.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep shadcn/ui active only as design-system/component-ownership reference guidance for toolkit-owned UIUX methods. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, global CSS adoption, package metadata adoption, lockfile adoption, dependency changes, package changes, product-repo changes, raw source extraction, or runtime activation.
