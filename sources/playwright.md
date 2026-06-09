@@ -5,7 +5,7 @@
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `0bc6b172f10298286acf0f2ebbd27002dc4f263b` on `main`, checked by read-only GitHub compare metadata on 2026-06-10.
+- Pinned repo ref checked: `0bc6b172f10298286acf0f2ebbd27002dc4f263b` on `main`, checked by read-only GitHub compare metadata on 2026-06-09.
 - Visible adoption signals: about 89.8k GitHub stars, 5.8k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
@@ -179,7 +179,7 @@ Outcome: `SYNCED_PLUGIN_DELEGATED`.
 
 Decision: keep Playwright active for toolkit-owned browser-evidence standards and routing while delegating execution to project-owned Playwright or browser tooling. This refresh updates source tracking only and does not approve source import, package update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, credentials/auth behavior adoption, WebAuthn behavior adoption, protocol/client/server behavior adoption, product-repo changes, or global configuration changes.
 
-## Freshness Review 2026-06-10
+## Freshness Review 2026-06-09
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `3ba155ee28e3c50af63c9f517283d41afb6800a4` to `0bc6b172f10298286acf0f2ebbd27002dc4f263b` using GitHub compare metadata and remote HEAD resolution only. The compare was 21 commits ahead and touched workflow files, package and lockfile data, browser install scripts, browser registry metadata, client/server runtime files, MCP-related surfaces, CLI behavior, HAR/network code, protocol material, and tests. Apache-2.0 license metadata remained present from the source record.
 

@@ -22,7 +22,7 @@
       "repoName": "skills",
       "defaultBranch": "main",
       "lastReviewedCommit": "57546260929473d4e0d1c1bb75297be2fdfa1949",
-      "lastReviewedDate": "2026-06-10",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/anthropic-skills.md",
       "watchedPaths": [
         "skills/skill-creator"
@@ -33,7 +33,7 @@
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
         "reviewedCommit": "57546260929473d4e0d1c1bb75297be2fdfa1949",
-        "reviewedDate": "2026-06-10",
+        "reviewedDate": "2026-06-09",
         "summary": "Upstream changed claude-api documentation and frontend-design skill material outside the watched skill-creator path; retained as restricted reference-only source intelligence.",
         "boundaries": [
           "no raw skill copying",
@@ -73,7 +73,7 @@
       "repoName": "agent-skills",
       "defaultBranch": "main",
       "lastReviewedCommit": "0427b5b1281b7e4350176d8019305c1ffcb3beba",
-      "lastReviewedDate": "2026-06-10",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/addy-osmani-agent-skills.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -82,7 +82,7 @@
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
         "reviewedCommit": "0427b5b1281b7e4350176d8019305c1ffcb3beba",
-        "reviewedDate": "2026-06-10",
+        "reviewedDate": "2026-06-09",
         "summary": "Browser testing with DevTools skill drift reviewed; retained as passive workflow reference because browser evidence already delegates to project-owned tooling.",
         "boundaries": [
           "no plugin installation",
@@ -163,7 +163,7 @@
       "repoName": "playwright",
       "defaultBranch": "main",
       "lastReviewedCommit": "0bc6b172f10298286acf0f2ebbd27002dc4f263b",
-      "lastReviewedDate": "2026-06-10",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/playwright.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -172,7 +172,7 @@
       "reviewDecision": {
         "outcome": "SYNCED_PLUGIN_DELEGATED",
         "reviewedCommit": "0bc6b172f10298286acf0f2ebbd27002dc4f263b",
-        "reviewedDate": "2026-06-10",
+        "reviewedDate": "2026-06-09",
         "summary": "Browser, MCP, package, CI, HAR/network, CLI, and test drift reviewed; browser-evidence guidance remains adopted while execution delegates to project-owned Playwright/browser tooling.",
         "boundaries": [
           "no source import",
@@ -262,7 +262,7 @@
       "repoName": "skills",
       "defaultBranch": "main",
       "lastReviewedCommit": "e3d8b735ef92ec9554b07f11f408089d81289eed",
-      "lastReviewedDate": "2026-06-10",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/matt-pocock-skills.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -271,7 +271,7 @@
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
         "reviewedCommit": "e3d8b735ef92ec9554b07f11f408089d81289eed",
-        "reviewedDate": "2026-06-10",
+        "reviewedDate": "2026-06-09",
         "summary": "Productivity teaching skill movement reviewed; retained as passive TypeScript/code-quality and planning reference only.",
         "boundaries": [
           "no npx skills add",
@@ -293,7 +293,7 @@
       "repoName": "ui",
       "defaultBranch": "main",
       "lastReviewedCommit": "ced2a5beb5069e87df5cdc08b1f034a38e8f37a3",
-      "lastReviewedDate": "2026-06-10",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/shadcn-ui.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -302,7 +302,7 @@
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
         "reviewedCommit": "ced2a5beb5069e87df5cdc08b1f034a38e8f37a3",
-        "reviewedDate": "2026-06-10",
+        "reviewedDate": "2026-06-09",
         "summary": "Registry directory and global CSS drift reviewed; retained only as design-system/component-ownership reference guidance.",
         "boundaries": [
           "no component source copying",
@@ -430,7 +430,7 @@
       "repoName": "impeccable",
       "defaultBranch": "main",
       "lastReviewedCommit": "983b75cabc1389ff4ac87935f9ba223e207054bb",
-      "lastReviewedDate": "2026-06-10",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/impeccable.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -439,7 +439,7 @@
       "reviewDecision": {
         "outcome": "SYNCED_ADOPTED",
         "reviewedCommit": "983b75cabc1389ff4ac87935f9ba223e207054bb",
-        "reviewedDate": "2026-06-10",
+        "reviewedDate": "2026-06-09",
         "summary": "Latest cross-runtime agent, skill, live-browser script, detector, workflow, package, and site drift reviewed; Impeccable remains adopted only as normalized UI quality source intelligence.",
         "boundaries": [
           "no CLI execution",
@@ -495,7 +495,7 @@
       "repoName": "everything-claude-code",
       "defaultBranch": "main",
       "lastReviewedCommit": "edebcc89efa09dc2705748151d98286ff3bb6023",
-      "lastReviewedDate": "2026-06-10",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/everything-claude-code.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -504,7 +504,7 @@
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
         "reviewedCommit": "edebcc89efa09dc2705748151d98286ff3bb6023",
-        "reviewedDate": "2026-06-10",
+        "reviewedDate": "2026-06-09",
         "summary": "Release-announcement workflow and Discord script drift reviewed; retained as source-safety awareness only without workflow, script, or cross-runtime support claims.",
         "boundaries": [
           "no Claude/Cursor/Cline/OpenHands runtime support claim",
@@ -559,7 +559,7 @@
       "repoName": "ruflo",
       "defaultBranch": "main",
       "lastReviewedCommit": "16a55f7a537c4a405e448e59859866eebbdd45a0",
-      "lastReviewedDate": "2026-06-10",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/ruflo.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -568,7 +568,7 @@
       "reviewDecision": {
         "outcome": "SYNCED_ADOPTED",
         "reviewedCommit": "16a55f7a537c4a405e448e59859866eebbdd45a0",
-        "reviewedDate": "2026-06-10",
+        "reviewedDate": "2026-06-09",
         "summary": "Statusline, GitHub Pages workflow, package, nested agent/skill docs, probe scripts, and v3 package/runtime drift reviewed; only existing static task-state and handoff discipline remains adopted.",
         "boundaries": [
           "no package install",

@@ -7,7 +7,7 @@
 - Purpose: Personal engineering skills focused on planning, domain language, TDD, QA, triage, and refactoring.
 - Trust level: Medium-high.
 - License if visible: MIT.
-- Commit / update activity: `e3d8b735ef92ec9554b07f11f408089d81289eed` from read-only remote HEAD and compare metadata checks on 2026-06-10.
+- Commit / update activity: `e3d8b735ef92ec9554b07f11f408089d81289eed` from read-only remote HEAD and compare metadata checks on 2026-06-09.
 - Recommendation: Passive reference for normalized TypeScript/code-quality patterns. Do not copy raw skill bodies or duplicate Codex/Superpowers execution discipline.
 
 ## Summary
@@ -46,7 +46,7 @@ Classification: safe metadata refresh / low-risk in-progress reference drift.
 
 Decision: keep Matt Pocock Skills as passive reference for normalized TypeScript/code-quality, planning, TDD, triage, interface, architecture, and git-guardrail patterns only. This refresh updates source tracking only and does not approve `npx skills add`, setup command execution, raw skill copying, skill activation, global skill sync, external runtime behavior, product-repo changes, or duplication of Codex/Superpowers execution discipline.
 
-## Freshness Review 2026-06-10
+## Freshness Review 2026-06-09
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `2bf70051928429983de3b5718d277150926f8c89` to `e3d8b735ef92ec9554b07f11f408089d81289eed` using GitHub compare metadata and remote HEAD resolution only. The compare was 2 commits ahead and touched only `skills/productivity/teach/SKILL.md`. The changed surface remains a personal teaching/productivity skill, not a toolkit runtime dependency.
 

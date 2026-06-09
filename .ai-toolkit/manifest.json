@@ -450,7 +450,7 @@
       "source": "methods/backend/database-access-isolation-gates.md",
       "target": ".ai-toolkit/methods/backend/database-access-isolation-gates.md",
       "mode": "packaged-support-asset",
-      "sha256": "f1d6e2894cc10c05b396e4e5c893f88dff3a41d7af3b1c1666351ff393a9c25b"
+      "sha256": "712da2563cb8f4ab2236c4a221c907cd639fbb7268ca6065d41ae486208d385e"
     },
     {
       "source": "methods/backend/supabase-postgres-rls-gates.md",

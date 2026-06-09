@@ -5,8 +5,8 @@
 - Source type: External GitHub source for AI-assisted design critique, design-system context, and UI/UX quality vocabulary.
 - Source status: Reviewed source record; approved only for narrow normalized guidance in `uiux`.
 - Retrieval date: 2026-05-29.
-- Last checked date: 2026-06-10.
-- Last reviewed date: 2026-06-10.
+- Last checked date: 2026-06-09.
+- Last reviewed date: 2026-06-09.
 - Last reviewed commit: `983b75cabc1389ff4ac87935f9ba223e207054bb`.
 - Normalization review date: 2026-05-22.
 - Normalization review commit: `642f03d5a10eb3deb91bd511241e387e23b9aa39`.
@@ -162,7 +162,7 @@ Outcome: `SYNCED_ADOPTED`.
 
 Decision: keep Impeccable active only as normalized UI quality source intelligence and provenance for existing toolkit-owned UI review principles. This review explicitly rejects adopting upstream CLI behavior, package metadata, lockfile changes, CI workflow changes, site scripts, skill-bundle behavior, detector behavior, live-browser workflow behavior, test behavior, install guidance, raw documentation text, product-repo changes, or runtime configuration. No upstream files, scripts, package metadata, lockfiles, workflow YAML, tests, CLI commands, live-browser workflows, detector behavior, or skill bodies were copied, installed, activated, configured, executed, or imported.
 
-## Freshness Review 2026-06-10
+## Freshness Review 2026-06-09
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `1aedbcf538e3fa6694ccbf00294cc18e59ba1f21` to `983b75cabc1389ff4ac87935f9ba223e207054bb` using GitHub compare metadata and remote HEAD resolution only. The compare was 27 commits ahead and touched cross-runtime agent/skill bundles, live-browser scripts, detector/test material, public site files, package and lockfile data, GitHub workflows, generated-output sync workflow material, and harness-specific configuration under `.agents`, `.claude`, `.cursor`, `.gemini`, `.kiro`, `.opencode`, and `.pi`.
 
@@ -175,4 +175,4 @@ Decision: keep Impeccable active only as normalized UI quality source intelligen
 - Watchlist path: `sources/source-watchlist.json`
 - Reviewed by: Codex controlled implementation pass
 - Review decision: Source-record plus narrow normalized `uiux` guidance
-- Last review evidence: Source freshness report, GitHub compare metadata, and remote HEAD SHA on 2026-06-10
+- Last review evidence: Source freshness report, GitHub compare metadata, and remote HEAD SHA on 2026-06-09
