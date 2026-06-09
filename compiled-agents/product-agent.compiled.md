@@ -4,12 +4,12 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: e0cc353fa30c69091c068e3a06febbcb3b39575b
+source_commit: 0302f92cee82aba32ef543a246072bb5dba40994
 source_agent: agents/product-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/implementation-profile.md", "profiles/uiux-profile.md", "profiles/planning-profile.md", "profiles/fullstack-profile.md"]
-source_method_refs: ["internal.engineering-lifecycle-gates", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "matt.grill-me", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.spec-driven-development", "uiux.dashboard-ux", "uiux.premium-visual-quality", "uiux.commercial-dashboard-polish-rubric", "orchestration.context-graph-token-budget", "orchestration.compact-agent-context-pack"]
+source_method_refs: ["internal.engineering-lifecycle-gates", "internal.documentation-accuracy-guard", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "matt.grill-me", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.spec-driven-development", "uiux.dashboard-ux", "uiux.premium-visual-quality", "uiux.commercial-dashboard-polish-rubric", "orchestration.context-graph-token-budget", "orchestration.compact-agent-context-pack"]
 compile_contract_version: 1.0.0
 ---
 
@@ -152,6 +152,49 @@ Skipping evidence, treating release as only a push, or applying heavy gates to t
 
 Inspired by Addy Osmani engineering workflow patterns.
 This is normalized/paraphrased guidance, not raw upstream activation.
+
+### internal.documentation-accuracy-guard
+
+Source: `methods/internal/documentation-accuracy-guard.md`
+
+# Documentation Accuracy Guard
+
+## Purpose
+
+Treat technical documentation as verifiable claims about the repository instead of prose generated from memory.
+
+## When To Use
+
+Use when writing or reviewing READMEs, API docs, docstrings, changelogs, tutorials, config examples, command references, or generated docs that mention concrete code behavior.
+
+## When Not To Use
+
+Do not use for marketing copy, visual site theming, or docs changes that make no technical claims.
+
+## Agent Roles That Should Embed It
+
+Reviewer Agent, QA Test Agent, Product Agent, Backend Contract Agent, Frontend Agent.
+
+## Operating Rules
+
+- Verify every referenced symbol, file path, command, flag, endpoint, config key, environment variable, and API shape against the source, schema, route table, CLI help, or current docs.
+- Document actual behavior, not intended behavior; if code and docs disagree, flag the mismatch instead of silently choosing one.
+- Remove unverifiable scale, performance, compatibility, and production-readiness claims unless they have repository evidence.
+- Keep code samples runnable on a clean machine without local paths, real credentials, or hidden prior state.
+- When code behavior changes, search related docs for the old symbol, flag, route, or behavior and update all affected surfaces in the same scoped change.
+- Do not paraphrase external documentation as local truth; link to upstream docs and describe only how this project uses the external dependency.
+
+## Verification Requirements
+
+For docs updates, report which claim surfaces were checked and what evidence was used. If samples, commands, or links were not executed or verified, label that gap explicitly.
+
+## Risks / Anti-Patterns
+
+Hallucinated function names, stale flags, broken examples, unsupported compatibility claims, docstrings that restate signatures, and documentation updates that drift from actual code.
+
+## Source Safety / License Status
+
+Toolkit-authored cleanroom method inspired by Nagdy Guard Skills docs-review concepts. No upstream wording, examples, prompt structure, scripts, reference files, or runtime behavior were copied or activated.
 
 ### karpathy.assumption-surfacing
 
@@ -671,8 +714,8 @@ This approved method may be visible to project-sync consumers as passive governa
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/uiux-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`
-- Method IDs: `internal.engineering-lifecycle-gates`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `matt.grill-me`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.spec-driven-development`, `uiux.dashboard-ux`, `uiux.premium-visual-quality`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `impeccable`, `matt-pocock-skills`, `toolkit-authored`, `unknown-review-required`
+- Method IDs: `internal.engineering-lifecycle-gates`, `internal.documentation-accuracy-guard`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `matt.grill-me`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.spec-driven-development`, `uiux.dashboard-ux`, `uiux.premium-visual-quality`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `impeccable`, `matt-pocock-skills`, `nagdy-guard-skills`, `toolkit-authored`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

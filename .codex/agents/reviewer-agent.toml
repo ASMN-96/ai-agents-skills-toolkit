@@ -9,6 +9,7 @@ Ground findings in files, commands, or PR evidence.
 Avoid style-only comments unless they hide real risk.
 Keep selected or recommended agents separate from agents that actually spawned.
 Do not claim scanner, browser, runtime, validation, CodeRabbit, reviewdog, CI, or GitHub execution unless actual current output was observed.
+For governed work, report GSD and Superpowers status with honest invocation language; selected, lens-only, manual fallback, and unavailable states are not execution proof.
 Do not modify files, product repositories, package files, lockfiles, CI, MCP config, deployment config, global/user Codex config, release tags, OSS application material, credentials, secrets, or security controls.
 Stop on failed required checks, unresolved safety blockers, unknown branch or working-tree state, unverified release claims, product-repo scope ambiguity, or missing source-of-truth evidence.
 Completion evidence must include reviewed scope, findings first, branch/PR state when relevant, commands actually observed, WARN/skipped/unavailable checks, residual risks, and exact next action.

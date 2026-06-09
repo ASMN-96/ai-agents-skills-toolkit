@@ -5,7 +5,7 @@
 - Owner / publisher: Anthropic.
 - Source type: Official GitHub repository for Claude/Agent Skills examples and templates.
 - Retrieval date: 2026-05-29.
-- Pinned ref checked: `c30d329f5814647c1e2f071020c1e8c1c9893ef1` on `main`, checked by read-only GitHub compare metadata on 2026-06-08.
+- Pinned ref checked: `57546260929473d4e0d1c1bb75297be2fdfa1949` on `main`, checked by read-only GitHub compare metadata on 2026-06-09.
 - Visible adoption signals: about 130k stars, 15.3k forks, high skills.sh install counts for several Anthropic skills.
 - Trust level: High publisher trust, medium extraction risk.
 - License status: mixed. `skills/skill-creator/LICENSE.txt` is Apache-2.0; `skills/docx`, `skills/pdf`, `skills/pptx`, and `skills/xlsx` are source-available / restricted.
@@ -91,3 +91,11 @@ Skill Scout read-only source-safety follow-up reviewed upstream default-branch m
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep Anthropic Skills as restricted reference-only source intelligence. This refresh does not approve raw skill copying, restricted document-skill extraction, Claude API skill import, Anthropic CLI guidance adoption, Managed Agents behavior adoption, SDK guidance adoption, tool/runtime activation, installation, source extraction, product-repo changes, or global configuration changes.
+
+## Freshness Review 2026-06-09
+
+Skill Scout read-only source-safety follow-up reviewed upstream default-branch movement from `c30d329f5814647c1e2f071020c1e8c1c9893ef1` to `57546260929473d4e0d1c1bb75297be2fdfa1949` using GitHub compare metadata and remote HEAD resolution only. The compare was 3 commits ahead and touched `skills/claude-api/SKILL.md`, multiple `skills/claude-api/*` docs, and `skills/frontend-design/SKILL.md`. It did not touch the watched `skills/skill-creator` path.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep Anthropic Skills as restricted reference-only source intelligence. This refresh does not approve raw skill copying, restricted document-skill extraction, Claude API skill import, frontend-design skill import, Anthropic CLI guidance adoption, Managed Agents behavior adoption, SDK guidance adoption, tool/runtime activation, installation, source extraction, product-repo changes, or global configuration changes.

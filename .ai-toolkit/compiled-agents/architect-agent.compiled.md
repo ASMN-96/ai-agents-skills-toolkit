@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: e0cc353fa30c69091c068e3a06febbcb3b39575b
+source_commit: 0302f92cee82aba32ef543a246072bb5dba40994
 source_agent: agents/architect-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -213,11 +213,12 @@ Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test
 ## Operating Rules
 
 State assumptions, avoid speculative abstractions, touch only necessary files, match existing style, remove only dead code created by the current change, and surface unrelated issues without editing them.
+After generated or changed production code exists, run a guard pass on the diff before delivery. Check for broad error swallowing, hardcoded success paths, invented APIs, copy-from-similar mistakes, unnecessary abstractions, dead code introduced by the change, and comments that explain obvious code instead of intent.
 When source-safety or registry work is in scope, keep runtime, package, CI, MCP, global-config, and product-repository boundaries explicit in the diff.
 
 ## Verification Requirements
 
-Every changed line should trace to the request, the plan, a source-safety rule, or a verification fix.
+Every changed line should trace to the request, the plan, a source-safety rule, or a verification fix. For generated-code review, report guard-pass findings as reviewer judgment unless a project-owned tool or test actually ran and output was observed.
 
 ## Risks / Anti-Patterns
 
@@ -225,7 +226,7 @@ Over-minimizing needed changes, hiding unresolved uncertainty, performing unrela
 
 ## Source Safety / License Status
 
-Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment. License-caveated historical source-scouting evidence is not active source authority for this method.
+Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment and Nagdy Guard Skills used only for normalized guard-pass concepts. License-caveated historical Karpathy source-scouting evidence is not active source authority for this method.
 No upstream wording, examples, prompt structure, scripts, or runtime behavior were copied or activated.
 
 ### internal.skill-anatomy
@@ -1042,7 +1043,7 @@ Stop condition:
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/backend-profile.md`, `profiles/frontend-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
 - Method IDs: `internal.engineering-lifecycle-gates`, `internal.simplicity-surgical-change-discipline`, `internal.skill-anatomy`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.grill-me`, `matt.improve-architecture`, `matt.to-issues`, `matt.to-prd`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.spec-driven-development`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `gitlab-agent-skills`, `matt-pocock-skills`, `ruflo`, `toolkit-authored`, `unknown-review-required`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `gitlab-agent-skills`, `matt-pocock-skills`, `nagdy-guard-skills`, `ruflo`, `toolkit-authored`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

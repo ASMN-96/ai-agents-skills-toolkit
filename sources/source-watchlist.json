@@ -21,8 +21,8 @@
       "repoOwner": "anthropics",
       "repoName": "skills",
       "defaultBranch": "main",
-      "lastReviewedCommit": "c30d329f5814647c1e2f071020c1e8c1c9893ef1",
-      "lastReviewedDate": "2026-06-08",
+      "lastReviewedCommit": "57546260929473d4e0d1c1bb75297be2fdfa1949",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/anthropic-skills.md",
       "watchedPaths": [
         "skills/skill-creator"
@@ -32,13 +32,14 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "c30d329f5814647c1e2f071020c1e8c1c9893ef1",
-        "reviewedDate": "2026-06-08",
-        "summary": "Upstream changed only claude-api docs/API guidance outside watched skill-creator path; retained as restricted reference-only source intelligence.",
+        "reviewedCommit": "57546260929473d4e0d1c1bb75297be2fdfa1949",
+        "reviewedDate": "2026-06-09",
+        "summary": "Upstream changed claude-api documentation and frontend-design skill material outside the watched skill-creator path; retained as restricted reference-only source intelligence.",
         "boundaries": [
           "no raw skill copying",
           "no restricted document-skill extraction",
           "no Claude API skill import",
+          "no frontend-design skill import",
           "no Anthropic CLI guidance adoption",
           "no Managed Agents behavior adoption",
           "no SDK guidance adoption",
@@ -71,8 +72,8 @@
       "repoOwner": "addyosmani",
       "repoName": "agent-skills",
       "defaultBranch": "main",
-      "lastReviewedCommit": "c076972e2626fe2acc30b00a6c7240d4c5fb786a",
-      "lastReviewedDate": "2026-06-08",
+      "lastReviewedCommit": "0427b5b1281b7e4350176d8019305c1ffcb3beba",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/addy-osmani-agent-skills.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -80,9 +81,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "c076972e2626fe2acc30b00a6c7240d4c5fb786a",
-        "reviewedDate": "2026-06-08",
-        "summary": "Security hardening drift reviewed; concepts already covered by toolkit security-review and governance surfaces without new active skills or duplicated rules.",
+        "reviewedCommit": "0427b5b1281b7e4350176d8019305c1ffcb3beba",
+        "reviewedDate": "2026-06-09",
+        "summary": "Browser testing with DevTools skill drift reviewed; retained as passive workflow reference because browser evidence already delegates to project-owned tooling.",
         "boundaries": [
           "no plugin installation",
           "no repository cloning into active runtime",
@@ -161,8 +162,8 @@
       "repoOwner": "microsoft",
       "repoName": "playwright",
       "defaultBranch": "main",
-      "lastReviewedCommit": "3ba155ee28e3c50af63c9f517283d41afb6800a4",
-      "lastReviewedDate": "2026-06-08",
+      "lastReviewedCommit": "0bc6b172f10298286acf0f2ebbd27002dc4f263b",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/playwright.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -170,9 +171,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_PLUGIN_DELEGATED",
-        "reviewedCommit": "3ba155ee28e3c50af63c9f517283d41afb6800a4",
-        "reviewedDate": "2026-06-08",
-        "summary": "Docs/runtime/test-runner and credential API drift reviewed; browser-evidence guidance remains adopted while execution delegates to project-owned Playwright/browser tooling.",
+        "reviewedCommit": "0bc6b172f10298286acf0f2ebbd27002dc4f263b",
+        "reviewedDate": "2026-06-09",
+        "summary": "Browser, MCP, package, CI, HAR/network, CLI, and test drift reviewed; browser-evidence guidance remains adopted while execution delegates to project-owned Playwright/browser tooling.",
         "boundaries": [
           "no source import",
           "no package update",
@@ -260,8 +261,8 @@
       "repoOwner": "mattpocock",
       "repoName": "skills",
       "defaultBranch": "main",
-      "lastReviewedCommit": "2bf70051928429983de3b5718d277150926f8c89",
-      "lastReviewedDate": "2026-06-08",
+      "lastReviewedCommit": "e3d8b735ef92ec9554b07f11f408089d81289eed",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/matt-pocock-skills.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -269,9 +270,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "2bf70051928429983de3b5718d277150926f8c89",
-        "reviewedDate": "2026-06-08",
-        "summary": "Teaching skill catalog movement reviewed; retained as passive TypeScript/code-quality and planning reference only.",
+        "reviewedCommit": "e3d8b735ef92ec9554b07f11f408089d81289eed",
+        "reviewedDate": "2026-06-09",
+        "summary": "Productivity teaching skill movement reviewed; retained as passive TypeScript/code-quality and planning reference only.",
         "boundaries": [
           "no npx skills add",
           "no setup command execution",
@@ -291,8 +292,8 @@
       "repoOwner": "shadcn-ui",
       "repoName": "ui",
       "defaultBranch": "main",
-      "lastReviewedCommit": "5bd81beebf47a3e889c9989de66146e0eef1a49d",
-      "lastReviewedDate": "2026-06-08",
+      "lastReviewedCommit": "ced2a5beb5069e87df5cdc08b1f034a38e8f37a3",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/shadcn-ui.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -300,9 +301,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "5bd81beebf47a3e889c9989de66146e0eef1a49d",
-        "reviewedDate": "2026-06-08",
-        "summary": "Registry, CLI search, MCP utility, package, skill-doc, and API reference docs drift reviewed; retained only as design-system/component-ownership reference guidance.",
+        "reviewedCommit": "ced2a5beb5069e87df5cdc08b1f034a38e8f37a3",
+        "reviewedDate": "2026-06-09",
+        "summary": "Registry directory and global CSS drift reviewed; retained only as design-system/component-ownership reference guidance.",
         "boundaries": [
           "no component source copying",
           "no registry import",
@@ -428,8 +429,8 @@
       "repoOwner": "pbakaus",
       "repoName": "impeccable",
       "defaultBranch": "main",
-      "lastReviewedCommit": "1aedbcf538e3fa6694ccbf00294cc18e59ba1f21",
-      "lastReviewedDate": "2026-06-06",
+      "lastReviewedCommit": "983b75cabc1389ff4ac87935f9ba223e207054bb",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/impeccable.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -437,9 +438,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_ADOPTED",
-        "reviewedCommit": "1aedbcf538e3fa6694ccbf00294cc18e59ba1f21",
-        "reviewedDate": "2026-06-06",
-        "summary": "Latest CI, package, CLI, site, script, style, and test drift reviewed; Impeccable remains adopted only as normalized UI quality source intelligence, without importing upstream CLI, package, lockfile, CI, site script, detector, live-browser, test, install, raw documentation, or skill-bundle behavior.",
+        "reviewedCommit": "983b75cabc1389ff4ac87935f9ba223e207054bb",
+        "reviewedDate": "2026-06-09",
+        "summary": "Latest cross-runtime agent, skill, live-browser script, detector, workflow, package, and site drift reviewed; Impeccable remains adopted only as normalized UI quality source intelligence.",
         "boundaries": [
           "no CLI execution",
           "no live-browser workflow activation",
@@ -449,7 +450,10 @@
           "no script execution",
           "no Dependabot config adoption",
           "no CI workflow adoption",
-          "no raw llms.txt import"
+          "no raw llms.txt import",
+          "no cross-runtime agent or skill import",
+          "no generated output adoption",
+          "no global config mutation"
         ]
       }
     },
@@ -490,8 +494,8 @@
       "repoOwner": "affaan-m",
       "repoName": "everything-claude-code",
       "defaultBranch": "main",
-      "lastReviewedCommit": "90dfd9505dc860714cf3cc8216ad7bbb96d93365",
-      "lastReviewedDate": "2026-06-07",
+      "lastReviewedCommit": "edebcc89efa09dc2705748151d98286ff3bb6023",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/everything-claude-code.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -499,9 +503,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "90dfd9505dc860714cf3cc8216ad7bbb96d93365",
-        "reviewedDate": "2026-06-07",
-        "summary": "Latest plugin hook bootstrap and orch-* command/skill wrapper drift reviewed; retained as source-safety awareness only without active cross-runtime or orchestration runtime support claims.",
+        "reviewedCommit": "edebcc89efa09dc2705748151d98286ff3bb6023",
+        "reviewedDate": "2026-06-09",
+        "summary": "Release-announcement workflow and Discord script drift reviewed; retained as source-safety awareness only without workflow, script, or cross-runtime support claims.",
         "boundaries": [
           "no Claude/Cursor/Cline/OpenHands runtime support claim",
           "no MCP inventory import",
@@ -513,7 +517,9 @@
           "no orch-* skill, command, or pipeline import",
           "no worktree-lifecycle service import",
           "no Kiro agent, skill, hook, or install import",
-          "no workflow, command, or bundled-default adoption"
+          "no workflow, command, or bundled-default adoption",
+          "no release-announcement workflow import",
+          "no Discord script import"
         ]
       }
     },
@@ -552,8 +558,8 @@
       "repoOwner": "ruvnet",
       "repoName": "ruflo",
       "defaultBranch": "main",
-      "lastReviewedCommit": "6c1abcf0217b71baa131fd7155dddc41813d6851",
-      "lastReviewedDate": "2026-06-08",
+      "lastReviewedCommit": "16a55f7a537c4a405e448e59859866eebbdd45a0",
+      "lastReviewedDate": "2026-06-09",
       "sourceRecordPath": "sources/ruflo.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -561,9 +567,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_ADOPTED",
-        "reviewedCommit": "6c1abcf0217b71baa131fd7155dddc41813d6851",
-        "reviewedDate": "2026-06-08",
-        "summary": "CI, package, witness, arena plugin, smoke, and arena post-merge patch drift reviewed; only existing static task-state and handoff discipline remains adopted.",
+        "reviewedCommit": "16a55f7a537c4a405e448e59859866eebbdd45a0",
+        "reviewedDate": "2026-06-09",
+        "summary": "Statusline, GitHub Pages workflow, package, nested agent/skill docs, probe scripts, and v3 package/runtime drift reviewed; only existing static task-state and handoff discipline remains adopted.",
         "boundaries": [
           "no package install",
           "no package or lockfile update",
@@ -579,7 +585,11 @@
           "no script",
           "no persisted-state import",
           "no product-repo indexing",
-          "no global configuration use"
+          "no global configuration use",
+          "no statusline helper adoption",
+          "no GitHub Pages workflow adoption",
+          "no nested agent or skill import",
+          "no probe script execution"
         ]
       }
     },

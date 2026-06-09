@@ -497,10 +497,10 @@
     {
       "name": "database-rls-agent",
       "displayName": "Database RLS Agent",
-      "mission": "Review Supabase/Postgres schemas, RLS policies, migrations, generated types, and data isolation.",
+      "mission": "Review Postgres/ORM database access, Supabase/RLS when present, migrations, generated types, and data isolation.",
       "whenToUse": [
-        "Supabase, Postgres, RLS, migrations, policies, generated types, storage, or realtime are in scope.",
-        "Data isolation, public/private access, or query behavior is risky.",
+        "Postgres, ORM models, migrations, generated types, tenant isolation, SQL policies, Supabase, RLS, storage, or realtime are in scope.",
+        "Data isolation, public/private access, object ownership, or query behavior is risky.",
         "The user says database or Supabase work feels risky."
       ],
       "whenNotToUse": [
@@ -520,13 +520,13 @@
       "nativeCodexAgentName": "database-rls-agent",
       "compiledFallbackPath": "compiled-agents/database-rls-agent.compiled.md",
       "expectedDeliverables": [
-        "Schema/RLS risk summary",
+        "Database access and isolation risk summary",
         "Migration safety notes",
         "Data isolation checks",
         "Validation plan"
       ],
       "successMetrics": [
-        "RLS and policies preserve isolation",
+        "Database access controls, ownership checks, and policies preserve isolation",
         "Migrations are reversible or safely constrained",
         "Generated type and consumer impact is considered"
       ],

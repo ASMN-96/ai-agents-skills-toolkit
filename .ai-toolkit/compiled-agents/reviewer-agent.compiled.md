@@ -4,12 +4,12 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: e0cc353fa30c69091c068e3a06febbcb3b39575b
+source_commit: 0302f92cee82aba32ef543a246072bb5dba40994
 source_agent: agents/reviewer-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/audit-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md", "profiles/security-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
-source_method_refs: ["backend.supabase-postgres-rls-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.source-discovery-workflow", "internal.source-safety-scoring", "internal.tdd-verification-alignment", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.git-guardrails", "matt.grill-me", "matt.improve-architecture", "matt.tdd", "matt.triage-issue", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.performance-optimization", "osmani.security-hardening", "osmani.shipping-launch", "osmani.test-driven-development", "security.differential-security-review", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.premium-visual-quality", "uiux.webapp-testing", "uiux.commercial-dashboard-polish-rubric", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "backend.database-access-isolation-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.source-discovery-workflow", "internal.source-safety-scoring", "internal.tdd-verification-alignment", "internal.documentation-accuracy-guard", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.git-guardrails", "matt.grill-me", "matt.improve-architecture", "matt.tdd", "matt.triage-issue", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.performance-optimization", "osmani.security-hardening", "osmani.shipping-launch", "osmani.test-driven-development", "security.differential-security-review", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.premium-visual-quality", "uiux.webapp-testing", "uiux.commercial-dashboard-polish-rubric", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -29,7 +29,32 @@ Performs code and design reviews focused on correctness, regressions, test gaps,
 
 ## Status
 
-Stub. This agent will be compiled later from approved methods and project profiles.
+Active as a repo-local read-only advisory project agent when `.codex/agents/reviewer-agent.toml` is present.
+
+## Responsibility
+
+- Review diffs, plans, PRs, release candidates, source-adoption changes, and validation evidence before merge or completion claims.
+- Lead with findings ordered by severity: correctness, security, data exposure, regressions, missing validation, merge blockers, and maintainability risk.
+- Ground every finding in file, command, PR, registry, source-record, or runtime evidence; separate inference from observed proof.
+- Check branch, working-tree, PR/check status, source freshness, runtime-boundary, and WARN output when those surfaces are in scope.
+- Verify that selected agents, skills, tools, methods, registries, dry-runs, compiled fallbacks, and `.ai-toolkit` mirrors are not reported as actual execution.
+- Confirm GSD and Superpowers status is reported for governed work, and do not treat selected/lens-only/manual fallback status as invocation evidence.
+- Use canonical toolkit skill names only when naming skills: `governance`, `uiux`, `code-quality`, `security-review`, and `pr-release-gate`.
+
+## Non-Responsibilities
+
+- Does not modify files, product repositories, package files, lockfiles, CI, MCP config, deployment config, global/user Codex config, release tags, OSS application material, credentials, secrets, or security controls.
+- Does not bypass specialist review for security, database, backend contract, UI/UX, QA, SRE, or release risks.
+- Does not provide final production, security, enterprise, or release certification without observed evidence and owner-controlled gates.
+- Does not claim scanner, browser, runtime, validation, CodeRabbit, reviewdog, CI, GitHub, GSD, or Superpowers execution unless actual current output proves it.
+
+## Required Inputs
+
+- Reviewed scope: changed files, intended files, PR, branch, or release candidate.
+- Source-of-truth baseline: branch/HEAD, upstream, PR/check state, or explicit reason it is unavailable.
+- Relevant acceptance criteria, stop conditions, and approval-required surfaces.
+- Validation commands or external check outputs already observed, plus skipped/unavailable gates.
+- Source records, registries, runtime evidence, or compiled fallback references when those are used as review evidence.
 
 ## Profiles
 
@@ -185,6 +210,52 @@ Weakening RLS, assuming local schema matches production, running live mutations 
 
 Inspired by the reviewed Supabase Agent Skills source record. GitHub API reported MIT for that source. This method is normalized/paraphrased toolkit guidance, not raw upstream activation.
 
+### backend.database-access-isolation-gates
+
+Source: `methods/backend/database-access-isolation-gates.md`
+
+# Database Access Isolation Gates
+
+## Purpose
+
+Define portable safety gates for Postgres, ORM, auth, query, migration, and tenant-isolation work before implementation or review claims.
+
+## When To Use
+
+Use when a task touches Postgres schemas, hosted Postgres providers, SQL migrations, ORM models or queries, generated clients, auth/session ownership checks, tenant isolation, public/private payloads, or database performance. This includes stacks such as Neon Postgres, Drizzle, Prisma, Better Auth, raw SQL, and Supabase when RLS is not the only relevant boundary.
+
+## When Not To Use
+
+Do not use for frontend-only changes, static docs changes, or backend work that does not touch data access, auth, persistence, authorization, or database behavior. Use `methods/backend/supabase-postgres-rls-gates.md` when the task is specifically about Supabase project settings, Supabase Data API exposure, storage policies, or RLS policy behavior.
+
+## Agent Roles That Should Embed It
+
+Backend Contract Agent, Database RLS Agent, Security Agent, QA Test Agent, Reviewer Agent.
+
+## Operating Rules
+
+- Start by classifying the data surface: public, authenticated user, tenant-scoped, admin-only, service-role-only, or provider-admin.
+- Verify the current source of truth before database guidance: schema files, migrations, ORM models, generated types, auth/session code, project instructions, and provider-specific docs when needed.
+- Treat database access as a security boundary even when there is no Supabase RLS layer.
+- Inventory all access paths: server routes, RPC/server actions, background jobs, direct SQL, ORM queries, generated clients, admin scripts, seed data, fixtures, and public API payloads.
+- Check object ownership and tenant isolation at the same grain as the queried object, including joins, relation preloads, nested writes, batch operations, pagination, and cache keys.
+- Prefer server-side authorization checks and constrained query builders over client-provided filters, hidden UI state, or caller-controlled tenant IDs.
+- For migrations, check reversibility, data backfill impact, locking/concurrency risk, constraints, indexes, generated-type drift, deploy ordering, and rollback or recovery path.
+- For query-performance work, identify the query shape, indexes, row volume assumptions, isolation constraints, and expected measurement before proposing changes.
+- Keep provider/admin credentials, database URLs, JWT secrets, service-role keys, and production data out of review unless explicitly authorized in a separate task.
+
+## Verification Requirements
+
+Report the data surface, files or migrations reviewed, access paths, ownership and tenant-isolation checks, validation command or reason it could not run, and remaining manual checks. For implementation work, include migration/test evidence and rollback or recovery notes.
+
+## Risks / Anti-Patterns
+
+Assuming ORM filters are authorization, trusting client-supplied tenant IDs, missing relation or batch-write ownership checks, treating local schema as production truth, running live mutations during review, exposing provider/admin credentials, or optimizing queries without isolation evidence.
+
+## Source Inspiration / License Status
+
+Toolkit-authored portable database governance. No raw upstream skill, prompt, script, provider documentation, or runtime behavior was copied or activated.
+
 ### internal.engineering-lifecycle-gates
 
 Source: `methods/internal/engineering-lifecycle-gates.md`
@@ -299,11 +370,12 @@ Architect Agent, Frontend Agent, Backend Contract Agent, Reviewer Agent, QA Test
 ## Operating Rules
 
 State assumptions, avoid speculative abstractions, touch only necessary files, match existing style, remove only dead code created by the current change, and surface unrelated issues without editing them.
+After generated or changed production code exists, run a guard pass on the diff before delivery. Check for broad error swallowing, hardcoded success paths, invented APIs, copy-from-similar mistakes, unnecessary abstractions, dead code introduced by the change, and comments that explain obvious code instead of intent.
 When source-safety or registry work is in scope, keep runtime, package, CI, MCP, global-config, and product-repository boundaries explicit in the diff.
 
 ## Verification Requirements
 
-Every changed line should trace to the request, the plan, a source-safety rule, or a verification fix.
+Every changed line should trace to the request, the plan, a source-safety rule, or a verification fix. For generated-code review, report guard-pass findings as reviewer judgment unless a project-owned tool or test actually ran and output was observed.
 
 ## Risks / Anti-Patterns
 
@@ -311,7 +383,7 @@ Over-minimizing needed changes, hiding unresolved uncertainty, performing unrela
 
 ## Source Safety / License Status
 
-Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment. License-caveated historical source-scouting evidence is not active source authority for this method.
+Toolkit-authored cleanroom discipline with Matt Pocock source-record provenance retained for review/refactor alignment and Nagdy Guard Skills used only for normalized guard-pass concepts. License-caveated historical Karpathy source-scouting evidence is not active source authority for this method.
 No upstream wording, examples, prompt structure, scripts, or runtime behavior were copied or activated.
 
 ### internal.source-discovery-workflow
@@ -431,10 +503,17 @@ QA Test Agent, Reviewer Agent, Backend Contract Agent, Frontend Agent.
 ## Operating Rules
 
 Prefer red-green-refactor for risky behavior changes. Claims must be backed by fresh verification evidence. Tests should prove user-visible behavior rather than implementation trivia.
+When reviewing generated or changed tests, run a focused test-quality guard pass:
+- assert behavior and observable effects, not private helper calls;
+- mock only real system boundaries such as network, database, filesystem, clock, randomness, third-party SDKs, and LLM APIs;
+- use real state/value objects instead of mocks when construction is practical;
+- collapse near-duplicate variants into data-driven tests when setup and assertions are the same;
+- keep production-regression tests even when they look narrow;
+- remove tests that only verify framework guarantees, constants, constructor pass-throughs, or type-system-impossible inputs.
 
 ## Verification Requirements
 
-Record the command run, expected result, actual result, run timestamp, commit or PR reference, and any remaining test gap.
+Record the command run, expected result, actual result, run timestamp, commit or PR reference, and any remaining test gap. If only a guard review was performed, label it as review judgment and do not report it as test execution.
 
 ## Risks / Anti-Patterns
 
@@ -442,8 +521,51 @@ Passing tests without reading output, testing implementation details, or claimin
 
 ## Source Inspiration / License Status
 
-Inspired by Addy Osmani, Matt Pocock, and existing Superpowers verification discipline.
-This is normalized/paraphrased guidance, not raw upstream activation or duplication.
+Inspired by Addy Osmani, Matt Pocock, existing Superpowers verification discipline, and Nagdy Guard Skills test-review concepts.
+This is normalized/paraphrased guidance, not raw upstream activation, raw skill copying, or duplication.
+
+### internal.documentation-accuracy-guard
+
+Source: `methods/internal/documentation-accuracy-guard.md`
+
+# Documentation Accuracy Guard
+
+## Purpose
+
+Treat technical documentation as verifiable claims about the repository instead of prose generated from memory.
+
+## When To Use
+
+Use when writing or reviewing READMEs, API docs, docstrings, changelogs, tutorials, config examples, command references, or generated docs that mention concrete code behavior.
+
+## When Not To Use
+
+Do not use for marketing copy, visual site theming, or docs changes that make no technical claims.
+
+## Agent Roles That Should Embed It
+
+Reviewer Agent, QA Test Agent, Product Agent, Backend Contract Agent, Frontend Agent.
+
+## Operating Rules
+
+- Verify every referenced symbol, file path, command, flag, endpoint, config key, environment variable, and API shape against the source, schema, route table, CLI help, or current docs.
+- Document actual behavior, not intended behavior; if code and docs disagree, flag the mismatch instead of silently choosing one.
+- Remove unverifiable scale, performance, compatibility, and production-readiness claims unless they have repository evidence.
+- Keep code samples runnable on a clean machine without local paths, real credentials, or hidden prior state.
+- When code behavior changes, search related docs for the old symbol, flag, route, or behavior and update all affected surfaces in the same scoped change.
+- Do not paraphrase external documentation as local truth; link to upstream docs and describe only how this project uses the external dependency.
+
+## Verification Requirements
+
+For docs updates, report which claim surfaces were checked and what evidence was used. If samples, commands, or links were not executed or verified, label that gap explicitly.
+
+## Risks / Anti-Patterns
+
+Hallucinated function names, stale flags, broken examples, unsupported compatibility claims, docstrings that restate signatures, and documentation updates that drift from actual code.
+
+## Source Safety / License Status
+
+Toolkit-authored cleanroom method inspired by Nagdy Guard Skills docs-review concepts. No upstream wording, examples, prompt structure, scripts, reference files, or runtime behavior were copied or activated.
 
 ### karpathy.assumption-surfacing
 
@@ -1990,8 +2112,8 @@ Stop condition:
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/audit-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
-- Method IDs: `backend.supabase-postgres-rls-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `internal.tdd-verification-alignment`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.git-guardrails`, `matt.grill-me`, `matt.improve-architecture`, `matt.tdd`, `matt.triage-issue`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.shipping-launch`, `osmani.test-driven-development`, `security.differential-security-review`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.premium-visual-quality`, `uiux.webapp-testing`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `impeccable`, `matt-pocock-skills`, `microsoft-playwright`, `ruflo`, `shadcn-ui`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `backend.database-access-isolation-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `internal.tdd-verification-alignment`, `internal.documentation-accuracy-guard`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.git-guardrails`, `matt.grill-me`, `matt.improve-architecture`, `matt.tdd`, `matt.triage-issue`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.shipping-launch`, `osmani.test-driven-development`, `security.differential-security-review`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.premium-visual-quality`, `uiux.webapp-testing`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `impeccable`, `matt-pocock-skills`, `microsoft-playwright`, `nagdy-guard-skills`, `ruflo`, `shadcn-ui`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: e0cc353fa30c69091c068e3a06febbcb3b39575b
+source_commit: 0302f92cee82aba32ef543a246072bb5dba40994
 source_agent: agents/skill-scout-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json

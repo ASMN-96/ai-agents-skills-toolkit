@@ -177,6 +177,34 @@
       ]
     },
     {
+      "id": "generic-postgres-orm-data-isolation",
+      "input": "Review this Neon Postgres, Drizzle, and Better Auth change for tenant isolation before merge.",
+      "scenario": "generic-postgres-orm-data-isolation",
+      "expectedProfile": "backend-profile",
+      "expectedSkills": [
+        "governance",
+        "security-review",
+        "code-quality"
+      ],
+      "expectedAgents": [
+        "backend-contract-agent",
+        "database-rls-agent",
+        "security-agent",
+        "qa-test-agent",
+        "reviewer-agent"
+      ],
+      "expectedMethods": [
+        "backend.database-access-isolation-gates",
+        "security.differential-security-review",
+        "api.api-contract-and-routing-readiness"
+      ],
+      "forbiddenClaims": [
+        "supabase-tooling-required-for-non-supabase-stack",
+        "tenant-isolation-safe-without-ownership-evidence",
+        "validation-passed-without-output"
+      ]
+    },
+    {
       "id": "performance-cache-complaint",
       "input": "The dashboard is slow and the cache may be returning stale data.",
       "scenario": "performance-scalability-cache-readiness",

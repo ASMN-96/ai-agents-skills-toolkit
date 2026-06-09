@@ -7,7 +7,7 @@
 - Purpose: Production engineering workflow skills for AI coding agents.
 - Trust level: High-medium.
 - License if visible: MIT.
-- Commit / update activity: `c076972e2626fe2acc30b00a6c7240d4c5fb786a` from read-only remote HEAD and compare metadata checks on 2026-06-08.
+- Commit / update activity: `0427b5b1281b7e4350176d8019305c1ffcb3beba` from read-only remote HEAD and compare metadata checks on 2026-06-09.
 - Recommendation: Passive reference for normalized governance and method-quality patterns. Do not copy raw skill bodies or duplicate Codex/plugin behavior.
 
 ## Summary
@@ -49,3 +49,11 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep Addy Osmani Agent Skills as passive reference for normalized production engineering workflow patterns only. This refresh updates source tracking only and does not approve plugin installation, repository cloning into active runtime, hook execution, slash-command activation, raw skill copying, upstream security-skill import, global git or agent configuration changes, product-repo changes, or runtime configuration changes.
+
+## Freshness Review 2026-06-09
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `c076972e2626fe2acc30b00a6c7240d4c5fb786a` to `0427b5b1281b7e4350176d8019305c1ffcb3beba` using GitHub compare metadata and remote HEAD resolution only. The compare was 2 commits ahead and touched only `skills/browser-testing-with-devtools/SKILL.md`. The changed surface overlaps existing toolkit browser-evidence and runtime-verification guidance, where execution delegates to project-owned browser tooling.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep Addy Osmani Agent Skills as passive reference for normalized production engineering workflow patterns only. This refresh updates source tracking only and does not approve plugin installation, repository cloning into active runtime, hook execution, slash-command activation, raw skill copying, upstream browser-testing skill import, DevTools runtime behavior adoption, global git or agent configuration changes, product-repo changes, or runtime configuration changes.
