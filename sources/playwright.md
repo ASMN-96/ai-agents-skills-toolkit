@@ -202,3 +202,11 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_PLUGIN_DELEGATED`.
 
 Decision: keep Playwright active for toolkit-owned browser-evidence standards and routing while delegating execution to project-owned Playwright or browser tooling. This refresh updates source tracking only and does not approve source import, package update, browser binary download, CI update, runtime update, upstream test or code copying, script execution, Chromium bisect utility adoption, MCP activation, trace-viewer behavior adoption, product-repo changes, or global configuration changes.
+
+## Freshness Review 2026-06-11 Follow-up
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `8af0d25442bb5b17c05b3f2886cfa35a0cd2fb34` to `95460e4363a62dfde2e701b69514c1e3ee5b0c64` using GitHub compare metadata only. The compare was 2 commits ahead and touched `packages/playwright-core/src/tools/mcp/program.ts`, `packages/injected/src/recorder/recorder.ts`, and `tests/library/inspector/cli-codegen-2.spec.ts`. Commit subjects covered optional chaining for nullable `browser()` in MCP disposal and correct selector generation for hidden file inputs triggered by a button.
+
+Outcome: `SYNCED_PLUGIN_DELEGATED`.
+
+Decision: keep Playwright active for toolkit-owned browser-evidence standards and routing while delegating execution to project-owned Playwright or browser tooling. This refresh updates source tracking only and does not approve source import, package update, browser binary download, CI update, runtime update, upstream test or code copying, script execution, MCP browser-disposal behavior adoption, codegen selector behavior adoption, product-repo changes, or global configuration changes.

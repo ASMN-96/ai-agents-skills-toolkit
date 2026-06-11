@@ -619,7 +619,10 @@ async function validateEnterpriseToolMetadata(registryState) {
     if (!Array.isArray(tool.enterpriseRisk.forbiddenEnvironments) || tool.enterpriseRisk.forbiddenEnvironments.length === 0) {
       fail("enterprise tool metadata", location, "forbiddenEnvironments must be a non-empty array");
     }
-    for (const requiredEnvironment of ["local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"]) {
+    const requiredForbiddenEnvironments = tool.id === "repomix"
+      ? ["automatic local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"]
+      : ["local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"];
+    for (const requiredEnvironment of requiredForbiddenEnvironments) {
       if (!tool.enterpriseRisk.forbiddenEnvironments.includes(requiredEnvironment)) {
         fail("enterprise tool metadata", location, `forbiddenEnvironments missing ${requiredEnvironment}`);
       }

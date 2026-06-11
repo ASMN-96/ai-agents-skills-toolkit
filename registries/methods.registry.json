@@ -2057,6 +2057,7 @@
         "Product Agent",
         "Architect Agent",
         "Skill Scout Agent",
+        "Security Agent",
         "Reviewer Agent",
         "Release Manager Agent"
       ],
@@ -2183,6 +2184,7 @@
         "Product Agent",
         "Architect Agent",
         "Skill Scout Agent",
+        "Security Agent",
         "Reviewer Agent",
         "Release Manager Agent",
         "SRE Performance Agent"

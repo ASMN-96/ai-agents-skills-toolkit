@@ -35,7 +35,7 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - Include only actionable source records and methods.
 - Mark tool, browser, CodeRabbit, reviewdog, source freshness, and runtime evidence as `not invoked` unless actual output exists.
 - Label context evidence as `project-map` only when `.ai-toolkit/context/project-map.json` is fresh, `manual/static` when it comes from focused repo inspection, and `tool-generated` only when an approved tool actually ran and produced output.
-- Repomix may be used only when project-owned/detected or owner-approved for a scoped pack or token count; never as an automatic whole-repo dump.
+- Repomix may be used only after scoped owner approval, even when project-owned or detected, for a scoped pack or token count; never as an automatic whole-repo dump.
 - Treat whole-repo context dumping, loop agents, subagent creation, MCP setup, and global config activation as forbidden unless a later task explicitly approves a different execution mode.
 
 ## Passive Visibility

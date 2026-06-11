@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 31b58ca18d03a4557aa5ef5cee3553c051dbd3d0
+source_commit: 6517c7b2013d3433991ba38499484edfbb1c4eef
 source_agent: agents/qa-test-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json

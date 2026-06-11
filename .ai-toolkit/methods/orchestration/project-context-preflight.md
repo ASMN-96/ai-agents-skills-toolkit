@@ -22,7 +22,7 @@ Project Context Preflight gives Codex a compact, trusted project map before broa
 
 ## Task-Start Rules
 
-1. Check whether `.ai-toolkit/context/project-map.json` exists and matches the current target git head.
+1. Check whether `.ai-toolkit/context/project-map.json` exists and matches current project staleness signals.
 2. If the map is stale, unsafe, or missing for a map-dependent task, stop and report the limitation before broad exploration.
 3. Choose token mode: `concise`, `standard`, or `detailed`.
 4. Identify likely files from `keyFiles`, `sourceLocations`, `testLocations`, `configFiles`, package scripts, and validation commands.
@@ -47,7 +47,7 @@ Project Context Preflight gives Codex a compact, trusted project map before broa
 - Do not include absolute paths, `.env` values, secrets, credentials, private overlays, raw full-file dumps, package caches, or generated build output.
 - Do not install, activate, or configure external tools from map metadata.
 - Do not create a new Codex runtime, looping agent, MCP setup, global config, or subagent workflow from this method.
-- Do not claim Repomix, browser, graph, scanner, or validation evidence unless the approved tool actually ran and produced observed output.
+- Do not claim Repomix, browser, scanner, or validation evidence unless the approved tool actually ran and produced observed output.
 
 ## Acceptance Criteria
 

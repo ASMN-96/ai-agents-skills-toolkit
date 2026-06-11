@@ -158,3 +158,11 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_ADOPTED`.
 
 Decision: keep RuFlo adopted only as static task-state and handoff discipline already represented in toolkit-owned methods. This refresh updates source tracking only and does not approve package install, package or lockfile update, Windows path-validation behavior adoption, trajectory feedback persistence import, init-hooks settings adoption, MCP hook tooling adoption, daemon, worker, hook, MCP, memory, plugin, script, persisted-state import, product-repo indexing, or global configuration use.
+
+## Freshness Review 2026-06-11 Follow-up
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `a88b9369bdec81278e68fde3c76271bb9814a99e` to `dfe1b9cf993c34571fa5f2d08f5772e0672c68ab` using GitHub compare metadata only. The compare was 3 commits ahead and touched `README.md` and `.claude/scheduled_tasks.lock`. Commit subjects covered a plain-language README rewrite, reverting that README rewrite, and removing two README hero images. The source remains high risk for runtime, daemon, MCP, hook, memory, plugin, package-script, persisted-state, file-write, CI, and background-process behavior.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep RuFlo adopted only as static task-state and handoff discipline already represented in toolkit-owned methods. This refresh updates source tracking only and does not approve package install, package or lockfile update, README content import, scheduled-task lock import, daemon, worker, hook, MCP, memory, plugin, script, persisted-state import, product-repo indexing, or global configuration use.

@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 31b58ca18d03a4557aa5ef5cee3553c051dbd3d0
+source_commit: 6517c7b2013d3433991ba38499484edfbb1c4eef
 source_agent: agents/release-manager-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -500,7 +500,7 @@ Project Context Preflight gives Codex a compact, trusted project map before broa
 
 ## Task-Start Rules
 
-1. Check whether `.ai-toolkit/context/project-map.json` exists and matches the current target git head.
+1. Check whether `.ai-toolkit/context/project-map.json` exists and matches current project staleness signals.
 2. If the map is stale, unsafe, or missing for a map-dependent task, stop and report the limitation before broad exploration.
 3. Choose token mode: `concise`, `standard`, or `detailed`.
 4. Identify likely files from `keyFiles`, `sourceLocations`, `testLocations`, `configFiles`, package scripts, and validation commands.
@@ -597,7 +597,7 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - Include only actionable source records and methods.
 - Mark tool, browser, CodeRabbit, reviewdog, source freshness, and runtime evidence as `not invoked` unless actual output exists.
 - Label context evidence as `project-map` only when `.ai-toolkit/context/project-map.json` is fresh, `manual/static` when it comes from focused repo inspection, and `tool-generated` only when an approved tool actually ran and produced output.
-- Repomix may be used only when project-owned/detected or owner-approved for a scoped pack or token count; never as an automatic whole-repo dump.
+- Repomix may be used only after scoped owner approval, even when project-owned or detected, for a scoped pack or token count; never as an automatic whole-repo dump.
 - Treat whole-repo context dumping, loop agents, subagent creation, MCP setup, and global config activation as forbidden unless a later task explicitly approves a different execution mode.
 
 ## Passive Visibility

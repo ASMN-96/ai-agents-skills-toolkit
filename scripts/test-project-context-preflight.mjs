@@ -170,6 +170,17 @@ test("project map handles monorepo-like and no-package repositories", () => {
     assert.deepEqual(docsMap.validationCommands, []);
     assert.ok(docsMap.configFiles.includes("README.md"));
     assert.deepEqual(validateProjectMap(docsMap, { targetRoot: docsOnly }), []);
+
+    const bunRepo = newGitRepo(tempRoot, "bun-app");
+    write(bunRepo, "package.json", JSON.stringify({
+      scripts: { test: "bun test", build: "vite build" }
+    }, null, 2));
+    write(bunRepo, "bun.lockb", "");
+    commitAll(bunRepo);
+    const bunMap = buildFixtureMap(bunRepo);
+    assert.equal(bunMap.packageManager.manager, "bun");
+    assert.ok(bunMap.validationCommands.includes("bun run test"));
+    assert.ok(bunMap.validationCommands.includes("bun run build"));
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }
@@ -198,6 +209,23 @@ test("project map validator rejects unsafe paths, secrets, oversized dumps, and 
     const oversizedMap = structuredClone(map);
     oversizedMap.notes = "x".repeat(70000);
     assert.ok(validateProjectMap(oversizedMap, { targetRoot: repo }).some((issue) => issue.includes("oversized")));
+
+    const traversalHashMap = structuredClone(map);
+    traversalHashMap.target.stalenessHashes.files.push({ path: "../outside-file", sha256: "a".repeat(64) });
+    assert.ok(validateProjectMap(traversalHashMap, { targetRoot: repo }).some((issue) => issue.includes("invalid staleness hash path")));
+
+    const missingHashMap = structuredClone(map);
+    missingHashMap.target.stalenessHashes.files.push({ path: "missing.js", sha256: "b".repeat(64) });
+    assert.ok(validateProjectMap(missingHashMap, { targetRoot: repo }).some((issue) => issue.includes("missing hashed file")));
+
+    const missingShaMap = structuredClone(map);
+    missingShaMap.target.stalenessHashes.files.push({ path: "package.json" });
+    assert.ok(validateProjectMap(missingShaMap, { targetRoot: repo }).some((issue) => issue.includes("missing staleness hash")));
+
+    const toolkitOnlyMap = buildFixtureMap(repo);
+    write(repo, ".ai-toolkit/generated.md", "# generated\n");
+    commitAll(repo, "toolkit-only");
+    assert.equal(validateProjectMap(toolkitOnlyMap, { targetRoot: repo }).some((issue) => issue.includes("stale git head")), false);
 
     write(repo, "README.md", "# unsafe\nchanged\n");
     commitAll(repo, "advance head");

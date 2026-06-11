@@ -4,7 +4,7 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "6101ed46ad4216cff212cd10e0a86a7972743287b91ac32303f92f7bb0ca7d4b"
+      "sha256": "4ffb5012779b5ea9107eaa6560d088ea790b15a032b378cb5f5fbe8205b5b10e"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "0ac7d1d25f38087b433d7a269f04404b54891d6158f1ef0d1a985c226c9975e9"
+      "sha256": "b21a411a2ed9a77c0f55cab1f4f7cfc45c768f90e547015193e562e9124ed499"
     },
     {
       "path": "scripts/ai-toolkit/reference-closure.mjs",

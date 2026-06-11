@@ -1121,10 +1121,9 @@
         "requiresOwnerApproval": true,
         "activationLevels": [
           "active-if-detected",
-          "owner-approved-install",
-          "forbidden-runtime"
+          "owner-approved-install"
         ],
-        "whenDetected": "project-owned Repomix config or dependency",
+        "whenDetected": "project-owned Repomix config or dependency detected as metadata only; execution still requires scoped owner approval",
         "whenAbsent": "Owner-approved install or skip",
         "ciDefault": "not configured; local scoped advisory only",
         "ciPromotion": "not promoted to CI by default; owner-approved CI only after stable policy",
@@ -1334,7 +1333,7 @@
       "Semgrep": "active-if-detected when present; owner-approved-install when absent; ci-advisory until rules are scoped",
       "dependency-cruiser / Madge / jscpd": "active-if-detected or owner-approved-install architecture and duplication checks",
       "actionlint / zizmor": "active-if-detected or owner-approved-install GitHub Actions hardening",
-      "Repomix": "active-if-detected when project-owned; owner-approved-install when absent; scoped packs/token counts only, no automatic whole-repo dumps",
+      "Repomix": "metadata-only detection when project-owned; owner-approved-install or owner-approved execution required before scoped packs/token counts; no automatic whole-repo dumps",
       "open-design": "active-reference design intelligence only; install/import/MCP/global config require approval",
       "eslint-plugin-boundaries": "active-install-if-project-type only after architecture layers are stable and owner-approved",
       "Impeccable project-local install mode": "approval-required; normalized Impeccable guidance remains active-reference"

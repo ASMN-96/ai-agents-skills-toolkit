@@ -2682,7 +2682,7 @@
       "status": "active-if-detected",
       "activationStatus": "metadata-only",
       "runtimeSurface": "external-tool-metadata",
-      "defaultUse": "active-if-detected for project-owned config/dependency; owner-approved scoped context packs and token counts when absent",
+      "defaultUse": "metadata-only detection for project-owned config/dependency; explicit owner approval required before scoped context packs, token counts, or install",
       "approvalRequiredFor": [
         "install",
         "activation",
@@ -2698,7 +2698,7 @@
       "allowedUse": [
         "Document as optional context-packing support.",
         "Detect project-owned config or dependency before recommending use.",
-        "Use for scoped context packs or token counts only after project-owned detection or owner approval."
+        "Use for scoped context packs or token counts only after explicit owner approval, even when project-owned or detected."
       ],
       "forbiddenUse": [
         "Do not install or activate from registry presence.",
@@ -2731,7 +2731,6 @@
           "project-owned detected local tool after scoped owner approval"
         ],
         "forbiddenEnvironments": [
-          "local execution",
           "automatic local execution",
           "CI",
           "staging",
@@ -2742,7 +2741,7 @@
           "product repositories",
           "product repositories without scoped owner approval"
         ],
-        "defaultEnterpriseStatus": "metadata-only active-if-detected or owner-approved scoped context packing; not enterprise-approved for default execution, CI, MCP, package changes, global config, or whole-repo dumps",
+        "defaultEnterpriseStatus": "metadata-only detection; scoped local context packing requires explicit owner approval even when project-owned or detected; not enterprise-approved for default execution, CI, MCP, package changes, global config, or whole-repo dumps",
         "reviewState": "reviewed",
         "reviewEvidence": "Repomix default branch fc69dcc31357d5db934f67ceaff4150f67e4735c recorded as optional source reference; registry presence does not approve install or execution."
       },
@@ -2756,7 +2755,7 @@
       "installLocation": "target project only after owner approval or existing project-owned config",
       "defaultInstall": false,
       "requiresOwnerApproval": true,
-      "whenDetected": "project-owned Repomix config or dependency",
+      "whenDetected": "project-owned Repomix config or dependency detected as metadata only; execution still requires scoped owner approval",
       "whenAbsent": "Owner-approved install or skip",
       "ciDefault": "not configured; local scoped advisory only",
       "ciPromotion": "not promoted to CI by default; owner-approved CI only after stable policy",
@@ -2772,8 +2771,7 @@
       ],
       "activationLevels": [
         "active-if-detected",
-        "owner-approved-install",
-        "forbidden-runtime"
+        "owner-approved-install"
       ]
     },
     {

@@ -1320,7 +1320,7 @@
         "Compact context pack includes source/method/profile references",
         "Omitted context and reason recorded",
         "Private/secret/product-repo exclusions recorded",
-        "Graph evidence labeled as tool-generated, manual/static, metadata-only, or not invoked",
+        "Project context evidence labeled as project-map, tool-generated, manual/static, metadata-only, or not invoked",
         "GSD phase/state or manual fallback recorded",
         "Superpowers workflow/status recorded",
         "Final audit/test/validation pass completed before commit and PR"

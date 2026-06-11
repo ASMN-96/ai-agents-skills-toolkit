@@ -155,8 +155,8 @@ function enterpriseRiskMetadata(id) {
       securityReviewStatus: "source-safety posture reviewed for optional scoped context packing; execution, install, package changes, CI, MCP, global config, and whole-repo dumps remain approval-required",
       approvalOwner: "project-owner-required-before-install-or-execution",
       allowedEnvironments: ["metadata-only", "project-owned detected local tool after scoped owner approval"],
-      forbiddenEnvironments: ["local execution", "automatic local execution", "CI", "staging", "production", "global config", "MCP", "whole-repo dumps", "product repositories", "product repositories without scoped owner approval"],
-      defaultEnterpriseStatus: "metadata-only active-if-detected or owner-approved scoped context packing; not enterprise-approved for default execution, CI, MCP, package changes, global config, or whole-repo dumps",
+      forbiddenEnvironments: ["automatic local execution", "CI", "staging", "production", "global config", "MCP", "whole-repo dumps", "product repositories", "product repositories without scoped owner approval"],
+      defaultEnterpriseStatus: "metadata-only detection; scoped local context packing requires explicit owner approval even when project-owned or detected; not enterprise-approved for default execution, CI, MCP, package changes, global config, or whole-repo dumps",
       reviewState: "reviewed",
       reviewEvidence: "Repomix default branch fc69dcc31357d5db934f67ceaff4150f67e4735c recorded as optional source reference; registry presence does not approve install or execution."
     };
@@ -397,7 +397,7 @@ async function projectToolingModelFromRegistry() {
       "Semgrep": "active-if-detected when present; owner-approved-install when absent; ci-advisory until rules are scoped",
       "dependency-cruiser / Madge / jscpd": "active-if-detected or owner-approved-install architecture and duplication checks",
       "actionlint / zizmor": "active-if-detected or owner-approved-install GitHub Actions hardening",
-      "Repomix": "active-if-detected when project-owned; owner-approved-install when absent; scoped packs/token counts only, no automatic whole-repo dumps",
+      "Repomix": "metadata-only detection when project-owned; owner-approved-install or owner-approved execution required before scoped packs/token counts; no automatic whole-repo dumps",
       "open-design": "active-reference design intelligence only; install/import/MCP/global config require approval",
       "eslint-plugin-boundaries": "active-install-if-project-type only after architecture layers are stable and owner-approved",
       "Impeccable project-local install mode": "approval-required; normalized Impeccable guidance remains active-reference"

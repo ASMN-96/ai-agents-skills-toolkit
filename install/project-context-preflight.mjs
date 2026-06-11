@@ -213,6 +213,7 @@ function collectScripts(targetRoot, repoRoots) {
 
 function commandForScript(manager, scriptName) {
   if (manager === "none") return null;
+  if (manager === "bun") return `bun run ${scriptName}`;
   if (scriptName === "test") return manager === "npm" ? "npm test" : `${manager} test`;
   if (manager === "npm") return `npm run ${scriptName}`;
   return `${manager} ${scriptName}`;
@@ -459,6 +460,39 @@ function inspectValue(value, pathStack, issues) {
   }
 }
 
+function isToolkitManagedPath(relativePath) {
+  const normalized = normalizeRelative(relativePath);
+  return normalized.startsWith(".ai-toolkit/") || normalized.startsWith(".agents/") || normalized.startsWith(".codex/");
+}
+
+function hasNonToolkitChangesSince(targetRoot, gitHead) {
+  const changed = gitOutput(targetRoot, ["diff", "--name-only", `${gitHead}..HEAD`]);
+  if (changed === null) return true;
+  return changed
+    .split(/\r?\n/)
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+    .some((entry) => !isToolkitManagedPath(entry));
+}
+
+function normalizedSafeMapPath(relativePath) {
+  const rawPath = String(relativePath || "");
+  const normalized = path.posix.normalize(rawPath);
+  const parts = rawPath.replace(/\\/g, "/").split("/");
+  if (
+    !rawPath ||
+    normalized === "." ||
+    normalized === ".." ||
+    normalized.startsWith("../") ||
+    parts.includes("..") ||
+    stringLooksAbsolute(rawPath) ||
+    stringLooksPrivatePath(rawPath)
+  ) {
+    return null;
+  }
+  return normalized;
+}
+
 export function validateProjectMap(projectMap, { targetRoot } = {}) {
   const issues = [];
   const mapText = JSON.stringify(projectMap);
@@ -469,20 +503,35 @@ export function validateProjectMap(projectMap, { targetRoot } = {}) {
 
   if (targetRoot && projectMap?.target?.gitHead) {
     const currentHead = gitOutput(targetRoot, ["rev-parse", "HEAD"]);
-    if (currentHead && currentHead !== projectMap.target.gitHead) {
+    if (currentHead && currentHead !== projectMap.target.gitHead && hasNonToolkitChangesSince(targetRoot, projectMap.target.gitHead)) {
       issues.push(`stale git head: map has ${projectMap.target.gitHead}, current is ${currentHead}`);
     }
   }
 
   if (targetRoot && Array.isArray(projectMap?.target?.stalenessHashes?.files)) {
+    const resolvedRoot = path.resolve(targetRoot);
     for (const entry of projectMap.target.stalenessHashes.files) {
       const relativePath = String(entry.path || "");
-      if (!relativePath || stringLooksAbsolute(relativePath) || stringLooksPrivatePath(relativePath)) continue;
-      const fullPath = path.join(targetRoot, ...relativePath.split("/"));
-      if (existsSync(fullPath) && statSync(fullPath).isFile()) {
-        const actualHash = sha256File(fullPath);
-        if (actualHash !== entry.sha256) issues.push(`stale file hash: ${relativePath}`);
+      const normalizedPath = normalizedSafeMapPath(relativePath);
+      if (!normalizedPath) {
+        issues.push(`invalid staleness hash path: ${relativePath}`);
+        continue;
       }
+      if (!/^[a-f0-9]{64}$/i.test(String(entry.sha256 || ""))) {
+        issues.push(`missing staleness hash for: ${normalizedPath}`);
+        continue;
+      }
+      const fullPath = path.resolve(targetRoot, ...normalizedPath.split("/"));
+      if (!fullPath.startsWith(`${resolvedRoot}${path.sep}`)) {
+        issues.push(`invalid staleness hash path: ${relativePath}`);
+        continue;
+      }
+      if (!existsSync(fullPath) || !statSync(fullPath).isFile()) {
+        issues.push(`missing hashed file: ${normalizedPath}`);
+        continue;
+      }
+      const actualHash = sha256File(fullPath);
+      if (actualHash !== entry.sha256) issues.push(`stale file hash: ${normalizedPath}`);
     }
   }
 
@@ -499,4 +548,3 @@ export function writeProjectMap(targetRoot, projectMap) {
   writeFileSync(outputPath, `${JSON.stringify(projectMap, null, 2)}\n`, "utf8");
   return outputPath;
 }
-

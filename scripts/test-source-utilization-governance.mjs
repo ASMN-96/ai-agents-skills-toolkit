@@ -75,9 +75,10 @@ test("project context preflight methods are registered and backed by method file
     assert.ok(method.methodPath, `missing methodPath for ${methodId}`);
     const text = await readText(method.methodPath);
     assert.match(text, /^---\r?\n/);
-    assert.match(text, /sourceRef:/);
-    assert.match(text, /sourceRef:/);
-    assert.match(text, /aider-repo-map|openai-prompt-caching|toolkit-authored/);
+    const frontmatter = text.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] || "";
+    const sourceRefLine = frontmatter.match(/^\s*sourceRef:\s*(.+)$/m)?.[1] || "";
+    assert.ok(sourceRefLine.length > 0, `missing sourceRef value for ${methodId}`);
+    assert.match(sourceRefLine, /\b(aider-repo-map|openai-prompt-caching|toolkit-authored)\b/);
     assert.match(text, /secret|private-overlay|whole-repo|MCP|global config/i);
     assert.match(text, /Passive Visibility/);
     assert.match(text, /passive governance guidance only/);

@@ -168,7 +168,7 @@
       "repoOwner": "microsoft",
       "repoName": "playwright",
       "defaultBranch": "main",
-      "lastReviewedCommit": "8af0d25442bb5b17c05b3f2886cfa35a0cd2fb34",
+      "lastReviewedCommit": "95460e4363a62dfde2e701b69514c1e3ee5b0c64",
       "lastReviewedDate": "2026-06-11",
       "sourceRecordPath": "sources/playwright.md",
       "watchedPaths": [],
@@ -177,9 +177,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_PLUGIN_DELEGATED",
-        "reviewedCommit": "8af0d25442bb5b17c05b3f2886cfa35a0cd2fb34",
+        "reviewedCommit": "95460e4363a62dfde2e701b69514c1e3ee5b0c64",
         "reviewedDate": "2026-06-11",
-        "summary": "Chromium bisect utility, WebKit and Firefox browser rolls, library/test unflake changes, and trace-viewer/autowaiting test drift reviewed; browser evidence remains delegated to project-owned Playwright/browser tooling.",
+        "summary": "MCP browser disposal optional-chaining fix and codegen hidden-file-input selector fix reviewed; browser evidence remains delegated to project-owned Playwright/browser tooling.",
         "boundaries": [
           "no source import",
           "no package update",
@@ -189,7 +189,8 @@
           "no upstream test or code copy",
           "no script execution",
           "no MCP activation",
-          "no trace/HAR/session-log behavior adoption",
+          "no MCP browser-disposal behavior adoption",
+          "no codegen selector behavior adoption",
           "no product-repo changes",
           "no global configuration changes"
         ]
@@ -530,7 +531,7 @@
       "repoOwner": "affaan-m",
       "repoName": "everything-claude-code",
       "defaultBranch": "main",
-      "lastReviewedCommit": "fec84fcf19d1806232b21e38a80ac9fb595442dc",
+      "lastReviewedCommit": "5b173d2e6c11b976a0f13b2f59125e08956c1d47",
       "lastReviewedDate": "2026-06-11",
       "sourceRecordPath": "sources/everything-claude-code.md",
       "watchedPaths": [],
@@ -539,9 +540,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "fec84fcf19d1806232b21e38a80ac9fb595442dc",
+        "reviewedCommit": "5b173d2e6c11b976a0f13b2f59125e08956c1d47",
         "reviewedDate": "2026-06-11",
-        "summary": "ECC 2.0/runtime, MCP connector, hook, config-gc, release, package, CI, and cross-runtime surface drift reviewed; retained only as source-safety awareness.",
+        "summary": "Context-size compact hook, Codex marketplace path, README badge, package-lock, plugin, script, and test drift reviewed; retained only as source-safety awareness.",
         "boundaries": [
           "no Claude/Cursor/Cline/OpenHands runtime support claim",
           "no MCP connector import",
@@ -552,6 +553,8 @@
           "no config-gc skill import",
           "no release workflow import",
           "no package or lockfile adoption",
+          "no compact hook import",
+          "no marketplace plugin path adoption",
           "no script execution",
           "no global config behavior",
           "no cross-runtime agent, skill, hook, command, or pipeline import",
@@ -566,7 +569,7 @@
       "repoOwner": "ruvnet",
       "repoName": "ruflo",
       "defaultBranch": "main",
-      "lastReviewedCommit": "a88b9369bdec81278e68fde3c76271bb9814a99e",
+      "lastReviewedCommit": "dfe1b9cf993c34571fa5f2d08f5772e0672c68ab",
       "lastReviewedDate": "2026-06-11",
       "sourceRecordPath": "sources/ruflo.md",
       "watchedPaths": [],
@@ -575,9 +578,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_ADOPTED",
-        "reviewedCommit": "a88b9369bdec81278e68fde3c76271bb9814a99e",
+        "reviewedCommit": "dfe1b9cf993c34571fa5f2d08f5772e0672c68ab",
         "reviewedDate": "2026-06-11",
-        "summary": "Windows path validation, trajectory feedback persistence, init-hooks settings, MCP hook tooling, tests, and package-version drift reviewed; only existing static task-state and handoff discipline remains adopted.",
+        "summary": "README rewrite/revert and README hero-image removal reviewed; only existing static task-state and handoff discipline remains adopted.",
         "boundaries": [
           "no package install",
           "no package or lockfile update",

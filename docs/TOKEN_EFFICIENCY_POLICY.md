@@ -49,7 +49,7 @@ Every large-task context pack should report:
 - source/method/profile references used
 - tests, evals, validators, and checks expected
 - whole-repo, private-overlay, secret, credential, and product-repo exclusions
-- whether graph evidence is actual tool output, static review, mock data, fallback data, or metadata-only
+- whether context evidence is fresh project-map data, actual tool output, static review, mock data, fallback data, or metadata-only
 
 ## Expansion Triggers
 
