@@ -2221,7 +2221,7 @@
           "category": "external-source"
         }
       ],
-      "licenseStatus": "Aider, OpenAI, and Repomix source records are used as documentation/design references only; Repomix remains optional active-if-detected or owner-approved and no raw upstream content is copied.",
+      "licenseStatus": "Aider, OpenAI, and Repomix source records are used as documentation/design references only; Repomix remains optional but owner-approved-only for scoped use, and no raw upstream content is copied.",
       "rawCopyPolicy": "No raw upstream source, docs, prompts, code, CLI behavior, package configuration, MCP configuration, or generated context output is copied into this method.",
       "status": [
         "documented",

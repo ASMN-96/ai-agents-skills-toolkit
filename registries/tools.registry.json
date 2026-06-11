@@ -2738,7 +2738,6 @@
           "global config",
           "MCP",
           "whole-repo dumps",
-          "product repositories",
           "product repositories without scoped owner approval"
         ],
         "defaultEnterpriseStatus": "metadata-only detection; scoped local context packing requires explicit owner approval even when project-owned or detected; not enterprise-approved for default execution, CI, MCP, package changes, global config, or whole-repo dumps",

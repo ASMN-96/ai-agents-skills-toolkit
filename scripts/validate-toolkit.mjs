@@ -124,7 +124,8 @@ const REQUIRED_TOKEN_CONTEXT_EVALS = [
   "large-task-compact-context-pack",
   "changed-file-neighborhood-no-whole-repo-dump",
   "private-overlay-exclusion-required",
-  "project-map-staleness-check-required"
+  "project-map-staleness-check-required",
+  "project-context-preflight-no-loop-agents"
 ];
 
 const CANONICAL_SKILL_GROUPS = [
@@ -620,7 +621,7 @@ async function validateEnterpriseToolMetadata(registryState) {
       fail("enterprise tool metadata", location, "forbiddenEnvironments must be a non-empty array");
     }
     const requiredForbiddenEnvironments = tool.id === "repomix"
-      ? ["automatic local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"]
+      ? ["automatic local execution", "CI", "staging", "production", "global config", "MCP", "product repositories without scoped owner approval"]
       : ["local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"];
     for (const requiredEnvironment of requiredForbiddenEnvironments) {
       if (!tool.enterpriseRisk.forbiddenEnvironments.includes(requiredEnvironment)) {

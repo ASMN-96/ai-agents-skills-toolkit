@@ -42,13 +42,13 @@
       "source": "skills/governance/SKILL.md",
       "target": ".agents/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "3db7d473119ae2b0953a9789ed3e5617ef8a6bc367ce04431116a440899d0ac7"
+      "sha256": "63516121e5bfd2c93c3cd97c766a95d314fcf82bd191659b29d9e6de38b17478"
     },
     {
       "source": "skills/governance/SKILL.md",
       "target": ".ai-toolkit/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "3db7d473119ae2b0953a9789ed3e5617ef8a6bc367ce04431116a440899d0ac7"
+      "sha256": "63516121e5bfd2c93c3cd97c766a95d314fcf82bd191659b29d9e6de38b17478"
     },
     {
       "source": "skills/uiux/SKILL.md",
@@ -252,7 +252,7 @@
       "source": "registries/methods.registry.json",
       "target": ".ai-toolkit/registries/methods.registry.json",
       "mode": "byte-identical",
-      "sha256": "dabf7e0ef919dfcdac9eb9ef5622025b98a0b79f0433862827f836a9a07b96e9"
+      "sha256": "978c0633ffc7d040c31f170474a58ac37b5c94a0da81690df44cdcd3812a1179"
     },
     {
       "source": "registries/profiles.registry.json",
@@ -276,79 +276,79 @@
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
-      "sha256": "15bcd20e59381987fe9b10e3c84cd7b5be5208f2d34f92749fde15f03a86a97a"
+      "sha256": "a7504fbcbdf4605e3c24f5d6637d952b32a94395de29f17f2f78c4c77cfb7979"
     },
     {
       "source": "compiled-agents/product-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/product-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "3642686fb86cb63ffdb2f16a0c87bf02163315fd5890d3d5d03ece8e9ff0f547"
+      "sha256": "56d71c109049fe78e62ba7522f08b36f39c3a0483be77d951df6945f254290ff"
     },
     {
       "source": "compiled-agents/architect-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/architect-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "d68076e29a92f5e6e75057d3b93bae05ebcebbf9aad642364210a4a4a1413fcf"
+      "sha256": "2c36a3de4ad529065521b512361b58c4937aac3047197af57a409301e5d37ded"
     },
     {
       "source": "compiled-agents/reviewer-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/reviewer-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "cd652b7975bdc1cd09a2bbb5a52fd05abc9e8dbf2ac130ec2c8e710eefba167b"
+      "sha256": "5b3352ab0518a380b78a61025b5151b34dbb28b6a14fbc08c2424e346b2c894f"
     },
     {
       "source": "compiled-agents/uiux-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/uiux-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "8446c4c3692ade604a1107fbb7f09d6f2f686571a34466a159d5b0f12222102f"
+      "sha256": "8c6cf172f19d215ee59dda08cacf0d7810972fbf1fed40d200e743e2bbfae653"
     },
     {
       "source": "compiled-agents/frontend-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/frontend-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "15c33e5ed52d8d06f96e87f67738e7950b7bdd9722c484f3f4a8937493f5624a"
+      "sha256": "fc6972acc637a4967bbdf1dfc503b88e923ef6e9c4b39602a2f90efeaab1f528"
     },
     {
       "source": "compiled-agents/backend-contract-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/backend-contract-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "c8a91d58f866d2a53f4f92ed9f0a2b441b741f10d2fed00bf8833052267f92e9"
+      "sha256": "cced2166f3fd2748d3627534d97db75ea5661a43081fa3111426b5c403f61572"
     },
     {
       "source": "compiled-agents/database-rls-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/database-rls-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "ee169e6eb08157bb84c4cef0cef41e81d80180440d7f5ab3d266238a8ba7ad72"
+      "sha256": "8c55054316efebc3a2afced05ffa525c5af9f268792a79ce7ff8cd95d9bf642a"
     },
     {
       "source": "compiled-agents/security-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/security-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "a597e1ab24cfac05a93578ac82b5348b480487c14b17158d20b4a19dad45b929"
+      "sha256": "1de40bd447d2339203ec1d1afd4b7dac716c3eb654e005a04e50eb2b663197c0"
     },
     {
       "source": "compiled-agents/qa-test-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/qa-test-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "7bc40a42d7249dc7e731c59de7db451f570bba403902c709a38f827590d4993c"
+      "sha256": "42fd405f214560a3c877c12911049ac09d86439d537f6655313fb0f1c8a9ec32"
     },
     {
       "source": "compiled-agents/release-manager-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/release-manager-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "bcb7d4bd11c2e1d723692120054f730bda702cbfb2421b0c402dbde2e80e85b7"
+      "sha256": "46720ebbcbd7f293adddd50259391232f915a6617d4c94fff3383d5129a2926b"
     },
     {
       "source": "compiled-agents/skill-scout-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/skill-scout-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "3b0c5585f90f5ee924a61ecaa9893543f074135b6371dd6ea5d7ccef0c6b39cf"
+      "sha256": "097538d07656fec9092e2c3e30fcc1fd7ec2bd34c127bd706ed9beb945d3716c"
     },
     {
       "source": "compiled-agents/sre-performance-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/sre-performance-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "45e15819f67d17063178bc63a5fa7fc84b09d2be9f957d44ce03b47b33dba77e"
+      "sha256": "65d0bada6c93c604bb4404ab70d7efa46d12a35d5ccc159056d32ca90f29d01b"
     },
     {
       "source": "docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md",
@@ -600,7 +600,7 @@
       "source": "methods/orchestration/changed-file-neighborhood-selection.md",
       "target": ".ai-toolkit/methods/orchestration/changed-file-neighborhood-selection.md",
       "mode": "packaged-support-asset",
-      "sha256": "71b4a40eb6bf3970907719abf1eecd173c973b8de2872b4ffde5e7826df26b5a"
+      "sha256": "43be474365d92b620060e7140096f38ec3fd8dc122ab6c2dcede643459357fc8"
     },
     {
       "source": "methods/orchestration/compact-agent-context-pack.md",

@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 6517c7b2013d3433991ba38499484edfbb1c4eef
+source_commit: 0b2fdc8d499ebc407d593fc09ea879b0e83a9678
 source_agent: agents/qa-test-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -1131,8 +1131,8 @@ Select the smallest trustworthy neighborhood around the changed files so review 
 
 1. Changed files and directly edited docs/configs.
 2. Tests, evals, validators, or generated mirrors that prove the changed behavior.
-3. Direct import/export neighbors and shared contracts.
-4. Fresh project-map entries: key files, source locations, test locations, config files, scripts, and validation commands.
+3. Fresh project-map entries: key files, source locations, test locations, config files, scripts, and validation commands.
+4. Direct import/export neighbors and shared contracts.
 5. Referenced methods, skills, profiles, and source records.
 6. Release, security, or public/private boundary docs only when the change crosses those gates.
 

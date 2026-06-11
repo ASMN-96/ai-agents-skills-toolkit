@@ -4,7 +4,7 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "4ffb5012779b5ea9107eaa6560d088ea790b15a032b378cb5f5fbe8205b5b10e"
+      "sha256": "72f135f81ab370a0a6cc891d1d66d9b943cbeae28ad3f64e5dc65ba87cb9cd39"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",

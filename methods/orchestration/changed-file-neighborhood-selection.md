@@ -16,8 +16,8 @@ Select the smallest trustworthy neighborhood around the changed files so review 
 
 1. Changed files and directly edited docs/configs.
 2. Tests, evals, validators, or generated mirrors that prove the changed behavior.
-3. Direct import/export neighbors and shared contracts.
-4. Fresh project-map entries: key files, source locations, test locations, config files, scripts, and validation commands.
+3. Fresh project-map entries: key files, source locations, test locations, config files, scripts, and validation commands.
+4. Direct import/export neighbors and shared contracts.
 5. Referenced methods, skills, profiles, and source records.
 6. Release, security, or public/private boundary docs only when the change crosses those gates.
 
