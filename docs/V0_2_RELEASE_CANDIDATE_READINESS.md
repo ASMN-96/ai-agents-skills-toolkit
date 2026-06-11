@@ -37,7 +37,7 @@ In plain language: this is not Level 4, not Level 5, not enterprise-certified, n
 ## Resource Boundary
 
 - No current-scope `pilot-only` project-tooling classification remains.
-- code-review-graph is active-read-only source intelligence.
+- Project Context Preflight is toolkit-owned context guidance; Repomix is active-if-detected or owner-approved-install for scoped packs/token counts only.
 - open-design is active-reference design intelligence.
 - eslint-plugin-boundaries is active-install-if-project-type only after architecture layers are stable and owner-approved.
 - Impeccable normalized guidance remains active-reference; project-local install mode is approval-required.

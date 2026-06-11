@@ -20,6 +20,15 @@ import {
   supportDestinationForSourcePath,
   supportAssetTypeForSourcePath
 } from "../scripts/ai-toolkit/reference-closure.mjs";
+import {
+  PROJECT_MAP_ASSET_NAME,
+  PROJECT_MAP_MANIFEST_PATH,
+  PROJECT_MAP_RELATIVE_PATH,
+  buildProjectMap,
+  projectMapOutputPath,
+  validateProjectMap,
+  writeProjectMap
+} from "./project-context-preflight.mjs";
 
 const TOOLKIT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -361,6 +370,23 @@ function printCopyPlan(plan) {
   }
 }
 
+function printProjectMapPlan(projectMap, projectMapIssues) {
+  console.log("Project context preflight map:");
+  console.log(`  Write path:     .ai-toolkit/${PROJECT_MAP_MANIFEST_PATH}`);
+  console.log(`  Target HEAD:    ${projectMap.target.gitHead ?? "unknown"}`);
+  console.log(`  Package manager:${projectMap.packageManager.manager}`);
+  console.log(`  Repo roots:     ${projectMap.repoRoots.map((entry) => entry.path).join(", ") || "(none)"}`);
+  console.log(`  Key files:      ${projectMap.keyFiles.length}`);
+  console.log(`  Validation cmds:${projectMap.validationCommands.length}`);
+  console.log(`  Repomix:        ${projectMap.repomix.detected ? "detected" : "not detected"} (${projectMap.repomix.posture})`);
+  if (projectMapIssues.length > 0) {
+    console.log("  Safety:         blocked");
+    for (const issue of projectMapIssues) console.log(`    - ${issue}`);
+  } else {
+    console.log("  Safety:         pass");
+  }
+}
+
 function copyPlanFiles(plan) {
   for (const item of plan) {
     if (item.action === "Unchanged") continue;
@@ -369,21 +395,30 @@ function copyPlanFiles(plan) {
   }
 }
 
-function toolkitManifest(plan, toolkitCommit) {
+function toolkitManifest(plan, toolkitCommit, extraAssets = []) {
+  const assets = [
+    ...plan.map((item) => ({
+      type: item.type,
+      name: item.name,
+      path: normalizeRelative(item.relativePath),
+      sha256: sha256(item.destination)
+    })),
+    ...extraAssets.map((asset) => ({
+      type: asset.type,
+      name: asset.name,
+      path: normalizeRelative(asset.path),
+      sha256: sha256(asset.fullPath)
+    }))
+  ];
+
   return {
     schemaVersion: "1.0.0",
     toolkitVersion: TOOLKIT_VERSION,
     toolkitCommit,
     generatedAtUtc: new Date().toISOString(),
-    assets: plan
+    assets: assets
       .slice()
-      .sort((left, right) => left.relativePath.localeCompare(right.relativePath))
-      .map((item) => ({
-        type: item.type,
-        name: item.name,
-        path: normalizeRelative(item.relativePath),
-        sha256: sha256(item.destination)
-      }))
+      .sort((left, right) => left.path.localeCompare(right.path))
   };
 }
 
@@ -439,6 +474,15 @@ function runInstall(options) {
   }
   const plan = buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedSkills, updateMode: false });
   const aiRoot = path.join(targetRoot, ".ai-toolkit");
+  const projectMap = buildProjectMap({
+    targetRoot,
+    selectedAgents,
+    selectedProfiles,
+    selectedSkills,
+    toolkitCommit,
+    toolkitVersion: TOOLKIT_VERSION
+  });
+  const projectMapIssues = validateProjectMap(projectMap, { targetRoot });
 
   console.log(`Toolkit version: ${TOOLKIT_VERSION}`);
   console.log(`Toolkit commit:  ${toolkitCommit ?? ""}`);
@@ -447,6 +491,8 @@ function runInstall(options) {
   reportGitSafety(targetRoot, branchPolicy);
   console.log("");
   printCopyPlan(plan);
+  console.log("");
+  printProjectMapPlan(projectMap, projectMapIssues);
 
   if (!options.confirmWrite) {
     console.log("Dry-run only. No files were written.");
@@ -454,15 +500,23 @@ function runInstall(options) {
   }
 
   assertTargetGitSafety(targetRoot, branchPolicy);
+  if (projectMapIssues.length > 0) fail("Project context preflight map has safety issues. Refusing confirm-write.");
   mkdirSync(path.join(aiRoot, "compiled-agents"), { recursive: true });
   mkdirSync(path.join(aiRoot, "profiles"), { recursive: true });
   mkdirSync(path.join(aiRoot, "skills"), { recursive: true });
   mkdirSync(path.join(aiRoot, "methods"), { recursive: true });
   mkdirSync(path.join(aiRoot, "templates"), { recursive: true });
   mkdirSync(path.join(aiRoot, "docs"), { recursive: true });
+  mkdirSync(path.join(aiRoot, "context"), { recursive: true });
   copyPlanFiles(plan);
+  const projectMapPath = writeProjectMap(targetRoot, projectMap);
   writeInstallRecords({ aiRoot, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated: false });
-  writeJson(path.join(aiRoot, ".ai-toolkit-manifest.json"), toolkitManifest(plan, toolkitCommit));
+  writeJson(path.join(aiRoot, ".ai-toolkit-manifest.json"), toolkitManifest(plan, toolkitCommit, [{
+    type: "context-map",
+    name: PROJECT_MAP_ASSET_NAME,
+    path: PROJECT_MAP_MANIFEST_PATH,
+    fullPath: projectMapPath
+  }]));
   console.log("Install complete. Managed files were written only under .ai-toolkit/.");
 }
 
@@ -513,8 +567,18 @@ function runUpdate(options) {
 
   const plan = buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedSkills, updateMode: true });
   const managedPaths = new Set(plan.map((item) => normalizeRelative(item.relativePath)));
+  managedPaths.add(PROJECT_MAP_MANIFEST_PATH);
+  const projectMap = buildProjectMap({
+    targetRoot,
+    selectedAgents,
+    selectedProfiles,
+    selectedSkills,
+    toolkitCommit,
+    toolkitVersion: TOOLKIT_VERSION
+  });
+  const projectMapIssues = validateProjectMap(projectMap, { targetRoot });
   const unmanaged = [];
-  for (const folder of ["compiled-agents", "profiles", "skills", "methods", "templates", "docs"]) {
+  for (const folder of ["compiled-agents", "profiles", "skills", "methods", "templates", "docs", "context"]) {
     for (const filePath of collectFiles(path.join(aiRoot, folder))) {
       const relative = managedRelativePath(aiRoot, filePath);
       if (!managedPaths.has(relative)) unmanaged.push(filePath);
@@ -529,6 +593,8 @@ function runUpdate(options) {
   reportGitSafety(targetRoot, branchPolicy, "Target Git safety");
   console.log("");
   printCopyPlan(plan);
+  console.log("");
+  printProjectMapPlan(projectMap, projectMapIssues);
 
   if (unmanaged.length > 0) {
     console.log("Unmanaged files reported only; Phase 6 v1 does not delete stale files:");
@@ -541,15 +607,23 @@ function runUpdate(options) {
   }
 
   assertTargetGitSafety(targetRoot, branchPolicy);
+  if (projectMapIssues.length > 0) fail("Project context preflight map has safety issues. Refusing confirm-write.");
   mkdirSync(path.join(aiRoot, "compiled-agents"), { recursive: true });
   mkdirSync(path.join(aiRoot, "profiles"), { recursive: true });
   mkdirSync(path.join(aiRoot, "skills"), { recursive: true });
   mkdirSync(path.join(aiRoot, "methods"), { recursive: true });
   mkdirSync(path.join(aiRoot, "templates"), { recursive: true });
   mkdirSync(path.join(aiRoot, "docs"), { recursive: true });
+  mkdirSync(path.join(aiRoot, "context"), { recursive: true });
   copyPlanFiles(plan);
+  const projectMapPath = writeProjectMap(targetRoot, projectMap);
   writeInstallRecords({ aiRoot, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated: true });
-  writeJson(path.join(aiRoot, ".ai-toolkit-manifest.json"), toolkitManifest(plan, toolkitCommit));
+  writeJson(path.join(aiRoot, ".ai-toolkit-manifest.json"), toolkitManifest(plan, toolkitCommit, [{
+    type: "context-map",
+    name: PROJECT_MAP_ASSET_NAME,
+    path: PROJECT_MAP_MANIFEST_PATH,
+    fullPath: projectMapPath
+  }]));
   console.log("Update complete. Managed files were written only under .ai-toolkit/.");
 }
 
@@ -686,6 +760,27 @@ function runValidate(options) {
       } else {
         failures.push(...testManifestAsset({ aiRoot, manifestAssets, relativePath, type: "skill", name }));
         failures.push(...testSkillFrontmatter(fullPath, name));
+      }
+    }
+
+    const projectMapPath = projectMapOutputPath(targetRoot);
+    if (!existsSync(projectMapPath)) {
+      failures.push(`Missing context-map: ${PROJECT_MAP_RELATIVE_PATH}`);
+    } else {
+      failures.push(...testManifestAsset({
+        aiRoot,
+        manifestAssets,
+        relativePath: PROJECT_MAP_MANIFEST_PATH,
+        type: "context-map",
+        name: PROJECT_MAP_ASSET_NAME
+      }));
+      try {
+        const projectMap = readJson(projectMapPath);
+        for (const issue of validateProjectMap(projectMap, { targetRoot })) {
+          failures.push(`Project context preflight map invalid: ${issue}`);
+        }
+      } catch (error) {
+        failures.push(`Project context preflight map is not valid JSON: ${error.message}`);
       }
     }
 

@@ -42,13 +42,13 @@
       "source": "skills/governance/SKILL.md",
       "target": ".agents/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "8d0c92d47576856409869ccf7d9fc94437c3f28416791d791264daaea9a6fd57"
+      "sha256": "63516121e5bfd2c93c3cd97c766a95d314fcf82bd191659b29d9e6de38b17478"
     },
     {
       "source": "skills/governance/SKILL.md",
       "target": ".ai-toolkit/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "8d0c92d47576856409869ccf7d9fc94437c3f28416791d791264daaea9a6fd57"
+      "sha256": "63516121e5bfd2c93c3cd97c766a95d314fcf82bd191659b29d9e6de38b17478"
     },
     {
       "source": "skills/uiux/SKILL.md",
@@ -120,7 +120,7 @@
       "source": "agents/architect-agent.md",
       "target": ".ai-toolkit/agents/architect-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "ffe4d4550b2d4c94f43444c9c7e5022532ed05b27536b0c2e972a3dcccfd00d9"
+      "sha256": "9975ae867202d4c7b235a0e67794939bba2768200df6c3d51c64291e6428aea0"
     },
     {
       "source": ".codex/agents/reviewer-agent.toml",
@@ -240,7 +240,7 @@
       "source": "agents/sre-performance-agent.md",
       "target": ".ai-toolkit/agents/sre-performance-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "6501ac39290df9c2dad58a7b56bc704d256f4a416ad73bf5de7605a893f8f60f"
+      "sha256": "4d7a3476c6a9766833ee9b979d199373df41320dacf7b070cd07c7e8f53dd31a"
     },
     {
       "source": "registries/agents.registry.json",
@@ -252,7 +252,7 @@
       "source": "registries/methods.registry.json",
       "target": ".ai-toolkit/registries/methods.registry.json",
       "mode": "byte-identical",
-      "sha256": "04e54870445930dd7be1e808b8a3bda1628793c9e85066e212a59a596616bc55"
+      "sha256": "978c0633ffc7d040c31f170474a58ac37b5c94a0da81690df44cdcd3812a1179"
     },
     {
       "source": "registries/profiles.registry.json",
@@ -264,7 +264,7 @@
       "source": "registries/routing-matrix.json",
       "target": ".ai-toolkit/registries/routing-matrix.json",
       "mode": "byte-identical",
-      "sha256": "7e0c2d2c23e02b46aefadc0a8628fe0c3577fa927a5da7ea96cb75401933ab46"
+      "sha256": "58133f5cb1e80f6ae82a2917c99faeb785a3c9c1fc1c0ea4a6daec4efeb160bd"
     },
     {
       "source": "registries/skills.registry.json",
@@ -276,79 +276,79 @@
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
-      "sha256": "f0f4e57ea06888b4baa6c21dc0b7495931b7699a812ac8e8c3fd6cdcd6607349"
+      "sha256": "a7504fbcbdf4605e3c24f5d6637d952b32a94395de29f17f2f78c4c77cfb7979"
     },
     {
       "source": "compiled-agents/product-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/product-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "900d4d11820175e0ef2fa85c939b01e16fa3ae35f56175caaaad8ffd88123e9f"
+      "sha256": "56d71c109049fe78e62ba7522f08b36f39c3a0483be77d951df6945f254290ff"
     },
     {
       "source": "compiled-agents/architect-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/architect-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "a7dc5c48a447099339be602fd2880db49dc93bff5dc4a017e4c759e6f3058618"
+      "sha256": "2c36a3de4ad529065521b512361b58c4937aac3047197af57a409301e5d37ded"
     },
     {
       "source": "compiled-agents/reviewer-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/reviewer-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "5ab82590727cc7916a270299454ec504eb75e8a0bf6bda5525f12fba0731aaaf"
+      "sha256": "5b3352ab0518a380b78a61025b5151b34dbb28b6a14fbc08c2424e346b2c894f"
     },
     {
       "source": "compiled-agents/uiux-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/uiux-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "224ed6a36a4800c4dd7c484e00af10548ea2f79caa53c869ecb0564a76734911"
+      "sha256": "8c6cf172f19d215ee59dda08cacf0d7810972fbf1fed40d200e743e2bbfae653"
     },
     {
       "source": "compiled-agents/frontend-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/frontend-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "cf0f49f75bdbee0f119a9f995fc60cc127af2c5f23566be0c2cb4cd00d43b393"
+      "sha256": "fc6972acc637a4967bbdf1dfc503b88e923ef6e9c4b39602a2f90efeaab1f528"
     },
     {
       "source": "compiled-agents/backend-contract-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/backend-contract-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "f81088cfb078302272228ef2289e905edfefeddf358985aed779104608360165"
+      "sha256": "cced2166f3fd2748d3627534d97db75ea5661a43081fa3111426b5c403f61572"
     },
     {
       "source": "compiled-agents/database-rls-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/database-rls-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "f347cb5614dd8ca740a753791a16556cf3aa46aebab9c218fe275ae291cc6ed5"
+      "sha256": "8c55054316efebc3a2afced05ffa525c5af9f268792a79ce7ff8cd95d9bf642a"
     },
     {
       "source": "compiled-agents/security-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/security-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "44e8756133c5731c0156b2c34e25e8f93d30d4c33f145a55712142405491b1fc"
+      "sha256": "1de40bd447d2339203ec1d1afd4b7dac716c3eb654e005a04e50eb2b663197c0"
     },
     {
       "source": "compiled-agents/qa-test-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/qa-test-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "b1e38356b1a1c6b74d127765dbf38dd3a8fdc46fb5481d89273aabc39850e8ff"
+      "sha256": "42fd405f214560a3c877c12911049ac09d86439d537f6655313fb0f1c8a9ec32"
     },
     {
       "source": "compiled-agents/release-manager-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/release-manager-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "ddcc7cf28b8acda4fec4ef564e5cd3f3b09c088619d226af5214bd7501b4361e"
+      "sha256": "46720ebbcbd7f293adddd50259391232f915a6617d4c94fff3383d5129a2926b"
     },
     {
       "source": "compiled-agents/skill-scout-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/skill-scout-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "e0c71ce6484d48f3998b8beb12361e47b30477f9b01c8d7b0aea739fd2013f6e"
+      "sha256": "097538d07656fec9092e2c3e30fcc1fd7ec2bd34c127bd706ed9beb945d3716c"
     },
     {
       "source": "compiled-agents/sre-performance-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/sre-performance-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "44f4213331d6e726bb6d09624cf98de6062deaee0f56905a3bce21c69a5cc5cf"
+      "sha256": "65d0bada6c93c604bb4404ab70d7efa46d12a35d5ccc159056d32ca90f29d01b"
     },
     {
       "source": "docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md",
@@ -378,19 +378,19 @@
       "source": "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md",
       "target": ".ai-toolkit/docs/PROJECT_TOOL_INSTALLATION_MATRIX.md",
       "mode": "packaged-support-asset",
-      "sha256": "397fa2148ea3d2201542e11db3b65c43d6724c6b605813154a715bcbe25f5e1a"
+      "sha256": "747ad430320cd5a589f6595037dbf20d7c844a043981a4369f55361439213750"
     },
     {
       "source": "docs/PROJECT_TOOLING_OPERATING_MODEL.md",
       "target": ".ai-toolkit/docs/PROJECT_TOOLING_OPERATING_MODEL.md",
       "mode": "packaged-support-asset",
-      "sha256": "4020498060dc85e2b4ace53b1a228eeee2a49d60507d8870c92544af24d87168"
+      "sha256": "bc79f94d9ca2ae4a1fc6dac2517c4a05ebdf0b7cd67775be14bd21796242ba8e"
     },
     {
       "source": "docs/PUBLIC_PRIVATE_LEAK_REPORT.md",
       "target": ".ai-toolkit/docs/PUBLIC_PRIVATE_LEAK_REPORT.md",
       "mode": "packaged-support-asset",
-      "sha256": "d8578812a936255fb47b48b7417425e514db6cfb322ea93cd93489f5b71b8426"
+      "sha256": "5910586cf5d31f469c362dadc3f239ec4b5f4f4418c49f2df43ea6dcb53c1274"
     },
     {
       "source": "docs/REGISTRY_CONTRACT.md",
@@ -420,7 +420,7 @@
       "source": "docs/SOURCE_UTILIZATION_MATRIX.md",
       "target": ".ai-toolkit/docs/SOURCE_UTILIZATION_MATRIX.md",
       "mode": "packaged-support-asset",
-      "sha256": "6a45ff7c8faef1696acb93389dd355c01be4092f8091dbde25262fc83d7eb60f"
+      "sha256": "7cd64d85c83d9b07135c184e53243c5d7e56ce9a9dabcdfd27f1a9306995b357"
     },
     {
       "source": "docs/UI_UX_PRO_MAX_AUDIT.md",
@@ -600,25 +600,25 @@
       "source": "methods/orchestration/changed-file-neighborhood-selection.md",
       "target": ".ai-toolkit/methods/orchestration/changed-file-neighborhood-selection.md",
       "mode": "packaged-support-asset",
-      "sha256": "075813e43fc0472826bd63bfa61d187043218d447621f1ab752c7360266a9316"
+      "sha256": "43be474365d92b620060e7140096f38ec3fd8dc122ab6c2dcede643459357fc8"
     },
     {
       "source": "methods/orchestration/compact-agent-context-pack.md",
       "target": ".ai-toolkit/methods/orchestration/compact-agent-context-pack.md",
       "mode": "packaged-support-asset",
-      "sha256": "f57245c39d869fda52d406aafe65c838943cabbea3ef88496657c564c5994977"
+      "sha256": "7248300d74763d611d76d67ae36049290875b3089040bb2cc538b8f827ebff6c"
     },
     {
-      "source": "methods/orchestration/context-graph-token-budget.md",
-      "target": ".ai-toolkit/methods/orchestration/context-graph-token-budget.md",
+      "source": "methods/orchestration/project-context-preflight.md",
+      "target": ".ai-toolkit/methods/orchestration/project-context-preflight.md",
       "mode": "packaged-support-asset",
-      "sha256": "d6b2899fde4331953026d32874eaa54ea67b673a6f6f24ce0892d4029a41ad55"
+      "sha256": "0d5ecf2f3a571b5dcf2adf725b600ec8e9ea745e2ad64fe78dfc45ed482863df"
     },
     {
-      "source": "methods/orchestration/stale-context-graph-detection.md",
-      "target": ".ai-toolkit/methods/orchestration/stale-context-graph-detection.md",
+      "source": "methods/orchestration/project-map-staleness-check.md",
+      "target": ".ai-toolkit/methods/orchestration/project-map-staleness-check.md",
       "mode": "packaged-support-asset",
-      "sha256": "74a2a04203d6f373fdb948fb1265bd23fb56478410aae9632615357c1f34ae45"
+      "sha256": "5640d2e3a826c55ad5296452e03c513c38e92fa0e20fb87f9f9a1d3e547db97a"
     },
     {
       "source": "methods/orchestration/static-task-state-handoff-ledger.md",

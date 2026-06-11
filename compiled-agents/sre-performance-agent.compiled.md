@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 0302f92cee82aba32ef543a246072bb5dba40994
+source_commit: 0b2fdc8d499ebc407d593fc09ea879b0e83a9678
 source_agent: agents/sre-performance-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -207,6 +207,7 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 ## Required Pack Fields
 
 - objective and non-goals
+- project-map freshness result
 - selected files and reason for each
 - changed-file neighborhood summary
 - source/method/profile references
@@ -215,7 +216,7 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - private-overlay, secret, and product-repo exclusions
 - token mode and budget rationale
 - omitted context and reason
-- graph evidence label: `manual/static` or `tool-generated`
+- context evidence label: `project-map`, `manual/static`, or `tool-generated`
 
 ## Token Modes
 
@@ -229,16 +230,13 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - Prefer links or paths to stable docs over pasted policies.
 - Include only actionable source records and methods.
 - Mark tool, browser, CodeRabbit, reviewdog, source freshness, and runtime evidence as `not invoked` unless actual output exists.
-- Label graph evidence as `manual/static` when it comes from repo inspection or source metadata, and `tool-generated` only when an approved tool actually ran and produced output.
-- Treat whole-repo context dumping and global config activation as forbidden unless a later task explicitly approves a different execution mode.
+- Label context evidence as `project-map` only when `.ai-toolkit/context/project-map.json` is fresh, `manual/static` when it comes from focused repo inspection, and `tool-generated` only when an approved tool actually ran and produced output.
+- Repomix may be used only after scoped owner approval, even when project-owned or detected, for a scoped pack or token count; never as an automatic whole-repo dump.
+- Treat whole-repo context dumping, loop agents, subagent creation, MCP setup, and global config activation as forbidden unless a later task explicitly approves a different execution mode.
 
 ## Passive Visibility
 
-This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
-
-## Forbidden Claims
-
-- Do not say an agent, plugin, browser, graph tool, MCP server, or scanner ran unless it actually ran.
+This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated context-pack output, or release approval.
 
 ### mobile.native-mobile-app-quality
 
@@ -409,7 +407,7 @@ Stop condition:
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/sre-profile.md`, `profiles/release-profile.md`, `profiles/implementation-profile.md`
 - Method IDs: `osmani.performance-optimization`, `osmani.shipping-launch`, `orchestration.compact-agent-context-pack`, `mobile.native-mobile-app-quality`, `reliability.coding-time-production-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `code-review-graph`, `toolkit-authored`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `aider-repo-map`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `toolkit-authored`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

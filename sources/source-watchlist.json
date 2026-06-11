@@ -168,7 +168,7 @@
       "repoOwner": "microsoft",
       "repoName": "playwright",
       "defaultBranch": "main",
-      "lastReviewedCommit": "954a7680c9bebd96323e299bf01a9ee079b080e9",
+      "lastReviewedCommit": "95460e4363a62dfde2e701b69514c1e3ee5b0c64",
       "lastReviewedDate": "2026-06-11",
       "sourceRecordPath": "sources/playwright.md",
       "watchedPaths": [],
@@ -177,9 +177,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_PLUGIN_DELEGATED",
-        "reviewedCommit": "954a7680c9bebd96323e299bf01a9ee079b080e9",
+        "reviewedCommit": "95460e4363a62dfde2e701b69514c1e3ee5b0c64",
         "reviewedDate": "2026-06-11",
-        "summary": "Browser roll, WebSocket trace-viewer, HAR/tracing error handling, Firefox navigation, Python docs, and MCP session-log drift reviewed; browser evidence remains delegated to project-owned Playwright/browser tooling.",
+        "summary": "MCP browser disposal optional-chaining fix and codegen hidden-file-input selector fix reviewed; browser evidence remains delegated to project-owned Playwright/browser tooling.",
         "boundaries": [
           "no source import",
           "no package update",
@@ -189,7 +189,8 @@
           "no upstream test or code copy",
           "no script execution",
           "no MCP activation",
-          "no trace/HAR/session-log behavior adoption",
+          "no MCP browser-disposal behavior adoption",
+          "no codegen selector behavior adoption",
           "no product-repo changes",
           "no global configuration changes"
         ]
@@ -299,7 +300,7 @@
       "repoOwner": "shadcn-ui",
       "repoName": "ui",
       "defaultBranch": "main",
-      "lastReviewedCommit": "1994caba0b2140d4d5aa765bb9d7d4412d6aaabb",
+      "lastReviewedCommit": "ea9d371a2dda3365a382ff361f96b55daeeab88d",
       "lastReviewedDate": "2026-06-11",
       "sourceRecordPath": "sources/shadcn-ui.md",
       "watchedPaths": [],
@@ -308,9 +309,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "1994caba0b2140d4d5aa765bb9d7d4412d6aaabb",
+        "reviewedCommit": "ea9d371a2dda3365a382ff361f96b55daeeab88d",
         "reviewedDate": "2026-06-11",
-        "summary": "Registry directory addition and dev-server/package/build metadata drift reviewed; retained only as design-system and component-ownership reference guidance.",
+        "summary": "Registry directory additions for gpt-vis, beui, braaile loader, and @untld reviewed; retained only as design-system and component-ownership reference guidance.",
         "boundaries": [
           "no CLI execution",
           "no MCP setup",
@@ -530,7 +531,7 @@
       "repoOwner": "affaan-m",
       "repoName": "everything-claude-code",
       "defaultBranch": "main",
-      "lastReviewedCommit": "fec84fcf19d1806232b21e38a80ac9fb595442dc",
+      "lastReviewedCommit": "5b173d2e6c11b976a0f13b2f59125e08956c1d47",
       "lastReviewedDate": "2026-06-11",
       "sourceRecordPath": "sources/everything-claude-code.md",
       "watchedPaths": [],
@@ -539,9 +540,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "fec84fcf19d1806232b21e38a80ac9fb595442dc",
+        "reviewedCommit": "5b173d2e6c11b976a0f13b2f59125e08956c1d47",
         "reviewedDate": "2026-06-11",
-        "summary": "ECC 2.0/runtime, MCP connector, hook, config-gc, release, package, CI, and cross-runtime surface drift reviewed; retained only as source-safety awareness.",
+        "summary": "Context-size compact hook, Codex marketplace path, README badge, package-lock, plugin, script, and test drift reviewed; retained only as source-safety awareness.",
         "boundaries": [
           "no Claude/Cursor/Cline/OpenHands runtime support claim",
           "no MCP connector import",
@@ -552,44 +553,12 @@
           "no config-gc skill import",
           "no release workflow import",
           "no package or lockfile adoption",
+          "no compact hook import",
+          "no marketplace plugin path adoption",
           "no script execution",
           "no global config behavior",
           "no cross-runtime agent, skill, hook, command, or pipeline import",
           "no product-repo changes"
-        ]
-      }
-    },
-    {
-      "id": "code-review-graph",
-      "name": "code-review-graph",
-      "sourceUrl": "https://github.com/tirth8205/code-review-graph",
-      "repoOwner": "tirth8205",
-      "repoName": "code-review-graph",
-      "defaultBranch": "main",
-      "lastReviewedCommit": "b72413cbd34a4ac08cc60dcdd42df1d02f3fc77d",
-      "lastReviewedDate": "2026-06-11",
-      "sourceRecordPath": "sources/code-review-graph.md",
-      "watchedPaths": [],
-      "licenseConcern": "clear",
-      "reviewPriority": "High",
-      "neverAutoImport": true,
-      "reviewDecision": {
-        "outcome": "SYNCED_ADOPTED",
-        "reviewedCommit": "b72413cbd34a4ac08cc60dcdd42df1d02f3fc77d",
-        "reviewedDate": "2026-06-11",
-        "summary": "GitHub Action, daemon, embedding provider, Windows, custom-language, eval, hook, skills, docs, and package drift reviewed; only existing static context-graph and token-governance concepts remain adopted.",
-        "boundaries": [
-          "no CLI install",
-          "no GitHub Action adoption",
-          "no MCP setup",
-          "no daemon or watcher",
-          "no hook adoption",
-          "no product-repo indexing",
-          "no private-overlay indexing",
-          "no generated graph claims without observed output",
-          "no package or lockfile adoption",
-          "no raw upstream copying",
-          "no runtime activation"
         ]
       }
     },
@@ -600,7 +569,7 @@
       "repoOwner": "ruvnet",
       "repoName": "ruflo",
       "defaultBranch": "main",
-      "lastReviewedCommit": "58716fd141b9c90b9b9a802bc089f2401da3d108",
+      "lastReviewedCommit": "dfe1b9cf993c34571fa5f2d08f5772e0672c68ab",
       "lastReviewedDate": "2026-06-11",
       "sourceRecordPath": "sources/ruflo.md",
       "watchedPaths": [],
@@ -609,9 +578,9 @@
       "neverAutoImport": true,
       "reviewDecision": {
         "outcome": "SYNCED_ADOPTED",
-        "reviewedCommit": "58716fd141b9c90b9b9a802bc089f2401da3d108",
+        "reviewedCommit": "dfe1b9cf993c34571fa5f2d08f5772e0672c68ab",
         "reviewedDate": "2026-06-11",
-        "summary": "Session atomic-write, hive-mind await, statusline process-storm, and package-lock drift reviewed; only existing static task-state and handoff discipline remains adopted.",
+        "summary": "README rewrite/revert and README hero-image removal reviewed; only existing static task-state and handoff discipline remains adopted.",
         "boundaries": [
           "no package install",
           "no package or lockfile update",
@@ -678,6 +647,113 @@
           "runtime support",
           "install or activation approval",
           "raw docs extraction approval"
+        ]
+      }
+    },
+    {
+      "id": "aider-repo-map",
+      "name": "Aider repo map",
+      "sourceUrl": "https://aider.chat/docs/repomap.html",
+      "sourceType": "manual-reviewed-doc",
+      "watchMode": "manual-reviewed-doc",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": "2026-06-11",
+      "sourceRecordPath": "sources/aider-repo-map.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-doc-reference",
+      "reviewPriority": "High",
+      "neverAutoImport": true,
+      "manualReview": {
+        "publisher": "Aider",
+        "cadence": "quarterly or before method changes",
+        "reason": "Primary compact repo-map design reference for Project Context Preflight.",
+        "forbiddenClaims": [
+          "live GitHub freshness proof",
+          "tool execution proof",
+          "runtime activation proof",
+          "raw documentation copied"
+        ]
+      }
+    },
+    {
+      "id": "openai-prompt-caching",
+      "name": "OpenAI prompt caching",
+      "sourceUrl": "https://developers.openai.com/api/docs/guides/prompt-caching",
+      "sourceType": "manual-reviewed-doc",
+      "watchMode": "manual-reviewed-doc",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": "2026-06-11",
+      "sourceRecordPath": "sources/openai-prompt-caching.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-doc-reference",
+      "reviewPriority": "High",
+      "neverAutoImport": true,
+      "manualReview": {
+        "publisher": "OpenAI",
+        "cadence": "quarterly or before method changes",
+        "reason": "Official prompt-layout guidance for stable context first and task-specific context last.",
+        "forbiddenClaims": [
+          "live GitHub freshness proof",
+          "tool execution proof",
+          "runtime activation proof",
+          "raw documentation copied"
+        ]
+      }
+    },
+    {
+      "id": "openai-codex-behavior-boundaries",
+      "name": "OpenAI Codex behavior boundaries",
+      "sourceUrl": "https://developers.openai.com/codex/guides/agents-md",
+      "sourceType": "manual-reviewed-doc",
+      "watchMode": "manual-reviewed-doc",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": "2026-06-11",
+      "sourceRecordPath": "sources/openai-codex-behavior-boundaries.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-doc-reference",
+      "reviewPriority": "High",
+      "neverAutoImport": true,
+      "manualReview": {
+        "publisher": "OpenAI",
+        "cadence": "quarterly or before method changes",
+        "reason": "Official Codex AGENTS.md skills and subagents boundary reference.",
+        "forbiddenClaims": [
+          "live GitHub freshness proof",
+          "tool execution proof",
+          "runtime activation proof",
+          "raw documentation copied"
+        ]
+      }
+    },
+    {
+      "id": "repomix",
+      "name": "Repomix",
+      "sourceUrl": "https://github.com/yamadashy/repomix",
+      "repoOwner": "yamadashy",
+      "repoName": "repomix",
+      "defaultBranch": "main",
+      "lastReviewedCommit": "fc69dcc31357d5db934f67ceaff4150f67e4735c",
+      "lastReviewedDate": "2026-06-11",
+      "sourceRecordPath": "sources/repomix.md",
+      "watchedPaths": [],
+      "licenseConcern": "clear",
+      "reviewPriority": "High",
+      "neverAutoImport": true,
+      "reviewDecision": {
+        "outcome": "SYNCED_REFERENCE",
+        "reviewedCommit": "fc69dcc31357d5db934f67ceaff4150f67e4735c",
+        "reviewedDate": "2026-06-11",
+        "summary": "Repomix retained only as optional active-if-detected or owner-approved scoped context packing and token-count support; no default install or whole-repo dump.",
+        "boundaries": [
+          "no default install",
+          "no automatic execution",
+          "no whole-repo dump",
+          "no package edits",
+          "no CI wiring",
+          "no MCP setup",
+          "no global config",
+          "no secrets or private overlays",
+          "no output claims without observed command output"
         ]
       }
     }

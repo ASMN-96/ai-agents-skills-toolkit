@@ -114,17 +114,18 @@ const SOURCE_TYPES = new Set([
 ]);
 
 const REQUIRED_CONTEXT_METHODS = [
-  "orchestration.context-graph-token-budget",
+  "orchestration.project-context-preflight",
   "orchestration.changed-file-neighborhood-selection",
   "orchestration.compact-agent-context-pack",
-  "orchestration.stale-context-graph-detection"
+  "orchestration.project-map-staleness-check"
 ];
 
 const REQUIRED_TOKEN_CONTEXT_EVALS = [
   "large-task-compact-context-pack",
   "changed-file-neighborhood-no-whole-repo-dump",
   "private-overlay-exclusion-required",
-  "stale-context-graph-detection-required"
+  "project-map-staleness-check-required",
+  "project-context-preflight-no-loop-agents"
 ];
 
 const CANONICAL_SKILL_GROUPS = [
@@ -619,7 +620,10 @@ async function validateEnterpriseToolMetadata(registryState) {
     if (!Array.isArray(tool.enterpriseRisk.forbiddenEnvironments) || tool.enterpriseRisk.forbiddenEnvironments.length === 0) {
       fail("enterprise tool metadata", location, "forbiddenEnvironments must be a non-empty array");
     }
-    for (const requiredEnvironment of ["local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"]) {
+    const requiredForbiddenEnvironments = tool.id === "repomix"
+      ? ["automatic local execution", "CI", "staging", "production", "global config", "MCP", "product repositories without scoped owner approval"]
+      : ["local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"];
+    for (const requiredEnvironment of requiredForbiddenEnvironments) {
       if (!tool.enterpriseRisk.forbiddenEnvironments.includes(requiredEnvironment)) {
         fail("enterprise tool metadata", location, `forbiddenEnvironments missing ${requiredEnvironment}`);
       }
@@ -697,7 +701,7 @@ async function validateSourceUtilizationClassification(watchlist, registryState)
   }
 
   const requiredRows = new Map([
-    ["code-review-graph", "active-read-only"],
+    ["repomix", "active-profile-route"],
     ["shadcn-ui", "active-reference"],
     ["ruflo", "active-method"],
     ["open-design", "active-reference"]

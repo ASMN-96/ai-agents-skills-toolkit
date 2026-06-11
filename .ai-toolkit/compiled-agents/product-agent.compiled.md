@@ -4,12 +4,12 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 0302f92cee82aba32ef543a246072bb5dba40994
+source_commit: 0b2fdc8d499ebc407d593fc09ea879b0e83a9678
 source_agent: agents/product-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/implementation-profile.md", "profiles/uiux-profile.md", "profiles/planning-profile.md", "profiles/fullstack-profile.md"]
-source_method_refs: ["internal.engineering-lifecycle-gates", "internal.documentation-accuracy-guard", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "matt.grill-me", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.spec-driven-development", "uiux.dashboard-ux", "uiux.premium-visual-quality", "uiux.commercial-dashboard-polish-rubric", "orchestration.context-graph-token-budget", "orchestration.compact-agent-context-pack"]
+source_method_refs: ["internal.engineering-lifecycle-gates", "internal.documentation-accuracy-guard", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "matt.grill-me", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.spec-driven-development", "uiux.dashboard-ux", "uiux.premium-visual-quality", "uiux.commercial-dashboard-polish-rubric", "orchestration.project-context-preflight", "orchestration.compact-agent-context-pack"]
 compile_contract_version: 1.0.0
 ---
 
@@ -618,51 +618,51 @@ Marketing layouts inside operational tools, vanity metrics without decisions, de
 
 Toolkit-authored generic rubric. Historical Bencium source-safety evidence may remain as archive/reference context, but this method does not use Bencium as active source authority and does not copy upstream content.
 
-### orchestration.context-graph-token-budget
+### orchestration.project-context-preflight
 
-Source: `methods/orchestration/context-graph-token-budget.md`
+Source: `methods/orchestration/project-context-preflight.md`
 
-# Context Graph Token Budget
+# Project Context Preflight
 
-Use this method when a task is large enough that full-registry, full-repo, or full-source dumping would waste context or expose private material.
+Use this method at task start when repeated repo discovery would waste context, increase token cost, or make file targeting slower.
 
 ## Purpose
 
-Token budgeting is a governance requirement. A large task must identify the smallest useful context graph before routing agents, writing plans, or reviewing diffs.
+Project Context Preflight gives Codex a compact, trusted project map before broad exploration. The map is project intelligence only; Codex remains the runtime and decides what to inspect, edit, and verify.
 
 ## Required Inputs
 
+- `.ai-toolkit/context/project-map.json` when present and fresh
 - task goal and risk level
-- changed files or intended files
-- selected profile and inline agent lenses
-- relevant source/method/profile records
-- private-overlay and secret boundaries
+- selected toolkit agents, profiles, skills, methods, and validation commands
+- current target git head and staleness hashes
+- private-overlay, secret, and generated-output exclusions
 
-## Budget Rules
+## Task-Start Rules
 
-- Start from the changed files or explicitly requested area.
-- Add only direct neighbors: imported modules, exported contracts, tests, policy docs, source records, and profile/method records that can change the decision.
-- Summarize stable registries instead of pasting full JSON.
-- Report the selected token mode: `concise`, `standard`, or `detailed`.
-- Record what was intentionally excluded and why.
+1. Check whether `.ai-toolkit/context/project-map.json` exists and matches current project staleness signals.
+2. If the map is stale, unsafe, or missing for a map-dependent task, stop and report the limitation before broad exploration.
+3. Choose token mode: `concise`, `standard`, or `detailed`.
+4. Identify likely files from `keyFiles`, `sourceLocations`, `testLocations`, `configFiles`, package scripts, and validation commands.
+5. Report the selected context before expanding to broader repo search.
+
+## Token Modes
+
+- `concise`: key files, direct task file, and one validation command are enough.
+- `standard`: key files, direct neighbors, relevant tests, validators, and one policy or method reference are needed.
+- `detailed`: architecture, security, release, or source-provenance context is needed and explicitly justified.
+
+## Prompt-Caching Layout
+
+- Put stable toolkit/project context first.
+- Put the project map summary before task-specific file excerpts.
+- Put volatile user/task-specific content last.
+- Do not churn static map field ordering without a schema reason.
 
 ## Hard Boundaries
 
-- Do not dump a whole repo or whole-repo graph into context.
-- Do not index secrets, private overlays, credentials, tokens, cookies, environment files, or user-private paths.
-- Do not activate code-review-graph, MCP, CLI, global config, hooks, background indexing, or product-repo indexing from this method.
-- Do not claim graph evidence unless an approved tool actually ran and produced output.
-
-## Acceptance Criteria
-
-- The plan or review names the compact context pack used.
-- Every added context item has a reason tied to the task.
-- Private-overlay and secret exclusions are explicit.
-- Missing graph evidence is reported as missing, not inferred.
-
-## Passive Visibility
-
-This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+- Do not dump a whole repo or whole-repo packed file into context by default.
+- Do not include absolute paths, `.env` values, secrets, credentials, private overlays, raw full-file dumps, package caches, or generated build output.
 
 ### orchestration.compact-agent-context-pack
 
@@ -675,6 +675,7 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 ## Required Pack Fields
 
 - objective and non-goals
+- project-map freshness result
 - selected files and reason for each
 - changed-file neighborhood summary
 - source/method/profile references
@@ -683,7 +684,7 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - private-overlay, secret, and product-repo exclusions
 - token mode and budget rationale
 - omitted context and reason
-- graph evidence label: `manual/static` or `tool-generated`
+- context evidence label: `project-map`, `manual/static`, or `tool-generated`
 
 ## Token Modes
 
@@ -697,16 +698,13 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - Prefer links or paths to stable docs over pasted policies.
 - Include only actionable source records and methods.
 - Mark tool, browser, CodeRabbit, reviewdog, source freshness, and runtime evidence as `not invoked` unless actual output exists.
-- Label graph evidence as `manual/static` when it comes from repo inspection or source metadata, and `tool-generated` only when an approved tool actually ran and produced output.
-- Treat whole-repo context dumping and global config activation as forbidden unless a later task explicitly approves a different execution mode.
+- Label context evidence as `project-map` only when `.ai-toolkit/context/project-map.json` is fresh, `manual/static` when it comes from focused repo inspection, and `tool-generated` only when an approved tool actually ran and produced output.
+- Repomix may be used only after scoped owner approval, even when project-owned or detected, for a scoped pack or token count; never as an automatic whole-repo dump.
+- Treat whole-repo context dumping, loop agents, subagent creation, MCP setup, and global config activation as forbidden unless a later task explicitly approves a different execution mode.
 
 ## Passive Visibility
 
-This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
-
-## Forbidden Claims
-
-- Do not say an agent, plugin, browser, graph tool, MCP server, or scanner ran unless it actually ran.
+This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated context-pack output, or release approval.
 
 ## Provenance
 
@@ -714,8 +712,8 @@ This approved method may be visible to project-sync consumers as passive governa
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/uiux-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`
-- Method IDs: `internal.engineering-lifecycle-gates`, `internal.documentation-accuracy-guard`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `matt.grill-me`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.spec-driven-development`, `uiux.dashboard-ux`, `uiux.premium-visual-quality`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.context-graph-token-budget`, `orchestration.compact-agent-context-pack`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `impeccable`, `matt-pocock-skills`, `nagdy-guard-skills`, `toolkit-authored`, `unknown-review-required`
+- Method IDs: `internal.engineering-lifecycle-gates`, `internal.documentation-accuracy-guard`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `matt.grill-me`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.spec-driven-development`, `uiux.dashboard-ux`, `uiux.premium-visual-quality`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.project-context-preflight`, `orchestration.compact-agent-context-pack`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `aider-repo-map`, `anthropic-skills`, `impeccable`, `matt-pocock-skills`, `nagdy-guard-skills`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `toolkit-authored`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

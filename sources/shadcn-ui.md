@@ -143,3 +143,11 @@ Skill Scout read-only source-freshness follow-up reviewed upstream default-branc
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep shadcn/ui active only as design-system/component-ownership reference guidance for toolkit-owned UIUX methods. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, upstream script execution, dev-server behavior adoption, package metadata adoption, lockfile adoption, dependency changes, package changes, product-repo changes, raw source extraction, or runtime activation.
+
+## Freshness Review 2026-06-11 Closeout
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `1994caba0b2140d4d5aa765bb9d7d4412d6aaabb` to `ea9d371a2dda3365a382ff361f96b55daeeab88d` using `git ls-remote` and GitHub compare metadata only. The compare was 4 commits ahead and touched only `apps/v4/registry/directory.json`, adding registry directory entries for gpt-vis, beui, braaile loader, and @untld. MIT license metadata remained present from the live source-freshness scan.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep shadcn/ui active only as design-system/component-ownership reference guidance for toolkit-owned UIUX methods. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, package metadata adoption, lockfile adoption, dependency changes, package changes, product-repo changes, raw source extraction, or runtime activation.

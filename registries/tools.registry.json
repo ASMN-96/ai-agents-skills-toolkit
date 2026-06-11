@@ -2673,98 +2673,104 @@
       ]
     },
     {
-      "id": "code-review-graph",
-      "name": "code-review-graph",
-      "repository": "tirth8205/code-review-graph",
-      "homepage": null,
-      "purpose": "local-first code intelligence graph for MCP/CLI and large-repo context mapping",
-      "category": "source-intelligence",
-      "status": "active-read-only",
+      "id": "repomix",
+      "name": "Repomix",
+      "repository": "yamadashy/repomix",
+      "homepage": "https://repomix.com",
+      "purpose": "AI-friendly scoped repository context packing and token counting when project-owned or owner-approved.",
+      "category": "context-packing",
+      "status": "active-if-detected",
       "activationStatus": "metadata-only",
       "runtimeSurface": "external-tool-metadata",
-      "defaultUse": "read-only source intelligence; no indexing or execution without approval",
+      "defaultUse": "metadata-only detection for project-owned config/dependency; explicit owner approval required before scoped context packs, token counts, or install",
       "approvalRequiredFor": [
         "install",
         "activation",
+        "package changes",
         "CI wiring",
         "MCP setup",
         "global config",
-        "package changes",
-        "indexing",
+        "whole-repo packing",
         "product repo scanning",
-        "hooks",
         "PR write permissions",
         "networked deep scans"
       ],
       "allowedUse": [
-        "Document as source intelligence.",
-        "Use for manual/static source intelligence and context-selection planning.",
-        "Use as reviewed metadata for future approval decisions."
+        "Document as optional context-packing support.",
+        "Detect project-owned config or dependency before recommending use.",
+        "Use for scoped context packs or token counts only after explicit owner approval, even when project-owned or detected."
       ],
       "forbiddenUse": [
         "Do not install or activate from registry presence.",
-        "Do not configure CI, MCP, hooks, credentials, package changes, indexing, product repo scanning, or global settings.",
+        "Do not produce automatic whole-repo dumps.",
+        "Do not configure CI, MCP, hooks, credentials, package changes, product repo scanning, or global settings.",
         "Do not copy raw upstream files into active runtime paths."
       ],
-      "sourceRecordPath": ".ai-toolkit/sources/records/code-review-graph.md",
+      "sourceRecordPath": ".ai-toolkit/sources/records/repomix.md",
       "integrationRecordPath": null,
-      "notes": "Active-read-only source intelligence; install, MCP, indexing, global config, CI wiring, package changes, and product repo scanning remain approval-required.",
+      "notes": "Optional scoped context packing/token counting only; no default install, whole-repo dump, MCP, CI, package, global config, or evidence claim without approval and observed output.",
       "enterpriseRisk": {
         "license": "MIT signal at reviewed commit; not legal approval to copy raw upstream content",
-        "saasOrLocal": "local-first Python package with CLI, MCP, daemon, and VS Code surfaces; metadata-only in toolkit",
-        "dataSentExternally": "none from toolkit metadata; unknown and approval-required if tool or optional integrations are installed or run",
-        "networkBehavior": "metadata-only in toolkit; upstream includes MCP/HTTP server and optional network-capable integrations, approval required before use",
-        "secretAccessRisk": "high if run against product repositories; no product repo scanning, whole-repo dumping, or private-overlay indexing is approved",
-        "repositoryPermissionsRequired": "none from toolkit metadata; local repo read/index permissions only if separately approved",
+        "saasOrLocal": "local CLI/package if installed by project; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown and approval-required if optional integrations or remote outputs are configured",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "high if run broadly; scoped packs must exclude secrets, .env values, private overlays, caches, and generated output",
+        "repositoryPermissionsRequired": "none from toolkit metadata; local repo read permissions only if separately approved or project-owned",
         "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains approval-required",
         "githubAppPermissionsRequired": "none from toolkit metadata",
-        "authenticationModel": "none from toolkit metadata; optional external integrations are not approved",
+        "authenticationModel": "none from toolkit metadata",
         "telemetryBehavior": "none approved or activated from toolkit metadata",
-        "commercialVendorDependency": "none for metadata-only posture; optional external integrations remain unapproved",
-        "maintenanceSignal": "active public repo at reviewed commit; not runtime-approved",
-        "lastReviewedCommit": "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
-        "lastReviewedDate": "2026-06-05",
-        "securityReviewStatus": "completed source-safety review for active-read-only metadata; execution, install, indexing, MCP, package changes, CI, and product scanning remain approval-required",
-        "approvalOwner": "source-intelligence-owner-required-before-execution",
+        "commercialVendorDependency": "none for metadata-only posture; package/runtime use remains owner-approved or project-owned",
+        "maintenanceSignal": "active public repository at reviewed commit; not runtime-approved by toolkit metadata",
+        "lastReviewedCommit": "fc69dcc31357d5db934f67ceaff4150f67e4735c",
+        "lastReviewedDate": "2026-06-11",
+        "securityReviewStatus": "source-safety posture reviewed for optional scoped context packing; execution, install, package changes, CI, MCP, global config, and whole-repo dumps remain approval-required",
+        "approvalOwner": "project-owner-required-before-install-or-execution",
         "allowedEnvironments": [
-          "metadata-only"
+          "metadata-only",
+          "project-owned detected local tool after scoped owner approval"
         ],
         "forbiddenEnvironments": [
-          "local execution",
+          "automatic local execution",
           "CI",
           "staging",
           "production",
           "global config",
           "MCP",
-          "product repositories"
+          "whole-repo dumps",
+          "product repositories without scoped owner approval"
         ],
-        "defaultEnterpriseStatus": "metadata-only active-read-only source intelligence unless explicitly approved; not enterprise-approved for execution, indexing, MCP, CI, package changes, or product repo scanning",
+        "defaultEnterpriseStatus": "metadata-only detection; scoped local context packing requires explicit owner approval even when project-owned or detected; not enterprise-approved for default execution, CI, MCP, package changes, global config, or whole-repo dumps",
         "reviewState": "reviewed",
-        "reviewEvidence": "Recorded active-read-only source-safety metadata exists in this registry; execution, install, indexing, MCP, package changes, and product-repository writes remain forbidden unless separately approved."
+        "reviewEvidence": "Repomix default branch fc69dcc31357d5db934f67ceaff4150f67e4735c recorded as optional source reference; registry presence does not approve install or execution."
       },
-      "projectInstallClass": "active-read-only",
+      "projectInstallClass": "active-if-detected",
       "lane": "Architecture, Repo Intelligence, and Token Context",
       "projectTypes": [
         "architecture-hardening",
         "large-context"
       ],
-      "evidenceMode": "manual/static source intelligence or actual tool output only if separately approved and run",
-      "installLocation": "read-only source/reference",
+      "evidenceMode": "token counts or scoped pack output only if approved command actually ran",
+      "installLocation": "target project only after owner approval or existing project-owned config",
       "defaultInstall": false,
       "requiresOwnerApproval": true,
-      "conflictGroup": "context-graph",
-      "preferredRole": "read-only source intelligence; no indexing",
+      "whenDetected": "project-owned Repomix config or dependency detected as metadata only; execution still requires scoped owner approval",
+      "whenAbsent": "Owner-approved install or skip",
+      "ciDefault": "not configured; local scoped advisory only",
+      "ciPromotion": "not promoted to CI by default; owner-approved CI only after stable policy",
+      "conflictGroup": "context-packing",
+      "preferredRole": "optional scoped context/token-count support",
       "forbiddenActions": [
         "Do not install from registry presence.",
         "Do not run from registry presence.",
         "Do not make package changes from registry presence.",
         "Do not wire CI from registry presence.",
-        "Do not configure MCP, indexing, product repo scanning, or global config from registry presence.",
-        "Do not claim output unless the tool actually ran."
+        "Do not configure MCP, whole-repo packing, product repo scanning, or global config from registry presence.",
+        "Do not claim output unless Repomix actually ran with approved scope."
       ],
       "activationLevels": [
-        "static-adopted",
-        "forbidden-runtime"
+        "active-if-detected",
+        "owner-approved-install"
       ]
     },
     {

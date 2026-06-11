@@ -46,7 +46,10 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | agency-agents | Agency Agents | archive-candidate | Archived from active freshness monitoring | Source record only | Re-add only if a concrete owner-approved method emerges | No agent/runtime import |
 | superpowers | Superpowers | active-method | Do later | TDD/verification/source-safety references; external plugin delegation | Keep toolkit-owned guardrails minimal | Do not duplicate plugin workflows |
 | everything-claude-code | Everything Claude Code | active-method | Do later | v0.2.3 `SYNCED_REFERENCE`; `methods/internal/source-safety-scoring.md` | Keep cross-harness config/hook/MCP/session risks in source-safety method | No active Claude/Cursor/Cline/OpenHands support claim, global config, hook, session adapter, control-plane, or MCP import |
-| code-review-graph | code-review-graph | active-read-only | Do later | v0.2.3 `SYNCED_ADOPTED`; context graph/token governance methods | Keep context graph methods tied to source-only planning | No install, CLI, MCP, global config, product indexing/scanning, generated graph output, or whole-repo dump |
+| aider-repo-map | Aider repo map | active-method | Do later | Primary compact project-map design model for Project Context Preflight | Keep project-map guidance concise and measured | No Aider install, raw docs/code copying, or generated map/output claims |
+| openai-prompt-caching | OpenAI prompt caching | active-method | Do later | Stable prompt-prefix guidance for project-map-first context layout | Keep static context first and task-specific context last | No cache-hit/cost claim without runtime evidence; no secret exposure for caching |
+| openai-codex-behavior-boundaries | OpenAI Codex behavior boundaries | active-method | Do later | AGENTS.md, skills, and subagent boundary reference | Keep toolkit from duplicating Codex runtime behavior | No second runtime, default subagents, loop agents, global config, or runtime activation claims |
+| repomix | Repomix | active-reference | Do later | Optional scoped context packing/token-count support when detected or owner-approved | Keep optional tool posture and scoped-pack checklist current | No default install, automatic whole-repo dump, package edits, CI, MCP, global config, or output claim without observed execution |
 | ruflo | RuFlo | active-method | Do later | v0.2.3 `SYNCED_ADOPTED`; `methods/orchestration/static-task-state-handoff-ledger.md` | Keep static task-state, handoff, stop-condition, and failure-accounting discipline current | No daemon, worker, hook, MCP, memory, plugin, package, script, background runtime, file watcher, global config, or runtime persistence |
 | gitlab-agent-skills | GitLab Agent Skills Docs | reference-only-with-reason | Do later | Manual reviewed-doc tracking for `methods/internal/skill-anatomy.md` | Periodic owner review of official docs URL and source-record notes | No live GitHub/GitLab freshness claim, raw docs copying, GitLab-specific structure adoption, install, activation, or runtime integration |
 | gitlab-agentic-tool-development | GitLab Agentic Tool Development Docs | reference-only-with-reason | Do later | Manual reviewed-doc tracking for cross-harness architecture reference | Periodic owner review before any normalized method extraction | No live GitHub/GitLab freshness claim, MCP/server creation, product integration, raw docs copying, install, activation, or runtime integration |
@@ -91,7 +94,7 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | reviewdog | reviewdog | active-profile-route | Do later | Deterministic PR feedback metadata | Scanner-output transport only | Do not duplicate CodeRabbit AI review |
 | coderabbit | CodeRabbit | active-profile-route | Needs owner decision | Delegated contextual PR review integration | Use only when connected and approved per repo | No install/config/GitHub app permission change |
 | github-gh | GitHub/gh | active-profile-route | Do later | Delegated repo operations | PR/check/status evidence | No PR write/merge without explicit task |
-| code-review-graph | code-review-graph | active-read-only | Do later | Metadata-only source intelligence | Context graph and token budget governance methods | No install, CLI, MCP, global config, product indexing/scanning, or whole-repo dump |
+| repomix | Repomix | active-profile-route | Do later | Optional scoped context packing/token-count metadata | Scoped pack/token-count support only when project-owned or owner-approved | No install, whole-repo dump, CI, MCP, global config, package edit, or output claim without observed execution |
 | open-design | open-design | active-reference | Do later | Metadata-only UIUX reference | Keep as read-only design intelligence | No install, MCP, global config, raw design-system import, or unmanaged persistence |
 | openssf-scorecard | OpenSSF Scorecard | planned-extraction | Do later | Source-trust metadata | Source safety scoring criteria | No tool execution by default |
 | dependency-cruiser | dependency-cruiser | active-profile-route | Do later | Active-install-if-project-type architecture hardening metadata | Dependency-boundary review heuristics | No install or generated graph by default |
@@ -136,7 +139,7 @@ The following project install classes are metadata-only recommendation posture. 
 - trufflehog: approval-required.
 - owasp-zap-baseline: approval-required.
 - harden-runner: approval-required.
-- code-review-graph: active-read-only.
+- repomix: active-if-detected.
 - open-design: active-reference.
 - eslint-plugin-boundaries: active-install-if-project-type.
 - Impeccable project-local install mode: approval-required.
@@ -166,7 +169,7 @@ The project install classes above remain metadata-only. v0.2.2 adds a stronger d
 - Vercel find-skills: `SYNCED_REFERENCE`; historical discovery reference only, first-party Vercel plugin/docs preferred for live Vercel work.
 - Impeccable: `SYNCED_ADOPTED`; UI quality concepts adopted, including accessibility-hidden text overflow false-positive discipline; CLI/live-browser/detector/package/Dependabot/CI workflow behavior rejected.
 - Everything Claude Code: `SYNCED_REFERENCE`; cross-harness source-safety awareness retained, no active cross-runtime support claims.
-- code-review-graph: `SYNCED_ADOPTED`; active read-only context/token governance methods retained.
+- Repomix: `SYNCED_REFERENCE`; optional scoped context packing/token-count support only when project-owned or owner-approved.
 - RuFlo: `SYNCED_ADOPTED`; static task-state/handoff discipline adopted, runtime memory/hooks/MCP/daemon/global behavior forbidden.
 
 ## Rejected Operations
@@ -175,5 +178,5 @@ The project install classes above remain metadata-only. v0.2.2 adds a stronger d
 - [Reject / not aligned] No open-design install, MCP setup, global config, or unmanaged design-system persistence.
 - [Reject / not aligned] No UI UX Pro Max activation or raw upstream prompt copying.
 - [Reject / not aligned] No RuFlo daemon, worker, hook, MCP, memory, plugin, package, script, or background runtime.
-- [Reject / not aligned] No code-review-graph CLI/MCP/global config/product-repo indexing or whole-repo context dumping.
+- [Reject / not aligned] No Repomix default install, automatic whole-repo dump, package edit, CI wiring, MCP/global config, product-repo scanning, or output claim without observed execution.
 - [Reject / not aligned] No source/tool record may be treated as approval to run, install, activate, extract, sync, or publish.

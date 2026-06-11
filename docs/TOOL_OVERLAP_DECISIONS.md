@@ -84,12 +84,12 @@ These decisions prevent duplicate blockers, conflicting lint/format authority, n
 - When to avoid: no browser target or backend-only scope.
 - Evidence requirement: actual report, screenshots, traces, or documented unavailability.
 
-## dependency-cruiser vs Madge vs eslint-plugin-boundaries vs code-review-graph
+## dependency-cruiser vs Madge vs eslint-plugin-boundaries vs Repomix
 
 - Default winner: dependency-cruiser for architecture hardening.
-- Complementary tool: Madge for circular dependency risk, jscpd for duplication, eslint-plugin-boundaries after layers stabilize and owner approval exists, code-review-graph as active-read-only source intelligence.
+- Complementary tool: Madge for circular dependency risk, jscpd for duplication, eslint-plugin-boundaries after layers stabilize and owner approval exists, Repomix only for scoped context packs/token counts when project-owned or owner-approved.
 - Conflict rule: do not install graph/indexing/MCP/global tooling or scan product repos by default; do not enforce boundaries before layers are agreed.
-- When to activate: dependency-cruiser, Madge, and jscpd as `active-if-detected` when project-owned or `owner-approved-install` when absent; code-review-graph remains active-read-only source intelligence.
+- When to activate: dependency-cruiser, Madge, jscpd, and Repomix as `active-if-detected` when project-owned or `owner-approved-install` when absent; Repomix must not run whole-repo dumps or claim output without observed execution.
 - When to avoid: small local changes or unapproved indexing.
 - Evidence requirement: tool output when run, architecture assumptions, and context-selection rationale.
 

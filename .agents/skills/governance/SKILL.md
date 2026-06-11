@@ -50,7 +50,8 @@ For large tasks, source reviews, implementation plans, PR reviews, or multi-agen
 - omitted context and reason
 - source, method, and profile references used
 - private-overlay, secret, credential, and product-repo exclusions
-- graph evidence label: `manual/static`, `tool-generated`, `metadata-only`, or `not invoked`
+- context evidence label: `project-map`, `manual/static`, or `tool-generated`
+- status values such as `metadata-only` or `not invoked` must be reported as status, not as context evidence labels
 
 ## Completion Evidence
 

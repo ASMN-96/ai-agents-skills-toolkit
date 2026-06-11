@@ -2046,17 +2046,18 @@
       ]
     },
     {
-      "id": "orchestration.context-graph-token-budget",
-      "displayName": "Context Graph Token Budget",
+      "id": "orchestration.project-context-preflight",
+      "displayName": "Project Context Preflight",
       "area": "orchestration",
-      "methodPath": "methods/orchestration/context-graph-token-budget.md",
-      "purpose": "Require compact, justified context selection for large tasks instead of whole-repo or whole-registry dumping.",
-      "whenToUse": "Use for large audits, PR reviews, implementation plans, multi-agent handoffs, source utilization reviews, or any task where context volume can hide risk or expose private material.",
-      "whenNotToUse": "Do not use for small typo, wording, or narrow single-file explanations where the relevant context is obvious.",
+      "methodPath": "methods/orchestration/project-context-preflight.md",
+      "purpose": "Provide a compact trusted project map at task start so Codex can choose focused context before broad exploration.",
+      "whenToUse": "Use when repeated repo discovery would waste context, when task routing depends on package/scripts/key files, or before large audits, reviews, plans, and handoffs.",
+      "whenNotToUse": "Do not use as proof that validation, tools, Repomix, browser checks, or subagents ran.",
       "passiveConsumerAgents": [
         "Product Agent",
         "Architect Agent",
         "Skill Scout Agent",
+        "Security Agent",
         "Reviewer Agent",
         "Release Manager Agent"
       ],
@@ -2069,19 +2070,28 @@
       ],
       "riskDomains": [
         "orchestration",
-        "source-intelligence"
+        "source-intelligence",
+        "token-efficiency"
       ],
       "validationGates": [
-        "Report token mode, selected context pack, direct-neighbor rationale, explicit exclusions, and whether graph evidence was actual output or metadata-only."
+        "Report project-map freshness, token mode, selected context, direct-neighbor rationale, explicit exclusions, and unavailable evidence."
       ],
       "sourceProvenance": [
         {
-          "path": "sources/code-review-graph.md",
+          "path": "sources/aider-repo-map.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/openai-prompt-caching.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/openai-codex-behavior-boundaries.md",
           "category": "external-source"
         }
       ],
-      "licenseStatus": "code-review-graph source record reports an MIT signal for the reviewed commit and active-read-only metadata posture; this method is toolkit-owned and does not copy upstream code, prompts, CLI behavior, MCP setup, or indexing behavior.",
-      "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
+      "licenseStatus": "Aider, OpenAI, and toolkit-authored source records are used as documentation/design references only; no raw source, prompt, script, or generated output is copied.",
+      "rawCopyPolicy": "No raw upstream source, docs, prompts, code, CLI behavior, MCP configuration, subagent workflow, or generated context output is copied into this method.",
       "status": [
         "documented",
         "available",
@@ -2131,12 +2141,20 @@
       ],
       "sourceProvenance": [
         {
-          "path": "sources/code-review-graph.md",
+          "path": "sources/aider-repo-map.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/openai-prompt-caching.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/openai-codex-behavior-boundaries.md",
           "category": "external-source"
         }
       ],
-      "licenseStatus": "code-review-graph source record reports an MIT signal for the reviewed commit and active-read-only metadata posture; this method is toolkit-owned and uses only normalized context-selection guidance.",
-      "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
+      "licenseStatus": "Aider and OpenAI source records are used as documentation/design references only; this method is toolkit-owned and uses normalized focused-context guidance.",
+      "rawCopyPolicy": "No raw upstream source, docs, prompts, code, CLI behavior, MCP configuration, or generated context output is copied into this method.",
       "status": [
         "documented",
         "available",
@@ -2166,6 +2184,7 @@
         "Product Agent",
         "Architect Agent",
         "Skill Scout Agent",
+        "Security Agent",
         "Reviewer Agent",
         "Release Manager Agent",
         "SRE Performance Agent"
@@ -2186,12 +2205,24 @@
       ],
       "sourceProvenance": [
         {
-          "path": "sources/code-review-graph.md",
+          "path": "sources/aider-repo-map.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/openai-prompt-caching.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/openai-codex-behavior-boundaries.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/repomix.md",
           "category": "external-source"
         }
       ],
-      "licenseStatus": "code-review-graph source record reports an MIT signal for the reviewed commit and active-read-only metadata posture; this method is toolkit-owned and does not activate external graph tooling.",
-      "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
+      "licenseStatus": "Aider, OpenAI, and Repomix source records are used as documentation/design references only; Repomix remains optional but owner-approved-only for scoped use, and no raw upstream content is copied.",
+      "rawCopyPolicy": "No raw upstream source, docs, prompts, code, CLI behavior, package configuration, MCP configuration, or generated context output is copied into this method.",
       "status": [
         "documented",
         "available",
@@ -2210,13 +2241,13 @@
       ]
     },
     {
-      "id": "orchestration.stale-context-graph-detection",
-      "displayName": "Stale Context Graph Detection",
+      "id": "orchestration.project-map-staleness-check",
+      "displayName": "Project Map Staleness Check",
       "area": "orchestration",
-      "methodPath": "methods/orchestration/stale-context-graph-detection.md",
-      "purpose": "Detect and report stale context, graph, source, registry, or runtime evidence before implementation or release claims.",
-      "whenToUse": "Use when an audit, plan, or review depends on previous graph-like context, source freshness, generated reports, registries, mirrors, or runtime state.",
-      "whenNotToUse": "Do not use as a reason to run external graph tools or index product repos without explicit approval.",
+      "methodPath": "methods/orchestration/project-map-staleness-check.md",
+      "purpose": "Detect and report stale project-map, source, registry, or runtime evidence before implementation, review, or release claims.",
+      "whenToUse": "Use when a task, audit, review, or handoff depends on .ai-toolkit/context/project-map.json, source freshness, generated reports, registries, mirrors, or runtime state.",
+      "whenNotToUse": "Do not use as a reason to install tools, create loop agents, activate MCP, or index product repos without explicit approval.",
       "passiveConsumerAgents": [
         "Architect Agent",
         "Skill Scout Agent",
@@ -2241,12 +2272,20 @@
       ],
       "sourceProvenance": [
         {
-          "path": "sources/code-review-graph.md",
+          "path": "sources/aider-repo-map.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/openai-prompt-caching.md",
+          "category": "external-source"
+        },
+        {
+          "path": "sources/openai-codex-behavior-boundaries.md",
           "category": "external-source"
         }
       ],
-      "licenseStatus": "code-review-graph source record reports an MIT signal for the reviewed commit and active-read-only metadata posture; this method is toolkit-owned and does not activate external graph tooling.",
-      "rawCopyPolicy": "No raw upstream source, prompts, code, CLI behavior, MCP configuration, or graph output is copied into this method.",
+      "licenseStatus": "Aider, OpenAI, and toolkit-authored source records are used as documentation/design references only; no raw source, prompt, script, or generated output is copied.",
+      "rawCopyPolicy": "No raw upstream source, docs, prompts, code, CLI behavior, MCP configuration, subagent workflow, or generated context output is copied into this method.",
       "status": [
         "documented",
         "available",

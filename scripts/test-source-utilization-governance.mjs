@@ -8,16 +8,17 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SOURCE_UTILIZATION_REPORT = "docs/SOURCE_UTILIZATION_MATRIX.md";
 const REQUIRED_CONTEXT_METHODS = [
-  "orchestration.context-graph-token-budget",
+  "orchestration.project-context-preflight",
   "orchestration.changed-file-neighborhood-selection",
   "orchestration.compact-agent-context-pack",
-  "orchestration.stale-context-graph-detection"
+  "orchestration.project-map-staleness-check"
 ];
 const REQUIRED_TOKEN_EVALS = [
   "large-task-compact-context-pack",
   "changed-file-neighborhood-no-whole-repo-dump",
   "private-overlay-exclusion-required",
-  "stale-context-graph-detection-required"
+  "project-map-staleness-check-required",
+  "project-context-preflight-no-loop-agents"
 ];
 
 async function readJson(relativePath) {
@@ -64,7 +65,7 @@ test("source utilization report classifies every watched source and registered t
   assert.doesNotMatch(report, /\|\s*matt-pocock-skills\s*\|[^\n]*Refresh reviewed commit/);
 });
 
-test("context graph token governance methods are registered and backed by method files", async () => {
+test("project context preflight methods are registered and backed by method files", async () => {
   const registry = await readJson("registries/methods.registry.json");
   const ids = new Set(registry.methods.map((method) => method.id));
 
@@ -74,8 +75,10 @@ test("context graph token governance methods are registered and backed by method
     assert.ok(method.methodPath, `missing methodPath for ${methodId}`);
     const text = await readText(method.methodPath);
     assert.match(text, /^---\r?\n/);
-    assert.match(text, /sourceRef:/);
-    assert.match(text, /sourceRef:\s*\["code-review-graph"\]/);
+    const frontmatter = text.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] || "";
+    const sourceRefLine = frontmatter.match(/^\s*sourceRef:\s*(.+)$/m)?.[1] || "";
+    assert.ok(sourceRefLine.length > 0, `missing sourceRef value for ${methodId}`);
+    assert.match(sourceRefLine, /\b(aider-repo-map|openai-prompt-caching|toolkit-authored)\b/);
     assert.match(text, /secret|private-overlay|whole-repo|MCP|global config/i);
     assert.match(text, /Passive Visibility/);
     assert.match(text, /passive governance guidance only/);
@@ -83,7 +86,7 @@ test("context graph token governance methods are registered and backed by method
   }
 });
 
-test("compact agent context pack defines token modes and graph evidence labels", async () => {
+test("compact agent context pack defines token modes and context evidence labels", async () => {
   const text = await readText("methods/orchestration/compact-agent-context-pack.md");
 
   for (const required of [
@@ -91,6 +94,7 @@ test("compact agent context pack defines token modes and graph evidence labels",
     "`concise`",
     "`standard`",
     "`detailed`",
+    "`project-map`",
     "`manual/static`",
     "`tool-generated`"
   ]) {

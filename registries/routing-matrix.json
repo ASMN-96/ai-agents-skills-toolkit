@@ -154,10 +154,10 @@
         "internal.source-safety-scoring",
         "internal.skill-anatomy",
         "internal.documentation-accuracy-guard",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.project-map-staleness-check"
       ]
     },
     {
@@ -354,10 +354,10 @@
       "methodReferences": [
         "backend.supabase-postgres-rls-gates",
         "security.differential-security-review",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.project-map-staleness-check"
       ]
     },
     {
@@ -409,10 +409,10 @@
         "backend.database-access-isolation-gates",
         "security.differential-security-review",
         "api.api-contract-and-routing-readiness",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.project-map-staleness-check"
       ]
     },
     {
@@ -459,10 +459,10 @@
         "backend.database-access-isolation-gates",
         "backend.supabase-postgres-rls-gates",
         "osmani.performance-optimization",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection",
+        "orchestration.project-map-staleness-check",
         "performance.performance-scalability-cache-readiness"
       ]
     },
@@ -512,10 +512,10 @@
       "methodReferences": [
         "osmani.api-interface-design",
         "security.differential-security-review",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection",
+        "orchestration.project-map-staleness-check",
         "api.api-contract-and-routing-readiness"
       ]
     },
@@ -560,10 +560,10 @@
       "methodReferences": [
         "security.differential-security-review",
         "osmani.security-hardening",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection",
+        "orchestration.project-map-staleness-check",
         "security.application-security-readiness"
       ]
     },
@@ -609,10 +609,10 @@
       "methodReferences": [
         "security.differential-security-review",
         "internal.source-safety-scoring",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.project-map-staleness-check"
       ]
     },
     {
@@ -759,10 +759,10 @@
         "osmani.shipping-launch",
         "internal.engineering-lifecycle-gates",
         "security.differential-security-review",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection",
+        "orchestration.project-map-staleness-check",
         "reliability.coding-time-production-readiness",
         "reliability.observability-readiness",
         "release.release-rollback-readiness"
@@ -812,10 +812,10 @@
         "internal.source-discovery-workflow",
         "internal.source-safety-scoring",
         "internal.skill-anatomy",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.project-map-staleness-check"
       ]
     },
     {
@@ -855,7 +855,7 @@
       "methodReferences": [
         "matt.git-guardrails",
         "internal.engineering-lifecycle-gates",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.project-map-staleness-check"
       ]
     },
     {
@@ -1022,10 +1022,10 @@
         "security.differential-security-review",
         "backend.supabase-postgres-rls-gates",
         "osmani.security-hardening",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.project-map-staleness-check"
       ]
     },
     {
@@ -1117,10 +1117,10 @@
       "methodReferences": [
         "security.differential-security-review",
         "backend.supabase-postgres-rls-gates",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection",
+        "orchestration.project-map-staleness-check",
         "security.application-security-readiness"
       ]
     },
@@ -1171,8 +1171,8 @@
         "matt.git-guardrails",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.context-graph-token-budget",
-        "orchestration.stale-context-graph-detection",
+        "orchestration.project-context-preflight",
+        "orchestration.project-map-staleness-check",
         "release.release-rollback-readiness"
       ]
     },
@@ -1218,10 +1218,10 @@
       "methodReferences": [
         "internal.source-discovery-workflow",
         "internal.source-safety-scoring",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.project-map-staleness-check"
       ]
     },
     {
@@ -1271,10 +1271,10 @@
       "methodReferences": [
         "internal.engineering-lifecycle-gates",
         "internal.source-safety-scoring",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection"
+        "orchestration.project-map-staleness-check"
       ]
     },
     {
@@ -1320,7 +1320,7 @@
         "Compact context pack includes source/method/profile references",
         "Omitted context and reason recorded",
         "Private/secret/product-repo exclusions recorded",
-        "Graph evidence labeled as tool-generated, manual/static, metadata-only, or not invoked",
+        "Project context evidence labeled as project-map, tool-generated, manual/static, metadata-only, or not invoked",
         "GSD phase/state or manual fallback recorded",
         "Superpowers workflow/status recorded",
         "Final audit/test/validation pass completed before commit and PR"
@@ -1336,10 +1336,10 @@
       "tokenMode": "detailed",
       "methodReferences": [
         "internal.engineering-lifecycle-gates",
-        "orchestration.context-graph-token-budget",
+        "orchestration.project-context-preflight",
         "orchestration.changed-file-neighborhood-selection",
         "orchestration.compact-agent-context-pack",
-        "orchestration.stale-context-graph-detection",
+        "orchestration.project-map-staleness-check",
         "governance.task-intake-routing-gate",
         "reliability.coding-time-production-readiness",
         "release.release-rollback-readiness"

@@ -55,7 +55,7 @@ Classify normal-language requests before coding: affected surfaces, required age
 - deep networked scans
 - MCP/global config changes
 - package-manager/workspace migrations
-- code-review-graph install, indexing, MCP/global config, or product repo scanning
+- Repomix install/execution, package changes, CI wiring, MCP/global config, whole-repo packing, or product repo scanning
 
 ## Active-Reference Resources
 
@@ -65,7 +65,7 @@ Classify normal-language requests before coding: affected surfaces, required age
 
 ## Active-Read-Only Resources
 
-- code-review-graph source intelligence with no install, package change, indexing, MCP/global config, CI wiring, product repo scanning, or evidence claim without actual output
+- Project Context Preflight and project-map staleness guidance with no external tool execution, context-pack, token-count, or validation claim without observed output
 
 ## Recommended Package Scripts
 

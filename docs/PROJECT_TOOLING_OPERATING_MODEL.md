@@ -74,7 +74,7 @@ Socket, TruffleHog, OWASP ZAP baseline, Harden-Runner, deep networked scans, pac
 
 ## Final Current-Scope Classifications
 
-No final current-scope project-tooling resource may remain `pilot-only`. code-review-graph is active-read-only source intelligence with no default install, indexing, MCP/global config, CI wiring, package changes, product repo scanning, or evidence claim without actual output. open-design is active-reference design intelligence only. eslint-plugin-boundaries is active-install-if-project-type only after architecture layers are stable and owner-approved. Impeccable project-local install mode is approval-required while normalized Impeccable guidance remains active-reference. Base UI and Figma are removed from current scope and must not appear as active/default recommendations.
+No final current-scope project-tooling resource may remain `pilot-only`. Project Context Preflight is toolkit-owned context guidance. Repomix is active-if-detected or owner-approved-install only for scoped packs/token counts, with no default install, whole-repo dump, package changes, CI wiring, MCP/global config, product repo scanning, or evidence claim without actual output. open-design is active-reference design intelligence only. eslint-plugin-boundaries is active-install-if-project-type only after architecture layers are stable and owner-approved. Impeccable project-local install mode is approval-required while normalized Impeccable guidance remains active-reference. Base UI and Figma are removed from current scope and must not appear as active/default recommendations.
 
 ## Task-Intake Routing
 

@@ -78,7 +78,7 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/sre-
 - `methods/osmani/shipping-launch.md`
 - `methods/uiux/webapp-testing.md`
 - `methods/security/differential-security-review.md`
-- `methods/orchestration/context-graph-token-budget.md`
+- `methods/orchestration/project-context-preflight.md`
 - `methods/orchestration/changed-file-neighborhood-selection.md`
 - `methods/orchestration/compact-agent-context-pack.md`
 - `docs/NO_FAKE_VALIDATION_POLICY.md`
@@ -86,4 +86,4 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/sre-
 - `sources/addy-osmani-agent-skills.md`
 - `sources/addyosmani-web-quality-skills.md`
 - `sources/playwright.md`
-- `sources/code-review-graph.md`
+- `sources/repomix.md`
