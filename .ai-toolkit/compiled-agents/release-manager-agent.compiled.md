@@ -4,12 +4,12 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 0302f92cee82aba32ef543a246072bb5dba40994
+source_commit: 31b58ca18d03a4557aa5ef5cee3553c051dbd3d0
 source_agent: agents/release-manager-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/release-profile.md", "profiles/implementation-profile.md"]
-source_method_refs: ["internal.engineering-lifecycle-gates", "internal.skill-anatomy", "karpathy.goal-driven-execution", "matt.git-guardrails", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.shipping-launch", "security.differential-security-review", "orchestration.context-graph-token-budget", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.stale-context-graph-detection", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "release.release-rollback-readiness"]
+source_method_refs: ["internal.engineering-lifecycle-gates", "internal.skill-anatomy", "karpathy.goal-driven-execution", "matt.git-guardrails", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.shipping-launch", "security.differential-security-review", "orchestration.project-context-preflight", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.project-map-staleness-check", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -478,51 +478,51 @@ Reading the whole repo before classifying the diff, burying serious findings und
 
 Inspired by the reviewed Trail of Bits Skills source record. GitHub API reported CC-BY-SA-4.0 for that source, so this method intentionally uses only normalized and paraphrased review discipline. It is not raw upstream activation.
 
-### orchestration.context-graph-token-budget
+### orchestration.project-context-preflight
 
-Source: `methods/orchestration/context-graph-token-budget.md`
+Source: `methods/orchestration/project-context-preflight.md`
 
-# Context Graph Token Budget
+# Project Context Preflight
 
-Use this method when a task is large enough that full-registry, full-repo, or full-source dumping would waste context or expose private material.
+Use this method at task start when repeated repo discovery would waste context, increase token cost, or make file targeting slower.
 
 ## Purpose
 
-Token budgeting is a governance requirement. A large task must identify the smallest useful context graph before routing agents, writing plans, or reviewing diffs.
+Project Context Preflight gives Codex a compact, trusted project map before broad exploration. The map is project intelligence only; Codex remains the runtime and decides what to inspect, edit, and verify.
 
 ## Required Inputs
 
+- `.ai-toolkit/context/project-map.json` when present and fresh
 - task goal and risk level
-- changed files or intended files
-- selected profile and inline agent lenses
-- relevant source/method/profile records
-- private-overlay and secret boundaries
+- selected toolkit agents, profiles, skills, methods, and validation commands
+- current target git head and staleness hashes
+- private-overlay, secret, and generated-output exclusions
 
-## Budget Rules
+## Task-Start Rules
 
-- Start from the changed files or explicitly requested area.
-- Add only direct neighbors: imported modules, exported contracts, tests, policy docs, source records, and profile/method records that can change the decision.
-- Summarize stable registries instead of pasting full JSON.
-- Report the selected token mode: `concise`, `standard`, or `detailed`.
-- Record what was intentionally excluded and why.
+1. Check whether `.ai-toolkit/context/project-map.json` exists and matches the current target git head.
+2. If the map is stale, unsafe, or missing for a map-dependent task, stop and report the limitation before broad exploration.
+3. Choose token mode: `concise`, `standard`, or `detailed`.
+4. Identify likely files from `keyFiles`, `sourceLocations`, `testLocations`, `configFiles`, package scripts, and validation commands.
+5. Report the selected context before expanding to broader repo search.
+
+## Token Modes
+
+- `concise`: key files, direct task file, and one validation command are enough.
+- `standard`: key files, direct neighbors, relevant tests, validators, and one policy or method reference are needed.
+- `detailed`: architecture, security, release, or source-provenance context is needed and explicitly justified.
+
+## Prompt-Caching Layout
+
+- Put stable toolkit/project context first.
+- Put the project map summary before task-specific file excerpts.
+- Put volatile user/task-specific content last.
+- Do not churn static map field ordering without a schema reason.
 
 ## Hard Boundaries
 
-- Do not dump a whole repo or whole-repo graph into context.
-- Do not index secrets, private overlays, credentials, tokens, cookies, environment files, or user-private paths.
-- Do not activate code-review-graph, MCP, CLI, global config, hooks, background indexing, or product-repo indexing from this method.
-- Do not claim graph evidence unless an approved tool actually ran and produced output.
-
-## Acceptance Criteria
-
-- The plan or review names the compact context pack used.
-- Every added context item has a reason tied to the task.
-- Private-overlay and secret exclusions are explicit.
-- Missing graph evidence is reported as missing, not inferred.
-
-## Passive Visibility
-
-This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+- Do not dump a whole repo or whole-repo packed file into context by default.
+- Do not include absolute paths, `.env` values, secrets, credentials, private overlays, raw full-file dumps, package caches, or generated build output.
 
 ### orchestration.changed-file-neighborhood-selection
 
@@ -534,32 +534,33 @@ Use this method before audits, PR reviews, implementation planning, and agent ha
 
 ## Purpose
 
-Select the smallest trustworthy neighborhood around the changed files so review quality improves without whole-repo context dumping.
+Select the smallest trustworthy neighborhood around the changed files so review quality improves without whole-repo context dumping. Prefer the project map when fresh, then confirm with focused file reads.
 
 ## Selection Order
 
 1. Changed files and directly edited docs/configs.
 2. Tests, evals, validators, or generated mirrors that prove the changed behavior.
 3. Direct import/export neighbors and shared contracts.
-4. Referenced methods, skills, profiles, and source records.
-5. Release, security, or public/private boundary docs only when the change crosses those gates.
+4. Fresh project-map entries: key files, source locations, test locations, config files, scripts, and validation commands.
+5. Referenced methods, skills, profiles, and source records.
+6. Release, security, or public/private boundary docs only when the change crosses those gates.
 
 ## Exclusion Rules
 
 - Exclude secrets, environment files, private overlays, user-local files, logs, generated artifacts, package caches, and unrelated product repo files.
 - Exclude broad registries unless the task changes routing, registry schema, source classification, or validation behavior.
 - Exclude raw upstream source content unless a separate source-review task explicitly approves reading it.
-- Exclude MCP setup, global config, and whole-repo indexing from neighborhood selection unless a later approved execution task explicitly changes that boundary.
+- Exclude MCP setup, global config, loop agents, subagent creation, whole-repo packing, and whole-repo indexing from neighborhood selection unless a later approved execution task explicitly changes that boundary.
 
 ## Failure Modes
 
 - Stop if the dependency direction is unclear and the task could affect security, public payloads, runtime activation, or release readiness.
 - State when the selected neighborhood is static analysis only.
-- Do not silently substitute a whole-repo dump for missing graph evidence.
+- Do not silently substitute a whole-repo dump for a missing or stale project map.
 
 ## Passive Visibility
 
-This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated context-pack output, or release approval.
 
 ### orchestration.compact-agent-context-pack
 
@@ -572,6 +573,7 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 ## Required Pack Fields
 
 - objective and non-goals
+- project-map freshness result
 - selected files and reason for each
 - changed-file neighborhood summary
 - source/method/profile references
@@ -580,7 +582,7 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - private-overlay, secret, and product-repo exclusions
 - token mode and budget rationale
 - omitted context and reason
-- graph evidence label: `manual/static` or `tool-generated`
+- context evidence label: `project-map`, `manual/static`, or `tool-generated`
 
 ## Token Modes
 
@@ -594,50 +596,48 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - Prefer links or paths to stable docs over pasted policies.
 - Include only actionable source records and methods.
 - Mark tool, browser, CodeRabbit, reviewdog, source freshness, and runtime evidence as `not invoked` unless actual output exists.
-- Label graph evidence as `manual/static` when it comes from repo inspection or source metadata, and `tool-generated` only when an approved tool actually ran and produced output.
-- Treat whole-repo context dumping and global config activation as forbidden unless a later task explicitly approves a different execution mode.
+- Label context evidence as `project-map` only when `.ai-toolkit/context/project-map.json` is fresh, `manual/static` when it comes from focused repo inspection, and `tool-generated` only when an approved tool actually ran and produced output.
+- Repomix may be used only when project-owned/detected or owner-approved for a scoped pack or token count; never as an automatic whole-repo dump.
+- Treat whole-repo context dumping, loop agents, subagent creation, MCP setup, and global config activation as forbidden unless a later task explicitly approves a different execution mode.
 
 ## Passive Visibility
 
-This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated context-pack output, or release approval.
 
-## Forbidden Claims
+### orchestration.project-map-staleness-check
 
-- Do not say an agent, plugin, browser, graph tool, MCP server, or scanner ran unless it actually ran.
+Source: `methods/orchestration/project-map-staleness-check.md`
 
-### orchestration.stale-context-graph-detection
+# Project Map Staleness Check
 
-Source: `methods/orchestration/stale-context-graph-detection.md`
-
-# Stale Context Graph Detection
-
-Use this method when an audit, plan, or review depends on graph-like context that may have changed.
+Use this method when a task, audit, review, or handoff depends on `.ai-toolkit/context/project-map.json`.
 
 ## Staleness Signals
 
-- local branch is stale, dirty, divergent, detached, or not verified against remote
+- map target git head differs from the current target repository head
+- map staleness hashes differ from current key file hashes
+- target branch is dirty, divergent, detached, or not verified when branch truth matters
 - source freshness reports actionable changes
-- registry, profile, method, or embedded package mirrors drift
-- changed files are not represented in the selected context pack
-- generated reports or docs disagree with live runtime files
-- graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
+- selected toolkit assets, package scripts, validation commands, or key paths changed since the map was generated
+- generated reports, docs, or compiled assets disagree with live runtime files
+- map evidence came from a previous run, dry run, mock, fallback, or metadata-only record
 
 ## Required Response
 
-- Report the stale signal before implementation or release claims.
-- Refresh through approved read-only commands when possible.
-- If refresh is not possible, mark the context graph as stale and limit claims to static review.
-- Rebuild the compact context pack after material changes.
+- Report the stale signal before implementation, release, or broad review claims.
+- Refresh through the approved project sync/update flow when possible.
+- If refresh is not possible, mark the map stale and limit claims to focused static review.
+- Rebuild the compact context pack after material repo, package, registry, profile, method, or validation-command changes.
 
 ## Hard Boundaries
 
-- Do not repair stale context by activating MCP, running code-review-graph, indexing product repos, changing global config, or dumping the whole-repo context.
-- Do not include private overlays, secrets, credentials, tokens, cookies, or environment values in a refreshed graph.
-- Do not treat source metadata as approval to extract, install, activate, or sync.
+- Do not repair stale context by installing tools, activating MCP, creating loop agents, changing global config, indexing product repos, or creating a whole-repo dump.
+- Do not include private overlays, secrets, credentials, tokens, cookies, environment values, package caches, or generated build output in a refreshed map.
+- Do not treat map metadata as approval to run, install, activate, extract, sync, or publish.
 
 ## Passive Visibility
 
-This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+This method may be visible to project-sync consumers as passive governance guidance only. It does not authorize tool activation, external installs, MCP setup, subagent creation, global config changes, product-repo indexing, or release approval.
 
 ### orchestration.static-task-state-handoff-ledger
 
@@ -821,8 +821,8 @@ Stop condition:
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/release-profile.md`, `profiles/implementation-profile.md`
-- Method IDs: `internal.engineering-lifecycle-gates`, `internal.skill-anatomy`, `karpathy.goal-driven-execution`, `matt.git-guardrails`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.shipping-launch`, `security.differential-security-review`, `orchestration.context-graph-token-budget`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.stale-context-graph-detection`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `release.release-rollback-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `gitlab-agent-skills`, `matt-pocock-skills`, `ruflo`, `supabase-agent-skills`, `toolkit-authored`, `trailofbits-skills`
+- Method IDs: `internal.engineering-lifecycle-gates`, `internal.skill-anatomy`, `karpathy.goal-driven-execution`, `matt.git-guardrails`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.shipping-launch`, `security.differential-security-review`, `orchestration.project-context-preflight`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.project-map-staleness-check`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `release.release-rollback-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `aider-repo-map`, `anthropic-skills`, `gitlab-agent-skills`, `matt-pocock-skills`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `ruflo`, `supabase-agent-skills`, `toolkit-authored`, `trailofbits-skills`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

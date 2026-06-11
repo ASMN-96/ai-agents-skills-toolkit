@@ -66,10 +66,10 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 
 - Purpose: harden module boundaries, dependency flow, duplication risk, circular dependency risk, and context selection for large-agent work.
 - Owning agents/skills: governance, architect-agent, reviewer-agent, sre-performance-agent, code-quality.
-- Resources/tools: dependency-cruiser as first architecture hardening tool, Madge for circular dependency risk, eslint-plugin-boundaries only after layers are stable and owner-approved, jscpd for duplication detection, code-review-graph active-read-only source intelligence, context graph/token-budget methods.
-- Install posture: dependency-cruiser, Madge, and jscpd are `active-if-detected` when project-owned and `owner-approved-install` when absent. eslint-plugin-boundaries is active-install-if-project-type only after layers are stable and owner-approved. code-review-graph is active-read-only with no MCP/global config/product indexing or scanning by default.
+- Resources/tools: dependency-cruiser as first architecture hardening tool, Madge for circular dependency risk, eslint-plugin-boundaries only after layers are stable and owner-approved, jscpd for duplication detection, Project Context Preflight/project-map methods, and Repomix only as optional scoped context packing/token-count support.
+- Install posture: dependency-cruiser, Madge, jscpd, and Repomix are `active-if-detected` when project-owned and `owner-approved-install` when absent. eslint-plugin-boundaries is active-install-if-project-type only after layers are stable and owner-approved. Repomix is scoped-pack/token-count only with no default whole-repo dump, MCP/global config, package edit, CI wiring, or product scanning.
 - Evidence required: architecture map, affected boundaries, actual tool output if run, changed-file neighborhood, token/context compacting decisions.
-- Stop conditions: whole-repo dump request, private-overlay exposure, unstable layers for eslint-plugin-boundaries, tool-generated graph claimed without output, indexing/global/MCP request without approval.
+- Stop conditions: whole-repo dump request, private-overlay exposure, unstable layers for eslint-plugin-boundaries, tool-generated context pack/token count claimed without output, whole-repo dump/indexing/global/MCP request without approval.
 - When to call the lane: architecture hardening, module boundary issues, large repo context planning, circular dependency suspicion, duplication hardening.
 - When not to call the lane: small local edits where existing tests and review are sufficient.
 

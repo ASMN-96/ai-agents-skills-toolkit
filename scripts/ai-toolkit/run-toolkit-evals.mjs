@@ -337,7 +337,8 @@ async function main() {
     "large-task-compact-context-pack",
     "changed-file-neighborhood-no-whole-repo-dump",
     "private-overlay-exclusion-required",
-    "stale-context-graph-detection-required",
+    "project-map-staleness-check-required",
+    "project-context-preflight-no-loop-agents",
     "governance-lite-small-task-no-broad-context"
   ]) {
     if (!tokenEvalIds.has(required)) {

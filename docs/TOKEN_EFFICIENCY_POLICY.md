@@ -40,7 +40,7 @@ Do not paste full registries into chat. Summarize selected entries. Avoid repeat
 
 Large tasks, source-utilization audits, PR reviews, implementation plans, and multi-agent handoffs must use a compact context pack instead of whole-repo dumping. The pack should start from changed files or the requested subsystem, then add only direct neighbors, relevant tests/evals/validators, source records, methods, profiles, and release/security docs that materially change the decision.
 
-Context graph governance is method-first. Metadata records for tools such as code-review-graph do not authorize CLI execution, MCP setup, global config changes, product-repo indexing, background indexing, or secret/private-overlay scanning.
+Project Context Preflight is method-first. Metadata records for tools such as Repomix do not authorize CLI execution, package changes, MCP setup, global config changes, product-repo packing, whole-repo dumping, or secret/private-overlay scanning.
 
 Every large-task context pack should report:
 

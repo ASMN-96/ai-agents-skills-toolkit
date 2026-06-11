@@ -53,7 +53,7 @@ const REQUIRED_TEMPLATES = [
   "templates/tooling/quality-gates.md",
   "templates/tooling/owner-approval-checklist.md",
   "templates/tooling/react-doctor-adoption-checklist.md",
-  "templates/tooling/code-review-graph-read-only-checklist.md",
+  "templates/tooling/repomix-scoped-context-checklist.md",
   "templates/tooling/reviewdog-output-policy.md"
 ];
 
@@ -96,7 +96,7 @@ const TOOL_EXPECTATIONS = new Map([
   ["trufflehog", "approval-required"],
   ["owasp-zap-baseline", "approval-required"],
   ["harden-runner", "approval-required"],
-  ["code-review-graph", "active-read-only"],
+  ["repomix", "active-if-detected"],
   ["open-design", "active-reference"],
   ["eslint-plugin-boundaries", "active-install-if-project-type"]
 ]);
@@ -135,6 +135,8 @@ const ACTIVATION_EXPECTATIONS = new Map([
   ["jscpd", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }],
   ["actionlint", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }],
   ["zizmor", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }]
+  ,
+  ["repomix", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned Repomix", whenAbsent: "Owner-approved install", ciDefault: "not configured", ciPromotion: "owner-approved CI" }]
 ]);
 
 const ENTERPRISE_READINESS_METHOD_IDS = [
@@ -248,8 +250,8 @@ async function validatePlannerAndApply() {
   if (/pilot-only/i.test(planText) || /pilot-only/i.test(applyText)) {
     fail("tooling planner/apply behavior", "install/tooling-plan.mjs", "planner/apply must not expose pilot-only current-scope classifications");
   }
-  if (!planText.includes("active-read-only resources") || !planText.includes("code-review-graph source intelligence")) {
-    fail("tooling planner/apply behavior", "install/tooling-plan.mjs", "planner must expose code-review-graph as active-read-only source intelligence");
+  if (!planText.includes("active-read-only resources") || !planText.includes("Project Context Preflight")) {
+    fail("tooling planner/apply behavior", "install/tooling-plan.mjs", "planner must expose Project Context Preflight as active-read-only guidance");
   }
   for (const resource of REMOVED_CURRENT_SCOPE_RESOURCES) {
     if (includesIgnoreCase(planText, resource) || includesIgnoreCase(applyText, resource)) {
@@ -266,8 +268,8 @@ async function validatePlannerAndApply() {
   if (!applyText.includes("package.json") || !applyText.includes("run package managers") || !applyText.includes("configure MCP")) {
     fail("tooling planner/apply behavior", "install/tooling-apply.mjs", "apply script must state forbidden package/CI/MCP/global behavior");
   }
-  if (!applyText.includes("code-review-graph-read-only-checklist.md")) {
-    fail("tooling planner/apply behavior", "install/tooling-apply.mjs", "apply script must use the read-only code-review-graph checklist");
+  if (!applyText.includes("repomix-scoped-context-checklist.md")) {
+    fail("tooling planner/apply behavior", "install/tooling-apply.mjs", "apply script must use the Repomix scoped-context checklist");
   }
 
   const packageManagerInstallPattern = /\b(?:npm|pnpm|yarn|bun)\s+(?:install|i|add|dlx|create)\b/i;
@@ -299,8 +301,8 @@ async function validateDocBoundaries() {
   if (!operating.includes("methods/governance/task-intake-routing-gate.md") || !operating.includes("No final current-scope project-tooling resource may remain `pilot-only`")) {
     fail("project tooling document boundaries", "docs/PROJECT_TOOLING_OPERATING_MODEL.md", "operating model must document task intake and no-pilot-only boundaries");
   }
-  if (!matrix.includes("code-review-graph | Architecture, Repo Intelligence, and Token Context | active-read-only")) {
-    fail("project tooling document boundaries", "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md", "code-review-graph must be active-read-only");
+  if (!matrix.includes("Repomix | Architecture, Repo Intelligence, and Token Context | active-if-detected")) {
+    fail("project tooling document boundaries", "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md", "Repomix must be active-if-detected");
   }
   if (!matrix.includes("open-design | UI/UX Design Intelligence and Browser Evidence | active-reference")) {
     fail("project tooling document boundaries", "docs/PROJECT_TOOL_INSTALLATION_MATRIX.md", "open-design must be active-reference");
@@ -371,11 +373,11 @@ async function validateProfiles() {
         fail("project tooling profiles", profile, `${resource} must not appear in active/default/current-scope sections`);
       }
     }
-    if (!activeReadOnly.includes("code-review-graph")) {
-      fail("project tooling profiles", profile, "code-review-graph must be active-read-only source intelligence");
+    if (!activeReadOnly.includes("Project Context Preflight")) {
+      fail("project tooling profiles", profile, "Project Context Preflight must be active-read-only guidance");
     }
-    if (includesIgnoreCase(activeReference, "code-review-graph") || includesIgnoreCase(defaultTools, "code-review-graph") || includesIgnoreCase(activeTools, "code-review-graph")) {
-      fail("project tooling profiles", profile, "code-review-graph must be exclusively in Active-Read-Only Resources");
+    if (includesIgnoreCase(text, "code-review-graph")) {
+      fail("project tooling profiles", profile, "code-review-graph must not remain in active project tooling profiles");
     }
     if (!text.includes("No-Fake-Validation")) {
       fail("project tooling profiles", profile, "profile must include no-fake-validation rules");
@@ -411,7 +413,7 @@ async function validateRegistryConsistency() {
   const routing = await readJson("registries/routing-matrix.json", "project tooling registry consistency");
   const sourceMatrix = await read("docs/SOURCE_UTILIZATION_MATRIX.md");
   const installMatrix = await read("docs/PROJECT_TOOL_INSTALLATION_MATRIX.md");
-  const codeReviewGraphSource = await read("sources/code-review-graph.md");
+  const repomixSource = await read("sources/repomix.md");
 
   const tools = new Map((toolsRegistry?.tools || []).map((tool) => [tool.id, tool]));
   for (const tool of toolsRegistry?.tools || []) {
@@ -447,37 +449,37 @@ async function validateRegistryConsistency() {
     requireTextIncludes("project tooling registry consistency", `registries/tools.registry.json:${id}:ciDefault`, tool.ciDefault, expected.ciDefault);
     requireTextIncludes("project tooling registry consistency", `registries/tools.registry.json:${id}:ciPromotion`, tool.ciPromotion, expected.ciPromotion);
   }
-  const codeReviewGraph = tools.get("code-review-graph");
-  if (codeReviewGraph?.status !== "active-read-only") {
-    fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", "code-review-graph status must be active-read-only");
+  const repomix = tools.get("repomix");
+  if (repomix?.status !== "active-if-detected") {
+    fail("project tooling registry consistency", "registries/tools.registry.json:repomix", "Repomix status must be active-if-detected");
   }
-  for (const required of ["indexing", "product repo scanning", "package changes"]) {
-    if (!codeReviewGraph?.approvalRequiredFor?.includes(required)) {
-      fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", `code-review-graph approvalRequiredFor must include ${required}`);
+  for (const required of ["whole-repo packing", "product repo scanning", "package changes"]) {
+    if (!repomix?.approvalRequiredFor?.includes(required)) {
+      fail("project tooling registry consistency", "registries/tools.registry.json:repomix", `Repomix approvalRequiredFor must include ${required}`);
     }
-    if (!JSON.stringify(codeReviewGraph?.forbiddenActions || []).toLowerCase().includes(required)) {
-      fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", `code-review-graph forbiddenActions must include ${required}`);
+    if (!JSON.stringify(repomix?.forbiddenActions || []).toLowerCase().includes(required)) {
+      fail("project tooling registry consistency", "registries/tools.registry.json:repomix", `Repomix forbiddenActions must include ${required}`);
     }
   }
-  const codeReviewGraphRisk = codeReviewGraph?.enterpriseRisk || {};
+  const repomixRisk = repomix?.enterpriseRisk || {};
   for (const field of ["license", "maintenanceSignal", "lastReviewedCommit", "lastReviewedDate", "securityReviewStatus", "defaultEnterpriseStatus"]) {
-    if (!codeReviewGraphRisk[field] || /unknown-review-required|not-yet-verified|source-review-required/i.test(String(codeReviewGraphRisk[field]))) {
-      fail("project tooling registry consistency", "registries/tools.registry.json:code-review-graph", `code-review-graph enterpriseRisk.${field} must record completed source-safety review evidence`);
+    if (!repomixRisk[field] || /unknown-review-required|not-yet-verified|source-review-required/i.test(String(repomixRisk[field]))) {
+      fail("project tooling registry consistency", "registries/tools.registry.json:repomix", `Repomix enterpriseRisk.${field} must record optional-tool source-safety review evidence`);
     }
   }
   for (const required of [
-    "completed source-safety review",
-    "active-read-only source intelligence",
+    "optional-tool posture reference",
+    "active-if-detected",
     "MIT signal",
-    "no install",
+    "Do not run Repomix",
     "package changes",
     "MCP setup",
-    "product repo scan",
-    "private-overlay indexing",
-    "raw upstream"
+    "whole-repo dumps",
+    "private overlays",
+    "observed output"
   ]) {
-    if (!codeReviewGraphSource.toLowerCase().includes(required.toLowerCase())) {
-      fail("project tooling registry consistency", "sources/code-review-graph.md", `code-review-graph source record missing review boundary: ${required}`);
+    if (!repomixSource.toLowerCase().includes(required.toLowerCase())) {
+      fail("project tooling registry consistency", "sources/repomix.md", `Repomix source record missing review boundary: ${required}`);
     }
   }
   const eslintBoundaries = tools.get("eslint-plugin-boundaries");
@@ -513,8 +515,8 @@ async function validateRegistryConsistency() {
       fail("project tooling registry consistency", ".ai-toolkit/tool-packs/webapp-quality-security.json", `${resource} must not appear in tool-pack routes/model`);
     }
   }
-  if (!packText.includes("active-read-only") || !packText.includes("active-reference")) {
-    fail("project tooling registry consistency", ".ai-toolkit/tool-packs/webapp-quality-security.json", "tool pack must carry active-read-only and active-reference classifications");
+  if (!packText.includes("active-if-detected") || !packText.includes("active-reference")) {
+    fail("project tooling registry consistency", ".ai-toolkit/tool-packs/webapp-quality-security.json", "tool pack must carry active-if-detected and active-reference classifications");
   }
 
   const methodIds = new Set((methodsRegistry?.methods || []).map((method) => method.id));

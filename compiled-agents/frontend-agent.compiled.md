@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 0302f92cee82aba32ef543a246072bb5dba40994
+source_commit: 31b58ca18d03a4557aa5ef5cee3553c051dbd3d0
 source_agent: agents/frontend-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json

@@ -150,3 +150,11 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_ADOPTED`.
 
 Decision: keep RuFlo adopted only as static task-state and handoff discipline already represented in toolkit-owned methods. This refresh updates source tracking only and does not approve package install, package or lockfile update, statusline helper adoption, hive-mind runtime adoption, session persistence import, daemon, worker, hook, MCP, memory, plugin, script, persisted-state import, product-repo indexing, or global configuration use.
+
+## Freshness Review 2026-06-11 Closeout
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `58716fd141b9c90b9b9a802bc089f2401da3d108` to `a88b9369bdec81278e68fde3c76271bb9814a99e` using `git ls-remote` and GitHub compare metadata only. The compare was 2 commits ahead and touched package metadata, CLI path-validation code/tests, hooks/init command code, and MCP hook tooling. The commit messages describe Windows path validation fixes, trajectory feedback persistence, init-hooks settings output, and package version bumps. MIT license metadata remained present from the live source-freshness scan.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep RuFlo adopted only as static task-state and handoff discipline already represented in toolkit-owned methods. This refresh updates source tracking only and does not approve package install, package or lockfile update, Windows path-validation behavior adoption, trajectory feedback persistence import, init-hooks settings adoption, MCP hook tooling adoption, daemon, worker, hook, MCP, memory, plugin, script, persisted-state import, product-repo indexing, or global configuration use.

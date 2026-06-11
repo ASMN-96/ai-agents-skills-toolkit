@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 0302f92cee82aba32ef543a246072bb5dba40994
+source_commit: 31b58ca18d03a4557aa5ef5cee3553c051dbd3d0
 source_agent: agents/qa-test-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -1125,32 +1125,33 @@ Use this method before audits, PR reviews, implementation planning, and agent ha
 
 ## Purpose
 
-Select the smallest trustworthy neighborhood around the changed files so review quality improves without whole-repo context dumping.
+Select the smallest trustworthy neighborhood around the changed files so review quality improves without whole-repo context dumping. Prefer the project map when fresh, then confirm with focused file reads.
 
 ## Selection Order
 
 1. Changed files and directly edited docs/configs.
 2. Tests, evals, validators, or generated mirrors that prove the changed behavior.
 3. Direct import/export neighbors and shared contracts.
-4. Referenced methods, skills, profiles, and source records.
-5. Release, security, or public/private boundary docs only when the change crosses those gates.
+4. Fresh project-map entries: key files, source locations, test locations, config files, scripts, and validation commands.
+5. Referenced methods, skills, profiles, and source records.
+6. Release, security, or public/private boundary docs only when the change crosses those gates.
 
 ## Exclusion Rules
 
 - Exclude secrets, environment files, private overlays, user-local files, logs, generated artifacts, package caches, and unrelated product repo files.
 - Exclude broad registries unless the task changes routing, registry schema, source classification, or validation behavior.
 - Exclude raw upstream source content unless a separate source-review task explicitly approves reading it.
-- Exclude MCP setup, global config, and whole-repo indexing from neighborhood selection unless a later approved execution task explicitly changes that boundary.
+- Exclude MCP setup, global config, loop agents, subagent creation, whole-repo packing, and whole-repo indexing from neighborhood selection unless a later approved execution task explicitly changes that boundary.
 
 ## Failure Modes
 
 - Stop if the dependency direction is unclear and the task could affect security, public payloads, runtime activation, or release readiness.
 - State when the selected neighborhood is static analysis only.
-- Do not silently substitute a whole-repo dump for missing graph evidence.
+- Do not silently substitute a whole-repo dump for a missing or stale project map.
 
 ## Passive Visibility
 
-This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated context-pack output, or release approval.
 
 ### orchestration.static-task-state-handoff-ledger
 
@@ -1592,7 +1593,7 @@ Stop condition:
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/audit-profile.md`, `profiles/frontend-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/fullstack-profile.md`
 - Method IDs: `backend.supabase-postgres-rls-gates`, `backend.database-access-isolation-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `internal.documentation-accuracy-guard`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.git-guardrails`, `matt.tdd`, `matt.to-issues`, `matt.triage-issue`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.shipping-launch`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.responsive-layout`, `uiux.webapp-testing`, `orchestration.changed-file-neighborhood-selection`, `orchestration.static-task-state-handoff-ledger`, `mobile.native-mobile-app-quality`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `code-review-graph`, `matt-pocock-skills`, `microsoft-playwright`, `nagdy-guard-skills`, `ruflo`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `unknown-review-required`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `aider-repo-map`, `anthropic-skills`, `matt-pocock-skills`, `microsoft-playwright`, `nagdy-guard-skills`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `ruflo`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

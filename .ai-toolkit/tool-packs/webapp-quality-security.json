@@ -1107,35 +1107,36 @@
         ]
       },
       {
-        "id": "code-review-graph",
-        "name": "code-review-graph",
-        "projectInstallClass": "active-read-only",
+        "id": "repomix",
+        "name": "Repomix",
+        "projectInstallClass": "active-if-detected",
         "lane": "Architecture, Repo Intelligence, and Token Context",
         "projectTypes": [
           "architecture-hardening",
           "large-context"
         ],
-        "evidenceMode": "manual/static source intelligence or actual tool output only if separately approved and run",
-        "installLocation": "read-only source/reference",
+        "evidenceMode": "token counts or scoped pack output only if approved command actually ran",
+        "installLocation": "target project only after owner approval or existing project-owned config",
         "defaultInstall": false,
         "requiresOwnerApproval": true,
         "activationLevels": [
-          "static-adopted",
+          "active-if-detected",
+          "owner-approved-install",
           "forbidden-runtime"
         ],
-        "whenDetected": null,
-        "whenAbsent": null,
-        "ciDefault": null,
-        "ciPromotion": null,
-        "conflictGroup": "context-graph",
-        "preferredRole": "read-only source intelligence; no indexing",
+        "whenDetected": "project-owned Repomix config or dependency",
+        "whenAbsent": "Owner-approved install or skip",
+        "ciDefault": "not configured; local scoped advisory only",
+        "ciPromotion": "not promoted to CI by default; owner-approved CI only after stable policy",
+        "conflictGroup": "context-packing",
+        "preferredRole": "optional scoped context/token-count support",
         "forbiddenActions": [
           "Do not install from registry presence.",
           "Do not run from registry presence.",
           "Do not make package changes from registry presence.",
           "Do not wire CI from registry presence.",
-          "Do not configure MCP, indexing, product repo scanning, or global config from registry presence.",
-          "Do not claim output unless the tool actually ran."
+          "Do not configure MCP, whole-repo packing, product repo scanning, or global config from registry presence.",
+          "Do not claim output unless Repomix actually ran with approved scope."
         ]
       },
       {
@@ -1333,7 +1334,7 @@
       "Semgrep": "active-if-detected when present; owner-approved-install when absent; ci-advisory until rules are scoped",
       "dependency-cruiser / Madge / jscpd": "active-if-detected or owner-approved-install architecture and duplication checks",
       "actionlint / zizmor": "active-if-detected or owner-approved-install GitHub Actions hardening",
-      "code-review-graph": "active-read-only source intelligence; install, indexing, MCP/global config, CI wiring, package changes, and product repo scanning require approval",
+      "Repomix": "active-if-detected when project-owned; owner-approved-install when absent; scoped packs/token counts only, no automatic whole-repo dumps",
       "open-design": "active-reference design intelligence only; install/import/MCP/global config require approval",
       "eslint-plugin-boundaries": "active-install-if-project-type only after architecture layers are stable and owner-approved",
       "Impeccable project-local install mode": "approval-required; normalized Impeccable guidance remains active-reference"

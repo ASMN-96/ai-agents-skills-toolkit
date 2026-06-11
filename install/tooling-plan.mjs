@@ -38,7 +38,7 @@ const COMMON = {
     "VoltAgent design references if already tracked"
   ],
   activeReadOnly: [
-    "code-review-graph source intelligence with no install, indexing, MCP, global config, or product repo scanning"
+    "Project Context Preflight and project-map staleness guidance with no external tool execution claim"
   ],
   approvalRequiredInstallModes: [
     "Impeccable project-local install mode"
@@ -75,6 +75,7 @@ const COMMON = {
     "Use existing project-owned tools before recommending new installs.",
     "React Doctor GitHub Action, PR write permissions, and agent skill install require explicit approval.",
     "Impeccable project-local install mode requires explicit approval.",
+    "Repomix install/execution, package changes, CI wiring, MCP/global config, and whole-repo packing require explicit approval.",
     "Codex must not claim output unless the actual script or tool ran."
   ],
   stopConditions: [

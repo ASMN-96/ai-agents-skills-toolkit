@@ -56,18 +56,18 @@ Classify normal-language requests before coding: affected surfaces, required age
 - deep networked scans
 - MCP/global config changes
 - package-manager/workspace migrations
-- code-review-graph install, indexing, MCP/global config, or product repo scanning
+- Repomix install/execution, package changes, CI wiring, MCP/global config, whole-repo packing, or product repo scanning
 
 ## Active-Reference Resources
 
-- context graph/token budget methods
+- project context preflight
 - changed-file neighborhood selection
 - compact agent context pack
-- stale context graph detection
+- project map staleness check
 
 ## Active-Read-Only Resources
 
-- code-review-graph source intelligence with no install, package change, indexing, MCP/global config, CI wiring, product repo scanning, or evidence claim without actual output
+- Project Context Preflight and project-map staleness guidance with no external tool execution, context-pack, token-count, or validation claim without observed output
 
 ## Recommended Package Scripts
 
@@ -85,8 +85,8 @@ Report boundary assumptions, dependency flow, cycle/duplication findings when ac
 ## Stop Conditions
 
 - Architecture layers are not agreed but lint-boundary enforcement is requested.
-- Tool-generated graph or scan output is claimed without actual output.
-- code-review-graph indexing, MCP, global config, or product indexing is requested.
+- Tool-generated context pack, token count, graph, or scan output is claimed without actual output.
+- Repomix whole-repo packing, package changes, MCP, global config, CI wiring, or product scanning is requested.
 - Package/CI/tool installation lacks approval.
 
 ## Owner Approval Requirements

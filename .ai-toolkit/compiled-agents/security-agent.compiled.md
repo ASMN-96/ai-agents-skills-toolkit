@@ -4,12 +4,12 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 0302f92cee82aba32ef543a246072bb5dba40994
+source_commit: 31b58ca18d03a4557aa5ef5cee3553c051dbd3d0
 source_agent: agents/security-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/security-profile.md", "profiles/audit-profile.md", "profiles/backend-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
-source_method_refs: ["backend.supabase-postgres-rls-gates", "backend.database-access-isolation-gates", "internal.source-discovery-workflow", "internal.source-safety-scoring", "osmani.code-review-quality", "osmani.security-hardening", "security.differential-security-review", "orchestration.changed-file-neighborhood-selection", "orchestration.stale-context-graph-detection", "security.webview-boundary-review", "architecture.cross-surface-client-contracts", "api.api-contract-and-routing-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
+source_method_refs: ["backend.supabase-postgres-rls-gates", "backend.database-access-isolation-gates", "internal.source-discovery-workflow", "internal.source-safety-scoring", "osmani.code-review-quality", "osmani.security-hardening", "security.differential-security-review", "orchestration.changed-file-neighborhood-selection", "orchestration.project-map-staleness-check", "security.webview-boundary-review", "architecture.cross-surface-client-contracts", "api.api-contract-and-routing-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
 compile_contract_version: 1.0.0
 ---
 
@@ -446,66 +446,68 @@ Use this method before audits, PR reviews, implementation planning, and agent ha
 
 ## Purpose
 
-Select the smallest trustworthy neighborhood around the changed files so review quality improves without whole-repo context dumping.
+Select the smallest trustworthy neighborhood around the changed files so review quality improves without whole-repo context dumping. Prefer the project map when fresh, then confirm with focused file reads.
 
 ## Selection Order
 
 1. Changed files and directly edited docs/configs.
 2. Tests, evals, validators, or generated mirrors that prove the changed behavior.
 3. Direct import/export neighbors and shared contracts.
-4. Referenced methods, skills, profiles, and source records.
-5. Release, security, or public/private boundary docs only when the change crosses those gates.
+4. Fresh project-map entries: key files, source locations, test locations, config files, scripts, and validation commands.
+5. Referenced methods, skills, profiles, and source records.
+6. Release, security, or public/private boundary docs only when the change crosses those gates.
 
 ## Exclusion Rules
 
 - Exclude secrets, environment files, private overlays, user-local files, logs, generated artifacts, package caches, and unrelated product repo files.
 - Exclude broad registries unless the task changes routing, registry schema, source classification, or validation behavior.
 - Exclude raw upstream source content unless a separate source-review task explicitly approves reading it.
-- Exclude MCP setup, global config, and whole-repo indexing from neighborhood selection unless a later approved execution task explicitly changes that boundary.
+- Exclude MCP setup, global config, loop agents, subagent creation, whole-repo packing, and whole-repo indexing from neighborhood selection unless a later approved execution task explicitly changes that boundary.
 
 ## Failure Modes
 
 - Stop if the dependency direction is unclear and the task could affect security, public payloads, runtime activation, or release readiness.
 - State when the selected neighborhood is static analysis only.
-- Do not silently substitute a whole-repo dump for missing graph evidence.
+- Do not silently substitute a whole-repo dump for a missing or stale project map.
 
 ## Passive Visibility
 
-This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated context-pack output, or release approval.
 
-### orchestration.stale-context-graph-detection
+### orchestration.project-map-staleness-check
 
-Source: `methods/orchestration/stale-context-graph-detection.md`
+Source: `methods/orchestration/project-map-staleness-check.md`
 
-# Stale Context Graph Detection
+# Project Map Staleness Check
 
-Use this method when an audit, plan, or review depends on graph-like context that may have changed.
+Use this method when a task, audit, review, or handoff depends on `.ai-toolkit/context/project-map.json`.
 
 ## Staleness Signals
 
-- local branch is stale, dirty, divergent, detached, or not verified against remote
+- map target git head differs from the current target repository head
+- map staleness hashes differ from current key file hashes
+- target branch is dirty, divergent, detached, or not verified when branch truth matters
 - source freshness reports actionable changes
-- registry, profile, method, or embedded package mirrors drift
-- changed files are not represented in the selected context pack
-- generated reports or docs disagree with live runtime files
-- graph evidence came from a previous run, dry run, mock, fallback, or metadata-only record
+- selected toolkit assets, package scripts, validation commands, or key paths changed since the map was generated
+- generated reports, docs, or compiled assets disagree with live runtime files
+- map evidence came from a previous run, dry run, mock, fallback, or metadata-only record
 
 ## Required Response
 
-- Report the stale signal before implementation or release claims.
-- Refresh through approved read-only commands when possible.
-- If refresh is not possible, mark the context graph as stale and limit claims to static review.
-- Rebuild the compact context pack after material changes.
+- Report the stale signal before implementation, release, or broad review claims.
+- Refresh through the approved project sync/update flow when possible.
+- If refresh is not possible, mark the map stale and limit claims to focused static review.
+- Rebuild the compact context pack after material repo, package, registry, profile, method, or validation-command changes.
 
 ## Hard Boundaries
 
-- Do not repair stale context by activating MCP, running code-review-graph, indexing product repos, changing global config, or dumping the whole-repo context.
-- Do not include private overlays, secrets, credentials, tokens, cookies, or environment values in a refreshed graph.
-- Do not treat source metadata as approval to extract, install, activate, or sync.
+- Do not repair stale context by installing tools, activating MCP, creating loop agents, changing global config, indexing product repos, or creating a whole-repo dump.
+- Do not include private overlays, secrets, credentials, tokens, cookies, environment values, package caches, or generated build output in a refreshed map.
+- Do not treat map metadata as approval to run, install, activate, extract, sync, or publish.
 
 ## Passive Visibility
 
-This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated graph output, or release approval.
+This method may be visible to project-sync consumers as passive governance guidance only. It does not authorize tool activation, external installs, MCP setup, subagent creation, global config changes, product-repo indexing, or release approval.
 
 ### security.webview-boundary-review
 
@@ -773,8 +775,8 @@ Stop condition:
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/security-profile.md`, `profiles/audit-profile.md`, `profiles/backend-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
-- Method IDs: `backend.supabase-postgres-rls-gates`, `backend.database-access-isolation-gates`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `osmani.code-review-quality`, `osmani.security-hardening`, `security.differential-security-review`, `orchestration.changed-file-neighborhood-selection`, `orchestration.stale-context-graph-detection`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `api.api-contract-and-routing-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `anthropic-skills`, `code-review-graph`, `everything-claude-code`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`
+- Method IDs: `backend.supabase-postgres-rls-gates`, `backend.database-access-isolation-gates`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `osmani.code-review-quality`, `osmani.security-hardening`, `security.differential-security-review`, `orchestration.changed-file-neighborhood-selection`, `orchestration.project-map-staleness-check`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `api.api-contract-and-routing-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `aider-repo-map`, `anthropic-skills`, `everything-claude-code`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.
