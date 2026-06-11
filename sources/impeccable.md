@@ -5,9 +5,9 @@
 - Source type: External GitHub source for AI-assisted design critique, design-system context, and UI/UX quality vocabulary.
 - Source status: Reviewed source record; approved only for narrow normalized guidance in `uiux`.
 - Retrieval date: 2026-05-29.
-- Last checked date: 2026-06-09.
-- Last reviewed date: 2026-06-09.
-- Last reviewed commit: `983b75cabc1389ff4ac87935f9ba223e207054bb`.
+- Last checked date: 2026-06-11.
+- Last reviewed date: 2026-06-11.
+- Last reviewed commit: `92d6141cdf61f9943dfc8e2e46870e54e46d8641`.
 - Normalization review date: 2026-05-22.
 - Normalization review commit: `642f03d5a10eb3deb91bd511241e387e23b9aa39`.
 - Visible adoption signals: 28,106 GitHub stars, 1,517 forks, and repository push activity on 2026-05-15 from read-only GitHub metadata.
@@ -176,3 +176,10 @@ Decision: keep Impeccable active only as normalized UI quality source intelligen
 - Reviewed by: Codex controlled implementation pass
 - Review decision: Source-record plus narrow normalized `uiux` guidance
 - Last review evidence: Source freshness report, GitHub compare metadata, and remote HEAD SHA on 2026-06-09
+## Freshness Review 2026-06-11
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `983b75cabc1389ff4ac87935f9ba223e207054bb` to `92d6141cdf61f9943dfc8e2e46870e54e46d8641` using `git ls-remote` and GitHub compare metadata only. The compare was 7 commits ahead and touched cross-runtime skill mirrors, cleanup and live-browser scripts, UI-core live-mode code, contributor docs, tests, site/demo files, and generated provider output.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep Impeccable as normalized UI-quality source intelligence only. This refresh updates source tracking only and does not approve CLI execution, live-browser workflow activation, cleanup script execution, cross-runtime agent or skill import, package metadata adoption, lockfile adoption, script execution, raw `SKILL.md` import, generated output adoption, global config mutation, or product-repo changes.

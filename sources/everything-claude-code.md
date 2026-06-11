@@ -4,7 +4,7 @@
 - Owner / publisher: affaan-m.
 - Source type: Cross-harness Claude Code ecosystem repository with skills, agents, commands, hooks, manifests, MCP config, plugins, rules, and install scripts.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `edebcc89efa09dc2705748151d98286ff3bb6023` on `main`, checked by read-only GitHub compare metadata on 2026-06-09.
+- Pinned repo ref checked: `fec84fcf19d1806232b21e38a80ac9fb595442dc` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
 - Visible adoption signals: about 175.8k GitHub stars, 27.2k forks, and large multi-harness surface area.
 - Trust level: Medium source trust, very high execution/config-mutation risk.
 - License status: GitHub API reports MIT.
@@ -112,3 +112,10 @@ Skill Scout/read-only follow-up reviewed upstream movement from `90dfd9505dc8607
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep the latest upstream commit active as source-safety awareness only. The release announcement workflow and Discord script are not adopted into this toolkit. This review does not approve release-announcement workflow import, Discord script import, plugin hook behavior import, `orch-*` skill or command import, orchestration pipeline import, workflow import, command import, bundled-default adoption, plugin import, skill import, install module import, control-plane import, session-adapter import, MCP inventory import, cross-harness runtime support claims, MCP behavior adoption, global config behavior, source import, installation, activation, extraction, package changes, CI changes, product-repo changes, script execution, or global configuration changes.
+## Freshness Review 2026-06-11
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `edebcc89efa09dc2705748151d98286ff3bb6023` to `fec84fcf19d1806232b21e38a80ac9fb595442dc` using `git ls-remote` and GitHub compare metadata only. The compare was 26 commits ahead and touched ECC runtime/plugin manifests, MCP connector policy and config, hooks, config-gc skill material, release workflows, package/lockfile data, CI workflows, scripts, docs, assets, and cross-runtime surfaces.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep Everything Claude Code as source-safety awareness only. This refresh updates source tracking only and does not approve Claude/Cursor/Cline/OpenHands runtime support claims, MCP connector import, MCP inventory import, session-adapter import, control-plane import, hook behavior import, config-gc skill import, release workflow import, package or lockfile adoption, script execution, global config behavior, cross-runtime agent/skill/hook/command/pipeline import, or product-repo changes.

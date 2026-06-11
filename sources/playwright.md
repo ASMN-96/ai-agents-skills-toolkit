@@ -5,7 +5,7 @@
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `0bc6b172f10298286acf0f2ebbd27002dc4f263b` on `main`, checked by read-only GitHub compare metadata on 2026-06-09.
+- Pinned repo ref checked: `954a7680c9bebd96323e299bf01a9ee079b080e9` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
 - Visible adoption signals: about 89.8k GitHub stars, 5.8k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
@@ -186,3 +186,11 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_PLUGIN_DELEGATED`.
 
 Decision: keep Playwright active for toolkit-owned browser-evidence standards and routing while delegating execution to project-owned Playwright or browser tooling. This refresh updates source tracking only and does not approve source import, package update, lockfile update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, CLI/session behavior adoption, HAR/network behavior adoption, protocol/client/server behavior adoption, product-repo changes, or global configuration changes.
+
+## Freshness Review 2026-06-11
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `0bc6b172f10298286acf0f2ebbd27002dc4f263b` to `954a7680c9bebd96323e299bf01a9ee079b080e9` using `git ls-remote` and GitHub compare metadata only. The compare was 7 commits ahead and touched Python docs, browser revision metadata, Firefox navigation handling, HAR and tracing code, trace-viewer WebSocket UI, HTML reporter/test tracing code, MCP session-log tests, and browser/library tests.
+
+Outcome: `SYNCED_PLUGIN_DELEGATED`.
+
+Decision: keep Playwright active for toolkit-owned browser-evidence standards and routing while delegating execution to project-owned Playwright or browser tooling. This refresh updates source tracking only and does not approve source import, package update, browser binary download, CI update, runtime update, upstream test or code copying, script execution, MCP activation, trace/HAR/session-log behavior adoption, product-repo changes, or global configuration changes.

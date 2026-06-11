@@ -5,7 +5,7 @@
 - Owner / publisher: Trail of Bits.
 - Source type: Security-focused Claude Code plugin marketplace with Codex sidecar skill support.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `d5fe2e6a7896236c3102fd5477e833623ad70298` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-06.
+- Pinned repo ref checked: `c070b9b5881183ea5f6e320ff06c46688becb13e` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-11.
 - v0.2.3 outcome: `SYNCED_ADOPTED` for license-safe, cleanroom differential-security review discipline only.
 - Visible adoption signals: about 5.1k GitHub stars, 443 forks, active repository updates on 2026-05-08, and a broad security plugin catalog.
 - Trust level: High security-domain trust, high execution and workflow-overreach risk if imported blindly.
@@ -77,3 +77,11 @@ Candidate for future normalized security-method extraction, pending separate app
 - Decision: keep the latest upstream commit active as security-review source intelligence, with adoption limited to cleanroom, license-safe concepts already represented in `methods/security/differential-security-review.md`, security routing, and eval stop conditions. The CC-BY-SA license blocks copying or close paraphrase of raw source text, but it does not require freezing independent toolkit-owned review discipline.
 - Adopted guidance: changed-file inventory first, risk-scaled review depth, high-risk trigger escalation, evidence/confidence/coverage limits in findings, and explicit refusal to treat plugin/runtime/CI/MCP metadata as activation.
 - No source text, skill body, plugin metadata, script, hook, workflow, MCP configuration, OpenAI agent metadata, SVG asset, installation behavior, loadability behavior, marketplace behavior, package metadata, or CI behavior was copied, imported, installed, activated, run, or adopted.
+
+## Freshness Review 2026-06-11
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `d5fe2e6a7896236c3102fd5477e833623ad70298` to `c070b9b5881183ea5f6e320ff06c46688becb13e` using `git ls-remote` and GitHub compare metadata only. The compare was 4 commits ahead and touched marketplace/plugin metadata, CI workflows, fp-check hook metadata, second-opinion Codex invocation material, and semgrep-rule-creator skill material.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep Trail of Bits Skills as security-review source intelligence only through cleanroom, license-safe differential-review concepts already represented in toolkit-owned methods. This refresh updates source tracking only and does not approve raw CC-BY-SA text copying, plugin import, hook adoption, model-routing adoption, CI workflow adoption, MCP configuration, script execution, package changes, or product-repo changes.

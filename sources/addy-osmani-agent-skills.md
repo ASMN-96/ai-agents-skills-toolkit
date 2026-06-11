@@ -7,7 +7,7 @@
 - Purpose: Production engineering workflow skills for AI coding agents.
 - Trust level: High-medium.
 - License if visible: MIT.
-- Commit / update activity: `0427b5b1281b7e4350176d8019305c1ffcb3beba` from read-only remote HEAD and compare metadata checks on 2026-06-09.
+- Commit / update activity: `d187883b7d761265309cdcc0f202cc76b4b3fb06` from read-only remote HEAD and compare metadata checks on 2026-06-11.
 - Recommendation: Passive reference for normalized governance and method-quality patterns. Do not copy raw skill bodies or duplicate Codex/plugin behavior.
 
 ## Summary
@@ -57,3 +57,11 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep Addy Osmani Agent Skills as passive reference for normalized production engineering workflow patterns only. This refresh updates source tracking only and does not approve plugin installation, repository cloning into active runtime, hook execution, slash-command activation, raw skill copying, upstream browser-testing skill import, DevTools runtime behavior adoption, global git or agent configuration changes, product-repo changes, or runtime configuration changes.
+
+## Freshness Review 2026-06-11
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `0427b5b1281b7e4350176d8019305c1ffcb3beba` to `d187883b7d761265309cdcc0f202cc76b4b3fb06` using `git ls-remote` and GitHub compare metadata only. The compare was 18 commits ahead and touched plugin manifests, command definitions, web-performance auditor agent material, observability skill material, Antigravity command/docs support, README/docs, and command TOML files.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep Addy Osmani Agent Skills as passive reference for normalized production engineering workflow patterns only. This refresh updates source tracking only and does not approve command activation, agent import, plugin installation, repository cloning into active runtime, hook execution, slash-command activation, raw skill copying, observability skill import, web-performance auditor import, global git or agent configuration changes, product-repo changes, or runtime configuration changes.
