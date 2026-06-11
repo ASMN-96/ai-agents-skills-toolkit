@@ -4,8 +4,8 @@
 - Repository: tirth8205/code-review-graph
 - Source URL: https://github.com/tirth8205/code-review-graph
 - Homepage: https://code-review-graph.com
-- Last reviewed commit: 0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8
-- Last reviewed date: 2026-06-06
+- Last reviewed commit: b72413cbd34a4ac08cc60dcdd42df1d02f3fc77d
+- Last reviewed date: 2026-06-11
 - Review level: completed source-safety review for active-read-only metadata
 - Classification: active-read-only source intelligence
 - License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
@@ -65,3 +65,11 @@ Only normalized toolkit governance ideas may be used. Do not copy upstream code,
 Outcome: `SYNCED_ADOPTED`.
 
 code-review-graph remains active inside the embedded toolkit as read-only source intelligence for changed-file neighborhoods, compact context packs, stale graph detection, and token-budget governance. This does not authorize CLI execution, MCP setup, daemon/watch behavior, product-repo indexing, global config changes, package changes, generated graph claims, or whole-repo dumps without separate approval and observed output.
+
+## Freshness Review 2026-06-11
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8` to `b72413cbd34a4ac08cc60dcdd42df1d02f3fc77d` using `git ls-remote` and GitHub compare metadata only. The compare was 29 commits ahead and touched GitHub Action, daemon, embedding provider, Windows path handling, custom-language support, eval/benchmark code, hook files, skills, docs, package metadata, workflow files, and tests.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep code-review-graph adopted only as static context-graph and token-governance source intelligence already represented in toolkit-owned methods. This refresh updates embedded source tracking only and does not approve CLI install, GitHub Action adoption, MCP setup, daemon/watch behavior, hook adoption, product-repo indexing, private-overlay indexing, generated graph claims without observed output, package or lockfile adoption, raw upstream copying, or runtime activation.

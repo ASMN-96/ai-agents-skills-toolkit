@@ -4,7 +4,7 @@
 - Owner / publisher: ruvnet.
 - Source type: Agent orchestration/runtime framework with daemon, plugins, workers, state, and verification materials.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `16a55f7a537c4a405e448e59859866eebbdd45a0` on `main`, checked by read-only GitHub compare metadata on 2026-06-09.
+- Pinned repo ref checked: `58716fd141b9c90b9b9a802bc089f2401da3d108` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
 - Visible adoption signals: about 56.4k GitHub stars, 6.4k forks, and active alpha release work.
 - Trust level: Medium source trust, very high runtime/daemon risk.
 - License status: GitHub API reports MIT.
@@ -143,3 +143,10 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_ADOPTED`.
 
 Decision: keep only the existing toolkit-authored static task-state and handoff discipline as adopted source intelligence. This refresh updates source tracking only and does not approve package install, package or lockfile update, CI workflow adoption, GitHub Pages workflow adoption, statusline helper adoption, nested agent or skill import, probe script execution, daemon, worker, hook, MCP, memory, plugin, script, model-routing import, persisted-state import, source-copying, method-extraction, product-repo indexing, product-repo changes, or global configuration use.
+## Freshness Review 2026-06-11
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `16a55f7a537c4a405e448e59859866eebbdd45a0` to `58716fd141b9c90b9b9a802bc089f2401da3d108` using `git ls-remote` and GitHub compare metadata only. The compare was 3 commits ahead and touched session atomic-write behavior, hive-mind child-process lifecycle behavior, statusline helper process behavior, package metadata, and lockfile data.
+
+Outcome: `SYNCED_ADOPTED`.
+
+Decision: keep RuFlo adopted only as static task-state and handoff discipline already represented in toolkit-owned methods. This refresh updates source tracking only and does not approve package install, package or lockfile update, statusline helper adoption, hive-mind runtime adoption, session persistence import, daemon, worker, hook, MCP, memory, plugin, script, persisted-state import, product-repo indexing, or global configuration use.

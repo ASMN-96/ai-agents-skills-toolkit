@@ -542,8 +542,8 @@
       "repoOwner": "tirth8205",
       "repoName": "code-review-graph",
       "defaultBranch": "main",
-      "lastReviewedCommit": "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
-      "lastReviewedDate": "2026-06-06",
+      "lastReviewedCommit": "b72413cbd34a4ac08cc60dcdd42df1d02f3fc77d",
+      "lastReviewedDate": "2026-06-11",
       "sourceRecordPath": ".ai-toolkit/sources/records/code-review-graph.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -555,17 +555,21 @@
       "recommendedToolkitStatus": "active-read-only",
       "reviewDecision": {
         "outcome": "SYNCED_ADOPTED",
-        "reviewedCommit": "0c9a5ff3371cf78f89032ff6936e3d3a5fedf0b8",
-        "reviewedDate": "2026-06-06",
-        "summary": "Active read-only context graph and token governance concepts adopted into toolkit-owned methods/evals; runtime execution remains approval-required.",
+        "reviewedCommit": "b72413cbd34a4ac08cc60dcdd42df1d02f3fc77d",
+        "reviewedDate": "2026-06-11",
+        "summary": "GitHub Action, daemon, embedding provider, Windows, custom-language, eval, hook, skills, docs, and package drift reviewed; only existing static context-graph and token-governance concepts remain adopted.",
         "boundaries": [
           "no CLI install",
+          "no GitHub Action adoption",
           "no MCP setup",
           "no daemon or watcher",
+          "no hook adoption",
           "no product-repo indexing",
           "no private-overlay indexing",
-          "no generated graph claims without output",
-          "no raw upstream copying"
+          "no generated graph claims without observed output",
+          "no package or lockfile adoption",
+          "no raw upstream copying",
+          "no runtime activation"
         ]
       }
     },

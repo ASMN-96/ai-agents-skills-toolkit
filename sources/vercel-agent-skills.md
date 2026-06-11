@@ -5,7 +5,7 @@
 - Source type: Web/frontend agent skills repository with React, deployment, design, and Vercel-oriented skill packages.
 - Source authority level: Historical/reference-only. Not active authority for toolkit methods or runtime.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `4ec6f84b61cd3c931046c3e6e398f3ae7de372f7` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-01.
+- Pinned repo ref checked: `f8a72b9603728bb92a217a879b7e62e43ad76c81` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-11.
 - Visible adoption signals: about 26.3k GitHub stars, 2.4k forks, and visible React/web-design/deployment skill folders.
 - Trust level: Medium-high source trust, high install/package risk.
 - License status: README claims MIT. GitHub API did not expose a root license, and no root SPDX `LICENSE` file was found through the contents API during this pass.
@@ -67,3 +67,11 @@ Candidate for future normalized frontend/web-quality method refinement, pending 
 ## Freshness Review 2026-06-01
 
 Skill Scout read-only follow-up reviewed upstream default-branch movement from `180115660cfb8a86b808f117475a01f54caf3bc5` to `4ec6f84b61cd3c931046c3e6e398f3ae7de372f7` using GitHub compare metadata, current commit metadata, repository metadata, license endpoint signal, and patch keyword review only. The compare was 2 commits ahead and added a `writing-guidelines` skill plus README entry. GitHub repository metadata still reports no root license object and the license endpoint returned 404, so the source remains license-unclear and reference-only. Patch review found network-fetch/WebFetch-style guidance in the added skill, which reinforces the existing no-install, no-activation, no-raw-copy, no-MCP, no-tool-execution, and no-runtime-claim boundaries. This refresh updates source tracking only and does not approve copying the writing skill, fetching its remote guidelines, installing packages, activating skills/plugins/tools, extracting methods, changing CI/MCP/global config, package changes, or product-repo changes.
+
+## Freshness Review 2026-06-11
+
+Skill Scout read-only follow-up reviewed upstream default-branch movement from `4ec6f84b61cd3c931046c3e6e398f3ae7de372f7` to `f8a72b9603728bb92a217a879b7e62e43ad76c81` using `git ls-remote` and GitHub compare metadata only. The compare was 3 commits ahead and touched `skills/vercel-optimize/lib/vercel.mjs` plus related tests, changing Vercel CLI resolution behavior on Windows.
+
+Outcome: `SYNCED_PLUGIN_DELEGATED`.
+
+Decision: keep Vercel Agent Skills historical/reference-only and delegate live Vercel execution to the installed first-party Vercel plugin/docs path. This refresh updates source tracking only and does not approve Vercel CLI execution, package execution, Windows spawn behavior import, raw skill copying, skill activation, deployment behavior adoption, token or project-link access, CI changes, MCP setup, global config changes, or product-repo changes.

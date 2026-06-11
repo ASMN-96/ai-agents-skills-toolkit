@@ -6,7 +6,7 @@
 - Source type: Skills directory entry plus open skills CLI repository.
 - Source authority level: Historical/reference-only. Not active authority for toolkit methods or runtime.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `a561e790756b2785b9ddb82285c4eb0a08258ac9` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-06.
+- Pinned repo ref checked: `be0dd25b4a8665894a56f45ef582cc02ca802c39` on `main`, checked by read-only remote HEAD and compare metadata on 2026-06-11.
 - Visible adoption signals: about 17.5k GitHub stars, 1.4k forks, and about 1.4M skills.sh installs for `find-skills`.
 - Trust level: Medium-high source trust, high execution risk if CLI install/update behavior is followed.
 - License status: GitHub API did not expose a root repo license. `package.json` declares MIT. Per-skill license status should remain unclear until a dedicated license review confirms repository-level applicability.
@@ -74,3 +74,11 @@ Skill Scout read-only source-safety follow-up reviewed upstream default-branch m
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep Vercel find-skills historical/reference-only and current as provenance for missing-capability discovery boundaries. First-party Vercel plugin/docs remain the preferred live Vercel path; this source is not an active execution authority. This review does not approve CLI execution, skill installation, use/update/sync behavior adoption, raw `SKILL.md` copying, method extraction, source copying, package changes, global config changes, product-repo changes, or runtime activation. Future upstream movement beyond `a561e790756b2785b9ddb82285c4eb0a08258ac9` requires a fresh review.
+
+## Freshness Review 2026-06-11
+
+Skill Scout read-only source-safety follow-up reviewed upstream default-branch movement from `a561e790756b2785b9ddb82285c4eb0a08258ac9` to `be0dd25b4a8665894a56f45ef582cc02ca802c39` using `git ls-remote` and GitHub compare metadata only. The compare was 3 commits ahead and touched `src/add.ts`, `src/blob.ts`, and `package.json`, adding per-repo self-hosted blob download URL support.
+
+Outcome: `SYNCED_REFERENCE`.
+
+Decision: keep Vercel find-skills historical/reference-only and current as provenance for missing-capability discovery boundaries. This refresh updates source tracking only and does not approve CLI execution, skill installation, use/update/sync behavior adoption, blob download behavior adoption, raw `SKILL.md` copying, method extraction, source copying, package changes, global config changes, product-repo changes, or runtime activation.
