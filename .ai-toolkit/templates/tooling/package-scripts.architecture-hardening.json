@@ -1,0 +1,23 @@
+{
+  "templateType": "package-scripts-suggestion",
+  "projectType": "architecture-hardening",
+  "ownerMustReviewBeforeApplying": true,
+  "codexMustNotClaimOutputUnlessActualScriptOrToolRan": true,
+  "packageManagerChangesRequireSeparateApproval": true,
+  "notes": [
+    "Package-manager changes require separate approval.",
+    "Codex must not claim output unless actual script/tool ran.",
+    "Owner must review before applying.",
+    "Copy manually into a project package file only after owner review.",
+    "These scripts are suggestions only and do not install dependencies.",
+    "Codex must report missing scripts or unavailable tools honestly."
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "arch": "dependency-cruiser .",
+    "arch:cycles": "madge --circular .",
+    "arch:dupes": "jscpd ."
+  }
+}

@@ -19,6 +19,7 @@ This skill coordinates evidence and release posture. It does not authorize direc
 - Route PR, release-candidate, merge, rollback, and post-merge decisions through `.ai-toolkit/methods/release/release-rollback-readiness.md`. Canonical toolkit source: `methods/release/release-rollback-readiness.md`.
 - Route package-manager/workspace migrations through `.ai-toolkit/methods/repo/package-manager-workspace-migration.md`. Canonical toolkit source: `methods/repo/package-manager-workspace-migration.md`.
 - Use `.ai-toolkit/templates/tooling/reviewdog-output-policy.md` when deterministic scanner output may be reported through reviewdog. Canonical toolkit source: `templates/tooling/reviewdog-output-policy.md`.
+- Use `templates/pr-description-template.md` for PR evidence and `templates/commit-message-template.md` for release commit wording when those artifacts are requested or incomplete.
 
 ## Completion Evidence
 

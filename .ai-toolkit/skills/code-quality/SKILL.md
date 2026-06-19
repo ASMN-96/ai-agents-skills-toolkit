@@ -13,6 +13,13 @@ This skill routes quality checks through project-owned scripts first. It does no
 
 Prefer available project-owned checks in this order: typecheck, lint, focused tests, build, then optional scanners only if already configured.
 
+## Measurable Quality Targets
+
+- Changed behavior needs focused tests or a documented exception with residual risk.
+- Coverage percentages count only when the project already measures coverage and the command actually ran.
+- For critical business, auth, data, payment, release, or public API behavior, prefer branch/edge assertions over broad snapshot-only checks.
+- Do not invent coverage numbers, pass rates, or quality gates from registry metadata, generated files, or recommended scripts.
+
 ## Review Focus
 
 - Type boundaries are explicit and stable.

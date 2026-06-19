@@ -9,7 +9,7 @@
 - Review level: optional-tool posture reference
 - Classification: active-if-detected or owner-approved-install candidate for scoped context packing/token counts
 - License status: MIT signal in public repository metadata; not legal approval to copy raw upstream content
-- Maintenance signal: public repository default branch resolved on 2026-06-11
+- Maintenance signal: public repository default branch resolved on 2026-06-19
 - neverAutoImport: true
 
 ## Toolkit Value

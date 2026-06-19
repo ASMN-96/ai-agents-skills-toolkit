@@ -1,6 +1,6 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.3
-last_compiled_against: a98cda9df4707b6704b6ca327d4f07c8a5665a72
+toolkit_pin: ai-agents-skills-toolkit@0.2.4
+last_compiled_against: 7872be26df6c2a527edb76c67664fdf4b71f7383
 compiled_fallback: compiled-agents/architect-agent.compiled.md
 ---
 
@@ -17,6 +17,7 @@ Designs system architecture, module boundaries, data flow, integration contracts
 - Use changed-file neighborhood selection for large diffs, PR reviews, or multi-agent handoffs.
 - For serious architecture programs, report GSD status or a manual GSD-equivalent fallback before sequencing phase/state work.
 - Record omitted context, private-overlay exclusions, and project context evidence labels when context governance matters.
+- Use `templates/design-doc-template.md` for design decisions that need durable scope, interface, tradeoff, rollout, and validation evidence.
 - Handoff security, database/RLS, frontend, and release risks to the matching specialist agents.
 
 ## Runtime Status

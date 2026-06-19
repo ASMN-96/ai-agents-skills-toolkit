@@ -31,6 +31,13 @@ Each tool entry must include:
 - `defaultEnterpriseStatus`
 - `reviewState`
 - `reviewEvidence`
+- `riskTier`
+- `reviewedSource`
+- `reviewedVersionOrCommit`
+- `inspectedAreas`
+- `uninspectedAreas`
+- `riskRationale`
+- `nextReviewDue`
 
 `reviewState` must be one of:
 
@@ -54,6 +61,9 @@ Tool posture labels are stored in `activationLevels` and must use only this voca
 - `defaultEnterpriseStatus` must stay metadata-only unless a later review PR records approval evidence.
 - `securityReviewStatus` must not say approved or enterprise-approved without evidence.
 - No tool may keep all core enterprise-risk fields as `unknown-review-required`; an unreviewed tool must say `unreviewed-blocked` and use explicit owner-review-required field values.
+- Risk evidence must live in `registries/tools.registry.json` or a linked repo doc, not only in a PR body.
+- Evidence must identify the reviewed source, reviewed commit/version or `unknown-review-required`, reviewed date, inspected areas, uninspected areas, risk-tier rationale, and next review due date.
+- Do not invent risk facts. If license, telemetry, network behavior, permission model, package contents, maintenance quality, or runtime side effects were not inspected, keep those fields unknown and list them in `uninspectedAreas`.
 - `allowedEnvironments` must not imply execution approval from registry presence.
 - `forbiddenEnvironments` must block local execution, CI, staging, production, global config, MCP, and product repositories unless separately approved.
 - CodeRabbit remains delegated integration metadata, not a source repo and not merge authority by itself.

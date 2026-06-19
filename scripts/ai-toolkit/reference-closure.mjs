@@ -142,11 +142,48 @@ function resolveReference(root, sourceFile, reference) {
   const normalized = stripTrailingPunctuation(reference);
   const sourceIsPackaged = normalizeRelative(sourceFile).startsWith(".ai-toolkit/");
 
+  function resolvePackagedSkillReference(packagedSkillPath) {
+    if (pathExists(root, packagedSkillPath)) {
+      return {
+        expectedPath: packagedSkillPath,
+        exists: true
+      };
+    }
+    const installAssets = installManifestAssets(root);
+    const manifestPath = normalizeRelative(packagedSkillPath).replace(/^\.ai-toolkit\//, "");
+    if (installAssets.size > 0 && !installAssets.has(manifestPath)) {
+      return {
+        expectedPath: packagedSkillPath,
+        exists: true
+      };
+    }
+    return {
+      expectedPath: packagedSkillPath,
+      exists: false
+    };
+  }
+
   if (normalized.startsWith(".ai-toolkit/")) {
     return {
       expectedPath: normalized,
       exists: pathExists(root, normalized)
     };
+  }
+
+  if (sourceIsPackaged && normalized.startsWith(".agents/skills/")) {
+    if (pathExists(root, normalized)) {
+      return {
+        expectedPath: normalized,
+        exists: true
+      };
+    }
+    const packagedSkillPath = `.ai-toolkit/${normalized.replace(/^\.agents\/skills\//, "skills/")}`;
+    return resolvePackagedSkillReference(packagedSkillPath);
+  }
+
+  if (sourceIsPackaged && normalized.startsWith("skills/")) {
+    const packagedSkillPath = `.ai-toolkit/${normalized}`;
+    return resolvePackagedSkillReference(packagedSkillPath);
   }
 
   const sourcePath = supportSourcePathFromReference(normalized);
@@ -192,11 +229,16 @@ function isHistoricalAllowed(file, context) {
 
 function isProjectLocalPlaceholderAllowed(file, reference, context) {
   const normalizedFile = normalizeRelative(file);
-  if (!normalizedFile.startsWith("docs/") && !normalizedFile.startsWith(".ai-toolkit/docs/")) {
+  if (
+    !normalizedFile.startsWith("docs/") &&
+    !normalizedFile.startsWith(".ai-toolkit/docs/") &&
+    !normalizedFile.startsWith("templates/") &&
+    !normalizedFile.startsWith(".ai-toolkit/templates/")
+  ) {
     return false;
   }
   const normalizedReference = normalizeRelative(reference);
-  const fileContextAllowsProjectLocal = /(?:PROJECT_SYNC_WORKFLOW|UPDATE_POLICY|MOCK_SYNC_REHEARSAL|PROJECT_SYNC_VALIDATION_REPORT)/i.test(normalizedFile);
+  const fileContextAllowsProjectLocal = /(?:PROJECT_SYNC_WORKFLOW|UPDATE_POLICY|MOCK_SYNC_REHEARSAL|PROJECT_SYNC_VALIDATION_REPORT|\.ai-toolkit\.config\.example)/i.test(normalizedFile);
   return PROJECT_LOCAL_REFERENCE_PATTERNS.some((pattern) => pattern.test(normalizedReference))
     && (PROJECT_LOCAL_MARKER_PATTERN.test(context) || fileContextAllowsProjectLocal);
 }

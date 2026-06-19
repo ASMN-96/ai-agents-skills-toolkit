@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.2.3",
+  "toolkitVersion": "0.2.4",
   "policy": "Source watchlist is metadata-only and never authorizes import, install, activation, extraction, CI wiring, MCP setup, or global config changes.",
   "sources": [
     {
@@ -579,8 +579,8 @@
       "repoOwner": "yamadashy",
       "repoName": "repomix",
       "defaultBranch": "main",
-      "lastReviewedCommit": "fc69dcc31357d5db934f67ceaff4150f67e4735c",
-      "lastReviewedDate": "2026-06-11",
+      "lastReviewedCommit": "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
+      "lastReviewedDate": "2026-06-19",
       "sourceRecordPath": ".ai-toolkit/sources/records/repomix.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -592,8 +592,8 @@
       "recommendedToolkitStatus": "active-if-detected",
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "fc69dcc31357d5db934f67ceaff4150f67e4735c",
-        "reviewedDate": "2026-06-11",
+        "reviewedCommit": "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
+        "reviewedDate": "2026-06-19",
         "summary": "Optional scoped context packing and token-count support retained only when project-owned or owner-approved; runtime execution remains approval-required.",
         "boundaries": [
           "no default install",

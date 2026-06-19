@@ -6,6 +6,19 @@ Release cadence: controlled toolkit releases are cut when governance, runtime-bo
 
 ## Unreleased
 
+## v0.2.4
+
+- Completed approved agent hardening for frontend, QA, and security agent definitions.
+- Added compiled-agent promotion and parity validation so approved registry agents compile as approved only when source quality, profile refs, method refs, source content, and embedded mirrors match.
+- Fixed project-context preflight traversal and validation to exclude nested worktree checkout paths.
+- Added evidence-backed metadata-only enterprise-risk review fields for baseline tools, GSD Core, Repomix, and delegated CodeRabbit posture.
+- Added product-neutral PR, commit, design-doc, and incident-report templates with agent/skill routing references.
+- Expanded security-hardening, code-quality, and UIUX evidence guidance.
+- Regenerated compiled agents and the embedded `.ai-toolkit` package for `0.2.4`.
+- See `docs/V0_2_4_RELEASE_NOTES.md`.
+
+## v0.2.3
+
 - Added current-state audit remediation matrix for the 2026-06-07 audit pass.
 - Split agent registry runtime truth into TOML file presence, compiled fallback presence, registry recommendation, and actual spawn proof.
 - Added compiled-agent provenance metadata from `git rev-parse HEAD`, compiler path, source agent path, and registry input path.
@@ -13,8 +26,6 @@ Release cadence: controlled toolkit releases are cut when governance, runtime-bo
 - Added manual reviewed-doc source tracking for GitLab documentation sources.
 - Added shared eval contract documentation and stricter eval runner checks for unsafe actions, forbidden aliases, forbidden claims, review behaviors, and mirror parity.
 - Added source provenance audit coverage for Trail of Bits, Vercel, Karpathy, Impeccable, RuFlo, Everything Claude Code, and GitLab docs.
-
-## v0.2.3
 
 - Completed full resource refresh with zero passive source holds.
 - Resolved reviewed source decisions through `SYNCED_ADOPTED`, `SYNCED_REFERENCE`, or `SYNCED_PLUGIN_DELEGATED` outcomes.

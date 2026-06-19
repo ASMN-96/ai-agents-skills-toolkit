@@ -55,6 +55,24 @@ async function readJson(relativePath) {
   return JSON.parse(await readFile(rootPath(relativePath), "utf8"));
 }
 
+async function walkFiles(relativeDir, output = []) {
+  let entries;
+  try {
+    entries = await readdir(rootPath(relativeDir), { withFileTypes: true });
+  } catch {
+    return output;
+  }
+  for (const entry of entries) {
+    const child = `${relativeDir}/${entry.name}`;
+    if (entry.isDirectory()) {
+      await walkFiles(child, output);
+    } else {
+      output.push(child);
+    }
+  }
+  return output.sort((left, right) => left.localeCompare(right));
+}
+
 async function copyFileTracked(source, target, mirrors, mode = "byte-identical") {
   await ensureDir(path.dirname(target));
   await cp(rootPath(source), rootPath(target), { force: true });
@@ -118,7 +136,14 @@ function enterpriseRiskMetadata(id) {
     forbiddenEnvironments: ["local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"],
     defaultEnterpriseStatus: "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
     reviewState: "unreviewed-blocked",
-    reviewEvidence: "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+    reviewEvidence: "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+    riskTier: "unknown-review-required",
+    reviewedSource: "unknown-review-required",
+    reviewedVersionOrCommit: "unknown-review-required",
+    inspectedAreas: ["registry metadata only"],
+    uninspectedAreas: ["license", "telemetry", "network behavior", "permission model", "runtime behavior", "maintenance signal"],
+    riskRationale: "No current evidence-backed tool review is recorded beyond metadata presence.",
+    nextReviewDue: "owner-review-required"
   };
 
   if (isCodeRabbitIntegration(id)) {
@@ -135,7 +160,14 @@ function enterpriseRiskMetadata(id) {
       securityReviewStatus: "metadata-only-delegated-service-review-required",
       defaultEnterpriseStatus: "metadata-only; delegated service metadata only; owner review required before runtime integration, repository permission grant, or CI/PR write workflow",
       reviewState: "metadata-only-owner-review-required",
-      reviewEvidence: "Delegated service metadata is recorded, but owner review is required before any runtime integration, repository permission grant, or CI/PR write workflow."
+      reviewEvidence: "Delegated service metadata is recorded, but owner review is required before any runtime integration, repository permission grant, or CI/PR write workflow.",
+      riskTier: "high",
+      reviewedSource: "https://docs.coderabbit.ai",
+      reviewedVersionOrCommit: "manual-doc-review-required",
+      inspectedAreas: ["integration metadata", "toolkit boundary text"],
+      uninspectedAreas: ["service configuration", "repository permissions", "telemetry", "data retention", "billing", "current GitHub app settings"],
+      riskRationale: "External PR-review service may process repository and PR context; toolkit metadata cannot approve permissions or runtime use.",
+      nextReviewDue: "before enabling or changing repository integration"
     };
   }
 
@@ -154,15 +186,22 @@ function enterpriseRiskMetadata(id) {
       telemetryBehavior: "none approved or activated from toolkit metadata",
       commercialVendorDependency: "none for metadata-only posture; package/runtime use remains owner-approved or project-owned",
       maintenanceSignal: "active public repository at reviewed commit; not runtime-approved by toolkit metadata",
-      lastReviewedCommit: "fc69dcc31357d5db934f67ceaff4150f67e4735c",
-      lastReviewedDate: "2026-06-11",
+      lastReviewedCommit: "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
+      lastReviewedDate: "2026-06-19",
       securityReviewStatus: "source-safety posture reviewed for optional scoped context packing; execution, install, package changes, CI, MCP, global config, and whole-repo dumps remain approval-required",
       approvalOwner: "project-owner-required-before-install-or-execution",
       allowedEnvironments: ["metadata-only", "project-owned detected local tool after scoped owner approval"],
       forbiddenEnvironments: ["automatic local execution", "CI", "staging", "production", "global config", "MCP", "whole-repo dumps", "product repositories", "product repositories without scoped owner approval"],
       defaultEnterpriseStatus: "metadata-only detection; scoped local context packing requires explicit owner approval even when project-owned or detected; not enterprise-approved for default execution, CI, MCP, package changes, global config, or whole-repo dumps",
       reviewState: "reviewed",
-      reviewEvidence: "Repomix default branch fc69dcc31357d5db934f67ceaff4150f67e4735c recorded as optional source reference; registry presence does not approve install or execution."
+      reviewEvidence: "Repomix default branch bb4ac4763faeb7fc3d31438f072a6946b5b290b9 recorded as optional source reference; registry presence does not approve install or execution.",
+      riskTier: "medium",
+      reviewedSource: "https://github.com/yamadashy/repomix",
+      reviewedVersionOrCommit: "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
+      inspectedAreas: ["source identity", "optional context-packing posture", "toolkit boundaries"],
+      uninspectedAreas: ["runtime execution", "package install behavior", "optional integrations", "telemetry", "CI behavior"],
+      riskRationale: "Context packing can expose repository contents if run broadly, so execution remains scoped and owner-approved.",
+      nextReviewDue: "2026-09-19"
     };
   }
 
@@ -189,7 +228,14 @@ function enterpriseRiskMetadata(id) {
       forbiddenEnvironments: ["local execution", "CI", "staging", "production", "global config", "MCP", "hooks", "product repositories"],
       defaultEnterpriseStatus: "metadata-only detection; GSD phase/state use requires existing project/operator ownership or explicit owner approval; not enterprise-approved for default execution, CI, MCP, hooks, package changes, global config, or project writes",
       reviewState: "reviewed",
-      reviewEvidence: "GSD Core default branch next at 0d56f544d2f6616fcdd0a80279f85380ead4ceb0 recorded as first-class governed tool metadata; registry presence does not approve install or execution."
+      reviewEvidence: "GSD Core default branch next at 0d56f544d2f6616fcdd0a80279f85380ead4ceb0 recorded as first-class governed tool metadata; registry presence does not approve install or execution.",
+      riskTier: "medium",
+      reviewedSource: "https://github.com/open-gsd/gsd-core",
+      reviewedVersionOrCommit: "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+      inspectedAreas: ["source identity", "repository relocation", "phase/state governance posture", "toolkit boundaries"],
+      uninspectedAreas: ["runtime execution", "installer behavior", "hooks", "global config", "CI behavior", "telemetry"],
+      riskRationale: "Workflow tooling can affect project state and planning artifacts; use remains active-if-detected or owner-approved.",
+      nextReviewDue: "2026-09-19"
     };
   }
 
@@ -300,15 +346,15 @@ function sourceWatchEntry([id, name, repository, homepage, category, purpose, st
   if (isRepomix(id)) {
     return {
       ...entry,
-      lastReviewedCommit: "fc69dcc31357d5db934f67ceaff4150f67e4735c",
-      lastReviewedDate: "2026-06-11",
+      lastReviewedCommit: "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
+      lastReviewedDate: "2026-06-19",
       licenseConcern: "clear",
       reviewPriority: "High",
       recommendedToolkitStatus: "active-if-detected",
       reviewDecision: {
         outcome: "SYNCED_REFERENCE",
-        reviewedCommit: "fc69dcc31357d5db934f67ceaff4150f67e4735c",
-        reviewedDate: "2026-06-11",
+        reviewedCommit: "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
+        reviewedDate: "2026-06-19",
         summary: "Optional scoped context packing and token-count support retained only when project-owned or owner-approved; runtime execution remains approval-required.",
         boundaries: [
           "no default install",
@@ -365,8 +411,8 @@ function sourceRecord([id, name, repository, homepage, category, purpose, status
 - Repository: yamadashy/repomix
 - Source URL: https://github.com/yamadashy/repomix
 - Homepage: https://repomix.com
-- Last reviewed commit: fc69dcc31357d5db934f67ceaff4150f67e4735c
-- Last reviewed date: 2026-06-11
+- Last reviewed commit: bb4ac4763faeb7fc3d31438f072a6946b5b290b9
+- Last reviewed date: 2026-06-19
 - Review level: optional-tool posture reference
 - Classification: active-if-detected or owner-approved-install candidate for scoped context packing/token counts
 - License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
@@ -477,7 +523,7 @@ async function projectToolingModelFromRegistry() {
     }));
 
   return {
-    version: "0.2.3-architecture",
+    version: "0.2.4-architecture",
     metadataIsNotExecution: true,
     noAutomaticInstalls: true,
     noFakeValidation: true,
@@ -753,6 +799,11 @@ async function copyMirrors() {
     } catch {
       // Runtime TOML still remains the active copy; missing markdown source is validated separately if required later.
     }
+  }
+
+  await rm(rootPath(`${AI_ROOT}/templates`), { recursive: true, force: true });
+  for (const file of await walkFiles("templates")) {
+    await copyFileTracked(file, `${AI_ROOT}/${file}`, mirrors);
   }
 
   for (const file of await readdir(rootPath("registries"))) {

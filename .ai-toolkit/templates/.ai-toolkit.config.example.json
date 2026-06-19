@@ -1,0 +1,18 @@
+{
+  "selectedAgents": [
+    "skill-scout-agent",
+    "reviewer-agent",
+    "qa-test-agent",
+    "security-agent"
+  ],
+  "selectedProfiles": [
+    "audit-profile"
+  ],
+  "selectedSkills": [
+    "governance"
+  ],
+  "projectContextPath": "docs/ai/PROJECT_CONTEXT.md",
+  "approvalMode": "manual",
+  "branchPolicy": "no-direct-main",
+  "allowOverwriteProjectContext": false
+}

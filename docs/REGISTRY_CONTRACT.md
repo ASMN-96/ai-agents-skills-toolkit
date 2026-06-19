@@ -80,6 +80,8 @@ If the schema allows it, the following visibility and provenance fields are expe
 
 Presence does not imply runtime activation.
 
+`currentPosture` is retired as an active registry field. The concept is represented by the existing combination of `status`, `activationStatus`, `defaultUse`, `activationLevels`, and `enterpriseRisk.reviewState`. New registry entries must not add `currentPosture`, and validators reject it so posture cannot drift into a second vocabulary.
+
 During the generic naming migration, registries may also include:
 
 - `futurePublicName`: reserved future public-safe name for an existing asset.
@@ -113,6 +115,26 @@ Each agent entry must include:
 - `activationStatus`
 - `registrySurface`
 - `visibility`
+
+## Compiled-Agent Promotion Semantics
+
+Compiled agents are generated fallback documentation and inline-use material. They are not native custom-agent execution proof.
+
+- Registry `approved` means the source agent has reviewed registry metadata and can be selected as an approved advisory lens.
+- `compiled_status: approved` means the deterministic compiler generated a fallback from an approved source agent that passed source-quality and parity validation.
+- `compiled_status: review` means the compiled fallback is generated but not approved for approved-artifact posture.
+- `native-visible` means the repo-local TOML file is present as a selectable Codex project-agent definition; it is not proof that an agent spawned.
+- `actualSpawnObserved` and `actualSpawnProof` must remain `false`/`null` unless a specific task records real runtime evidence that the agent spawned.
+
+Promotion rules:
+
+- Approved registry agents must compile as `compiled_status: approved`.
+- Draft or unapproved registry agents must not compile as `approved`.
+- No approved source or compiled agent may contain stub, deferred compilation, or generic filler language.
+- Compiled fallbacks must point to the correct `source_agent`, current source/profile/method references, 40-character `source_commit`, and embedded current source-agent content.
+- Root compiled agents and `.ai-toolkit/compiled-agents` mirrors must match after regeneration.
+
+Approved artifact status is not runtime execution proof. Completion reports must keep selected agent lenses, compiled fallbacks, native-visible TOML files, and actual spawned agents separate.
 
 ## Skill Entries
 

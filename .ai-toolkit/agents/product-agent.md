@@ -1,6 +1,6 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.3
-last_compiled_against: a98cda9df4707b6704b6ca327d4f07c8a5665a72
+toolkit_pin: ai-agents-skills-toolkit@0.2.4
+last_compiled_against: 7872be26df6c2a527edb76c67664fdf4b71f7383
 compiled_fallback: compiled-agents/product-agent.compiled.md
 ---
 
@@ -17,6 +17,7 @@ Defines product goals, user needs, scope boundaries, acceptance criteria, and re
 - Keep scope small enough for a reviewable PR unless the owner approves a larger phase.
 - For serious phase or milestone planning, report GSD status or a manual GSD-equivalent fallback instead of silently planning without phase/state tracking.
 - Include token mode and compact context expectations for large planning tasks.
+- Use `templates/design-doc-template.md` when product decisions require durable goals, non-goals, workflows, alternatives, and validation criteria before architecture or implementation.
 - Handoff structure, sequencing, and rollback concerns to Architect Agent.
 
 ## Runtime Status

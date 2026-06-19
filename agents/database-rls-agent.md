@@ -1,6 +1,6 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.3
-last_compiled_against: a98cda9df4707b6704b6ca327d4f07c8a5665a72
+toolkit_pin: ai-agents-skills-toolkit@0.2.4
+last_compiled_against: 7872be26df6c2a527edb76c67664fdf4b71f7383
 compiled_fallback: compiled-agents/database-rls-agent.compiled.md
 ---
 

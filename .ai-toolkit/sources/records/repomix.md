@@ -4,8 +4,8 @@
 - Repository: yamadashy/repomix
 - Source URL: https://github.com/yamadashy/repomix
 - Homepage: https://repomix.com
-- Last reviewed commit: fc69dcc31357d5db934f67ceaff4150f67e4735c
-- Last reviewed date: 2026-06-11
+- Last reviewed commit: bb4ac4763faeb7fc3d31438f072a6946b5b290b9
+- Last reviewed date: 2026-06-19
 - Review level: optional-tool posture reference
 - Classification: active-if-detected or owner-approved-install candidate for scoped context packing/token counts
 - License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content

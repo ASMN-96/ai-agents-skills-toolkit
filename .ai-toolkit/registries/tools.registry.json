@@ -38,21 +38,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "not-reviewed-owner-required",
-        "saasOrLocal": "not-reviewed-owner-required",
-        "dataSentExternally": "not-reviewed-owner-required",
-        "networkBehavior": "not-reviewed-owner-required",
-        "secretAccessRisk": "not-reviewed-owner-required",
-        "repositoryPermissionsRequired": "not-reviewed-owner-required",
-        "ciPermissionsRequired": "not-reviewed-owner-required",
-        "githubAppPermissionsRequired": "not-reviewed-owner-required",
-        "authenticationModel": "not-reviewed-owner-required",
-        "telemetryBehavior": "not-reviewed-owner-required",
-        "commercialVendorDependency": "not-reviewed-owner-required",
-        "maintenanceSignal": "not-reviewed-owner-required",
-        "lastReviewedCommit": "not-reviewed-owner-required",
-        "lastReviewedDate": "not-reviewed-owner-required",
-        "securityReviewStatus": "unreviewed-blocked",
+        "license": "unknown-review-required; license legal approval not completed in this PR",
+        "saasOrLocal": "local project tool/package when project-owned or owner-approved; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown-review-required for actual project execution and integrations",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "low/medium depending on project files scanned; owner-scoped execution required",
+        "repositoryPermissionsRequired": "none from toolkit metadata; target-repository read access only if project-owned or owner-approved",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains owner-review-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata; project/runtime authentication not inspected",
+        "telemetryBehavior": "unknown-review-required; telemetry and package runtime behavior not inspected in this PR",
+        "commercialVendorDependency": "unknown-review-required; no commercial/vendor approval recorded",
+        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-19; maintenance quality not fully inspected",
+        "lastReviewedCommit": "7964e22f2b85f16e520f0e902c7fd7b6f0c15416",
+        "lastReviewedDate": "2026-06-19",
+        "securityReviewStatus": "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -66,9 +66,29 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
-        "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "defaultEnterpriseStatus": "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
+        "reviewState": "metadata-only-owner-review-required",
+        "reviewEvidence": "Reviewed source identity via git ls-remote https://github.com/microsoft/TypeScript HEAD at 7964e22f2b85f16e520f0e902c7fd7b6f0c15416 on 2026-06-19; inspected registry posture, default use, activation levels, and toolkit forbidden-use boundaries; did not inspect license legal approval, telemetry, network behavior during execution, package release contents, CI behavior, or project-specific permissions; next review due 2026-09-19.",
+        "riskTier": "low-medium",
+        "reviewedSource": "https://github.com/microsoft/TypeScript",
+        "reviewedVersionOrCommit": "7964e22f2b85f16e520f0e902c7fd7b6f0c15416",
+        "inspectedAreas": [
+          "source repository identity",
+          "current default branch HEAD",
+          "registry posture",
+          "activation levels",
+          "toolkit forbidden-use boundaries"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "Baseline developer tool is useful only through project-owned scripts or owner-approved install; registry metadata cannot approve execution or CI use.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",
@@ -131,21 +151,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "not-reviewed-owner-required",
-        "saasOrLocal": "not-reviewed-owner-required",
-        "dataSentExternally": "not-reviewed-owner-required",
-        "networkBehavior": "not-reviewed-owner-required",
-        "secretAccessRisk": "not-reviewed-owner-required",
-        "repositoryPermissionsRequired": "not-reviewed-owner-required",
-        "ciPermissionsRequired": "not-reviewed-owner-required",
-        "githubAppPermissionsRequired": "not-reviewed-owner-required",
-        "authenticationModel": "not-reviewed-owner-required",
-        "telemetryBehavior": "not-reviewed-owner-required",
-        "commercialVendorDependency": "not-reviewed-owner-required",
-        "maintenanceSignal": "not-reviewed-owner-required",
-        "lastReviewedCommit": "not-reviewed-owner-required",
-        "lastReviewedDate": "not-reviewed-owner-required",
-        "securityReviewStatus": "unreviewed-blocked",
+        "license": "unknown-review-required; license legal approval not completed in this PR",
+        "saasOrLocal": "local project tool/package when project-owned or owner-approved; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown-review-required for actual project execution and integrations",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "low/medium depending on project files scanned; owner-scoped execution required",
+        "repositoryPermissionsRequired": "none from toolkit metadata; target-repository read access only if project-owned or owner-approved",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains owner-review-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata; project/runtime authentication not inspected",
+        "telemetryBehavior": "unknown-review-required; telemetry and package runtime behavior not inspected in this PR",
+        "commercialVendorDependency": "unknown-review-required; no commercial/vendor approval recorded",
+        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-19; maintenance quality not fully inspected",
+        "lastReviewedCommit": "594c01aac353052a23858b4a24e826be7fee358a",
+        "lastReviewedDate": "2026-06-19",
+        "securityReviewStatus": "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -159,9 +179,29 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
-        "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "defaultEnterpriseStatus": "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
+        "reviewState": "metadata-only-owner-review-required",
+        "reviewEvidence": "Reviewed source identity via git ls-remote https://github.com/typescript-eslint/typescript-eslint HEAD at 594c01aac353052a23858b4a24e826be7fee358a on 2026-06-19; inspected registry posture, default use, activation levels, and toolkit forbidden-use boundaries; did not inspect license legal approval, telemetry, network behavior during execution, package release contents, CI behavior, or project-specific permissions; next review due 2026-09-19.",
+        "riskTier": "low-medium",
+        "reviewedSource": "https://github.com/typescript-eslint/typescript-eslint",
+        "reviewedVersionOrCommit": "594c01aac353052a23858b4a24e826be7fee358a",
+        "inspectedAreas": [
+          "source repository identity",
+          "current default branch HEAD",
+          "registry posture",
+          "activation levels",
+          "toolkit forbidden-use boundaries"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "Baseline developer tool is useful only through project-owned scripts or owner-approved install; registry metadata cannot approve execution or CI use.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",
@@ -223,21 +263,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "not-reviewed-owner-required",
-        "saasOrLocal": "not-reviewed-owner-required",
-        "dataSentExternally": "not-reviewed-owner-required",
-        "networkBehavior": "not-reviewed-owner-required",
-        "secretAccessRisk": "not-reviewed-owner-required",
-        "repositoryPermissionsRequired": "not-reviewed-owner-required",
-        "ciPermissionsRequired": "not-reviewed-owner-required",
-        "githubAppPermissionsRequired": "not-reviewed-owner-required",
-        "authenticationModel": "not-reviewed-owner-required",
-        "telemetryBehavior": "not-reviewed-owner-required",
-        "commercialVendorDependency": "not-reviewed-owner-required",
-        "maintenanceSignal": "not-reviewed-owner-required",
-        "lastReviewedCommit": "not-reviewed-owner-required",
-        "lastReviewedDate": "not-reviewed-owner-required",
-        "securityReviewStatus": "unreviewed-blocked",
+        "license": "unknown-review-required; license legal approval not completed in this PR",
+        "saasOrLocal": "local project tool/package when project-owned or owner-approved; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown-review-required for actual project execution and integrations",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "low/medium depending on project files scanned; owner-scoped execution required",
+        "repositoryPermissionsRequired": "none from toolkit metadata; target-repository read access only if project-owned or owner-approved",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains owner-review-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata; project/runtime authentication not inspected",
+        "telemetryBehavior": "unknown-review-required; telemetry and package runtime behavior not inspected in this PR",
+        "commercialVendorDependency": "unknown-review-required; no commercial/vendor approval recorded",
+        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-19; maintenance quality not fully inspected",
+        "lastReviewedCommit": "e92ecef2806692f34e9d535da77405eb28464625",
+        "lastReviewedDate": "2026-06-19",
+        "securityReviewStatus": "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -251,9 +291,29 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
-        "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "defaultEnterpriseStatus": "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
+        "reviewState": "metadata-only-owner-review-required",
+        "reviewEvidence": "Reviewed source identity via git ls-remote https://github.com/facebook/react HEAD at e92ecef2806692f34e9d535da77405eb28464625 on 2026-06-19; inspected registry posture, default use, activation levels, and toolkit forbidden-use boundaries; did not inspect license legal approval, telemetry, network behavior during execution, package release contents, CI behavior, or project-specific permissions; next review due 2026-09-19.",
+        "riskTier": "low-medium",
+        "reviewedSource": "https://github.com/facebook/react",
+        "reviewedVersionOrCommit": "e92ecef2806692f34e9d535da77405eb28464625",
+        "inspectedAreas": [
+          "source repository identity",
+          "current default branch HEAD",
+          "registry posture",
+          "activation levels",
+          "toolkit forbidden-use boundaries"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "Baseline developer tool is useful only through project-owned scripts or owner-approved install; registry metadata cannot approve execution or CI use.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",
@@ -343,7 +403,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/biomejs/biome",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Frontend Coding and React Quality",
@@ -434,7 +510,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/oxc-project/oxc",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Frontend Coding and React Quality",
@@ -530,7 +622,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/webpro-nl/knip",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Frontend Coding and React Quality",
@@ -620,7 +728,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/millionco/react-doctor",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Frontend Coding and React Quality",
@@ -685,21 +809,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "not-reviewed-owner-required",
-        "saasOrLocal": "not-reviewed-owner-required",
-        "dataSentExternally": "not-reviewed-owner-required",
-        "networkBehavior": "not-reviewed-owner-required",
-        "secretAccessRisk": "not-reviewed-owner-required",
-        "repositoryPermissionsRequired": "not-reviewed-owner-required",
-        "ciPermissionsRequired": "not-reviewed-owner-required",
-        "githubAppPermissionsRequired": "not-reviewed-owner-required",
-        "authenticationModel": "not-reviewed-owner-required",
-        "telemetryBehavior": "not-reviewed-owner-required",
-        "commercialVendorDependency": "not-reviewed-owner-required",
-        "maintenanceSignal": "not-reviewed-owner-required",
-        "lastReviewedCommit": "not-reviewed-owner-required",
-        "lastReviewedDate": "not-reviewed-owner-required",
-        "securityReviewStatus": "unreviewed-blocked",
+        "license": "unknown-review-required; license legal approval not completed in this PR",
+        "saasOrLocal": "local project tool/package when project-owned or owner-approved; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown-review-required for actual project execution and integrations",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "low/medium depending on project files scanned; owner-scoped execution required",
+        "repositoryPermissionsRequired": "none from toolkit metadata; target-repository read access only if project-owned or owner-approved",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains owner-review-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata; project/runtime authentication not inspected",
+        "telemetryBehavior": "unknown-review-required; telemetry and package runtime behavior not inspected in this PR",
+        "commercialVendorDependency": "unknown-review-required; no commercial/vendor approval recorded",
+        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-19; maintenance quality not fully inspected",
+        "lastReviewedCommit": "29c364d50e45eb6fdec0c4c4eea8bf3949e56b43",
+        "lastReviewedDate": "2026-06-19",
+        "securityReviewStatus": "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -713,9 +837,29 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
-        "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "defaultEnterpriseStatus": "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
+        "reviewState": "metadata-only-owner-review-required",
+        "reviewEvidence": "Reviewed source identity via git ls-remote https://github.com/vitest-dev/vitest HEAD at 29c364d50e45eb6fdec0c4c4eea8bf3949e56b43 on 2026-06-19; inspected registry posture, default use, activation levels, and toolkit forbidden-use boundaries; did not inspect license legal approval, telemetry, network behavior during execution, package release contents, CI behavior, or project-specific permissions; next review due 2026-09-19.",
+        "riskTier": "low-medium",
+        "reviewedSource": "https://github.com/vitest-dev/vitest",
+        "reviewedVersionOrCommit": "29c364d50e45eb6fdec0c4c4eea8bf3949e56b43",
+        "inspectedAreas": [
+          "source repository identity",
+          "current default branch HEAD",
+          "registry posture",
+          "activation levels",
+          "toolkit forbidden-use boundaries"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "Baseline developer tool is useful only through project-owned scripts or owner-approved install; registry metadata cannot approve execution or CI use.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",
@@ -778,21 +922,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "not-reviewed-owner-required",
-        "saasOrLocal": "not-reviewed-owner-required",
-        "dataSentExternally": "not-reviewed-owner-required",
-        "networkBehavior": "not-reviewed-owner-required",
-        "secretAccessRisk": "not-reviewed-owner-required",
-        "repositoryPermissionsRequired": "not-reviewed-owner-required",
-        "ciPermissionsRequired": "not-reviewed-owner-required",
-        "githubAppPermissionsRequired": "not-reviewed-owner-required",
-        "authenticationModel": "not-reviewed-owner-required",
-        "telemetryBehavior": "not-reviewed-owner-required",
-        "commercialVendorDependency": "not-reviewed-owner-required",
-        "maintenanceSignal": "not-reviewed-owner-required",
-        "lastReviewedCommit": "not-reviewed-owner-required",
-        "lastReviewedDate": "not-reviewed-owner-required",
-        "securityReviewStatus": "unreviewed-blocked",
+        "license": "unknown-review-required; license legal approval not completed in this PR",
+        "saasOrLocal": "local project tool/package when project-owned or owner-approved; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown-review-required for actual project execution and integrations",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "low/medium depending on project files scanned; owner-scoped execution required",
+        "repositoryPermissionsRequired": "none from toolkit metadata; target-repository read access only if project-owned or owner-approved",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains owner-review-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata; project/runtime authentication not inspected",
+        "telemetryBehavior": "unknown-review-required; telemetry and package runtime behavior not inspected in this PR",
+        "commercialVendorDependency": "unknown-review-required; no commercial/vendor approval recorded",
+        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-19; maintenance quality not fully inspected",
+        "lastReviewedCommit": "be9d81d91314c9f0bafaa363f70b409b4b31989c",
+        "lastReviewedDate": "2026-06-19",
+        "securityReviewStatus": "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -806,9 +950,29 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
-        "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "defaultEnterpriseStatus": "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
+        "reviewState": "metadata-only-owner-review-required",
+        "reviewEvidence": "Reviewed source identity via git ls-remote https://github.com/testing-library/react-testing-library HEAD at be9d81d91314c9f0bafaa363f70b409b4b31989c on 2026-06-19; inspected registry posture, default use, activation levels, and toolkit forbidden-use boundaries; did not inspect license legal approval, telemetry, network behavior during execution, package release contents, CI behavior, or project-specific permissions; next review due 2026-09-19.",
+        "riskTier": "low-medium",
+        "reviewedSource": "https://github.com/testing-library/react-testing-library",
+        "reviewedVersionOrCommit": "be9d81d91314c9f0bafaa363f70b409b4b31989c",
+        "inspectedAreas": [
+          "source repository identity",
+          "current default branch HEAD",
+          "registry posture",
+          "activation levels",
+          "toolkit forbidden-use boundaries"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "Baseline developer tool is useful only through project-owned scripts or owner-approved install; registry metadata cannot approve execution or CI use.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",
@@ -869,21 +1033,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "not-reviewed-owner-required",
-        "saasOrLocal": "not-reviewed-owner-required",
-        "dataSentExternally": "not-reviewed-owner-required",
-        "networkBehavior": "not-reviewed-owner-required",
-        "secretAccessRisk": "not-reviewed-owner-required",
-        "repositoryPermissionsRequired": "not-reviewed-owner-required",
-        "ciPermissionsRequired": "not-reviewed-owner-required",
-        "githubAppPermissionsRequired": "not-reviewed-owner-required",
-        "authenticationModel": "not-reviewed-owner-required",
-        "telemetryBehavior": "not-reviewed-owner-required",
-        "commercialVendorDependency": "not-reviewed-owner-required",
-        "maintenanceSignal": "not-reviewed-owner-required",
-        "lastReviewedCommit": "not-reviewed-owner-required",
-        "lastReviewedDate": "not-reviewed-owner-required",
-        "securityReviewStatus": "unreviewed-blocked",
+        "license": "unknown-review-required; license legal approval not completed in this PR",
+        "saasOrLocal": "local project tool/package when project-owned or owner-approved; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown-review-required for actual project execution and integrations",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "medium/high if run broadly against repo, browser flows, logs, or generated artifacts; owner-scoped execution required",
+        "repositoryPermissionsRequired": "none from toolkit metadata; target-repository read access only if project-owned or owner-approved",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains owner-review-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata; project/runtime authentication not inspected",
+        "telemetryBehavior": "unknown-review-required; telemetry and package runtime behavior not inspected in this PR",
+        "commercialVendorDependency": "unknown-review-required; no commercial/vendor approval recorded",
+        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-19; maintenance quality not fully inspected",
+        "lastReviewedCommit": "11797b0336d50ab0d8bc554f53fcd8d4aab8438e",
+        "lastReviewedDate": "2026-06-19",
+        "securityReviewStatus": "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -897,9 +1061,29 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
-        "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "defaultEnterpriseStatus": "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
+        "reviewState": "metadata-only-owner-review-required",
+        "reviewEvidence": "Reviewed source identity via git ls-remote https://github.com/microsoft/playwright HEAD at 11797b0336d50ab0d8bc554f53fcd8d4aab8438e on 2026-06-19; inspected registry posture, default use, activation levels, and toolkit forbidden-use boundaries; did not inspect license legal approval, telemetry, network behavior during execution, package release contents, CI behavior, or project-specific permissions; next review due 2026-09-19.",
+        "riskTier": "medium",
+        "reviewedSource": "https://github.com/microsoft/playwright",
+        "reviewedVersionOrCommit": "11797b0336d50ab0d8bc554f53fcd8d4aab8438e",
+        "inspectedAreas": [
+          "source repository identity",
+          "current default branch HEAD",
+          "registry posture",
+          "activation levels",
+          "toolkit forbidden-use boundaries"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "Tool can read substantial project or runtime context when executed; toolkit keeps it metadata-only until owner-scoped use is approved.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "default-install",
       "lane": "UI/UX Design Intelligence and Browser Evidence",
@@ -997,7 +1181,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/dequelabs/axe-core-npm",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "UI/UX Design Intelligence and Browser Evidence",
@@ -1088,7 +1288,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/GoogleChrome/lighthouse-ci",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "UI/UX Design Intelligence and Browser Evidence",
@@ -1180,7 +1396,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/github/codeql",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Backend, Security, Data Safety",
@@ -1240,21 +1472,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "not-reviewed-owner-required",
-        "saasOrLocal": "not-reviewed-owner-required",
-        "dataSentExternally": "not-reviewed-owner-required",
-        "networkBehavior": "not-reviewed-owner-required",
-        "secretAccessRisk": "not-reviewed-owner-required",
-        "repositoryPermissionsRequired": "not-reviewed-owner-required",
-        "ciPermissionsRequired": "not-reviewed-owner-required",
-        "githubAppPermissionsRequired": "not-reviewed-owner-required",
-        "authenticationModel": "not-reviewed-owner-required",
-        "telemetryBehavior": "not-reviewed-owner-required",
-        "commercialVendorDependency": "not-reviewed-owner-required",
-        "maintenanceSignal": "not-reviewed-owner-required",
-        "lastReviewedCommit": "not-reviewed-owner-required",
-        "lastReviewedDate": "not-reviewed-owner-required",
-        "securityReviewStatus": "unreviewed-blocked",
+        "license": "unknown-review-required; license legal approval not completed in this PR",
+        "saasOrLocal": "local project tool/package when project-owned or owner-approved; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown-review-required for actual project execution and integrations",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "medium/high if run broadly against repo, browser flows, logs, or generated artifacts; owner-scoped execution required",
+        "repositoryPermissionsRequired": "none from toolkit metadata; target-repository read access only if project-owned or owner-approved",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains owner-review-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata; project/runtime authentication not inspected",
+        "telemetryBehavior": "unknown-review-required; telemetry and package runtime behavior not inspected in this PR",
+        "commercialVendorDependency": "unknown-review-required; no commercial/vendor approval recorded",
+        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-19; maintenance quality not fully inspected",
+        "lastReviewedCommit": "4e0501d758e51213ecf279e224d498fc71cb5b2c",
+        "lastReviewedDate": "2026-06-19",
+        "securityReviewStatus": "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1268,9 +1500,29 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
-        "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "defaultEnterpriseStatus": "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
+        "reviewState": "metadata-only-owner-review-required",
+        "reviewEvidence": "Reviewed source identity via git ls-remote https://github.com/semgrep/semgrep HEAD at 4e0501d758e51213ecf279e224d498fc71cb5b2c on 2026-06-19; inspected registry posture, default use, activation levels, and toolkit forbidden-use boundaries; did not inspect license legal approval, telemetry, network behavior during execution, package release contents, CI behavior, or project-specific permissions; next review due 2026-09-19.",
+        "riskTier": "medium",
+        "reviewedSource": "https://github.com/semgrep/semgrep",
+        "reviewedVersionOrCommit": "4e0501d758e51213ecf279e224d498fc71cb5b2c",
+        "inspectedAreas": [
+          "source repository identity",
+          "current default branch HEAD",
+          "registry posture",
+          "activation levels",
+          "toolkit forbidden-use boundaries"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "Tool can read substantial project or runtime context when executed; toolkit keeps it metadata-only until owner-scoped use is approved.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Backend, Security, Data Safety",
@@ -1335,21 +1587,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "not-reviewed-owner-required",
-        "saasOrLocal": "not-reviewed-owner-required",
-        "dataSentExternally": "not-reviewed-owner-required",
-        "networkBehavior": "not-reviewed-owner-required",
-        "secretAccessRisk": "not-reviewed-owner-required",
-        "repositoryPermissionsRequired": "not-reviewed-owner-required",
-        "ciPermissionsRequired": "not-reviewed-owner-required",
-        "githubAppPermissionsRequired": "not-reviewed-owner-required",
-        "authenticationModel": "not-reviewed-owner-required",
-        "telemetryBehavior": "not-reviewed-owner-required",
-        "commercialVendorDependency": "not-reviewed-owner-required",
-        "maintenanceSignal": "not-reviewed-owner-required",
-        "lastReviewedCommit": "not-reviewed-owner-required",
-        "lastReviewedDate": "not-reviewed-owner-required",
-        "securityReviewStatus": "unreviewed-blocked",
+        "license": "unknown-review-required; license legal approval not completed in this PR",
+        "saasOrLocal": "local project tool/package when project-owned or owner-approved; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown-review-required for actual project execution and integrations",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "medium/high if run broadly against repo, browser flows, logs, or generated artifacts; owner-scoped execution required",
+        "repositoryPermissionsRequired": "none from toolkit metadata; target-repository read access only if project-owned or owner-approved",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains owner-review-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata; project/runtime authentication not inspected",
+        "telemetryBehavior": "unknown-review-required; telemetry and package runtime behavior not inspected in this PR",
+        "commercialVendorDependency": "unknown-review-required; no commercial/vendor approval recorded",
+        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-19; maintenance quality not fully inspected",
+        "lastReviewedCommit": "8ad8470035d31a209322c580153b45c18e21b980",
+        "lastReviewedDate": "2026-06-19",
+        "securityReviewStatus": "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1363,9 +1615,29 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
-        "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "defaultEnterpriseStatus": "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
+        "reviewState": "metadata-only-owner-review-required",
+        "reviewEvidence": "Reviewed source identity via git ls-remote https://github.com/gitleaks/gitleaks HEAD at 8ad8470035d31a209322c580153b45c18e21b980 on 2026-06-19; inspected registry posture, default use, activation levels, and toolkit forbidden-use boundaries; did not inspect license legal approval, telemetry, network behavior during execution, package release contents, CI behavior, or project-specific permissions; next review due 2026-09-19.",
+        "riskTier": "medium",
+        "reviewedSource": "https://github.com/gitleaks/gitleaks",
+        "reviewedVersionOrCommit": "8ad8470035d31a209322c580153b45c18e21b980",
+        "inspectedAreas": [
+          "source repository identity",
+          "current default branch HEAD",
+          "registry posture",
+          "activation levels",
+          "toolkit forbidden-use boundaries"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "Tool can read substantial project or runtime context when executed; toolkit keeps it metadata-only until owner-scoped use is approved.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "default-install",
       "lane": "Backend, Security, Data Safety",
@@ -1459,7 +1731,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/trufflesecurity/trufflehog",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "approval-required",
       "lane": "Backend, Security, Data Safety",
@@ -1519,21 +1807,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "not-reviewed-owner-required",
-        "saasOrLocal": "not-reviewed-owner-required",
-        "dataSentExternally": "not-reviewed-owner-required",
-        "networkBehavior": "not-reviewed-owner-required",
-        "secretAccessRisk": "not-reviewed-owner-required",
-        "repositoryPermissionsRequired": "not-reviewed-owner-required",
-        "ciPermissionsRequired": "not-reviewed-owner-required",
-        "githubAppPermissionsRequired": "not-reviewed-owner-required",
-        "authenticationModel": "not-reviewed-owner-required",
-        "telemetryBehavior": "not-reviewed-owner-required",
-        "commercialVendorDependency": "not-reviewed-owner-required",
-        "maintenanceSignal": "not-reviewed-owner-required",
-        "lastReviewedCommit": "not-reviewed-owner-required",
-        "lastReviewedDate": "not-reviewed-owner-required",
-        "securityReviewStatus": "unreviewed-blocked",
+        "license": "unknown-review-required; license legal approval not completed in this PR",
+        "saasOrLocal": "local project tool/package when project-owned or owner-approved; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown-review-required for actual project execution and integrations",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "low/medium depending on project files scanned; owner-scoped execution required",
+        "repositoryPermissionsRequired": "none from toolkit metadata; target-repository read access only if project-owned or owner-approved",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains owner-review-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata; project/runtime authentication not inspected",
+        "telemetryBehavior": "unknown-review-required; telemetry and package runtime behavior not inspected in this PR",
+        "commercialVendorDependency": "unknown-review-required; no commercial/vendor approval recorded",
+        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-19; maintenance quality not fully inspected",
+        "lastReviewedCommit": "b56b5191101d5f27d4787d5583d8d01e9518a7af",
+        "lastReviewedDate": "2026-06-19",
+        "securityReviewStatus": "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
         "approvalOwner": "security-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -1547,9 +1835,29 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
-        "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "defaultEnterpriseStatus": "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
+        "reviewState": "metadata-only-owner-review-required",
+        "reviewEvidence": "Reviewed source identity via git ls-remote https://github.com/google/osv-scanner HEAD at b56b5191101d5f27d4787d5583d8d01e9518a7af on 2026-06-19; inspected registry posture, default use, activation levels, and toolkit forbidden-use boundaries; did not inspect license legal approval, telemetry, network behavior during execution, package release contents, CI behavior, or project-specific permissions; next review due 2026-09-19.",
+        "riskTier": "medium",
+        "reviewedSource": "https://github.com/google/osv-scanner",
+        "reviewedVersionOrCommit": "b56b5191101d5f27d4787d5583d8d01e9518a7af",
+        "inspectedAreas": [
+          "source repository identity",
+          "current default branch HEAD",
+          "registry posture",
+          "activation levels",
+          "toolkit forbidden-use boundaries"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "Tool can read substantial project or runtime context when executed; toolkit keeps it metadata-only until owner-scoped use is approved.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "default-install",
       "lane": "Backend, Security, Data Safety",
@@ -1643,7 +1951,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/dependabot/dependabot-core",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Backend, Security, Data Safety",
@@ -1733,7 +2057,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/renovatebot/renovate",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Backend, Security, Data Safety",
@@ -1823,7 +2163,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/SocketDev/socket-cli",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "approval-required",
       "lane": "Backend, Security, Data Safety",
@@ -1913,7 +2269,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/aquasecurity/trivy",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Backend, Security, Data Safety",
@@ -2005,7 +2377,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/bridgecrewio/checkov",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Backend, Security, Data Safety",
@@ -2096,7 +2484,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/zaproxy/action-baseline",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "approval-required",
       "lane": "Backend, Security, Data Safety",
@@ -2186,7 +2590,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/rhysd/actionlint",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Backend, Security, Data Safety",
@@ -2280,7 +2700,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/woodruffw/zizmor",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Backend, Security, Data Safety",
@@ -2374,7 +2810,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/step-security/harden-runner",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "approval-required",
       "lane": "Backend, Security, Data Safety",
@@ -2464,7 +2916,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/reviewdog/reviewdog",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Review, PR Feedback, and Release Evidence",
@@ -2557,7 +3025,24 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; blocked from enterprise approval until owner review records evidence",
         "reviewState": "metadata-only-owner-review-required",
-        "reviewEvidence": "Delegated service metadata is recorded, but owner review is required before any runtime integration, repository permission grant, or CI/PR write workflow."
+        "reviewEvidence": "Delegated service metadata is recorded, but owner review is required before any runtime integration, repository permission grant, or CI/PR write workflow.",
+        "riskTier": "high",
+        "reviewedSource": "https://docs.coderabbit.ai",
+        "reviewedVersionOrCommit": "manual-doc-review-required",
+        "inspectedAreas": [
+          "integration metadata",
+          "toolkit boundary text"
+        ],
+        "uninspectedAreas": [
+          "service configuration",
+          "repository permissions",
+          "telemetry",
+          "data retention",
+          "billing",
+          "current GitHub app settings"
+        ],
+        "riskRationale": "External PR-review service may process repository and PR context; toolkit metadata cannot approve permissions or runtime use.",
+        "nextReviewDue": "before enabling or changing repository integration"
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Review, PR Feedback, and Release Evidence",
@@ -2647,7 +3132,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/cli/cli",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "use-if-existing",
       "lane": "Review, PR Feedback, and Release Evidence",
@@ -2742,7 +3243,26 @@
         ],
         "defaultEnterpriseStatus": "metadata-only detection; GSD phase/state use requires existing project/operator ownership or explicit owner approval; not enterprise-approved for default execution, CI, MCP, hooks, package changes, global config, or project writes",
         "reviewState": "reviewed",
-        "reviewEvidence": "GSD Core default branch next at 0d56f544d2f6616fcdd0a80279f85380ead4ceb0 recorded as first-class governed tool metadata; registry presence does not approve install or execution."
+        "reviewEvidence": "GSD Core default branch next at 0d56f544d2f6616fcdd0a80279f85380ead4ceb0 recorded as first-class governed tool metadata; registry presence does not approve install or execution.",
+        "riskTier": "medium",
+        "reviewedSource": "https://github.com/open-gsd/gsd-core",
+        "reviewedVersionOrCommit": "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+        "inspectedAreas": [
+          "source identity",
+          "repository relocation",
+          "phase/state governance posture",
+          "toolkit boundaries"
+        ],
+        "uninspectedAreas": [
+          "runtime execution",
+          "installer behavior",
+          "hooks",
+          "global config",
+          "CI behavior",
+          "telemetry"
+        ],
+        "riskRationale": "Workflow tooling can affect project state and planning artifacts; use remains active-if-detected or owner-approved.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "active-if-detected",
       "lane": "Governance, Planning, Source of Truth",
@@ -2826,8 +3346,8 @@
         "telemetryBehavior": "none approved or activated from toolkit metadata",
         "commercialVendorDependency": "none for metadata-only posture; package/runtime use remains owner-approved or project-owned",
         "maintenanceSignal": "active public repository at reviewed commit; not runtime-approved by toolkit metadata",
-        "lastReviewedCommit": "fc69dcc31357d5db934f67ceaff4150f67e4735c",
-        "lastReviewedDate": "2026-06-11",
+        "lastReviewedCommit": "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
+        "lastReviewedDate": "2026-06-19",
         "securityReviewStatus": "source-safety posture reviewed for optional scoped context packing; execution, install, package changes, CI, MCP, global config, and whole-repo dumps remain approval-required",
         "approvalOwner": "project-owner-required-before-install-or-execution",
         "allowedEnvironments": [
@@ -2846,7 +3366,24 @@
         ],
         "defaultEnterpriseStatus": "metadata-only detection; scoped local context packing requires explicit owner approval even when project-owned or detected; not enterprise-approved for default execution, CI, MCP, package changes, global config, or whole-repo dumps",
         "reviewState": "reviewed",
-        "reviewEvidence": "Repomix default branch fc69dcc31357d5db934f67ceaff4150f67e4735c recorded as optional source reference; registry presence does not approve install or execution."
+        "reviewEvidence": "Repomix default branch bb4ac4763faeb7fc3d31438f072a6946b5b290b9 recorded as optional source reference; dependency, workflow, automation, Docker, CodeQL, and packaging drift reviewed in sources/repomix.md; registry presence does not approve install or execution.",
+        "riskTier": "medium",
+        "reviewedSource": "https://github.com/yamadashy/repomix",
+        "reviewedVersionOrCommit": "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
+        "inspectedAreas": [
+          "source identity",
+          "optional context-packing posture",
+          "toolkit boundaries"
+        ],
+        "uninspectedAreas": [
+          "runtime execution",
+          "package install behavior",
+          "optional integrations",
+          "telemetry",
+          "CI behavior"
+        ],
+        "riskRationale": "Context packing can expose repository contents if run broadly, so execution remains scoped and owner-approved.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "active-if-detected",
       "lane": "Architecture, Repo Intelligence, and Token Context",
@@ -2942,7 +3479,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/nexu-io/open-design",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-reference",
       "lane": "UI/UX Design Intelligence and Browser Evidence",
@@ -3032,7 +3585,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/ossf/scorecard",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "activationLevels": [
         "static-adopted",
@@ -3104,7 +3673,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/sverweij/dependency-cruiser",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Architecture, Repo Intelligence, and Token Context",
@@ -3198,7 +3783,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/javierbrea/eslint-plugin-boundaries",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Architecture, Repo Intelligence, and Token Context",
@@ -3288,7 +3889,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/pahen/madge",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Architecture, Repo Intelligence, and Token Context",
@@ -3382,7 +3999,23 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
         "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
+        "riskTier": "unknown-review-required",
+        "reviewedSource": "https://github.com/kucherenko/jscpd",
+        "reviewedVersionOrCommit": "not-reviewed-owner-required",
+        "inspectedAreas": [
+          "registry metadata only"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "No current evidence-backed tool review is recorded beyond metadata presence.",
+        "nextReviewDue": "owner-review-required"
       },
       "projectInstallClass": "active-install-if-project-type",
       "lane": "Architecture, Repo Intelligence, and Token Context",
@@ -3446,21 +4079,21 @@
       "integrationRecordPath": null,
       "notes": "Metadata-only entry; review current upstream before adoption.",
       "enterpriseRisk": {
-        "license": "not-reviewed-owner-required",
-        "saasOrLocal": "not-reviewed-owner-required",
-        "dataSentExternally": "not-reviewed-owner-required",
-        "networkBehavior": "not-reviewed-owner-required",
-        "secretAccessRisk": "not-reviewed-owner-required",
-        "repositoryPermissionsRequired": "not-reviewed-owner-required",
-        "ciPermissionsRequired": "not-reviewed-owner-required",
-        "githubAppPermissionsRequired": "not-reviewed-owner-required",
-        "authenticationModel": "not-reviewed-owner-required",
-        "telemetryBehavior": "not-reviewed-owner-required",
-        "commercialVendorDependency": "not-reviewed-owner-required",
-        "maintenanceSignal": "not-reviewed-owner-required",
-        "lastReviewedCommit": "not-reviewed-owner-required",
-        "lastReviewedDate": "not-reviewed-owner-required",
-        "securityReviewStatus": "unreviewed-blocked",
+        "license": "unknown-review-required; license legal approval not completed in this PR",
+        "saasOrLocal": "local project tool/package when project-owned or owner-approved; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown-review-required for actual project execution and integrations",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "low/medium depending on project files scanned; owner-scoped execution required",
+        "repositoryPermissionsRequired": "none from toolkit metadata; target-repository read access only if project-owned or owner-approved",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains owner-review-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata; project/runtime authentication not inspected",
+        "telemetryBehavior": "unknown-review-required; telemetry and package runtime behavior not inspected in this PR",
+        "commercialVendorDependency": "unknown-review-required; no commercial/vendor approval recorded",
+        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-19; maintenance quality not fully inspected",
+        "lastReviewedCommit": "7feaff0cfb8d6a6260d3ea56887c9161daf8c700",
+        "lastReviewedDate": "2026-06-19",
+        "securityReviewStatus": "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
           "metadata-only"
@@ -3474,9 +4107,29 @@
           "MCP",
           "product repositories"
         ],
-        "defaultEnterpriseStatus": "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
-        "reviewState": "unreviewed-blocked",
-        "reviewEvidence": "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review."
+        "defaultEnterpriseStatus": "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
+        "reviewState": "metadata-only-owner-review-required",
+        "reviewEvidence": "Reviewed source identity via git ls-remote https://github.com/eslint/eslint HEAD at 7feaff0cfb8d6a6260d3ea56887c9161daf8c700 on 2026-06-19; inspected registry posture, default use, activation levels, and toolkit forbidden-use boundaries; did not inspect license legal approval, telemetry, network behavior during execution, package release contents, CI behavior, or project-specific permissions; next review due 2026-09-19.",
+        "riskTier": "low-medium",
+        "reviewedSource": "https://github.com/eslint/eslint",
+        "reviewedVersionOrCommit": "7feaff0cfb8d6a6260d3ea56887c9161daf8c700",
+        "inspectedAreas": [
+          "source repository identity",
+          "current default branch HEAD",
+          "registry posture",
+          "activation levels",
+          "toolkit forbidden-use boundaries"
+        ],
+        "uninspectedAreas": [
+          "license legal approval",
+          "telemetry behavior",
+          "network behavior during execution",
+          "permission model during installation or CI",
+          "runtime side effects",
+          "current package release contents"
+        ],
+        "riskRationale": "Baseline developer tool is useful only through project-owned scripts or owner-approved install; registry metadata cannot approve execution or CI use.",
+        "nextReviewDue": "2026-09-19"
       },
       "projectInstallClass": "default-install",
       "lane": "Frontend Coding and React Quality",

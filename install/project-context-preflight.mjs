@@ -20,6 +20,10 @@ const MAX_WALK_FILES = 2000;
 const SKIP_DIRS = new Set([
   ".git",
   ".ai-toolkit",
+  ".worktrees",
+  ".worktree",
+  "worktrees",
+  ".git-worktrees",
   "node_modules",
   "dist",
   "build",
@@ -35,6 +39,12 @@ const SKIP_DIRS = new Set([
   "private",
   ".private"
 ]);
+const FORBIDDEN_WORKTREE_PREFIXES = [
+  ".worktrees/",
+  ".worktree/",
+  "worktrees/",
+  ".git-worktrees/"
+];
 const UNSAFE_FILE_NAMES = new Set([
   ".env",
   ".npmrc",
@@ -373,6 +383,10 @@ export function buildProjectMap({
       ".env",
       ".env.*",
       ".git",
+      ".worktrees",
+      ".worktree",
+      "worktrees",
+      ".git-worktrees",
       ".ai-toolkit/private",
       "node_modules",
       "dist",
@@ -427,6 +441,14 @@ function stringLooksPrivatePath(value) {
   return /(^|\/)(private|\.private)(\/|$)/.test(normalized) || /(^|\/)overlays\/private(\/|$)/.test(normalized);
 }
 
+function stringLooksWorktreePath(value) {
+  const normalized = normalizeRelative(value).replace(/\\/g, "/");
+  return FORBIDDEN_WORKTREE_PREFIXES.some((prefix) => (
+    normalized === prefix.slice(0, -1) ||
+    normalized.startsWith(prefix)
+  ));
+}
+
 function stringLooksRawContent(value) {
   return value.length > 1000 && value.split(/\r?\n/).length > 12;
 }
@@ -445,6 +467,9 @@ function inspectValue(value, pathStack, issues) {
     }
     if (parentKey !== "exclusions" && (value === ".env" || value.startsWith(".env."))) {
       issues.push(`environment file path rejected at ${location}`);
+    }
+    if (parentKey !== "exclusions" && stringLooksWorktreePath(value)) {
+      issues.push(`worktree checkout path rejected at ${location}`);
     }
     if (stringLooksRawContent(value)) issues.push(`raw full-file content rejected at ${location}`);
     return;
@@ -486,7 +511,8 @@ function normalizedSafeMapPath(relativePath) {
     normalized.startsWith("../") ||
     parts.includes("..") ||
     stringLooksAbsolute(rawPath) ||
-    stringLooksPrivatePath(rawPath)
+    stringLooksPrivatePath(rawPath) ||
+    stringLooksWorktreePath(rawPath)
   ) {
     return null;
   }
