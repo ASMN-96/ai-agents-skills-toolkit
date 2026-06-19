@@ -59,7 +59,7 @@ This release is not:
 | Oxlint | `active-if-detected` or `owner-approved-install`; supplements ESLint for large JS/TS/React repos. |
 | dependency-cruiser / Madge / jscpd | `active-if-detected` or `owner-approved-install` for architecture and duplication checks. |
 | actionlint / zizmor | `active-if-detected` or `owner-approved-install` for GitHub Actions hardening. |
-| GSD-style discipline | Active governance discipline/reference only; no vendoring, install, or global config without approval. |
+| GSD Core | First-class governed tool metadata; no vendoring, install, package changes, CI, MCP, hooks, global config, or invocation claim without approval and observed output. |
 | RuFlo-style concepts | `held-static-only`; memory hooks, MCP, daemon, global config, background processes, watchers, persistence, and package behavior are `forbidden-runtime`. |
 
 ## Source Freshness Decision

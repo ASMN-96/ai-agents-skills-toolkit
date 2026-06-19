@@ -99,7 +99,7 @@ Real-project use is gated by `docs/REAL_PROJECT_READINESS.md`. The toolkit is pi
 
 ## Support Tools
 
-GSD and Superpowers are external core governance tools, not vendored toolkit dependencies.
+GSD Core is first-class governed tool metadata, and Superpowers is an external core governance tool. Neither is a vendored toolkit dependency.
 
 - GSD handles phase/state/roadmap/release-gate tracking for serious multi-step work, audits, backend work, migrations, security/SRE audits, and release programs.
 - Superpowers handles execution discipline for systematic debugging, TDD, code review, and verification-before-completion.

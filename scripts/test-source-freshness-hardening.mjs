@@ -95,6 +95,21 @@ test("--fail-on-change reports actionable freshness statuses", async () => {
   });
 });
 
+test("--fail-on-change reports canonical GitHub source relocations", async () => {
+  await withWatchlist([
+    source({
+      mockCanonicalFullName: "openai/skills-renamed"
+    })
+  ], async (cwd) => {
+    const result = await runFreshness(cwd, ["--mock", "--fail-on-change"]);
+
+    assert.notEqual(result.code, 0);
+    assert.match(result.stdout, /RELOCATED_REVIEW_REQUIRED/);
+    assert.match(result.stdout, /refresh source identity after Skill Scout review/);
+    assert.match(result.stderr, /actionable source freshness status/i);
+  });
+});
+
 test("--fail-on-change reports exact reviewed-held source commits as unresolved", async () => {
   const reviewedCommit = "a8924c2a35cfa290458852c4fad17c9133054c2e";
   const heldCommit = `feed${reviewedCommit.slice(4)}`;

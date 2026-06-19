@@ -36,9 +36,9 @@ Status: Completed for v1. Phase 6 added project-managed skill sync so selected t
 
 ## Phase 7: Core Toolchain Governance
 
-Make GSD a core external governance layer alongside Superpowers.
+Make GSD Core a first-class governed tool layer alongside Superpowers.
 
-Status: Governance-only. GSD is treated as an external prerequisite/support tool for phase/state/roadmap/release-gate tracking. Superpowers remains the external execution-discipline plugin for debugging, TDD, code review, and verification-before-completion. GSD files are not vendored into the toolkit.
+Status: First-class governed tool metadata. GSD Core is tracked through `open-gsd/gsd-core` and `registries/tools.registry.json` for phase/state/roadmap/release-gate tracking. Superpowers remains the external execution-discipline plugin for debugging, TDD, code review, and verification-before-completion. GSD files are not vendored into the toolkit, and registry presence does not approve install or invocation.
 
 ## Phase 8: Codex Custom Agents And Routing
 

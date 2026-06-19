@@ -1107,6 +1107,41 @@
         ]
       },
       {
+        "id": "gsd-core",
+        "name": "GSD Core",
+        "projectInstallClass": "active-if-detected",
+        "lane": "Governance, Planning, Source of Truth",
+        "projectTypes": [
+          "governance",
+          "planning",
+          "source-review",
+          "release",
+          "multi-step"
+        ],
+        "evidenceMode": "selected/not invoked/manual fallback or observed GSD workflow output",
+        "installLocation": "project/operator environment only after owner approval or existing project-owned setup",
+        "defaultInstall": false,
+        "requiresOwnerApproval": true,
+        "activationLevels": [
+          "active-if-detected",
+          "owner-approved-install"
+        ],
+        "whenDetected": "project-owned GSD or operator-owned GSD detected as metadata only; invocation still requires scoped task relevance and honest observed output",
+        "whenAbsent": "Owner-approved install or manual GSD-equivalent fallback",
+        "ciDefault": "not configured; local phase/state advisory only",
+        "ciPromotion": "not promoted to CI by default; owner-approved CI only after stable policy",
+        "conflictGroup": "phase-state-governance",
+        "preferredRole": "first-class governed phase/state tool",
+        "forbiddenActions": [
+          "Do not install from registry presence.",
+          "Do not run from registry presence.",
+          "Do not make package changes from registry presence.",
+          "Do not wire CI from registry presence.",
+          "Do not configure MCP, hooks, product repo mutation, or global config from registry presence.",
+          "Do not claim GSD output unless GSD actually ran with approved scope."
+        ]
+      },
+      {
         "id": "repomix",
         "name": "Repomix",
         "projectInstallClass": "active-if-detected",
@@ -1333,6 +1368,7 @@
       "Semgrep": "active-if-detected when present; owner-approved-install when absent; ci-advisory until rules are scoped",
       "dependency-cruiser / Madge / jscpd": "active-if-detected or owner-approved-install architecture and duplication checks",
       "actionlint / zizmor": "active-if-detected or owner-approved-install GitHub Actions hardening",
+      "GSD Core": "active-if-detected when project/operator-owned; owner-approved-install when absent; no invocation claim without observed workflow output",
       "Repomix": "metadata-only detection when project-owned; owner-approved-install or owner-approved execution required before scoped packs/token counts; no automatic whole-repo dumps",
       "open-design": "active-reference design intelligence only; install/import/MCP/global config require approval",
       "eslint-plugin-boundaries": "active-install-if-project-type only after architecture layers are stable and owner-approved",

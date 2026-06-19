@@ -18,6 +18,7 @@ const ISSUE_DRAFT_DISCLAIMER =
 const STATUSES = new Set([
   "UNCHANGED",
   "MANUAL_REVIEW_TRACKED",
+  "RELOCATED_REVIEW_REQUIRED",
   "REVIEWED_HELD",
   "CHANGED_LOW_RISK",
   "CHANGED_REVIEW_REQUIRED",
@@ -29,6 +30,7 @@ const STATUSES = new Set([
 
 const ACTIONABLE_STATUSES = new Set([
   "REVIEWED_HELD",
+  "RELOCATED_REVIEW_REQUIRED",
   "CHANGED_LOW_RISK",
   "CHANGED_REVIEW_REQUIRED",
   "CHANGED_HIGH_RISK",
@@ -487,6 +489,7 @@ async function inspectGithubSource(source) {
     if (!repo) {
       throw new Error("Repository was not found");
     }
+    const canonicalMismatch = githubCanonicalMismatch(source, repo);
 
     const branch = source.defaultBranch || repo.default_branch;
     const commit = await githubJson(`${repoPath}/commits/${encodeURIComponent(branch)}`);
@@ -508,9 +511,10 @@ async function inspectGithubSource(source) {
     const latestCommit = commit?.sha || null;
     const latestCommitDate = commit?.commit?.committer?.date || null;
     const changed = Boolean(latestCommit && latestCommit !== source.lastReviewedCommit);
+    const relocated = Boolean(canonicalMismatch);
 
     return {
-      status: classifyStatus(source, changed, latestCommit),
+      status: relocated ? "RELOCATED_REVIEW_REQUIRED" : classifyStatus(source, changed, latestCommit),
       latestCommit,
       latestCommitDate,
       releaseSignal: release,
@@ -518,7 +522,9 @@ async function inspectGithubSource(source) {
         ? `${license.license?.spdx_id || "unknown"} (${license.path || "license file"})`
         : repo.license?.spdx_id || "not found",
       watchedPathSignals,
-      notes: changed ? "Upstream default branch changed since last reviewed commit." : "Default branch commit matches last reviewed commit."
+      notes: relocated
+        ? `${canonicalMismatch} Update source identity after Skill Scout review; freshness commit comparison alone is not sufficient.`
+        : changed ? "Upstream default branch changed since last reviewed commit." : "Default branch commit matches last reviewed commit."
     };
   } catch (error) {
     if (error.status === 403 || error.status === 429) {
@@ -534,6 +540,18 @@ async function inspectGithubSource(source) {
       notes: error.message
     };
   }
+}
+
+function githubCanonicalMismatch(source, repo) {
+  const expectedFullName = `${source.repoOwner}/${source.repoName}`;
+  const expectedUrl = source.sourceUrl;
+  if (repo.full_name && repo.full_name !== expectedFullName) {
+    return `GitHub canonical repository is ${repo.full_name}, expected ${expectedFullName}.`;
+  }
+  if (repo.html_url && repo.html_url !== expectedUrl) {
+    return `GitHub canonical URL is ${repo.html_url}, expected ${expectedUrl}.`;
+  }
+  return null;
 }
 
 function inspectManualReviewedDocSource(source) {
@@ -651,8 +669,12 @@ function mockInspection(source, index) {
 
   const changed = index % 4 === 1;
   const latestCommit = changed ? `feed${source.lastReviewedCommit.slice(4)}` : source.lastReviewedCommit;
+  const expectedFullName = `${source.repoOwner}/${source.repoName}`;
+  const mockCanonicalMismatch = source.mockCanonicalFullName && source.mockCanonicalFullName !== expectedFullName
+    ? `Mock: GitHub canonical repository is ${source.mockCanonicalFullName}, expected ${expectedFullName}.`
+    : null;
   return {
-    status: classifyStatus(source, changed, latestCommit),
+    status: mockCanonicalMismatch ? "RELOCATED_REVIEW_REQUIRED" : classifyStatus(source, changed, latestCommit),
     latestCommit,
     latestCommitDate: changed ? "2026-05-10T00:00:00Z" : source.lastReviewedDate,
     releaseSignal: changed ? "mock: new tag signal" : "mock: unchanged",
@@ -662,7 +684,7 @@ function mockInspection(source, index) {
       sha: latestCommit,
       date: changed ? "2026-05-10T00:00:00Z" : source.lastReviewedDate
     })),
-    notes: changed ? "Mock: upstream changed since review." : "Mock: default branch commit is unchanged."
+    notes: mockCanonicalMismatch || (changed ? "Mock: upstream changed since review." : "Mock: default branch commit is unchanged.")
   };
 }
 
@@ -672,6 +694,8 @@ function nextStepFor(status) {
       return "no action";
     case "MANUAL_REVIEW_TRACKED":
       return "manual review cadence";
+    case "RELOCATED_REVIEW_REQUIRED":
+      return "refresh source identity after Skill Scout review";
     case "REVIEWED_HELD":
       return "resolve reviewed hold; use a final v0.2.3 outcome";
     case "CHANGED_LOW_RISK":
@@ -729,6 +753,8 @@ function issueLabels(result) {
     labels.push("risk-high");
   } else if (result.status === "REVIEWED_HELD") {
     labels.push("reviewed-held");
+  } else if (result.status === "RELOCATED_REVIEW_REQUIRED") {
+    labels.push("source-relocated");
   } else if (result.status === "CHANGED_REVIEW_REQUIRED") {
     labels.push("risk-review-required");
   } else if (result.status === "CHANGED_LOW_RISK") {
@@ -918,6 +944,7 @@ function renderReport(results, useMock, checkedAt) {
     "",
     "- no action: current default-branch signal matches the reviewed commit; this does not mean the source is safe forever.",
     "- manual review cadence: non-GitHub reviewed documentation is tracked as a manual source and requires periodic owner review; it is not live freshness proof.",
+    "- refresh source identity after Skill Scout review: GitHub reports a canonical repository or URL different from the watchlist entry; update source identity only after source-safety review.",
     "- resolve reviewed hold: `REVIEWED_HELD` is an unresolved/intermediate v0.2.3 status and must be converted to a final outcome or removed from active monitoring.",
     "- refresh source record: upstream changed and a source-record refresh is the next safe step.",
     "- Skill Scout review required: review trust, license, maintenance, prompt-injection risk, dangerous commands, secret access, network behavior, and filesystem writes before any later phase.",
@@ -933,6 +960,7 @@ function renderReport(results, useMock, checkedAt) {
     "- Watched-path changes are signals only, not approval.",
     "- CHECK_FAILED is per source and does not authorize fallback import or activation.",
     "- GitHub API 403/429 fallback is limited to `git ls-remote` default-branch commit checks.",
+    "- Canonical repository relocation checks require GitHub API metadata and are not claimed from `git ls-remote` fallback.",
     "- Manual reviewed-doc sources intentionally do not use GitHub API or `git ls-remote` and must not be reported as live freshness proof.",
     "- Affected methods are derived from method `sourceRef` frontmatter and are review-routing hints only.",
     "- `--create-issues` generates local dry-run issue drafts with dedupe keys and labels; it does not call GitHub or create issues.",

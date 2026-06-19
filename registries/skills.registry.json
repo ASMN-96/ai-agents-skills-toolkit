@@ -24,7 +24,7 @@
       ],
       "triggerCases": [
         "User explicitly says Use governance.",
-        "A governance run needs GSD and Superpowers status classification.",
+        "A governance run needs GSD Core and Superpowers status classification.",
         "Task involves toolkit governance, source-of-truth checks, custom agent routing, source review, validation honesty, or release readiness.",
         "Plain-language request needs professional engineering routing inside an opted-in serious project thread."
       ],
@@ -36,8 +36,8 @@
       "priority": "high",
       "conflicts": [
         "Do not duplicate Superpowers or Codex plugins.",
-        "Do not claim GSD or Superpowers were invoked unless their workflows actually ran.",
-        "Do not silently continue serious governed work without GSD or a declared manual phase/state fallback.",
+        "Do not claim GSD Core or Superpowers were invoked unless their workflows actually ran.",
+        "Do not silently continue serious governed work without GSD Core or a declared manual phase/state fallback.",
         "Do not silently fall back from native agent to compiled instructions for high-risk work.",
         "Do not treat explicit opt-in as approval for writes, migrations, package changes, Supabase policy/auth/billing/deployment changes, global config changes, external installs, or broad plugin use.",
         "Do not represent selected agents as spawned agents unless they actually ran."
@@ -45,7 +45,7 @@
       "requiredSupportTools": [],
       "optionalSupportTools": [
         "Superpowers",
-        "GSD",
+        "GSD Core",
         "GitHub/gh",
         "Playwright/browser",
         "Supabase tooling/docs",

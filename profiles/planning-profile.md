@@ -9,7 +9,7 @@
 ## Recommended Support Tools
 
 - Superpowers as an external Codex execution-discipline plugin.
-- GSD for serious phase and milestone planning when available.
+- GSD Core for serious phase and milestone planning when available.
 - GitHub/gh when branch or PR source-of-truth matters.
 
 ## Default Mode

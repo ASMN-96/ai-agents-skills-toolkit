@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 7f7d8bbcfe0549b85e568386638b73b22496c441
+source_commit: c3b505c67018b2591474ea70b92ad1707b46dfc5
 source_agent: agents/product-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -88,7 +88,7 @@ Repo-local Codex project agent when `.codex/agents/product-agent.toml` is presen
 ## Recommended Support Tools
 
 - Superpowers as an external Codex execution-discipline plugin.
-- GSD for serious phase and milestone planning when available.
+- GSD Core for serious phase and milestone planning when available.
 - GitHub/gh when branch or PR source-of-truth matters.
 
 ## Default Mode
