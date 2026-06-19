@@ -30,7 +30,7 @@ The registry contains 38 tools. The v0.2.4 baseline evidence pass reviewed sourc
 | eslint-plugin-react-hooks | `https://github.com/facebook/react` | `e92ecef2806692f34e9d535da77405eb28464625` | `metadata-only-owner-review-required` | `low-medium` | 2026-09-19 |
 | Vitest | `https://github.com/vitest-dev/vitest` | `29c364d50e45eb6fdec0c4c4eea8bf3949e56b43` | `metadata-only-owner-review-required` | `low-medium` | 2026-09-19 |
 | Testing Library | `https://github.com/testing-library/react-testing-library` | `be9d81d91314c9f0bafaa363f70b409b4b31989c` | `metadata-only-owner-review-required` | `low-medium` | 2026-09-19 |
-| Playwright | `https://github.com/microsoft/playwright` | `11797b0336d50ab0d8bc554f53fcd8d4aab8438e` | `metadata-only-owner-review-required` | `medium` | 2026-09-19 |
+| Playwright | `https://github.com/microsoft/playwright` | `32883517ffe7725ef45ac2dc020a63962c27d7a3` | `metadata-only-owner-review-required` | `medium` | 2026-09-20 |
 | Gitleaks | `https://github.com/gitleaks/gitleaks` | `8ad8470035d31a209322c580153b45c18e21b980` | `metadata-only-owner-review-required` | `medium` | 2026-09-19 |
 | OSV-Scanner | `https://github.com/google/osv-scanner` | `b56b5191101d5f27d4787d5583d8d01e9518a7af` | `metadata-only-owner-review-required` | `medium` | 2026-09-19 |
 | Semgrep | `https://github.com/semgrep/semgrep` | `4e0501d758e51213ecf279e224d498fc71cb5b2c` | `metadata-only-owner-review-required` | `medium` | 2026-09-19 |
@@ -40,7 +40,7 @@ Already governed source records retained:
 
 | Tool | Evidence | Review state |
 | --- | --- | --- |
-| GSD Core | `sources/gsd-core.md`, `0d56f544d2f6616fcdd0a80279f85380ead4ceb0`, 2026-06-19 | `reviewed` metadata-only active-if-detected posture |
+| GSD Core | `sources/gsd-core.md`, `7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034`, 2026-06-20 | `reviewed` metadata-only active-if-detected posture |
 | Repomix | `sources/repomix.md`, `bb4ac4763faeb7fc3d31438f072a6946b5b290b9`, 2026-06-19 | `reviewed` metadata-only scoped context posture |
 | CodeRabbit | Delegated integration metadata only | `metadata-only-owner-review-required` |
 

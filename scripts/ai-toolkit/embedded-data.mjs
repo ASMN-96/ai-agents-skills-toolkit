@@ -1,4 +1,4 @@
-export const TOOLKIT_VERSION = "0.2.4";
+export const TOOLKIT_VERSION = "0.2.5";
 
 export const ACTIVE_SKILLS = [
   "governance",

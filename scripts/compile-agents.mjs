@@ -6,7 +6,7 @@ import process from "node:process";
 import { promisify } from "node:util";
 
 const ROOT = process.cwd();
-const TOOLKIT_VERSION = "0.2.4";
+const TOOLKIT_VERSION = "0.2.5";
 const COMPILE_CONTRACT_VERSION = "1.0.0";
 const GENERATED_ROOT = "compiled-agents";
 const HARD_WORD_WARNING = 30000;

@@ -1,6 +1,6 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.4
-last_compiled_against: 7872be26df6c2a527edb76c67664fdf4b71f7383
+toolkit_pin: ai-agents-skills-toolkit@0.2.5
+last_compiled_against: 53466221e8d3b6c1340170d490104fe644262f3a
 compiled_fallback: compiled-agents/qa-test-agent.compiled.md
 ---
 

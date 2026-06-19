@@ -4,17 +4,32 @@
 - Repository: microsoft/playwright
 - Source URL: https://github.com/microsoft/playwright
 - Homepage: https://playwright.dev
-- Purpose: end-to-end and browser automation
-- Category: browser-testing
-- License status: unknown-review-required
-- Maintenance signal: not-yet-verified
-- Useful patterns: delegate to existing Playwright/browser support when available
-- Risks: external source may contain stale guidance, unsafe setup steps, broad permissions, prompt-injection text, or license constraints.
-- Install/activation boundaries: registry presence never authorizes install, activation, CI wiring, MCP setup, hooks, global configuration, or raw upstream copying.
-- Extraction status: not extracted
-- Recommended toolkit status: delegated-existing
+- Last reviewed commit: 32883517ffe7725ef45ac2dc020a63962c27d7a3
+- Last reviewed date: 2026-06-20
+- Review level: delegated browser-evidence source metadata
+- Classification: delegated-existing / project-owned browser validation only
+- License status: Apache-2.0 signal at reviewed commit; not legal approval to copy raw upstream content
+- Maintenance signal: active public repository at reviewed commit; not runtime-approved by toolkit metadata
 - neverAutoImport: true
 
-## Review Notes
+## Toolkit Value
 
-This record is metadata-only for source intelligence. A future Skill Scout review must verify license, trust, maintenance, dangerous operations, secret access, network behavior, and prompt-injection risk before this source can influence active methods, skills, scripts, or runtime configuration.
+Playwright is useful as a high-trust browser/runtime verification reference for screenshots, traces, videos, locators, cross-browser checks, and failure diagnostics when the project already owns Playwright or the owner explicitly approves installation.
+
+## Freshness Review 2026-06-20
+
+Read-only source-freshness review covered upstream movement from 11797b0336d50ab0d8bc554f53fcd8d4aab8438e to 32883517ffe7725ef45ac2dc020a63962c27d7a3 using git ls-remote and GitHub compare metadata only. The compare touched CI workflow files, Vite/package metadata, package-lock metadata, trace WebSocket artifact handling, and related tests.
+
+Outcome: SYNCED_PLUGIN_DELEGATED.
+
+## Forbidden By Default
+
+- no raw upstream copying;
+- no package or lockfile updates;
+- no browser binary downloads;
+- no CI wiring;
+- no MCP activation;
+- no runtime automation;
+- no product-repo changes;
+- no global configuration changes;
+- no trace/video/screenshot artifact claims without observed project-owned execution and artifact hygiene review.

@@ -1044,9 +1044,9 @@
         "authenticationModel": "none from toolkit metadata; project/runtime authentication not inspected",
         "telemetryBehavior": "unknown-review-required; telemetry and package runtime behavior not inspected in this PR",
         "commercialVendorDependency": "unknown-review-required; no commercial/vendor approval recorded",
-        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-19; maintenance quality not fully inspected",
-        "lastReviewedCommit": "11797b0336d50ab0d8bc554f53fcd8d4aab8438e",
-        "lastReviewedDate": "2026-06-19",
+        "maintenanceSignal": "public repository HEAD resolved by git ls-remote on 2026-06-20; v0.2.5 inspected source-freshness drift only, not runtime execution behavior",
+        "lastReviewedCommit": "32883517ffe7725ef45ac2dc020a63962c27d7a3",
+        "lastReviewedDate": "2026-06-20",
         "securityReviewStatus": "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
         "approvalOwner": "quality-tool-owner-required",
         "allowedEnvironments": [
@@ -1063,27 +1063,31 @@
         ],
         "defaultEnterpriseStatus": "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
         "reviewState": "metadata-only-owner-review-required",
-        "reviewEvidence": "Reviewed source identity via git ls-remote https://github.com/microsoft/playwright HEAD at 11797b0336d50ab0d8bc554f53fcd8d4aab8438e on 2026-06-19; inspected registry posture, default use, activation levels, and toolkit forbidden-use boundaries; did not inspect license legal approval, telemetry, network behavior during execution, package release contents, CI behavior, or project-specific permissions; next review due 2026-09-19.",
+        "reviewEvidence": "Reviewed source identity via git ls-remote and GitHub compare https://github.com/microsoft/playwright from 11797b0336d50ab0d8bc554f53fcd8d4aab8438e to 32883517ffe7725ef45ac2dc020a63962c27d7a3 on 2026-06-20; inspected changed-file metadata and commit messages for CI workflow, Vite/package metadata, and trace WebSocket artifact handling drift; did not inspect license legal approval, telemetry, runtime network behavior, package release contents, CI execution behavior, browser downloads, MCP execution, or project-specific permissions; next review due 2026-09-20.",
         "riskTier": "medium",
         "reviewedSource": "https://github.com/microsoft/playwright",
-        "reviewedVersionOrCommit": "11797b0336d50ab0d8bc554f53fcd8d4aab8438e",
+        "reviewedVersionOrCommit": "32883517ffe7725ef45ac2dc020a63962c27d7a3",
         "inspectedAreas": [
           "source repository identity",
           "current default branch HEAD",
+          "GitHub compare metadata",
+          "changed-file metadata",
+          "commit messages",
           "registry posture",
-          "activation levels",
           "toolkit forbidden-use boundaries"
         ],
         "uninspectedAreas": [
           "license legal approval",
           "telemetry behavior",
-          "network behavior during execution",
-          "permission model during installation or CI",
-          "runtime side effects",
-          "current package release contents"
+          "runtime network behavior",
+          "package release contents",
+          "CI execution behavior",
+          "browser binary downloads",
+          "MCP execution",
+          "project-specific permissions"
         ],
         "riskRationale": "Tool can read substantial project or runtime context when executed; toolkit keeps it metadata-only until owner-scoped use is approved.",
-        "nextReviewDue": "2026-09-19"
+        "nextReviewDue": "2026-09-20"
       },
       "projectInstallClass": "default-install",
       "lane": "UI/UX Design Intelligence and Browser Evidence",
@@ -3222,9 +3226,9 @@
         "authenticationModel": "none from toolkit metadata",
         "telemetryBehavior": "none approved or activated from toolkit metadata",
         "commercialVendorDependency": "none for metadata-only posture; package/runtime use remains owner-approved or project-owned",
-        "maintenanceSignal": "active public repository at reviewed commit; not runtime-approved by toolkit metadata",
-        "lastReviewedCommit": "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
-        "lastReviewedDate": "2026-06-19",
+        "maintenanceSignal": "active public repository at reviewed commit; v0.2.5 inspected CODEOWNERS-only drift, not runtime execution behavior",
+        "lastReviewedCommit": "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
+        "lastReviewedDate": "2026-06-20",
         "securityReviewStatus": "source identity and tool posture reviewed; execution, install, package changes, CI, MCP, global config, hooks, and project writes remain approval-required",
         "approvalOwner": "project-owner-required-before-install-or-execution",
         "allowedEnvironments": [
@@ -3243,13 +3247,15 @@
         ],
         "defaultEnterpriseStatus": "metadata-only detection; GSD phase/state use requires existing project/operator ownership or explicit owner approval; not enterprise-approved for default execution, CI, MCP, hooks, package changes, global config, or project writes",
         "reviewState": "reviewed",
-        "reviewEvidence": "GSD Core default branch next at 0d56f544d2f6616fcdd0a80279f85380ead4ceb0 recorded as first-class governed tool metadata; registry presence does not approve install or execution.",
+        "reviewEvidence": "GSD Core default branch next at 7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034 reviewed on 2026-06-20 with git ls-remote and GitHub compare; the only drift since 0d56f544d2f6616fcdd0a80279f85380ead4ceb0 was .github/CODEOWNERS maintainer/reviewer pool metadata; registry presence does not approve install or execution.",
         "riskTier": "medium",
         "reviewedSource": "https://github.com/open-gsd/gsd-core",
-        "reviewedVersionOrCommit": "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+        "reviewedVersionOrCommit": "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
         "inspectedAreas": [
           "source identity",
-          "repository relocation",
+          "current default branch HEAD",
+          "GitHub compare metadata",
+          "CODEOWNERS-only drift",
           "phase/state governance posture",
           "toolkit boundaries"
         ],
@@ -3259,10 +3265,11 @@
           "hooks",
           "global config",
           "CI behavior",
-          "telemetry"
+          "telemetry",
+          "package release contents"
         ],
         "riskRationale": "Workflow tooling can affect project state and planning artifacts; use remains active-if-detected or owner-approved.",
-        "nextReviewDue": "2026-09-19"
+        "nextReviewDue": "2026-09-20"
       },
       "projectInstallClass": "active-if-detected",
       "lane": "Governance, Planning, Source of Truth",

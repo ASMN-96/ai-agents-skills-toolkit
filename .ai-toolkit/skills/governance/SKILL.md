@@ -27,7 +27,7 @@ This skill authorizes routing, planning, read-only checks, capability selection,
 - Route unsafe-command questions through `.ai-toolkit/methods/governance/agent-command-safety.md`. Canonical toolkit source: `methods/governance/agent-command-safety.md`.
 - Route package-manager or workspace migration questions through `.ai-toolkit/methods/repo/package-manager-workspace-migration.md`. Canonical toolkit source: `methods/repo/package-manager-workspace-migration.md`.
 - Use `.ai-toolkit/docs/PROJECT_TOOLING_OPERATING_MODEL.md` for v0.2 project tooling boundaries. Canonical toolkit source: `docs/PROJECT_TOOLING_OPERATING_MODEL.md`.
-- Use the v0.2.4 activation model: `active-if-detected` for existing project-owned tools, `owner-approved-install` for absent tools, `ci-advisory` before calibrated CI blocking, `static-adopted` for safe toolkit-owned static concepts, and `forbidden-runtime` for MCP/daemon/global/memory/watcher conflicts.
+- Use the v0.2.5 activation model: `active-if-detected` for existing project-owned tools, `owner-approved-install` for absent tools, `ci-advisory` before calibrated CI blocking, `static-adopted` for safe toolkit-owned static concepts, and `forbidden-runtime` for MCP/daemon/global/memory/watcher conflicts.
 - Use `templates/commit-message-template.md` for governed release or hardening commits that need consistent why/what/validation evidence.
 - Use `.ai-toolkit/methods/internal/documentation-accuracy-guard.md` when docs mention concrete symbols, commands, flags, routes, config keys, paths, examples, or behavior. Canonical toolkit source: `methods/internal/documentation-accuracy-guard.md`.
 
