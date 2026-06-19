@@ -4,7 +4,7 @@
 - Owner / publisher: ruvnet.
 - Source type: Agent orchestration/runtime framework with daemon, plugins, workers, state, and verification materials.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `58716fd141b9c90b9b9a802bc089f2401da3d108` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
+- Pinned repo ref checked: `9c28fe038cf49ac6db0bb4e04b6158076f03894d` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
 - Visible adoption signals: about 56.4k GitHub stars, 6.4k forks, and active alpha release work.
 - Trust level: Medium source trust, very high runtime/daemon risk.
 - License status: GitHub API reports MIT.
@@ -166,3 +166,9 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_ADOPTED`.
 
 Decision: keep RuFlo adopted only as static task-state and handoff discipline already represented in toolkit-owned methods. This refresh updates source tracking only and does not approve package install, package or lockfile update, README content import, scheduled-task lock import, daemon, worker, hook, MCP, memory, plugin, script, persisted-state import, product-repo indexing, or global configuration use.
+
+## Freshness Review 2026-06-19
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `dfe1b9cf993c34571fa5f2d08f5772e0672c68ab` to `9c28fe038cf49ac6db0bb4e04b6158076f03894d` using `git ls-remote` and GitHub compare metadata only. The compare was 194 commits ahead and included daemon TTL/idle shutdown, federation peer caps, model routing fixes, workflows, hooks/helpers, and runtime-heavy behavior. Only static task-state and handoff discipline remains adopted.
+
+Outcome: `SYNCED_ADOPTED`. This refresh updates source tracking only and does not approve raw source copying, install, activation, script execution, MCP setup, global configuration changes, CI wiring, product-repository mutation, or runtime behavior changes.

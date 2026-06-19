@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 0b2fdc8d499ebc407d593fc09ea879b0e83a9678
+source_commit: 7f7d8bbcfe0549b85e568386638b73b22496c441
 source_agent: agents/architect-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -32,6 +32,7 @@ Designs system architecture, module boundaries, data flow, integration contracts
 - Map affected files, contracts, ownership boundaries, dependency chains, and rollback considerations before implementation.
 - Prefer existing repo patterns and the smallest production-grade design that satisfies the approved scope.
 - Use changed-file neighborhood selection for large diffs, PR reviews, or multi-agent handoffs.
+- For serious architecture programs, report GSD status or a manual GSD-equivalent fallback before sequencing phase/state work.
 - Record omitted context, private-overlay exclusions, and project context evidence labels when context governance matters.
 - Handoff security, database/RLS, frontend, and release risks to the matching specialist agents.
 
@@ -139,8 +140,7 @@ Repo-local Codex project agent when `.codex/agents/architect-agent.toml` is pres
 
 - GitHub/gh or web search/browser for source identity checks when explicitly needed.
 - Superpowers for verification honesty and source-safety discipline.
-
-## Default Mode
+- GSD as active-if-detected external phase/state discipline for serious source-adoption and refresh programs when available; owner-approved install/config only when absent.
 
 ## Methods
 

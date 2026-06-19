@@ -14,6 +14,7 @@
 ## Recommended Support Tools
 
 - Superpowers as an external Codex execution-discipline plugin.
+- GSD as active-if-detected external phase/state discipline for serious cross-surface work when available; owner-approved install/config only when absent.
 - GitHub/gh for branch, PR, and check evidence.
 - Playwright/browser when browser-visible behavior changes.
 - Supabase tooling/docs only when database or RLS work is explicitly in scope.

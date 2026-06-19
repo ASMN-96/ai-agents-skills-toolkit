@@ -6,8 +6,8 @@
 - Source status: Reviewed source record; approved only for narrow normalized guidance in `uiux`.
 - Retrieval date: 2026-05-29.
 - Last checked date: 2026-06-11.
-- Last reviewed date: 2026-06-11.
-- Last reviewed commit: `92d6141cdf61f9943dfc8e2e46870e54e46d8641`.
+- Last reviewed date: 2026-06-19.
+- Last reviewed commit: `d5403f9d653d9192c35143f50bee4651703354e0`.
 - Normalization review date: 2026-05-22.
 - Normalization review commit: `642f03d5a10eb3deb91bd511241e387e23b9aa39`.
 - Visible adoption signals: 28,106 GitHub stars, 1,517 forks, and repository push activity on 2026-05-15 from read-only GitHub metadata.
@@ -183,3 +183,9 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_ADOPTED`.
 
 Decision: keep Impeccable as normalized UI-quality source intelligence only. This refresh updates source tracking only and does not approve CLI execution, live-browser workflow activation, cleanup script execution, cross-runtime agent or skill import, package metadata adoption, lockfile adoption, script execution, raw `SKILL.md` import, generated output adoption, global config mutation, or product-repo changes.
+
+## Freshness Review 2026-06-19
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `92d6141cdf61f9943dfc8e2e46870e54e46d8641` to `d5403f9d653d9192c35143f50bee4651703354e0` using `git ls-remote` and GitHub compare metadata only. The compare was 33 commits ahead and included design hook install/consent/config work, plugin packaging, detector/runtime scripts, generated provider output, and CLI changes. Only normalized UI-quality concepts remain adopted; hook, plugin, detector, package, and generated output behavior are rejected.
+
+Outcome: `SYNCED_ADOPTED`. This refresh updates source tracking only and does not approve raw source copying, install, activation, script execution, MCP setup, global configuration changes, CI wiring, product-repository mutation, or runtime behavior changes.

@@ -38,6 +38,7 @@ Read-only advisory project agent for release readiness coordination. It evaluate
 - Intended release/version and release-note/changelog files in scope.
 - Required validation commands and exact observed outputs.
 - Source freshness output when source records, registries, release docs, public docs, or source-adoption work changed.
+- GSD status or manual GSD-equivalent fallback when release/source-refresh work is a serious multi-step program.
 - Leak-scan output when public/private boundaries, package contents, docs, or release surfaces changed.
 - Rollback/recovery notes and explicit owner approvals for any approval-required surface.
 

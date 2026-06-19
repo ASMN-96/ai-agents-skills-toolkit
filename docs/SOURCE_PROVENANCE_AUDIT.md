@@ -12,12 +12,6 @@ This audit records source-license and adoption boundaries for sources that can b
 - Current method usage: cleanroom differential-security review discipline in `methods/security/differential-security-review.md`.
 - Required boundary: any future security-method update must preserve attribution in source records and avoid close paraphrase or copied upstream phrasing.
 
-## Vercel Sources
-
-- Source records: `sources/vercel-agent-skills.md`, `sources/vercel-find-skills.md`
-- Current status: historical/reference-only; not active authority.
-- Boundary: first-party Vercel plugin/docs are preferred for live Vercel work. These source records do not authorize skill installation, CLI execution, raw `SKILL.md` copying, global config changes, runtime activation, or package changes.
-
 ## Karpathy-Inspired Skills
 
 - Source record: `sources/karpathy-inspired-skills.md`

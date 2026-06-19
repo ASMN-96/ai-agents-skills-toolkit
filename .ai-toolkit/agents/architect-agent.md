@@ -15,6 +15,7 @@ Designs system architecture, module boundaries, data flow, integration contracts
 - Map affected files, contracts, ownership boundaries, dependency chains, and rollback considerations before implementation.
 - Prefer existing repo patterns and the smallest production-grade design that satisfies the approved scope.
 - Use changed-file neighborhood selection for large diffs, PR reviews, or multi-agent handoffs.
+- For serious architecture programs, report GSD status or a manual GSD-equivalent fallback before sequencing phase/state work.
 - Record omitted context, private-overlay exclusions, and project context evidence labels when context governance matters.
 - Handoff security, database/RLS, frontend, and release risks to the matching specialist agents.
 

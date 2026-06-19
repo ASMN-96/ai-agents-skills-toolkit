@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 0b2fdc8d499ebc407d593fc09ea879b0e83a9678
+source_commit: 7f7d8bbcfe0549b85e568386638b73b22496c441
 source_agent: agents/product-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -32,6 +32,7 @@ Defines product goals, user needs, scope boundaries, acceptance criteria, and re
 - Convert broad requests into explicit goals, non-goals, acceptance criteria, and release slices.
 - Identify user value, business impact, and workflow risk before implementation.
 - Keep scope small enough for a reviewable PR unless the owner approves a larger phase.
+- For serious phase or milestone planning, report GSD status or a manual GSD-equivalent fallback instead of silently planning without phase/state tracking.
 - Include token mode and compact context expectations for large planning tasks.
 - Handoff structure, sequencing, and rollback concerns to Architect Agent.
 

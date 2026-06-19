@@ -3,7 +3,7 @@
 - Source name: Aider repo map
 - Source URL: https://aider.chat/docs/repomap.html
 - Source type: official documentation
-- Last reviewed date: 2026-06-11
+- Last reviewed date: 2026-06-19
 - Review level: method-design reference
 - Classification: active-method source for compact project navigation
 - License status: documentation reference only; no raw source, prompt, script, or generated output copied
@@ -34,3 +34,6 @@ Aider's repo-map concept is useful as the primary design model for compact repo 
 - `methods/orchestration/changed-file-neighborhood-selection.md`
 - `methods/orchestration/compact-agent-context-pack.md`
 
+## Manual Review 2026-06-19
+
+Manual review checked the current Aider repo-map page. The compact file/symbol map and token-budget selection model remain relevant to project-context preflight. This record remains reference-only and does not approve Aider install, execution, generated map claims, or raw docs/code copying.

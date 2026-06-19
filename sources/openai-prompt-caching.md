@@ -3,7 +3,7 @@
 - Source name: OpenAI prompt caching
 - Source URL: https://developers.openai.com/api/docs/guides/prompt-caching
 - Source type: official documentation
-- Last reviewed date: 2026-06-11
+- Last reviewed date: 2026-06-19
 - Review level: prompt-layout reference
 - Classification: active-method source for stable-context ordering
 - License status: official documentation reference only; no raw docs copied
@@ -34,3 +34,6 @@ Prompt caching guidance supports the preflight layout rule: keep stable project/
 - `methods/orchestration/changed-file-neighborhood-selection.md`
 - `methods/orchestration/compact-agent-context-pack.md`
 
+## Manual Review 2026-06-19
+
+Manual review checked the current OpenAI prompt caching page. Stable-context ordering remains useful as prompt-layout guidance only. This record does not approve cache-hit claims, billing/runtime setting changes, secret exposure, or raw docs copying.

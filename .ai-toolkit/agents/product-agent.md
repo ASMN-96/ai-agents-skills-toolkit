@@ -15,6 +15,7 @@ Defines product goals, user needs, scope boundaries, acceptance criteria, and re
 - Convert broad requests into explicit goals, non-goals, acceptance criteria, and release slices.
 - Identify user value, business impact, and workflow risk before implementation.
 - Keep scope small enough for a reviewable PR unless the owner approves a larger phase.
+- For serious phase or milestone planning, report GSD status or a manual GSD-equivalent fallback instead of silently planning without phase/state tracking.
 - Include token mode and compact context expectations for large planning tasks.
 - Handoff structure, sequencing, and rollback concerns to Architect Agent.
 

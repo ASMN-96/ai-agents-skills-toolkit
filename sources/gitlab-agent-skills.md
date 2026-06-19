@@ -1,9 +1,9 @@
 # GitLab Agent Skills Docs
 
-- URL: https://docs.gitlab.com/ee/development/ai_features/agent_skills/
+- URL: https://docs.gitlab.com/user/duo_agent_platform/customize/agent_skills/
 - Owner / publisher: GitLab.
 - Source type: Official GitLab documentation for agent skills.
-- Retrieval date: 2026-05-08.
+- Retrieval date: 2026-06-19.
 - Pinned ref checked: Not applicable; official docs page, not a repository checkout.
 - Visible adoption signals: Official GitLab documentation.
 - Trust level: High official-doc trust, medium harness-specificity risk.
@@ -14,9 +14,9 @@
 
 - Source type: `docs` (official external documentation)
 - Publisher: `GitLab`
-- URL: `https://docs.gitlab.com/ee/development/ai_features/agent_skills/`
-- Last checked date: `2026-05-15`
-- Last reviewed date: `2026-05-15`
+- URL: `https://docs.gitlab.com/user/duo_agent_platform/customize/agent_skills/`
+- Last checked date: `2026-06-19`
+- Last reviewed date: `2026-06-19`
 - Snapshot/freshness status: `dynamic page; no immutable commit checkpoint`
 - License review status: `official docs terms not separately reviewed`
 - Safety status: `medium; harness-specific recommendations, docs examples could over-select on trigger behavior if copied blindly`
@@ -74,3 +74,7 @@ Blindly adopting a single vendor's skill structure could reduce cross-harness po
 ## Recommendation
 
 Candidate for future normalized skill-quality and registry-contract refinement, pending separate approval. No raw docs text, external integration, or runtime content was activated.
+
+## Manual Review 2026-06-19
+
+Manual review checked the current GitLab Duo Agent Platform Agent Skills page. The page documents project-level and user-level `SKILL.md` behavior, GitLab-specific availability, and manual/slash-command loading. This record remains reference-only and does not approve GitLab integration, raw docs copying, install, activation, or runtime configuration.

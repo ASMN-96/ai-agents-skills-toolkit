@@ -69,7 +69,7 @@ Socket, TruffleHog, OWASP ZAP baseline, Harden-Runner, deep networked scans, pac
 - Semgrep: `active-if-detected` when rules/config exist; `owner-approved-install` when absent; `ci-advisory` until rules are scoped.
 - dependency-cruiser, Madge, and jscpd: `active-if-detected` or `owner-approved-install` for architecture and duplication checks; output is evidence, not automatic refactor authority.
 - actionlint and zizmor: `active-if-detected` or `owner-approved-install` for GitHub Actions hardening; no CI rewrite or permission change from metadata.
-- GSD-style discipline: active governance discipline/reference when already available; no install, vendoring, or global config without approval.
+- GSD-style discipline: `active-if-detected` when already available and `owner-approved-install` when absent; no install, vendoring, global config, or invocation claim without approval and observed workflow output.
 - RuFlo-style concepts: `static-adopted`; task-state and handoff discipline are active in toolkit-owned methods, while memory hooks, MCP, daemon, global config, background processes, file watchers, runtime persistence, and package behavior are `forbidden-runtime`.
 
 ## Final Current-Scope Classifications

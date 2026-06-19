@@ -4,7 +4,7 @@ Phase 2 evaluated candidate agent skill sources in read-only mode. No external r
 
 ## Executive Recommendation
 
-Use official and maintained sources first. Extract normalized methods from Anthropic, Addy Osmani, Matt Pocock, Karpathy-inspired guidance, and Vercel find-skills. Treat OpenAI skills, skills.sh, VoltAgent, and Bencium as reference or selective inspiration unless a narrower follow-up audit approves specific content.
+Use official and maintained sources first. Extract normalized methods from Anthropic, Addy Osmani, Matt Pocock, and Karpathy-inspired guidance. Treat OpenAI skills, skills.sh, VoltAgent, and Bencium as reference or selective inspiration unless a narrower follow-up audit approves specific content.
 
 ## Extraction Priority
 

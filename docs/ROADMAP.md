@@ -70,7 +70,7 @@ Refresh source records for the safest high-leverage external sources before any 
 
 Status: Completed through batch 3. No method extraction, install, activation, cloning, raw skill copying, or new skill directories were included.
 
-Batch 1 updated existing source records for Anthropic skills, Vercel find-skills, and skills.sh. Batch 2 added source records for Supabase agent-skills, Trail of Bits skills, and Playwright. Batch 3 added source records for shadcn/ui, Addy Osmani web-quality-skills, and VoltAgent awesome-design-md.
+Batch 1 updated existing source records for Anthropic skills and skills.sh. Batch 2 added source records for Supabase agent-skills, Trail of Bits skills, and Playwright. Batch 3 added source records for shadcn/ui, Addy Osmani web-quality-skills, and VoltAgent awesome-design-md.
 
 ## Phase 10D: Orchestration and Harness Source Scouting
 

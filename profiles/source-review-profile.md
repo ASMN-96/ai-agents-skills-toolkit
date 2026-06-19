@@ -11,6 +11,7 @@
 
 - GitHub/gh or web search/browser for source identity checks when explicitly needed.
 - Superpowers for verification honesty and source-safety discipline.
+- GSD as active-if-detected external phase/state discipline for serious source-adoption and refresh programs when available; owner-approved install/config only when absent.
 
 ## Default Mode
 

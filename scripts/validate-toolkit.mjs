@@ -355,9 +355,6 @@ async function validateSourceProvenance(owner, entries, sourceRecords, watchlist
     if (entry.category === "external-source" && entry.path.includes("anthropic-skills.md")) {
       fail("source policy", `${owner}:${entry.path}`, "Anthropic must remain restricted-source, not external-source");
     }
-    if (entry.category === "external-source" && entry.path.includes("vercel-")) {
-      fail("source policy", `${owner}:${entry.path}`, "Vercel Labs source records must not be active external-source authority");
-    }
     if (entry.category === "external-source" && sourceRecords.has(entry.path) && !watchlistRecordPaths.has(entry.path)) {
       fail("source policy", `${owner}:${entry.path}`, "active external-source record is missing from source-watchlist.json");
     }
@@ -939,15 +936,6 @@ async function validateSourcePolicy(watchlist, registryState) {
     const source = sources.find((entry) => entry.id === required);
     if (!source || source.neverAutoImport !== true) {
       fail("source policy", `sources/source-watchlist.json:${required}`, "required governed source must exist with neverAutoImport: true");
-    }
-  }
-
-  for (const vercelRecord of ["sources/vercel-agent-skills.md", "sources/vercel-find-skills.md"]) {
-    if (await exists(vercelRecord)) {
-      const text = await readFile(rootPath(vercelRecord), "utf8");
-      if (!/Historical\/reference-only/i.test(text) || !/Not active authority/i.test(text)) {
-        fail("source policy", vercelRecord, "Vercel Labs sources must remain historical/reference-only and not active authority");
-      }
     }
   }
 

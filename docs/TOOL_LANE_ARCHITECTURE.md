@@ -10,7 +10,7 @@ This document defines the v0.2 project tooling lane model. The lanes guide which
 - Owning agents/skills: governance, product-agent, architect-agent, reviewer-agent, release-manager-agent, skill-scout-agent.
 - Resources/tools: AGENTS.md, README.md, docs/NO_FAKE_VALIDATION_POLICY.md, docs/REAL_PROJECT_READINESS.md, docs/PROJECT_TOOLING_OPERATING_MODEL.md, methods/governance/task-intake-routing-gate.md, GSD and Superpowers as external-only discipline tools.
 - Governance-lite/router-lite posture: `methods/governance/governance-lite-router-mode.md` may be used as concise routing metadata through the existing governance skill. It is not a sixth skill and does not install, activate, configure, or execute anything.
-- GSD-style discipline posture: active governance discipline/reference only when already available; no install, vendoring, package change, global config, or runtime activation without approval.
+- GSD-style discipline posture: `active-if-detected` when already available and `owner-approved-install` when absent; no install, vendoring, package change, global config, runtime activation, or invocation claim without approval and observed workflow output.
 - Install posture: external-only or metadata-only; no project install from toolkit registry presence.
 - Evidence required: branch, working tree, source-of-truth files read, selected profile, commands actually run, skipped checks, WARN output, owner decisions.
 - Stop conditions: dirty or wrong branch, missing owner approval for package/CI/MCP/global/product changes, validation claims without output, source/license uncertainty, destructive command risk.
