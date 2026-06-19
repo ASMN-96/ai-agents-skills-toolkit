@@ -536,6 +536,43 @@
       "recommendedToolkitStatus": "delegated-existing"
     },
     {
+      "id": "gsd-core",
+      "name": "GSD Core",
+      "sourceUrl": "https://github.com/open-gsd/gsd-core",
+      "repoOwner": "open-gsd",
+      "repoName": "gsd-core",
+      "defaultBranch": "next",
+      "lastReviewedCommit": "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+      "lastReviewedDate": "2026-06-19",
+      "sourceRecordPath": ".ai-toolkit/sources/records/gsd-core.md",
+      "watchedPaths": [],
+      "licenseConcern": "clear",
+      "reviewPriority": "High",
+      "neverAutoImport": true,
+      "homepage": "https://github.com/open-gsd/gsd-core",
+      "category": "phase-state-governance",
+      "purpose": "phase/state planning and execution discipline for governed multi-step work",
+      "recommendedToolkitStatus": "active-if-detected",
+      "reviewDecision": {
+        "outcome": "SYNCED_REFERENCE",
+        "reviewedCommit": "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+        "reviewedDate": "2026-06-19",
+        "summary": "GSD Core relocation to open-gsd/gsd-core reviewed; retained as first-class governed tool metadata without vendoring, install, or runtime activation.",
+        "boundaries": [
+          "no vendoring",
+          "no raw command or agent copying",
+          "no installer execution",
+          "no global configuration changes",
+          "no package changes",
+          "no CI wiring",
+          "no MCP setup",
+          "no hooks",
+          "no product-repo changes",
+          "no invocation claim without observed workflow output"
+        ]
+      }
+    },
+    {
       "id": "repomix",
       "name": "Repomix",
       "sourceUrl": "https://github.com/yamadashy/repomix",

@@ -2673,6 +2673,110 @@
       ]
     },
     {
+      "id": "gsd-core",
+      "name": "GSD Core",
+      "repository": "open-gsd/gsd-core",
+      "homepage": "https://github.com/open-gsd/gsd-core",
+      "purpose": "Phase/state planning and execution discipline for governed multi-step work.",
+      "category": "phase-state-governance",
+      "status": "active-if-detected",
+      "activationStatus": "metadata-only",
+      "runtimeSurface": "external-tool-metadata",
+      "defaultUse": "active-if-detected when project/operator-owned; owner-approved install when absent",
+      "approvalRequiredFor": [
+        "install",
+        "activation",
+        "package changes",
+        "CI wiring",
+        "MCP setup",
+        "global config",
+        "hooks",
+        "product repo mutation",
+        "PR write permissions",
+        "networked deep scans"
+      ],
+      "allowedUse": [
+        "Document as first-class governed tool metadata.",
+        "Route to project-owned or operator-owned GSD only when already available for the approved scope.",
+        "Recommend owner-approved install/configuration when absent, without performing it from registry presence."
+      ],
+      "forbiddenUse": [
+        "Do not install or activate from registry presence.",
+        "Do not configure CI, MCP, hooks, credentials, package files, product repositories, or global settings.",
+        "Do not copy raw upstream files into active runtime paths.",
+        "Do not claim GSD invocation unless current observed workflow output proves it."
+      ],
+      "sourceRecordPath": ".ai-toolkit/sources/records/gsd-core.md",
+      "integrationRecordPath": null,
+      "notes": "First-class governed tool metadata for GSD Core; no vendoring, default install, CI/MCP/global config, hooks, package changes, or invocation claims without approval and observed output.",
+      "enterpriseRisk": {
+        "license": "MIT signal at reviewed commit; not legal approval to copy raw upstream content",
+        "saasOrLocal": "local CLI/package if installed by project or operator; metadata-only in toolkit",
+        "dataSentExternally": "none from toolkit metadata; unknown and approval-required if runtime integrations or remote outputs are configured",
+        "networkBehavior": "metadata-only in toolkit; no network behavior approved from registry presence",
+        "secretAccessRisk": "high if invoked against broad project context; scope must exclude secrets, credentials, private overlays, and global config",
+        "repositoryPermissionsRequired": "none from toolkit metadata; local repo access only if separately approved or project-owned",
+        "ciPermissionsRequired": "none from toolkit metadata; CI wiring remains approval-required",
+        "githubAppPermissionsRequired": "none from toolkit metadata",
+        "authenticationModel": "none from toolkit metadata",
+        "telemetryBehavior": "none approved or activated from toolkit metadata",
+        "commercialVendorDependency": "none for metadata-only posture; package/runtime use remains owner-approved or project-owned",
+        "maintenanceSignal": "active public repository at reviewed commit; not runtime-approved by toolkit metadata",
+        "lastReviewedCommit": "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+        "lastReviewedDate": "2026-06-19",
+        "securityReviewStatus": "source identity and tool posture reviewed; execution, install, package changes, CI, MCP, global config, hooks, and project writes remain approval-required",
+        "approvalOwner": "project-owner-required-before-install-or-execution",
+        "allowedEnvironments": [
+          "metadata-only",
+          "project-owned detected local tool after scoped owner approval"
+        ],
+        "forbiddenEnvironments": [
+          "local execution",
+          "CI",
+          "staging",
+          "production",
+          "global config",
+          "MCP",
+          "hooks",
+          "product repositories"
+        ],
+        "defaultEnterpriseStatus": "metadata-only detection; GSD phase/state use requires existing project/operator ownership or explicit owner approval; not enterprise-approved for default execution, CI, MCP, hooks, package changes, global config, or project writes",
+        "reviewState": "reviewed",
+        "reviewEvidence": "GSD Core default branch next at 0d56f544d2f6616fcdd0a80279f85380ead4ceb0 recorded as first-class governed tool metadata; registry presence does not approve install or execution."
+      },
+      "projectInstallClass": "active-if-detected",
+      "lane": "Governance, Planning, Source of Truth",
+      "projectTypes": [
+        "governance",
+        "planning",
+        "source-review",
+        "release",
+        "multi-step"
+      ],
+      "evidenceMode": "selected/not invoked/manual fallback or observed GSD workflow output",
+      "installLocation": "project/operator environment only after owner approval or existing project-owned setup",
+      "defaultInstall": false,
+      "requiresOwnerApproval": true,
+      "whenDetected": "project-owned GSD or operator-owned GSD detected as metadata only; invocation still requires scoped task relevance and honest observed output",
+      "whenAbsent": "Owner-approved install or manual GSD-equivalent fallback",
+      "ciDefault": "not configured; local phase/state advisory only",
+      "ciPromotion": "not promoted to CI by default; owner-approved CI only after stable policy",
+      "conflictGroup": "phase-state-governance",
+      "preferredRole": "first-class governed phase/state tool",
+      "forbiddenActions": [
+        "Do not install from registry presence.",
+        "Do not run from registry presence.",
+        "Do not make package changes from registry presence.",
+        "Do not wire CI from registry presence.",
+        "Do not configure MCP, hooks, product repo mutation, or global config from registry presence.",
+        "Do not claim GSD output unless GSD actually ran with approved scope."
+      ],
+      "activationLevels": [
+        "active-if-detected",
+        "owner-approved-install"
+      ]
+    },
+    {
       "id": "repomix",
       "name": "Repomix",
       "repository": "yamadashy/repomix",

@@ -92,6 +92,10 @@ function isRepomix(id) {
   return id === "repomix";
 }
 
+function isGsdCore(id) {
+  return id === "gsd-core";
+}
+
 function enterpriseRiskMetadata(id) {
   const base = {
     license: "not-reviewed-owner-required",
@@ -159,6 +163,33 @@ function enterpriseRiskMetadata(id) {
       defaultEnterpriseStatus: "metadata-only detection; scoped local context packing requires explicit owner approval even when project-owned or detected; not enterprise-approved for default execution, CI, MCP, package changes, global config, or whole-repo dumps",
       reviewState: "reviewed",
       reviewEvidence: "Repomix default branch fc69dcc31357d5db934f67ceaff4150f67e4735c recorded as optional source reference; registry presence does not approve install or execution."
+    };
+  }
+
+  if (isGsdCore(id)) {
+    return {
+      ...base,
+      license: "MIT signal at reviewed commit; not legal approval to copy raw upstream content",
+      saasOrLocal: "local CLI/package if installed by project or operator; metadata-only in toolkit",
+      dataSentExternally: "none from toolkit metadata; unknown and approval-required if runtime integrations or remote outputs are configured",
+      networkBehavior: "metadata-only in toolkit; no network behavior approved from registry presence",
+      secretAccessRisk: "high if invoked against broad project context; scope must exclude secrets, credentials, private overlays, and global config",
+      repositoryPermissionsRequired: "none from toolkit metadata; local repo access only if separately approved or project-owned",
+      ciPermissionsRequired: "none from toolkit metadata; CI wiring remains approval-required",
+      githubAppPermissionsRequired: "none from toolkit metadata",
+      authenticationModel: "none from toolkit metadata",
+      telemetryBehavior: "none approved or activated from toolkit metadata",
+      commercialVendorDependency: "none for metadata-only posture; package/runtime use remains owner-approved or project-owned",
+      maintenanceSignal: "active public repository at reviewed commit; not runtime-approved by toolkit metadata",
+      lastReviewedCommit: "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+      lastReviewedDate: "2026-06-19",
+      securityReviewStatus: "source identity and tool posture reviewed; execution, install, package changes, CI, MCP, global config, hooks, and project writes remain approval-required",
+      approvalOwner: "project-owner-required-before-install-or-execution",
+      allowedEnvironments: ["metadata-only", "project-owned detected local tool after scoped owner approval"],
+      forbiddenEnvironments: ["local execution", "CI", "staging", "production", "global config", "MCP", "hooks", "product repositories"],
+      defaultEnterpriseStatus: "metadata-only detection; GSD phase/state use requires existing project/operator ownership or explicit owner approval; not enterprise-approved for default execution, CI, MCP, hooks, package changes, global config, or project writes",
+      reviewState: "reviewed",
+      reviewEvidence: "GSD Core default branch next at 0d56f544d2f6616fcdd0a80279f85380ead4ceb0 recorded as first-class governed tool metadata; registry presence does not approve install or execution."
     };
   }
 
@@ -294,6 +325,35 @@ function sourceWatchEntry([id, name, repository, homepage, category, purpose, st
       }
     };
   }
+  if (isGsdCore(id)) {
+    return {
+      ...entry,
+      defaultBranch: "next",
+      lastReviewedCommit: "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+      lastReviewedDate: "2026-06-19",
+      licenseConcern: "clear",
+      reviewPriority: "High",
+      recommendedToolkitStatus: "active-if-detected",
+      reviewDecision: {
+        outcome: "SYNCED_REFERENCE",
+        reviewedCommit: "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+        reviewedDate: "2026-06-19",
+        summary: "GSD Core relocation to open-gsd/gsd-core reviewed; retained as first-class governed tool metadata without vendoring, install, or runtime activation.",
+        boundaries: [
+          "no vendoring",
+          "no raw command or agent copying",
+          "no installer execution",
+          "no global configuration changes",
+          "no package changes",
+          "no CI wiring",
+          "no MCP setup",
+          "no hooks",
+          "no product-repo changes",
+          "no invocation claim without observed workflow output"
+        ]
+      }
+    };
+  }
   return entry;
 }
 
@@ -330,6 +390,43 @@ Repomix is useful only as optional practical support for scoped context packs an
 - no package edits, CI wiring, MCP setup, global config, or product-repo scanning;
 - no secrets, .env values, private overlays, generated build output, package caches, or user-local paths;
 - no Repomix output claims without approved observed command output.
+`;
+  }
+  if (isGsdCore(id)) {
+    return `# GSD Core Source Record
+
+- Source name: GSD Core
+- Repository: open-gsd/gsd-core
+- Source URL: https://github.com/open-gsd/gsd-core
+- Homepage: https://github.com/open-gsd/gsd-core
+- Last reviewed commit: 0d56f544d2f6616fcdd0a80279f85380ead4ceb0
+- Last reviewed date: 2026-06-19
+- Review level: first-class governed tool metadata
+- Classification: active-if-detected or owner-approved-install candidate for phase/state governance
+- License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
+- Maintenance signal: active public repository at reviewed commit; default branch is next
+- neverAutoImport: true
+
+## Relocation Evidence
+
+The previous GSD repository, gsd-build/get-shit-done, now points users to open-gsd/gsd-core as the active home. The toolkit tracks the new canonical repository only.
+
+## Toolkit Value
+
+GSD Core is useful as phase/state planning and execution discipline for serious multi-step governed work when already available in the operator or project environment, or when the owner approves installation.
+
+## Active-If-Detected Boundary
+
+- Detect project-owned or operator-owned GSD before recommending invocation.
+- Report selected, invoked, blocked-unavailable, or manual fallback status honestly.
+- Count workflow output as evidence only when observed in the current task.
+
+## Forbidden By Default
+
+- no vendoring or raw source copying;
+- no install or activation from registry presence;
+- no package edits, CI wiring, MCP setup, hooks, global config, or product-repo mutation;
+- no GSD invocation claim without observed workflow output.
 `;
   }
   return `# ${name} Source Record
@@ -397,6 +494,7 @@ async function projectToolingModelFromRegistry() {
       "Semgrep": "active-if-detected when present; owner-approved-install when absent; ci-advisory until rules are scoped",
       "dependency-cruiser / Madge / jscpd": "active-if-detected or owner-approved-install architecture and duplication checks",
       "actionlint / zizmor": "active-if-detected or owner-approved-install GitHub Actions hardening",
+      "GSD Core": "active-if-detected when project/operator-owned; owner-approved-install when absent; no invocation claim without observed workflow output",
       "Repomix": "metadata-only detection when project-owned; owner-approved-install or owner-approved execution required before scoped packs/token counts; no automatic whole-repo dumps",
       "open-design": "active-reference design intelligence only; install/import/MCP/global config require approval",
       "eslint-plugin-boundaries": "active-install-if-project-type only after architecture layers are stable and owner-approved",

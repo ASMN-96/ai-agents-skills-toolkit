@@ -18,7 +18,7 @@
       ],
       "supportTools": [
         "Superpowers",
-        "GSD",
+        "GSD Core",
         "Context7",
         "web search/browser"
       ],
@@ -81,7 +81,7 @@
       ],
       "supportTools": [
         "Superpowers",
-        "GSD",
+        "GSD Core",
         "GitHub/gh"
       ],
       "allowedActions": [
@@ -146,7 +146,7 @@
       ],
       "supportTools": [
         "Superpowers",
-        "GSD",
+        "GSD Core",
         "GitHub/gh",
         "Playwright/browser",
         "Supabase tooling/docs"
@@ -218,7 +218,7 @@
       ],
       "supportTools": [
         "Superpowers",
-        "GSD",
+        "GSD Core",
         "GitHub/gh",
         "Playwright/browser",
         "Supabase tooling/docs"
@@ -545,7 +545,7 @@
       "supportTools": [
         "GitHub/gh",
         "web search/browser",
-        "GSD",
+        "GSD Core",
         "Superpowers"
       ],
       "allowedActions": [

@@ -1,6 +1,7 @@
 # Everything Claude Code
 
-- URL: https://github.com/affaan-m/everything-claude-code
+- URL: https://github.com/affaan-m/ECC
+- Previous URL: https://github.com/affaan-m/everything-claude-code
 - Owner / publisher: affaan-m.
 - Source type: Cross-harness Claude Code ecosystem repository with skills, agents, commands, hooks, manifests, MCP config, plugins, rules, and install scripts.
 - Retrieval date: 2026-05-29.
@@ -133,3 +134,9 @@ Decision: keep Everything Claude Code as source-safety awareness only. The conte
 Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `5b173d2e6c11b976a0f13b2f59125e08956c1d47` to `34faa39bd3cd496a0aece0245f2b7e38b7923abc` using `git ls-remote` and GitHub compare metadata only. The compare was 97 commits ahead and added or changed taste, ML adoption, self-evaluation agent, skill catalog, package, and cross-runtime assets. This remains source-safety awareness only with no cross-runtime runtime support claim.
 
 Outcome: `SYNCED_REFERENCE`. This refresh updates source tracking only and does not approve raw source copying, install, activation, script execution, MCP setup, global configuration changes, CI wiring, product-repository mutation, or runtime behavior changes.
+
+## Canonical Source Identity Review 2026-06-19
+
+Read-only GitHub repository metadata now resolves the previous `affaan-m/everything-claude-code` URL to canonical repository `affaan-m/ECC`. `git ls-remote` confirmed the default-branch commit remains `34faa39bd3cd496a0aece0245f2b7e38b7923abc`, so this update refreshes source identity only.
+
+The source remains high-risk cross-harness reference material only. No plugin import, skill import, install module import, control-plane import, session-adapter import, MCP inventory import, package behavior, global config behavior, source import, installation, activation, package changes, CI changes, script execution, or runtime support claim is approved.

@@ -44,6 +44,7 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | agency-agents | Agency Agents | archive-candidate | Archived from active freshness monitoring | Source record only | Re-add only if a concrete owner-approved method emerges | No agent/runtime import |
 | superpowers | Superpowers | active-method | Do later | TDD/verification/source-safety references; external plugin delegation | Keep toolkit-owned guardrails minimal | Do not duplicate plugin workflows |
 | everything-claude-code | Everything Claude Code | active-method | Do later | v0.2.3 `SYNCED_REFERENCE`; `methods/internal/source-safety-scoring.md` | Keep cross-harness config/hook/MCP/session risks in source-safety method | No active Claude/Cursor/Cline/OpenHands support claim, global config, hook, session adapter, control-plane, or MCP import |
+| gsd-core | GSD Core | active-reference | Do later | First-class governed tool source for phase/state discipline | Keep tool registry, source freshness, and install posture current | No vendoring, installer execution, package changes, CI, MCP, hooks, global config, product-repo mutation, or invocation claim without observed output |
 | aider-repo-map | Aider repo map | active-method | Do later | Primary compact project-map design model for Project Context Preflight | Keep project-map guidance concise and measured | No Aider install, raw docs/code copying, or generated map/output claims |
 | openai-prompt-caching | OpenAI prompt caching | active-method | Do later | Stable prompt-prefix guidance for project-map-first context layout | Keep static context first and task-specific context last | No cache-hit/cost claim without runtime evidence; no secret exposure for caching |
 | openai-codex-behavior-boundaries | OpenAI Codex behavior boundaries | active-method | Do later | AGENTS.md, skills, and subagent boundary reference | Keep toolkit from duplicating Codex runtime behavior | No second runtime, default subagents, loop agents, global config, or runtime activation claims |
@@ -92,7 +93,7 @@ Allowed recommendations: `Must do next`, `Do later`, `Needs owner decision`, `Re
 | reviewdog | reviewdog | active-profile-route | Do later | Deterministic PR feedback metadata | Scanner-output transport only | Do not duplicate CodeRabbit AI review |
 | coderabbit | CodeRabbit | active-profile-route | Needs owner decision | Delegated contextual PR review integration | Use only when connected and approved per repo | No install/config/GitHub app permission change |
 | github-gh | GitHub/gh | active-profile-route | Do later | Delegated repo operations | PR/check/status evidence | No PR write/merge without explicit task |
-| gsd | GSD | active-profile-route | Do later | External governance phase/state discipline when already available | Use for serious planning, source refresh, release, and cross-repo programs | No vendoring, install, global config, or invocation claim without observed workflow output |
+| gsd-core | GSD Core | active-profile-route | Do later | First-class governed tool metadata for phase/state discipline | Use for serious planning, source refresh, release, and cross-repo programs when detected or owner-approved | No vendoring, install, package changes, CI, MCP, hooks, global config, or invocation claim without observed workflow output |
 | repomix | Repomix | active-profile-route | Do later | Optional scoped context packing/token-count metadata | Scoped pack/token-count support only when project-owned or owner-approved | No install, whole-repo dump, CI, MCP, global config, package edit, or output claim without observed execution |
 | open-design | open-design | active-reference | Do later | Metadata-only UIUX reference | Keep as read-only design intelligence | No install, MCP, global config, raw design-system import, or unmanaged persistence |
 | openssf-scorecard | OpenSSF Scorecard | planned-extraction | Do later | Source-trust metadata | Source safety scoring criteria | No tool execution by default |
@@ -132,7 +133,7 @@ The following project install classes are metadata-only recommendation posture. 
 - reviewdog: use-if-existing.
 - coderabbit: use-if-existing.
 - github-gh: use-if-existing.
-- gsd: active-if-detected.
+- gsd-core: active-if-detected.
 - biome: use-if-existing.
 - knip: use-if-existing.
 - socket: approval-required.
@@ -157,7 +158,7 @@ The project install classes above remain metadata-only. v0.2.2 adds a stronger d
 - Oxlint: `active-if-detected` or `owner-approved-install`; supplements ESLint and typed rules.
 - dependency-cruiser, Madge, and jscpd: `active-if-detected` or `owner-approved-install` for architecture and duplication checks.
 - actionlint and zizmor: `active-if-detected` or `owner-approved-install` for GitHub Actions hardening.
-- GSD-style discipline: `active-if-detected` when already available and `owner-approved-install` when absent; no install, vendoring, global config, or invocation claim without approval and observed workflow output.
+- GSD Core: first-class governed tool metadata; `active-if-detected` when already available and `owner-approved-install` when absent; no install, vendoring, package changes, CI, MCP, hooks, global config, or invocation claim without approval and observed workflow output.
 - RuFlo-style concepts: `static-adopted`; runtime hooks, memory, MCP, daemon, global config, background process, file watcher, and runtime persistence are `forbidden-runtime`.
 
 ## v0.2.3 Zero Passive Holds Overlay

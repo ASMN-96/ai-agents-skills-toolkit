@@ -213,12 +213,12 @@
     {
       "id": "karpathy-inspired-skills",
       "name": "Karpathy-Inspired Skills",
-      "sourceUrl": "https://github.com/forrestchang/andrej-karpathy-skills",
-      "repoOwner": "forrestchang",
+      "sourceUrl": "https://github.com/multica-ai/andrej-karpathy-skills",
+      "repoOwner": "multica-ai",
       "repoName": "andrej-karpathy-skills",
       "defaultBranch": "main",
       "lastReviewedCommit": "2c606141936f1eeef17fa3043a72095b4765b9c2",
-      "lastReviewedDate": "2026-05-15",
+      "lastReviewedDate": "2026-06-19",
       "sourceRecordPath": "sources/karpathy-inspired-skills.md",
       "watchedPaths": [],
       "licenseConcern": "license-unclear",
@@ -227,8 +227,8 @@
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
         "reviewedCommit": "2c606141936f1eeef17fa3043a72095b4765b9c2",
-        "reviewedDate": "2026-06-08",
-        "summary": "Cleanroom-only Karpathy-style guidance retained as historical/reference evidence; existing toolkit methods already cover assumption surfacing, simplicity, surgical changes, and goal-driven execution without raw upstream text.",
+        "reviewedDate": "2026-06-19",
+        "summary": "Canonical GitHub source identity refreshed from forrestchang/andrej-karpathy-skills to multica-ai/andrej-karpathy-skills; reviewed commit unchanged and license-unclear cleanroom boundaries remain intact.",
         "boundaries": [
           "no raw upstream text copying",
           "no skill installation",
@@ -526,9 +526,9 @@
     {
       "id": "everything-claude-code",
       "name": "Everything Claude Code",
-      "sourceUrl": "https://github.com/affaan-m/everything-claude-code",
+      "sourceUrl": "https://github.com/affaan-m/ECC",
       "repoOwner": "affaan-m",
-      "repoName": "everything-claude-code",
+      "repoName": "ECC",
       "defaultBranch": "main",
       "lastReviewedCommit": "34faa39bd3cd496a0aece0245f2b7e38b7923abc",
       "lastReviewedDate": "2026-06-19",
@@ -541,7 +541,7 @@
         "outcome": "SYNCED_REFERENCE",
         "reviewedCommit": "34faa39bd3cd496a0aece0245f2b7e38b7923abc",
         "reviewedDate": "2026-06-19",
-        "summary": "Taste, ML adoption, self-evaluation agent, package, skill, and catalog drift reviewed; retained only as cross-runtime source-safety awareness.",
+        "summary": "Canonical GitHub source identity refreshed from affaan-m/everything-claude-code to affaan-m/ECC; reviewed commit unchanged and cross-harness runtime boundaries remain intact.",
         "boundaries": [
           "no Claude/Cursor/Cline/OpenHands runtime support claim",
           "no MCP connector import",
@@ -717,6 +717,39 @@
           "tool execution proof",
           "runtime activation proof",
           "raw documentation copied"
+        ]
+      }
+    },
+    {
+      "id": "gsd-core",
+      "name": "GSD Core",
+      "sourceUrl": "https://github.com/open-gsd/gsd-core",
+      "repoOwner": "open-gsd",
+      "repoName": "gsd-core",
+      "defaultBranch": "next",
+      "lastReviewedCommit": "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+      "lastReviewedDate": "2026-06-19",
+      "sourceRecordPath": "sources/gsd-core.md",
+      "watchedPaths": [],
+      "licenseConcern": "clear",
+      "reviewPriority": "High",
+      "neverAutoImport": true,
+      "reviewDecision": {
+        "outcome": "SYNCED_REFERENCE",
+        "reviewedCommit": "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+        "reviewedDate": "2026-06-19",
+        "summary": "GSD Core relocation to open-gsd/gsd-core reviewed; retained as first-class governed tool metadata without vendoring, install, or runtime activation.",
+        "boundaries": [
+          "no vendoring",
+          "no raw command or agent copying",
+          "no installer execution",
+          "no global configuration changes",
+          "no package changes",
+          "no CI wiring",
+          "no MCP setup",
+          "no hooks",
+          "no product-repo changes",
+          "no invocation claim without observed workflow output"
         ]
       }
     },

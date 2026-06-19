@@ -90,6 +90,7 @@ const TOOL_EXPECTATIONS = new Map([
   ["reviewdog", "use-if-existing"],
   ["coderabbit", "use-if-existing"],
   ["github-gh", "use-if-existing"],
+  ["gsd-core", "active-if-detected"],
   ["biome", "use-if-existing"],
   ["knip", "use-if-existing"],
   ["socket", "approval-required"],
@@ -136,7 +137,8 @@ const ACTIVATION_EXPECTATIONS = new Map([
   ["actionlint", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }],
   ["zizmor", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned", whenAbsent: "owner-approved install", ciDefault: "ci-advisory", ciPromotion: "ci-blocking-after-calibration" }]
   ,
-  ["repomix", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned Repomix", whenAbsent: "Owner-approved install", ciDefault: "not configured", ciPromotion: "owner-approved CI" }]
+  ["repomix", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned Repomix", whenAbsent: "Owner-approved install", ciDefault: "not configured", ciPromotion: "owner-approved CI" }],
+  ["gsd-core", { levels: ["active-if-detected", "owner-approved-install"], whenDetected: "project-owned GSD", whenAbsent: "Owner-approved install", ciDefault: "not configured", ciPromotion: "owner-approved CI" }]
 ]);
 
 const ENTERPRISE_READINESS_METHOD_IDS = [
@@ -314,7 +316,7 @@ async function validateDocBoundaries() {
     "ci-blocking-after-calibration",
     "static-adopted",
     "forbidden-runtime",
-    "GSD-style discipline",
+    "GSD Core",
     "RuFlo-style concepts"
   ]) {
     if (!matrix.includes(required) && !operating.includes(required)) {

@@ -698,6 +698,7 @@ async function validateSourceUtilizationClassification(watchlist, registryState)
   }
 
   const requiredRows = new Map([
+    ["gsd-core", "active-profile-route"],
     ["repomix", "active-profile-route"],
     ["shadcn-ui", "active-reference"],
     ["ruflo", "active-method"],
