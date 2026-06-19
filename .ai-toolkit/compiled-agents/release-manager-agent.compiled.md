@@ -1,10 +1,10 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.2.4
-toolkit_pin: ai-agents-skills-toolkit@0.2.4
+toolkit_version: 0.2.5
+toolkit_pin: ai-agents-skills-toolkit@0.2.5
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 7872be26df6c2a527edb76c67664fdf4b71f7383
+source_commit: 53466221e8d3b6c1340170d490104fe644262f3a
 source_agent: agents/release-manager-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json

@@ -6,6 +6,13 @@ Release cadence: controlled toolkit releases are cut when governance, runtime-bo
 
 ## Unreleased
 
+## v0.2.5
+
+- Refreshed Microsoft Playwright and GSD Core watched-source metadata after upstream movement following v0.2.4.
+- Preserved Playwright as `SYNCED_PLUGIN_DELEGATED` and GSD Core as `SYNCED_REFERENCE`; no install, import, activation, package, CI, MCP, global config, or product-repo changes are approved by this release.
+- Regenerated compiled agents and the embedded `.ai-toolkit` package for `0.2.5`.
+- See `docs/V0_2_5_RELEASE_NOTES.md`.
+
 ## v0.2.4
 
 - Completed approved agent hardening for frontend, QA, and security agent definitions.

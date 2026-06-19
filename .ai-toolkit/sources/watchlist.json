@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.2.4",
+  "toolkitVersion": "0.2.5",
   "policy": "Source watchlist is metadata-only and never authorizes import, install, activation, extraction, CI wiring, MCP setup, or global config changes.",
   "sources": [
     {
@@ -181,17 +181,33 @@
       "repoOwner": "microsoft",
       "repoName": "playwright",
       "defaultBranch": "main",
-      "lastReviewedCommit": null,
-      "lastReviewedDate": null,
+      "lastReviewedCommit": "32883517ffe7725ef45ac2dc020a63962c27d7a3",
+      "lastReviewedDate": "2026-06-20",
       "sourceRecordPath": ".ai-toolkit/sources/records/playwright.md",
       "watchedPaths": [],
-      "licenseConcern": "unknown-review-required",
+      "licenseConcern": "clear",
       "reviewPriority": "Medium",
       "neverAutoImport": true,
       "homepage": "https://playwright.dev",
       "category": "browser-testing",
       "purpose": "end-to-end and browser automation",
-      "recommendedToolkitStatus": "delegated-existing"
+      "recommendedToolkitStatus": "delegated-existing",
+      "reviewDecision": {
+        "outcome": "SYNCED_PLUGIN_DELEGATED",
+        "reviewedCommit": "32883517ffe7725ef45ac2dc020a63962c27d7a3",
+        "reviewedDate": "2026-06-20",
+        "summary": "v0.2.5 read-only refresh reviewed CI workflow, Vite/package metadata, and trace WebSocket artifact handling drift; browser evidence remains delegated to project-owned Playwright/browser tooling.",
+        "boundaries": [
+          "no source import",
+          "no package update",
+          "no browser binary download",
+          "no CI update",
+          "no runtime update",
+          "no MCP activation",
+          "no global config",
+          "no product-repo changes"
+        ]
+      }
     },
     {
       "id": "axe-playwright",
@@ -542,8 +558,8 @@
       "repoOwner": "open-gsd",
       "repoName": "gsd-core",
       "defaultBranch": "next",
-      "lastReviewedCommit": "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
-      "lastReviewedDate": "2026-06-19",
+      "lastReviewedCommit": "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
+      "lastReviewedDate": "2026-06-20",
       "sourceRecordPath": ".ai-toolkit/sources/records/gsd-core.md",
       "watchedPaths": [],
       "licenseConcern": "clear",
@@ -555,9 +571,9 @@
       "recommendedToolkitStatus": "active-if-detected",
       "reviewDecision": {
         "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
-        "reviewedDate": "2026-06-19",
-        "summary": "GSD Core relocation to open-gsd/gsd-core reviewed; retained as first-class governed tool metadata without vendoring, install, or runtime activation.",
+        "reviewedCommit": "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
+        "reviewedDate": "2026-06-20",
+        "summary": "GSD Core relocation and v0.2.5 CODEOWNERS-only drift reviewed; retained as first-class governed tool metadata without vendoring, install, or runtime activation.",
         "boundaries": [
           "no vendoring",
           "no raw command or agent copying",

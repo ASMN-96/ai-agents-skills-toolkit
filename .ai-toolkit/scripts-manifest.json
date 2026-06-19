@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.2.4",
+  "toolkitVersion": "0.2.5",
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "5d18d6e569666bd79614ac5260a6f649b52a4f0a7a77fb53f1a6a6d0adfcb6cf"
+      "sha256": "cf90c428e0a11fa13d8c36e61214f052829002c23e18f21ade3e29870e0681d6"
     },
     {
       "path": "scripts/ai-toolkit/reference-closure.mjs",

@@ -4,8 +4,8 @@
 - Related docs: https://playwright.dev/docs/trace-viewer
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
-- Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `11797b0336d50ab0d8bc554f53fcd8d4aab8438e` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
+- Retrieval date: 2026-06-20.
+- Pinned repo ref checked: `32883517ffe7725ef45ac2dc020a63962c27d7a3` on `main`, checked by read-only GitHub compare metadata and `git ls-remote` on 2026-06-20.
 - Visible adoption signals: about 89.8k GitHub stars, 5.8k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
@@ -216,3 +216,11 @@ Decision: keep Playwright active for toolkit-owned browser-evidence standards an
 Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `95460e4363a62dfde2e701b69514c1e3ee5b0c64` to `11797b0336d50ab0d8bc554f53fcd8d4aab8438e` using `git ls-remote` and GitHub compare metadata only. The compare was 67 commits ahead and included browser revision rolls, docs, workflow files, MCP/test surfaces, protocol/type changes, and browser internals. Browser evidence remains delegated to project-owned Playwright/browser tooling only.
 
 Outcome: `SYNCED_PLUGIN_DELEGATED`. This refresh updates source tracking only and does not approve raw source copying, install, activation, script execution, MCP setup, global configuration changes, CI wiring, product-repository mutation, or runtime behavior changes.
+
+## Freshness Review 2026-06-20
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `11797b0336d50ab0d8bc554f53fcd8d4aab8438e` to `32883517ffe7725ef45ac2dc020a63962c27d7a3` using `git ls-remote`, GitHub compare metadata, commit metadata, changed-file metadata, and license metadata only. The compare was 3 commits ahead and touched Playwright CI workflow files, Vite/package metadata, package-lock metadata, trace WebSocket artifact handling, and related tests. GitHub license metadata continued to report Apache-2.0.
+
+Outcome: `SYNCED_PLUGIN_DELEGATED`.
+
+Decision: keep Playwright active for toolkit-owned browser-evidence standards and routing while delegating execution to project-owned Playwright or browser tooling. This refresh updates source tracking only and does not approve raw source copying, package update, lockfile update, CI update, runtime update, upstream test/code copy, script execution, browser installation, browser binary download, MCP activation, trace/WebSocket behavior adoption, Vite/package behavior adoption, product-repo changes, or global configuration changes.

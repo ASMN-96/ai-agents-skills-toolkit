@@ -114,6 +114,10 @@ function isGsdCore(id) {
   return id === "gsd-core";
 }
 
+function isPlaywright(id) {
+  return id === "playwright";
+}
+
 function enterpriseRiskMetadata(id) {
   const base = {
     license: "not-reviewed-owner-required",
@@ -220,22 +224,56 @@ function enterpriseRiskMetadata(id) {
       telemetryBehavior: "none approved or activated from toolkit metadata",
       commercialVendorDependency: "none for metadata-only posture; package/runtime use remains owner-approved or project-owned",
       maintenanceSignal: "active public repository at reviewed commit; not runtime-approved by toolkit metadata",
-      lastReviewedCommit: "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
-      lastReviewedDate: "2026-06-19",
+      lastReviewedCommit: "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
+      lastReviewedDate: "2026-06-20",
       securityReviewStatus: "source identity and tool posture reviewed; execution, install, package changes, CI, MCP, global config, hooks, and project writes remain approval-required",
       approvalOwner: "project-owner-required-before-install-or-execution",
       allowedEnvironments: ["metadata-only", "project-owned detected local tool after scoped owner approval"],
       forbiddenEnvironments: ["local execution", "CI", "staging", "production", "global config", "MCP", "hooks", "product repositories"],
       defaultEnterpriseStatus: "metadata-only detection; GSD phase/state use requires existing project/operator ownership or explicit owner approval; not enterprise-approved for default execution, CI, MCP, hooks, package changes, global config, or project writes",
       reviewState: "reviewed",
-      reviewEvidence: "GSD Core default branch next at 0d56f544d2f6616fcdd0a80279f85380ead4ceb0 recorded as first-class governed tool metadata; registry presence does not approve install or execution.",
+      reviewEvidence: "GSD Core default branch next at 7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034 reviewed for v0.2.5 CODEOWNERS-only drift; registry presence does not approve install or execution.",
       riskTier: "medium",
       reviewedSource: "https://github.com/open-gsd/gsd-core",
-      reviewedVersionOrCommit: "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
+      reviewedVersionOrCommit: "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
       inspectedAreas: ["source identity", "repository relocation", "phase/state governance posture", "toolkit boundaries"],
       uninspectedAreas: ["runtime execution", "installer behavior", "hooks", "global config", "CI behavior", "telemetry"],
       riskRationale: "Workflow tooling can affect project state and planning artifacts; use remains active-if-detected or owner-approved.",
-      nextReviewDue: "2026-09-19"
+      nextReviewDue: "2026-09-20"
+    };
+  }
+
+  if (isPlaywright(id)) {
+    return {
+      ...base,
+      license: "Apache-2.0 signal at reviewed commit; not legal approval to copy raw upstream content",
+      saasOrLocal: "local CLI/package if installed by project; metadata-only in toolkit",
+      dataSentExternally: "none from toolkit metadata; browser artifacts may contain sensitive data if project-owned Playwright is run separately",
+      networkBehavior: "metadata-only in toolkit; browser/network behavior is approval-required and project-owned when executed",
+      secretAccessRisk: "high if browser traces, screenshots, storage, headers, or authenticated sessions are captured; no execution approved by toolkit metadata",
+      repositoryPermissionsRequired: "none from toolkit metadata",
+      ciPermissionsRequired: "none from toolkit metadata; CI wiring remains approval-required",
+      githubAppPermissionsRequired: "none from toolkit metadata",
+      authenticationModel: "none from toolkit metadata",
+      telemetryBehavior: "unknown-review-required for runtime execution; no telemetry approved or activated from toolkit metadata",
+      commercialVendorDependency: "unknown-review-required; no commercial/vendor approval recorded",
+      maintenanceSignal: "public repository HEAD resolved by git ls-remote on 2026-06-20; v0.2.5 inspected source-freshness drift only, not runtime execution behavior",
+      lastReviewedCommit: "32883517ffe7725ef45ac2dc020a63962c27d7a3",
+      lastReviewedDate: "2026-06-20",
+      securityReviewStatus: "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
+      approvalOwner: "quality-tool-owner-required",
+      allowedEnvironments: ["metadata-only", "project-owned detected local tool after scoped owner approval"],
+      forbiddenEnvironments: ["automatic local execution", "CI", "staging", "production", "global config", "MCP", "product repositories", "browser binary downloads", "trace/video/screenshot capture without artifact hygiene review"],
+      defaultEnterpriseStatus: "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
+      reviewState: "metadata-only-owner-review-required",
+      reviewEvidence: "Reviewed source identity via git ls-remote and GitHub compare https://github.com/microsoft/playwright from 11797b0336d50ab0d8bc554f53fcd8d4aab8438e to 32883517ffe7725ef45ac2dc020a63962c27d7a3 on 2026-06-20; inspected changed-file metadata and commit messages for CI workflow, Vite/package metadata, and trace WebSocket artifact handling drift; did not inspect license legal approval, telemetry, runtime network behavior, package release contents, CI execution behavior, browser downloads, MCP execution, or project-specific permissions; next review due 2026-09-20.",
+      riskTier: "medium",
+      reviewedSource: "https://github.com/microsoft/playwright",
+      reviewedVersionOrCommit: "32883517ffe7725ef45ac2dc020a63962c27d7a3",
+      inspectedAreas: ["source repository identity", "current default branch HEAD", "GitHub compare metadata", "changed-file metadata", "commit messages", "registry posture", "toolkit forbidden-use boundaries"],
+      uninspectedAreas: ["license legal approval", "telemetry behavior", "runtime network behavior", "package release contents", "CI execution behavior", "browser binary downloads", "MCP execution", "project-specific permissions"],
+      riskRationale: "Browser automation can expose private sessions and artifacts if executed; toolkit posture remains metadata-only and delegates execution to project-owned tooling after approval.",
+      nextReviewDue: "2026-09-20"
     };
   }
 
@@ -375,16 +413,16 @@ function sourceWatchEntry([id, name, repository, homepage, category, purpose, st
     return {
       ...entry,
       defaultBranch: "next",
-      lastReviewedCommit: "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
-      lastReviewedDate: "2026-06-19",
+      lastReviewedCommit: "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
+      lastReviewedDate: "2026-06-20",
       licenseConcern: "clear",
       reviewPriority: "High",
       recommendedToolkitStatus: "active-if-detected",
       reviewDecision: {
         outcome: "SYNCED_REFERENCE",
-        reviewedCommit: "0d56f544d2f6616fcdd0a80279f85380ead4ceb0",
-        reviewedDate: "2026-06-19",
-        summary: "GSD Core relocation to open-gsd/gsd-core reviewed; retained as first-class governed tool metadata without vendoring, install, or runtime activation.",
+        reviewedCommit: "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
+        reviewedDate: "2026-06-20",
+        summary: "GSD Core relocation and v0.2.5 CODEOWNERS-only drift reviewed; retained as first-class governed tool metadata without vendoring, install, or runtime activation.",
         boundaries: [
           "no vendoring",
           "no raw command or agent copying",
@@ -396,6 +434,32 @@ function sourceWatchEntry([id, name, repository, homepage, category, purpose, st
           "no hooks",
           "no product-repo changes",
           "no invocation claim without observed workflow output"
+        ]
+      }
+    };
+  }
+  if (isPlaywright(id)) {
+    return {
+      ...entry,
+      lastReviewedCommit: "32883517ffe7725ef45ac2dc020a63962c27d7a3",
+      lastReviewedDate: "2026-06-20",
+      licenseConcern: "clear",
+      reviewPriority: "Medium",
+      recommendedToolkitStatus: "delegated-existing",
+      reviewDecision: {
+        outcome: "SYNCED_PLUGIN_DELEGATED",
+        reviewedCommit: "32883517ffe7725ef45ac2dc020a63962c27d7a3",
+        reviewedDate: "2026-06-20",
+        summary: "v0.2.5 read-only refresh reviewed CI workflow, Vite/package metadata, and trace WebSocket artifact handling drift; browser evidence remains delegated to project-owned Playwright/browser tooling.",
+        boundaries: [
+          "no source import",
+          "no package update",
+          "no browser binary download",
+          "no CI update",
+          "no runtime update",
+          "no MCP activation",
+          "no global config",
+          "no product-repo changes"
         ]
       }
     };
@@ -445,8 +509,8 @@ Repomix is useful only as optional practical support for scoped context packs an
 - Repository: open-gsd/gsd-core
 - Source URL: https://github.com/open-gsd/gsd-core
 - Homepage: https://github.com/open-gsd/gsd-core
-- Last reviewed commit: 0d56f544d2f6616fcdd0a80279f85380ead4ceb0
-- Last reviewed date: 2026-06-19
+- Last reviewed commit: 7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034
+- Last reviewed date: 2026-06-20
 - Review level: first-class governed tool metadata
 - Classification: active-if-detected or owner-approved-install candidate for phase/state governance
 - License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
@@ -473,6 +537,44 @@ GSD Core is useful as phase/state planning and execution discipline for serious 
 - no install or activation from registry presence;
 - no package edits, CI wiring, MCP setup, hooks, global config, or product-repo mutation;
 - no GSD invocation claim without observed workflow output.
+`;
+  }
+  if (isPlaywright(id)) {
+    return `# Playwright Source Record
+
+- Source name: Playwright
+- Repository: microsoft/playwright
+- Source URL: https://github.com/microsoft/playwright
+- Homepage: https://playwright.dev
+- Last reviewed commit: 32883517ffe7725ef45ac2dc020a63962c27d7a3
+- Last reviewed date: 2026-06-20
+- Review level: delegated browser-evidence source metadata
+- Classification: delegated-existing / project-owned browser validation only
+- License status: Apache-2.0 signal at reviewed commit; not legal approval to copy raw upstream content
+- Maintenance signal: active public repository at reviewed commit; not runtime-approved by toolkit metadata
+- neverAutoImport: true
+
+## Toolkit Value
+
+Playwright is useful as a high-trust browser/runtime verification reference for screenshots, traces, videos, locators, cross-browser checks, and failure diagnostics when the project already owns Playwright or the owner explicitly approves installation.
+
+## Freshness Review 2026-06-20
+
+Read-only source-freshness review covered upstream movement from 11797b0336d50ab0d8bc554f53fcd8d4aab8438e to 32883517ffe7725ef45ac2dc020a63962c27d7a3 using git ls-remote and GitHub compare metadata only. The compare touched CI workflow files, Vite/package metadata, package-lock metadata, trace WebSocket artifact handling, and related tests.
+
+Outcome: SYNCED_PLUGIN_DELEGATED.
+
+## Forbidden By Default
+
+- no raw upstream copying;
+- no package or lockfile updates;
+- no browser binary downloads;
+- no CI wiring;
+- no MCP activation;
+- no runtime automation;
+- no product-repo changes;
+- no global configuration changes;
+- no trace/video/screenshot artifact claims without observed project-owned execution and artifact hygiene review.
 `;
   }
   return `# ${name} Source Record
@@ -523,7 +625,7 @@ async function projectToolingModelFromRegistry() {
     }));
 
   return {
-    version: "0.2.4-architecture",
+    version: "0.2.5-architecture",
     metadataIsNotExecution: true,
     noAutomaticInstalls: true,
     noFakeValidation: true,

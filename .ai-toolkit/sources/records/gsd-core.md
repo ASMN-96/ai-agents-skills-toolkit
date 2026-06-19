@@ -4,8 +4,8 @@
 - Repository: open-gsd/gsd-core
 - Source URL: https://github.com/open-gsd/gsd-core
 - Homepage: https://github.com/open-gsd/gsd-core
-- Last reviewed commit: 0d56f544d2f6616fcdd0a80279f85380ead4ceb0
-- Last reviewed date: 2026-06-19
+- Last reviewed commit: 7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034
+- Last reviewed date: 2026-06-20
 - Review level: first-class governed tool metadata
 - Classification: active-if-detected or owner-approved-install candidate for phase/state governance
 - License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
