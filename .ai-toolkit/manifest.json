@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.2.3",
+  "toolkitVersion": "0.2.4",
   "packageModel": "main-toolkit-embedded-distribution-governance-package",
   "runtimeBoundary": ".ai-toolkit is non-runtime storage; active runtime is limited to .agents/skills and .codex/agents files listed here.",
   "activeSkills": [
@@ -42,37 +42,37 @@
       "source": "skills/governance/SKILL.md",
       "target": ".agents/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "63516121e5bfd2c93c3cd97c766a95d314fcf82bd191659b29d9e6de38b17478"
+      "sha256": "9870fb2d66c37319053ce87bb934a018d1804e6994b13a847174c98606d3f361"
     },
     {
       "source": "skills/governance/SKILL.md",
       "target": ".ai-toolkit/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "63516121e5bfd2c93c3cd97c766a95d314fcf82bd191659b29d9e6de38b17478"
+      "sha256": "9870fb2d66c37319053ce87bb934a018d1804e6994b13a847174c98606d3f361"
     },
     {
       "source": "skills/uiux/SKILL.md",
       "target": ".agents/skills/uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "f54012e531207d10d54a6d2456c16ba46fe539d6b1dec2fb2a4be08e1b345c33"
+      "sha256": "32a494ce84cbed39ed632f544d6e877535034297367c472e91a2ae601434cf03"
     },
     {
       "source": "skills/uiux/SKILL.md",
       "target": ".ai-toolkit/skills/uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "f54012e531207d10d54a6d2456c16ba46fe539d6b1dec2fb2a4be08e1b345c33"
+      "sha256": "32a494ce84cbed39ed632f544d6e877535034297367c472e91a2ae601434cf03"
     },
     {
       "source": "skills/code-quality/SKILL.md",
       "target": ".agents/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "d2495b8420340eec5ccc7382a4f0627348fcf71a1be63f6e2ac7f78316453096"
+      "sha256": "593bd52e3cc1f5b1097a341473b4c46031c88319da1823b45a6cc1b810f54108"
     },
     {
       "source": "skills/code-quality/SKILL.md",
       "target": ".ai-toolkit/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "d2495b8420340eec5ccc7382a4f0627348fcf71a1be63f6e2ac7f78316453096"
+      "sha256": "593bd52e3cc1f5b1097a341473b4c46031c88319da1823b45a6cc1b810f54108"
     },
     {
       "source": "skills/security-review/SKILL.md",
@@ -90,13 +90,13 @@
       "source": "skills/pr-release-gate/SKILL.md",
       "target": ".agents/skills/pr-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "a958eda3ba7678b3c55425c77f57b1e550cfb5c179004900c3cd2a02dc7e4d00"
+      "sha256": "976829b5965f72897e686c546595730946aca435bbfa774597c98d2df3d1a74f"
     },
     {
       "source": "skills/pr-release-gate/SKILL.md",
       "target": ".ai-toolkit/skills/pr-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "a958eda3ba7678b3c55425c77f57b1e550cfb5c179004900c3cd2a02dc7e4d00"
+      "sha256": "976829b5965f72897e686c546595730946aca435bbfa774597c98d2df3d1a74f"
     },
     {
       "source": ".codex/agents/product-agent.toml",
@@ -108,7 +108,7 @@
       "source": "agents/product-agent.md",
       "target": ".ai-toolkit/agents/product-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "f11027dca0fae18abe385e272c21e861b45dfd63925bd5a2ac8eac1be024e7d5"
+      "sha256": "c31fdba6277b88a14459b35f9c0c449dc2c1da8d024c138b1064d606fcaeb060"
     },
     {
       "source": ".codex/agents/architect-agent.toml",
@@ -120,7 +120,7 @@
       "source": "agents/architect-agent.md",
       "target": ".ai-toolkit/agents/architect-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "3002f5d6e60ac44f118cf958cdfa4e903edab94deee9fbeddb58e14e28900c79"
+      "sha256": "05e6b5bb627f55bd0b062f964815f25ff3cec2fbb456e10ed6d0b7f8fd672e0c"
     },
     {
       "source": ".codex/agents/reviewer-agent.toml",
@@ -132,7 +132,7 @@
       "source": "agents/reviewer-agent.md",
       "target": ".ai-toolkit/agents/reviewer-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "e5514d8070619e516b4cc3e1459ff90314bfd8014aa8d1de6072f2d2b79c88b8"
+      "sha256": "11f3c9f19ef88ca196353d5297a781d442700e5f0dffa99f30390909750323e6"
     },
     {
       "source": ".codex/agents/uiux-agent.toml",
@@ -144,7 +144,7 @@
       "source": "agents/uiux-agent.md",
       "target": ".ai-toolkit/agents/uiux-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "a126a976e09559f7cf45eba69795ec6ce437e39f65e73d5531eb28d390cd457b"
+      "sha256": "d60371ecc9e5087103ecc9b6693e54d782faa3d034efd87e2833c873d3d533c0"
     },
     {
       "source": ".codex/agents/frontend-agent.toml",
@@ -156,7 +156,7 @@
       "source": "agents/frontend-agent.md",
       "target": ".ai-toolkit/agents/frontend-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "a9de072925fc69a6d8f598b2eb1d9d4f3d28644eccb273a227fd249810848240"
+      "sha256": "04759bd349a7ed3ea2a0ba53893c14c1f16b32c846b8a4f901e053ce4a3007ab"
     },
     {
       "source": ".codex/agents/backend-contract-agent.toml",
@@ -168,7 +168,7 @@
       "source": "agents/backend-contract-agent.md",
       "target": ".ai-toolkit/agents/backend-contract-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "c6f39f97d818c429d9e997167dd6fb3a42b82bf6e0b677601cf0e2386d83c62c"
+      "sha256": "026e3ebc26ff9ecebff5b536233c16e9ddb9d664d8c9d3f7507f7ccfaa5c6f2c"
     },
     {
       "source": ".codex/agents/database-rls-agent.toml",
@@ -180,7 +180,7 @@
       "source": "agents/database-rls-agent.md",
       "target": ".ai-toolkit/agents/database-rls-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "b124ed9964a8f265f1ea96d8b300a0da54c5084ab83f3fee443b62c2a9b1aa66"
+      "sha256": "6927157916fa259a7141575b10cc316921f612f98e6755ec084884d5508bd6be"
     },
     {
       "source": ".codex/agents/security-agent.toml",
@@ -192,7 +192,7 @@
       "source": "agents/security-agent.md",
       "target": ".ai-toolkit/agents/security-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "e958c2eaab9799786ffbe6b822e7ca590b904537deeeaf6a161c29b6891340c4"
+      "sha256": "10859e572a26b86cb43d762ea7909ca13c96cdf006d61af4937463a4bcc25f4f"
     },
     {
       "source": ".codex/agents/qa-test-agent.toml",
@@ -204,7 +204,7 @@
       "source": "agents/qa-test-agent.md",
       "target": ".ai-toolkit/agents/qa-test-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "d309a132f3ffe77466dcb82d7e152a9d050239760df22817822621392077348d"
+      "sha256": "0c75139041b99b74bcf47f6ee40dbc649c95a7fc1fab89ca02995f9cfb461313"
     },
     {
       "source": ".codex/agents/release-manager-agent.toml",
@@ -216,7 +216,7 @@
       "source": "agents/release-manager-agent.md",
       "target": ".ai-toolkit/agents/release-manager-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "17b99a2424b96dd0d838bc95243119dabe9ec5fa3fe9966fd3b4554f69c94bc0"
+      "sha256": "2b0b83f0991eb8e92c52544f44f6704c4e8d3ae370f8341fa8c61b3a99eada76"
     },
     {
       "source": ".codex/agents/skill-scout-agent.toml",
@@ -228,7 +228,7 @@
       "source": "agents/skill-scout-agent.md",
       "target": ".ai-toolkit/agents/skill-scout-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "27f56b45c7bfec0473204447a8a0913e4d70991fdecc6a23a1784c3603b9577c"
+      "sha256": "95985f42c43d698525f9aaef9fd7bb5be2af73ae6f95bc95c223464a72915735"
     },
     {
       "source": ".codex/agents/sre-performance-agent.toml",
@@ -240,7 +240,199 @@
       "source": "agents/sre-performance-agent.md",
       "target": ".ai-toolkit/agents/sre-performance-agent.md",
       "mode": "packaged-source-hash",
-      "sha256": "4d7a3476c6a9766833ee9b979d199373df41320dacf7b070cd07c7e8f53dd31a"
+      "sha256": "04357ae622befc7ea515f0961f6d02764a6a6719fc2da263353576004736c654"
+    },
+    {
+      "source": "templates/.ai-toolkit.config.example.json",
+      "target": ".ai-toolkit/templates/.ai-toolkit.config.example.json",
+      "mode": "byte-identical",
+      "sha256": "391dc6d65380f88bbf092589ed759fe526c31c81e4d3a55a12d84a802b43b2c1"
+    },
+    {
+      "source": "templates/commit-message-template.md",
+      "target": ".ai-toolkit/templates/commit-message-template.md",
+      "mode": "byte-identical",
+      "sha256": "9dcbebbfe08b39f272b6e7b1b590dde2a3f367623c76707c8191427b028cc0a4"
+    },
+    {
+      "source": "templates/compiled-agent-metadata.template.md",
+      "target": ".ai-toolkit/templates/compiled-agent-metadata.template.md",
+      "mode": "byte-identical",
+      "sha256": "cd7aa051845910bc4930bdadaaea2d9fe3f25e61d58402786e7160bbffd5e013"
+    },
+    {
+      "source": "templates/decision-log-template.md",
+      "target": ".ai-toolkit/templates/decision-log-template.md",
+      "mode": "byte-identical",
+      "sha256": "620ba09d00c1725f44ffcd1f4f77d02c7d4dbada08ba1e8207fe42b074517285"
+    },
+    {
+      "source": "templates/design-doc-template.md",
+      "target": ".ai-toolkit/templates/design-doc-template.md",
+      "mode": "byte-identical",
+      "sha256": "4a267752114dd86164dae0363695725e3216ed5c6b29b56f14fc8a390b33baac"
+    },
+    {
+      "source": "templates/governance/stop-condition-message-templates.md",
+      "target": ".ai-toolkit/templates/governance/stop-condition-message-templates.md",
+      "mode": "byte-identical",
+      "sha256": "1efa474537615db76cb2f62518856360137a0c95063c9bd0269f2f8534e6e11d"
+    },
+    {
+      "source": "templates/incident-report-template.md",
+      "target": ".ai-toolkit/templates/incident-report-template.md",
+      "mode": "byte-identical",
+      "sha256": "7e2b0de48252d4f00ad63338dc229de609fd2c9162e725bfb116babb9d464b58"
+    },
+    {
+      "source": "templates/level4-enterprise-tool-review.template.md",
+      "target": ".ai-toolkit/templates/level4-enterprise-tool-review.template.md",
+      "mode": "byte-identical",
+      "sha256": "0333c4c87fcc78e4bc3a8a9b1b19dda366781cac4c15ad555c801ee1dfca018d"
+    },
+    {
+      "source": "templates/level4-project-pilot-report.template.md",
+      "target": ".ai-toolkit/templates/level4-project-pilot-report.template.md",
+      "mode": "byte-identical",
+      "sha256": "b768533d18af0300012a8d8034ac10c0d4014d11b3debeb2640759dabe672566"
+    },
+    {
+      "source": "templates/level4-rollback-rehearsal-report.template.md",
+      "target": ".ai-toolkit/templates/level4-rollback-rehearsal-report.template.md",
+      "mode": "byte-identical",
+      "sha256": "7113f691c7e335c4f791485948811de3c73630d8bd1cd0249154ba879e264e45"
+    },
+    {
+      "source": "templates/level4-warning-threshold-decision.template.md",
+      "target": ".ai-toolkit/templates/level4-warning-threshold-decision.template.md",
+      "mode": "byte-identical",
+      "sha256": "ec68f3f029a8e0285eacf705da97fd26a116e570c878a8bf40a74c5f100d1616"
+    },
+    {
+      "source": "templates/pr-description-template.md",
+      "target": ".ai-toolkit/templates/pr-description-template.md",
+      "mode": "byte-identical",
+      "sha256": "00908a9c6b9b805ce71ef7d587109bb3709c026accf26db98f4287a8d62a90b8"
+    },
+    {
+      "source": "templates/project-context-template.md",
+      "target": ".ai-toolkit/templates/project-context-template.md",
+      "mode": "byte-identical",
+      "sha256": "9c72716aecc288db802edab747a6e60534717366be07bf2d4a12cebc081a72a1"
+    },
+    {
+      "source": "templates/README.md",
+      "target": ".ai-toolkit/templates/README.md",
+      "mode": "byte-identical",
+      "sha256": "4e0a1680c68c4252330dbee69ab377d127fa09f6297e4fd7263b1a937fd96142"
+    },
+    {
+      "source": "templates/registry-frontmatter.template.md",
+      "target": ".ai-toolkit/templates/registry-frontmatter.template.md",
+      "mode": "byte-identical",
+      "sha256": "411d115a1b2e721940380f57c90d1d99c2e2dca35e21d78689497d46f2287daa"
+    },
+    {
+      "source": "templates/release-gates-template.md",
+      "target": ".ai-toolkit/templates/release-gates-template.md",
+      "mode": "byte-identical",
+      "sha256": "938d69261898f54b8fe1e287c590e724573c94817b1ceffde18bf327dbaddf6f"
+    },
+    {
+      "source": "templates/release-notes.template.md",
+      "target": ".ai-toolkit/templates/release-notes.template.md",
+      "mode": "byte-identical",
+      "sha256": "6b48ee5f143c42e52ee4c05ec10e4362a15a590aca45fcc27528ecbcaebc34f6"
+    },
+    {
+      "source": "templates/skill-provenance.template.md",
+      "target": ".ai-toolkit/templates/skill-provenance.template.md",
+      "mode": "byte-identical",
+      "sha256": "8ec51d1c3f4ffda2001566f10a01d7570653e72a679f5dfcded146ea7e958d29"
+    },
+    {
+      "source": "templates/source-record.template.md",
+      "target": ".ai-toolkit/templates/source-record.template.md",
+      "mode": "byte-identical",
+      "sha256": "6430285aa866d8217466341f6a76ffc3bb5ae12aa32cd5f813234b1169325a55"
+    },
+    {
+      "source": "templates/state-template.md",
+      "target": ".ai-toolkit/templates/state-template.md",
+      "mode": "byte-identical",
+      "sha256": "7eef5af2e6b449a50e8d0dae92c2e3c785ce376b542e7f43f874200c3cede65f"
+    },
+    {
+      "source": "templates/tool-record-template.md",
+      "target": ".ai-toolkit/templates/tool-record-template.md",
+      "mode": "byte-identical",
+      "sha256": "9be3437fcaea6451ec025dba7befcf1673ac25b6e94ad8c65bb3139a96f3a539"
+    },
+    {
+      "source": "templates/tooling/owner-approval-checklist.md",
+      "target": ".ai-toolkit/templates/tooling/owner-approval-checklist.md",
+      "mode": "byte-identical",
+      "sha256": "c0bce60f83ab603ee60fdd9995805fc03fa6fe09f779de2603ace6eaa8d91b6d"
+    },
+    {
+      "source": "templates/tooling/package-scripts.architecture-hardening.json",
+      "target": ".ai-toolkit/templates/tooling/package-scripts.architecture-hardening.json",
+      "mode": "byte-identical",
+      "sha256": "d77bde1e8ec50f1540bb5ea80438ad7c92e7fa1a899690c6873653ab34a589a3"
+    },
+    {
+      "source": "templates/tooling/package-scripts.backend-api.json",
+      "target": ".ai-toolkit/templates/tooling/package-scripts.backend-api.json",
+      "mode": "byte-identical",
+      "sha256": "a9b4ae26cdf4ff431c325a86f62f90b02c33ade186b548de00bbca73b529f9a4"
+    },
+    {
+      "source": "templates/tooling/package-scripts.deep-release.json",
+      "target": ".ai-toolkit/templates/tooling/package-scripts.deep-release.json",
+      "mode": "byte-identical",
+      "sha256": "95f73879ff9e8cfd3d3211a6eecf45f1124cbd0f16abc2027b22af01ae9aa936"
+    },
+    {
+      "source": "templates/tooling/package-scripts.infra-iac.json",
+      "target": ".ai-toolkit/templates/tooling/package-scripts.infra-iac.json",
+      "mode": "byte-identical",
+      "sha256": "1082392e67b3b69f45218e65f302aef4797edf437ce64fe181b19f60a8040405"
+    },
+    {
+      "source": "templates/tooling/package-scripts.mobile-webview.json",
+      "target": ".ai-toolkit/templates/tooling/package-scripts.mobile-webview.json",
+      "mode": "byte-identical",
+      "sha256": "55a4ed83c947adbc200c4d3a3305631475d99ec430e9a20c7da5f10d7bee1d01"
+    },
+    {
+      "source": "templates/tooling/package-scripts.react-typescript-saas.json",
+      "target": ".ai-toolkit/templates/tooling/package-scripts.react-typescript-saas.json",
+      "mode": "byte-identical",
+      "sha256": "4d2c53bfbd30e2c57d98906b2914fa7f73f4fdce6fada683f7253e0398a64655"
+    },
+    {
+      "source": "templates/tooling/quality-gates.md",
+      "target": ".ai-toolkit/templates/tooling/quality-gates.md",
+      "mode": "byte-identical",
+      "sha256": "3baa8538503b66e71b62886fcf3ef0e539a9e5460bd91cf941b7539079b6a444"
+    },
+    {
+      "source": "templates/tooling/react-doctor-adoption-checklist.md",
+      "target": ".ai-toolkit/templates/tooling/react-doctor-adoption-checklist.md",
+      "mode": "byte-identical",
+      "sha256": "d03fd50e700088395c506aaec9c0560ed9630892b6bfdfb608c7739ea371aa59"
+    },
+    {
+      "source": "templates/tooling/repomix-scoped-context-checklist.md",
+      "target": ".ai-toolkit/templates/tooling/repomix-scoped-context-checklist.md",
+      "mode": "byte-identical",
+      "sha256": "932c9f6dd429d0500df7ca224319d0ea771518cb4d43e94b34ebe26311a6cc6f"
+    },
+    {
+      "source": "templates/tooling/reviewdog-output-policy.md",
+      "target": ".ai-toolkit/templates/tooling/reviewdog-output-policy.md",
+      "mode": "byte-identical",
+      "sha256": "fc349e705fa5ab7dd3f0281386a54016cbebcf9eb2c548b282a63c848fdf6a94"
     },
     {
       "source": "registries/agents.registry.json",
@@ -276,91 +468,91 @@
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
-      "sha256": "d23b57a113c0b012a3bf6b209a9e428ae2bc6113f696913e4c6c4c1698ffcd07"
+      "sha256": "283383d8693182653bfa9a67f0d18c98a1c474394a8adefe631eee8995e68315"
     },
     {
       "source": "compiled-agents/product-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/product-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "09b3b7be72a67a5a248221f8c46b2e7c9427df9c385219c3002a308fc3d660bb"
+      "sha256": "ff99ecf898e2bc9062dbaa98630f8c7a1a2fce0ed0129895cf7598a8340c95b3"
     },
     {
       "source": "compiled-agents/architect-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/architect-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "de85a2b959832b33c9c1221000e903ed550f47219dbf298a340a1b9d38b06d1a"
+      "sha256": "c7b533f28457425a5995d7f13c9284ee5c946cebe5d0d315b228d78ba75e29bc"
     },
     {
       "source": "compiled-agents/reviewer-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/reviewer-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "80edf0598c01b7bd290d180c1c8e31a80f628f91534da6f62b0ed8ee93c8e511"
+      "sha256": "2c81bde9ca3435e040a44d44b0e3f0e377d66cb359f029f69891161a1f6e3720"
     },
     {
       "source": "compiled-agents/uiux-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/uiux-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "de9393602b76b72e94d566c05381074c593acd7875011f9553360d522641911c"
+      "sha256": "1a08f201822c946837840c0403c386fc8f420a0e24f19293c4212adbd3fa53f5"
     },
     {
       "source": "compiled-agents/frontend-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/frontend-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "d539f8f0961e591c1a94ffe80fb27abfd21d586f12b6d11329755a982f71ca37"
+      "sha256": "feaae7fc9306d6cdc5e8d689449ee0b85f8754c13ac47052539b8cf5be198343"
     },
     {
       "source": "compiled-agents/backend-contract-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/backend-contract-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "f8bd1e3807fb991a0fa9f9a9bf46df0395f7fbddee1464166cd3181381139f04"
+      "sha256": "920b1e8dabc453454e573906fea9b4f81b61d23fa8f65d31edef82780668bbff"
     },
     {
       "source": "compiled-agents/database-rls-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/database-rls-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "e64a7721e54596af4c0d7c67e39a4dd8a997000ecb8e0bbeae4bf6d892b75707"
+      "sha256": "e2be86598c7b27648134cf15e8ef7e5f300954dd317bc05aa2d28f4c959db748"
     },
     {
       "source": "compiled-agents/security-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/security-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "5240195cd9572bc6610a260d987796d1cd4af8c0a3ef2d346b1d0519da11c572"
+      "sha256": "cc8cbf1a1eb6349b081d10deeca100b7f70620b9b0be1b33027376a244eab57a"
     },
     {
       "source": "compiled-agents/qa-test-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/qa-test-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "62d638dcb7cfcf1bff2d5984919bb89a41fac96b2c78fad4fa5f988b0396ddb1"
+      "sha256": "ddc8e149a2b5fa229ae4f6560b4993ae7a42b27619b8e9901da4ffd15d0cab5b"
     },
     {
       "source": "compiled-agents/release-manager-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/release-manager-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "7391c6a45ac6f510805894e8bce94a37e298095e0ab65971cc871be4b42a3002"
+      "sha256": "11d3f2b327d0dcccfee4bfd7dd550ef1c9002c83dd0673c718f98f60f2cfc2a7"
     },
     {
       "source": "compiled-agents/skill-scout-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/skill-scout-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "d6c33dcb637b0ccd5423061a7673f1db7ebff3ab42bff5414ad9278ab92cc40d"
+      "sha256": "d1976114d561d148cfe1b2cb29aab8ad28305e0490166bce9adff1b0ea6f978e"
     },
     {
       "source": "compiled-agents/sre-performance-agent.compiled.md",
       "target": ".ai-toolkit/compiled-agents/sre-performance-agent.compiled.md",
       "mode": "packaged-source-hash",
-      "sha256": "7053024d08486ea6765b533233ea491bf2f6faf330f9a0d1a77a173cfb3a9fbc"
+      "sha256": "25ee441e6b532650424427e14c63ae17f1c425b4e3dd00f570297eb6aa19746e"
     },
     {
       "source": "docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md",
       "target": ".ai-toolkit/docs/DEFAULT_TOOL_ENTERPRISE_RISK_REVIEW.md",
       "mode": "packaged-support-asset",
-      "sha256": "e30eaf9c18299a7cffc98ac13079fa97303a949600dae5d746cb58e4ac15c655"
+      "sha256": "e928b298e02b27bfd5b79851b72cf4315848d55d082450312116fb32a0197c0a"
     },
     {
       "source": "docs/ENTERPRISE_EXTERNAL_TOOL_RISK_METADATA.md",
       "target": ".ai-toolkit/docs/ENTERPRISE_EXTERNAL_TOOL_RISK_METADATA.md",
       "mode": "packaged-support-asset",
-      "sha256": "8234107951e1b1e109b870631c2af20cd5279fb11bd0db579343c60f0a4954b8"
+      "sha256": "3a80851419d21838571c6d57fa0169c7e720b007adcc3e2b8397e157eb7babf8"
     },
     {
       "source": "docs/ENTERPRISE_TOOL_OWNERSHIP_MATRIX.md",
@@ -396,7 +588,7 @@
       "source": "docs/REGISTRY_CONTRACT.md",
       "target": ".ai-toolkit/docs/REGISTRY_CONTRACT.md",
       "mode": "packaged-support-asset",
-      "sha256": "6403462139fc76a062c682331550ae42203bbc81e7357310b83659e059b7de76"
+      "sha256": "4fa79dffa9d04eff5913e146d4a59a9c11d6456f4407f0982075f6f7f7b0c1c1"
     },
     {
       "source": "docs/REGISTRY_GENERATION_DESIGN.md",
@@ -666,7 +858,7 @@
       "source": "methods/osmani/security-hardening.md",
       "target": ".ai-toolkit/methods/osmani/security-hardening.md",
       "mode": "packaged-support-asset",
-      "sha256": "7276408b6f2286214adcd4d54f98ad574f6758df54a5c753f7601fa77ef2396e"
+      "sha256": "ff427a2200980acecbd5a41a08d33d0b7a0bf2b79a7edc09db7b319dff670848"
     },
     {
       "source": "methods/osmani/shipping-launch.md",

@@ -18,6 +18,13 @@ This skill produces UX critique, design intent, acceptance criteria, and impleme
 - Dashboard, chart, form, navigation, and data UI acceptance criteria when relevant.
 - Evidence quality: screenshots, browser checks, or manual QA must be labeled honestly.
 
+## Measurable UX Targets
+
+- Accessibility claims should target WCAG 2.1 AA and keyboard reachability unless the project sets a stricter standard.
+- Lighthouse performance, accessibility, best-practice, or SEO scores count only when Lighthouse actually runs against the relevant page or build.
+- Browser-visible layout claims need evidence for the smallest relevant mobile width and one desktop width, or a clear reason the check could not run.
+- Do not claim pixel-perfect, accessible, responsive, or production-ready UI from design intent, screenshots alone, or registry metadata.
+
 ## Source Boundaries
 
 Use normalized guidance from reviewed UI/UX source maps and methods only. Do not activate open-design, UI UX Pro Max, shadcn CLI/MCP, external design scripts, raw prompts, registry JSON, component source, blocks, package config, or unmanaged design-system files.

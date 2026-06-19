@@ -1,9 +1,28 @@
-# Decision Log
+# Decision Log Template
 
-- Title:
+## Decision
+
+- ID:
+- Date:
+- Owner:
 - Status:
-- Decision:
-- Context:
-- Risks:
-- Mitigations:
-- Follow-up:
+
+## Context
+
+Describe the problem, constraint, or tradeoff that required a decision.
+
+## Options Considered
+
+- Option 1:
+- Option 2:
+- Option 3:
+
+## Chosen Direction
+
+Describe the selected option and why it was chosen.
+
+## Follow-Up
+
+- Review date:
+- Related files:
+- Impacted agents:

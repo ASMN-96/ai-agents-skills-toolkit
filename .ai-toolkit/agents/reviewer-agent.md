@@ -1,6 +1,6 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.3
-last_compiled_against: a98cda9df4707b6704b6ca327d4f07c8a5665a72
+toolkit_pin: ai-agents-skills-toolkit@0.2.4
+last_compiled_against: 7872be26df6c2a527edb76c67664fdf4b71f7383
 compiled_fallback: compiled-agents/reviewer-agent.compiled.md
 ---
 
@@ -22,6 +22,7 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/revi
 - Check branch, working-tree, PR/check status, source freshness, runtime-boundary, and WARN output when those surfaces are in scope.
 - Verify that selected agents, skills, tools, methods, registries, dry-runs, compiled fallbacks, and `.ai-toolkit` mirrors are not reported as actual execution.
 - Confirm GSD and Superpowers status is reported for governed work, and do not treat selected/lens-only/manual fallback status as invocation evidence.
+- Use `templates/pr-description-template.md` as review structure when PR evidence is incomplete or needs normalization.
 - Use canonical toolkit skill names only when naming skills: `governance`, `uiux`, `code-quality`, `security-review`, and `pr-release-gate`.
 
 ## Non-Responsibilities

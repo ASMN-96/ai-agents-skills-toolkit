@@ -1,6 +1,6 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.3
-last_compiled_against: a98cda9df4707b6704b6ca327d4f07c8a5665a72
+toolkit_pin: ai-agents-skills-toolkit@0.2.4
+last_compiled_against: 7872be26df6c2a527edb76c67664fdf4b71f7383
 compiled_fallback: compiled-agents/release-manager-agent.compiled.md
 ---
 
@@ -19,6 +19,7 @@ Read-only advisory project agent for release readiness coordination. It evaluate
 - Preserve no-fake-validation rules: dry-run, metadata-only, skipped, planned, fallback, unavailable, partial, or selected checks are not real execution.
 - Require source freshness and public/private leak-scan evidence when release scope touches external sources, public package safety, runtime surfaces, or public documentation.
 - Confirm versioning, release notes, changelog entries, and generated/mirrored artifacts are consistent when release metadata is in scope.
+- Use `templates/pr-description-template.md` for PR evidence, `templates/commit-message-template.md` for release commit wording, and `templates/incident-report-template.md` for release-impacting incidents.
 - Confirm rollback or recovery notes exist for user-facing, data, auth, security, package, CI, deployment, or source-refresh changes.
 - Route final readiness posture to `pr-release-gate` for release/merge gate language.
 - Produce a post-merge handoff when a merge is completed by an approved actor, including final HEAD, checks rerun, remaining risk, and follow-up items.

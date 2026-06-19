@@ -235,6 +235,49 @@ test("project map validator rejects unsafe paths, secrets, oversized dumps, and 
   }
 });
 
+test("project map excludes nested worktree checkout paths from generated outputs", () => {
+  const tempRoot = mkdtempSync(path.join(tmpdir(), "ai-toolkit-preflight-worktrees-"));
+  try {
+    const repo = newGitRepo(tempRoot, "worktree-leak");
+    write(repo, "package.json", "{\"scripts\":{\"test\":\"vitest run\"}}\n");
+    write(repo, "src/index.ts", "export const main = true;\n");
+    write(repo, "tests/index.test.ts", "import '../src/index';\n");
+    write(repo, ".worktrees/nested/src/leaked.ts", "export const leaked = true;\n");
+    write(repo, ".worktrees/nested/tests/leaked.test.ts", "import '../src/leaked';\n");
+    write(repo, ".worktree/nested/src/leaked.ts", "export const leaked = true;\n");
+    write(repo, "worktrees/nested/tests/leaked.test.ts", "import '../src/leaked';\n");
+    write(repo, ".git-worktrees/nested/vite.config.ts", "export default {};\n");
+    commitAll(repo);
+
+    const map = buildFixtureMap(repo);
+    const blockedPrefixes = [".worktrees/", ".worktree/", "worktrees/", ".git-worktrees/"];
+    const assertNoBlockedPrefix = (value) => {
+      assert.equal(blockedPrefixes.some((prefix) => String(value).startsWith(prefix)), false, `${value} should not come from a nested worktree`);
+    };
+
+    for (const value of map.sourceLocations) assertNoBlockedPrefix(value);
+    for (const value of map.testLocations) assertNoBlockedPrefix(value);
+    for (const value of map.keyFiles) assertNoBlockedPrefix(value);
+    for (const value of map.configFiles) assertNoBlockedPrefix(value);
+    for (const entry of map.target.stalenessHashes.files) assertNoBlockedPrefix(entry.path);
+    assert.ok(map.sourceLocations.includes("src"));
+    assert.ok(map.testLocations.includes("tests"));
+    assert.deepEqual(validateProjectMap(map, { targetRoot: repo }), []);
+
+    const injectedMap = structuredClone(map);
+    injectedMap.sourceLocations.push(".worktrees/nested/src");
+    injectedMap.testLocations.push(".worktree/nested/tests");
+    injectedMap.keyFiles.push("worktrees/nested/package.json");
+    injectedMap.configFiles.push(".git-worktrees/nested/vite.config.ts");
+    injectedMap.target.stalenessHashes.files.push({ path: ".worktrees/nested/package.json", sha256: "a".repeat(64) });
+    const issues = validateProjectMap(injectedMap, { targetRoot: repo });
+    assert.ok(issues.some((issue) => issue.includes("worktree checkout path")));
+    assert.ok(issues.some((issue) => issue.includes("invalid staleness hash path")));
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+});
+
 test("project sync reports preflight map in dry-run and writes it only with confirm-write", () => {
   const tempRoot = mkdtempSync(path.join(tmpdir(), "ai-toolkit-preflight-sync-"));
   try {

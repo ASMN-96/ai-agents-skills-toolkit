@@ -43,7 +43,14 @@ const ENTERPRISE_RISK_FIELDS = [
   "approvalOwner",
   "allowedEnvironments",
   "forbiddenEnvironments",
-  "defaultEnterpriseStatus"
+  "defaultEnterpriseStatus",
+  "riskTier",
+  "reviewedSource",
+  "reviewedVersionOrCommit",
+  "inspectedAreas",
+  "uninspectedAreas",
+  "riskRationale",
+  "nextReviewDue"
 ];
 
 const ENTERPRISE_CORE_RISK_FIELDS = [
@@ -151,6 +158,8 @@ const COMMIT_SHA_PATTERN = /^[0-9a-f]{40}$/i;
 const GITHUB_OWNER_PATTERN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/;
 const GITHUB_REPO_PATTERN = /^[A-Za-z0-9._-]+$/;
 const SAFE_BRANCH_PATTERN = /^[A-Za-z0-9._/-]+$/;
+const PLACEHOLDER_PATTERN = /\b(?:Stub\.?|placeholder|TBD|compiled later|will be compiled later)\b/i;
+const COMPILED_AGENT_EXPECTED_COUNT = 12;
 
 function rel(filePath) {
   return path.relative(ROOT, filePath).split(path.sep).join("/");
@@ -256,6 +265,118 @@ function asArray(value) {
 
 function byName(items, field = "name") {
   return new Map(asArray(items).map((item) => [item[field], item]));
+}
+
+function stripFrontmatter(text) {
+  return text.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, "").trim();
+}
+
+function parseFrontmatter(text) {
+  const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!match) return null;
+  const fields = {};
+  for (const line of match[1].split(/\r?\n/)) {
+    const separator = line.indexOf(":");
+    if (separator === -1) continue;
+    fields[line.slice(0, separator).trim()] = line.slice(separator + 1).trim();
+  }
+  return fields;
+}
+
+function parseFrontmatterArray(value) {
+  if (!value || !String(value).trim().startsWith("[")) return [];
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed.map(String) : [];
+  } catch {
+    return [];
+  }
+}
+
+function normalizedSectionNames(text) {
+  return new Set([...stripFrontmatter(text).matchAll(/^##\s+(.+)$/gm)].map((match) => match[1].trim().toLowerCase()));
+}
+
+function isApprovedAgent(agent) {
+  return asArray(agent.status).includes("approved") || asArray(agent.activationStatus).includes("approved");
+}
+
+function agentQualityIssues(text) {
+  const body = stripFrontmatter(text);
+  const sections = normalizedSectionNames(text);
+  const words = body.split(/\s+/).filter(Boolean).length;
+  const issues = [];
+  if (PLACEHOLDER_PATTERN.test(body)) {
+    issues.push("contains stub/placeholder language");
+  }
+  if (words < 120) {
+    issues.push(`source body is too thin for approved status: ${words} words`);
+  }
+  if (!sections.has("role")) {
+    issues.push("missing ## Role section");
+  }
+  if (!["status", "operating rules", "runtime status", "operating mode", "hard boundaries", "boundaries"].some((section) => sections.has(section))) {
+    issues.push("missing status, operating rules, or boundary section");
+  }
+  if (![
+    "responsibility",
+    "responsibilities",
+    "required checks",
+    "validation evidence rules",
+    "review output contract",
+    "output contract",
+    "operating rules",
+    "evaluation checklist"
+  ].some((section) => sections.has(section))) {
+    issues.push("missing operational responsibility or output section");
+  }
+  return issues;
+}
+
+function expectedMethodRefsForAgent(agent, methods) {
+  const methodRefs = [];
+  for (const method of methods.values()) {
+    const passiveConsumers = asArray(method.passiveConsumerAgents).join(" ");
+    const relatedScenarios = asArray(method.relatedRoutingScenarios).join(" ");
+    if (
+      passiveConsumers.includes(agent.displayName || agent.name) ||
+      passiveConsumers.includes(agent.name) ||
+      relatedScenarios.includes(agent.name)
+    ) {
+      methodRefs.push(method.id);
+    }
+  }
+
+  if (methodRefs.length === 0) {
+    for (const method of methods.values()) {
+      if (asArray(method.passiveConsumerAgents).join(" ").includes("All internal agents")) {
+        methodRefs.push(method.id);
+      }
+    }
+  }
+
+  if (methodRefs.length === 0) {
+    methodRefs.push(...methods.keys());
+  }
+
+  return methodRefs;
+}
+
+function arraysEqual(left, right) {
+  return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+
+function normalizeNewlines(text) {
+  return text.replace(/\r\n/g, "\n");
+}
+
+function canonicalContentForParity(text) {
+  return normalizeNewlines(text)
+    .split("\n")
+    .map((line) => line.trimEnd())
+    .filter((line) => line.trim() !== "")
+    .join("\n")
+    .trim();
 }
 
 function hasExactVisibility(value) {
@@ -579,6 +700,105 @@ async function validateRegistries(parsed, sourceRecords, watchlist) {
   return { skills, agents, profiles, methods, tools, routingMatrix };
 }
 
+async function validateAgentsAndCompiledFallbacks(registryState) {
+  note("Approved agent and compiled fallback parity");
+
+  const compiledPaths = await walk("compiled-agents", { extension: ".compiled.md" });
+  if (compiledPaths.length !== COMPILED_AGENT_EXPECTED_COUNT) {
+    fail("compiled agent parity", "compiled-agents", `expected ${COMPILED_AGENT_EXPECTED_COUNT} compiled agents, found ${compiledPaths.length}`);
+  }
+
+  const expectedCompiledPaths = new Set(
+    [...registryState.agents.values()]
+      .map((agent) => agent.compiledFallbackPath)
+      .filter(Boolean)
+  );
+  for (const compiledPath of compiledPaths) {
+    if (!expectedCompiledPaths.has(compiledPath)) {
+      fail("compiled agent parity", compiledPath, "compiled agent is not referenced by agents registry");
+    }
+  }
+
+  for (const [name, agent] of registryState.agents) {
+    if (!agent.compiledFallbackPath) {
+      continue;
+    }
+
+    const approved = isApprovedAgent(agent);
+    const sourcePath = `agents/${name}.md`;
+    const compiledPath = agent.compiledFallbackPath;
+    const sourceMirrorPath = `.ai-toolkit/${sourcePath}`;
+    const compiledMirrorPath = `.ai-toolkit/${compiledPath}`;
+
+    const sourceText = await readFile(rootPath(sourcePath), "utf8").catch(() => "");
+    const compiledText = await readFile(rootPath(compiledPath), "utf8").catch(() => "");
+    const frontmatter = parseFrontmatter(compiledText);
+
+    if (!sourceText) {
+      fail("compiled agent parity", sourcePath, "source agent missing or unreadable");
+      continue;
+    }
+    if (!compiledText) {
+      fail("compiled agent parity", compiledPath, "compiled fallback missing or unreadable");
+      continue;
+    }
+
+    if (approved) {
+      for (const issue of agentQualityIssues(sourceText)) {
+        fail("approved agent quality", sourcePath, issue);
+      }
+      if (PLACEHOLDER_PATTERN.test(stripFrontmatter(compiledText))) {
+        fail("approved agent quality", compiledPath, "approved compiled fallback contains stub/placeholder language");
+      }
+    }
+
+    if (!frontmatter) {
+      fail("compiled agent parity", compiledPath, "compiled fallback missing YAML frontmatter");
+      continue;
+    }
+
+    const expectedCompiledStatus = approved ? "approved" : "review";
+    if (frontmatter.compiled_status !== expectedCompiledStatus) {
+      fail("compiled agent parity", compiledPath, `expected compiled_status ${expectedCompiledStatus}, got ${frontmatter.compiled_status || "<missing>"}`);
+    }
+    if (frontmatter.source_agent !== sourcePath) {
+      fail("compiled agent parity", compiledPath, `source_agent must be ${sourcePath}`);
+    }
+    if (!COMMIT_SHA_PATTERN.test(frontmatter.source_commit || "")) {
+      fail("compiled agent parity", compiledPath, "source_commit must be a 40-character Git commit SHA");
+    }
+
+    const expectedProfileRefs = asArray(agent.profiles)
+      .filter((profile) => registryState.profiles.has(profile))
+      .map((profile) => `profiles/${profile}.md`);
+    const actualProfileRefs = parseFrontmatterArray(frontmatter.source_profile_refs);
+    if (!arraysEqual(actualProfileRefs, expectedProfileRefs)) {
+      fail("compiled agent parity", compiledPath, `source_profile_refs drift; expected ${JSON.stringify(expectedProfileRefs)}, got ${JSON.stringify(actualProfileRefs)}`);
+    }
+
+    const expectedMethodRefs = expectedMethodRefsForAgent(agent, registryState.methods);
+    const actualMethodRefs = parseFrontmatterArray(frontmatter.source_method_refs);
+    if (!arraysEqual(actualMethodRefs, expectedMethodRefs)) {
+      fail("compiled agent parity", compiledPath, `source_method_refs drift; expected ${expectedMethodRefs.length} refs, got ${actualMethodRefs.length}`);
+    }
+
+    const sourceBody = canonicalContentForParity(stripFrontmatter(sourceText));
+    if (!canonicalContentForParity(compiledText).includes(sourceBody)) {
+      fail("compiled agent parity", compiledPath, "compiled fallback does not embed current source-agent content");
+    }
+
+    for (const [rootFile, mirrorFile] of [[sourcePath, sourceMirrorPath], [compiledPath, compiledMirrorPath]]) {
+      const rootText = await readFile(rootPath(rootFile), "utf8").catch(() => null);
+      const mirrorText = await readFile(rootPath(mirrorFile), "utf8").catch(() => null);
+      if (mirrorText === null) {
+        fail("embedded mirror parity", mirrorFile, `missing mirror for ${rootFile}`);
+      } else if (rootText !== mirrorText) {
+        fail("embedded mirror parity", mirrorFile, `mirror drifts from ${rootFile}`);
+      }
+    }
+  }
+}
+
 async function validateEnterpriseToolMetadata(registryState) {
   note("Enterprise external-tool risk metadata");
 
@@ -594,6 +814,9 @@ async function validateEnterpriseToolMetadata(registryState) {
         fail("enterprise tool metadata", location, `enterpriseRisk missing ${field}`);
       }
     }
+    if ("currentPosture" in tool) {
+      fail("enterprise tool metadata", location, "currentPosture is retired; use status, activationStatus, defaultUse, activationLevels, and enterpriseRisk.reviewState");
+    }
 
     const allCoreUnknown = ENTERPRISE_CORE_RISK_FIELDS.every((field) => tool.enterpriseRisk[field] === "unknown-review-required");
     if (allCoreUnknown) {
@@ -604,6 +827,16 @@ async function validateEnterpriseToolMetadata(registryState) {
     }
     if (typeof tool.enterpriseRisk.reviewEvidence !== "string" || tool.enterpriseRisk.reviewEvidence.length === 0) {
       fail("enterprise tool metadata", location, "reviewEvidence must be a non-empty string");
+    }
+    for (const field of ["riskTier", "reviewedSource", "reviewedVersionOrCommit", "riskRationale", "nextReviewDue"]) {
+      if (typeof tool.enterpriseRisk[field] !== "string" || tool.enterpriseRisk[field].length === 0) {
+        fail("enterprise tool metadata", location, `${field} must be a non-empty string`);
+      }
+    }
+    for (const field of ["inspectedAreas", "uninspectedAreas"]) {
+      if (!Array.isArray(tool.enterpriseRisk[field]) || tool.enterpriseRisk[field].length === 0) {
+        fail("enterprise tool metadata", location, `${field} must be a non-empty array`);
+      }
     }
     if (!String(tool.enterpriseRisk.defaultEnterpriseStatus || "").includes("metadata-only")) {
       fail("enterprise tool metadata", location, "defaultEnterpriseStatus must remain metadata-only unless explicitly approved");
@@ -1060,6 +1293,7 @@ async function main() {
   await validateSkills(registryState);
   await validateGovernanceBoundaries(registryState);
   await validateSourcePolicy(watchlist, registryState);
+  await validateAgentsAndCompiledFallbacks(registryState);
   await validateEnterpriseToolMetadata(registryState);
   await validateSourceUtilizationClassification(watchlist, registryState);
   await validateTokenContextGovernance(registryState);

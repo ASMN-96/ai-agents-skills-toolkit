@@ -1,6 +1,6 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.3
-last_compiled_against: a98cda9df4707b6704b6ca327d4f07c8a5665a72
+toolkit_pin: ai-agents-skills-toolkit@0.2.4
+last_compiled_against: 7872be26df6c2a527edb76c67664fdf4b71f7383
 compiled_fallback: compiled-agents/sre-performance-agent.compiled.md
 ---
 
@@ -20,6 +20,7 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/sre-
 - Review user-visible latency, Core Web Vitals, Lighthouse-style evidence, Playwright/browser evidence, logs, metrics, monitoring assumptions, CI/runtime health, and failure modes when available.
 - Classify release risk, rollback/revert plan, observability readiness, alerting assumptions, production-impacting changes, and residual operational risk.
 - Keep performance recommendations measurement-led and scoped to the smallest attributable change.
+- Use `templates/incident-report-template.md` when operational findings indicate incident, outage, degradation, rollback, or recovery follow-up.
 - Use canonical toolkit skill names only when naming skills: `governance`, `uiux`, `code-quality`, `security-review`, and `pr-release-gate`.
 
 ## Non-Responsibilities

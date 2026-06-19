@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.2.3",
-  "evalSet": "enterprise-governance-routing-v0.2.3",
+  "toolkitVersion": "0.2.4",
+  "evalSet": "enterprise-governance-routing-v0.2.4",
   "purpose": "Validate normal-language enterprise governance routing without adding runtime skills, over-routing lightweight tasks, or claiming validation from selected tools.",
   "cases": [
     {

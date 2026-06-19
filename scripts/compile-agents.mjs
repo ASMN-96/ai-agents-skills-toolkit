@@ -6,11 +6,12 @@ import process from "node:process";
 import { promisify } from "node:util";
 
 const ROOT = process.cwd();
-const TOOLKIT_VERSION = "0.2.3";
+const TOOLKIT_VERSION = "0.2.4";
 const COMPILE_CONTRACT_VERSION = "1.0.0";
 const GENERATED_ROOT = "compiled-agents";
 const HARD_WORD_WARNING = 30000;
 const METHOD_SUMMARY_LINES = 28;
+const PLACEHOLDER_PATTERN = /\b(?:Stub\.?|placeholder|TBD|compiled later|will be compiled later)\b/i;
 const execFileAsync = promisify(execFile);
 
 function rootPath(relativePath) {
@@ -89,13 +90,56 @@ function extractTitle(text, fallback) {
 }
 
 function summarize(text, maxLines = 18) {
-  return text
-    .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, "")
+  return stripFrontmatter(text)
     .split(/\r?\n/)
     .map((line) => line.trimEnd())
     .filter(Boolean)
     .slice(0, maxLines)
     .join("\n");
+}
+
+function stripFrontmatter(text) {
+  return text.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, "").trim();
+}
+
+function normalizedSectionNames(text) {
+  return new Set([...stripFrontmatter(text).matchAll(/^##\s+(.+)$/gm)].map((match) => match[1].trim().toLowerCase()));
+}
+
+function isApprovedAgent(agent) {
+  return asArray(agent.status).includes("approved") || asArray(agent.activationStatus).includes("approved");
+}
+
+function agentQualityIssues(agentText) {
+  const body = stripFrontmatter(agentText);
+  const sections = normalizedSectionNames(agentText);
+  const words = body.split(/\s+/).filter(Boolean).length;
+  const issues = [];
+  if (PLACEHOLDER_PATTERN.test(body)) {
+    issues.push("contains stub/placeholder language");
+  }
+  if (words < 120) {
+    issues.push(`source body is too thin for approved compilation: ${words} words`);
+  }
+  if (!sections.has("role")) {
+    issues.push("missing ## Role section");
+  }
+  if (!["status", "operating rules", "runtime status", "operating mode", "hard boundaries", "boundaries"].some((section) => sections.has(section))) {
+    issues.push("missing status, operating rules, or boundary section");
+  }
+  if (![
+    "responsibility",
+    "responsibilities",
+    "required checks",
+    "validation evidence rules",
+    "review output contract",
+    "output contract",
+    "operating rules",
+    "evaluation checklist"
+  ].some((section) => sections.has(section))) {
+    issues.push("missing operational responsibility or output section");
+  }
+  return issues;
 }
 
 function normalizeMarkdownHeadingSpacing(text) {
@@ -152,6 +196,11 @@ function assertGeneratedPath(relativePath) {
 async function compileAgent(agent, registries, commit) {
   const sourceAgent = `agents/${agent.name}.md`;
   const agentText = await readText(sourceAgent);
+  const qualityIssues = agentQualityIssues(agentText);
+  const approved = isApprovedAgent(agent);
+  if (approved && qualityIssues.length > 0) {
+    throw new Error(`approved agent ${agent.name} cannot compile as approved: ${qualityIssues.join("; ")}`);
+  }
   const profileRefs = asArray(agent.profiles).filter((profile) => registries.profiles.has(profile));
   const methodRefs = [];
 
@@ -198,7 +247,7 @@ async function compileAgent(agent, registries, commit) {
 toolkit_name: AI Agent Skills Toolkit
 toolkit_version: ${TOOLKIT_VERSION}
 toolkit_pin: ai-agents-skills-toolkit@${TOOLKIT_VERSION}
-compiled_status: review
+compiled_status: ${approved ? "approved" : "review"}
 compiled_at: deterministic-not-recorded
 source_commit: ${commit}
 source_agent: ${sourceAgent}
@@ -217,7 +266,7 @@ This compiled fallback is generated from reviewed repo-owned inputs. It does not
 
 Source: \`${sourceAgent}\`
 
-${summarize(agentText, 24) || "No source agent body available."}
+${stripFrontmatter(agentText) || "No source agent body available."}
 
 ## Profiles
 

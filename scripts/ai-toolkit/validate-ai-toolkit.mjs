@@ -35,7 +35,14 @@ const ENTERPRISE_RISK_FIELDS = [
   "approvalOwner",
   "allowedEnvironments",
   "forbiddenEnvironments",
-  "defaultEnterpriseStatus"
+  "defaultEnterpriseStatus",
+  "riskTier",
+  "reviewedSource",
+  "reviewedVersionOrCommit",
+  "inspectedAreas",
+  "uninspectedAreas",
+  "riskRationale",
+  "nextReviewDue"
 ];
 const METHOD_TRACEABILITY_FIELDS = ["sourceRef", "lastExtracted", "status"];
 const SPECIAL_METHOD_SOURCE_REFS = new Set([
@@ -130,6 +137,16 @@ function validateEnterpriseRisk(tool, location) {
 
   if (!String(tool.enterpriseRisk.defaultEnterpriseStatus || "").includes("metadata-only")) {
     fail(location, "defaultEnterpriseStatus must remain metadata-only unless explicitly approved");
+  }
+  for (const field of ["riskTier", "reviewedSource", "reviewedVersionOrCommit", "riskRationale", "nextReviewDue"]) {
+    if (typeof tool.enterpriseRisk[field] !== "string" || tool.enterpriseRisk[field].length === 0) {
+      fail(location, `${field} must be a non-empty string`);
+    }
+  }
+  for (const field of ["inspectedAreas", "uninspectedAreas"]) {
+    if (!Array.isArray(tool.enterpriseRisk[field]) || tool.enterpriseRisk[field].length === 0) {
+      fail(location, `${field} must be a non-empty array`);
+    }
   }
   if (/enterprise-approved|approved/i.test(String(tool.enterpriseRisk.securityReviewStatus || ""))) {
     fail(location, "securityReviewStatus must not claim enterprise approval without evidence");
@@ -279,6 +296,9 @@ async function validateToolRegistry() {
       if (!(field in tool)) {
         fail(location, `missing ${field}`);
       }
+    }
+    if ("currentPosture" in tool) {
+      fail(location, "currentPosture is retired; use status, activationStatus, defaultUse, activationLevels, and enterpriseRisk.reviewState");
     }
     validateEnterpriseRisk(tool, location);
     if (ids.has(tool.id)) {
