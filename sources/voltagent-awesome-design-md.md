@@ -5,7 +5,7 @@
 - Owner / publisher: VoltAgent.
 - Source type: Curated DESIGN.md collection inspired by popular brand and product design systems.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `962e08c334dc5c42de3f9d14d2aa8ead9cc6cff9` on `main`, checked by read-only GitHub compare metadata on 2026-06-08.
+- Pinned repo ref checked: `664b3e78fd1a298ba11973822da988483256d4b4` on `main`, checked by read-only GitHub compare metadata on 2026-06-08.
 - Visible adoption signals: about 73.5k GitHub stars, 9.0k forks, active repository updates on 2026-05-08, and a large `design-md` catalog.
 - Trust level: Medium source trust, high brand/trade-dress and copy-paste risk.
 - License status: GitHub API reports MIT.
@@ -75,3 +75,9 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep VoltAgent Awesome DESIGN.md as reference-only design-source-of-truth pattern intelligence. This refresh updates source tracking only and does not approve copying brand-specific `DESIGN.md` content, preview execution, source import, method extraction, project `DESIGN.md` writes, runtime activation, brand imitation, or global configuration use.
+
+## Freshness Review 2026-06-19
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `962e08c334dc5c42de3f9d14d2aa8ead9cc6cff9` to `664b3e78fd1a298ba11973822da988483256d4b4` using `git ls-remote` and GitHub compare metadata only. The compare was 2 commits ahead and changed README design-tool and banner content only. This remains a design-source-map reference with no brand/template copying or method extraction.
+
+Outcome: `SYNCED_REFERENCE`. This refresh updates source tracking only and does not approve raw source copying, install, activation, script execution, MCP setup, global configuration changes, CI wiring, product-repository mutation, or runtime behavior changes.

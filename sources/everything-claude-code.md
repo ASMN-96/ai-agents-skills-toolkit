@@ -4,7 +4,7 @@
 - Owner / publisher: affaan-m.
 - Source type: Cross-harness Claude Code ecosystem repository with skills, agents, commands, hooks, manifests, MCP config, plugins, rules, and install scripts.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `5b173d2e6c11b976a0f13b2f59125e08956c1d47` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
+- Pinned repo ref checked: `34faa39bd3cd496a0aece0245f2b7e38b7923abc` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
 - Visible adoption signals: about 175.8k GitHub stars, 27.2k forks, and large multi-harness surface area.
 - Trust level: Medium source trust, very high execution/config-mutation risk.
 - License status: GitHub API reports MIT.
@@ -127,3 +127,9 @@ Skill Scout read-only release-gate follow-up reviewed upstream movement from `fe
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep Everything Claude Code as source-safety awareness only. The context-size compact trigger and Codex marketplace path changes are not adopted into this toolkit. This review does not approve compact hook import, marketplace plugin path adoption, plugin import, skill import, MCP connector import, MCP inventory import, session-adapter import, control-plane import, hook behavior import, release script import, package or lockfile adoption, script execution, global config behavior, cross-runtime support claims, source import, installation, activation, extraction, CI changes, product-repo changes, or global configuration changes.
+
+## Freshness Review 2026-06-19
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `5b173d2e6c11b976a0f13b2f59125e08956c1d47` to `34faa39bd3cd496a0aece0245f2b7e38b7923abc` using `git ls-remote` and GitHub compare metadata only. The compare was 97 commits ahead and added or changed taste, ML adoption, self-evaluation agent, skill catalog, package, and cross-runtime assets. This remains source-safety awareness only with no cross-runtime runtime support claim.
+
+Outcome: `SYNCED_REFERENCE`. This refresh updates source tracking only and does not approve raw source copying, install, activation, script execution, MCP setup, global configuration changes, CI wiring, product-repository mutation, or runtime behavior changes.

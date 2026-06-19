@@ -1,22 +1,22 @@
-# GitLab Agentic Tool Development Docs
+# GitLab External Agents Docs
 
-- URL: https://docs.gitlab.com/ee/development/ai_features/agentic_tool_development/
+- URL: https://docs.gitlab.com/user/duo_agent_platform/agents/external/
 - Owner / publisher: GitLab.
-- Source type: Official GitLab engineering documentation for agentic tool development.
-- Retrieval date: 2026-05-08.
+- Source type: Official GitLab documentation for external agents in the GitLab Duo Agent Platform.
+- Retrieval date: 2026-06-19.
 - Pinned ref checked: Not applicable; official docs page, not a repository checkout.
 - Visible adoption signals: Official GitLab documentation.
 - Trust level: High official-doc trust, medium harness-specificity risk.
 - License status: Official public documentation; terms/license not separately reviewed during this pass.
-- Recommendation: Candidate for future normalized cross-harness architecture guidance after separate approval. Do not copy examples verbatim or treat GitLab-specific architecture as universal.
+- Recommendation: Reference for external-agent security and integration boundaries after separate approval. Do not copy examples verbatim or treat GitLab-specific architecture as universal.
 
 ## Freshness and Monitoring Metadata
 
 - Source type: `manual-reviewed-doc` (official external documentation)
 - Publisher: `GitLab`
-- URL: `https://docs.gitlab.com/ee/development/ai_features/agentic_tool_development/`
-- Last checked date: `2026-05-15`
-- Last reviewed date: `2026-05-15`
+- URL: `https://docs.gitlab.com/user/duo_agent_platform/agents/external/`
+- Last checked date: `2026-06-19`
+- Last reviewed date: `2026-06-19`
 - Snapshot/freshness status: `dynamic page; no immutable commit checkpoint`
 - License review status: `official docs terms not separately reviewed`
 - Safety status: `medium; product-specific architecture can be over-generalized if copied blindly`
@@ -74,3 +74,7 @@ Over-generalizing GitLab-specific architecture could make this toolkit less port
 ## Recommendation
 
 Candidate for future normalized cross-harness method refinement, pending separate approval. No raw docs text, tool integration, or runtime content was activated.
+
+## Manual Review 2026-06-19
+
+Manual review checked the current GitLab Duo Agent Platform External agents page as the relevant successor for agent integration and security boundary awareness. The page highlights external AI provider dependency, prompt-injection exposure, network access, limited isolation, credentials, and GitLab-managed agent flows. This record remains reference-only and does not approve external-agent integration, CI, credentials, raw docs copying, install, activation, or runtime configuration.

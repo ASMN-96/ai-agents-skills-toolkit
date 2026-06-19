@@ -5,7 +5,7 @@
 - Owner / publisher: shadcn-ui.
 - Source type: Open component code, registry, documentation, CLI, and AI-oriented UI composition source.
 - Retrieval date: 2026-05-29.
-- Pinned repo ref checked: `1994caba0b2140d4d5aa765bb9d7d4412d6aaabb` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
+- Pinned repo ref checked: `3ffd3e1c7c801f5af5aa72f7c70e21ace3b356bc` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
 - Visible adoption signals: about 115.9k GitHub stars, 9.0k forks, active repository updates on 2026-06-06, and official docs at `ui.shadcn.com`.
 - Trust level: High UI ecosystem trust, medium-high execution risk if CLI or registry behavior is followed blindly.
 - License status: GitHub API reports MIT.
@@ -151,3 +151,9 @@ Skill Scout read-only source-freshness follow-up reviewed upstream default-branc
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep shadcn/ui active only as design-system/component-ownership reference guidance for toolkit-owned UIUX methods. This refresh updates source tracking only and does not approve CLI execution, MCP setup, registry import, registry content copying, component source copying, skill import, package metadata adoption, lockfile adoption, dependency changes, package changes, product-repo changes, raw source extraction, or runtime activation.
+
+## Freshness Review 2026-06-19
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `ea9d371a2dda3365a382ff361f96b55daeeab88d` to `3ffd3e1c7c801f5af5aa72f7c70e21ace3b356bc` using `git ls-remote` and GitHub compare metadata only. The compare was 21 commits ahead and touched registry entries, fetch/network handling, examples, docs, package metadata, and lockfile-related surfaces. This refresh keeps design-system reference guidance only and rejects CLI, registry, package, lockfile, and component-source adoption.
+
+Outcome: `SYNCED_REFERENCE`. This refresh updates source tracking only and does not approve raw source copying, install, activation, script execution, MCP setup, global configuration changes, CI wiring, product-repository mutation, or runtime behavior changes.

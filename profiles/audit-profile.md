@@ -10,6 +10,7 @@
 ## Recommended Support Tools
 
 - Superpowers as an external Codex execution-discipline plugin.
+- GSD as active-if-detected external governance discipline for serious audits when available; owner-approved install/config only when absent.
 - Context7 when available/configured for current official documentation or API reference checks.
 
 ## Default Mode

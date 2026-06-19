@@ -7,7 +7,7 @@
 - Purpose: Production engineering workflow skills for AI coding agents.
 - Trust level: High-medium.
 - License if visible: MIT.
-- Commit / update activity: `d187883b7d761265309cdcc0f202cc76b4b3fb06` from read-only remote HEAD and compare metadata checks on 2026-06-11.
+- Commit / update activity: `13e43f2310224d5770a7fb0a8c24c02b73da69e9` from read-only remote HEAD and compare metadata checks on 2026-06-11.
 - Recommendation: Passive reference for normalized governance and method-quality patterns. Do not copy raw skill bodies or duplicate Codex/plugin behavior.
 
 ## Summary
@@ -65,3 +65,9 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_REFERENCE`.
 
 Decision: keep Addy Osmani Agent Skills as passive reference for normalized production engineering workflow patterns only. This refresh updates source tracking only and does not approve command activation, agent import, plugin installation, repository cloning into active runtime, hook execution, slash-command activation, raw skill copying, observability skill import, web-performance auditor import, global git or agent configuration changes, product-repo changes, or runtime configuration changes.
+
+## Freshness Review 2026-06-19
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `d187883b7d761265309cdcc0f202cc76b4b3fb06` to `13e43f2310224d5770a7fb0a8c24c02b73da69e9` using `git ls-remote` and GitHub compare metadata only. The compare was 31 commits ahead and included observability checklist/docs, browser-testing profile isolation hardening, agent docs relocation, validator output handling, and setup docs. Security-relevant browser profile isolation was noted, but no upstream commands, agents, plugins, or raw skills were imported.
+
+Outcome: `SYNCED_REFERENCE`. This refresh updates source tracking only and does not approve raw source copying, install, activation, script execution, MCP setup, global configuration changes, CI wiring, product-repository mutation, or runtime behavior changes.

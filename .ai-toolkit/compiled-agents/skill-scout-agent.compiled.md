@@ -4,7 +4,7 @@ toolkit_version: 0.2.3
 toolkit_pin: ai-agents-skills-toolkit@0.2.3
 compiled_status: review
 compiled_at: deterministic-not-recorded
-source_commit: 0b2fdc8d499ebc407d593fc09ea879b0e83a9678
+source_commit: 7f7d8bbcfe0549b85e568386638b73b22496c441
 source_agent: agents/skill-scout-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -68,9 +68,8 @@ For every source, check:
 ## Recommended Support Tools
 
 - Superpowers as an external Codex execution-discipline plugin.
+- GSD as active-if-detected external governance discipline for serious audits when available; owner-approved install/config only when absent.
 - Context7 when available/configured for current official documentation or API reference checks.
-
-## Default Mode
 
 ### security-profile
 
@@ -104,8 +103,7 @@ For every source, check:
 
 - GitHub/gh or web search/browser for source identity checks when explicitly needed.
 - Superpowers for verification honesty and source-safety discipline.
-
-## Default Mode
+- GSD as active-if-detected external phase/state discipline for serious source-adoption and refresh programs when available; owner-approved install/config only when absent.
 
 ## Methods
 

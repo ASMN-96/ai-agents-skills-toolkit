@@ -4,7 +4,7 @@
 - Owner / publisher: Addy Osmani.
 - Source type: Unofficial Agent Skills collection for web quality, Lighthouse-style auditing, Core Web Vitals, accessibility, SEO, and best-practices review.
 - Retrieval date: 2026-05-15.
-- Pinned repo ref checked: `7b59d48aaf1f793935002f4998dfccc656f40839` on `main`, committed 2026-05-15.
+- Pinned repo ref checked: `95d6e255afe1596b557d7a8498517884438f5b3a` on `main`, checked 2026-06-19.
 - Visible adoption signals: about 1.9k GitHub stars, 165 forks, active updates on 2026-05-07, and six visible skill folders.
 - Trust level: Medium-high author trust, medium-high execution and raw-skill-copying risk.
 - License status: GitHub API reports MIT.
@@ -64,3 +64,9 @@ Full web-quality audits can consume significant time and context. Future methods
 ## Recommendation
 
 Candidate for future normalized web-quality method extraction, pending separate approval. Keep future extraction paraphrased, source-cited, and focused on gates and routing rather than active skills. No raw skill/plugin/repo content was activated.
+
+## Freshness Review 2026-06-19
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `7b59d48aaf1f793935002f4998dfccc656f40839` to `95d6e255afe1596b557d7a8498517884438f5b3a` using `git ls-remote` and GitHub compare metadata only. The compare was 2 commits ahead and changed `.claude-plugin/marketplace.json` remote metadata only. This refresh updates source tracking without adopting marketplace, install, browser, Lighthouse, or skill activation behavior.
+
+Outcome: `SYNCED_REFERENCE`. This refresh updates source tracking only and does not approve raw source copying, install, activation, script execution, MCP setup, global configuration changes, CI wiring, product-repository mutation, or runtime behavior changes.

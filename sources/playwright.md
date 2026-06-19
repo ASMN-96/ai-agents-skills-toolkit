@@ -5,7 +5,7 @@
 - Owner / publisher: Microsoft.
 - Source type: Official web testing and browser automation framework, documentation, CLI, and MCP-adjacent runtime-verification source.
 - Retrieval date: 2026-05-30.
-- Pinned repo ref checked: `954a7680c9bebd96323e299bf01a9ee079b080e9` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
+- Pinned repo ref checked: `11797b0336d50ab0d8bc554f53fcd8d4aab8438e` on `main`, checked by read-only GitHub compare metadata on 2026-06-11.
 - Visible adoption signals: about 89.8k GitHub stars, 5.8k forks, very active repository history, and official docs at `playwright.dev`.
 - Trust level: High tool trust, medium-high runtime risk if installed or run against unsafe targets.
 - License status: GitHub API reports Apache-2.0.
@@ -210,3 +210,9 @@ Skill Scout read-only follow-up reviewed upstream default-branch movement from `
 Outcome: `SYNCED_PLUGIN_DELEGATED`.
 
 Decision: keep Playwright active for toolkit-owned browser-evidence standards and routing while delegating execution to project-owned Playwright or browser tooling. This refresh updates source tracking only and does not approve source import, package update, browser binary download, CI update, runtime update, upstream test or code copying, script execution, MCP browser-disposal behavior adoption, codegen selector behavior adoption, product-repo changes, or global configuration changes.
+
+## Freshness Review 2026-06-19
+
+Skill Scout read-only source-freshness follow-up reviewed upstream default-branch movement from `95460e4363a62dfde2e701b69514c1e3ee5b0c64` to `11797b0336d50ab0d8bc554f53fcd8d4aab8438e` using `git ls-remote` and GitHub compare metadata only. The compare was 67 commits ahead and included browser revision rolls, docs, workflow files, MCP/test surfaces, protocol/type changes, and browser internals. Browser evidence remains delegated to project-owned Playwright/browser tooling only.
+
+Outcome: `SYNCED_PLUGIN_DELEGATED`. This refresh updates source tracking only and does not approve raw source copying, install, activation, script execution, MCP setup, global configuration changes, CI wiring, product-repository mutation, or runtime behavior changes.

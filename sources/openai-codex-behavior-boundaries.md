@@ -6,7 +6,7 @@
   - https://developers.openai.com/codex/skills/
   - https://developers.openai.com/codex/subagents
 - Source type: official documentation
-- Last reviewed date: 2026-06-11
+- Last reviewed date: 2026-06-19
 - Review level: runtime-boundary reference
 - Classification: active-method source for Codex/toolkit responsibility boundaries
 - License status: official documentation reference only; no raw docs copied
@@ -37,3 +37,6 @@ Official Codex documentation anchors the boundary that this toolkit provides con
 - `methods/orchestration/changed-file-neighborhood-selection.md`
 - `methods/orchestration/compact-agent-context-pack.md`
 
+## Manual Review 2026-06-19
+
+Manual review checked the current OpenAI Codex AGENTS.md page. The record remains a runtime-boundary reference for instruction/context surfaces, not proof of tool execution, global configuration, or activation.
