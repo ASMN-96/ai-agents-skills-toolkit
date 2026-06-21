@@ -788,6 +788,45 @@
           "no raw upstream copying"
         ]
       }
+    },
+    {
+      "id": "tweetclaw",
+      "name": "TweetClaw",
+      "sourceUrl": "https://github.com/Xquik-dev/tweetclaw",
+      "repoOwner": "Xquik-dev",
+      "repoName": "tweetclaw",
+      "defaultBranch": "master",
+      "lastReviewedCommit": "a814975045c1cd787614b1482d5f441ddb18b7fd",
+      "lastReviewedDate": "2026-06-21",
+      "sourceRecordPath": "sources/tweetclaw.md",
+      "watchedPaths": [
+        "skills/tweetclaw",
+        "openclaw.plugin.json",
+        "package.json",
+        "README.md",
+        "docs/openclaw-setup.md"
+      ],
+      "licenseConcern": "clear",
+      "reviewPriority": "Medium",
+      "neverAutoImport": true,
+      "reviewDecision": {
+        "outcome": "SYNCED_REFERENCE",
+        "reviewedCommit": "a814975045c1cd787614b1482d5f441ddb18b7fd",
+        "reviewedDate": "2026-06-21",
+        "summary": "TweetClaw reviewed as an MIT-licensed OpenClaw plugin and packaged X/Twitter skill with skill-card, SkillSpector, eval, benchmark, approval-gate, credential-boundary, and unsigned-release evidence.",
+        "boundaries": [
+          "no raw skill copying",
+          "no package install",
+          "no plugin activation",
+          "no OpenClaw command execution",
+          "no live social-media actions",
+          "no credential access",
+          "no CI or package changes",
+          "no product-repo changes",
+          "no global configuration changes",
+          "no NVIDIA-verified or signed-status claim without current evidence"
+        ]
+      }
     }
   ]
 }
