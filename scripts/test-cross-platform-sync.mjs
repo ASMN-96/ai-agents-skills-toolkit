@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { execFileSync, spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, linkSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync, appendFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { copyFileSync, cpSync, existsSync, linkSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync, appendFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -106,6 +107,42 @@ function transactionArtifacts(repo) {
   return readdirSync(repo).filter((name) => /^\.ai-toolkit\.(?:backup|staging)-/.test(name));
 }
 
+function sha256Bytes(bytes) {
+  return createHash("sha256").update(bytes).digest("hex");
+}
+
+function collectRelativeFiles(root, relativeDirectory = "", output = []) {
+  const directory = relativeDirectory ? path.join(root, ...relativeDirectory.split("/")) : root;
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    const relativePath = relativeDirectory ? `${relativeDirectory}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) collectRelativeFiles(root, relativePath, output);
+    else output.push(relativePath);
+  }
+  return output.sort((left, right) => left.localeCompare(right));
+}
+
+function createKernelSyncToolkitFixture(tempRoot) {
+  const toolkitRoot = path.join(tempRoot, "toolkit");
+  for (const relativePath of [
+    "install/project-context-preflight.mjs",
+    "install/project-sync-core.mjs",
+    "install/safe-filesystem.mjs",
+    "scripts/ai-toolkit/embedded-data.mjs",
+    "scripts/ai-toolkit/kernel/canonical-digest.mjs",
+    "scripts/ai-toolkit/reference-closure.mjs"
+  ]) {
+    const destination = path.join(toolkitRoot, ...relativePath.split("/"));
+    mkdirSync(path.dirname(destination), { recursive: true });
+    copyFileSync(path.join(REPO_ROOT, ...relativePath.split("/")), destination);
+  }
+  cpSync(
+    path.join(REPO_ROOT, ".ai-toolkit", "runtime", "delivery-kernel"),
+    path.join(toolkitRoot, ".ai-toolkit", "runtime", "delivery-kernel"),
+    { recursive: true }
+  );
+  return toolkitRoot;
+}
+
 test("bash project sync scripts have valid shell syntax", { skip: !hasBash }, () => {
   for (const file of ["install-project.sh", "update-project.sh", "validate-project-install.sh"]) {
     run("bash", ["-n", path.join(REPO_ROOT, "install", file)]);
@@ -160,6 +197,185 @@ test("project sync core remains dry-run-first and validates confirmed installs",
     assert.match(validate.output, /Validation passed/);
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
+  }
+});
+
+test("delivery kernel opt-in supports kernel-only dry-run, install, tamper detection, and persisted updates", () => {
+  const tempRoot = mkdtempSync(path.join(tmpdir(), "ai-toolkit-delivery-kernel-sync-"));
+  try {
+    const repo = newTestRepo(tempRoot, "delivery-kernel");
+    const sourceRoot = path.join(REPO_ROOT, ".ai-toolkit", "runtime", "delivery-kernel");
+    const packageManifest = JSON.parse(readFileSync(path.join(sourceRoot, "package-manifest.json"), "utf8"));
+    const expectedPackageFiles = [
+      "package-manifest.json",
+      ...packageManifest.files.map((entry) => entry.path)
+    ].sort((left, right) => left.localeCompare(right));
+
+    const dryRun = runResult("node", [
+      coreScript,
+      "install",
+      "--target",
+      repo,
+      "--include-delivery-kernel"
+    ]);
+    assert.equal(dryRun.status, 0, dryRun.output);
+    assert.match(dryRun.output, /Dry-run only/);
+    assert.equal(existsSync(path.join(repo, ".ai-toolkit")), false);
+
+    const install = runResult("node", [
+      coreScript,
+      "install",
+      "--target",
+      repo,
+      "--include-delivery-kernel",
+      "--confirm-write"
+    ]);
+    assert.equal(install.status, 0, install.output);
+
+    const managedRoot = path.join(repo, ".ai-toolkit");
+    const installedKernelRoot = path.join(managedRoot, "runtime", "delivery-kernel");
+    assert.deepEqual(collectRelativeFiles(installedKernelRoot), expectedPackageFiles);
+    for (const relativePath of expectedPackageFiles) {
+      assert.deepEqual(
+        readFileSync(path.join(installedKernelRoot, ...relativePath.split("/"))),
+        readFileSync(path.join(sourceRoot, ...relativePath.split("/"))),
+        `raw package bytes must be preserved for ${relativePath}`
+      );
+    }
+
+    const configPath = path.join(managedRoot, ".ai-toolkit.config.json");
+    const versionPath = path.join(managedRoot, ".ai-toolkit-version");
+    const outerManifestPath = path.join(managedRoot, ".ai-toolkit-manifest.json");
+    assert.equal(JSON.parse(readFileSync(configPath, "utf8")).includeDeliveryKernel, true);
+    assert.equal(JSON.parse(readFileSync(versionPath, "utf8")).includeDeliveryKernel, true);
+    const outerManifest = JSON.parse(readFileSync(outerManifestPath, "utf8"));
+    assert.equal(outerManifest.schemaVersion, "2.0.0");
+    const outerAssets = new Map(outerManifest.assets.map((asset) => [asset.path, asset]));
+    for (const relativePath of expectedPackageFiles) {
+      const outerPath = `runtime/delivery-kernel/${relativePath}`;
+      const installedBytes = readFileSync(path.join(managedRoot, ...outerPath.split("/")));
+      assert.equal(outerAssets.get(outerPath)?.sha256, sha256Bytes(installedBytes), outerPath);
+    }
+
+    const initialValidation = runResult("node", [coreScript, "validate", "--target", repo]);
+    assert.equal(initialValidation.status, 0, initialValidation.output);
+
+    const tamperedRelativePath = packageManifest.entrypoint;
+    const tamperedOuterPath = `runtime/delivery-kernel/${tamperedRelativePath}`;
+    const tamperedInstalledPath = path.join(installedKernelRoot, ...tamperedRelativePath.split("/"));
+    appendFileSync(tamperedInstalledPath, "\n// consumer tamper\n", "utf8");
+    outerAssets.get(tamperedOuterPath).sha256 = sha256Bytes(readFileSync(tamperedInstalledPath));
+    writeFileSync(outerManifestPath, `${JSON.stringify(outerManifest, null, 2)}\n`, "utf8");
+
+    const tamperedValidation = runResult("node", [coreScript, "validate", "--target", repo]);
+    assert.notEqual(tamperedValidation.status, 0, tamperedValidation.output);
+    assert.match(tamperedValidation.output, /delivery kernel package canonical (?:text )?digest mismatch/i);
+
+    copyFileSync(path.join(sourceRoot, ...tamperedRelativePath.split("/")), tamperedInstalledPath);
+    outerAssets.get(tamperedOuterPath).sha256 = sha256Bytes(readFileSync(tamperedInstalledPath));
+    writeFileSync(outerManifestPath, `${JSON.stringify(outerManifest, null, 2)}\n`, "utf8");
+    git(repo, ["add", ".ai-toolkit"]);
+    git(repo, ["commit", "-m", "install delivery kernel fixture"]);
+    git(repo, ["push"]);
+
+    rmSync(tamperedInstalledPath);
+    git(repo, ["add", ".ai-toolkit"]);
+    git(repo, ["commit", "-m", "remove managed kernel file"]);
+    git(repo, ["push"]);
+
+    const update = runResult("node", [coreScript, "update", "--target", repo, "--confirm-write"]);
+    assert.equal(update.status, 0, update.output);
+    assert.deepEqual(
+      readFileSync(tamperedInstalledPath),
+      readFileSync(path.join(sourceRoot, ...tamperedRelativePath.split("/")))
+    );
+    assert.equal(JSON.parse(readFileSync(configPath, "utf8")).includeDeliveryKernel, true);
+    assert.equal(JSON.parse(readFileSync(versionPath, "utf8")).includeDeliveryKernel, true);
+    const updatedValidation = runResult("node", [coreScript, "validate", "--target", repo]);
+    assert.equal(updatedValidation.status, 0, updatedValidation.output);
+
+    const disabledConfig = JSON.parse(readFileSync(configPath, "utf8"));
+    const disabledVersion = JSON.parse(readFileSync(versionPath, "utf8"));
+    disabledConfig.includeDeliveryKernel = false;
+    disabledVersion.includeDeliveryKernel = false;
+    writeFileSync(configPath, `${JSON.stringify(disabledConfig, null, 2)}\n`, "utf8");
+    writeFileSync(versionPath, `${JSON.stringify(disabledVersion, null, 2)}\n`, "utf8");
+    const disabledValidation = runResult("node", [coreScript, "validate", "--target", repo]);
+    assert.notEqual(disabledValidation.status, 0, disabledValidation.output);
+    assert.match(disabledValidation.output, /delivery kernel package is present.*includeDeliveryKernel is false/i);
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+});
+
+test("PowerShell install forwards the delivery kernel opt-in", { skip: process.platform !== "win32" }, () => {
+  const tempRoot = mkdtempSync(path.join(tmpdir(), "ai-toolkit-delivery-kernel-pwsh-"));
+  try {
+    const repo = newTestRepo(tempRoot, "delivery-kernel-pwsh");
+    const result = runResult("C:\\Program Files\\PowerShell\\7\\pwsh.exe", [
+      "-NoProfile",
+      "-File",
+      path.join(REPO_ROOT, "install", "install-project.ps1"),
+      "-TargetPath",
+      repo,
+      "-IncludeDeliveryKernel"
+    ]);
+    assert.equal(result.status, 0, result.output);
+    assert.match(result.output, /delivery kernel/i);
+    assert.match(result.output, /Dry-run only/);
+    assert.equal(existsSync(path.join(repo, ".ai-toolkit")), false);
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+});
+
+test("delivery kernel source package rejects traversal and duplicate inventory paths", () => {
+  for (const testCase of [
+    {
+      name: "traversal",
+      mutate(manifest) {
+        manifest.files[0].path = "../outside.mjs";
+      },
+      expected: /unsafe/i
+    },
+    {
+      name: "case-insensitive duplicate",
+      mutate(manifest) {
+        manifest.files.push({ ...manifest.files[0], path: manifest.files[0].path.toUpperCase() });
+      },
+      expected: /duplicate package path/i
+    }
+  ]) {
+    const tempRoot = mkdtempSync(path.join(tmpdir(), `ai-toolkit-delivery-kernel-${testCase.name}-`));
+    try {
+      const toolkitRoot = createKernelSyncToolkitFixture(tempRoot);
+      const targetRoot = path.join(tempRoot, "target");
+      mkdirSync(targetRoot, { recursive: true });
+      const manifestPath = path.join(
+        toolkitRoot,
+        ".ai-toolkit",
+        "runtime",
+        "delivery-kernel",
+        "package-manifest.json"
+      );
+      const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+      testCase.mutate(manifest);
+      writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+
+      const result = runResult("node", [
+        path.join(toolkitRoot, "install", "project-sync-core.mjs"),
+        "install",
+        "--target",
+        targetRoot,
+        "--include-delivery-kernel"
+      ], { cwd: toolkitRoot });
+
+      assert.notEqual(result.status, 0, `${testCase.name}: ${result.output}`);
+      assert.match(result.output, testCase.expected);
+      assert.equal(existsSync(path.join(targetRoot, ".ai-toolkit")), false);
+    } finally {
+      rmSync(tempRoot, { recursive: true, force: true });
+    }
   }
 });
 

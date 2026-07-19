@@ -8,7 +8,7 @@ Current controlled release: `v0.2.5`
 
 Controlled release evidence is an internal evidence-state marker until a matching git tag or GitHub Release is created; it is not, by itself, publication proof.
 
-Current working state: the v0.3.0 enterprise delivery kernel candidate is implemented locally and remains uncommitted. It is not a release, tag, or enterprise-rollout claim.
+Current working state: the v0.3.0 enterprise delivery kernel candidate is implemented on a feature branch and remains under review. It is not a release, tag, or enterprise-rollout claim.
 
 ## Runtime Boundary
 

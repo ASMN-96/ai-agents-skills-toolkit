@@ -11,6 +11,10 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { TOOLKIT_VERSION } from "../scripts/ai-toolkit/embedded-data.mjs";
 import {
+  CANONICAL_TEXT_DIGEST_MODE,
+  canonicalTextSha256
+} from "../scripts/ai-toolkit/kernel/canonical-digest.mjs";
+import {
   collectReferencedSupportAssets,
   collectReferenceClosureFailures,
   supportDestinationForSourcePath,
@@ -34,6 +38,11 @@ const TOOLKIT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 
 const PROJECT_MANIFEST_SCHEMA_VERSION = "2.0.0";
 const LEGACY_PROJECT_MANIFEST_SCHEMA_VERSION = "1.0.0";
 const PROJECT_MANIFEST_KIND = "ai-toolkit-project-install";
+const DELIVERY_KERNEL_PACKAGE_SCHEMA_VERSION = "2.0.0";
+const DELIVERY_KERNEL_PACKAGE_TYPE = "self-contained-delivery-kernel";
+const DELIVERY_KERNEL_SOURCE_ROOT = path.join(TOOLKIT_ROOT, ".ai-toolkit", "runtime", "delivery-kernel");
+const DELIVERY_KERNEL_DESTINATION_ROOT = "runtime/delivery-kernel";
+const DELIVERY_KERNEL_MANIFEST_NAME = "package-manifest.json";
 
 function usage(command) {
   const commands = {
@@ -42,6 +51,7 @@ function usage(command) {
 Usage:
   bash install/install-project.sh --target <repo> --agents reviewer-agent --profiles audit-profile --skills governance
   bash install/install-project.sh --target <repo> --config templates/.ai-toolkit.config.example.json
+  bash install/install-project.sh --target <repo> --include-delivery-kernel
 
 Default behavior is dry-run. Add --confirm-write to copy selected files under the target .ai-toolkit/ directory.`,
     update: `AI Agent Skills Toolkit project updater
@@ -82,6 +92,7 @@ function parseArgs(argv) {
     agents: [],
     profiles: [],
     skills: [],
+    includeDeliveryKernel: false,
     confirmWrite: false,
     help: false
   };
@@ -96,6 +107,7 @@ function parseArgs(argv) {
 
     if (arg === "--help" || arg === "-h") options.help = true;
     else if (arg === "--confirm-write") options.confirmWrite = true;
+    else if (arg === "--include-delivery-kernel") options.includeDeliveryKernel = true;
     else if (arg === "--target" || arg === "--target-path") options.targetPath = readValue(arg);
     else if (arg === "--config" || arg === "--config-path") options.configPath = readValue(arg);
     else if (arg === "--agents") appendValues(options.agents, readValue(arg));
@@ -135,6 +147,91 @@ function toSlash(filePath) {
 
 function normalizeRelative(filePath) {
   return filePath.replace(/\\/g, "/").replace(/^\/+/, "");
+}
+
+function isSafePackagePath(relativePath) {
+  if (typeof relativePath !== "string" || !relativePath || relativePath !== relativePath.trim()) return false;
+  if (relativePath.includes("\\") || relativePath.includes("\0")) return false;
+  if (relativePath !== path.posix.normalize(relativePath) || relativePath.startsWith("/")) return false;
+  if (/^[A-Za-z]:\//.test(relativePath) || path.win32.isAbsolute(relativePath)) return false;
+  const segments = relativePath.split("/");
+  return segments.every((segment) => segment && segment !== "." && segment !== "..");
+}
+
+function readBooleanOption(options, config, name) {
+  if (options[name] === true) return true;
+  const value = getJsonProperty(config, name, false);
+  if (typeof value !== "boolean") fail(`${name} must be a JSON boolean.`);
+  return value;
+}
+
+function validateDeliveryKernelPackage({
+  repositoryRoot,
+  packageRoot,
+  label,
+  expectedToolkitVersion = TOOLKIT_VERSION
+}) {
+  const filesystem = new ManagedFilesystem({
+    repositoryRoot,
+    managedRoot: packageRoot,
+    label
+  });
+  let manifest;
+  try {
+    manifest = JSON.parse(filesystem.readFile(DELIVERY_KERNEL_MANIFEST_NAME, "utf8", `${label} manifest`));
+  } catch (error) {
+    throw new Error(`${label} manifest is not valid or safely readable JSON: ${error.message}`);
+  }
+  if (manifest.schemaVersion !== DELIVERY_KERNEL_PACKAGE_SCHEMA_VERSION) {
+    throw new Error(`${label} schemaVersion must be ${DELIVERY_KERNEL_PACKAGE_SCHEMA_VERSION}`);
+  }
+  if (manifest.digestMode !== CANONICAL_TEXT_DIGEST_MODE) {
+    throw new Error(`${label} digestMode must be ${CANONICAL_TEXT_DIGEST_MODE}`);
+  }
+  if (manifest.packageType !== DELIVERY_KERNEL_PACKAGE_TYPE) {
+    throw new Error(`${label} packageType must be ${DELIVERY_KERNEL_PACKAGE_TYPE}`);
+  }
+  if (manifest.toolkitVersion !== expectedToolkitVersion) {
+    throw new Error(`${label} toolkitVersion must be ${expectedToolkitVersion}`);
+  }
+  if (!Array.isArray(manifest.files) || manifest.files.length === 0) {
+    throw new Error(`${label} files must be a non-empty array`);
+  }
+
+  const seenPaths = new Set();
+  const files = manifest.files.map((entry, index) => {
+    const relativePath = entry?.path;
+    if (!isSafePackagePath(relativePath)) {
+      throw new Error(`${label} files[${index}].path is unsafe: ${String(relativePath ?? "")}`);
+    }
+    const collisionKey = relativePath.toLowerCase();
+    if (seenPaths.has(collisionKey)) {
+      throw new Error(`${label} contains a duplicate package path: ${relativePath}`);
+    }
+    seenPaths.add(collisionKey);
+    if (!/^[0-9a-f]{64}$/.test(entry?.sha256 ?? "")) {
+      throw new Error(`${label} files[${index}].sha256 must be a lowercase SHA-256 digest`);
+    }
+    const sourcePath = filesystem.assertRegularFile(relativePath, `${label} file ${relativePath}`);
+    const actualDigest = canonicalTextSha256(
+      filesystem.readFile(relativePath, null, `${label} file ${relativePath}`),
+      `${label} file ${relativePath}`
+    );
+    if (actualDigest !== entry.sha256) {
+      throw new Error(`${label} canonical text digest mismatch: ${relativePath}`);
+    }
+    return { path: relativePath, sha256: entry.sha256, sourcePath };
+  }).sort((left, right) => left.path.localeCompare(right.path));
+
+  const actualFiles = snapshotManagedTree(repositoryRoot, packageRoot, label)
+    .filter((entry) => entry.type === "file")
+    .map((entry) => entry.path)
+    .filter((relativePath) => relativePath !== DELIVERY_KERNEL_MANIFEST_NAME)
+    .sort((left, right) => left.localeCompare(right));
+  if (JSON.stringify(actualFiles) !== JSON.stringify(files.map((entry) => entry.path))) {
+    throw new Error(`${label} manifest file inventory mismatch`);
+  }
+  return { filesystem, manifest, files };
 }
 
 function sha256(filePath) {
@@ -273,7 +370,7 @@ function selectedFrom(options, config, key) {
   return toStringArray(getJsonProperty(config, `selected${key[0].toUpperCase()}${key.slice(1)}`, []));
 }
 
-function buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedSkills, updateMode }) {
+function buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedSkills, includeDeliveryKernel, updateMode }) {
   const aiRoot = path.join(targetRoot, ".ai-toolkit");
   assertPathContained(targetRoot, aiRoot, ".ai-toolkit root");
   const destinationFor = (...segments) => assertPathContained(
@@ -283,6 +380,19 @@ function buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedS
   );
   const plan = [];
   const missingLabel = updateMode ? "MissingTarget" : "Add";
+
+  let deliveryKernelPackage = null;
+  if (includeDeliveryKernel) {
+    try {
+      deliveryKernelPackage = validateDeliveryKernelPackage({
+        repositoryRoot: TOOLKIT_ROOT,
+        packageRoot: DELIVERY_KERNEL_SOURCE_ROOT,
+        label: "delivery kernel source package"
+      });
+    } catch (error) {
+      fail(`Delivery kernel source package validation failed: ${error.message}`);
+    }
+  }
 
   for (const agent of selectedAgents) {
     const name = normalizeAgentName(agent);
@@ -352,6 +462,30 @@ function buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedS
     });
   }
 
+  if (deliveryKernelPackage) {
+    for (const packageFile of [
+      {
+        path: DELIVERY_KERNEL_MANIFEST_NAME,
+        sourcePath: deliveryKernelPackage.filesystem.assertRegularFile(
+          DELIVERY_KERNEL_MANIFEST_NAME,
+          "delivery kernel source package manifest"
+        )
+      },
+      ...deliveryKernelPackage.files
+    ]) {
+      const relativePath = `${DELIVERY_KERNEL_DESTINATION_ROOT}/${packageFile.path}`;
+      const destination = destinationFor(...relativePath.split("/"));
+      plan.push({
+        type: "delivery-kernel",
+        name: packageFile.path,
+        action: fileAction(packageFile.sourcePath, destination, missingLabel),
+        source: packageFile.sourcePath,
+        destination,
+        relativePath
+      });
+    }
+  }
+
   return plan;
 }
 
@@ -362,7 +496,8 @@ function printCopyPlan(plan) {
     ["skill", "Planned copied skills"],
     ["method", "Planned copied methods"],
     ["template", "Planned copied templates"],
-    ["support-doc", "Planned copied support docs"]
+    ["support-doc", "Planned copied support docs"],
+    ["delivery-kernel", "Planned delivery kernel package"]
   ];
 
   for (const [type, label] of sections) {
@@ -459,13 +594,33 @@ function validateManagedManifest(filesystem) {
   }
 }
 
-function writeInstallRecords({ filesystem, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated }) {
+function validatePreparedInstall(filesystem, repositoryRoot, includeDeliveryKernel) {
+  validateManagedManifest(filesystem);
+  if (!includeDeliveryKernel) return;
+  validateDeliveryKernelPackage({
+    repositoryRoot,
+    packageRoot: path.join(filesystem.root, ...DELIVERY_KERNEL_DESTINATION_ROOT.split("/")),
+    label: "staged delivery kernel package"
+  });
+}
+
+function writeInstallRecords({
+  filesystem,
+  config,
+  selectedAgents,
+  selectedProfiles,
+  selectedSkills,
+  includeDeliveryKernel,
+  toolkitCommit,
+  updated
+}) {
   const writtenConfig = {
     toolkitVersion: TOOLKIT_VERSION,
     toolkitCommit,
     selectedAgents: selectedAgents.map(normalizeAgentName),
     selectedProfiles: selectedProfiles.map(normalizeProfileName),
     selectedSkills: selectedSkills.map(normalizeSkillName),
+    includeDeliveryKernel,
     projectContextPath: String(getJsonProperty(config, "projectContextPath", "docs/ai/PROJECT_CONTEXT.md")),
     approvalMode: String(getJsonProperty(config, "approvalMode", "manual")),
     branchPolicy: String(getJsonProperty(config, "branchPolicy", "no-direct-main")),
@@ -478,7 +633,8 @@ function writeInstallRecords({ filesystem, config, selectedAgents, selectedProfi
     [updated ? "updatedAtUtc" : "installedAtUtc"]: new Date().toISOString(),
     selectedAgents: writtenConfig.selectedAgents,
     selectedProfiles: writtenConfig.selectedProfiles,
-    selectedSkills: writtenConfig.selectedSkills
+    selectedSkills: writtenConfig.selectedSkills,
+    includeDeliveryKernel
   };
 
   writeManagedJson(filesystem, ".ai-toolkit-version", versionRecord);
@@ -504,9 +660,15 @@ function runInstall(options) {
   const selectedAgents = selectedFrom(options, config, "agents");
   const selectedProfiles = selectedFrom(options, config, "profiles");
   const selectedSkills = selectedFrom(options, config, "skills");
+  const includeDeliveryKernel = readBooleanOption(options, config, "includeDeliveryKernel");
 
-  if (selectedAgents.length === 0 && selectedProfiles.length === 0 && selectedSkills.length === 0) {
-    fail("Select at least one compiled agent, profile, or skill through parameters or config. Broad installs are not allowed.");
+  if (
+    selectedAgents.length === 0
+    && selectedProfiles.length === 0
+    && selectedSkills.length === 0
+    && !includeDeliveryKernel
+  ) {
+    fail("Select at least one compiled agent, profile, skill, or the delivery kernel through parameters or config. Broad installs are not allowed.");
   }
   if (Boolean(getJsonProperty(config, "allowOverwriteProjectContext", false))) {
     fail("allowOverwriteProjectContext:true is rejected in Phase 6 v1.");
@@ -517,7 +679,14 @@ function runInstall(options) {
   if (options.confirmWrite && !toolkitCommit) {
     fail("Unable to determine toolkit Git commit. Confirm mode requires a Git checkout of the toolkit repository.");
   }
-  const plan = buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedSkills, updateMode: false });
+  const plan = buildCopyPlan({
+    targetRoot,
+    selectedAgents,
+    selectedProfiles,
+    selectedSkills,
+    includeDeliveryKernel,
+    updateMode: false
+  });
   const projectMap = buildProjectMap({
     targetRoot,
     selectedAgents,
@@ -554,7 +723,16 @@ function runInstall(options) {
       copyPlanFiles(plan, filesystem);
       writeManagedJson(filesystem, PROJECT_MAP_MANIFEST_PATH, projectMap);
       const projectMapPath = filesystem.assertRegularFile(PROJECT_MAP_MANIFEST_PATH, "project context map");
-      writeInstallRecords({ filesystem, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated: false });
+      writeInstallRecords({
+        filesystem,
+        config,
+        selectedAgents,
+        selectedProfiles,
+        selectedSkills,
+        includeDeliveryKernel,
+        toolkitCommit,
+        updated: false
+      });
       writeManagedJson(filesystem, ".ai-toolkit-manifest.json", toolkitManifest(plan, toolkitCommit, filesystem.root, [{
         type: "context-map",
         name: PROJECT_MAP_ASSET_NAME,
@@ -562,7 +740,7 @@ function runInstall(options) {
         fullPath: projectMapPath
       }]));
     },
-    validate: (filesystem) => validateManagedManifest(filesystem)
+    validate: (filesystem) => validatePreparedInstall(filesystem, targetRoot, includeDeliveryKernel)
   });
   console.log("Install complete. Managed files were written only under .ai-toolkit/.");
 }
@@ -634,8 +812,18 @@ function runUpdate(options) {
   const selectedAgents = toStringArray(getJsonProperty(config, "selectedAgents", []));
   const selectedProfiles = toStringArray(getJsonProperty(config, "selectedProfiles", []));
   const selectedSkills = toStringArray(getJsonProperty(config, "selectedSkills", []));
-  if (selectedAgents.length === 0 && selectedProfiles.length === 0 && selectedSkills.length === 0) {
-    fail("Config must select at least one compiled agent, profile, or skill.");
+  const includeDeliveryKernel = readBooleanOption(options, config, "includeDeliveryKernel");
+  const installedDeliveryKernelRoot = path.join(aiRoot, ...DELIVERY_KERNEL_DESTINATION_ROOT.split("/"));
+  if (!includeDeliveryKernel && existsSync(installedDeliveryKernelRoot)) {
+    fail("Disabling includeDeliveryKernel is unsupported while the managed delivery kernel package is present; keep the persisted opt-in enabled.");
+  }
+  if (
+    selectedAgents.length === 0
+    && selectedProfiles.length === 0
+    && selectedSkills.length === 0
+    && !includeDeliveryKernel
+  ) {
+    fail("Config must select at least one compiled agent, profile, skill, or the delivery kernel.");
   }
 
   const branchPolicy = String(getJsonProperty(config, "branchPolicy", "no-direct-main"));
@@ -644,7 +832,14 @@ function runUpdate(options) {
     fail("Unable to determine toolkit Git commit. Confirm mode requires a Git checkout of the toolkit repository.");
   }
 
-  const plan = buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedSkills, updateMode: true });
+  const plan = buildCopyPlan({
+    targetRoot,
+    selectedAgents,
+    selectedProfiles,
+    selectedSkills,
+    includeDeliveryKernel,
+    updateMode: true
+  });
   const managedPaths = new Set(plan.map((item) => normalizeRelative(item.relativePath)));
   managedPaths.add(PROJECT_MAP_MANIFEST_PATH);
   const projectMap = buildProjectMap({
@@ -657,7 +852,7 @@ function runUpdate(options) {
   });
   const projectMapIssues = validateProjectMap(projectMap, { targetRoot });
   const unmanaged = [];
-  for (const folder of ["compiled-agents", "profiles", "skills", "methods", "templates", "docs", "context"]) {
+  for (const folder of ["compiled-agents", "profiles", "skills", "methods", "templates", "docs", "context", "runtime"]) {
     for (const filePath of collectFiles(path.join(aiRoot, folder))) {
       const relative = managedRelativePath(aiRoot, filePath);
       if (!managedPaths.has(relative)) unmanaged.push(filePath);
@@ -696,7 +891,16 @@ function runUpdate(options) {
       copyPlanFiles(plan, filesystem);
       writeManagedJson(filesystem, PROJECT_MAP_MANIFEST_PATH, projectMap);
       const projectMapPath = filesystem.assertRegularFile(PROJECT_MAP_MANIFEST_PATH, "project context map");
-      writeInstallRecords({ filesystem, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated: true });
+      writeInstallRecords({
+        filesystem,
+        config,
+        selectedAgents,
+        selectedProfiles,
+        selectedSkills,
+        includeDeliveryKernel,
+        toolkitCommit,
+        updated: true
+      });
       writeManagedJson(filesystem, ".ai-toolkit-manifest.json", toolkitManifest(plan, toolkitCommit, filesystem.root, [{
         type: "context-map",
         name: PROJECT_MAP_ASSET_NAME,
@@ -704,7 +908,7 @@ function runUpdate(options) {
         fullPath: projectMapPath
       }], migration));
     },
-    validate: (filesystem) => validateManagedManifest(filesystem)
+    validate: (filesystem) => validatePreparedInstall(filesystem, targetRoot, includeDeliveryKernel)
   });
   console.log("Update complete. Managed files were written only under .ai-toolkit/.");
 }
@@ -844,6 +1048,9 @@ function runValidate(options) {
     const selectedAgents = toStringArray(getJsonProperty(config, "selectedAgents", []));
     const selectedProfiles = toStringArray(getJsonProperty(config, "selectedProfiles", []));
     const selectedSkills = toStringArray(getJsonProperty(config, "selectedSkills", []));
+    const configuredDeliveryKernel = getJsonProperty(config, "includeDeliveryKernel", false);
+    const recordedDeliveryKernel = getJsonProperty(versionRecord, "includeDeliveryKernel", false);
+    const includeDeliveryKernel = configuredDeliveryKernel === true;
     const manifestAssets = buildManifestAssetMap(manifest);
 
     const manifestSchemaVersion = String(getJsonProperty(manifest, "schemaVersion", ""));
@@ -854,6 +1061,13 @@ function runValidate(options) {
     }
     if (!upgradeRequired && String(getJsonProperty(manifest, "manifestKind", "")) !== PROJECT_MANIFEST_KIND) {
       failures.push(`Manifest manifestKind must be ${PROJECT_MANIFEST_KIND}.`);
+    }
+    if (!upgradeRequired && manifestSchemaVersion === PROJECT_MANIFEST_SCHEMA_VERSION) {
+      try {
+        validateManagedManifest(installedFilesystem);
+      } catch (error) {
+        failures.push(`Managed toolkit manifest integrity failed: ${error.message}`);
+      }
     }
     if (String(getJsonProperty(manifest, "toolkitCommit", "")) !== recordedToolkitCommit) {
       failures.push("Manifest toolkitCommit must match .ai-toolkit-version.");
@@ -867,6 +1081,28 @@ function runValidate(options) {
     }
     if (Boolean(getJsonProperty(config, "allowOverwriteProjectContext", false))) {
       failures.push("Config has allowOverwriteProjectContext:true, which is rejected in Phase 6 v1.");
+    }
+    if (typeof configuredDeliveryKernel !== "boolean") {
+      failures.push("Config includeDeliveryKernel must be a boolean.");
+    }
+    if (typeof recordedDeliveryKernel !== "boolean") {
+      failures.push("Version record includeDeliveryKernel must be a boolean.");
+    }
+    if (
+      typeof configuredDeliveryKernel === "boolean"
+      && typeof recordedDeliveryKernel === "boolean"
+      && configuredDeliveryKernel !== recordedDeliveryKernel
+    ) {
+      failures.push("Config includeDeliveryKernel must match .ai-toolkit-version.");
+    }
+    if (
+      !includeDeliveryKernel
+      && managedSnapshot.some((entry) => (
+        entry.path === DELIVERY_KERNEL_DESTINATION_ROOT
+        || entry.path.startsWith(`${DELIVERY_KERNEL_DESTINATION_ROOT}/`)
+      ))
+    ) {
+      failures.push("Delivery kernel package is present while includeDeliveryKernel is false.");
     }
 
     for (const agent of selectedAgents) {
@@ -902,6 +1138,32 @@ function runValidate(options) {
         name
       }));
       failures.push(...testSkillFrontmatter(installedFilesystem, relativePath, name));
+    }
+
+    if (includeDeliveryKernel) {
+      try {
+        const installedPackageRoot = path.join(aiRoot, ...DELIVERY_KERNEL_DESTINATION_ROOT.split("/"));
+        const installedPackage = validateDeliveryKernelPackage({
+          repositoryRoot: targetRoot,
+          packageRoot: installedPackageRoot,
+          label: "installed delivery kernel package",
+          expectedToolkitVersion: recordedToolkitVersion
+        });
+        for (const packageFile of [
+          { path: DELIVERY_KERNEL_MANIFEST_NAME },
+          ...installedPackage.files
+        ]) {
+          failures.push(...testManifestAsset({
+            filesystem: installedFilesystem,
+            manifestAssets,
+            relativePath: `${DELIVERY_KERNEL_DESTINATION_ROOT}/${packageFile.path}`,
+            type: "delivery-kernel",
+            name: packageFile.path
+          }));
+        }
+      } catch (error) {
+        failures.push(`Delivery kernel package validation failed: ${error.message}`);
+      }
     }
 
     failures.push(...testManifestAsset({

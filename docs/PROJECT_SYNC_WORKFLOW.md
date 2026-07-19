@@ -1,6 +1,6 @@
 # Project Sync Workflow
 
-Phase 5 adds a controlled workflow for copying selected compiled agents and profiles into a project repository under `.ai-toolkit/`. Phase 6 extends the same workflow to selected toolkit-owned skills.
+Phase 5 adds a controlled workflow for copying selected compiled agents and profiles into a project repository under `.ai-toolkit/`. Phase 6 extends the same workflow to selected toolkit-owned skills and an optional self-contained delivery-kernel package.
 
 This workflow is manual, version-pinned, and dry-run by default. It does not activate skills globally, install external skills, clone repositories, or overwrite project-local context.
 
@@ -32,6 +32,22 @@ The command above is a dry-run. It shows the files that would be copied into:
 - `.ai-toolkit/profiles/`
 - `.ai-toolkit/skills/`
 
+The delivery kernel is excluded by default to keep project installs minimal. Opt in explicitly with `-IncludeDeliveryKernel`, `--include-delivery-kernel`, or `"includeDeliveryKernel": true` in the config. A kernel-only dry-run is supported:
+
+```powershell
+pwsh -NoProfile -File install/install-project.ps1 `
+  -TargetPath C:\path\to\project `
+  -IncludeDeliveryKernel
+```
+
+```bash
+bash install/install-project.sh \
+  --target /path/to/project \
+  --include-delivery-kernel
+```
+
+When confirmed, the installer copies the generated package manifest and its complete attested inventory byte-for-byte to `.ai-toolkit/runtime/delivery-kernel/`. Copying the package does not activate it or run its scripts.
+
 To write files, run the same command with `-ConfirmWrite` for PowerShell or `--confirm-write` for Bash. Confirm mode requires the target repository to be on a clean, upstream-aligned feature branch; it refuses `main`/`master`, detached HEAD, missing upstream, dirty, ahead, behind, or divergent target states.
 
 ## Config-Based Install
@@ -60,6 +76,7 @@ Confirm mode writes:
 - selected compiled agents
 - selected profiles
 - selected skills
+- the optional delivery-kernel package when `includeDeliveryKernel` is `true`
 
 The example config selects assets and sync policy only. It does not define the toolkit version; install and update commands take the canonical version from `scripts/ai-toolkit/embedded-data.mjs` / `.ai-toolkit/VERSION` and record it in the generated `.ai-toolkit/.ai-toolkit-version`, `.ai-toolkit/.ai-toolkit.config.json`, and `.ai-toolkit/.ai-toolkit-manifest.json` files.
 
@@ -77,7 +94,7 @@ Bash equivalent:
 bash install/update-project.sh --target /path/to/project
 ```
 
-The updater dry-run lists files as `MissingTarget`, `Update`, or `Unchanged`. It reports unmanaged files but does not delete them in the current v1 workflow.
+The updater dry-run lists files as `MissingTarget`, `Update`, or `Unchanged`. It reads the persisted `includeDeliveryKernel` boolean, so opted-in installs continue to receive the complete package on update. It reports unmanaged files but does not delete them in the current v1 workflow.
 
 To write selected updates:
 
@@ -105,7 +122,7 @@ Bash equivalent:
 bash install/validate-project-install.sh --target /path/to/project
 ```
 
-Validation confirms `.ai-toolkit/`, version/config/manifest files, selected compiled agents, selected profiles, selected skills, manifest SHA256 integrity, and unsafe artifact absence. Existing installs without `.ai-toolkit/.ai-toolkit-manifest.json` must be refreshed with `install/update-project.ps1 -ConfirmWrite` from a clean aligned feature branch before they are considered valid.
+Validation confirms `.ai-toolkit/`, version/config/manifest files, selected compiled agents, selected profiles, selected skills, outer raw-byte SHA256 integrity, and unsafe artifact absence. For opted-in delivery kernels it also verifies the inner package schema, canonical UTF-8/LF digest policy, exact manifest inventory, and every canonical file digest. Existing installs without `.ai-toolkit/.ai-toolkit-manifest.json` must be refreshed with `install/update-project.ps1 -ConfirmWrite` from a clean aligned feature branch before they are considered valid.
 
 The Bash entrypoints call `install/project-sync-core.mjs` and require `node` plus `git`. They do not install dependencies, alter package files, change CI, touch global Codex config, activate runtime skills, or write outside the target `.ai-toolkit/` directory.
 

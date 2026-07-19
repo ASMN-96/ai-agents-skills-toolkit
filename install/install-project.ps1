@@ -4,6 +4,7 @@ param(
     [string[]]$Profiles = @(),
     [string[]]$Skills = @(),
     [string]$ConfigPath,
+    [switch]$IncludeDeliveryKernel,
     [switch]$ConfirmWrite,
     [switch]$Help
 )
@@ -20,6 +21,7 @@ if (![string]::IsNullOrWhiteSpace($ConfigPath)) { $arguments += @('--config', $C
 if ($Agents.Count -gt 0) { $arguments += @('--agents', ($Agents -join ',')) }
 if ($Profiles.Count -gt 0) { $arguments += @('--profiles', ($Profiles -join ',')) }
 if ($Skills.Count -gt 0) { $arguments += @('--skills', ($Skills -join ',')) }
+if ($IncludeDeliveryKernel) { $arguments += '--include-delivery-kernel' }
 if ($ConfirmWrite) { $arguments += '--confirm-write' }
 
 & node @arguments

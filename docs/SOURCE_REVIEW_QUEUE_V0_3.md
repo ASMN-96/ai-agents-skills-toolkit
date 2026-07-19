@@ -1,8 +1,8 @@
 # v0.3 Source Review Queue
 
-This is a technical review queue, not an approval receipt. It records the live observation taken at `2026-07-19T02:25:34.747Z` and preserves fail-closed routing while an actual registered owner approver and complete source reviews are absent.
+This is a historical technical review queue, not an approval receipt or the current freshness state. It records the observation taken at `2026-07-19T02:25:34.747Z`; use `docs/SOURCE_FRESHNESS_REPORT.json` for the latest authoritative counts and revisions. The queue preserves fail-closed routing while an actual registered owner approver and complete source reviews are absent.
 
-## Current state
+## Snapshot state at `2026-07-19T02:25:34.747Z`
 
 - Catalog: 85 sources, schema 2.0.
 - Monitor: 15 `CURRENT`, 7 `CHANGED`, 34 `CHECK_FAILED`, 29 `MANUAL_DUE`.
