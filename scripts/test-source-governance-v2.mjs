@@ -19,6 +19,13 @@ const CANONICAL_NOW = new Date(latestCanonicalCheck + 1_000).toISOString();
 const SHA = "a".repeat(40);
 const DIGEST = `sha256:${"b".repeat(64)}`;
 const AUTHORIZED_APPROVERS = ["repository-owner:abdal"];
+const RETIRED_PORTFOLIO_SOURCE_IDS = [
+  "agency-agents",
+  "bencium-marketplace",
+  "karpathy-inspired-skills",
+  "voltagent-awesome-agent-skills",
+  "skills-sh"
+];
 const AUTHORITATIVE_MANUAL_SOURCES = {
   "android-accessibility": ["https://developer.android.com/guide/topics/ui/accessibility/testing", "platform-standards"],
   "android-core-app-quality": ["https://developer.android.com/develop/adaptive-apps/quality-guidelines/core-app-quality", "platform-standards"],
@@ -279,13 +286,13 @@ function chainedReceipt({
   });
 }
 
-test("canonical SourceCatalog v2 reconciles every legacy, generated, historical, and CodeRabbit identity", async () => {
+test("canonical SourceCatalog v2 retains only active source identities", async () => {
   const { validateSourceCatalog } = await governance();
   const canonicalText = await readFile(path.join(ROOT, "sources", "source-watchlist.json"), "utf8");
   const parsed = JSON.parse(canonicalText);
   const validated = validateSourceCatalog(parsed, { now: CANONICAL_NOW });
 
-  assert.equal(validated.sources.length, 85);
+  assert.equal(validated.sources.length, 80);
   assert.deepEqual(validated.legacyCompatibility, {
     migratedFromSchema: "1.0.0",
     retainedFields: ["lastReviewedCommit", "lastReviewedDate", "licenseConcern", "reviewDecision"],
@@ -297,10 +304,11 @@ test("canonical SourceCatalog v2 reconciles every legacy, generated, historical,
   assert.ok(playwright);
   assert.deepEqual(playwright.aliases, ["playwright"]);
   assert.equal(validated.sources.some((entry) => entry.id === "playwright"), false);
-  for (const required of ["agency-agents", "bencium-marketplace", "skills-sh", "coderabbit"] ) {
-    assert.ok(validated.sources.some((entry) => entry.id === required), `missing ${required}`);
+  for (const retiredId of RETIRED_PORTFOLIO_SOURCE_IDS) {
+    assert.equal(validated.sources.some((entry) => entry.id === retiredId), false, `retired source remains active: ${retiredId}`);
   }
-  assert.equal(new Set(validated.sources.map((entry) => entry.identityKey)).size, 85);
+  assert.ok(validated.sources.some((entry) => entry.id === "coderabbit"), "missing active CodeRabbit source");
+  assert.equal(new Set(validated.sources.map((entry) => entry.identityKey)).size, 80);
   for (const entry of validated.sources) {
     assert.match(entry.identityKey, /^(?:github|url):/);
     assert.match(entry.authority, /^(?:official|community|aggregator|historical|vendor-service)$/);
@@ -319,18 +327,23 @@ test("canonical SourceCatalog v2 reconciles every legacy, generated, historical,
     assert.equal(entry.review.currentReceipt, null);
   }
 
-  const recordIds = (await import("node:fs/promises"))
-    .readdir(path.join(ROOT, ".ai-toolkit", "sources", "records"), { withFileTypes: true });
-  const records = (await recordIds).filter((entry) => entry.isFile() && entry.name.endsWith(".md"));
-  const identities = new Set(validated.sources.flatMap((entry) => [entry.id, ...entry.aliases]));
-  for (const record of records) {
-    assert.equal(identities.has(record.name.replace(/\.md$/, "")), true, `unreconciled record ${record.name}`);
+  for (const entry of validated.sources) {
+    assert.equal(entry.sourceRecordPath.startsWith("sources/archive/"), false, `archived record is active: ${entry.id}`);
   }
-  assert.equal(
-    await readFile(path.join(ROOT, ".ai-toolkit", "sources", "watchlist.json"), "utf8"),
-    canonicalText,
-    "generated source inventory mirror drifted from its canonical v2 input"
-  );
+});
+
+test("retired portfolio records are read-only historical evidence, not governed decisions", async () => {
+  const archiveIndex = await readFile(path.join(ROOT, "sources", "archive", "INDEX.md"), "utf8");
+  assert.match(archiveIndex, /not a SourceReviewReceipt, approval, freshness proof, or runtime authority/i);
+  assert.doesNotMatch(archiveIndex, /ARCHIVED_HARD_BLOCKER|REMOVED_REDUNDANT|approver|approvedAt|review receipt/i);
+
+  for (const sourceId of RETIRED_PORTFOLIO_SOURCE_IDS) {
+    assert.match(archiveIndex, new RegExp(`\\|\\s*${sourceId}\\s*\\|`));
+    assert.match(archiveIndex, new RegExp(`sources/archive/${sourceId}\\.md`));
+    assert.match(archiveIndex, /new active catalog record plus normal current review\/approval/i);
+    await stat(path.join(ROOT, "sources", "archive", `${sourceId}.md`));
+    await assert.rejects(stat(path.join(ROOT, "sources", `${sourceId}.md`)), /ENOENT/);
+  }
 });
 
 test("every DomainGate authoritative source resolves to one canonical catalog entry", async () => {
@@ -354,13 +367,23 @@ test("every DomainGate authoritative source resolves to one canonical catalog en
   }
 });
 
-test("source discovery method keeps toolkit provenance and both governed source references", async () => {
+test("source discovery method removes the retired directory from provenance", async () => {
   const method = await readFile(path.join(ROOT, "methods", "internal", "source-discovery-workflow.md"), "utf8");
   const sourceRefLine = method.split(/\r?\n/).find((line) => line.startsWith("sourceRef:"));
   assert.ok(sourceRefLine);
-  for (const sourceRef of ["toolkit-authored", "anthropic-skills", "skills-sh"]) {
+  for (const sourceRef of ["toolkit-authored", "anthropic-skills"]) {
     assert.match(sourceRefLine, new RegExp(`["']${sourceRef}["']`));
   }
+  assert.doesNotMatch(sourceRefLine, /skills-sh/);
+
+  const registry = JSON.parse(await readFile(path.join(ROOT, "registries", "methods.registry.json"), "utf8"));
+  const discovery = registry.methods.find((entry) => entry.id === "internal.source-discovery-workflow");
+  assert.ok(discovery, "missing source discovery method registry entry");
+  assert.equal(
+    discovery.sourceProvenance.some((provenance) => provenance.path === "sources/skills-sh.md"),
+    false,
+    "retired directory remains active method provenance"
+  );
 });
 
 test("catalog validation fails closed for unknown states, non-ISO timestamps, and unquarantined changed sources", async () => {
@@ -1318,11 +1341,21 @@ test("source governance CLIs validate the catalog and keep review application dr
   const migrationScript = path.join(ROOT, "scripts", "migrate-source-catalog-v2.mjs");
   const validation = await execFileAsync(process.execPath, [validateScript], { cwd: ROOT });
   assert.match(validation.stdout, /PASS validate-source-governance/);
-  assert.match(validation.stdout, /"sourceCount":85/);
+  assert.match(validation.stdout, /"sourceCount":80/);
   assert.match(validation.stdout, /"releaseEligible":false/);
-  assert.match(validation.stdout, /"actionableCount":85/);
+  assert.match(validation.stdout, /"actionableCount":80/);
   const migration = await execFileAsync(process.execPath, [migrationScript], { cwd: ROOT });
   assert.match(migration.stdout, /"status":"already-v2"/);
+  assert.match(migration.stdout, /"sourceCount":80/);
+  const migrationSource = await readFile(migrationScript, "utf8");
+  assert.match(
+    migrationSource,
+    /filter\(\(source\) => !RETIRED_PORTFOLIO_SOURCE_IDS\.has\(source\.id\)\)/,
+    "legacy migration must exclude the retired portfolio before catalog construction"
+  );
+  for (const retiredId of RETIRED_PORTFOLIO_SOURCE_IDS) {
+    assert.doesNotMatch(migrationSource, new RegExp(`id: "${retiredId}"`), `migration can restore retired source: ${retiredId}`);
+  }
 
   const root = await mkdtemp(path.join(os.tmpdir(), "source-governance-cli-"));
   await writeRepository(root);

@@ -20,6 +20,13 @@ const REQUIRED_TOKEN_EVALS = [
   "project-map-staleness-check-required",
   "project-context-preflight-no-loop-agents"
 ];
+const RETIRED_PORTFOLIO_SOURCE_IDS = [
+  "agency-agents",
+  "bencium-marketplace",
+  "karpathy-inspired-skills",
+  "voltagent-awesome-agent-skills",
+  "skills-sh"
+];
 
 async function readJson(relativePath) {
   return JSON.parse(await readFile(path.resolve(ROOT, relativePath), "utf8"));
@@ -63,6 +70,19 @@ test("source utilization report classifies every watched source and registered t
   assert.match(report, /docs\/UI_UX_PRO_MAX_AUDIT\.md/);
   assert.match(report, /\|\s*matt-pocock-skills\s*\|\s*Matt Pocock Skills\s*\|\s*active-method\s*\|\s*Do later\s*\|/);
   assert.doesNotMatch(report, /\|\s*matt-pocock-skills\s*\|[^\n]*Refresh reviewed commit/);
+});
+
+test("retired portfolio sources appear only in the archived portfolio section", async () => {
+  const report = await readText(SOURCE_UTILIZATION_REPORT);
+  const archivedPortfolio = report.split(/^## Archived portfolio$/m)[1];
+  assert.ok(archivedPortfolio, "missing archived portfolio section");
+  const activePortfolio = report.split(/^## Archived portfolio$/m)[0];
+
+  for (const sourceId of RETIRED_PORTFOLIO_SOURCE_IDS) {
+    assert.equal(tableHasId(activePortfolio, sourceId), false, `retired source remains watched: ${sourceId}`);
+    assert.equal(tableHasId(archivedPortfolio, sourceId), true, `missing archived source: ${sourceId}`);
+  }
+  assert.match(archivedPortfolio, /not review receipts, approvals, freshness proof, or runtime authority/i);
 });
 
 test("project context preflight methods are registered and backed by method files", async () => {

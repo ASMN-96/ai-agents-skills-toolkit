@@ -28,16 +28,21 @@ const LEGACY_RUNTIME_IDS = new Set([
 ]);
 const COMMUNITY_IDS = new Set([
   "addy-osmani-agent-skills",
-  "karpathy-inspired-skills",
   "nagdy-guard-skills",
   "matt-pocock-skills",
   "addyosmani-web-quality-skills",
   "voltagent-awesome-design-md",
-  "voltagent-awesome-agent-skills",
   "impeccable",
   "uncodixfy",
   "everything-claude-code",
   "ruflo"
+]);
+const RETIRED_PORTFOLIO_SOURCE_IDS = new Set([
+  "agency-agents",
+  "bencium-marketplace",
+  "karpathy-inspired-skills",
+  "voltagent-awesome-agent-skills",
+  "skills-sh"
 ]);
 
 function fail(message) {
@@ -106,7 +111,7 @@ function legacyRuntimePosture(source) {
 }
 
 function legacyAuthority(source) {
-  if (["voltagent-awesome-agent-skills", "voltagent-awesome-design-md"].includes(source.id)) return "aggregator";
+  if (source.id === "voltagent-awesome-design-md") return "aggregator";
   if (COMMUNITY_IDS.has(source.id)) return "community";
   return "official";
 }
@@ -207,90 +212,7 @@ function toolSource(tool) {
   };
 }
 
-const HISTORICAL_SOURCES = [
-  {
-    id: "agency-agents",
-    aliases: [],
-    identityKey: "github:msitarzewski/agency-agents",
-    name: "Agency Agents",
-    authority: "historical",
-    lifecycle: "historical-reference",
-    sourceType: "github-repo",
-    sourceUrl: "https://github.com/msitarzewski/agency-agents",
-    repoOwner: "msitarzewski",
-    repoName: "agency-agents",
-    defaultBranch: "main",
-    lastReviewedCommit: "fb65f61d80344a9d768292c228d6cbb30f52c362",
-    lastReviewedDate: "2026-06-04",
-    sourceRecordPath: "sources/agency-agents.md",
-    watchedPaths: [],
-    licenseConcern: "clear",
-    reviewPriority: "Low",
-    freshnessClass: "general-methods",
-    monitor: failureMonitor("github-repo"),
-    review: quarantinedReview(),
-    runtimePosture: "forbidden-runtime",
-    dependentResourceIds: [],
-    affectedArtifacts: ["sources/agency-agents.md"],
-    neverAutoImport: true
-  },
-  {
-    id: "bencium-marketplace",
-    aliases: [],
-    identityKey: "github:bencium/bencium-marketplace",
-    name: "Bencium Marketplace",
-    authority: "historical",
-    lifecycle: "historical-reference",
-    sourceType: "github-repo",
-    sourceUrl: "https://github.com/bencium/bencium-marketplace",
-    repoOwner: "bencium",
-    repoName: "bencium-marketplace",
-    defaultBranch: "main",
-    lastReviewedCommit: "c6f5a718d43ba5a5d540bf74efbd4dba81400c72",
-    lastReviewedDate: "2026-06-03",
-    sourceRecordPath: "sources/bencium-marketplace.md",
-    watchedPaths: [],
-    licenseConcern: "clear",
-    reviewPriority: "Low",
-    freshnessClass: "general-methods",
-    monitor: failureMonitor("github-repo"),
-    review: quarantinedReview(),
-    runtimePosture: "forbidden-runtime",
-    dependentResourceIds: [],
-    affectedArtifacts: ["sources/bencium-marketplace.md"],
-    neverAutoImport: true
-  },
-  {
-    id: "skills-sh",
-    aliases: [],
-    identityKey: "url:https://skills.sh",
-    name: "skills.sh",
-    authority: "historical",
-    lifecycle: "historical-reference",
-    sourceType: "manual-reviewed-doc",
-    sourceUrl: "https://skills.sh/",
-    watchMode: "manual-reviewed-doc",
-    manualReview: {
-      publisher: "skills.sh",
-      cadence: "90 days",
-      reason: "Dynamic discovery index without an immutable repository revision.",
-      forbiddenClaims: ["installation approval", "runtime activation", "immutable source freshness"]
-    },
-    lastReviewedCommit: null,
-    lastReviewedDate: "2026-05-15",
-    sourceRecordPath: "sources/skills-sh.md",
-    watchedPaths: [],
-    licenseConcern: "license-unclear",
-    reviewPriority: "Low",
-    freshnessClass: "general-methods",
-    monitor: failureMonitor("manual-reviewed-doc"),
-    review: quarantinedReview(),
-    runtimePosture: "forbidden-runtime",
-    dependentResourceIds: [],
-    affectedArtifacts: ["sources/skills-sh.md"],
-    neverAutoImport: true
-  }
-];
+const HISTORICAL_SOURCES = [];
 
 const AUTHORITATIVE_MANUAL_SOURCE_DEFINITIONS = [
   ["android-accessibility", "Android Accessibility", "https://developer.android.com/guide/topics/ui/accessibility/testing", "Google Android", "platform-standards", true],
@@ -394,7 +316,9 @@ export function buildSourceCatalogV2(legacy) {
   if (!legacy || legacy.schemaVersion !== "1.0.0" || !Array.isArray(legacy.sources)) {
     fail("input must be the canonical SourceCatalog v1 watchlist");
   }
-  const sources = legacy.sources.map(migrateLegacySource);
+  const sources = legacy.sources
+    .filter((source) => !RETIRED_PORTFOLIO_SOURCE_IDS.has(source.id))
+    .map(migrateLegacySource);
   const byIdentity = new Map(sources.map((source) => [source.identityKey, source]));
 
   for (const tool of TOOL_ENTRIES) {
@@ -462,8 +386,8 @@ export function buildSourceCatalogV2(legacy) {
     ),
     sources
   };
-  if (catalog.sources.length !== 79 || byIdentity.size !== 79) {
-    fail(`expected 79 reconciled identities, received sources=${catalog.sources.length} identities=${byIdentity.size}`);
+  if (catalog.sources.length !== 74 || byIdentity.size !== 74) {
+    fail(`expected 74 reconciled identities, received sources=${catalog.sources.length} identities=${byIdentity.size}`);
   }
   validateSourceCatalog(catalog, { now: MIGRATION_TIME });
   return catalog;
