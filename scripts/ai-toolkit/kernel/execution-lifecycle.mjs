@@ -2,6 +2,7 @@ import { buildResourceDigestBindings, canonicalDigest } from "./canonical-digest
 import { assertDomainGate, assertResourceContract } from "./contracts.mjs";
 import { buildExecutionEvidenceRecord } from "./evidence.mjs";
 import { assertSourceReferenceSnapshot } from "./source-policy.mjs";
+import { assertPlanSourceDependencyAccounting } from "./source-release-accounting.mjs";
 
 const SCHEMA_VERSION = "1.0.0";
 const HASH = /^[a-f0-9]{64}$/;
@@ -368,9 +369,31 @@ function validateBasePlan(rawPlan) {
   if (!sameStringSet(plan.requiredGateIds, domainGateOrder)) {
     throw new Error("prepared plan requiredGateIds must exactly match domain resolved gates");
   }
+  const selectedPackIds = requireUniqueStrings(
+    plan.domain.selectedPackIds,
+    "delivery execution plan domain.selectedPackIds",
+    { allowEmpty: false }
+  );
+  const resolvedGateIds = requireUniqueStrings(
+    plan.domain.resolvedGateIds,
+    "delivery execution plan domain.resolvedGateIds",
+    { allowEmpty: false }
+  );
+  if (!sameStringSet(resolvedGateIds, domainGateOrder)) {
+    throw new Error("prepared plan domain.resolvedGateIds must exactly match domain.gates");
+  }
   if (!sameStringSet(plan.scenarioPolicy?.requiredGateIds, plan.requiredGateIds)) {
     throw new Error("prepared plan scenarioPolicy.requiredGateIds must exactly match requiredGateIds");
   }
+  const sourceDependencyAccounting = assertPlanSourceDependencyAccounting(
+    plan.sourceDependencyAccounting,
+    {
+      selectedPackIds,
+      selectedGateIds: resolvedGateIds,
+      selectedResourceIds: resources.map((resource) => resource.id),
+      sourceSnapshot
+    }
+  );
   {
     for (const gateId of sourceSnapshot.blockedGateIds) {
       if (!domainGateIds.has(gateId)) {
@@ -383,6 +406,9 @@ function validateBasePlan(rawPlan) {
     }
     if (sourceSnapshot.status === "blocked" && plan.team.executionStatus !== "blocked") {
       throw new Error("blocked authoritative sources require a blocked no-execution team");
+    }
+    if (sourceDependencyAccounting.status === "blocked" && plan.team.executionStatus !== "blocked") {
+      throw new Error("blocked plan source dependencies require a blocked no-execution team");
     }
   }
   return plan;

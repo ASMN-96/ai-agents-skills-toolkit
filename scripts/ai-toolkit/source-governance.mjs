@@ -21,7 +21,11 @@ import {
   validateSourceReviewReceipt as validateSourceReviewReceiptContract
 } from "./kernel/source-catalog-contract.mjs";
 import { deriveSourceReleaseAccounting } from "./kernel/source-release-accounting.mjs";
-export { deriveSourceReleaseAccounting } from "./kernel/source-release-accounting.mjs";
+export {
+  assertPlanSourceDependencyAccounting,
+  derivePlanSourceDependencyAccounting,
+  deriveSourceReleaseAccounting
+} from "./kernel/source-release-accounting.mjs";
 
 export const FRESHNESS_WINDOWS_DAYS = CONTRACT_FRESHNESS_WINDOWS_DAYS;
 export const MONITOR_STATES = CONTRACT_MONITOR_STATES;

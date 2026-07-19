@@ -6,10 +6,13 @@ import path from "node:path";
 import process from "node:process";
 import { promisify } from "node:util";
 import { deriveSourceReleaseAccounting } from "./ai-toolkit/kernel/source-release-accounting.mjs";
+import { assertDomainRegistry } from "./ai-toolkit/kernel/domain-packs.mjs";
+import { validateSourceCatalogGraph } from "./ai-toolkit/kernel/source-catalog-contract.mjs";
 
 const WATCHLIST_PATH = "sources/source-watchlist.json";
 const METHODS_REGISTRY_PATH = "registries/methods.registry.json";
 const DOMAIN_PACKS_REGISTRY_PATH = "registries/domain-packs.registry.json";
+const TOOLS_REGISTRY_PATH = "registries/tools.registry.json";
 const ALLOWED_OUTPUT = "docs/SOURCE_FRESHNESS_REPORT.md";
 const ALLOWED_JSON_OUTPUT = "docs/SOURCE_FRESHNESS_REPORT.json";
 const ALLOWED_ISSUES_OUTPUT = "docs/SOURCE_FRESHNESS_ISSUES_DRY_RUN.md";
@@ -1031,7 +1034,14 @@ function fallbackAccounting(watchlist, sources) {
   };
 }
 
-function buildJsonReport(results, useMock, checkedAt, watchlist, domainPacksRegistry) {
+function buildJsonReport(
+  results,
+  useMock,
+  checkedAt,
+  watchlist,
+  domainPacksRegistry,
+  requireReleaseScope = false
+) {
   const sources = results.map((result) => monitorEvidence(result, useMock));
   const reportView = { sources };
   const canDeriveReleaseScope = (
@@ -1039,13 +1049,26 @@ function buildJsonReport(results, useMock, checkedAt, watchlist, domainPacksRegi
     && watchlist.sources.every((source) => typeof source.scope === "string")
     && domainPacksRegistry?.registryType === "domain-packs"
   );
-  const accounting = canDeriveReleaseScope
-    ? deriveSourceReleaseAccounting({
-      catalog: watchlist,
-      domainPacksRegistry,
-      freshnessReport: reportView
-    })
-    : fallbackAccounting(watchlist, sources);
+  if (requireReleaseScope && !canDeriveReleaseScope) {
+    throw new Error(
+      "--fail-on-release-blocker requires SourceCatalog 2.1 scopes and a valid canonical domain-packs registry"
+    );
+  }
+  let accounting;
+  if (canDeriveReleaseScope) {
+    try {
+      accounting = deriveSourceReleaseAccounting({
+        catalog: watchlist,
+        domainPacksRegistry,
+        freshnessReport: reportView
+      });
+    } catch (error) {
+      if (requireReleaseScope) throw error;
+      // Portfolio reporting remains compatible with legacy or incomplete fixtures.
+      // Release-scoped mode validates these inputs before any observation begins.
+    }
+  }
+  accounting ??= fallbackAccounting(watchlist, sources);
   return {
     schemaVersion: "2.1.0",
     catalogIdentity: {
@@ -1343,9 +1366,35 @@ async function main() {
     const checkedAt = args.mock ? "2026-07-17T00:00:00.000Z" : new Date().toISOString();
     const watchlist = await readWatchlist();
     const domainPacksRegistry = await readJsonIfPresent(DOMAIN_PACKS_REGISTRY_PATH);
+    if (args.failOnReleaseBlocker) {
+      try {
+        if (watchlist.schemaVersion !== "2.1.0"
+          || !watchlist.sources.every((source) => typeof source.scope === "string")) {
+          throw new Error("SourceCatalog schemaVersion and scopes are not canonical 2.1 inputs");
+        }
+        const toolsRegistry = await readJsonIfPresent(TOOLS_REGISTRY_PATH);
+        assertDomainRegistry(domainPacksRegistry);
+        validateSourceCatalogGraph(watchlist, {
+          now: checkedAt,
+          domainPacksRegistry,
+          toolsRegistry
+        });
+      } catch (error) {
+        throw new Error(
+          `--fail-on-release-blocker requires SourceCatalog 2.1 scopes and a valid canonical domain-packs registry: ${error.message}`
+        );
+      }
+    }
     const methodImpactIndex = await buildMethodImpactIndex();
     const results = await buildResults(watchlist, args.mock, checkedAt, methodImpactIndex);
-    const jsonReport = buildJsonReport(results, args.mock, checkedAt, watchlist, domainPacksRegistry);
+    const jsonReport = buildJsonReport(
+      results,
+      args.mock,
+      checkedAt,
+      watchlist,
+      domainPacksRegistry,
+      args.failOnReleaseBlocker
+    );
     const report = renderReport(results, args.mock, checkedAt, jsonReport);
 
     if (outputPath) {

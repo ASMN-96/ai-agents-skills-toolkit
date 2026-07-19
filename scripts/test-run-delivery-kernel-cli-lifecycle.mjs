@@ -129,6 +129,27 @@ test("ingest rejects a re-hashed plan that removes canonical policy gates", asyn
     );
     forged.codex.sourceSnapshotDigest = sourceGovernance.snapshotDigest;
     forged.claude.sourceSnapshotDigest = sourceGovernance.snapshotDigest;
+    const accounting = forged.sourceDependencyAccounting;
+    accounting.selectedGateIds = [...forged.domain.resolvedGateIds].sort();
+    const selectedGates = new Set(accounting.selectedGateIds);
+    const movedPreviewBlockers = accounting.selectedPreviewDependencyBlockers
+      .filter((blocker) => !selectedGates.has(blocker.gateId));
+    accounting.selectedPreviewDependencyBlockers = accounting.selectedPreviewDependencyBlockers
+      .filter((blocker) => selectedGates.has(blocker.gateId));
+    accounting.diagnosticPreviewDependencyBlockers = [
+      ...accounting.diagnosticPreviewDependencyBlockers,
+      ...movedPreviewBlockers
+    ].sort((left, right) => (
+      left.packId.localeCompare(right.packId)
+      || left.gateId.localeCompare(right.gateId)
+      || left.sourceId.localeCompare(right.sourceId)
+    ));
+    accounting.blockingSourceIds = [...new Set([
+      ...accounting.supportedDependencyBlockers,
+      ...accounting.selectedPreviewDependencyBlockers,
+      ...accounting.selectedResourceDependencyBlockers
+    ].map((blocker) => blocker.sourceId))].sort();
+    accounting.status = accounting.blockingSourceIds.length === 0 ? "current" : "blocked";
     forged.team.domainSelectionDigest = canonicalDigest(forged.domain, "forged domain");
     const ttlSeconds = Math.round(
       (new Date(contextExpiresAt).valueOf() - new Date(createdAt).valueOf()) / 1000
@@ -183,6 +204,36 @@ test("ingest rejects a re-hashed plan that alters inspected context and adapter 
     writeFileSync(planPath, `${JSON.stringify(preparedForgery)}\n`, "utf8");
     writeFileSync(eventsPath, `${JSON.stringify({ ...identity, events: [] })}\n`, "utf8");
 
+    await assert.rejects(
+      runDeliveryKernelCli({
+        argv: ["ingest-events", "--plan", planPath, "--events", eventsPath],
+        cwd: ROOT,
+        stdout: outputSink().stream,
+        stderr: outputSink().stream
+      }),
+      /does not match the current canonical planner policy/
+    );
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
+});
+
+test("ingest rejects caller-forged source dependency accounting after canonical replanning", async () => {
+  const fixture = mkdtempSync(path.join(tmpdir(), "delivery-kernel-cli-source-accounting-forgery-"));
+  try {
+    const planned = await run(["plan", "--input", TEMPLATE, "--created-at", CREATED_AT], ROOT);
+    const forged = structuredClone(planned);
+    forged.sourceDependencyAccounting.selectedResourceIds = ["caller-forged-resource"];
+    const planPath = path.join(fixture, "forged-plan.json");
+    const eventsPath = path.join(fixture, "events.json");
+    writeFileSync(planPath, `${JSON.stringify(forged)}\n`, "utf8");
+    writeFileSync(eventsPath, `${JSON.stringify({
+      schemaVersion: "1.0.0",
+      runId: forged.executionManifest.runId,
+      taskId: forged.executionManifest.taskId,
+      planDigest: forged.executionManifest.planDigest,
+      events: []
+    })}\n`, "utf8");
     await assert.rejects(
       runDeliveryKernelCli({
         argv: ["ingest-events", "--plan", planPath, "--events", eventsPath],

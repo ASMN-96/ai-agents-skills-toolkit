@@ -224,6 +224,27 @@ test("--json-output emits deterministic SourceCatalog v2 monitor evidence", asyn
     assert.equal(report.sources[0].missingCurrentReview, true);
     assert.equal(report.sources[1].observedRevision, null);
     assert.equal(report.sources[1].contentDigest, null);
+
+    const releaseScoped = await runFreshness(cwd, ["--mock", "--fail-on-release-blocker"]);
+    assert.equal(releaseScoped.code, 1);
+    assert.match(
+      releaseScoped.stderr,
+      /--fail-on-release-blocker requires SourceCatalog 2\.1 scopes and a valid canonical domain-packs registry/
+    );
+    await mkdir(path.join(cwd, "registries"), { recursive: true });
+    await writeFile(
+      path.join(cwd, "sources", "source-watchlist.json"),
+      await readFile(path.join(ROOT, "sources", "source-watchlist.json"), "utf8"),
+      "utf8"
+    );
+    await writeFile(
+      path.join(cwd, "registries", "domain-packs.registry.json"),
+      `${JSON.stringify({ registryType: "domain-packs", packs: [] })}\n`,
+      "utf8"
+    );
+    const invalidRegistry = await runFreshness(cwd, ["--mock", "--fail-on-release-blocker"]);
+    assert.equal(invalidRegistry.code, 1);
+    assert.match(invalidRegistry.stderr, /invalid domain-pack registry v2/);
     assert.equal(report.sources[1].comparisonRevision, null);
     assert.equal(report.sources[1].comparisonBasis, "MISSING");
     assert.equal(report.sources[1].reasonCode, "MANUAL_EVIDENCE_REQUIRED");

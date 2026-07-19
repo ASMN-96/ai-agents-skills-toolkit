@@ -195,6 +195,22 @@ function sourceSnapshot() {
   };
 }
 
+function sourceDependencyAccounting() {
+  return {
+    schemaVersion: "1.0.0",
+    selectedPackIds: ["enterprise-core", "web-saas"],
+    selectedGateIds: ["release-gate", "review-gate"],
+    selectedResourceIds: ["architect-agent", "code-quality"],
+    status: "current",
+    blockingSourceIds: [],
+    supportedDependencyBlockers: [],
+    selectedPreviewDependencyBlockers: [],
+    selectedResourceDependencyBlockers: [],
+    diagnosticPreviewDependencyBlockers: [],
+    diagnosticResourceDependencyBlockers: []
+  };
+}
+
 function basePlan() {
   const task = {
     id: "TASK-EXEC-1",
@@ -233,6 +249,7 @@ function basePlan() {
       requiredRoles: { lead: "required", verifier: "optional" }
     },
     requiredGateIds: ["review-gate", "release-gate"],
+    sourceDependencyAccounting: sourceDependencyAccounting(),
     routing: {
       selected: [resource("architect-agent", "agent"), resource("code-quality", "skill")],
       uncoveredCompetencies: [],
@@ -274,6 +291,8 @@ function basePlan() {
       schemaVersion: "1.0.0",
       status: "planned",
       readinessCeiling: "planned",
+      selectedPackIds: ["enterprise-core", "web-saas"],
+      resolvedGateIds: ["review-gate", "release-gate"],
       gates: [
         domainGate("review-gate", "verified-for-review"),
         domainGate("release-gate", "verified-for-release")
@@ -299,6 +318,11 @@ function basePlan() {
 }
 
 function bindPlanDigests(plan) {
+  plan.sourceDependencyAccounting.selectedPackIds = [...plan.domain.selectedPackIds].sort();
+  plan.sourceDependencyAccounting.selectedGateIds = [...plan.domain.resolvedGateIds].sort();
+  plan.sourceDependencyAccounting.selectedResourceIds = plan.routing.selected
+    .map((resource) => resource.id)
+    .sort();
   plan.team.taskDigest = canonicalDigest(plan.task, "test task");
   plan.team.selectedResourceDigests = buildResourceDigestBindings(plan.routing.selected);
   plan.team.domainSelectionDigest = canonicalDigest(plan.domain, "test domain");
@@ -310,6 +334,18 @@ function preparedPlan() {
     contextTtlSeconds: 600
   });
 }
+
+test("execution preparation rejects caller-forged selected source dependency IDs", () => {
+  const forged = basePlan();
+  forged.sourceDependencyAccounting.selectedResourceIds = ["caller-forged-resource"];
+  assert.throws(
+    () => prepareExecutionPlan(forged, {
+      createdAt: "2026-07-17T07:55:00.000Z",
+      contextTtlSeconds: 600
+    }),
+    /sourceDependencyAccounting selectedResourceIds must exactly match routing\.selected/
+  );
+});
 
 function commandEvidencePlan({
   evidenceType = "observed-verification-receipt",

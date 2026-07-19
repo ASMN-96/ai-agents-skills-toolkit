@@ -345,9 +345,10 @@ test("canonical SourceCatalog v2 retains only active source identities", async (
   }
 });
 
-test("release accounting keeps portfolio actionability visible while blocking only real supported and selected dependencies", async () => {
-  const { deriveSourceReleaseAccounting } = await governance();
+test("release accounting keeps portfolio actionability visible while plan accounting binds selected dependencies", async () => {
+  const { derivePlanSourceDependencyAccounting, deriveSourceReleaseAccounting } = await governance();
   assert.equal(typeof deriveSourceReleaseAccounting, "function");
+  assert.equal(typeof derivePlanSourceDependencyAccounting, "function");
   const blocked = (id, scope, dependentResourceIds = []) => ({
     id,
     scope,
@@ -359,6 +360,7 @@ test("release accounting keeps portfolio actionability visible while blocking on
   const releaseCatalog = {
     sources: [
       blocked("core-source", "core"),
+      blocked("secondary-supported-source", "core"),
       blocked("preview-source", "platform-preview"),
       blocked("optional-source", "optional-tool", ["optional-tool"]),
       blocked("community-source", "community-reference"),
@@ -375,6 +377,15 @@ test("release accounting keeps portfolio actionability visible while blocking on
         gates: [{ id: "core-gate", authoritativeSourceRefs: [{ sourceId: "core-source" }] }]
       },
       {
+        id: "data-ai",
+        lifecycle: "active",
+        maturity: "supported",
+        gates: [{
+          id: "secondary-supported-gate",
+          authoritativeSourceRefs: [{ sourceId: "secondary-supported-source" }]
+        }]
+      },
+      {
         id: "web-saas",
         lifecycle: "active",
         maturity: "preview",
@@ -387,16 +398,16 @@ test("release accounting keeps portfolio actionability visible while blocking on
     catalog: releaseCatalog,
     domainPacksRegistry
   });
-  assert.equal(portfolio.actionableCount, 5);
+  assert.equal(portfolio.actionableCount, 6);
   assert.deepEqual(portfolio.actionableCountsByScope, {
-    core: 1,
+    core: 2,
     "platform-preview": 1,
     "optional-tool": 1,
     "community-reference": 1,
     historical: 1
   });
-  assert.deepEqual(portfolio.supportedPackIds, ["enterprise-core"]);
-  assert.deepEqual(portfolio.releaseBlockingSourceIds, ["core-source"]);
+  assert.deepEqual(portfolio.supportedPackIds, ["data-ai", "enterprise-core"]);
+  assert.deepEqual(portfolio.releaseBlockingSourceIds, ["core-source", "secondary-supported-source"]);
   assert.equal(portfolio.releaseNonblockingActionableCount, 4);
   assert.deepEqual(portfolio.previewDependencyBlockers, [{
     packId: "web-saas",
@@ -410,13 +421,30 @@ test("release accounting keeps portfolio actionability visible while blocking on
     reasonCode: "SOURCE_NOT_REVIEWED_CURRENT"
   }]);
 
-  const selected = deriveSourceReleaseAccounting({
-    catalog: releaseCatalog,
-    domainPacksRegistry,
-    trustedSelectedResourceIds: ["optional-tool"]
+  const unselected = derivePlanSourceDependencyAccounting({
+    sourceAccounting: portfolio,
+    selectedPackIds: ["enterprise-core"],
+    selectedGateIds: ["core-gate"],
+    selectedResourceIds: []
   });
-  assert.deepEqual(selected.releaseBlockingSourceIds, ["core-source", "optional-source"]);
-  assert.equal(selected.releaseNonblockingActionableCount, 3);
+  assert.deepEqual(unselected.blockingSourceIds, ["core-source"]);
+  assert.deepEqual(unselected.selectedPreviewDependencyBlockers, []);
+  assert.deepEqual(unselected.selectedResourceDependencyBlockers, []);
+  assert.deepEqual(unselected.diagnosticPreviewDependencyBlockers, portfolio.previewDependencyBlockers);
+  assert.deepEqual(unselected.diagnosticResourceDependencyBlockers, portfolio.resourceDependencyBlockers);
+
+  const selected = derivePlanSourceDependencyAccounting({
+    sourceAccounting: portfolio,
+    selectedPackIds: ["enterprise-core", "web-saas"],
+    selectedGateIds: ["core-gate", "preview-gate"],
+    selectedResourceIds: ["optional-tool"]
+  });
+  assert.equal(selected.status, "blocked");
+  assert.deepEqual(selected.blockingSourceIds, ["core-source", "optional-source", "preview-source"]);
+  assert.deepEqual(selected.selectedPreviewDependencyBlockers, portfolio.previewDependencyBlockers);
+  assert.deepEqual(selected.selectedResourceDependencyBlockers, portfolio.resourceDependencyBlockers);
+  assert.deepEqual(selected.diagnosticPreviewDependencyBlockers, []);
+  assert.deepEqual(selected.diagnosticResourceDependencyBlockers, []);
 });
 
 test("retired portfolio records are read-only historical evidence, not governed decisions", async () => {
@@ -1126,7 +1154,14 @@ test("embedded manifest attests the canonical and generated source catalog diges
 });
 
 test("freshness report and catalog must agree on exact observed revision, digest, and monitor state", async () => {
-  const { validateFreshnessReport } = await governance();
+  const { validateFreshnessReport: validateRawFreshnessReport } = await governance();
+  const domainPacksRegistry = { registryType: "domain-packs", packs: [] };
+  const validateFreshnessReport = (candidateCatalog, candidateReport, options = {}) => (
+    validateRawFreshnessReport(candidateCatalog, candidateReport, {
+      domainPacksRegistry,
+      ...options
+    })
+  );
   const sourceEntry = source();
   const report = {
     schemaVersion: "2.1.0",
@@ -1182,6 +1217,10 @@ test("freshness report and catalog must agree on exact observed revision, digest
     }]
   };
 
+  assert.throws(
+    () => validateRawFreshnessReport(catalog(), report, { now: NOW }),
+    /requires the canonical domain-packs registry/
+  );
   assert.equal(validateFreshnessReport(catalog(), report, { now: NOW }).sources.length, 1);
   assert.throws(
     () => validateFreshnessReport(catalog(), {
@@ -1353,7 +1392,14 @@ test("freshness report and catalog must agree on exact observed revision, digest
 });
 
 test("manual receipt-backed freshness is validated against the catalog receipt and expiry", async () => {
-  const { validateFreshnessReport } = await governance();
+  const { validateFreshnessReport: validateRawFreshnessReport } = await governance();
+  const domainPacksRegistry = { registryType: "domain-packs", packs: [] };
+  const validateFreshnessReport = (candidateCatalog, candidateReport, options = {}) => (
+    validateRawFreshnessReport(candidateCatalog, candidateReport, {
+      domainPacksRegistry,
+      ...options
+    })
+  );
   const manualDigest = `sha256:${"f".repeat(64)}`;
   const manualRevision = { kind: "content-digest", value: manualDigest };
   const manualSource = source({

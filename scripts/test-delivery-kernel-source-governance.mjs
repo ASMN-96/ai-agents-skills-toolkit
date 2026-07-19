@@ -666,6 +666,27 @@ test("the materialized committed starter derives dependencies and stays blocked"
   const plan = await planDeliveryRun({ request }, { invocationRoot: ROOT });
 
   assert.equal(plan.domain.sourceGovernance.status, "blocked");
+  assert.deepEqual(
+    plan.sourceDependencyAccounting.selectedPackIds,
+    [...plan.domain.selectedPackIds].sort()
+  );
+  assert.deepEqual(
+    plan.sourceDependencyAccounting.selectedGateIds,
+    [...plan.domain.resolvedGateIds].sort()
+  );
+  assert.deepEqual(
+    plan.sourceDependencyAccounting.selectedResourceIds,
+    plan.routing.selected.map((resource) => resource.id).sort()
+  );
+  assert.equal(plan.sourceDependencyAccounting.status, "blocked");
+  assert.ok(
+    plan.sourceDependencyAccounting.selectedPreviewDependencyBlockers.some(
+      (blocker) => blocker.packId === "web-saas"
+        && plan.domain.resolvedGateIds.includes(blocker.gateId)
+    )
+  );
+  assert.deepEqual(plan.sourceDependencyAccounting.selectedResourceDependencyBlockers, []);
+  assert.ok(plan.sourceDependencyAccounting.diagnosticResourceDependencyBlockers.length > 0);
   assert.ok(plan.domain.sourceGovernance.requiredSourceIds.includes("nist-ssdf"));
   assert.ok(plan.domain.sourceGovernance.blockedGateIds.length > 0);
   assert.ok(plan.domain.sourceGovernance.resourceGovernance.dependencies.length > 0);
