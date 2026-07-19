@@ -125,6 +125,14 @@ function stripTrailingPunctuation(reference) {
   return normalizeRelative(reference).replace(/[),.;:]+$/, "");
 }
 
+function isUnsafeReference(reference) {
+  const portable = String(reference).replace(/\\/g, "/");
+  return portable.includes("\0")
+    || portable.startsWith("/")
+    || /^[A-Za-z]:\//.test(portable)
+    || portable.split("/").includes("..");
+}
+
 export function extractReferences(text) {
   const references = [];
   for (const match of text.matchAll(REFERENCE_PATTERN)) {
@@ -330,6 +338,9 @@ export function collectReferencedSupportAssets({ root, seedFiles, includeTransit
 
     const text = readFileSync(rootPath(root, file), "utf8");
     for (const reference of extractReferences(text)) {
+      if (isUnsafeReference(reference)) {
+        throw new Error(`unsafe reference '${reference}' in '${file}'`);
+      }
       const sourcePath = supportSourcePathFromReference(reference);
       if (!sourcePath || !isFile(root, sourcePath)) continue;
       const type = supportAssetTypeForSourcePath(sourcePath);
@@ -357,6 +368,14 @@ export function collectReferenceClosureFailures({ root = process.cwd(), scanFile
 
     for (const reference of extractReferences(text)) {
       if (!shouldValidateReference(reference)) {
+        continue;
+      }
+      if (isUnsafeReference(reference)) {
+        failures.push({
+          check: "reference containment",
+          location: file,
+          message: `unsafe reference '${reference}'`
+        });
         continue;
       }
       const lineNumber = lineNumberForIndex(text, text.indexOf(reference));

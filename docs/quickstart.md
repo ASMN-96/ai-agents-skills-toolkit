@@ -68,9 +68,9 @@ node scripts/scan-public-private-leaks.mjs --check
 
 For small documentation-only edits, run the narrowest subset first, then broaden if release or public-readiness claims are involved.
 
-## v0.2.3 Positioning
+## Controlled-Release Positioning
 
-`v0.2.3` is the controlled AI Vibe Coding Toolkit release for agent-assisted governance. It includes v0.2 hardening, task-intake routing, project-tooling governance, no-write leak-scan validation mode, full resource refresh with zero passive source holds, activation posture hardening, public positioning cleanup, and validated 5-skill/12-agent runtime metadata for this repository. It does not claim higher maturity, enterprise or production certification, automatic installs, package publication, marketplace submission, or broad cross-runtime active support.
+`v0.2.5` remains the controlled release while the untagged v0.3 candidate is blocked on its recorded release evidence. The candidate contains five skills, fifteen native agent definitions, and twelve compiled fallbacks, but those files and registries are not execution or enterprise-impact proof. Neither release status authorizes automatic installs, package publication, marketplace submission, or broad cross-runtime activation.
 
 ## Next Step
 

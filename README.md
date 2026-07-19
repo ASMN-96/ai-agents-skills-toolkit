@@ -1,13 +1,17 @@
 # AI Vibe Coding Toolkit
 
+<!-- v0.3-release-evidence:start -->
+> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 70.9% median input-token reduction). Sources: 85 actionable, 0 approved receipts. Runtime: 5 skills, 15 native agents, 12 compiled fallbacks; host bridge absent.
+<!-- v0.3-release-evidence:end -->
+
 AI Vibe Coding Toolkit is a documentation-first governance repository for AI coding-agent workflows. It standardizes reviewed methods, source provenance, validated agents, activation boundaries, and controlled sync artifacts so teams can scale high-quality AI-assisted engineering without copying raw external runtime behavior.
 
 ## Public release status
 
-- Current-tree blockers are 0.
-- Remaining findings are limited to owner-decision blockers, history-only blockers, safe guardrail/scanner evidence, and false positives.
+- Current v0.3 candidate release blockers are recorded in `docs/V0_3_0_RELEASE_EVIDENCE.json`.
+- The machine-readable evidence record is authoritative; prose summaries intentionally do not duplicate its mutable blocker list.
 - Public package validation is **not** whole-repo publication readiness.
-- `v0.2.5` is the current controlled AI Vibe Coding Toolkit release for agent-assisted governance after agent/compiled parity hardening, source-risk evidence cleanup, `.worktrees` project-map protection, and embedded package validation.
+- `v0.2.5` is the current controlled release. The untagged v0.3 candidate adds an executable enterprise delivery kernel for bounded resource routing, team design, context and memory governance, domain quality gates, and truthful evidence accounting.
 - Public-facing release status is based on observed validation evidence; external submissions and publication channels are separate approval-gated decisions.
 - See `STATUS.md` for the current boundary snapshot and `MIGRATION.md` for version migration notes.
 - This repository intentionally has no root `package.json`; run direct `node scripts/...` commands from the repository root.
@@ -39,12 +43,12 @@ The toolkit defines how to discover, evaluate, and operationalize reusable AI co
 - **Validators**: command-gated checks for runtime consistency, package surface rules, and public/private safety policy.
 - **Source records**: explicit provenance records (license, freshness, trust review, extraction limits).
 
-Current canonical runtime is **5 skills + 12 repo-local agent files**. Agent file presence, compiled fallback presence, registry recommendation, inline fallback use, and actual spawned-agent proof are separate facts.
+Current v0.3 candidate runtime is **5 skills + 15 repo-local agent files**. Twelve agents have compiled fallbacks; the backend implementation, mobile platform, and desktop platform specialists remain preview, native-only agents until fallback contracts and bounded pilots are explicitly completed. Agent file presence, compiled fallback presence, registry recommendation, inline fallback use, and actual spawned-agent proof are separate facts.
 
 ## Quick start
 
 1. Read `AGENTS.md` and `README.md`.
-2. Read `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md` and `docs/NO_FAKE_VALIDATION_POLICY.md`.
+2. Read `docs/ENTERPRISE_DELIVERY_KERNEL.md`, `docs/AGENT_PORTFOLIO_ASSESSMENT_V0_3.md`, `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`, and `docs/NO_FAKE_VALIDATION_POLICY.md`.
 3. Run required validation commands (below).
 4. Edit only in scope and report warnings before PR.
 
@@ -63,7 +67,9 @@ Typical flow:
 3. Run validation commands.
 4. Open a PR with explicit blockers and remaining risk.
 
-For real projects, treat the toolkit as an AI coding-agent governance and evidence layer. Select or recommend the 5 canonical skills and 12 repo-local project agent lenses explicitly where this runtime is used, report TOML file presence, compiled fallback presence, inline fallback use, and actually spawned agents separately, and use project-owned checks before proposing new tools.
+For a machine-readable delivery recommendation, copy `templates/delivery-kernel.request.example.json`, replace its all-zero `repository.expectedCommit` placeholder with the target repository's current full 40-character Git SHA, and run `node scripts/ai-toolkit/run-delivery-kernel.mjs plan --input <request.json>`. The committed template cannot self-pin because changing its own commit field creates a new commit. Planning emits a recommendation; it does not activate or invoke the recommended resources.
+
+For real projects, treat the toolkit as an AI coding-agent governance and evidence layer. Let the kernel select the minimum complete set from the 5 canonical skills and 15 repo-local project agent lenses, report TOML file presence, compiled fallback presence, inline fallback use, and actually spawned agents separately, and use project-owned checks before proposing new tools.
 
 ## Validation commands
 
@@ -74,6 +80,8 @@ Optional, when release context is requested:
 
 - `node scripts/validate-toolkit.mjs`
 - `node scripts/ai-toolkit/run-toolkit-evals.mjs`
+- `node scripts/ai-toolkit/run-delivery-kernel-evals.mjs`
+- `node scripts/ai-toolkit/run-enterprise-delivery-benchmark.mjs --summary`
 - `git diff --check`
 - `git status --short`
 
@@ -85,9 +93,9 @@ There is no dependency install step for the toolkit itself. Do not run `npm inst
 
 Public-facing status:
 
-- Canonical runtime is **5 skills and 12 agents**.
+- The v0.3 candidate runtime is **5 skills and 15 native agent definitions**, with **12 compiled fallbacks** and three preview native-only specialists.
 - Public package validation can pass while still not proving whole-repo publication readiness.
-- `v0.2.5` is a controlled toolkit release, not a claim of higher maturity, enterprise or production certification, automatic installs, or broad cross-runtime active support.
+- `v0.2.5` remains the controlled toolkit release until a reviewed v0.3 commit passes the release profile and receives explicit tag/release authorization.
 - External submissions, marketplace listings, package publication, and broader runtime support remain separate approval-gated actions.
 
 ## Limitations

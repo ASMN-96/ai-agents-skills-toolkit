@@ -1,8 +1,14 @@
 #!/usr/bin/env node
-import { copyFileSync, existsSync, mkdirSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import {
+  ManagedFilesystem,
+  recoverManagedDirectoryTransaction,
+  runManagedDirectoryTransaction
+} from "./safe-filesystem.mjs";
 
 const PROJECT_TYPES = [
   "react-typescript-saas",
@@ -46,6 +52,18 @@ if (!target || !projectType || !PROJECT_TYPES.includes(projectType)) {
   const templateDir = path.join(root, "templates", "tooling");
   const targetRoot = path.resolve(target);
   const destDir = path.join(targetRoot, ".ai-toolkit", "tooling");
+  if (confirmWrite) {
+    recoverManagedDirectoryTransaction({
+      repositoryRoot: targetRoot,
+      managedRoot: destDir,
+      log: (message) => console.log(message)
+    });
+  }
+  const destinationFilesystem = new ManagedFilesystem({
+    repositoryRoot: targetRoot,
+    managedRoot: destDir,
+    label: "tooling destination"
+  });
   const templates = [
     `package-scripts.${projectType}.json`,
     ...SHARED_TEMPLATES
@@ -59,14 +77,11 @@ if (!target || !projectType || !PROJECT_TYPES.includes(projectType)) {
 
   const copied = [];
   const skipped = [];
-
-  if (confirmWrite) {
-    mkdirSync(destDir, { recursive: true });
-  }
+  const plannedCopies = [];
 
   for (const template of templates) {
     const source = path.join(templateDir, template);
-    const destination = path.join(destDir, template);
+    const destination = destinationFilesystem.resolve(template, `tooling destination for ${template}`);
     if (!existsSync(source)) {
       skipped.push(`${template} (missing toolkit template)`);
       continue;
@@ -76,11 +91,35 @@ if (!target || !projectType || !PROJECT_TYPES.includes(projectType)) {
       continue;
     }
     if (confirmWrite) {
-      copyFileSync(source, destination);
+      plannedCopies.push({ source, template });
       copied.push(template);
     } else {
       copied.push(`${template} (would copy)`);
     }
+  }
+
+  if (confirmWrite) {
+    runManagedDirectoryTransaction({
+      repositoryRoot: targetRoot,
+      managedRoot: destDir,
+      label: "tooling apply",
+      log: (message) => console.log(message),
+      prepare: (filesystem) => {
+        for (const item of plannedCopies) {
+          filesystem.copyFileFrom(templateDir, item.source, item.template, `tooling template ${item.template}`);
+        }
+      },
+      validate: (filesystem) => {
+        for (const item of plannedCopies) {
+          const destination = filesystem.assertRegularFile(item.template, `tooling template ${item.template}`);
+          const sourceDigest = createHash("sha256").update(readFileSync(item.source)).digest("hex");
+          const destinationDigest = createHash("sha256").update(readFileSync(destination)).digest("hex");
+          if (sourceDigest !== destinationDigest) {
+            throw new Error(`tooling template digest validation failed: ${item.template}`);
+          }
+        }
+      }
+    });
   }
 
   console.log("\nCopied");

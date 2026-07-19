@@ -26,11 +26,19 @@ Use tools only when they materially improve source truth, implementation, valida
 
 ## Reference Loading
 
-Load references on demand:
+Use progressive disclosure and load references on demand:
 
 - low-risk tasks: rely on the concise routing summary
 - standard tasks: load only the relevant registry entries and policy excerpts
 - high-risk tasks: load source-of-truth, risk, validation, and stop-condition references
+
+Progressive disclosure starts from the direct task target, acceptance criteria, and nearest evidence. Expand to direct dependencies, tests, contracts, and risk or release references only when the previous layer leaves a material question unresolved. Do not preload every method, registry, source record, or agent description.
+
+## File-Length Heuristics
+
+There is no universal file-length optimum. An 80–120-line target is not a universal engineering rule and must not drive mechanical splitting, padding, or abstraction.
+
+At 200 lines, use an advisory review heuristic: check cohesion, coupling, navigation cost, duplicated responsibility, testability, and context cost. The 200 lines threshold is advisory only, not a gate, error, mandated split, or quality claim. A cohesive file may remain longer; a shorter file may still need refactoring when its responsibilities are mixed.
 
 ## Avoiding Context Burn
 

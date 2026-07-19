@@ -188,7 +188,7 @@
         "internal"
       ],
       "validationGates": [
-        "Use screenshots, browser checks, accessibility review, and target workflow testing when UI changes are implemented. Minimum evidence: - contrast meets WCAG 2.1 AA: 4.5:1 for normal text and 3:1 for large text, - all interactive elements are keyboard reachable with visible focus, - semantic controls have labels, roles, or accessible names, - mobile and desktop breakpoints plus interaction states are covered, - screenshots or automated reports from tools such as Axe, Lighthouse, or a color contrast checker are attached or summarized."
+        "Use screenshots, browser checks, accessibility review, and target workflow testing when UI changes are implemented. Minimum evidence: - contrast meets WCAG 2.2 AA: 4.5:1 for normal text and 3:1 for large text, - all interactive elements are keyboard reachable with visible focus, - semantic controls have labels, roles, or accessible names, - mobile and desktop breakpoints plus interaction states are covered, - screenshots or automated reports from tools such as Axe, Lighthouse, or a color contrast checker are attached or summarized."
       ],
       "sourceProvenance": [
         {
@@ -2957,6 +2957,61 @@
       ],
       "licenseStatus": "Toolkit-authored product-neutral method with cleanroom Supabase Agent Skills guidance adopted; Supabase source record reports MIT and no raw upstream source content copied.",
       "rawCopyPolicy": "No raw upstream prompts, source, components, scripts, registry JSON, package config, or external runtime behavior is copied into this method.",
+      "status": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": [
+        "documented",
+        "available",
+        "approved"
+      ],
+      "registrySurface": "passive-reference",
+      "visibility": [
+        "repo",
+        "project-sync"
+      ]
+    },
+    {
+      "id": "internal.decision-driven-stack-intelligence",
+      "displayName": "Decision-Driven Stack Intelligence",
+      "area": "internal",
+      "methodPath": "methods/internal/decision-driven-stack-intelligence.md",
+      "purpose": "Resolve a concrete framework, runtime, API, provider, or standards uncertainty with version-matched evidence and a finite stop condition.",
+      "whenToUse": "Use only when a version-sensitive fact can change implementation, compatibility, security, migration, rollback, or an acceptance gate.",
+      "whenNotToUse": "Do not browse by default or use this method for broad surveys, link collection, trends, or speculative architecture when repository evidence already settles the decision.",
+      "passiveConsumerAgents": [
+        "Architect Agent",
+        "Skill Scout Agent",
+        "Reviewer Agent"
+      ],
+      "relatedRoutingScenarios": [
+        "dependency-supply-chain-review",
+        "external-tool-source-update",
+        "missing-capability-skill-discovery",
+        "package-manager-workspace-migration",
+        "react-typescript-quality-change",
+        "ai-agent-system-change"
+      ],
+      "riskDomains": [
+        "internal",
+        "architecture",
+        "compatibility",
+        "supply-chain"
+      ],
+      "validationGates": [
+        "Record one decision question, contained manifest or lock evidence, observed-exact versus declared-range versus unresolved status, version-matched authority, decision impact, remaining uncertainty, and the evidence that would reverse the decision."
+      ],
+      "sourceProvenance": [
+        {
+          "path": "methods/internal/decision-driven-stack-intelligence.md",
+          "category": "toolkit-authored"
+        }
+      ],
+      "licenseStatus": "Toolkit-authored clean-room method; no external skill, script, prompt, or documentation text is copied or activated.",
+      "rawCopyPolicy": "No raw upstream prompts, skills, scripts, commands, documentation text, or runtime behavior may be copied or executed through this method.",
       "status": [
         "documented",
         "available",

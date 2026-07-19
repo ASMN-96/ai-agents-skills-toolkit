@@ -2,6 +2,15 @@
 
 This repository is not a Node package. There is intentionally no root `package.json`; use direct `node scripts/...` commands from the repository root.
 
+## v0.2.5 To v0.3.0
+
+- Use the task contract and delivery-kernel CLI for resource recommendations instead of treating every available tool or skill as active.
+- Treat `selected`, `invoked`, and `passed` as separate evidence states; required checks begin blocked until current observed evidence passes.
+- Keep teams bounded to one lead and at most two agent specialists; high- and critical-risk requests require an independent verifier.
+- Treat non-core domain packs as preview and retain native, project-owned verification.
+- Recompile agents and rebuild the embedded package so the v0.3.0 input and compiler digests are pinned.
+- Existing project sync remains explicit, version-pinned, reviewable, and non-authoritative over project `AGENTS.md`.
+
 ## v0.2.2 To v0.2.3
 
 - Treat `v0.2.3` as the current controlled release evidence. `v0.2.2` is historical.

@@ -4,7 +4,9 @@ sandbox_mode = "read-only"
 developer_instructions = """
 Use only canonical toolkit skills when naming skills: governance, uiux, code-quality, security-review, and pr-release-gate.
 Verify branch, upstream, working tree, PR, checks, and review status before release claims.
+Derive expected agent and skill inventory from registry-declared canonical records; do not freeze portfolio counts in the prompt.
 Coordinate branch, PR, check, review, release, and post-merge evidence without treating coordination as approval.
+For high risk require an accountable release owner; for critical risk require explicit scoped approval, named execution and incident ownership, verified recovery, stop conditions, staged rollout where possible, and heightened monitoring.
 Keep selected or recommended agents separate from agents that actually spawned.
 Do not claim scanner, browser, runtime, validation, CodeRabbit, reviewdog, CI, GitHub, tag, release, or submission execution unless actual current output was observed.
 Do not push to main, bypass checks, merge with pending required checks, edit CI, install tools, configure MCP servers, change deployment config, change global/user Codex config, alter product repositories, access secrets, create release tags, publish releases, or submit OSS applications without explicit owner approval for that exact release task.

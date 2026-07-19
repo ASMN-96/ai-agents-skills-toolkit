@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { execFile } from "node:child_process";
+import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
@@ -8,6 +9,7 @@ import { promisify } from "node:util";
 const WATCHLIST_PATH = "sources/source-watchlist.json";
 const METHODS_REGISTRY_PATH = "registries/methods.registry.json";
 const ALLOWED_OUTPUT = "docs/SOURCE_FRESHNESS_REPORT.md";
+const ALLOWED_JSON_OUTPUT = "docs/SOURCE_FRESHNESS_REPORT.json";
 const ALLOWED_ISSUES_OUTPUT = "docs/SOURCE_FRESHNESS_ISSUES_DRY_RUN.md";
 const execFileAsync = promisify(execFile);
 const DISCLAIMER =
@@ -58,6 +60,7 @@ function parseArgs(argv) {
     failOnChange: false,
     mock: false,
     output: null,
+    jsonOutput: null,
     createIssues: false,
     issuesOutput: null
   };
@@ -79,6 +82,13 @@ function parseArgs(argv) {
       }
       args.output = value;
       i += 1;
+    } else if (arg === "--json-output") {
+      const value = argv[i + 1];
+      if (!value) {
+        throw new Error("--json-output requires a path");
+      }
+      args.jsonOutput = value;
+      i += 1;
     } else if (arg === "--issues-output") {
       const value = argv[i + 1];
       if (!value) {
@@ -98,7 +108,7 @@ function printHelp() {
   console.log(`Read-only source freshness monitor.
 
 Usage:
-  node scripts/check-source-freshness.mjs [--mock] [--fail-on-change] [--output docs/SOURCE_FRESHNESS_REPORT.md]
+  node scripts/check-source-freshness.mjs [--mock] [--fail-on-change] [--output docs/SOURCE_FRESHNESS_REPORT.md] [--json-output docs/SOURCE_FRESHNESS_REPORT.json]
   node scripts/check-source-freshness.mjs --mock --create-issues [--issues-output docs/SOURCE_FRESHNESS_ISSUES_DRY_RUN.md]
   node scripts/check-source-freshness.mjs --help
 
@@ -110,6 +120,7 @@ Behavior:
   - Prints a Markdown report to stdout by default
   - With --fail-on-change, exits non-zero after reporting actionable statuses
   - Writes only to ${ALLOWED_OUTPUT} when --output is provided
+  - Writes SourceCatalog v2 monitor evidence only to ${ALLOWED_JSON_OUTPUT} when --json-output is provided
   - With --create-issues, renders local dry-run issue drafts only; it never calls GitHub issue APIs or gh
   - Writes issue drafts only to ${ALLOWED_ISSUES_OUTPUT} when --issues-output is provided
   - Uses GITHUB_TOKEN only as an Authorization header for GitHub API rate limits and never prints it
@@ -132,6 +143,22 @@ function resolveOutputPath(outputArg) {
   const allowed = path.resolve(cwd, ALLOWED_OUTPUT);
   if (resolved !== allowed) {
     throw new Error(`Unsafe output path. Only ${ALLOWED_OUTPUT} is allowed.`);
+  }
+  return resolved;
+}
+
+function resolveJsonOutputPath(outputArg) {
+  if (!outputArg) {
+    return null;
+  }
+  if (outputArg !== ALLOWED_JSON_OUTPUT || path.isAbsolute(outputArg)) {
+    throw new Error(`Unsafe JSON output path. Only ${ALLOWED_JSON_OUTPUT} is allowed.`);
+  }
+  const cwd = process.cwd();
+  const resolved = path.resolve(cwd, outputArg);
+  const allowed = path.resolve(cwd, ALLOWED_JSON_OUTPUT);
+  if (resolved !== allowed) {
+    throw new Error(`Unsafe JSON output path. Only ${ALLOWED_JSON_OUTPUT} is allowed.`);
   }
   return resolved;
 }
@@ -458,6 +485,16 @@ async function githubJson(endpoint) {
   return response.json();
 }
 
+function sourceComparisonCommit(source) {
+  if (source.monitor?.observedRevision?.kind === "git-sha") {
+    return source.monitor.observedRevision.value;
+  }
+  if (source.review?.reviewedRevision?.kind === "git-sha") {
+    return source.review.reviewedRevision.value;
+  }
+  return source.lastReviewedCommit ?? null;
+}
+
 async function inspectGithubSource(source) {
   if (!source.repoOwner || !source.repoName) {
     return {
@@ -471,7 +508,8 @@ async function inspectGithubSource(source) {
     };
   }
 
-  if (source.lastReviewedCommit === null) {
+  const comparisonCommit = sourceComparisonCommit(source);
+  if (comparisonCommit === null) {
     return {
       status: "REVIEW_METADATA_MISSING",
       latestCommit: null,
@@ -510,7 +548,7 @@ async function inspectGithubSource(source) {
 
     const latestCommit = commit?.sha || null;
     const latestCommitDate = commit?.commit?.committer?.date || null;
-    const changed = Boolean(latestCommit && latestCommit !== source.lastReviewedCommit);
+    const changed = Boolean(latestCommit && latestCommit !== comparisonCommit);
     const relocated = Boolean(canonicalMismatch);
 
     return {
@@ -576,7 +614,7 @@ async function inspectGithubSourceWithLsRemoteFallback(source, reason) {
     });
     const line = stdout.trim().split(/\r?\n/).find(Boolean);
     const latestCommit = line ? line.split(/\s+/)[0] : null;
-    const changed = Boolean(latestCommit && latestCommit !== source.lastReviewedCommit);
+    const changed = Boolean(latestCommit && latestCommit !== sourceComparisonCommit(source));
 
     if (!latestCommit) {
       throw new Error(`git ls-remote returned no default-branch ref for ${ref}`);
@@ -655,7 +693,8 @@ function mockInspection(source, index) {
     };
   }
 
-  if (source.lastReviewedCommit === null) {
+  const comparisonCommit = sourceComparisonCommit(source);
+  if (comparisonCommit === null) {
     return {
       status: "REVIEW_METADATA_MISSING",
       latestCommit: null,
@@ -668,7 +707,7 @@ function mockInspection(source, index) {
   }
 
   const changed = index % 4 === 1;
-  const latestCommit = changed ? `feed${source.lastReviewedCommit.slice(4)}` : source.lastReviewedCommit;
+  const latestCommit = changed ? `feed${comparisonCommit.slice(4)}` : comparisonCommit;
   const expectedFullName = `${source.repoOwner}/${source.repoName}`;
   const mockCanonicalMismatch = source.mockCanonicalFullName && source.mockCanonicalFullName !== expectedFullName
     ? `Mock: GitHub canonical repository is ${source.mockCanonicalFullName}, expected ${expectedFullName}.`
@@ -730,7 +769,9 @@ async function buildResults(watchlist, useMock, checkedAt, methodImpactIndex) {
       ...inspection,
       lastCheckedDate: checkedAt,
       affectedMethods: formatAffectedMethods(methodImpactIndex.get(source.id)),
-      nextStep: nextStepFor(inspection.status),
+      nextStep: source.review?.state === "REVIEWED_CURRENT"
+        ? nextStepFor(inspection.status)
+        : "current SourceReviewReceipt required",
       reviewedHold: source.reviewedHold || null,
       reviewDecision: source.reviewDecision || null
     });
@@ -738,12 +779,103 @@ async function buildResults(watchlist, useMock, checkedAt, methodImpactIndex) {
   return results;
 }
 
+function revisionIdentityDigest(result, revision) {
+  const identity = result.identityKey || result.sourceUrl;
+  const material = JSON.stringify({
+    schemaVersion: "1.0.0",
+    sourceIdentity: identity,
+    revisionKind: revision.kind,
+    revisionValue: revision.value
+  });
+  return `sha256:${createHash("sha256").update(material, "utf8").digest("hex")}`;
+}
+
+function monitorEvidence(result, useMock) {
+  const sourceType = result.sourceType || "github-repo";
+  let monitorState;
+  let observedRevision = null;
+  let contentDigest = null;
+  let digestBasis = null;
+
+  if (sourceType === "manual-reviewed-doc") {
+    monitorState = "MANUAL_DUE";
+  } else if (result.status === "UNCHANGED" && COMMIT_SHA_PATTERN.test(result.latestCommit || "")) {
+    monitorState = "CURRENT";
+    observedRevision = { kind: "git-sha", value: result.latestCommit.toLowerCase() };
+  } else if (
+    [
+      "RELOCATED_REVIEW_REQUIRED",
+      "REVIEWED_HELD",
+      "CHANGED_LOW_RISK",
+      "CHANGED_REVIEW_REQUIRED",
+      "CHANGED_HIGH_RISK"
+    ].includes(result.status) &&
+    COMMIT_SHA_PATTERN.test(result.latestCommit || "")
+  ) {
+    monitorState = "CHANGED";
+    observedRevision = { kind: "git-sha", value: result.latestCommit.toLowerCase() };
+  } else {
+    monitorState = "CHECK_FAILED";
+  }
+
+  if (observedRevision) {
+    contentDigest = revisionIdentityDigest(result, observedRevision);
+    digestBasis = "git-revision-identity";
+  }
+
+  const currentReview = result.review;
+  const missingCurrentReview = (
+    currentReview?.state !== "REVIEWED_CURRENT" ||
+    currentReview.reviewedRevision?.kind !== observedRevision?.kind ||
+    currentReview.reviewedRevision?.value !== observedRevision?.value ||
+    currentReview.reviewedDigest !== contentDigest
+  );
+
+  return {
+    sourceId: result.id,
+    monitorState,
+    observedRevision,
+    contentDigest,
+    checkedAt: result.lastCheckedDate,
+    missingCurrentReview,
+    evidence: {
+      observationMode: useMock ? "deterministic-mock" : "live-read-only",
+      legacyStatus: result.status,
+      sourceType,
+      sourceUrl: result.sourceUrl,
+      digestBasis,
+      latestCommitDate: result.latestCommitDate,
+      releaseSignal: result.releaseSignal,
+      licenseSignal: result.licenseSignal,
+      notes: result.notes,
+      watchedPathSignals: result.watchedPathSignals
+    }
+  };
+}
+
+function buildJsonReport(results, useMock, checkedAt) {
+  const sources = results.map((result) => monitorEvidence(result, useMock));
+  return {
+    schemaVersion: "2.0.0",
+    checkedAt,
+    mode: useMock ? "mock" : "live",
+    readOnly: true,
+    disclaimer: DISCLAIMER,
+    actionableCount: sources.filter((source) => source.monitorState !== "CURRENT" || source.missingCurrentReview).length,
+    sources
+  };
+}
+
 function actionableResults(results) {
-  return results.filter((result) => ACTIONABLE_STATUSES.has(result.status));
+  return results.filter((result) => (
+    ACTIONABLE_STATUSES.has(result.status) ||
+    result.status === "MANUAL_REVIEW_TRACKED" ||
+    result.review?.state !== "REVIEWED_CURRENT"
+  ));
 }
 
 function issueDedupeKey(result) {
-  const commitSignal = shortSha(result.latestCommit || result.lastReviewedCommit || "metadata-missing");
+  const commitSignal = shortSha(result.latestCommit || sourceComparisonCommit(result) || "metadata-missing");
   return `source-freshness/${result.id}/${result.status}/${commitSignal}`;
 }
 
@@ -996,18 +1128,24 @@ async function main() {
     }
 
     const outputPath = resolveOutputPath(args.output);
+    const jsonOutputPath = resolveJsonOutputPath(args.jsonOutput);
     const issuesOutputPath = resolveIssuesOutputPath(args.issuesOutput);
-    const checkedAt = new Date().toISOString();
+    const checkedAt = args.mock ? "2026-07-17T00:00:00.000Z" : new Date().toISOString();
     const watchlist = await readWatchlist();
     const methodImpactIndex = await buildMethodImpactIndex();
     const results = await buildResults(watchlist, args.mock, checkedAt, methodImpactIndex);
     const report = renderReport(results, args.mock, checkedAt);
+    const jsonReport = buildJsonReport(results, args.mock, checkedAt);
 
     if (outputPath) {
       await writeFile(outputPath, report, "utf8");
       console.log(`Wrote ${ALLOWED_OUTPUT}`);
     } else {
       process.stdout.write(report);
+    }
+    if (jsonOutputPath) {
+      await writeFile(jsonOutputPath, `${JSON.stringify(jsonReport, null, 2)}\n`, "utf8");
+      console.log(`Wrote ${ALLOWED_JSON_OUTPUT}`);
     }
 
     if (args.createIssues) {

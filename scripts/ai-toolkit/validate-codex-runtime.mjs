@@ -2,7 +2,8 @@
 import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
-import { ACTIVE_AGENT_FILES, ACTIVE_SKILLS, UNSAFE_COMMAND_PATTERNS } from "./embedded-data.mjs";
+import { ACTIVE_SKILLS, UNSAFE_COMMAND_PATTERNS } from "./embedded-data.mjs";
+import { deriveApprovedRuntimeAgents } from "./runtime-agent-inventory.mjs";
 
 const ROOT = process.cwd();
 const failures = [];
@@ -126,19 +127,20 @@ async function validateActiveSkills() {
   }
 }
 
-async function validateProjectAgents() {
+async function validateProjectAgents(activeAgents) {
+  const activeAgentFiles = activeAgents.map((agent) => agent.fileName);
   const files = await readdir(rootPath(".codex/agents")).catch(() => []);
   const tomlFiles = files.filter((file) => file.endsWith(".toml")).sort();
-  if (tomlFiles.length !== ACTIVE_AGENT_FILES.length) {
-    fail(".codex/agents", `expected ${ACTIVE_AGENT_FILES.length} active project agents, found ${tomlFiles.length}`);
+  if (tomlFiles.length !== activeAgentFiles.length) {
+    fail(".codex/agents", `expected ${activeAgentFiles.length} active project agents, found ${tomlFiles.length}`);
   }
-  for (const required of ACTIVE_AGENT_FILES) {
+  for (const required of activeAgentFiles) {
     if (!tomlFiles.includes(required)) {
       fail(".codex/agents", `missing active project agent ${required}`);
     }
   }
   for (const file of tomlFiles) {
-    if (!ACTIVE_AGENT_FILES.includes(file)) {
+    if (!activeAgentFiles.includes(file)) {
       fail(`.codex/agents/${file}`, "unexpected active project agent; active project agents must match the approved runtime list");
     }
     const relativePath = `.codex/agents/${file}`;
@@ -169,12 +171,14 @@ async function validateProjectAgents() {
 }
 
 async function main() {
+  const agentsRegistry = JSON.parse(await readFile(rootPath("registries/agents.registry.json"), "utf8"));
+  const activeAgents = deriveApprovedRuntimeAgents(agentsRegistry);
   await validateActiveSkills();
-  await validateProjectAgents();
+  await validateProjectAgents(activeAgents);
 
   if (failures.length === 0) {
     console.log(`PASS validate-codex-runtime`);
-    console.log(`active runtime: ${ACTIVE_SKILLS.length} skills, ${ACTIVE_AGENT_FILES.length} project agents`);
+    console.log(`active runtime: ${ACTIVE_SKILLS.length} skills, ${activeAgents.length} project agents`);
     return;
   }
 

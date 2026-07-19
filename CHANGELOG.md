@@ -1,10 +1,23 @@
 # Changelog
 
+<!-- v0.3-release-evidence:start -->
+> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 70.9% median input-token reduction). Sources: 85 actionable, 0 approved receipts. Runtime: 5 skills, 15 native agents, 12 compiled fallbacks; host bridge absent.
+<!-- v0.3-release-evidence:end -->
+
 All notable changes to AI Agent Skills Toolkit are documented here. This repository is not a Node package; versions describe controlled toolkit evidence states, not package publication.
 
 Release cadence: controlled toolkit releases are cut when governance, runtime-boundary, source-freshness, eval, leak-scan, and release-readiness evidence is current. Security or source-safety corrections may be documented under `Unreleased` until a controlled release note supersedes them.
 
 ## Unreleased
+
+- Candidate v0.3.0: added the executable enterprise delivery kernel and canonical task, routing, team, context, memory, evidence, domain-pack, Codex/Claude-adapter, and freshness contracts.
+- Added full-catalog minimal resource selection, high-risk independent verification, bounded context, user-reviewed memory proposals, and truthful blocked-by-default evidence.
+- Added supported enterprise-core and preview web/SaaS, iOS, Android, Windows desktop, macOS desktop, Expo/React Native, Electron, and Tauri quality-gate packs.
+- Added bounded preview mobile and desktop platform agents so every preview pack has explicit expert competency coverage without inflating every generalist role.
+- Added a deterministic 12-task, three-run-per-variant static benchmark with honest `notMeasured` runtime/human/pilot dimensions.
+- Hardened project sync with traversal and junction containment plus atomic rollback, and added deterministic compiler input and compiler provenance digests.
+- Added executable kernel evaluations, a JSON CLI, request template, release documentation, and regenerated embedded artifacts.
+- Draft notes: `docs/V0_3_0_RELEASE_NOTES.md`. No v0.3 tag or release exists yet.
 
 ## v0.2.5
 

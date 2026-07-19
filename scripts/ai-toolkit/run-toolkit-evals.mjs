@@ -2,6 +2,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { deriveApprovedRuntimeAgents } from "./runtime-agent-inventory.mjs";
 
 const ROOT = process.cwd();
 const failures = [];
@@ -84,7 +85,8 @@ async function main() {
   const embeddedGovernanceProofEvals = await readJson(".ai-toolkit/evals/skills/governance-proof-evals.json");
   const embeddedUiuxEvals = await readJson(".ai-toolkit/evals/skills/uiux-evals.json");
   const knownMethods = new Set((methodsRegistry.methods || []).map((method) => method.id));
-  const knownAgents = new Set((agentsRegistry.agents || []).map((agent) => agent.name));
+  const approvedRuntimeAgents = deriveApprovedRuntimeAgents(agentsRegistry);
+  const knownAgents = new Set(approvedRuntimeAgents.map((agent) => agent.name));
 
   for (const name of [
     "governance",
@@ -136,7 +138,7 @@ async function main() {
 
   const runtimeEvalIds = new Set((runtimeEvals.cases || []).map((evalCase) => evalCase.id));
   for (const required of [
-    "active-project-agent-count-12",
+    "active-project-agent-count-registry",
     "old-alias-not-active",
     "bounded-backend-database-sre-agents",
     "validator-warn-visible",
@@ -151,9 +153,14 @@ async function main() {
     }
   }
 
-  const activeAgentCountEval = (runtimeEvals.cases || []).find((evalCase) => evalCase.id === "active-project-agent-count-12");
-  if (activeAgentCountEval?.expectedActiveProjectAgents !== 12) {
-    fail("active-project-agent-count-12", "runtime eval must assert exactly 12 active project agents");
+  const activeAgentCountEval = (runtimeEvals.cases || []).find(
+    (evalCase) => evalCase.id === "active-project-agent-count-registry"
+  );
+  if (activeAgentCountEval?.expectedActiveProjectAgents !== approvedRuntimeAgents.length) {
+    fail(
+      "active-project-agent-count-registry",
+      `runtime eval must match the ${approvedRuntimeAgents.length} registry-declared active project agents`
+    );
   }
 
   for (const evalCase of routingEvals.cases || []) {
@@ -399,7 +406,12 @@ async function main() {
     "pr-release-coderabbit-credit-failure",
     "runtime-visibility-not-file-proof",
     "token-discipline-large-review",
-    "code-quality-active-if-detected-not-install-proof"
+    "code-quality-active-if-detected-not-install-proof",
+    "validation-lane-documentation-only",
+    "validation-lane-behavior-code",
+    "validation-lane-high-risk-release",
+    "git-head-provenance-not-equality-gate",
+    "progressive-disclosure-line-count-advisory"
   ]) {
     if (!governanceProofEvalIds.has(required)) {
       fail(`governance-proof-${required}`, "expected governance proof eval missing");

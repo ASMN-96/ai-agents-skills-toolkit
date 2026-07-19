@@ -1,5 +1,5 @@
 ---
-sourceRef: ["anthropic-skills","unknown-review-required"]
+sourceRef: ["toolkit-authored","anthropic-skills","skills-sh"]
 lastExtracted: unknown-review-required
 status: approved
 ---

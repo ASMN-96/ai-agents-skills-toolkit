@@ -161,6 +161,74 @@ test("mock report renders resolved v0.2.3 source decisions", async () => {
   });
 });
 
+test("--json-output emits deterministic SourceCatalog v2 monitor evidence", async () => {
+  await withWatchlist([
+    source({
+      monitor: {
+        state: "CURRENT",
+        checkedAt: "2026-07-16T00:00:00.000Z",
+        observedRevision: { kind: "git-sha", value: "f".repeat(40) },
+        contentDigest: `sha256:${"e".repeat(64)}`,
+        failureReason: null
+      },
+      review: {
+        state: "QUARANTINED",
+        currentReceipt: null
+      }
+    }),
+    source({
+      id: "official-docs",
+      name: "Official Docs",
+      sourceUrl: "https://docs.example.com/guidance",
+      sourceType: "manual-reviewed-doc",
+      watchMode: "manual-reviewed-doc",
+      repoOwner: undefined,
+      repoName: undefined,
+      defaultBranch: undefined,
+      lastReviewedCommit: null,
+      sourceRecordPath: "sources/official-docs.md",
+      manualReview: {
+        publisher: "Example",
+        cadence: "30 days",
+        reason: "Mutable documentation requires manual review.",
+        forbiddenClaims: ["immutable source freshness"]
+      }
+    })
+  ], async (cwd) => {
+    await mkdir(path.join(cwd, "docs"));
+    const result = await runFreshness(cwd, [
+      "--mock",
+      "--json-output",
+      "docs/SOURCE_FRESHNESS_REPORT.json"
+    ]);
+
+    assert.equal(result.code, 0, result.stderr);
+    const report = JSON.parse(await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_REPORT.json"), "utf8"));
+    assert.equal(report.schemaVersion, "2.0.0");
+    assert.equal(report.mode, "mock");
+    assert.equal(report.checkedAt, "2026-07-17T00:00:00.000Z");
+    assert.deepEqual(report.sources.map((entry) => entry.monitorState), ["CURRENT", "MANUAL_DUE"]);
+    assert.deepEqual(report.sources[0].observedRevision, {
+      kind: "git-sha",
+      value: "f".repeat(40)
+    });
+    assert.match(report.sources[0].contentDigest, /^sha256:[0-9a-f]{64}$/);
+    assert.equal(report.sources[0].evidence.digestBasis, "git-revision-identity");
+    assert.equal(report.sources[0].evidence.legacyStatus, "UNCHANGED");
+    assert.equal(report.sources[0].missingCurrentReview, true);
+    assert.equal(report.sources[1].observedRevision, null);
+    assert.equal(report.sources[1].contentDigest, null);
+  });
+});
+
+test("--json-output rejects paths outside the governed report target", async () => {
+  await withWatchlist([source()], async (cwd) => {
+    const result = await runFreshness(cwd, ["--mock", "--json-output", "freshness.json"]);
+    assert.notEqual(result.code, 0);
+    assert.match(result.stderr, /Only docs\/SOURCE_FRESHNESS_REPORT\.json is allowed/i);
+  });
+});
+
 test("manual reviewed-doc sources are tracked without live GitHub or GitLab freshness claims", async () => {
   await withWatchlist([
     source({
@@ -189,10 +257,10 @@ test("manual reviewed-doc sources are tracked without live GitHub or GitLab fres
   ], async (cwd) => {
     const result = await runFreshness(cwd, ["--mock", "--fail-on-change"]);
 
-    assert.equal(result.code, 0, result.stderr);
+    assert.notEqual(result.code, 0);
     assert.match(result.stdout, /MANUAL_REVIEW_TRACKED/);
     assert.match(result.stdout, /manual-reviewed-doc/);
-    assert.doesNotMatch(result.stderr, /actionable source freshness status/i);
+    assert.match(result.stderr, /actionable source freshness status/i);
   });
 });
 

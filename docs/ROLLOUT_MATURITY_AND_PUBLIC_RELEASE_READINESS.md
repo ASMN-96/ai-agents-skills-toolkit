@@ -1,8 +1,8 @@
 # Rollout Maturity and Public Release Readiness
 
-Status: Level 3 controlled-pilot milestone complete; `v0.2.3` is the controlled AI Vibe Coding Toolkit release path for AI coding-agent governance after v0.2 hardening, activation posture hardening, full resource refresh with zero passive source holds, and no-write leak-scan validation. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
+Status: Level 3 controlled-pilot milestone complete for the v0.2 line; `v0.2.5` is the current controlled release. The untagged v0.3 candidate remains blocked by its machine-readable release evidence and does not claim Level 4 enterprise rollout or Level 5 broad public/package maturity.
 
-Date: 2026-06-05
+Updated: 2026-07-17
 
 This document is a promotion gate. It does not activate runtimes, publish packages, create releases, open PRs, merge branches, install tools, or approve public distribution.
 
@@ -19,9 +19,9 @@ This document is a promotion gate. It does not activate runtimes, publish packag
 
 ## Current Classification
 
-Current level: Level 3 complete.
+Current level: Level 3 complete for the controlled v0.2 workflow. The v0.3 delivery-kernel candidate remains an internal blocked candidate pending its own release gate and pilots.
 
-Controlled release: `v0.2.3` for AI coding-agent governance after the full local validation gate, PR merge, post-merge verification, tag creation, and GitHub release verification pass. This release does not claim higher maturity, enterprise or production certification, automatic installs, or broad cross-runtime active support. `v0.1.0` remains the historical first controlled public release, and `docs/V0_2_0_RELEASE_NOTES.md` remains historical v0.2.0 evidence.
+Controlled release: `v0.2.5` at commit `4654861f6a1887826e6a888b894869e1ec52bb01`. This release does not claim higher maturity, enterprise or production certification, automatic installs, or broad cross-runtime active support. `v0.1.0` remains the historical first controlled public release, and `docs/V0_2_0_RELEASE_NOTES.md` remains historical v0.2.0 evidence. The v0.3 candidate state and blockers are authoritative in `docs/V0_3_0_RELEASE_EVIDENCE.json`.
 
 Evidence:
 
@@ -47,13 +47,13 @@ Deferred Level 4 evidence backlog:
 Current blockers for Level 5 broad public/package maturity:
 
 - Public package validation is allowlist-only and does not certify the whole repository tree or Git history for public GitHub visibility.
-- Whole-repo publication review retains non-current-tree owner/history findings that are acceptable for the controlled `v0.2.3` path only when owner acceptance is explicit.
+- Whole-repo publication review retains non-current-tree owner/history findings that are acceptable for the controlled `v0.2.5` path only when owner acceptance is explicit.
 - Historical Git exposure remains unresolved until the owner chooses a clean sanitized repository/mirror or verified history cleanup.
-- Public runtime is canonical-only: 5 active skills and 12 active repo-local project agents. Old aliases are not active runtime names.
+- The v0.3 candidate runtime is canonical-only: 5 skills, 15 native repo-local agent definitions, and 12 compiled fallbacks. Registry or file presence is not execution proof.
 - Public package allowlist is enforced by `node scripts/validate-public-package.mjs`; current report is `docs/PUBLIC_PACKAGE_VALIDATION_REPORT.md`.
 - `LICENSE`, `CONTRIBUTING.md`, and `CODE_OF_CONDUCT.md` are present but still require owner/legal/community approval before publication.
 - `SECURITY.md` now defines supported scope and reporting expectations, but the final vulnerability-reporting channel still needs an owner-approved private contact path.
-- Clean-clone verification remains required before any future broad package/distribution claim beyond the controlled `v0.2.3` path.
+- Clean-clone verification remains required before any future broad package/distribution claim beyond the controlled `v0.2.5` path.
 
 ## Required Validators
 
@@ -83,7 +83,7 @@ Level 5 broad public/package maturity additionally requires:
 - public/private leak scan with zero unresolved public-release blockers in public package paths,
 - whole-repo publication review with zero unresolved public-repository blockers,
 - resolved repository-history decision,
-- canonical-only runtime validation for 5 active skills and 12 active project agents,
+- canonical-only runtime validation for 5 skills, 15 native agent definitions, and 12 compiled fallbacks,
 - license/contribution/security/community policy files approved,
 - owner-approved security disclosure channel,
 - release artifact reproducibility check,
@@ -203,7 +203,7 @@ Forbidden without separate approval:
 - Whole-repo publication review has zero unresolved blockers.
 - Repository-history exposure decisions are resolved.
 - Stale/unverified classification has no unresolved `review-required` content in public package output.
-- Public runtime is canonical-only: 5 active skills and 12 active project agents.
+- Current v0.3 candidate runtime is canonical-only: 5 skills, 15 native agent definitions, and 12 compiled fallbacks.
 - `sourceRef`, `lastExtracted`, and method status are present and validated.
 - External tool enterprise metadata is complete for any tool described as approved.
 - Source freshness issue workflow remains dry-run unless live issue creation receives separate approval.

@@ -68,6 +68,26 @@
         }
       ],
       "skillPath": "skills/governance/SKILL.md",
+      "deliveryKernel": {
+        "canonicalCompetencies": [
+          "governance",
+          "product-discovery",
+          "architecture"
+        ],
+        "eligibleRoles": [
+          "support"
+        ],
+        "measuredContextCost": 1374,
+        "contextCostMeasurement": "ceil(source-character-count/4)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": [
+            "codex-project-runtime"
+          ],
+          "forbidden": []
+        }
+      },
       "status": [
         "documented",
         "available",
@@ -143,6 +163,27 @@
         }
       ],
       "skillPath": "skills/uiux/SKILL.md",
+      "deliveryKernel": {
+        "canonicalCompetencies": [
+          "uiux",
+          "accessibility",
+          "responsive-ui",
+          "design-system"
+        ],
+        "eligibleRoles": [
+          "support"
+        ],
+        "measuredContextCost": 838,
+        "contextCostMeasurement": "ceil(source-character-count/4)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": [
+            "codex-project-runtime"
+          ],
+          "forbidden": []
+        }
+      },
       "status": [
         "documented",
         "available",
@@ -212,6 +253,26 @@
         }
       ],
       "skillPath": "skills/code-quality/SKILL.md",
+      "deliveryKernel": {
+        "canonicalCompetencies": [
+          "implementation",
+          "testing",
+          "verification"
+        ],
+        "eligibleRoles": [
+          "support"
+        ],
+        "measuredContextCost": 1023,
+        "contextCostMeasurement": "ceil(source-character-count/4)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": [
+            "codex-project-runtime"
+          ],
+          "forbidden": []
+        }
+      },
       "status": [
         "documented",
         "available",
@@ -274,6 +335,26 @@
         }
       ],
       "skillPath": "skills/security-review/SKILL.md",
+      "deliveryKernel": {
+        "canonicalCompetencies": [
+          "security",
+          "privacy",
+          "source-safety"
+        ],
+        "eligibleRoles": [
+          "support"
+        ],
+        "measuredContextCost": 509,
+        "contextCostMeasurement": "ceil(source-character-count/4)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": [
+            "codex-project-runtime"
+          ],
+          "forbidden": []
+        }
+      },
       "status": [
         "documented",
         "available",
@@ -336,6 +417,26 @@
         }
       ],
       "skillPath": "skills/pr-release-gate/SKILL.md",
+      "deliveryKernel": {
+        "canonicalCompetencies": [
+          "release",
+          "rollback",
+          "verification"
+        ],
+        "eligibleRoles": [
+          "support"
+        ],
+        "measuredContextCost": 513,
+        "contextCostMeasurement": "ceil(source-character-count/4)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": [
+            "codex-project-runtime"
+          ],
+          "forbidden": []
+        }
+      },
       "status": [
         "documented",
         "available",

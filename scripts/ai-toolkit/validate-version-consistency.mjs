@@ -51,10 +51,10 @@ async function main() {
     fail(".ai-toolkit/VERSION", `expected ${TOOLKIT_VERSION}`);
   }
 
+  // SourceCatalog v2 owns a schema version, not the toolkit release version.
   for (const file of [
     ".ai-toolkit/manifest.json",
     ".ai-toolkit/source-of-truth-map.json",
-    ".ai-toolkit/sources/watchlist.json",
     ".ai-toolkit/tool-packs/webapp-quality-security.json",
     ".ai-toolkit/evals/runtime-activation/runtime-boundary-evals.json",
     ".ai-toolkit/evals/routing/toolkit-routing-evals.json",

@@ -1,67 +1,294 @@
 #!/usr/bin/env node
-import { cp, mkdir, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
+import { mkdtemp, readdir, readFile, rm } from "node:fs/promises";
+import {
+  closeSync,
+  fstatSync,
+  lstatSync,
+  openSync,
+  readFileSync,
+  realpathSync,
+  readdirSync,
+  rmdirSync,
+  rmSync
+} from "node:fs";
 import { createHash } from "node:crypto";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import process from "node:process";
-import {
-  ACTIVE_AGENT_FILES,
-  ACTIVE_PROJECT_AGENTS,
-  ACTIVE_SKILLS,
-  INTERNAL_HELPER_SKILLS,
-  SOURCE_OF_TRUTH_MAP,
-  TOOL_ENTRIES,
-  TOOLKIT_VERSION
-} from "./embedded-data.mjs";
-import { collectReferencedSupportAssets } from "./reference-closure.mjs";
+import { fileURLToPath } from "node:url";
 
 const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
-const REMOVED_SKILL_ALIASES = [
-  "ai-project-governance",
-  "legacy-governance",
-  "premium-uiux-review",
-  "legacy-uiux-review",
-  "webapp-code-quality",
-  "legacy-code-quality",
-  "app-security-review",
-  "legacy-security-review",
-  "legacy-release-gate",
-  "legacy-agent-governance",
-  "legacy-skill-governance"
+const BUILDER_RELATIVE_PATH = "scripts/ai-toolkit/build-embedded-package.mjs";
+const VERIFIED_SELF_DIGEST_PARAMETER = "verifiedBuilderSha256";
+const EMBEDDED_SCHEMA_VERSION = "2.0.0";
+const DELIVERY_KERNEL_ROOT = `${AI_ROOT}/runtime/delivery-kernel`;
+const DELIVERY_KERNEL_REGISTRIES = [
+  "agents.registry.json",
+  "domain-packs.registry.json",
+  "routing-matrix.json",
+  "skills.registry.json",
+  "tools.registry.json"
 ];
-
+const SCRIPT_PROVENANCE_DIRECTORIES = ["scripts", "scripts/ai-toolkit"];
+let outputManager = null;
+let canonicalInputDigests = new Map();
+let canonicalDirectoryEntries = new Map();
+let canonicalProjectAgents = [];
+let bootstrapCanonicalInputDigests = new Map();
+let assertPathContained;
+let assertRegularFileWithin;
+let ManagedFilesystem;
+let recoverManagedDirectoryTransaction;
+let runManagedDirectoryTransaction;
+let snapshotManagedTree;
+let ACTIVE_SKILLS;
+let INTERNAL_HELPER_SKILLS;
+let SOURCE_OF_TRUTH_MAP;
+let TOOLKIT_VERSION;
+let collectReferencedSupportAssets;
+let validateSourceCatalog;
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
+}
+
+function comparisonPath(filePath) {
+  const resolved = path.resolve(filePath);
+  return process.platform === "win32" ? resolved.toLowerCase() : resolved;
+}
+
+function assertBootstrapPathIdentity(filePath, label, relativePath) {
+  const resolved = path.resolve(filePath);
+  const real = realpathSync.native(resolved);
+  if (comparisonPath(real) !== comparisonPath(resolved)) {
+    throw new Error(
+      `${label} must not traverse a junction, reparse point, or path alias: ${relativePath}`
+    );
+  }
+}
+
+function assertBootstrapSingleLink(stats, label, relativePath) {
+  if (stats.nlink !== 1) {
+    throw new Error(`${label} must not be a hard-linked file (nlink must equal 1): ${relativePath}`);
+  }
+}
+
+function sameBootstrapFile(left, right) {
+  return left.dev === right.dev && left.ino === right.ino;
+}
+
+function bootstrapRegularFile(relativePath, label) {
+  const repositoryRoot = path.resolve(ROOT);
+  const repositoryStats = lstatSync(repositoryRoot);
+  if (repositoryStats.isSymbolicLink() || !repositoryStats.isDirectory()) {
+    throw new Error(`${label} repository root must be a real directory: ${repositoryRoot}`);
+  }
+  assertBootstrapPathIdentity(repositoryRoot, label, repositoryRoot);
+
+  const target = rootPath(relativePath);
+  const relative = path.relative(repositoryRoot, target);
+  if (!relative || relative.startsWith("..") || path.isAbsolute(relative)) {
+    throw new Error(`${label} must remain a repository-contained file: ${relativePath}`);
+  }
+  let current = repositoryRoot;
+  const segments = relative.split(path.sep);
+  for (const [index, segment] of segments.entries()) {
+    current = path.join(current, segment);
+    const stats = lstatSync(current);
+    if (stats.isSymbolicLink()) {
+      throw new Error(
+        `${label} must not traverse a symbolic link, junction, or reparse point: ${relativePath}`
+      );
+    }
+    assertBootstrapPathIdentity(current, label, relativePath);
+    if (index < segments.length - 1 && !stats.isDirectory()) {
+      throw new Error(`${label} parent must be a directory: ${relativePath}`);
+    }
+    if (index === segments.length - 1 && !stats.isFile()) {
+      throw new Error(`${label} must be a regular file: ${relativePath}`);
+    }
+    if (index === segments.length - 1) {
+      assertBootstrapSingleLink(stats, label, relativePath);
+    }
+  }
+  return target;
+}
+
+function readBootstrapRegularFile(relativePath, label) {
+  const modulePath = bootstrapRegularFile(relativePath, label);
+  const pathStats = lstatSync(modulePath);
+  const descriptor = openSync(modulePath, "r");
+  try {
+    const openedStats = fstatSync(descriptor);
+    if (!openedStats.isFile()) {
+      throw new Error(`${label} opened target must be a regular file: ${relativePath}`);
+    }
+    assertBootstrapSingleLink(openedStats, label, relativePath);
+    if (!sameBootstrapFile(pathStats, openedStats)) {
+      throw new Error(`${label} changed identity while opening: ${relativePath}`);
+    }
+
+    const content = readFileSync(descriptor);
+    const recheckedPath = bootstrapRegularFile(relativePath, `${label} recheck`);
+    const recheckedStats = lstatSync(recheckedPath);
+    if (!sameBootstrapFile(openedStats, recheckedStats)) {
+      throw new Error(`${label} changed identity while loading: ${relativePath}`);
+    }
+    if (rawSha256(readFileSync(recheckedPath)) !== rawSha256(content)) {
+      throw new Error(`${label} changed content while loading: ${relativePath}`);
+    }
+    return { content, modulePath };
+  } finally {
+    closeSync(descriptor);
+  }
+}
+
+async function importDigestBoundModule(relativePath, label, { bootstrap = false } = {}) {
+  const bootstrapFile = bootstrap ? readBootstrapRegularFile(relativePath, label) : null;
+  const modulePath = bootstrapFile
+    ? bootstrapFile.modulePath
+    : assertRegularFileWithin(ROOT, rootPath(relativePath), label);
+  const content = bootstrapFile ? bootstrapFile.content : readFileSync(modulePath);
+  const digest = rawSha256(content);
+  const moduleUrl = `data:text/javascript;base64,${content.toString("base64")}#sha256=${digest}`;
+  const loaded = await import(moduleUrl);
+  const verifiedPath = bootstrap
+    ? bootstrapRegularFile(relativePath, `${label} post-import recheck`)
+    : assertRegularFileWithin(ROOT, rootPath(relativePath), `${label} recheck`);
+  if (rawSha256(readFileSync(verifiedPath)) !== digest) {
+    throw new Error(`${label} changed while loading: ${relativePath}`);
+  }
+  bootstrapCanonicalInputDigests.set(toSlash(relativePath), digest);
+  return loaded;
+}
+
+async function loadDigestBoundCanonicalModules(selfDigest) {
+  bootstrapCanonicalInputDigests = new Map([[BUILDER_RELATIVE_PATH, selfDigest]]);
+
+  const safeFilesystem = await importDigestBoundModule(
+    "install/safe-filesystem.mjs",
+    "managed filesystem module",
+    { bootstrap: true }
+  );
+  ({
+    assertPathContained,
+    assertRegularFileWithin,
+    ManagedFilesystem,
+    recoverManagedDirectoryTransaction,
+    runManagedDirectoryTransaction,
+    snapshotManagedTree
+  } = safeFilesystem);
+  const safeFilesystemPath = assertRegularFileWithin(
+    ROOT,
+    rootPath("install/safe-filesystem.mjs"),
+    "managed filesystem module verified containment"
+  );
+  if (rawSha256(readFileSync(safeFilesystemPath)) !== bootstrapCanonicalInputDigests.get("install/safe-filesystem.mjs")) {
+    throw new Error("managed filesystem module changed across bootstrap containment verification");
+  }
+
+  const embeddedData = await importDigestBoundModule(
+    "scripts/ai-toolkit/embedded-data.mjs",
+    "embedded data module"
+  );
+  ({
+    ACTIVE_SKILLS,
+    INTERNAL_HELPER_SKILLS,
+    SOURCE_OF_TRUTH_MAP,
+    TOOLKIT_VERSION
+  } = embeddedData);
+
+  const referenceClosure = await importDigestBoundModule(
+    "scripts/ai-toolkit/reference-closure.mjs",
+    "reference closure module"
+  );
+  ({ collectReferencedSupportAssets } = referenceClosure);
+
+  const sourceCatalogContract = await importDigestBoundModule(
+    "scripts/ai-toolkit/kernel/source-catalog-contract.mjs",
+    "source catalog contract module"
+  );
+  ({ validateSourceCatalog } = sourceCatalogContract);
 }
 
 function toSlash(filePath) {
   return filePath.split(path.sep).join("/");
 }
 
+function outputRelativePath(relativePath) {
+  const normalized = toSlash(relativePath);
+  if (normalized === AI_ROOT) return ".";
+  if (!normalized.startsWith(`${AI_ROOT}/`)) {
+    throw new Error(`embedded builder output must stay below ${AI_ROOT}: ${relativePath}`);
+  }
+  return normalized.slice(AI_ROOT.length + 1);
+}
+
+function requireOutputManager() {
+  if (!outputManager) throw new Error("embedded builder output manager is not initialized");
+  return outputManager;
+}
+
 async function ensureDir(relativePath) {
-  await mkdir(rootPath(relativePath), { recursive: true });
+  requireOutputManager().ensureDirectory(outputRelativePath(relativePath), "embedded package directory");
 }
 
 async function writeText(relativePath, text) {
   await ensureDir(path.dirname(relativePath));
-  await writeFile(rootPath(relativePath), text.endsWith("\n") ? text : `${text}\n`, "utf8");
+  requireOutputManager().writeFile(
+    outputRelativePath(relativePath),
+    text.endsWith("\n") ? text : `${text}\n`,
+    "utf8",
+    "embedded package file"
+  );
 }
 
 async function writeJson(relativePath, value) {
   await writeText(relativePath, JSON.stringify(value, null, 2));
 }
 
+function recordCanonicalInput(relativePath, content) {
+  const normalizedPath = toSlash(relativePath);
+  const digest = rawSha256(content);
+  const previous = canonicalInputDigests.get(normalizedPath);
+  if (previous && previous !== digest) {
+    throw new Error(`canonical input changed during generation: ${normalizedPath}`);
+  }
+  canonicalInputDigests.set(normalizedPath, digest);
+  return content;
+}
+
+async function readCanonicalInput(relativePath) {
+  const filePath = assertRegularFileWithin(ROOT, rootPath(relativePath), `canonical input ${relativePath}`);
+  return recordCanonicalInput(relativePath, await readFile(filePath));
+}
+
 async function readJson(relativePath) {
-  return JSON.parse(await readFile(rootPath(relativePath), "utf8"));
+  return JSON.parse((await readCanonicalInput(relativePath)).toString("utf8"));
+}
+
+async function readCanonicalDirectory(relativeDir) {
+  const directoryPath = assertPathContained(
+    ROOT,
+    rootPath(relativeDir),
+    `canonical input directory ${relativeDir}`
+  );
+  const entries = (await readdir(directoryPath, { withFileTypes: true }))
+    .sort((left, right) => left.name.localeCompare(right.name));
+  const normalizedDirectory = toSlash(relativeDir);
+  const descriptor = entries.map((entry) => (
+    `${entry.name}:${entry.isDirectory() ? "directory" : entry.isFile() ? "file" : "other"}`
+  ));
+  const previous = canonicalDirectoryEntries.get(normalizedDirectory);
+  if (previous && JSON.stringify(previous) !== JSON.stringify(descriptor)) {
+    throw new Error(`canonical input directory changed during generation: ${normalizedDirectory}`);
+  }
+  canonicalDirectoryEntries.set(normalizedDirectory, descriptor);
+  return entries;
 }
 
 async function walkFiles(relativeDir, output = []) {
-  let entries;
-  try {
-    entries = await readdir(rootPath(relativeDir), { withFileTypes: true });
-  } catch {
-    return output;
-  }
+  const entries = await readCanonicalDirectory(relativeDir);
   for (const entry of entries) {
     const child = `${relativeDir}/${entry.name}`;
     if (entry.isDirectory()) {
@@ -74,530 +301,231 @@ async function walkFiles(relativeDir, output = []) {
 }
 
 async function copyFileTracked(source, target, mirrors, mode = "byte-identical") {
+  const sourceContent = await readCanonicalInput(source);
   await ensureDir(path.dirname(target));
-  await cp(rootPath(source), rootPath(target), { force: true });
+  requireOutputManager().copyFileFrom(
+    ROOT,
+    rootPath(source),
+    outputRelativePath(target),
+    `embedded mirror ${source}`
+  );
+  if (rawSha256(sourceContent) !== rawSha256Output(target)) {
+    throw new Error(`canonical input changed while copying embedded mirror: ${source}`);
+  }
   mirrors.push({
     source,
     target,
     mode,
-    sha256: await sha256(target)
+    sha256: sha256Output(target)
   });
 }
 
-async function sha256(relativePath) {
-  const content = await readFile(rootPath(relativePath), "utf8");
-  return createHash("sha256").update(content.replace(/\r\n/g, "\n")).digest("hex");
+function rawSha256(content) {
+  return createHash("sha256").update(content).digest("hex");
+}
+
+async function sha256Source(relativePath) {
+  return rawSha256(await readCanonicalInput(relativePath));
+}
+
+function sha256Output(relativePath) {
+  return rawSha256(
+    requireOutputManager().readFile(outputRelativePath(relativePath), null, `embedded digest ${relativePath}`)
+  );
+}
+
+function rawSha256Output(relativePath) {
+  return rawSha256(
+    requireOutputManager().readFile(outputRelativePath(relativePath), null, `embedded byte digest ${relativePath}`)
+  );
+}
+
+function canonicalDirectoryDescriptor(relativeDir) {
+  const directoryPath = assertPathContained(
+    ROOT,
+    rootPath(relativeDir),
+    `canonical input directory ${relativeDir}`
+  );
+  return readdirSync(directoryPath, { withFileTypes: true })
+    .sort((left, right) => left.name.localeCompare(right.name))
+    .map((entry) => `${entry.name}:${entry.isDirectory() ? "directory" : entry.isFile() ? "file" : "other"}`);
+}
+
+function assertCanonicalInputsUnchanged() {
+  for (const [relativePath, expectedDigest] of canonicalInputDigests) {
+    const filePath = assertRegularFileWithin(
+      ROOT,
+      rootPath(relativePath),
+      `canonical input recheck ${relativePath}`
+    );
+    if (rawSha256(readFileSync(filePath)) !== expectedDigest) {
+      throw new Error(`canonical input changed during generation: ${relativePath}`);
+    }
+  }
+  for (const [relativeDir, expectedEntries] of canonicalDirectoryEntries) {
+    const actualEntries = canonicalDirectoryDescriptor(relativeDir);
+    if (JSON.stringify(actualEntries) !== JSON.stringify(expectedEntries)) {
+      throw new Error(`canonical input directory changed during generation: ${relativeDir}`);
+    }
+  }
 }
 
 function sourceRecordPath(toolId) {
   return `${AI_ROOT}/sources/records/${toolId}.md`;
 }
 
-function sourceUrl(repository) {
-  return `https://github.com/${repository}`;
+const SOURCE_REFERENCE_DISPOSITIONS = new Set([
+  "SYNCED_ADOPTED",
+  "SYNCED_REFERENCE",
+  "SYNCED_PLUGIN_DELEGATED"
+]);
+
+function sourceStateLabel(value) {
+  return String(value).toLowerCase().replaceAll("_", "-");
 }
 
-function repoParts(repository) {
-  const [owner, repo] = repository.split("/");
-  return { owner, repo };
+function sourceRevisionLabel(revision) {
+  if (revision === null || revision === undefined) return "none";
+  return `${revision.kind}:${revision.value}`;
 }
 
-function isCodeRabbitIntegration(id) {
-  return id === "coderabbit";
+function sourceCatalogEvidenceInstant(sourceCatalog) {
+  const instants = [
+    sourceCatalog.migratedAt,
+    ...sourceCatalog.sources.flatMap((source) => [source.monitor.checkedAt, source.review.reviewedAt])
+  ].filter((value) => typeof value === "string");
+  if (instants.length === 0) {
+    throw new Error("SourceCatalog v2 must expose a deterministic evidence instant");
+  }
+  return instants.sort((left, right) => left.localeCompare(right)).at(-1);
 }
 
-function isRepomix(id) {
-  return id === "repomix";
+function catalogSourceReferenceReason(source, evidenceInstant) {
+  if (source.monitor.state !== "CURRENT") {
+    return `monitor-${sourceStateLabel(source.monitor.state)}`;
+  }
+  if (
+    source.review.expiresAt !== null
+    && Date.parse(source.review.expiresAt) <= Date.parse(evidenceInstant)
+  ) {
+    return "review-expired";
+  }
+  if (source.review.state !== "REVIEWED_CURRENT") {
+    return `review-${sourceStateLabel(source.review.state)}`;
+  }
+  if (source.review.currentReceipt === null) return "receipt-missing";
+  if (!SOURCE_REFERENCE_DISPOSITIONS.has(source.review.disposition)) {
+    return `disposition-${sourceStateLabel(source.review.disposition ?? "missing")}`;
+  }
+  return null;
 }
 
-function isGsdCore(id) {
-  return id === "gsd-core";
+function sourceCatalogMatchesTool(source, tool) {
+  return source.dependentResourceIds.includes(tool.id)
+    && source.affectedArtifacts.includes(tool.sourceRecordPath);
 }
 
-function isPlaywright(id) {
-  return id === "playwright";
+function resolveSourceForTool(sourceCatalog, tool) {
+  const matches = sourceCatalog.sources.filter((source) => sourceCatalogMatchesTool(source, tool));
+  if (matches.length !== 1) {
+    const state = matches.length === 0 ? "missing" : "ambiguous";
+    throw new Error(`SourceCatalog v2 mapping is ${state} for tool ${tool.id}`);
+  }
+  return matches[0];
 }
 
-function enterpriseRiskMetadata(id) {
-  const base = {
-    license: "not-reviewed-owner-required",
-    saasOrLocal: "not-reviewed-owner-required",
-    dataSentExternally: "not-reviewed-owner-required",
-    networkBehavior: "not-reviewed-owner-required",
-    secretAccessRisk: "not-reviewed-owner-required",
-    repositoryPermissionsRequired: "not-reviewed-owner-required",
-    ciPermissionsRequired: "not-reviewed-owner-required",
-    githubAppPermissionsRequired: "not-reviewed-owner-required",
-    authenticationModel: "not-reviewed-owner-required",
-    telemetryBehavior: "not-reviewed-owner-required",
-    commercialVendorDependency: "not-reviewed-owner-required",
-    maintenanceSignal: "not-reviewed-owner-required",
-    lastReviewedCommit: "not-reviewed-owner-required",
-    lastReviewedDate: "not-reviewed-owner-required",
-    securityReviewStatus: "unreviewed-blocked",
-    approvalOwner: "owner-decision-required",
-    allowedEnvironments: ["metadata-only"],
-    forbiddenEnvironments: ["local execution", "CI", "staging", "production", "global config", "MCP", "product repositories"],
-    defaultEnterpriseStatus: "metadata-only; unreviewed-blocked; blocked from enterprise approval until owner review records evidence",
-    reviewState: "unreviewed-blocked",
-    reviewEvidence: "No current enterprise review evidence is recorded; registry presence is metadata-only and all execution/install environments remain blocked until owner review.",
-    riskTier: "unknown-review-required",
-    reviewedSource: "unknown-review-required",
-    reviewedVersionOrCommit: "unknown-review-required",
-    inspectedAreas: ["registry metadata only"],
-    uninspectedAreas: ["license", "telemetry", "network behavior", "permission model", "runtime behavior", "maintenance signal"],
-    riskRationale: "No current evidence-backed tool review is recorded beyond metadata presence.",
-    nextReviewDue: "owner-review-required"
-  };
-
-  if (isCodeRabbitIntegration(id)) {
-    return {
-      ...base,
-      saasOrLocal: "SaaS/external connected service",
-      dataSentExternally: "PR or repository context may be sent externally when the already-connected integration is used; repository owner review required",
-      networkBehavior: "networked GitHub app / external service",
-      ciPermissionsRequired: "none from toolkit metadata; unknown-review-required for external configuration",
-      authenticationModel: "external service / GitHub app integration",
-      commercialVendorDependency: "yes",
-      allowedEnvironments: ["already-connected PR review workflows after repository owner approval"],
-      forbiddenEnvironments: ["local execution", "CI", "staging", "production", "global config", "MCP", "product repositories", "install or configuration from registry presence", "credential changes", "permission changes", "merge authority by itself"],
-      securityReviewStatus: "metadata-only-delegated-service-review-required",
-      defaultEnterpriseStatus: "metadata-only; delegated service metadata only; owner review required before runtime integration, repository permission grant, or CI/PR write workflow",
-      reviewState: "metadata-only-owner-review-required",
-      reviewEvidence: "Delegated service metadata is recorded, but owner review is required before any runtime integration, repository permission grant, or CI/PR write workflow.",
-      riskTier: "high",
-      reviewedSource: "https://docs.coderabbit.ai",
-      reviewedVersionOrCommit: "manual-doc-review-required",
-      inspectedAreas: ["integration metadata", "toolkit boundary text"],
-      uninspectedAreas: ["service configuration", "repository permissions", "telemetry", "data retention", "billing", "current GitHub app settings"],
-      riskRationale: "External PR-review service may process repository and PR context; toolkit metadata cannot approve permissions or runtime use.",
-      nextReviewDue: "before enabling or changing repository integration"
-    };
+function assertSourceRecordTargetCoverage(sourceCatalog, toolRegistry) {
+  const toolsByPath = new Map();
+  for (const tool of toolRegistry.tools.filter((entry) => entry.sourceRecordPath !== null)) {
+    if (toolsByPath.has(tool.sourceRecordPath)) {
+      throw new Error(`tools registry source record path is duplicated: ${tool.sourceRecordPath}`);
+    }
+    toolsByPath.set(tool.sourceRecordPath, tool);
   }
 
-  if (isRepomix(id)) {
-    return {
-      ...base,
-      license: "MIT signal at reviewed commit; not legal approval to copy raw upstream content",
-      saasOrLocal: "local CLI/package if installed by project; metadata-only in toolkit",
-      dataSentExternally: "none from toolkit metadata; unknown and approval-required if optional integrations or remote outputs are configured",
-      networkBehavior: "metadata-only in toolkit; no network behavior approved from registry presence",
-      secretAccessRisk: "high if run broadly; scoped packs must exclude secrets, .env values, private overlays, caches, and generated output",
-      repositoryPermissionsRequired: "none from toolkit metadata; local repo read permissions only if separately approved or project-owned",
-      ciPermissionsRequired: "none from toolkit metadata; CI wiring remains approval-required",
-      githubAppPermissionsRequired: "none from toolkit metadata",
-      authenticationModel: "none from toolkit metadata; optional external integrations are not approved",
-      telemetryBehavior: "none approved or activated from toolkit metadata",
-      commercialVendorDependency: "none for metadata-only posture; package/runtime use remains owner-approved or project-owned",
-      maintenanceSignal: "active public repository at reviewed commit; not runtime-approved by toolkit metadata",
-      lastReviewedCommit: "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
-      lastReviewedDate: "2026-06-19",
-      securityReviewStatus: "source-safety posture reviewed for optional scoped context packing; execution, install, package changes, CI, MCP, global config, and whole-repo dumps remain approval-required",
-      approvalOwner: "project-owner-required-before-install-or-execution",
-      allowedEnvironments: ["metadata-only", "project-owned detected local tool after scoped owner approval"],
-      forbiddenEnvironments: ["automatic local execution", "CI", "staging", "production", "global config", "MCP", "whole-repo dumps", "product repositories", "product repositories without scoped owner approval"],
-      defaultEnterpriseStatus: "metadata-only detection; scoped local context packing requires explicit owner approval even when project-owned or detected; not enterprise-approved for default execution, CI, MCP, package changes, global config, or whole-repo dumps",
-      reviewState: "reviewed",
-      reviewEvidence: "Repomix default branch bb4ac4763faeb7fc3d31438f072a6946b5b290b9 recorded as optional source reference; registry presence does not approve install or execution.",
-      riskTier: "medium",
-      reviewedSource: "https://github.com/yamadashy/repomix",
-      reviewedVersionOrCommit: "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
-      inspectedAreas: ["source identity", "optional context-packing posture", "toolkit boundaries"],
-      uninspectedAreas: ["runtime execution", "package install behavior", "optional integrations", "telemetry", "CI behavior"],
-      riskRationale: "Context packing can expose repository contents if run broadly, so execution remains scoped and owner-approved.",
-      nextReviewDue: "2026-09-19"
-    };
-  }
-
-  if (isGsdCore(id)) {
-    return {
-      ...base,
-      license: "MIT signal at reviewed commit; not legal approval to copy raw upstream content",
-      saasOrLocal: "local CLI/package if installed by project or operator; metadata-only in toolkit",
-      dataSentExternally: "none from toolkit metadata; unknown and approval-required if runtime integrations or remote outputs are configured",
-      networkBehavior: "metadata-only in toolkit; no network behavior approved from registry presence",
-      secretAccessRisk: "high if invoked against broad project context; scope must exclude secrets, credentials, private overlays, and global config",
-      repositoryPermissionsRequired: "none from toolkit metadata; local repo access only if separately approved or project-owned",
-      ciPermissionsRequired: "none from toolkit metadata; CI wiring remains approval-required",
-      githubAppPermissionsRequired: "none from toolkit metadata",
-      authenticationModel: "none from toolkit metadata",
-      telemetryBehavior: "none approved or activated from toolkit metadata",
-      commercialVendorDependency: "none for metadata-only posture; package/runtime use remains owner-approved or project-owned",
-      maintenanceSignal: "active public repository at reviewed commit; not runtime-approved by toolkit metadata",
-      lastReviewedCommit: "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
-      lastReviewedDate: "2026-06-20",
-      securityReviewStatus: "source identity and tool posture reviewed; execution, install, package changes, CI, MCP, global config, hooks, and project writes remain approval-required",
-      approvalOwner: "project-owner-required-before-install-or-execution",
-      allowedEnvironments: ["metadata-only", "project-owned detected local tool after scoped owner approval"],
-      forbiddenEnvironments: ["local execution", "CI", "staging", "production", "global config", "MCP", "hooks", "product repositories"],
-      defaultEnterpriseStatus: "metadata-only detection; GSD phase/state use requires existing project/operator ownership or explicit owner approval; not enterprise-approved for default execution, CI, MCP, hooks, package changes, global config, or project writes",
-      reviewState: "reviewed",
-      reviewEvidence: "GSD Core default branch next at 7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034 reviewed for v0.2.5 CODEOWNERS-only drift; registry presence does not approve install or execution.",
-      riskTier: "medium",
-      reviewedSource: "https://github.com/open-gsd/gsd-core",
-      reviewedVersionOrCommit: "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
-      inspectedAreas: ["source identity", "repository relocation", "phase/state governance posture", "toolkit boundaries"],
-      uninspectedAreas: ["runtime execution", "installer behavior", "hooks", "global config", "CI behavior", "telemetry"],
-      riskRationale: "Workflow tooling can affect project state and planning artifacts; use remains active-if-detected or owner-approved.",
-      nextReviewDue: "2026-09-20"
-    };
-  }
-
-  if (isPlaywright(id)) {
-    return {
-      ...base,
-      license: "Apache-2.0 signal at reviewed commit; not legal approval to copy raw upstream content",
-      saasOrLocal: "local CLI/package if installed by project; metadata-only in toolkit",
-      dataSentExternally: "none from toolkit metadata; browser artifacts may contain sensitive data if project-owned Playwright is run separately",
-      networkBehavior: "metadata-only in toolkit; browser/network behavior is approval-required and project-owned when executed",
-      secretAccessRisk: "high if browser traces, screenshots, storage, headers, or authenticated sessions are captured; no execution approved by toolkit metadata",
-      repositoryPermissionsRequired: "none from toolkit metadata",
-      ciPermissionsRequired: "none from toolkit metadata; CI wiring remains approval-required",
-      githubAppPermissionsRequired: "none from toolkit metadata",
-      authenticationModel: "none from toolkit metadata",
-      telemetryBehavior: "unknown-review-required for runtime execution; no telemetry approved or activated from toolkit metadata",
-      commercialVendorDependency: "unknown-review-required; no commercial/vendor approval recorded",
-      maintenanceSignal: "public repository HEAD resolved by git ls-remote on 2026-06-20; v0.2.5 inspected source-freshness drift only, not runtime execution behavior",
-      lastReviewedCommit: "32883517ffe7725ef45ac2dc020a63962c27d7a3",
-      lastReviewedDate: "2026-06-20",
-      securityReviewStatus: "metadata-only source identity reviewed; install, runtime execution, telemetry, network behavior, CI wiring, and enterprise use remain owner-review-required",
-      approvalOwner: "quality-tool-owner-required",
-      allowedEnvironments: ["metadata-only", "project-owned detected local tool after scoped owner approval"],
-      forbiddenEnvironments: ["automatic local execution", "CI", "staging", "production", "global config", "MCP", "product repositories", "browser binary downloads", "trace/video/screenshot capture without artifact hygiene review"],
-      defaultEnterpriseStatus: "metadata-only; source identity/current HEAD reviewed; not enterprise-approved for install, execution, CI, MCP, global config, or product-repository use",
-      reviewState: "metadata-only-owner-review-required",
-      reviewEvidence: "Reviewed source identity via git ls-remote and GitHub compare https://github.com/microsoft/playwright from 11797b0336d50ab0d8bc554f53fcd8d4aab8438e to 32883517ffe7725ef45ac2dc020a63962c27d7a3 on 2026-06-20; inspected changed-file metadata and commit messages for CI workflow, Vite/package metadata, and trace WebSocket artifact handling drift; did not inspect license legal approval, telemetry, runtime network behavior, package release contents, CI execution behavior, browser downloads, MCP execution, or project-specific permissions; next review due 2026-09-20.",
-      riskTier: "medium",
-      reviewedSource: "https://github.com/microsoft/playwright",
-      reviewedVersionOrCommit: "32883517ffe7725ef45ac2dc020a63962c27d7a3",
-      inspectedAreas: ["source repository identity", "current default branch HEAD", "GitHub compare metadata", "changed-file metadata", "commit messages", "registry posture", "toolkit forbidden-use boundaries"],
-      uninspectedAreas: ["license legal approval", "telemetry behavior", "runtime network behavior", "package release contents", "CI execution behavior", "browser binary downloads", "MCP execution", "project-specific permissions"],
-      riskRationale: "Browser automation can expose private sessions and artifacts if executed; toolkit posture remains metadata-only and delegates execution to project-owned tooling after approval.",
-      nextReviewDue: "2026-09-20"
-    };
-  }
-
-  return base;
-}
-
-function toolRegistryEntry([id, name, repository, homepage, category, purpose, status, defaultUse]) {
-  if (isCodeRabbitIntegration(id)) {
-    return {
-      id,
-      name,
-      repository,
-      homepage,
-      purpose,
-      category,
-      status,
-      activationStatus: "external-installed-if-enabled",
-      runtimeSurface: "codex-plugin-github-app",
-      defaultUse,
-      approvalRequiredFor: [
-        "installing plugin",
-        "changing CodeRabbit configuration",
-        "changing GitHub app permissions",
-        "CI workflow changes",
-        "PR write/merge actions"
-      ],
-      allowedUse: [
-        "Route PR review and merge-readiness workflows to an already connected CodeRabbit integration.",
-        "Interpret CodeRabbit PR feedback as one support input alongside repo policy, validators, and human approval.",
-        "Use CodeRabbit comment triage when it is already available on the current PR."
-      ],
-      forbiddenUse: [
-        "Do not install/configure CodeRabbit from registry presence.",
-        "Do not authenticate or activate CodeRabbit from registry presence.",
-        "Do not treat CodeRabbit comments as higher priority than repo policy.",
-        "Do not merge based only on CodeRabbit pass.",
-        "Do not duplicate CodeRabbit with noisy reviewdog comments."
-      ],
-      sourceRecordPath: null,
-      integrationRecordPath: `${AI_ROOT}/integrations/coderabbit.md`,
-      enterpriseRisk: enterpriseRiskMetadata(id),
-      notes: "Delegated external integration metadata only; the toolkit routes to CodeRabbit and interprets feedback but does not install, authenticate, configure, vendor, or copy CodeRabbit."
-    };
-  }
-
-  const approvalRequiredFor = [
-    "install",
-    "activation",
-    "CI wiring",
-    "MCP setup",
-    "global config",
-    "hooks",
-    "PR write permissions",
-    "networked deep scans"
-  ];
-  return {
-    id,
-    name,
-    repository,
-    homepage,
-    purpose,
-    category,
-    status,
-    activationStatus: "metadata-only",
-    runtimeSurface: "external-tool-metadata",
-    defaultUse,
-    approvalRequiredFor,
-    allowedUse: [
-      "Document as source intelligence.",
-      "Route to existing project-owned scripts when already configured.",
-      "Use as reviewed metadata for future approval decisions."
-    ],
-    forbiddenUse: [
-      "Do not install or activate from registry presence.",
-      "Do not configure CI, MCP, hooks, credentials, or global settings.",
-      "Do not copy raw upstream files into active runtime paths."
-    ],
-    sourceRecordPath: sourceRecordPath(id),
-    integrationRecordPath: null,
-    enterpriseRisk: enterpriseRiskMetadata(id),
-    notes: status === "source-review-required"
-      ? "Repository/source identity requires explicit source review before reliance."
-      : "Metadata-only entry; review current upstream before adoption."
-  };
-}
-
-function sourceWatchEntry([id, name, repository, homepage, category, purpose, status]) {
-  const { owner, repo } = repoParts(repository);
-  const entry = {
-    id,
-    name,
-    sourceUrl: sourceUrl(repository),
-    repoOwner: owner,
-    repoName: repo,
-    defaultBranch: "main",
-    lastReviewedCommit: null,
-    lastReviewedDate: null,
-    sourceRecordPath: sourceRecordPath(id),
-    watchedPaths: [],
-    licenseConcern: "unknown-review-required",
-    reviewPriority: ["deep-approval-required", "source-review-required"].includes(status) ? "High" : "Medium",
-    neverAutoImport: true,
-    homepage,
-    category,
-    purpose,
-    recommendedToolkitStatus: status
-  };
-  if (isRepomix(id)) {
-    return {
-      ...entry,
-      lastReviewedCommit: "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
-      lastReviewedDate: "2026-06-19",
-      licenseConcern: "clear",
-      reviewPriority: "High",
-      recommendedToolkitStatus: "active-if-detected",
-      reviewDecision: {
-        outcome: "SYNCED_REFERENCE",
-        reviewedCommit: "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
-        reviewedDate: "2026-06-19",
-        summary: "Optional scoped context packing and token-count support retained only when project-owned or owner-approved; runtime execution remains approval-required.",
-        boundaries: [
-          "no default install",
-          "no automatic execution",
-          "no whole-repo dump",
-          "no package edits",
-          "no CI wiring",
-          "no MCP setup",
-          "no global config",
-          "no secrets or private overlays",
-          "no output claims without observed command output",
-          "no raw upstream copying"
-        ]
+  const sourcesByPath = new Map();
+  for (const source of sourceCatalog.sources) {
+    for (const artifact of source.affectedArtifacts.filter(
+      (entry) => entry.startsWith(`${AI_ROOT}/sources/records/`) && entry.endsWith(".md")
+    )) {
+      if (sourcesByPath.has(artifact)) {
+        throw new Error(`SourceCatalog v2 source record target is ambiguous: ${artifact}`);
       }
-    };
-  }
-  if (isGsdCore(id)) {
-    return {
-      ...entry,
-      defaultBranch: "next",
-      lastReviewedCommit: "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
-      lastReviewedDate: "2026-06-20",
-      licenseConcern: "clear",
-      reviewPriority: "High",
-      recommendedToolkitStatus: "active-if-detected",
-      reviewDecision: {
-        outcome: "SYNCED_REFERENCE",
-        reviewedCommit: "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
-        reviewedDate: "2026-06-20",
-        summary: "GSD Core relocation and v0.2.5 CODEOWNERS-only drift reviewed; retained as first-class governed tool metadata without vendoring, install, or runtime activation.",
-        boundaries: [
-          "no vendoring",
-          "no raw command or agent copying",
-          "no installer execution",
-          "no global configuration changes",
-          "no package changes",
-          "no CI wiring",
-          "no MCP setup",
-          "no hooks",
-          "no product-repo changes",
-          "no invocation claim without observed workflow output"
-        ]
+      sourcesByPath.set(artifact, source);
+      const tool = toolsByPath.get(artifact);
+      if (!tool) {
+        throw new Error(`SourceCatalog v2 source record ${artifact} is missing from tools registry`);
       }
-    };
-  }
-  if (isPlaywright(id)) {
-    return {
-      ...entry,
-      lastReviewedCommit: "32883517ffe7725ef45ac2dc020a63962c27d7a3",
-      lastReviewedDate: "2026-06-20",
-      licenseConcern: "clear",
-      reviewPriority: "Medium",
-      recommendedToolkitStatus: "delegated-existing",
-      reviewDecision: {
-        outcome: "SYNCED_PLUGIN_DELEGATED",
-        reviewedCommit: "32883517ffe7725ef45ac2dc020a63962c27d7a3",
-        reviewedDate: "2026-06-20",
-        summary: "v0.2.5 read-only refresh reviewed CI workflow, Vite/package metadata, and trace WebSocket artifact handling drift; browser evidence remains delegated to project-owned Playwright/browser tooling.",
-        boundaries: [
-          "no source import",
-          "no package update",
-          "no browser binary download",
-          "no CI update",
-          "no runtime update",
-          "no MCP activation",
-          "no global config",
-          "no product-repo changes"
-        ]
+      if (!source.dependentResourceIds.includes(tool.id)) {
+        throw new Error(`SourceCatalog v2 mapping is missing for tool ${tool.id}`);
       }
-    };
+    }
   }
-  return entry;
+
+  for (const [artifact, tool] of toolsByPath) {
+    if (!sourcesByPath.has(artifact)) {
+      throw new Error(`SourceCatalog v2 mapping is missing for tool ${tool.id}`);
+    }
+  }
 }
 
-function sourceRecord([id, name, repository, homepage, category, purpose, status, defaultUse]) {
-  if (isRepomix(id)) {
-    return `# Repomix Source Record
+function sourceStateRecord(tool, source, evidenceInstant) {
+  const referenceReason = catalogSourceReferenceReason(source, evidenceInstant)
+    ?? "receipt-chain-validation-required";
+  return `# ${tool.name} Source State Mirror
 
-- Source name: Repomix
-- Repository: yamadashy/repomix
-- Source URL: https://github.com/yamadashy/repomix
-- Homepage: https://repomix.com
-- Last reviewed commit: bb4ac4763faeb7fc3d31438f072a6946b5b290b9
-- Last reviewed date: 2026-06-19
-- Review level: optional-tool posture reference
-- Classification: active-if-detected or owner-approved-install candidate for scoped context packing/token counts
-- License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
-- Maintenance signal: active public repository at reviewed commit; not runtime-approved by toolkit metadata
+- Catalog source ID: ${source.id}
+- Dependent resource ID: ${tool.id}
+- Canonical catalog: sources/source-watchlist.json
+- Canonical source record: ${source.sourceRecordPath ?? "none"}
+- Catalog evidence instant: ${evidenceInstant}
+- Monitor state: ${source.monitor.state}
+- Observed revision: ${sourceRevisionLabel(source.monitor.observedRevision)}
+- Content digest: ${source.monitor.contentDigest ?? "none"}
+- Review state: ${source.review.state}
+- Reviewed revision: ${sourceRevisionLabel(source.review.reviewedRevision)}
+- Reviewed digest: ${source.review.reviewedDigest ?? "none"}
+- Review expires at: ${source.review.expiresAt ?? "none"}
+- Current receipt: ${source.review.currentReceipt ?? "none"}
+- Disposition: ${source.review.disposition ?? "none"}
+- Runtime posture: ${source.runtimePosture}
+- Reference eligibility: BLOCKED
+- Dependent-resource source state: BLOCKED
+- Runtime eligibility: false
+- Eligibility reason: ${referenceReason}
 - neverAutoImport: true
 
-## Toolkit Value
+## Boundary
 
-Repomix is useful only as optional practical support for scoped context packs and token counts when the project already owns it or the owner explicitly approves execution. It is not a default dependency and not the primary design model.
-
-## Active-If-Detected Boundary
-
-- Detect project-owned Repomix config or dependency before recommending use.
-- Use only scoped packs tied to selected files, directories, or task neighborhoods.
-- Use token counts as measurement evidence only when actual output is observed.
-
-## Forbidden By Default
-
-- no install or activation from registry presence;
-- no automatic whole-repo dumps;
-- no package edits, CI wiring, MCP setup, global config, or product-repo scanning;
-- no secrets, .env values, private overlays, generated build output, package caches, or user-local paths;
-- no Repomix output claims without approved observed command output.
+This generated compatibility record mirrors SourceCatalog v2. It is not an independent inventory, review receipt, install approval, runtime activation, detection evidence, or execution proof. Source freshness never activates its dependent tool, and live policy may impose stricter time-based blocking.
 `;
+}
+
+async function sourceStateMirrors() {
+  const [toolRegistry, sourceCatalog] = await Promise.all([
+    readJson("registries/tools.registry.json"),
+    readJson("sources/source-watchlist.json")
+  ]);
+  if (toolRegistry.schemaVersion !== "1.0.0" || !Array.isArray(toolRegistry.tools)) {
+    throw new Error("tools registry must use schemaVersion 1.0.0 and contain tools");
   }
-  if (isGsdCore(id)) {
-    return `# GSD Core Source Record
+  const evidenceInstant = sourceCatalogEvidenceInstant(sourceCatalog);
+  validateSourceCatalog(sourceCatalog, { now: evidenceInstant });
+  assertSourceRecordTargetCoverage(sourceCatalog, toolRegistry);
 
-- Source name: GSD Core
-- Repository: open-gsd/gsd-core
-- Source URL: https://github.com/open-gsd/gsd-core
-- Homepage: https://github.com/open-gsd/gsd-core
-- Last reviewed commit: 7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034
-- Last reviewed date: 2026-06-20
-- Review level: first-class governed tool metadata
-- Classification: active-if-detected or owner-approved-install candidate for phase/state governance
-- License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
-- Maintenance signal: active public repository at reviewed commit; default branch is next
-- neverAutoImport: true
-
-## Relocation Evidence
-
-The previous GSD repository, gsd-build/get-shit-done, now points users to open-gsd/gsd-core as the active home. The toolkit tracks the new canonical repository only.
-
-## Toolkit Value
-
-GSD Core is useful as phase/state planning and execution discipline for serious multi-step governed work when already available in the operator or project environment, or when the owner approves installation.
-
-## Active-If-Detected Boundary
-
-- Detect project-owned or operator-owned GSD before recommending invocation.
-- Report selected, invoked, blocked-unavailable, or manual fallback status honestly.
-- Count workflow output as evidence only when observed in the current task.
-
-## Forbidden By Default
-
-- no vendoring or raw source copying;
-- no install or activation from registry presence;
-- no package edits, CI wiring, MCP setup, hooks, global config, or product-repo mutation;
-- no GSD invocation claim without observed workflow output.
-`;
-  }
-  if (isPlaywright(id)) {
-    return `# Playwright Source Record
-
-- Source name: Playwright
-- Repository: microsoft/playwright
-- Source URL: https://github.com/microsoft/playwright
-- Homepage: https://playwright.dev
-- Last reviewed commit: 32883517ffe7725ef45ac2dc020a63962c27d7a3
-- Last reviewed date: 2026-06-20
-- Review level: delegated browser-evidence source metadata
-- Classification: delegated-existing / project-owned browser validation only
-- License status: Apache-2.0 signal at reviewed commit; not legal approval to copy raw upstream content
-- Maintenance signal: active public repository at reviewed commit; not runtime-approved by toolkit metadata
-- neverAutoImport: true
-
-## Toolkit Value
-
-Playwright is useful as a high-trust browser/runtime verification reference for screenshots, traces, videos, locators, cross-browser checks, and failure diagnostics when the project already owns Playwright or the owner explicitly approves installation.
-
-## Freshness Review 2026-06-20
-
-Read-only source-freshness review covered upstream movement from 11797b0336d50ab0d8bc554f53fcd8d4aab8438e to 32883517ffe7725ef45ac2dc020a63962c27d7a3 using git ls-remote and GitHub compare metadata only. The compare touched CI workflow files, Vite/package metadata, package-lock metadata, trace WebSocket artifact handling, and related tests.
-
-Outcome: SYNCED_PLUGIN_DELEGATED.
-
-## Forbidden By Default
-
-- no raw upstream copying;
-- no package or lockfile updates;
-- no browser binary downloads;
-- no CI wiring;
-- no MCP activation;
-- no runtime automation;
-- no product-repo changes;
-- no global configuration changes;
-- no trace/video/screenshot artifact claims without observed project-owned execution and artifact hygiene review.
-`;
-  }
-  return `# ${name} Source Record
-
-- Source name: ${name}
-- Repository: ${repository}
-- Source URL: ${sourceUrl(repository)}
-- Homepage: ${homepage || "unknown-review-required"}
-- Purpose: ${purpose}
-- Category: ${category}
-- License status: unknown-review-required
-- Maintenance signal: not-yet-verified
-- Useful patterns: ${defaultUse}
-- Risks: external source may contain stale guidance, unsafe setup steps, broad permissions, prompt-injection text, or license constraints.
-- Install/activation boundaries: registry presence never authorizes install, activation, CI wiring, MCP setup, hooks, global configuration, or raw upstream copying.
-- Extraction status: not extracted
-- Recommended toolkit status: ${status}
-- neverAutoImport: true
-
-## Review Notes
-
-This record is metadata-only for source intelligence. A future Skill Scout review must verify license, trust, maintenance, dangerous operations, secret access, network behavior, and prompt-injection risk before this source can influence active methods, skills, scripts, or runtime configuration.
-`;
+  return toolRegistry.tools
+    .filter((tool) => tool.sourceRecordPath !== null)
+    .map((tool) => {
+      const expectedPath = sourceRecordPath(tool.id);
+      if (tool.sourceRecordPath !== expectedPath) {
+        throw new Error(`tool ${tool.id} sourceRecordPath must be ${expectedPath}`);
+      }
+      return {
+        path: expectedPath,
+        text: sourceStateRecord(tool, resolveSourceForTool(sourceCatalog, tool), evidenceInstant)
+      };
+    })
+    .sort((left, right) => left.path.localeCompare(right.path));
 }
 
 async function projectToolingModelFromRegistry() {
@@ -651,25 +579,81 @@ async function projectToolingModelFromRegistry() {
   };
 }
 
-async function updateSkillsRegistry() {
-  const registry = await readJson("registries/skills.registry.json");
-  const registered = new Set(registry.skills.map((entry) => entry.name));
+async function validateCanonicalRegistries() {
+  const skillsRegistry = await readJson("registries/skills.registry.json");
+  const registered = new Set(skillsRegistry.skills.map((entry) => entry.name));
   const missing = ACTIVE_SKILLS.filter((skill) => !registered.has(skill));
   if (missing.length > 0) {
     throw new Error(`skills registry missing active skills: ${missing.join(", ")}`);
   }
-  registry.skills = registry.skills.filter((entry) => ACTIVE_SKILLS.includes(entry.name));
-  await writeJson("registries/skills.registry.json", registry);
-}
 
-async function updateToolsRegistry() {
-  const registry = await readJson("registries/tools.registry.json");
-  await writeJson("registries/tools.registry.json", registry);
-}
+  const agentsRegistry = await readJson("registries/agents.registry.json");
+  const seenNames = new Set();
+  const seenTomlPaths = new Set();
+  canonicalProjectAgents = [];
+  for (const agent of agentsRegistry.agents ?? []) {
+    const name = typeof agent.name === "string" ? agent.name.trim() : "";
+    if (!name || seenNames.has(name)) {
+      throw new Error(`agents registry contains an invalid or duplicate agent name: ${name || "<missing>"}`);
+    }
+    seenNames.add(name);
 
-async function updateRoutingMatrix() {
-  const registry = await readJson("registries/routing-matrix.json");
-  await writeJson("registries/routing-matrix.json", registry);
+    const tomlPath = toSlash(agent.runtimeFiles?.tomlPath ?? "");
+    const expectedTomlPath = `.codex/agents/${name}.toml`;
+    if (tomlPath !== expectedTomlPath || agent.runtimeFiles?.tomlPresent !== true) {
+      throw new Error(`agents registry runtime TOML mismatch for ${name}: expected ${expectedTomlPath}`);
+    }
+    if (seenTomlPaths.has(tomlPath)) {
+      throw new Error(`agents registry contains a duplicate runtime TOML path: ${tomlPath}`);
+    }
+    seenTomlPaths.add(tomlPath);
+
+    const sourcePath = `agents/${name}.md`;
+    const provenancePaths = new Set(
+      (agent.sourceProvenance ?? []).map((entry) => toSlash(entry?.path ?? ""))
+    );
+    if (!provenancePaths.has(sourcePath)) {
+      throw new Error(`agents registry source provenance is missing ${sourcePath}`);
+    }
+
+    const topLevelFallback = agent.compiledFallbackPath ?? null;
+    const runtimeFallback = agent.runtimeFiles?.compiledFallbackPath ?? null;
+    if (topLevelFallback !== runtimeFallback) {
+      throw new Error(`agents registry compiled fallback mismatch for ${name}`);
+    }
+    if (runtimeFallback !== null) {
+      const fallbackPath = toSlash(runtimeFallback);
+      if (
+        fallbackPath !== `compiled-agents/${name}.compiled.md`
+        || agent.runtimeFiles?.compiledFallbackPresent !== true
+        || !provenancePaths.has(fallbackPath)
+      ) {
+        throw new Error(`agents registry compiled fallback declaration is invalid for ${name}`);
+      }
+    } else if (agent.runtimeFiles?.compiledFallbackPresent !== false) {
+      throw new Error(`agents registry compiled fallback presence is invalid for ${name}`);
+    }
+
+    await Promise.all([
+      readCanonicalInput(tomlPath),
+      readCanonicalInput(sourcePath),
+      ...(runtimeFallback ? [readCanonicalInput(toSlash(runtimeFallback))] : [])
+    ]);
+    canonicalProjectAgents.push({
+      name,
+      tomlPath,
+      sourcePath,
+      compiledFallbackPath: runtimeFallback ? toSlash(runtimeFallback) : null
+    });
+  }
+  if (canonicalProjectAgents.length === 0) {
+    throw new Error("agents registry must contain at least one project agent");
+  }
+  await Promise.all([
+    readJson("registries/tools.registry.json"),
+    readJson("registries/routing-matrix.json"),
+    readJson("registries/domain-packs.registry.json")
+  ]);
 }
 
 async function writePackageDocs() {
@@ -695,6 +679,8 @@ Active runtime surfaces remain intentionally small:
 
 No file in this package installs tools, activates external sources, configures CI, configures MCP, changes global Codex config, or imports raw upstream content.
 
+The self-contained delivery kernel at \`.ai-toolkit/runtime/delivery-kernel/\` may be invoked explicitly with Node.js 22. It is not auto-activated and its default planning path is read-only, stdout-only, and offline-capable.
+
 ## Source Of Truth Map
 
 ${sourceMapTable}
@@ -704,7 +690,7 @@ ${sourceMapTable}
 - Registries are metadata only.
 - Tool records are source-intelligence only.
 - Source watchlist entries always use \`neverAutoImport: true\`.
-- Active runtime is limited to ${ACTIVE_SKILLS.length} reviewed skills and ${ACTIVE_PROJECT_AGENTS.length} project custom agents.
+- Active runtime is limited to ${ACTIVE_SKILLS.length} reviewed skills and ${canonicalProjectAgents.length} registry-declared project custom agents.
 - Helper skills remain internal and must not be copied into active runtime paths.
 - Top-level folders remain canonical and are not deleted, relocated, or flattened in this pass.
 - The embedded builder preserves reviewed registries instead of regenerating them from stale defaults.
@@ -746,7 +732,7 @@ async function writeChecklistsAndTemplates() {
     "source-record-template.md": "# Source Record\n\n- Source name:\n- Repository:\n- Source URL:\n- License status:\n- Maintenance signal:\n- Useful patterns:\n- Risks:\n- Boundaries:\n- Recommended status:\n- Tool enterprise-risk record, if applicable:\n\n## Enterprise Tool Boundary\n\nIf this source backs an external tool entry, enterprise-risk metadata belongs in `registries/tools.registry.json` under `enterpriseRisk`. A source record alone does not approve installation, activation, CI usage, GitHub permissions, credential access, or product-repository use.\n",
     "tool-record-template.md": "# Tool Record\n\n- Tool:\n- Purpose:\n- Category:\n- Default use:\n- Approval required for:\n- Allowed use:\n- Forbidden use:\n- Source record:\n\n## Enterprise Risk\n\n- License:\n- SaaS or local:\n- Data sent externally:\n- Network behavior:\n- Secret access risk:\n- Repository permissions required:\n- CI permissions required:\n- GitHub app permissions required:\n- Authentication model:\n- Telemetry behavior:\n- Commercial/vendor dependency:\n- Maintenance signal:\n- Last reviewed commit/date:\n- Security review status:\n- Approval owner:\n- Allowed environments:\n- Forbidden environments:\n- Default enterprise status:\n",
     "registry-frontmatter-template.md": "# Registry Frontmatter Template\n\nUse this as a starting point for future source files that may become registry-generation inputs.\n\n```yaml\n---\nname:\ndescription:\nregistryId:\nregistryType:\nsourceRef: [\"unknown-review-required\"]\nlastExtracted: unknown-review-required\nstatus: draft\n---\n```\n\nDo not use frontmatter to grant trust, license approval, security approval, runtime activation, routing authority, tool permissions, or public release readiness.\n",
-    "compiled-agent-metadata-template.md": "# Compiled Agent Metadata Template\n\n```yaml\n---\ntoolkit_name: AI Agent Skills Toolkit\ntoolkit_version:\ntoolkit_pin:\ncompiled_status: review\ncompiled_at: deterministic-not-recorded\nsource_commit:\nsource_agent:\ncompiler: scripts/compile-agents.mjs\nregistry_input: registries/agents.registry.json\nsource_profile_refs: []\nsource_method_refs: []\ncompile_contract_version:\n---\n```\n\nMetadata must be generated by a reviewed deterministic compiler. Do not mechanically restamp compiled agents without regenerated provenance and review evidence.\n"
+    "compiled-agent-metadata-template.md": "# Compiled Agent Metadata Template\n\n```yaml\n---\ntoolkit_name: AI Agent Skills Toolkit\ntoolkit_version:\ntoolkit_pin:\ncompiled_status: approved|review\ncompiled_at: deterministic-not-recorded\nsource_commit:\ninput_digest: sha256:\ninput_digest_scope: canonical-agent-inputs-v1\ncompiler_digest: sha256:\nsource_agent:\ncompiler: scripts/compile-agents.mjs\nregistry_input: registries/agents.registry.json\nsource_profile_refs: []\nsource_method_refs: []\ncompile_contract_version:\n---\n```\n\nMetadata must be generated by the reviewed deterministic compiler. `source_commit` is the latest commit touching fixed canonical agent/compiler paths, not the current `HEAD` and never a caller-supplied override. `input_digest` and `compiler_digest` gate exact content integrity. Compiled fallbacks have a 3,500-word target, warning above 4,500 words, and failure above 6,000 words. Do not mechanically restamp compiled agents without regenerated provenance and review evidence.\n"
   };
   for (const [file, text] of Object.entries(templates)) {
     await writeText(`${AI_ROOT}/templates/${file}`, text);
@@ -828,17 +814,8 @@ async function writeIntegrations() {
 }
 
 async function writeSources() {
-  const sourceTools = TOOL_ENTRIES.filter(([id]) => !isCodeRabbitIntegration(id));
-  const watchlist = sourceTools.map(sourceWatchEntry);
-  await writeJson(`${AI_ROOT}/sources/watchlist.json`, {
-    schemaVersion: "1.0.0",
-    toolkitVersion: TOOLKIT_VERSION,
-    policy: "Source watchlist is metadata-only and never authorizes import, install, activation, extraction, CI wiring, MCP setup, or global config changes.",
-    sources: watchlist
-  });
-  await rm(rootPath(`${AI_ROOT}/sources/records/coderabbit.md`), { force: true });
-  for (const tool of sourceTools) {
-    await writeText(sourceRecordPath(tool[0]), sourceRecord(tool));
+  for (const mirror of await sourceStateMirrors()) {
+    await writeText(mirror.path, mirror.text);
   }
 }
 
@@ -849,7 +826,7 @@ async function writeEvals() {
     cases: [
       { id: "ai-toolkit-not-runtime", input: "Use .ai-toolkit skill directly", expected: "reject-runtime-activation-confusion" },
       { id: "active-skill-visible", input: "Use code-quality for a TypeScript change", expected: "route-active-skill" },
-      { id: "active-project-agent-count-12", input: "Validate repo-local project custom agent count", expectedActiveProjectAgents: ACTIVE_PROJECT_AGENTS.length },
+      { id: "active-project-agent-count-registry", input: "Validate repo-local project custom agent count against the canonical registry", expectedActiveProjectAgents: canonicalProjectAgents.length },
       { id: "bounded-backend-database-sre-agents", input: "Validate backend/database/SRE agents are read-only advisory and bounded", expected: "guardrails-required" },
       { id: "old-alias-not-active", input: "Use an old removed skill alias directly", expected: "redirect-to-canonical-skill" },
       { id: "validator-warn-visible", input: "Aggregate validator passes but subvalidator emits WARN", expected: "pass-with-warn-summary" },
@@ -881,112 +858,259 @@ async function writeEvals() {
 
 async function copyMirrors() {
   const mirrors = [];
-  for (const root of ["skills", ".agents/skills", `${AI_ROOT}/skills`]) {
-    for (const skill of REMOVED_SKILL_ALIASES) {
-      await rm(rootPath(`${root}/${skill}`), { recursive: true, force: true });
-    }
-  }
+  await copyFileTracked(
+    "sources/source-watchlist.json",
+    `${AI_ROOT}/sources/watchlist.json`,
+    mirrors,
+    "byte-identical"
+  );
+  const sourceCatalogMirror = mirrors.at(-1);
+  sourceCatalogMirror.sourceSha256 = await sha256Source(sourceCatalogMirror.source);
+  sourceCatalogMirror.targetSha256 = sha256Output(sourceCatalogMirror.target);
   for (const skill of ACTIVE_SKILLS) {
-    await copyFileTracked(`skills/${skill}/SKILL.md`, `.agents/skills/${skill}/SKILL.md`, mirrors);
     await copyFileTracked(`skills/${skill}/SKILL.md`, `${AI_ROOT}/skills/${skill}/SKILL.md`, mirrors);
   }
 
-  for (const file of ACTIVE_AGENT_FILES) {
-    const name = file.replace(/\.toml$/, "");
-    await copyFileTracked(`.codex/agents/${file}`, `${AI_ROOT}/runtime-agents/${file}`, mirrors);
-    const sourceAgent = `agents/${name}.md`;
-    try {
-      await stat(rootPath(sourceAgent));
-      await copyFileTracked(sourceAgent, `${AI_ROOT}/agents/${name}.md`, mirrors, "packaged-source-hash");
-    } catch {
-      // Runtime TOML still remains the active copy; missing markdown source is validated separately if required later.
-    }
+  for (const agent of canonicalProjectAgents) {
+    await copyFileTracked(
+      agent.tomlPath,
+      `${AI_ROOT}/runtime-agents/${path.posix.basename(agent.tomlPath)}`,
+      mirrors
+    );
+    await copyFileTracked(agent.sourcePath, `${AI_ROOT}/${agent.sourcePath}`, mirrors, "packaged-source-hash");
   }
 
-  await rm(rootPath(`${AI_ROOT}/templates`), { recursive: true, force: true });
   for (const file of await walkFiles("templates")) {
     await copyFileTracked(file, `${AI_ROOT}/${file}`, mirrors);
   }
 
-  for (const file of await readdir(rootPath("registries"))) {
+  for (const entry of await readCanonicalDirectory("registries")) {
+    const file = entry.name;
     if (file.endsWith(".json")) {
       await copyFileTracked(`registries/${file}`, `${AI_ROOT}/registries/${file}`, mirrors);
     }
   }
 
-  for (const file of ACTIVE_AGENT_FILES.map((agentFile) => agentFile.replace(/\.toml$/, ".compiled.md"))) {
-    await copyFileTracked(`compiled-agents/${file}`, `${AI_ROOT}/compiled-agents/${file}`, mirrors, "packaged-source-hash");
+  for (const agent of canonicalProjectAgents.filter((entry) => entry.compiledFallbackPath)) {
+    await copyFileTracked(
+      agent.compiledFallbackPath,
+      `${AI_ROOT}/${agent.compiledFallbackPath}`,
+      mirrors,
+      "packaged-source-hash"
+    );
   }
 
-  const registryFiles = (await readdir(rootPath("registries")))
-    .filter((file) => file.endsWith(".json"))
-    .map((file) => `registries/${file}`);
+  const registryFiles = (await readCanonicalDirectory("registries"))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".json"))
+    .map((entry) => `registries/${entry.name}`);
   const supportSeeds = [
     ...ACTIVE_SKILLS.map((skill) => `skills/${skill}/SKILL.md`),
-    ...ACTIVE_AGENT_FILES.map((agentFile) => `agents/${agentFile.replace(/\.toml$/, ".md")}`),
-    ...ACTIVE_AGENT_FILES.map((agentFile) => `compiled-agents/${agentFile.replace(/\.toml$/, ".compiled.md")}`),
-    ...registryFiles,
-    `${AI_ROOT}/tool-packs/webapp-quality-security.json`
+    ...canonicalProjectAgents.map((agent) => agent.sourcePath),
+    ...canonicalProjectAgents.flatMap((agent) => (
+      agent.compiledFallbackPath ? [agent.compiledFallbackPath] : []
+    )),
+    ...registryFiles
   ];
+  const initialSupportAssets = collectReferencedSupportAssets({
+    root: ROOT,
+    seedFiles: supportSeeds,
+    includeTransitive: true
+  });
+  await Promise.all(initialSupportAssets.map((asset) => readCanonicalInput(asset.sourcePath)));
   const supportAssets = collectReferencedSupportAssets({
     root: ROOT,
     seedFiles: supportSeeds,
     includeTransitive: true
   });
+  const supportDescriptor = (assets) => assets.map((asset) => ({
+    sourcePath: asset.sourcePath,
+    destinationPath: asset.destinationPath,
+    type: asset.type
+  }));
+  if (JSON.stringify(supportDescriptor(initialSupportAssets)) !== JSON.stringify(supportDescriptor(supportAssets))) {
+    throw new Error("canonical support-asset closure changed during generation");
+  }
   for (const asset of supportAssets) {
     await copyFileTracked(asset.sourcePath, asset.destinationPath, mirrors, "packaged-support-asset");
   }
 
-  return mirrors;
-}
-
-async function writeManifest(mirrors) {
-  const scripts = [
-    "scripts/validate-toolkit.mjs",
-    "scripts/scan-public-private-leaks.mjs",
-    "scripts/classify-stale-unverified-data.mjs",
-    "scripts/report-registry-generation-readiness.mjs",
-    "scripts/sync-runtime.mjs",
-    "scripts/check-source-freshness.mjs",
-    "scripts/validate-project-tooling-profiles.mjs",
-    "scripts/ai-toolkit/build-embedded-package.mjs",
-    "scripts/ai-toolkit/reference-closure.mjs",
-    "scripts/ai-toolkit/validate-ai-toolkit.mjs",
-    "scripts/ai-toolkit/validate-reference-closure.mjs",
-    "scripts/ai-toolkit/validate-codex-runtime.mjs",
-    "scripts/ai-toolkit/validate-version-consistency.mjs",
-    "scripts/ai-toolkit/run-toolkit-evals.mjs",
-    "scripts/ai-toolkit/check-source-freshness.mjs",
-    "scripts/ai-toolkit/run-quality-gate.mjs"
-  ];
-  const existingScripts = [];
-  for (const script of scripts) {
-    try {
-      await stat(rootPath(script));
-      existingScripts.push({ path: script, sha256: await sha256(script) });
-    } catch {
-      existingScripts.push({ path: script, sha256: null, status: "planned" });
+  const sorted = [...mirrors].sort((left, right) => (
+    left.target.localeCompare(right.target) || left.source.localeCompare(right.source)
+  ));
+  const mirrorsByTarget = new Map();
+  for (const mirror of sorted) {
+    const existing = mirrorsByTarget.get(mirror.target);
+    if (!existing) {
+      mirrorsByTarget.set(mirror.target, mirror);
+      continue;
+    }
+    if (existing.source !== mirror.source || existing.sha256 !== mirror.sha256) {
+      throw new Error(
+        `embedded mirror target has conflicting provenance: ${mirror.target}`
+      );
     }
   }
+  return [...mirrorsByTarget.values()];
+}
+
+async function copyDeliveryKernelFile(source, packageRelativePath, files) {
+  const sourceContent = await readCanonicalInput(source);
+  const target = `${DELIVERY_KERNEL_ROOT}/${packageRelativePath}`;
+  await ensureDir(path.dirname(target));
+  requireOutputManager().copyFileFrom(
+    ROOT,
+    rootPath(source),
+    outputRelativePath(target),
+    `delivery kernel package file ${source}`
+  );
+  if (rawSha256(sourceContent) !== rawSha256Output(target)) {
+    throw new Error(`canonical input changed while copying delivery kernel package file: ${source}`);
+  }
+  files.push({
+    path: packageRelativePath,
+    sha256: rawSha256Output(target)
+  });
+}
+
+async function deliveryKernelReceiptPaths(sourceCatalog) {
+  const pending = (sourceCatalog.sources ?? [])
+    .map((source) => source.review?.currentReceipt)
+    .filter(Boolean);
+  const paths = new Set();
+  while (pending.length > 0) {
+    const receiptPath = pending.shift();
+    if (paths.has(receiptPath)) continue;
+    if (
+      typeof receiptPath !== "string"
+      || !receiptPath.startsWith("sources/reviews/")
+      || !receiptPath.endsWith(".json")
+      || receiptPath.includes("\\")
+      || path.posix.normalize(receiptPath) !== receiptPath
+    ) {
+      throw new Error(`delivery kernel source receipt path is unsafe: ${receiptPath}`);
+    }
+    paths.add(receiptPath);
+    const receipt = await readJson(receiptPath);
+    if (receipt.rollbackTarget?.previousReceipt) {
+      pending.push(receipt.rollbackTarget.previousReceipt);
+    }
+  }
+  return [...paths].sort((left, right) => left.localeCompare(right));
+}
+
+async function writeDeliveryKernelPackage() {
+  const files = [];
+  await copyDeliveryKernelFile(
+    "scripts/ai-toolkit/run-delivery-kernel.mjs",
+    "scripts/ai-toolkit/run-delivery-kernel.mjs",
+    files
+  );
+  for (const source of await walkFiles("scripts/ai-toolkit/kernel")) {
+    await copyDeliveryKernelFile(source, source, files);
+  }
+  await copyDeliveryKernelFile("install/safe-filesystem.mjs", "install/safe-filesystem.mjs", files);
+  for (const registry of DELIVERY_KERNEL_REGISTRIES) {
+    await copyDeliveryKernelFile(`registries/${registry}`, `registries/${registry}`, files);
+  }
+  const sourceCatalogPath = "sources/source-watchlist.json";
+  const sourceCatalog = await readJson(sourceCatalogPath);
+  await copyDeliveryKernelFile(sourceCatalogPath, sourceCatalogPath, files);
+  for (const receiptPath of await deliveryKernelReceiptPaths(sourceCatalog)) {
+    await copyDeliveryKernelFile(receiptPath, receiptPath, files);
+  }
+  for (const agent of canonicalProjectAgents) {
+    await copyDeliveryKernelFile(agent.tomlPath, agent.tomlPath, files);
+  }
+  for (const skill of ACTIVE_SKILLS) {
+    await copyDeliveryKernelFile(`skills/${skill}/SKILL.md`, `skills/${skill}/SKILL.md`, files);
+  }
+  await copyDeliveryKernelFile(
+    "templates/delivery-kernel.request.example.json",
+    "templates/delivery-kernel.request.example.json",
+    files
+  );
+
+  const readmePath = `${DELIVERY_KERNEL_ROOT}/README.md`;
+  await writeText(readmePath, `# Self-Contained Delivery Kernel
+
+This package contains the Node.js delivery-kernel runner, its complete local module closure, canonical registries, runtime resource evidence, and the committed starter request. It has no runtime dependencies beyond Node.js 22 and does not need network access to plan a delivery run.
+
+From the target repository root, copy the package's starter, then replace its all-zero
+\`repository.expectedCommit\` placeholder with the target repository's current full 40-character Git SHA. The committed template cannot self-pin because changing its own commit field creates a new commit. Run the package against that pinned copy:
+
+\`\`\`text
+node .ai-toolkit/runtime/delivery-kernel/scripts/ai-toolkit/run-delivery-kernel.mjs plan --input path/to/delivery-kernel.request.pinned.json
+\`\`\`
+
+The request's repository root is resolved from the invocation working directory. When using the package against another repository, invoke the runner by absolute path and update the copied starter's repository root and expected commit. Never run the all-zero placeholder directly. Planning remains read-only and stdout-only unless the request and CLI explicitly authorize a scoped output file. This package does not install or activate tools, change global Codex or Claude configuration, or claim runtime evidence from file presence.
+`);
+  files.push({ path: "README.md", sha256: rawSha256Output(readmePath) });
+  files.sort((left, right) => left.path.localeCompare(right.path));
+
+  const manifestPath = `${DELIVERY_KERNEL_ROOT}/package-manifest.json`;
+  await writeJson(manifestPath, {
+    schemaVersion: EMBEDDED_SCHEMA_VERSION,
+    toolkitVersion: TOOLKIT_VERSION,
+    packageType: "self-contained-delivery-kernel",
+    runtime: "Node.js 22 ESM",
+    offlineCapable: true,
+    networkRequired: false,
+    autoActivation: false,
+    entrypoint: "scripts/ai-toolkit/run-delivery-kernel.mjs",
+    starter: "templates/delivery-kernel.request.example.json",
+    schemaContracts: "scripts/ai-toolkit/kernel/contracts.mjs",
+    sourceCatalog: sourceCatalogPath,
+    registries: DELIVERY_KERNEL_REGISTRIES.map((registry) => `registries/${registry}`),
+    files
+  });
+  return {
+    root: DELIVERY_KERNEL_ROOT,
+    manifestPath,
+    manifestSha256: rawSha256Output(manifestPath)
+  };
+}
+
+async function writeManifest(mirrors, deliveryKernelPackage) {
+  const scripts = [];
+  for (const directory of SCRIPT_PROVENANCE_DIRECTORIES) {
+    for (const entry of await readCanonicalDirectory(directory)) {
+      if (!entry.name.endsWith(".mjs") || entry.name.startsWith("test-")) continue;
+      const script = `${directory}/${entry.name}`;
+      if (!entry.isFile()) {
+        throw new Error(`script provenance path must be a regular file: ${script}`);
+      }
+      scripts.push(script);
+    }
+  }
+  scripts.sort((left, right) => left.localeCompare(right));
+  const existingScripts = await Promise.all(scripts.map(async (script) => ({
+    path: script,
+    sha256: await sha256Source(script)
+  })));
 
   await writeJson(`${AI_ROOT}/scripts-manifest.json`, {
-    schemaVersion: "1.0.0",
+    schemaVersion: EMBEDDED_SCHEMA_VERSION,
+    manifestKind: "toolkit-script-provenance",
     toolkitVersion: TOOLKIT_VERSION,
     scripts: existingScripts
   });
 
   const generatedArtifacts = [
-    `${AI_ROOT}/integrations/coderabbit.md`
+    `${AI_ROOT}/integrations/coderabbit.md`,
+    `${AI_ROOT}/sources/watchlist.json`,
+    deliveryKernelPackage.manifestPath
   ];
 
   await writeJson(`${AI_ROOT}/manifest.json`, {
-    schemaVersion: "1.0.0",
+    schemaVersion: EMBEDDED_SCHEMA_VERSION,
+    manifestKind: "embedded-distribution-package",
     toolkitVersion: TOOLKIT_VERSION,
     packageModel: "main-toolkit-embedded-distribution-governance-package",
-    runtimeBoundary: ".ai-toolkit is non-runtime storage; active runtime is limited to .agents/skills and .codex/agents files listed here.",
+    generationMode: "clean-staging-transactional-promotion",
+    runtimeBoundary: ".ai-toolkit is non-runtime storage by default; the delivery-kernel package is executable only by explicit local invocation and never auto-activates tools or configuration.",
     activeSkills: ACTIVE_SKILLS,
     internalHelperSkills: INTERNAL_HELPER_SKILLS,
-    activeProjectAgents: ACTIVE_PROJECT_AGENTS,
+    activeProjectAgents: canonicalProjectAgents.map((agent) => agent.name),
     forbiddenByThisPass: [
       "external installs",
       "package or lockfile changes",
@@ -999,19 +1123,26 @@ async function writeManifest(mirrors) {
       "top-level folder deletion or relocation"
     ],
     sourceOfTruthMapPath: `${AI_ROOT}/source-of-truth-map.json`,
+    deliveryKernelPackage,
     mirrors,
     generatedArtifacts: await Promise.all(generatedArtifacts.map(async (artifact) => ({
       path: artifact,
-      sha256: await sha256(artifact)
+      sha256: sha256Output(artifact)
     }))),
     generatedBy: "scripts/ai-toolkit/build-embedded-package.mjs"
   });
 }
 
-async function main() {
-  await updateSkillsRegistry();
-  await updateToolsRegistry();
-  await updateRoutingMatrix();
+async function generateEmbeddedOutput() {
+  canonicalInputDigests = new Map(bootstrapCanonicalInputDigests);
+  canonicalDirectoryEntries = new Map();
+  await Promise.all([
+    "install/safe-filesystem.mjs",
+    "scripts/ai-toolkit/build-embedded-package.mjs",
+    "scripts/ai-toolkit/embedded-data.mjs",
+    "scripts/ai-toolkit/reference-closure.mjs"
+  ].map((relativePath) => readCanonicalInput(relativePath)));
+  await validateCanonicalRegistries();
   await writePackageDocs();
   await writeChecklistsAndTemplates();
   await writeToolPacks();
@@ -1019,11 +1150,311 @@ async function main() {
   await writeSources();
   await writeEvals();
   const mirrors = await copyMirrors();
-  await writeManifest(mirrors);
+  const deliveryKernelPackage = await writeDeliveryKernelPackage();
+  await writeManifest(mirrors, deliveryKernelPackage);
+}
+
+function readOutputJson(relativePath, label) {
+  try {
+    return JSON.parse(
+      requireOutputManager().readFile(outputRelativePath(relativePath), "utf8", label)
+    );
+  } catch (error) {
+    throw new Error(`${label} is invalid: ${error.message}`);
+  }
+}
+
+function moduleSpecifiers(sourceText) {
+  const specifiers = [];
+  const patterns = [
+    /\bimport\s+[\s\S]*?\sfrom\s*["']([^"']+)["']/g,
+    /\bimport\s*["']([^"']+)["']/g,
+    /\bexport\s+(?:\*|\{[\s\S]*?\})\s+from\s*["']([^"']+)["']/g,
+    /\bimport\s*\(\s*["']([^"']+)["']\s*\)/g
+  ];
+  for (const pattern of patterns) {
+    for (const match of sourceText.matchAll(pattern)) specifiers.push(match[1]);
+  }
+  return [...new Set(specifiers)].sort((left, right) => left.localeCompare(right));
+}
+
+function validateDeliveryKernelImportClosure(packageManifest, packageFilePaths) {
+  const packageFiles = new Set(packageFilePaths);
+  const queue = [packageManifest.entrypoint];
+  const visited = new Set();
+  while (queue.length > 0) {
+    const modulePath = queue.shift();
+    if (visited.has(modulePath)) continue;
+    if (!packageFiles.has(modulePath)) {
+      throw new Error(`delivery kernel import closure is missing: ${modulePath}`);
+    }
+    visited.add(modulePath);
+    const sourceText = requireOutputManager().readFile(
+      outputRelativePath(`${DELIVERY_KERNEL_ROOT}/${modulePath}`),
+      "utf8",
+      `delivery kernel module ${modulePath}`
+    );
+    for (const specifier of moduleSpecifiers(sourceText)) {
+      if (specifier.startsWith("node:")) continue;
+      if (!specifier.startsWith(".")) {
+        throw new Error(`delivery kernel import closure contains an external dependency: ${modulePath} -> ${specifier}`);
+      }
+      const resolved = path.posix.normalize(path.posix.join(path.posix.dirname(modulePath), specifier));
+      if (resolved.startsWith("../") || path.posix.isAbsolute(resolved)) {
+        throw new Error(`delivery kernel import closure escapes its package: ${modulePath} -> ${specifier}`);
+      }
+      if (!packageFiles.has(resolved)) {
+        throw new Error(`delivery kernel import closure is missing: ${resolved}`);
+      }
+      if (resolved.endsWith(".mjs")) queue.push(resolved);
+    }
+  }
+}
+
+function validateEmbeddedOutput(manager) {
+  const previousManager = outputManager;
+  outputManager = manager;
+  try {
+    const manifest = readOutputJson(`${AI_ROOT}/manifest.json`, "embedded manifest");
+    const scriptsManifest = readOutputJson(`${AI_ROOT}/scripts-manifest.json`, "embedded scripts manifest");
+    const packageManifest = readOutputJson(
+      `${DELIVERY_KERNEL_ROOT}/package-manifest.json`,
+      "delivery kernel package manifest"
+    );
+    if (manifest.schemaVersion !== EMBEDDED_SCHEMA_VERSION) {
+      throw new Error(`embedded manifest schemaVersion must be ${EMBEDDED_SCHEMA_VERSION}`);
+    }
+    if (scriptsManifest.schemaVersion !== EMBEDDED_SCHEMA_VERSION) {
+      throw new Error(`embedded scripts manifest schemaVersion must be ${EMBEDDED_SCHEMA_VERSION}`);
+    }
+    if (packageManifest.schemaVersion !== EMBEDDED_SCHEMA_VERSION) {
+      throw new Error(`delivery kernel package schemaVersion must be ${EMBEDDED_SCHEMA_VERSION}`);
+    }
+
+    for (const mirror of manifest.mirrors ?? []) {
+      if (mirror.sha256 !== sha256Output(mirror.target)) {
+        throw new Error(`embedded mirror digest mismatch: ${mirror.target}`);
+      }
+    }
+    for (const artifact of manifest.generatedArtifacts ?? []) {
+      if (artifact.sha256 !== sha256Output(artifact.path)) {
+        throw new Error(`embedded generated artifact digest mismatch: ${artifact.path}`);
+      }
+    }
+
+    const packagePrefix = outputRelativePath(`${DELIVERY_KERNEL_ROOT}/`);
+    const packageFiles = snapshotManagedTree(
+      manager.repositoryRoot,
+      manager.root,
+      "embedded package validation"
+    )
+      .filter((entry) => entry.type === "file" && entry.path.startsWith(packagePrefix))
+      .map((entry) => entry.path.slice(packagePrefix.length))
+      .filter((relativePath) => relativePath !== "package-manifest.json")
+      .sort((left, right) => left.localeCompare(right));
+    const attestedFiles = [...(packageManifest.files ?? [])]
+      .sort((left, right) => left.path.localeCompare(right.path));
+    if (JSON.stringify(packageFiles) !== JSON.stringify(attestedFiles.map((entry) => entry.path))) {
+      throw new Error("delivery kernel package manifest file closure mismatch");
+    }
+    for (const entry of attestedFiles) {
+      const outputPath = `${DELIVERY_KERNEL_ROOT}/${entry.path}`;
+      if (entry.sha256 !== rawSha256Output(outputPath)) {
+        throw new Error(`delivery kernel package byte digest mismatch: ${entry.path}`);
+      }
+    }
+    validateDeliveryKernelImportClosure(packageManifest, packageFiles);
+    if (
+      manifest.deliveryKernelPackage?.manifestSha256
+      !== rawSha256Output(`${DELIVERY_KERNEL_ROOT}/package-manifest.json`)
+    ) {
+      throw new Error("embedded manifest delivery-kernel attestation mismatch");
+    }
+  } finally {
+    outputManager = previousManager;
+  }
+}
+
+async function generateExpectedPackage() {
+  const temporaryRoot = await mkdtemp(path.join(tmpdir(), "ai-toolkit-embedded-build-"));
+  const expectedRoot = path.join(temporaryRoot, AI_ROOT);
+  const manager = new ManagedFilesystem({
+    repositoryRoot: temporaryRoot,
+    managedRoot: expectedRoot,
+    label: "embedded package clean staging"
+  });
+  manager.ensureDirectory(".", "embedded package clean staging root");
+  outputManager = manager;
+  try {
+    await generateEmbeddedOutput();
+    validateEmbeddedOutput(manager);
+    return {
+      temporaryRoot,
+      expectedRoot,
+      manager,
+      snapshot: snapshotManagedTree(temporaryRoot, expectedRoot, "expected embedded package")
+    };
+  } catch (error) {
+    await rm(temporaryRoot, { recursive: true, force: true });
+    throw error;
+  } finally {
+    outputManager = null;
+  }
+}
+
+function snapshotDifferences(actual, expected) {
+  const actualByPath = new Map(actual.map((entry) => [entry.path, entry]));
+  const expectedByPath = new Map(expected.map((entry) => [entry.path, entry]));
+  const differences = [];
+  for (const [entryPath, expectedEntry] of expectedByPath) {
+    const actualEntry = actualByPath.get(entryPath);
+    if (!actualEntry) differences.push(`missing:${entryPath}`);
+    else if (JSON.stringify(actualEntry) !== JSON.stringify(expectedEntry)) differences.push(`changed:${entryPath}`);
+  }
+  for (const entryPath of actualByPath.keys()) {
+    if (!expectedByPath.has(entryPath)) differences.push(`unexpected:${entryPath}`);
+  }
+  return differences.sort((left, right) => left.localeCompare(right));
+}
+
+function clearManagedContents(manager) {
+  const snapshot = snapshotManagedTree(manager.repositoryRoot, manager.root, "embedded transaction staging");
+  const files = snapshot.filter((entry) => entry.type === "file");
+  const directories = snapshot
+    .filter((entry) => entry.type === "directory")
+    .sort((left, right) => right.path.split("/").length - left.path.split("/").length || right.path.localeCompare(left.path));
+  for (const entry of files) {
+    const filePath = manager.assertRegularFile(entry.path, `embedded staging cleanup ${entry.path}`);
+    manager.assertRegularFile(entry.path, `embedded staging cleanup ${entry.path}`);
+    rmSync(filePath);
+  }
+  for (const entry of directories) {
+    const directoryPath = manager.assertDirectory(entry.path, `embedded staging cleanup ${entry.path}`);
+    manager.assertDirectory(entry.path, `embedded staging cleanup ${entry.path}`);
+    rmdirSync(directoryPath);
+  }
+}
+
+function copyExpectedPackage(expected, stagingManager) {
+  clearManagedContents(stagingManager);
+  for (const entry of expected.snapshot.filter((item) => item.type === "directory")) {
+    stagingManager.ensureDirectory(entry.path, `embedded staging directory ${entry.path}`);
+  }
+  for (const entry of expected.snapshot.filter((item) => item.type === "file")) {
+    stagingManager.copyFileFrom(
+      expected.temporaryRoot,
+      path.join(expected.expectedRoot, ...entry.path.split("/")),
+      entry.path,
+      `embedded staged file ${entry.path}`
+    );
+  }
+}
+
+function assertExpectedSnapshot(actual, expected, label) {
+  const differences = snapshotDifferences(actual, expected);
+  if (differences.length > 0) {
+    throw new Error(`${label}: ${differences.slice(0, 20).join(", ")}${differences.length > 20 ? `, and ${differences.length - 20} more` : ""}`);
+  }
+}
+
+async function checkEmbeddedPackage(expected) {
+  assertCanonicalInputsUnchanged();
+  const actual = snapshotManagedTree(ROOT, rootPath(AI_ROOT), "current embedded package");
+  assertCanonicalInputsUnchanged();
+  const differences = snapshotDifferences(actual, expected.snapshot);
+  if (differences.length > 0) {
+    throw new Error(
+      `embedded package check failed: generated output differs: ${differences.slice(0, 20).join(", ")}${differences.length > 20 ? `, and ${differences.length - 20} more` : ""}`
+    );
+  }
+  console.log(`PASS build-embedded-package --check (${expected.snapshot.filter((entry) => entry.type === "file").length} files)`);
+}
+
+async function promoteEmbeddedPackage(expected) {
+  runManagedDirectoryTransaction({
+    repositoryRoot: ROOT,
+    managedRoot: rootPath(AI_ROOT),
+    label: "embedded package",
+    prepare(stagingManager) {
+      copyExpectedPackage(expected, stagingManager);
+    },
+    validate(stagingManager, outputSnapshot) {
+      assertCanonicalInputsUnchanged();
+      assertExpectedSnapshot(outputSnapshot, expected.snapshot, "embedded package staged output differs");
+      validateEmbeddedOutput(stagingManager);
+      assertCanonicalInputsUnchanged();
+    },
+    beforeBackup() {
+      assertCanonicalInputsUnchanged();
+    },
+    beforePromote() {
+      assertCanonicalInputsUnchanged();
+    }
+  });
   console.log(`Built ${AI_ROOT} package for ${TOOLKIT_VERSION}`);
 }
 
-await main().catch((error) => {
+function parseMode(argv) {
+  if (argv.length === 0 || (argv.length === 1 && argv[0] === "--check")) return "check";
+  if (argv.length === 1 && argv[0] === "--confirm-write") return "build";
+  throw new Error("Usage: build-embedded-package.mjs [--check|--confirm-write]");
+}
+
+async function main(argv = process.argv.slice(2)) {
+  const mode = parseMode(argv);
+  if (mode === "build") {
+    recoverManagedDirectoryTransaction({
+      repositoryRoot: ROOT,
+      managedRoot: rootPath(AI_ROOT),
+      log(message) { console.log(message); }
+    });
+  }
+  const expected = await generateExpectedPackage();
+  try {
+    if (mode === "check") await checkEmbeddedPackage(expected);
+    else await promoteEmbeddedPackage(expected);
+  } finally {
+    await rm(expected.temporaryRoot, { recursive: true, force: true });
+  }
+}
+
+async function runVerifiedEntrypoint() {
+  const moduleUrl = new URL(import.meta.url);
+  const expectedSelfDigest = moduleUrl.searchParams.get(VERIFIED_SELF_DIGEST_PARAMETER);
+  moduleUrl.search = "";
+  const invokedPath = path.resolve(fileURLToPath(moduleUrl));
+  const canonicalSelfPath = bootstrapRegularFile(BUILDER_RELATIVE_PATH, "embedded builder launcher");
+  if (invokedPath !== canonicalSelfPath) {
+    throw new Error(`embedded builder must execute from ${canonicalSelfPath}`);
+  }
+  const observedSelfDigest = rawSha256(readFileSync(canonicalSelfPath));
+
+  if (!expectedSelfDigest) {
+    moduleUrl.searchParams.set(VERIFIED_SELF_DIGEST_PARAMETER, observedSelfDigest);
+    await import(moduleUrl.href);
+    if (rawSha256(readFileSync(canonicalSelfPath)) !== observedSelfDigest) {
+      throw new Error("embedded builder changed while the verified invocation was running");
+    }
+    return;
+  }
+  if (expectedSelfDigest !== observedSelfDigest) {
+    throw new Error("embedded builder digest changed before verified execution");
+  }
+
+  await loadDigestBoundCanonicalModules(expectedSelfDigest);
+  const verifiedSelfPath = assertRegularFileWithin(
+    ROOT,
+    canonicalSelfPath,
+    "embedded builder verified containment"
+  );
+  if (rawSha256(readFileSync(verifiedSelfPath)) !== expectedSelfDigest) {
+    throw new Error("embedded builder changed across verified containment checks");
+  }
+  await main();
+  assertCanonicalInputsUnchanged();
+}
+
+await runVerifiedEntrypoint().catch((error) => {
   console.error(`Failed to build embedded package: ${error.message}`);
   process.exitCode = 1;
 });

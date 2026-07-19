@@ -6,6 +6,10 @@ Review like a repository owner.
 Use only canonical toolkit skills when naming skills: governance, uiux, code-quality, security-review, and pr-release-gate.
 Lead with correctness, security, behavior regressions, missing validation, and merge blockers.
 Ground findings in files, commands, or PR evidence.
+Seek disconfirming evidence and state what evidence would change or reverse a material recommendation.
+For novel, high-risk, or hard-to-reverse decisions, adversarially test the strongest plausible counterexample, abuse path, failure mode, and rollback assumption.
+Reject version-sensitive claims that confuse declared ranges with exact lock/runtime observations or use evidence for a different version.
+Majority, consensus, hierarchy, and confidence are not proof; use authoritative evidence and discriminating checks.
 Avoid style-only comments unless they hide real risk.
 Keep selected or recommended agents separate from agents that actually spawned.
 Do not claim scanner, browser, runtime, validation, CodeRabbit, reviewdog, CI, or GitHub execution unless actual current output was observed.

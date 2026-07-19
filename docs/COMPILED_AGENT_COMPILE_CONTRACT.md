@@ -16,8 +16,9 @@ The compiler may read only reviewed, repo-owned inputs:
 - `registries/agents.registry.json`
 - `registries/methods.registry.json`
 - `registries/profiles.registry.json`
-- approved checklists and templates
-- explicit compile configuration
+- `scripts/compile-agents.mjs`
+- `scripts/ai-toolkit/compiler-provenance.mjs`
+- the compiler's repository-local production import closure listed by `COMPILER_DIGEST_PATHS`
 
 It must not read raw upstream repositories, external skill files, package caches, global Codex config, product repositories, secrets, `.env` files, logs, build artifacts, browser traces, or network responses.
 
@@ -32,7 +33,7 @@ Inputs must be ordered deterministically:
 - generated sections by fixed headings,
 - arrays and maps in stable lexical order unless registry order is the contract.
 
-Output must be reproducible from the same commit and configuration.
+Output must be reproducible from the same canonical inputs, compiler closure, and canonical-source revision. Commits that touch only generated output or unrelated repository files must not change compiled output.
 
 ## Required Metadata
 
@@ -44,6 +45,9 @@ Every compiled agent must include frontmatter with:
 - `compiled_status`
 - `compiled_at` or `compiled_at: deterministic-not-recorded`
 - `source_commit`
+- `input_digest`
+- `input_digest_scope`
+- `compiler_digest`
 - `source_agent`
 - `compiler`
 - `registry_input`
@@ -51,7 +55,9 @@ Every compiled agent must include frontmatter with:
 - `source_method_refs`
 - `compile_contract_version`
 
-Unknown values must be explicit as `unknown-review-required`; they must not be guessed. `source_commit` must be resolved from `git rev-parse HEAD` at compile time. `compiled_at` may remain `deterministic-not-recorded` so regenerated outputs stay stable when the same source commit and inputs are used.
+Unknown review metadata must be explicit as `unknown-review-required`; it must not be guessed. `source_commit` is derived internally from the latest commit that touches the fixed canonical agent-input pathspecs or any `COMPILER_DIGEST_PATHS` entry. It is lowercase 40-hex provenance, not caller input and not the current repository `HEAD`. The compiler fails closed when it cannot resolve that commit. `input_digest` and `compiler_digest` are the content-integrity gates. `compiled_at` may remain `deterministic-not-recorded` so unrelated commits do not create generated drift.
+
+Canonical `agents/*.md` source files must not carry generated compile provenance such as `toolkit_pin`, `last_compiled_against`, `source_commit`, or content/compiler digests. Those values would be stale or self-referential as soon as the source changes. The agent registry owns lifecycle and fallback-path declarations; deterministic compiled output owns version, pin, revision, and digest metadata.
 
 ## Provenance Requirements
 
@@ -84,23 +90,16 @@ Compiled agents must not include:
 
 Each compiled agent should stay small enough for routine review and use:
 
-- target: under 20,000 words,
-- hard review warning: over 30,000 words,
+- target: at most 3,500 words,
+- warning: above 4,500 words,
+- failure: above 6,000 words,
 - generated sections must be summarized rather than pasted when source files are long.
 
 The compiler must report size by agent and fail or warn according to the configured threshold.
 
 ## Warning Policy
 
-Compiled-agent version drift remains a WARN, not a failure, until:
-
-1. this compile contract is implemented,
-2. the compiler is dry-run validated,
-3. generated diffs are reviewed,
-4. provenance and size reports are attached,
-5. rollback is documented.
-
-Warnings must remain visible in aggregate validation. After implementation, generated-artifact drift is a reproducibility issue unless explicitly accepted by an owner.
+`--check` treats generated-content or provenance drift as a failure. A compiled fallback above the 3,500-word target remains visible as `above-target`; above 4,500 words is a WARN and above 6,000 words fails compilation. WARN output must remain visible in aggregate validation even when other checks pass.
 
 ## Review Requirements
 

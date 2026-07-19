@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -27,7 +27,7 @@ async function runSync(args, options = {}) {
 }
 
 function sha256Text(text) {
-  return createHash("sha256").update(text.replace(/\r\n/g, "\n")).digest("hex");
+  return createHash("sha256").update(text).digest("hex");
 }
 
 async function withTempRuntimeFixture(callback) {
@@ -72,6 +72,97 @@ test("dry-run checks active runtime skill mirrors without writing", async () => 
   assert.match(result.stdout, /sync-runtime mode: dry-run/);
   assert.match(result.stdout, /governance/);
   assert.match(result.stdout, /manifest: checked; hashes not written/);
+});
+
+test("embedded manifest governs package mirrors while repo runtime mirrors remain content-checked", async () => {
+  await withTempRuntimeFixture(async (fixture) => {
+    const mirrors = skillMirrors();
+    writeManifest(fixture, [mirrors[1]]);
+
+    const generated = await runSync(["--confirm-write", "--skill", "governance"], { cwd: fixture });
+    assert.equal(generated.code, 0, generated.stderr);
+
+    const current = await runSync(["--check", "--skill", "governance"], { cwd: fixture });
+    assert.equal(current.code, 0, current.stderr);
+
+    writeFileSync(mirrorPath(fixture, mirrors[0].target), "drifted repo runtime mirror\n", "utf8");
+    const contentDrift = await runSync(["--check", "--skill", "governance"], { cwd: fixture });
+    assert.notEqual(contentDrift.code, 0);
+    assert.match(contentDrift.stderr, /runtime mirror check.*drift/i);
+  });
+});
+
+test("manifest attests exact embedded skill bytes including CRLF", async () => {
+  await withTempRuntimeFixture(async (fixture) => {
+    const mirrors = skillMirrors();
+    const sourceText = "skill fixture with CRLF\r\n";
+    writeFileSync(path.join(fixture, "skills", "governance", "SKILL.md"), sourceText, "utf8");
+    writeManifest(fixture, [mirrors[1]]);
+
+    const generated = await runSync(["--confirm-write", "--skill", "governance"], { cwd: fixture });
+    assert.equal(generated.code, 0, generated.stderr);
+
+    const manifest = JSON.parse(readFileSync(path.join(fixture, ".ai-toolkit", "manifest.json"), "utf8"));
+    const embeddedMirror = manifest.mirrors.find((entry) => entry.target === mirrors[1].target);
+    const exactByteHash = createHash("sha256").update(sourceText).digest("hex");
+    assert.equal(embeddedMirror.sha256, exactByteHash);
+  });
+});
+
+test("check mode is non-mutating and fails closed on missing, content, or manifest-hash drift", async () => {
+  await withTempRuntimeFixture(async (fixture) => {
+    const mirrors = skillMirrors();
+    writeManifest(fixture, mirrors);
+
+    const missing = await runSync(["--check", "--skill", "governance"], { cwd: fixture });
+    assert.notEqual(missing.code, 0);
+    assert.match(missing.stderr, /runtime mirror check.*drift|missing/i);
+
+    const generated = await runSync(["--confirm-write", "--skill", "governance"], { cwd: fixture });
+    assert.equal(generated.code, 0, generated.stderr);
+    const firstTarget = mirrorPath(fixture, mirrors[0].target);
+    const manifestPath = path.join(fixture, ".ai-toolkit", "manifest.json");
+    const beforeCheck = {
+      target: statSync(firstTarget, { bigint: true }).mtimeNs,
+      manifest: statSync(manifestPath, { bigint: true }).mtimeNs
+    };
+    const current = await runSync(["--check", "--skill", "governance"], { cwd: fixture });
+    assert.equal(current.code, 0, current.stderr);
+    assert.match(current.stdout, /sync-runtime mode: check/);
+    assert.match(current.stdout, /up-to-date/);
+    assert.equal(statSync(firstTarget, { bigint: true }).mtimeNs, beforeCheck.target);
+    assert.equal(statSync(manifestPath, { bigint: true }).mtimeNs, beforeCheck.manifest);
+
+    writeFileSync(firstTarget, "drifted mirror\n", "utf8");
+    const contentDrift = await runSync(["--check", "--skill", "governance"], { cwd: fixture });
+    assert.notEqual(contentDrift.code, 0);
+    assert.match(contentDrift.stderr, /runtime mirror check.*drift/i);
+
+    writeFileSync(firstTarget, "skill fixture\n", "utf8");
+    const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+    manifest.mirrors[0].sha256 = "0".repeat(64);
+    writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+    const hashDrift = await runSync(["--check", "--skill", "governance"], { cwd: fixture });
+    assert.notEqual(hashDrift.code, 0);
+    assert.match(hashDrift.stderr, /manifest hash.*drift/i);
+  });
+});
+
+test("runtime skill word budgets warn above 800 and fail above 1200 words", async () => {
+  await withTempRuntimeFixture(async (fixture) => {
+    writeManifest(fixture, skillMirrors());
+    const sourcePath = path.join(fixture, "skills", "governance", "SKILL.md");
+    writeFileSync(sourcePath, `${Array(850).fill("bounded").join(" ")}\n`, "utf8");
+
+    const warning = await runSync(["--dry-run", "--skill", "governance"], { cwd: fixture });
+    assert.equal(warning.code, 0, warning.stderr);
+    assert.match(warning.stdout, /WARN.*word-budget|word-budget.*WARN/i);
+
+    writeFileSync(sourcePath, `${Array(1201).fill("excessive").join(" ")}\n`, "utf8");
+    const failure = await runSync(["--dry-run", "--skill", "governance"], { cwd: fixture });
+    assert.notEqual(failure.code, 0);
+    assert.match(failure.stderr, /skill.*word budget.*1200|word budget.*skill.*1200/i);
+  });
 });
 
 test("refuses removed alias skills", async () => {

@@ -171,3 +171,20 @@ test("support asset collection follows skill references transitively", () => {
     ]);
   });
 });
+
+test("support references reject parent traversal even when the resolved file exists", () => {
+  withFixture((root) => {
+    write(root, "skills/governance/SKILL.md", "Use `methods/../docs/private.md`.\n");
+    write(root, "docs/private.md", "# Private\n");
+
+    const failures = collectReferenceClosureFailures({
+      root,
+      scanFiles: ["skills/governance/SKILL.md"]
+    });
+
+    assert.match(
+      failures.map((failure) => failure.message).join("\n"),
+      /unsafe reference 'methods\/\.\.\/docs\/private\.md'/
+    );
+  });
+});

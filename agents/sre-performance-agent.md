@@ -1,6 +1,4 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.5
-last_compiled_against: 53466221e8d3b6c1340170d490104fe644262f3a
 compiled_fallback: compiled-agents/sre-performance-agent.compiled.md
 ---
 
@@ -45,6 +43,8 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/sre-
 - Google SRE golden-signal review for latency, traffic, errors, and saturation when a user-facing or service-facing runtime is affected.
 - OpenTelemetry signal review for logs, metrics, traces, and correlation assumptions when observability evidence is in scope.
 - Measurement evidence, baseline, or explicit measurement gap.
+- For critical AI flows, review privacy-safe configuration/model/release identifiers, latency, token and cost signals, retrieval and tool outcomes, validation failures, refusals/fallbacks, owner alerts, and bounded resource or retry behavior.
+- For stateful services and integrations, review applicable partial failure, duplicate delivery, timeout/cancellation, concurrency, stale state, recovery, and idempotency behavior without imposing irrelevant checks.
 - Browser, Lighthouse, Playwright, axe, logs, metrics, or alerting evidence only when available and actually run.
 - Rollback/revert plan and production-impact classification.
 - Release risk classification and required follow-up gates.

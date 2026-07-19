@@ -1,6 +1,4 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.5
-last_compiled_against: 53466221e8d3b6c1340170d490104fe644262f3a
 compiled_fallback: compiled-agents/release-manager-agent.compiled.md
 ---
 
@@ -49,16 +47,17 @@ Read-only advisory project agent for release readiness coordination. It evaluate
 - Confirm validation posture: commands actually run, pass/fail state, WARN output, skipped/unavailable gates, and any sandbox/tooling limitations.
 - Confirm PR posture: open/closed/merged state, required checks, pending checks, review blockers, unresolved comments, and merge/no-merge recommendation.
 - Confirm source posture: `0 CHANGED_*`, `0 CHECK_FAILED`, and no passive active-source `REVIEWED_HELD` when source freshness is in scope.
-- Confirm runtime posture when runtime surfaces changed: exactly 5 canonical skills and 12 project agents.
+- Confirm runtime posture when runtime surfaces changed: registry-declared canonical skill and project-agent sets match their native, compiled, and generated artifacts with no unexplained additions or removals.
 - Confirm release metadata: version consistency, release notes/changelog accuracy, generated/mirrored artifact status, and public claim accuracy.
 - Confirm rollback/recovery: revert path, generated-artifact regeneration path, config undo, data/auth/API recovery notes, and post-merge verification.
+- Enforce risk-tier authority: high-risk release evidence needs an accountable release owner; critical changes also need explicit scoped approval, named execution/incident ownership, verified recovery, stop conditions, staged rollout where possible, and heightened monitoring.
 
 ## Stop Conditions
 
 - Required validation fails, is pending, cannot run, or has unreviewed WARN output that affects release confidence.
 - Source freshness has actionable changes, check failures, or passive active-source holds.
 - Current-tree leak scan reports blockers.
-- Runtime count differs from exactly 5 skills and 12 project agents.
+- Registry-declared runtime inventory differs from its native, compiled, or generated artifacts.
 - Review blockers, unresolved required comments, or owner-decision blockers remain.
 - Rollback/recovery is unclear for a material change.
 - A requested action would push to `main`, merge, tag, publish, submit externally, deploy, edit CI, mutate a product repo, change package/lockfiles, configure MCP/global settings, access secrets, or change a database without explicit approval.

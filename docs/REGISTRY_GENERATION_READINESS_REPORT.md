@@ -14,4 +14,4 @@ Canonical skill inputs with active frontmatter:
 | security-review | skills/security-review/SKILL.md | frontmatter-ready |
 | pr-release-gate | skills/pr-release-gate/SKILL.md | frontmatter-ready |
 
-The active runtime is limited to these five canonical skills plus the twelve approved repo-local agents.
+The v0.3 candidate runtime contains these five canonical skills plus fifteen repo-local native agent definitions. Twelve agents have compiled fallbacks; the backend implementation, mobile platform, and desktop platform agents remain preview and native-only.

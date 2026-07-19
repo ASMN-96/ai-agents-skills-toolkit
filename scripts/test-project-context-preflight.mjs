@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 import { execFileSync, spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import {
   existsSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
   rmSync,
+  symlinkSync,
   writeFileSync
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -13,11 +15,13 @@ import path from "node:path";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
-import {
+import * as projectContextPreflight from "../install/project-context-preflight.mjs";
+
+const {
   PROJECT_MAP_RELATIVE_PATH,
   buildProjectMap,
   validateProjectMap
-} from "../install/project-context-preflight.mjs";
+} = projectContextPreflight;
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const syncCore = path.join(REPO_ROOT, "install", "project-sync-core.mjs");
@@ -89,6 +93,30 @@ function buildFixtureMap(repo) {
   });
 }
 
+function aggregateStalenessHashes(entries) {
+  return createHash("sha256")
+    .update(entries.map((entry) => `${entry.path}:${entry.sha256}`).join("\n"))
+    .digest("hex");
+}
+
+test("project context preflight exposes no standalone raw write API", () => {
+  assert.equal("writeProjectMap" in projectContextPreflight, false);
+  assert.equal("projectMapOutputPath" in projectContextPreflight, false);
+});
+
+function createDirectoryLinkOrSkip(t, target, linkPath) {
+  try {
+    symlinkSync(target, linkPath, process.platform === "win32" ? "junction" : "dir");
+    return true;
+  } catch (error) {
+    if (["EACCES", "EINVAL", "ENOSYS", "ENOTSUP", "EPERM"].includes(error?.code)) {
+      t.skip(`directory links are not supported by this host: ${error.code}`);
+      return false;
+    }
+    throw error;
+  }
+}
+
 test("project map captures a compact JS/TS app without absolute paths or secrets", () => {
   const tempRoot = mkdtempSync(path.join(tmpdir(), "ai-toolkit-preflight-"));
   try {
@@ -132,6 +160,16 @@ test("project map captures a compact JS/TS app without absolute paths or secrets
     assert.ok(map.exclusions.includes(".env"));
     assert.equal(map.repomix.posture, "active-if-detected-or-owner-approved-install");
     assert.equal(map.boundedWorkCycle.loopAgents, "forbidden");
+    assert.deepEqual(
+      map.validationPolicy.lanes.map((lane) => lane.id),
+      ["documentation-only", "behavior-code", "high-risk-release"]
+    );
+    assert.equal(map.validationPolicy.evidenceClasses.localStatic.requiresCredentials, false);
+    assert.equal(map.validationPolicy.evidenceClasses.remoteLinkedCredentialed.requiresExplicitAuthorization, true);
+    assert.equal(map.taskStart.progressiveDisclosure.reviewHeuristic.lines, 200);
+    assert.equal(map.taskStart.progressiveDisclosure.reviewHeuristic.advisoryOnly, true);
+    assert.match(map.taskStart.progressiveDisclosure.lineCountPolicy, /no universal file-length optimum/i);
+    assert.equal(map.target.gitHeadPosture, "provenance-advisory");
     assert.ok(!mapText.includes(tempRoot));
     assert.ok(!mapText.includes("do-not-map"));
     assert.deepEqual(validateProjectMap(map, { targetRoot: repo }), []);
@@ -186,7 +224,7 @@ test("project map handles monorepo-like and no-package repositories", () => {
   }
 });
 
-test("project map validator rejects unsafe paths, secrets, oversized dumps, and stale git heads", () => {
+test("project map validator rejects deterministic drift while treating git head as advisory provenance", () => {
   const tempRoot = mkdtempSync(path.join(tmpdir(), "ai-toolkit-preflight-"));
   try {
     const repo = newGitRepo(tempRoot, "unsafe");
@@ -225,11 +263,109 @@ test("project map validator rejects unsafe paths, secrets, oversized dumps, and 
     const toolkitOnlyMap = buildFixtureMap(repo);
     write(repo, ".ai-toolkit/generated.md", "# generated\n");
     commitAll(repo, "toolkit-only");
-    assert.equal(validateProjectMap(toolkitOnlyMap, { targetRoot: repo }).some((issue) => issue.includes("stale git head")), false);
+    assert.deepEqual(validateProjectMap(toolkitOnlyMap, { targetRoot: repo }), []);
 
     write(repo, "README.md", "# unsafe\nchanged\n");
     commitAll(repo, "advance head");
-    assert.ok(validateProjectMap(map, { targetRoot: repo }).some((issue) => issue.includes("stale git head")));
+    const deterministicDriftIssues = validateProjectMap(map, { targetRoot: repo });
+    assert.equal(deterministicDriftIssues.some((issue) => issue.includes("stale git head")), false);
+    assert.ok(deterministicDriftIssues.some((issue) => issue.includes("stale file hash: README.md")));
+    assert.notEqual(git(repo, ["rev-parse", "HEAD"]).trim(), map.target.gitHead);
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+});
+
+test("project map validator requires governance policy and rederives deterministic repository observations", () => {
+  const minimalIssues = validateProjectMap({
+    schemaVersion: "1.0.0",
+    mapType: "project-context-preflight"
+  });
+  assert.ok(minimalIssues.some((issue) => issue.includes("gitHeadPosture")));
+  assert.ok(minimalIssues.some((issue) => issue.includes("validationPolicy")));
+  assert.ok(minimalIssues.some((issue) => issue.includes("progressiveDisclosure")));
+  assert.ok(minimalIssues.some((issue) => issue.includes("boundedWorkCycle")));
+  assert.ok(minimalIssues.some((issue) => issue.includes("stalenessHashes.files")));
+
+  const tempRoot = mkdtempSync(path.join(tmpdir(), "ai-toolkit-preflight-contract-"));
+  try {
+    const repo = newGitRepo(tempRoot, "contract");
+    write(repo, "package.json", JSON.stringify({
+      scripts: {
+        typecheck: "tsc --noEmit",
+        test: "node --test",
+        build: "vite build"
+      }
+    }, null, 2));
+    write(repo, "src/index.ts", "export const contract = true;\n");
+    write(repo, "tests/index.test.ts", "import '../src/index';\n");
+    write(repo, "tsconfig.json", "{\"compilerOptions\":{\"strict\":true}}\n");
+    commitAll(repo);
+    const map = buildFixtureMap(repo);
+
+    const missingPolicyCases = [
+      ["gitHeadPosture", (candidate) => delete candidate.target.gitHeadPosture],
+      ["validationPolicy", (candidate) => delete candidate.validationPolicy.evidenceClasses.remoteLinkedCredentialed],
+      ["validationPolicy", (candidate) => candidate.validationPolicy.lanes.pop()],
+      ["progressiveDisclosure", (candidate) => delete candidate.taskStart.progressiveDisclosure.reviewHeuristic.advisoryOnly],
+      ["boundedWorkCycle", (candidate) => delete candidate.boundedWorkCycle.loopAgents]
+    ];
+    for (const [expectedIssue, mutate] of missingPolicyCases) {
+      const candidate = structuredClone(map);
+      mutate(candidate);
+      assert.ok(
+        validateProjectMap(candidate, { targetRoot: repo }).some((issue) => issue.includes(expectedIssue)),
+        `missing policy field should report ${expectedIssue}`
+      );
+    }
+
+    const aggregateTamper = structuredClone(map);
+    aggregateTamper.target.stalenessHashes.aggregateSha256 = "a".repeat(64);
+    assert.ok(validateProjectMap(aggregateTamper, { targetRoot: repo }).some(
+      (issue) => issue.includes("staleness aggregateSha256 mismatch")
+    ));
+
+    const missingHashEntry = structuredClone(map);
+    missingHashEntry.target.stalenessHashes.files.pop();
+    missingHashEntry.target.stalenessHashes.aggregateSha256 = aggregateStalenessHashes(
+      missingHashEntry.target.stalenessHashes.files
+    );
+
+    const deterministicTamperCases = [
+      ["scripts", (candidate) => { candidate.scripts[0].name = "tampered-script"; }],
+      ["packageManager", (candidate) => { candidate.packageManager.evidence = ["tampered-lock.yaml"]; }],
+      ["validationCommands", (candidate) => { candidate.validationCommands[0] = "npm run tampered"; }],
+      ["repoRoots", (candidate) => { candidate.repoRoots[0].evidence = ["package.json"]; }],
+      ["keyFiles", (candidate) => { candidate.keyFiles = candidate.keyFiles.filter((entry) => entry !== "README.md"); }],
+      ["configFiles", (candidate) => { candidate.configFiles = candidate.configFiles.filter((entry) => entry !== "tsconfig.json"); }],
+      ["sourceLocations", (candidate) => { candidate.sourceLocations = ["lib"]; }],
+      ["testLocations", (candidate) => { candidate.testLocations = ["specs"]; }],
+      ["target.stalenessHashes", (candidate) => {
+        candidate.target.stalenessHashes = structuredClone(missingHashEntry.target.stalenessHashes);
+      }]
+    ];
+    for (const [field, mutate] of deterministicTamperCases) {
+      const candidate = structuredClone(map);
+      mutate(candidate);
+      assert.ok(
+        validateProjectMap(candidate, { targetRoot: repo }).some(
+          (issue) => issue.includes(`repository observation mismatch: ${field}`)
+        ),
+        `${field} tamper should be rejected`
+      );
+    }
+
+    const advisoryDrift = structuredClone(map);
+    advisoryDrift.target.gitHead = "f".repeat(40);
+    advisoryDrift.target.gitBranch = "historical-branch";
+    advisoryDrift.target.gitDirty = !map.target.gitDirty;
+    assert.deepEqual(validateProjectMap(advisoryDrift, { targetRoot: repo }), []);
+
+    const malformedAdvisoryHead = structuredClone(map);
+    malformedAdvisoryHead.target.gitHead = "not-a-git-object-id";
+    assert.ok(validateProjectMap(malformedAdvisoryHead, { targetRoot: repo }).some(
+      (issue) => issue.includes("gitHead must be a canonical Git object ID or null")
+    ));
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }
@@ -273,6 +409,60 @@ test("project map excludes nested worktree checkout paths from generated outputs
     const issues = validateProjectMap(injectedMap, { targetRoot: repo });
     assert.ok(issues.some((issue) => issue.includes("worktree checkout path")));
     assert.ok(issues.some((issue) => issue.includes("invalid staleness hash path")));
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+});
+
+test("project map excludes linked workspace packages outside the repository", (t) => {
+  const tempRoot = mkdtempSync(path.join(tmpdir(), "ai-toolkit-preflight-linked-workspace-"));
+  try {
+    const repo = newGitRepo(tempRoot, "linked-workspace");
+    write(repo, "package.json", JSON.stringify({
+      workspaces: ["linked/*"],
+      scripts: { test: "node --test" }
+    }, null, 2));
+    commitAll(repo);
+
+    const externalRoot = path.join(tempRoot, "external-workspaces");
+    write(externalRoot, "injected/package.json", JSON.stringify({
+      scripts: { exfiltrate: "read-outside-repository" }
+    }, null, 2));
+    if (!createDirectoryLinkOrSkip(t, externalRoot, path.join(repo, "linked"))) return;
+
+    const map = buildFixtureMap(repo);
+    assert.deepEqual(map.repoRoots.map((entry) => entry.path), ["."]);
+    assert.equal(map.scripts.some((script) => script.name === "exfiltrate"), false);
+    assert.doesNotMatch(JSON.stringify(map), /linked\/injected|read-outside-repository/u);
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+});
+
+test("project map validation rejects linked staleness-hash inputs", (t) => {
+  const tempRoot = mkdtempSync(path.join(tmpdir(), "ai-toolkit-preflight-linked-hash-"));
+  try {
+    const repo = newGitRepo(tempRoot, "linked-hash");
+    write(repo, "package.json", JSON.stringify({ scripts: { test: "node --test" } }, null, 2));
+    commitAll(repo);
+
+    const externalRoot = path.join(tempRoot, "external-hash-input");
+    write(externalRoot, "package.json", JSON.stringify({ scripts: { exfiltrate: "outside" } }, null, 2));
+    if (!createDirectoryLinkOrSkip(t, externalRoot, path.join(repo, "linked"))) return;
+
+    const map = buildFixtureMap(repo);
+    const externalSha = createHash("sha256")
+      .update(readFileSync(path.join(externalRoot, "package.json")))
+      .digest("hex");
+    map.target.stalenessHashes.files.push({ path: "linked/package.json", sha256: externalSha });
+    map.target.stalenessHashes.files.sort((left, right) => left.path.localeCompare(right.path));
+    map.target.stalenessHashes.aggregateSha256 = aggregateStalenessHashes(map.target.stalenessHashes.files);
+
+    const issues = validateProjectMap(map, { targetRoot: repo });
+    assert.ok(
+      issues.includes("unsafe or missing hashed file: linked/package.json"),
+      issues.join("\n")
+    );
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }

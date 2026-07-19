@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "registryType": "routing-matrix",
   "tokenModes": [
     "concise",
@@ -9,6 +9,23 @@
   "scenarios": [
     {
       "scenario": "plain-language-product-request",
+      "requiredCompetencies": [
+        "product-discovery",
+        "acceptance-criteria",
+        "architecture",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance",
+        "enterprise-architecture-rollback"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "I want this feature done professionally.",
         "Clean this up without breaking anything.",
@@ -61,6 +78,22 @@
     },
     {
       "scenario": "read-only-repo-audit",
+      "requiredCompetencies": [
+        "governance",
+        "source-safety",
+        "security",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-security-privacy"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Audit this repo first.",
         "Tell me what is risky before changing anything."
@@ -105,6 +138,24 @@
     },
     {
       "scenario": "external-skill-source-audit",
+      "requiredCompetencies": [
+        "source-safety",
+        "freshness",
+        "security",
+        "privacy",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Check this skill before we use it.",
         "Can we learn from this repo safely?"
@@ -162,6 +213,25 @@
     },
     {
       "scenario": "frontend-ui-bug",
+      "requiredCompetencies": [
+        "implementation",
+        "responsive-ui",
+        "web-accessibility",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance",
+        "web-wcag-22-aa"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core",
+        "web-saas"
+      ],
       "userLanguageExamples": [
         "Fix the mobile layout.",
         "This button is broken on small screens."
@@ -207,6 +277,27 @@
     },
     {
       "scenario": "dashboard-ui-redesign",
+      "requiredCompetencies": [
+        "product-discovery",
+        "uiux",
+        "accessibility",
+        "design-system",
+        "responsive-ui",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance",
+        "web-wcag-22-aa"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core",
+        "web-saas"
+      ],
       "userLanguageExamples": [
         "Make this page feel more premium.",
         "Make this dashboard easier to scan.",
@@ -259,6 +350,26 @@
     },
     {
       "scenario": "frontend-performance-issue",
+      "requiredCompetencies": [
+        "implementation",
+        "performance",
+        "observability",
+        "reliability",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-operability-performance",
+        "web-runtime-security-quality"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core",
+        "web-saas"
+      ],
       "userLanguageExamples": [
         "The dashboard is slow.",
         "This page feels laggy.",
@@ -310,6 +421,28 @@
     },
     {
       "scenario": "supabase-rls-migration",
+      "requiredCompetencies": [
+        "api-contracts",
+        "data-isolation",
+        "database",
+        "security",
+        "privacy",
+        "rollback",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "The Supabase stuff feels risky.",
         "Add this RLS migration safely."
@@ -362,6 +495,28 @@
     },
     {
       "scenario": "generic-postgres-orm-data-isolation",
+      "requiredCompetencies": [
+        "api-contracts",
+        "data-isolation",
+        "database",
+        "security",
+        "privacy",
+        "rollback",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "This Neon Postgres and Drizzle change affects tenant data.",
         "Check Better Auth and database isolation before we merge.",
@@ -417,6 +572,26 @@
     },
     {
       "scenario": "postgres-query-performance",
+      "requiredCompetencies": [
+        "database",
+        "data-isolation",
+        "performance",
+        "reliability",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-operability-performance",
+        "enterprise-architecture-rollback",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "This query is too slow.",
         "The database view is timing out."
@@ -468,6 +643,26 @@
     },
     {
       "scenario": "api-contract-change",
+      "requiredCompetencies": [
+        "architecture",
+        "api-contracts",
+        "security",
+        "rollback",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Change the API response safely.",
         "Update the backend contract without breaking the UI."
@@ -521,6 +716,23 @@
     },
     {
       "scenario": "security-review",
+      "requiredCompetencies": [
+        "security",
+        "privacy",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Review this for security.",
         "Is this safe?"
@@ -569,6 +781,23 @@
     },
     {
       "scenario": "dependency-supply-chain-review",
+      "requiredCompetencies": [
+        "source-safety",
+        "freshness",
+        "security",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Can we use this package?",
         "Check this dependency before adding it."
@@ -617,6 +846,23 @@
     },
     {
       "scenario": "performance-regression",
+      "requiredCompetencies": [
+        "performance",
+        "observability",
+        "reliability",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-operability-performance"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "This got slower after the last change.",
         "Find the performance regression."
@@ -664,6 +910,22 @@
     },
     {
       "scenario": "coderabbit-pr-triage",
+      "requiredCompetencies": [
+        "governance",
+        "release",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Address the CodeRabbit comments.",
         "Triage the automated PR review comments.",
@@ -714,6 +976,28 @@
     },
     {
       "scenario": "release-readiness",
+      "requiredCompetencies": [
+        "release",
+        "rollback",
+        "security",
+        "reliability",
+        "observability",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-security-privacy",
+        "enterprise-independent-verification",
+        "enterprise-operability-performance"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Is this ready to ship?",
         "Prepare the release gate.",
@@ -770,6 +1054,24 @@
     },
     {
       "scenario": "missing-capability-skill-discovery",
+      "requiredCompetencies": [
+        "source-safety",
+        "freshness",
+        "security",
+        "governance",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Do we have a skill for this?",
         "Find the right capability if we are missing it."
@@ -820,6 +1122,23 @@
     },
     {
       "scenario": "dirty-stale-divergent-repo-state",
+      "requiredCompetencies": [
+        "governance",
+        "release",
+        "rollback",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Make this change now.",
         "Review the current branch."
@@ -860,6 +1179,24 @@
     },
     {
       "scenario": "install-all-tools-request",
+      "requiredCompetencies": [
+        "source-safety",
+        "freshness",
+        "security",
+        "governance",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Install all tools.",
         "Activate every skill and plugin."
@@ -898,6 +1235,20 @@
     },
     {
       "scenario": "small-low-risk-typo-doc-change",
+      "requiredCompetencies": [
+        "governance",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-low-risk-scope-review"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Fix this typo.",
         "Update this small doc sentence."
@@ -939,6 +1290,23 @@
     },
     {
       "scenario": "ambiguous-behavior-changing-request",
+      "requiredCompetencies": [
+        "product-discovery",
+        "acceptance-criteria",
+        "architecture",
+        "governance"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance",
+        "enterprise-architecture-rollback"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Clean this up.",
         "Make it better."
@@ -979,6 +1347,27 @@
     },
     {
       "scenario": "high-risk-security-data-request",
+      "requiredCompetencies": [
+        "security",
+        "privacy",
+        "data-isolation",
+        "database",
+        "api-contracts",
+        "rollback",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Expose this data publicly.",
         "Disable this auth check temporarily.",
@@ -1030,6 +1419,23 @@
     },
     {
       "scenario": "react-typescript-quality-change",
+      "requiredCompetencies": [
+        "implementation",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance",
+        "web-runtime-security-quality"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core",
+        "web-saas"
+      ],
       "userLanguageExamples": [
         "Fix this TypeScript issue.",
         "Review hooks and tests.",
@@ -1075,6 +1481,27 @@
     },
     {
       "scenario": "tenant-security-public-payload-review",
+      "requiredCompetencies": [
+        "security",
+        "privacy",
+        "data-isolation",
+        "api-contracts",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-security-privacy",
+        "enterprise-independent-verification",
+        "web-runtime-security-quality"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core",
+        "web-saas"
+      ],
       "userLanguageExamples": [
         "Check tenant isolation.",
         "Is this public payload safe?",
@@ -1126,6 +1553,24 @@
     },
     {
       "scenario": "pr-release-coderabbit-gate",
+      "requiredCompetencies": [
+        "release",
+        "rollback",
+        "governance",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Make the PR ready.",
         "Check CodeRabbit and release blockers.",
@@ -1178,6 +1623,23 @@
     },
     {
       "scenario": "external-tool-source-update",
+      "requiredCompetencies": [
+        "source-safety",
+        "freshness",
+        "security",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Add this tool to the toolkit.",
         "Refresh the tool watchlist.",
@@ -1226,6 +1688,27 @@
     },
     {
       "scenario": "embedded-toolkit-runtime-boundary",
+      "requiredCompetencies": [
+        "architecture",
+        "source-safety",
+        "security",
+        "release",
+        "rollback",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Create embedded .ai-toolkit package.",
         "Validate active Codex runtime copies.",
@@ -1279,6 +1762,34 @@
     },
     {
       "scenario": "large-governed-implementation",
+      "requiredCompetencies": [
+        "product-discovery",
+        "acceptance-criteria",
+        "architecture",
+        "implementation",
+        "api-contracts",
+        "security",
+        "privacy",
+        "reliability",
+        "release",
+        "rollback",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance",
+        "enterprise-architecture-rollback",
+        "enterprise-security-privacy",
+        "enterprise-independent-verification",
+        "enterprise-operability-performance"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Use governance. Plan and implement this cross-surface feature safely.",
         "Proceed with the attached task, milestone it, validate everything, and open a PR."
@@ -1347,6 +1858,27 @@
     },
     {
       "scenario": "mobile-native-app-quality",
+      "requiredCompetencies": [
+        "implementation",
+        "uiux",
+        "accessibility",
+        "mobile-accessibility",
+        "native-boundaries",
+        "performance",
+        "release",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Review this mobile app flow.",
         "Check native mobile readiness."
@@ -1355,8 +1887,8 @@
       "riskLevel": "medium",
       "selectedProfile": "frontend-profile",
       "agents": [
+        "mobile-platform-agent",
         "uiux-agent",
-        "frontend-agent",
         "qa-test-agent"
       ],
       "skills": [
@@ -1385,7 +1917,90 @@
       ]
     },
     {
+      "scenario": "desktop-native-app-quality",
+      "requiredCompetencies": [
+        "implementation",
+        "uiux",
+        "accessibility",
+        "native-boundaries",
+        "desktop-security",
+        "performance",
+        "release",
+        "rollback",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
+      "userLanguageExamples": [
+        "Review this Windows desktop flow.",
+        "Check macOS, Electron, or Tauri desktop readiness."
+      ],
+      "inferredIntent": "Review native desktop UI/UX quality, accessibility, security boundaries, packaging, and validation evidence for explicit OS targets.",
+      "riskLevel": "medium",
+      "selectedProfile": "frontend-profile",
+      "agents": [
+        "desktop-platform-agent",
+        "uiux-agent",
+        "qa-test-agent",
+        "release-manager-agent"
+      ],
+      "skills": [
+        "governance",
+        "uiux",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "Native build, accessibility, packaging, and rollback tools only when detected and authorized"
+      ],
+      "stopConditions": [
+        "No explicit Windows or macOS target is supplied",
+        "Desktop readiness is requested without native build or packaging evidence"
+      ],
+      "validationGates": [
+        "OS-specific domain pack selected",
+        "Native environment and packaging evidence reported honestly"
+      ],
+      "expectedCompletionReport": [
+        "desktop platform evidence",
+        "packaging and rollback gaps",
+        "unverified native checks"
+      ],
+      "tokenMode": "standard",
+      "methodReferences": [
+        "governance.task-intake-routing-gate",
+        "release.release-rollback-readiness"
+      ]
+    },
+    {
       "scenario": "webview-boundary-review",
+      "requiredCompetencies": [
+        "security",
+        "privacy",
+        "api-contracts",
+        "native-boundaries",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Review this WebView flow.",
         "Check WebView auth and links."
@@ -1394,6 +2009,7 @@
       "riskLevel": "high",
       "selectedProfile": "security-profile",
       "agents": [
+        "mobile-platform-agent",
         "security-agent",
         "backend-contract-agent",
         "qa-test-agent"
@@ -1426,7 +2042,111 @@
       ]
     },
     {
+      "scenario": "ai-agent-system-change",
+      "requiredCompetencies": [
+        "product-discovery",
+        "acceptance-criteria",
+        "architecture",
+        "implementation",
+        "api-contracts",
+        "security",
+        "privacy",
+        "testing",
+        "verification",
+        "observability",
+        "reliability",
+        "release",
+        "rollback",
+        "ai-systems",
+        "ai-evaluation",
+        "agentic-security"
+      ],
+      "requiredGateIds": [
+        "ai-versioned-behavior-contract",
+        "ai-evaluation-regression",
+        "ai-agentic-security-review",
+        "ai-accountable-human-approval"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
+      "userLanguageExamples": [
+        "Change this production prompt or model.",
+        "Add an agent tool, retrieval source, or memory capability."
+      ],
+      "inferredIntent": "Govern a material AI, LLM, retrieval, memory, tool-calling, or agentic-system change with versioning, evaluation, authorization, and human control.",
+      "riskLevel": "high",
+      "selectedProfile": "fullstack-profile",
+      "agents": [
+        "product-agent",
+        "architect-agent",
+        "backend-implementation-agent",
+        "security-agent",
+        "qa-test-agent",
+        "sre-performance-agent",
+        "release-manager-agent"
+      ],
+      "skills": [
+        "governance",
+        "code-quality",
+        "security-review",
+        "pr-release-gate"
+      ],
+      "supportTools": [
+        "Project-owned AI evaluation command only when manifest-bound and observed",
+        "No MCP, model, plugin, or external tool activation from routing metadata"
+      ],
+      "stopConditions": [
+        "Model, prompt, tool, retrieval, memory, tenant, or data-handling behavior is not versioned",
+        "Representative regression and prompt-injection evidence is unavailable",
+        "A state-changing tool lacks authenticated server-side authorization and accountable human approval",
+        "Source freshness, machine identity, or revocation posture is unresolved"
+      ],
+      "validationGates": [
+        "AI behavior configuration and evaluation baseline are versioned",
+        "Prompt injection, structured output, retrieval, memory, and tool authorization are reviewed",
+        "Selected-but-uninvoked resources and review prose cannot close observed evidence gates"
+      ],
+      "expectedCompletionReport": [
+        "versioned AI behavior surfaces",
+        "evaluation baseline and regressions",
+        "authorization and human-control evidence",
+        "latency, token, cost, privacy, and residual risks"
+      ],
+      "tokenMode": "detailed",
+      "methodReferences": [
+        "governance.task-intake-routing-gate",
+        "security.application-security-readiness",
+        "reliability.coding-time-production-readiness",
+        "release.release-rollback-readiness"
+      ]
+    },
+    {
       "scenario": "cross-surface-api-contracts",
+      "requiredCompetencies": [
+        "architecture",
+        "api-contracts",
+        "security",
+        "rollback",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "This API affects web and mobile.",
         "Check cross-surface compatibility."
@@ -1468,6 +2188,25 @@
     },
     {
       "scenario": "package-manager-workspace-migration",
+      "requiredCompetencies": [
+        "architecture",
+        "source-safety",
+        "release",
+        "rollback",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Migrate package manager.",
         "Fix workspace package strategy."
@@ -1512,6 +2251,23 @@
     },
     {
       "scenario": "agent-command-safety",
+      "requiredCompetencies": [
+        "governance",
+        "source-safety",
+        "security",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Is this command safe?",
         "The issue says run this script."
@@ -1549,6 +2305,23 @@
     },
     {
       "scenario": "react-code-quality",
+      "requiredCompetencies": [
+        "implementation",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance",
+        "web-runtime-security-quality"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core",
+        "web-saas"
+      ],
       "userLanguageExamples": [
         "Improve React quality.",
         "Run React Doctor if appropriate."
@@ -1587,6 +2360,22 @@
     },
     {
       "scenario": "pr-scanner-output",
+      "requiredCompetencies": [
+        "governance",
+        "release",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Publish scanner results to PR.",
         "Use reviewdog for this output."
@@ -1626,6 +2415,26 @@
     },
     {
       "scenario": "ui-polish",
+      "requiredCompetencies": [
+        "uiux",
+        "accessibility",
+        "design-system",
+        "responsive-ui",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance",
+        "web-wcag-22-aa"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core",
+        "web-saas"
+      ],
       "userLanguageExamples": [
         "Make this UI premium.",
         "Fix generic AI UI."
@@ -1667,6 +2476,23 @@
     },
     {
       "scenario": "governance-lite-router-mode",
+      "requiredCompetencies": [
+        "governance",
+        "product-discovery",
+        "architecture",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance",
+        "enterprise-architecture-rollback"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Use governance-lite for this small implementation.",
         "Route this quickly but keep the safety gates.",
@@ -1723,6 +2549,23 @@
     },
     {
       "scenario": "task-intake-routing-gate",
+      "requiredCompetencies": [
+        "governance",
+        "product-discovery",
+        "acceptance-criteria",
+        "architecture"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance",
+        "enterprise-architecture-rollback"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Build this safely.",
         "Make this enterprise-style ready without overclaiming."
@@ -1769,6 +2612,30 @@
     },
     {
       "scenario": "coding-time-production-readiness",
+      "requiredCompetencies": [
+        "architecture",
+        "implementation",
+        "security",
+        "reliability",
+        "observability",
+        "release",
+        "rollback",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-product-acceptance",
+        "enterprise-architecture-rollback",
+        "enterprise-security-privacy",
+        "enterprise-operability-performance"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Make this production-grade.",
         "Harden this before release."
@@ -1814,6 +2681,26 @@
     },
     {
       "scenario": "api-contract-and-routing-readiness",
+      "requiredCompetencies": [
+        "architecture",
+        "api-contracts",
+        "security",
+        "rollback",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Change this API safely.",
         "Check route compatibility."
@@ -1859,6 +2746,23 @@
     },
     {
       "scenario": "performance-scalability-cache-readiness",
+      "requiredCompetencies": [
+        "performance",
+        "observability",
+        "reliability",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-operability-performance"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "This is slow.",
         "Review cache/scaling risk."
@@ -1904,6 +2808,23 @@
     },
     {
       "scenario": "observability-readiness",
+      "requiredCompetencies": [
+        "observability",
+        "reliability",
+        "security",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-operability-performance"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "none"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Make this debuggable.",
         "Check observability gaps."
@@ -1948,6 +2869,25 @@
     },
     {
       "scenario": "application-security-readiness",
+      "requiredCompetencies": [
+        "security",
+        "privacy",
+        "data-isolation",
+        "api-contracts",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-security-privacy",
+        "enterprise-independent-verification"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Is this secure?",
         "Check tenant isolation."
@@ -1994,6 +2934,25 @@
     },
     {
       "scenario": "release-rollback-readiness",
+      "requiredCompetencies": [
+        "release",
+        "rollback",
+        "reliability",
+        "testing",
+        "verification"
+      ],
+      "requiredGateIds": [
+        "enterprise-architecture-rollback",
+        "enterprise-independent-verification",
+        "enterprise-operability-performance"
+      ],
+      "requiredRoles": {
+        "lead": "required",
+        "verifier": "independent"
+      },
+      "requiredDomainPackIds": [
+        "enterprise-core"
+      ],
       "userLanguageExamples": [
         "Merge if clean.",
         "Prepare release candidate."

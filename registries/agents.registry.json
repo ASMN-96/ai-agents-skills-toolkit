@@ -35,6 +35,18 @@
         "fullstack-profile"
       ],
       "nativeCodexAgentName": "product-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["product-discovery", "acceptance-criteria"],
+        "eligibleRoles": ["specialist"],
+        "measuredContextCost": 1015,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/product-agent.compiled.md",
       "expectedDeliverables": [
         "Scoped goals",
@@ -133,6 +145,18 @@
         "source-review-profile"
       ],
       "nativeCodexAgentName": "architect-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["architecture", "ai-systems", "technical-research"],
+        "eligibleRoles": ["lead"],
+        "measuredContextCost": 1222,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/architect-agent.compiled.md",
       "expectedDeliverables": [
         "Architecture summary",
@@ -208,7 +232,7 @@
     {
       "name": "frontend-agent",
       "displayName": "Frontend Agent",
-      "mission": "Build and review frontend experiences, UI state, accessibility, responsive behavior, and browser-facing implementation.",
+      "mission": "Implement and self-review scoped frontend experiences, UI state, accessibility, responsive behavior, and browser-facing work inside a write-authorized assignment.",
       "whenToUse": [
         "Web UI, components, routes, client state, forms, or visual behavior are in scope.",
         "Responsive, accessibility, or interaction quality validation is required.",
@@ -230,6 +254,18 @@
         "fullstack-profile"
       ],
       "nativeCodexAgentName": "frontend-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["implementation", "responsive-ui", "web-accessibility"],
+        "eligibleRoles": ["specialist"],
+        "measuredContextCost": 1733,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/frontend-agent.compiled.md",
       "expectedDeliverables": [
         "UI change summary",
@@ -326,6 +362,19 @@
         "fullstack-profile"
       ],
       "nativeCodexAgentName": "uiux-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["uiux", "accessibility", "design-system"],
+        "eligibleRoles": ["specialist"],
+        "verificationCapabilities": ["accessibility-audit"],
+        "measuredContextCost": 1013,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/uiux-agent.compiled.md",
       "expectedDeliverables": [
         "UX critique",
@@ -422,6 +471,18 @@
         "fullstack-profile"
       ],
       "nativeCodexAgentName": "backend-contract-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["api-contracts", "contract-review", "failure-semantics"],
+        "eligibleRoles": ["specialist"],
+        "measuredContextCost": 1723,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/backend-contract-agent.compiled.md",
       "expectedDeliverables": [
         "Contract summary",
@@ -495,6 +556,79 @@
       "actualSpawnObserved": false
     },
     {
+      "name": "backend-implementation-agent",
+      "displayName": "Backend Implementation Agent",
+      "mission": "Implement bounded backend and API changes within kernel-assigned, non-overlapping ownership while preserving contracts, authorization, failure behavior, and rollback safety.",
+      "whenToUse": [
+        "A DeliveryRequest authorizes scoped local backend implementation.",
+        "API, RPC, server-action, Edge Function, or integration code must change.",
+        "Backend delivery requires a writer distinct from the read-only contract reviewer."
+      ],
+      "whenNotToUse": [
+        "Contract review with no implementation scope.",
+        "Database migration, RLS approval, deployment, dependency, CI, credential, or production work.",
+        "Unscoped or overlapping writer ownership."
+      ],
+      "ownedSkills": [],
+      "secondarySkills": ["governance", "code-quality", "security-review", "pr-release-gate"],
+      "profiles": ["backend-profile", "implementation-profile", "security-profile", "fullstack-profile"],
+      "nativeCodexAgentName": "backend-implementation-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["implementation", "api-contracts", "failure-semantics"],
+        "eligibleRoles": ["specialist"],
+        "measuredContextCost": 1337,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
+      "compiledFallbackPath": null,
+      "expectedDeliverables": [
+        "Owned-path backend implementation",
+        "Focused behavior and negative-path tests",
+        "Observed validation evidence",
+        "Contract, risk, and handoff notes"
+      ],
+      "successMetrics": [
+        "Changes remain inside assigned ownership",
+        "Approved backend contracts and authorization boundaries are preserved",
+        "No execution or readiness claim exceeds observed evidence"
+      ],
+      "stopConditions": [
+        "Scope, ownership, authorization, contract, or repository state changes",
+        "Dependency, CI, database migration, deployment, credential, production, or destructive work is required",
+        "Required focused validation is unavailable or a high-severity issue remains unresolved"
+      ],
+      "handoffRules": [
+        "Handoff contract review to Backend Contract Agent",
+        "Handoff database isolation to Database RLS Agent and security/privacy to Security Agent",
+        "Handoff verification to QA Test Agent, operations to SRE Performance Agent, and release/rollback to Release Manager Agent"
+      ],
+      "riskDomains": ["backend", "api", "authorization", "integration"],
+      "sourceProvenance": [
+        { "path": "agents/backend-implementation-agent.md", "category": "internal-artifact" },
+        { "path": ".codex/agents/backend-implementation-agent.toml", "category": "internal-artifact" }
+      ],
+      "status": ["documented", "available", "approved", "native-visible", "preview"],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": ["documented", "available", "approved", "native-visible", "preview"],
+      "registrySurface": "internal-helper",
+      "visibility": ["repo", "project-sync"],
+      "runtimeActivationNotes": "Preview repo-local TOML is selectable only when present and scoped-local-write is explicitly authorized. No compiled fallback exists. Registry presence is not execution evidence; backend verification remains separate from implementation evidence.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/backend-implementation-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": null,
+        "compiledFallbackPresent": false
+      },
+      "registryRecommendation": "selectable-preview-backend-writer",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
+    },
+    {
       "name": "database-rls-agent",
       "displayName": "Database RLS Agent",
       "mission": "Review Postgres/ORM database access, Supabase/RLS when present, migrations, generated types, and data isolation.",
@@ -518,6 +652,18 @@
         "fullstack-profile"
       ],
       "nativeCodexAgentName": "database-rls-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["data-isolation", "database", "failure-semantics"],
+        "eligibleRoles": ["specialist"],
+        "measuredContextCost": 1989,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/database-rls-agent.compiled.md",
       "expectedDeliverables": [
         "Database access and isolation risk summary",
@@ -616,6 +762,19 @@
         "source-review-profile"
       ],
       "nativeCodexAgentName": "security-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["security", "privacy", "agentic-security", "adversarial-review"],
+        "eligibleRoles": ["specialist"],
+        "verificationCapabilities": ["security-review"],
+        "measuredContextCost": 2603,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/security-agent.compiled.md",
       "expectedDeliverables": [
         "Findings by severity",
@@ -713,6 +872,19 @@
         "fullstack-profile"
       ],
       "nativeCodexAgentName": "qa-test-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["verification", "testing", "ai-evaluation", "failure-semantics"],
+        "eligibleRoles": ["specialist", "verifier"],
+        "verificationCapabilities": ["unit-test", "integration-test", "browser-runtime", "native-build", "simulator-device", "accessibility-audit"],
+        "measuredContextCost": 1722,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/qa-test-agent.compiled.md",
       "expectedDeliverables": [
         "Test plan",
@@ -811,6 +983,19 @@
         "source-review-profile"
       ],
       "nativeCodexAgentName": "reviewer-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["verification", "governance", "adversarial-review"],
+        "eligibleRoles": ["specialist", "verifier"],
+        "verificationCapabilities": ["static-analysis"],
+        "measuredContextCost": 1958,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/reviewer-agent.compiled.md",
       "expectedDeliverables": [
         "Findings first",
@@ -911,6 +1096,19 @@
         "implementation-profile"
       ],
       "nativeCodexAgentName": "release-manager-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["release", "rollback"],
+        "eligibleRoles": ["specialist"],
+        "verificationCapabilities": ["packaging-install-rollback"],
+        "measuredContextCost": 2417,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/release-manager-agent.compiled.md",
       "expectedDeliverables": [
         "Branch status",
@@ -1007,6 +1205,19 @@
         "implementation-profile"
       ],
       "nativeCodexAgentName": "sre-performance-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["performance", "observability", "reliability", "failure-semantics"],
+        "eligibleRoles": ["specialist"],
+        "verificationCapabilities": ["performance-profile"],
+        "measuredContextCost": 1796,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/sre-performance-agent.compiled.md",
       "expectedDeliverables": [
         "Reliability summary",
@@ -1103,6 +1314,18 @@
         "source-review-profile"
       ],
       "nativeCodexAgentName": "skill-scout-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": ["source-safety", "freshness", "technical-research"],
+        "eligibleRoles": ["specialist"],
+        "measuredContextCost": 1374,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
       "compiledFallbackPath": "compiled-agents/skill-scout-agent.compiled.md",
       "expectedDeliverables": [
         "Source identity",
@@ -1174,6 +1397,178 @@
         "compiledFallbackPresent": true
       },
       "registryRecommendation": "selectable-agent-lens",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
+    },
+    {
+      "name": "mobile-platform-agent",
+      "displayName": "Mobile Platform Agent",
+      "mission": "Implement and self-review bounded iOS, Android, and Expo/React Native work inside a write-authorized assignment with platform-specific lifecycle, accessibility, privacy, security, performance, and release discipline.",
+      "whenToUse": [
+        "A DeliveryRequest targets iOS or Android.",
+        "An Expo/React Native overlay requires native-boundary ownership.",
+        "Mobile implementation needs a scoped writer with platform-specific expertise."
+      ],
+      "whenNotToUse": [
+        "Browser-only Web/SaaS work.",
+        "Native build, signing, store, simulator/device, or accessibility claims without the required environment.",
+        "Unscoped changes spanning multiple writers or product repositories."
+      ],
+      "ownedSkills": [],
+      "secondarySkills": ["uiux", "code-quality", "security-review", "pr-release-gate"],
+      "profiles": ["implementation-profile", "fullstack-profile", "project-tooling-mobile-webview"],
+      "nativeCodexAgentName": "mobile-platform-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": [
+          "implementation",
+          "ios-native",
+          "apple-hig",
+          "ios-accessibility",
+          "privacy-manifest",
+          "android-native",
+          "android-quality",
+          "android-accessibility",
+          "expo-react-native",
+          "mobile-accessibility",
+          "native-boundaries"
+        ],
+        "eligibleRoles": ["specialist"],
+        "measuredContextCost": 1780,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
+      "compiledFallbackPath": null,
+      "expectedDeliverables": [
+        "Platform-scoped implementation or review",
+        "Native-boundary and lifecycle notes",
+        "Observed mobile validation evidence",
+        "Blocked native gates and handoffs"
+      ],
+      "successMetrics": [
+        "Selected platform conventions remain explicit",
+        "Writer ownership is non-overlapping",
+        "No native or store-readiness claim exceeds observed evidence"
+      ],
+      "stopConditions": [
+        "Required native environment or target evidence is unavailable",
+        "Writer ownership overlaps",
+        "Signing, permission, privacy, dependency, CI, deployment, or credential scope lacks authorization"
+      ],
+      "handoffRules": [
+        "Handoff architecture to Architect Agent",
+        "Handoff accessibility acceptance to UIUX Agent",
+        "Handoff security and privacy to Security Agent",
+        "Handoff native verification to QA Test Agent and release to Release Manager Agent"
+      ],
+      "riskDomains": ["mobile", "native-boundaries", "privacy", "accessibility", "release"],
+      "sourceProvenance": [
+        { "path": "agents/mobile-platform-agent.md", "category": "internal-artifact" },
+        { "path": ".codex/agents/mobile-platform-agent.toml", "category": "internal-artifact" }
+      ],
+      "status": ["documented", "available", "approved", "native-visible", "preview"],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": ["documented", "available", "approved", "native-visible", "preview"],
+      "registrySurface": "internal-helper",
+      "visibility": ["repo", "project-sync"],
+      "runtimeActivationNotes": "Preview repo-local TOML is selectable only for scoped workspace-write when present. Self-review stays inside that write-authorized assignment; the agent is ineligible for read-only audit and independent verification. No compiled fallback exists. Registry presence is not execution evidence; native platform verification remains blocked until the exact environment and task receipts are observed.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/mobile-platform-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": null,
+        "compiledFallbackPresent": false
+      },
+      "registryRecommendation": "selectable-preview-platform-agent",
+      "actualSpawnProof": null,
+      "actualSpawnObserved": false
+    },
+    {
+      "name": "desktop-platform-agent",
+      "displayName": "Desktop Platform Agent",
+      "mission": "Implement and self-review bounded Windows, macOS, Electron, and Tauri work inside a write-authorized assignment with explicit native, IPC/command, accessibility, security, packaging, update, and rollback boundaries.",
+      "whenToUse": [
+        "A DeliveryRequest targets Windows desktop or macOS desktop.",
+        "An Electron or Tauri overlay requires desktop runtime-boundary ownership.",
+        "Desktop implementation needs a scoped writer with native and packaging awareness."
+      ],
+      "whenNotToUse": [
+        "Browser-only Web/SaaS work.",
+        "Native build, signing, installer, updater, or accessibility claims without the required environment.",
+        "Unscoped changes spanning multiple writers or product repositories."
+      ],
+      "ownedSkills": [],
+      "secondarySkills": ["uiux", "code-quality", "security-review", "pr-release-gate"],
+      "profiles": ["implementation-profile", "fullstack-profile", "project-tooling-architecture-hardening"],
+      "nativeCodexAgentName": "desktop-platform-agent",
+      "deliveryKernel": {
+        "canonicalCompetencies": [
+          "implementation",
+          "windows-native",
+          "windows-accessibility",
+          "macos-native",
+          "apple-hig",
+          "macos-accessibility",
+          "privacy-manifest",
+          "electron",
+          "tauri",
+          "desktop-security",
+          "native-boundaries"
+        ],
+        "eligibleRoles": ["specialist"],
+        "measuredContextCost": 1800,
+        "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
+        "authority": "internal-reviewed",
+        "lifecycle": "active",
+        "environmentRestrictions": {
+          "allowed": ["codex-project-runtime"],
+          "forbidden": []
+        }
+      },
+      "compiledFallbackPath": null,
+      "expectedDeliverables": [
+        "OS and overlay-scoped implementation or review",
+        "Native and IPC/command boundary notes",
+        "Observed desktop validation evidence",
+        "Blocked packaging, update, rollback, and handoff gates"
+      ],
+      "successMetrics": [
+        "Selected OS and runtime conventions remain explicit",
+        "Writer ownership is non-overlapping",
+        "No installer, updater, signing, or platform-readiness claim exceeds observed evidence"
+      ],
+      "stopConditions": [
+        "Required native or packaging environment is unavailable",
+        "Writer ownership overlaps",
+        "Signing, capability, dependency, CI, deployment, update, or credential scope lacks authorization"
+      ],
+      "handoffRules": [
+        "Handoff architecture to Architect Agent",
+        "Handoff accessibility acceptance to UIUX Agent",
+        "Handoff IPC, command, updater, and storage security to Security Agent",
+        "Handoff native verification to QA Test Agent and packaging/rollback to Release Manager Agent"
+      ],
+      "riskDomains": ["desktop", "native-boundaries", "ipc", "accessibility", "release"],
+      "sourceProvenance": [
+        { "path": "agents/desktop-platform-agent.md", "category": "internal-artifact" },
+        { "path": ".codex/agents/desktop-platform-agent.toml", "category": "internal-artifact" }
+      ],
+      "status": ["documented", "available", "approved", "native-visible", "preview"],
+      "provenanceType": "toolkit-authored",
+      "activationStatus": ["documented", "available", "approved", "native-visible", "preview"],
+      "registrySurface": "internal-helper",
+      "visibility": ["repo", "project-sync"],
+      "runtimeActivationNotes": "Preview repo-local TOML is selectable only for scoped workspace-write when present. Self-review stays inside that write-authorized assignment; the agent is ineligible for read-only audit and independent verification. No compiled fallback exists. Registry presence is not execution evidence; native platform verification remains blocked until the exact environment and task receipts are observed.",
+      "runtimeFiles": {
+        "tomlPath": ".codex/agents/desktop-platform-agent.toml",
+        "tomlPresent": true,
+        "compiledFallbackPath": null,
+        "compiledFallbackPresent": false
+      },
+      "registryRecommendation": "selectable-preview-platform-agent",
       "actualSpawnProof": null,
       "actualSpawnObserved": false
     }

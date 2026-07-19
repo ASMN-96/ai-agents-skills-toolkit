@@ -1,4 +1,4 @@
-export const TOOLKIT_VERSION = "0.2.5";
+export const TOOLKIT_VERSION = "0.3.0";
 
 export const ACTIVE_SKILLS = [
   "governance",
@@ -68,11 +68,11 @@ export const SOURCE_OF_TRUTH_MAP = [
   },
   {
     domain: "sources",
-    canonicalSource: "sources/*.md and sources/source-watchlist.json",
+    canonicalSource: "sources/source-watchlist.json, sources/*.md, and immutable sources/reviews/** receipts",
     runtimeCopy: "none",
-    distributionCopy: ".ai-toolkit/sources/**",
+    distributionCopy: ".ai-toolkit/sources/** as generated-only output; never a canonical input",
     historicalArchive: "restricted/reference-only source records stay explicitly marked",
-    driftControl: "neverAutoImport plus source-record and watchlist validation"
+    driftControl: "byte-identical SourceCatalog v2 mirror plus immutable receipt, neverAutoImport, freshness, and source-record validation"
   },
   {
     domain: "profiles",

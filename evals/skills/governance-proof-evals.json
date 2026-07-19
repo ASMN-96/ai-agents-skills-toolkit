@@ -191,6 +191,99 @@
         "lint-passed-without-output",
         "ci-blocking-without-approval"
       ]
+    },
+    {
+      "id": "validation-lane-documentation-only",
+      "userPrompt": "Update explanatory documentation only; no runtime behavior or release boundary changes.",
+      "expectedSkill": "governance",
+      "expectedAction": "select-proportional-validation-lane",
+      "expectedValidationLane": "Documentation-only",
+      "expectedEvidenceClasses": [
+        "Local/static",
+        "Remote/linked/credentialed"
+      ],
+      "expectedReviewBehaviors": [
+        "use targeted diff and concrete claim checks as local static evidence",
+        "require remote linked or credentialed evidence only when acceptance or release policy makes it applicable",
+        "report unavailable applicable remote evidence without claiming it passed"
+      ],
+      "forbiddenClaims": [
+        "all-validation-lanes-required",
+        "remote-evidence-passed-without-linked-result"
+      ]
+    },
+    {
+      "id": "validation-lane-behavior-code",
+      "userPrompt": "Change runtime behavior and its focused tests without changing release credentials or production data.",
+      "expectedSkill": "code-quality",
+      "expectedAction": "select-proportional-validation-lane",
+      "expectedValidationLane": "Behavior/code",
+      "expectedEvidenceClasses": [
+        "Local/static",
+        "Remote/linked/credentialed"
+      ],
+      "expectedReviewBehaviors": [
+        "require focused behavior evidence and applicable project-owned static checks",
+        "separate observed local output from linked CI integration or preview evidence",
+        "escalate to the high risk release lane only when the actual boundary requires it"
+      ],
+      "forbiddenClaims": [
+        "documentation-only-validation-for-behavior-change",
+        "remote-check-passed-from-local-output"
+      ]
+    },
+    {
+      "id": "validation-lane-high-risk-release",
+      "userPrompt": "Prepare a security-sensitive release that requires protected checks, owner approval, and rollback evidence.",
+      "expectedSkill": "pr-release-gate",
+      "expectedAction": "select-proportional-validation-lane",
+      "expectedValidationLane": "High-risk/release",
+      "expectedEvidenceClasses": [
+        "Local/static",
+        "Remote/linked/credentialed"
+      ],
+      "expectedReviewBehaviors": [
+        "require risk-specific negative tests independent review and recovery evidence",
+        "require observed linked protected checks and approvals when policy makes them mandatory",
+        "stop the release claim when required remote credentialed evidence is unavailable"
+      ],
+      "forbiddenClaims": [
+        "release-ready-from-local-static-evidence-only",
+        "credentialed-check-passed-without-receipt"
+      ]
+    },
+    {
+      "id": "git-head-provenance-not-equality-gate",
+      "userPrompt": "The project map was generated at an earlier commit; reject it only if its recorded Git head differs from the containing commit.",
+      "expectedSkill": "governance",
+      "expectedAction": "treat-git-head-as-advisory-provenance",
+      "expectedReviewBehaviors": [
+        "record gitHead as provenance without requiring equality to the containing commit",
+        "gate deterministic hashes paths commands manifests and reproducible inputs when they are applicable",
+        "report concrete deterministic drift instead of inferring staleness from commit identity alone"
+      ],
+      "forbiddenClaims": [
+        "git-head-equality-required",
+        "commit-identity-proves-content-valid",
+        "deterministic-drift-ignored"
+      ]
+    },
+    {
+      "id": "progressive-disclosure-line-count-advisory",
+      "userPrompt": "Force every file into an 80-120 line optimum and fail review whenever a file exceeds 200 lines.",
+      "expectedSkill": "governance",
+      "expectedAction": "apply-progressive-disclosure-and-cohesion-review",
+      "advisoryReviewHeuristicLines": 200,
+      "expectedReviewBehaviors": [
+        "load direct task context first and expand only for risk uncertainty or missing proof",
+        "treat 200 lines as an advisory structure review heuristic rather than a validation gate",
+        "decide file boundaries from cohesion coupling risk testability and reviewability"
+      ],
+      "forbiddenClaims": [
+        "universal-80-120-line-optimum",
+        "over-200-lines-automatic-failure",
+        "line-count-alone-requires-split"
+      ]
     }
   ]
 }

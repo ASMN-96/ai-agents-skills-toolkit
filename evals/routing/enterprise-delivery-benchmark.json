@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "1.0.0",
+  "runsPerVariant": 3,
+  "executionSettings": {
+    "kind": "deterministic-static-policy",
+    "model": "not-invoked",
+    "temperature": "not-applicable"
+  },
+  "tasks": [
+    {
+      "id": "BENCH-MAINT-01",
+      "category": "maintenance",
+      "scenario": "large-governed-implementation",
+      "risk": "medium",
+      "targets": { "platforms": ["web-saas"], "frameworkOverlays": [] },
+      "environmentCapabilities": ["node", "browser"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": [],
+      "requiredRoles": { "lead": "required", "verifier": "none" },
+      "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "product-agent", "security-review"]
+    },
+    {
+      "id": "BENCH-WEB-01",
+      "category": "web-saas",
+      "scenario": "large-governed-implementation",
+      "risk": "high",
+      "targets": { "platforms": ["web-saas"], "frameworkOverlays": [] },
+      "environmentCapabilities": ["node", "browser"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": [],
+      "requiredRoles": { "lead": "required", "verifier": "independent" },
+      "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+    },
+    {
+      "id": "BENCH-WEB-UX-02",
+      "category": "web-saas",
+      "scenario": "large-governed-implementation",
+      "risk": "medium",
+      "targets": { "platforms": ["web-saas"], "frameworkOverlays": [] },
+      "environmentCapabilities": ["node", "browser"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": ["uiux", "accessibility", "design-system"],
+      "requiredRoles": { "lead": "required", "verifier": "none" },
+      "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "product-agent", "security-review", "uiux-agent"]
+    },
+    {
+      "id": "BENCH-API-01",
+      "category": "api-data-security",
+      "scenario": "large-governed-implementation",
+      "risk": "critical",
+      "targets": { "platforms": ["web-saas"], "frameworkOverlays": [] },
+      "environmentCapabilities": ["node", "browser"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": ["database"],
+      "requiredRoles": { "lead": "required", "verifier": "independent" },
+      "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "pr-release-gate", "product-agent", "qa-test-agent", "reviewer-agent", "security-review", "sre-performance-agent"]
+    },
+    {
+      "id": "BENCH-IOS-01",
+      "category": "mobile",
+      "scenario": "large-governed-implementation",
+      "risk": "high",
+      "targets": { "platforms": ["ios"], "frameworkOverlays": [] },
+      "environmentCapabilities": ["macos", "xcode", "simulator-or-device"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": [],
+      "requiredRoles": { "lead": "required", "verifier": "independent" },
+      "goldenSelectedResourceIds": ["architect-agent", "mobile-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+    },
+    {
+      "id": "BENCH-ANDROID-02",
+      "category": "mobile",
+      "scenario": "large-governed-implementation",
+      "risk": "high",
+      "targets": { "platforms": ["android"], "frameworkOverlays": [] },
+      "environmentCapabilities": ["android-sdk", "emulator-or-device"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": [],
+      "requiredRoles": { "lead": "required", "verifier": "independent" },
+      "goldenSelectedResourceIds": ["architect-agent", "mobile-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+    },
+    {
+      "id": "BENCH-EXPO-03",
+      "category": "mobile",
+      "scenario": "large-governed-implementation",
+      "risk": "high",
+      "targets": { "platforms": ["ios"], "frameworkOverlays": ["expo-react-native"] },
+      "environmentCapabilities": ["macos", "xcode", "simulator-or-device", "node"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": [],
+      "requiredRoles": { "lead": "required", "verifier": "independent" },
+      "goldenSelectedResourceIds": ["architect-agent", "mobile-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+    },
+    {
+      "id": "BENCH-WINDOWS-01",
+      "category": "desktop",
+      "scenario": "large-governed-implementation",
+      "risk": "high",
+      "targets": { "platforms": ["windows-desktop"], "frameworkOverlays": [] },
+      "environmentCapabilities": ["windows", "native-packaging"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": [],
+      "requiredRoles": { "lead": "required", "verifier": "independent" },
+      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+    },
+    {
+      "id": "BENCH-MACOS-02",
+      "category": "desktop",
+      "scenario": "large-governed-implementation",
+      "risk": "medium",
+      "targets": { "platforms": ["macos-desktop"], "frameworkOverlays": [] },
+      "environmentCapabilities": ["macos", "xcode"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": [],
+      "requiredRoles": { "lead": "required", "verifier": "none" },
+      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "sre-performance-agent"]
+    },
+    {
+      "id": "BENCH-ELECTRON-03",
+      "category": "desktop",
+      "scenario": "large-governed-implementation",
+      "risk": "high",
+      "targets": { "platforms": ["windows-desktop"], "frameworkOverlays": ["electron"] },
+      "environmentCapabilities": ["windows", "native-packaging", "node"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": [],
+      "requiredRoles": { "lead": "required", "verifier": "independent" },
+      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+    },
+    {
+      "id": "BENCH-TAURI-04",
+      "category": "desktop",
+      "scenario": "large-governed-implementation",
+      "risk": "high",
+      "targets": { "platforms": ["windows-desktop"], "frameworkOverlays": ["tauri"] },
+      "environmentCapabilities": ["windows", "native-packaging", "rust"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": [],
+      "requiredRoles": { "lead": "required", "verifier": "independent" },
+      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+    },
+    {
+      "id": "BENCH-SOURCE-RELEASE-01",
+      "category": "source-release",
+      "scenario": "large-governed-implementation",
+      "risk": "critical",
+      "targets": { "platforms": ["web-saas"], "frameworkOverlays": [] },
+      "environmentCapabilities": ["node", "browser"],
+      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "additionalCompetencies": ["source-safety", "freshness", "governance"],
+      "requiredRoles": { "lead": "required", "verifier": "independent" },
+      "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "pr-release-gate", "product-agent", "qa-test-agent", "reviewer-agent", "security-review", "skill-scout-agent", "sre-performance-agent"]
+    }
+  ]
+}

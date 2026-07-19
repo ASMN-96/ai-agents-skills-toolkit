@@ -4,11 +4,11 @@ This document defines when the toolkit can be used in real product repositories.
 
 ## Current Classification
 
-After the 2026-05-30 first representative pilot, the toolkit is Level 3 complete and the current controlled-pilot milestone is closed. It is ready for controlled real-project AI coding-agent use when the same governed branch, PR, dry-run, validation, and owner-approval flow is followed. `v0.2.3` is the controlled public release path for this agent-assisted state after v0.2 hardening, activation posture hardening, no-write leak-scan validation, full resource refresh with zero passive source holds, release validation, and tag/release execution. Level 4 enterprise rollout and Level 5 broad public/package maturity remain separate future gates; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command runtime override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global config was changed.
+After the 2026-05-30 first representative pilot, the v0.2 toolkit is Level 3 complete and the controlled-pilot milestone is closed. `v0.2.5` is the current controlled release at commit `4654861f6a1887826e6a888b894869e1ec52bb01`. Comparable real-project use remains appropriate only through governed branches, dry-run-first sync, project-owned validation, PR review, and owner approval. The untagged v0.3 candidate does not inherit a higher readiness claim: its current blockers and warnings are owned by `docs/V0_3_0_RELEASE_EVIDENCE.json` and derived into the marked release-summary blocks. Level 4 enterprise rollout and Level 5 broad public/package maturity remain separate future gates; see `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`. The original Phase 10I fresh-session smoke test used a temporary per-command runtime override, `windows.sandbox="unelevated"`, to avoid a WindowsApps PowerShell startup failure in the elevated Windows sandbox. No global config was changed.
 
 Use in comparable real projects is appropriate only through clean upstream-aligned feature branches, dry-run-first sync, manifest validation, project-owned checks, PR review, and passing required checks. This does not authorize automatic rollout, product-repository writes without a project PR, runtime/global activation, package/CI/MCP changes, external installs, secret access, or broad cross-runtime active support.
 
-The v0.2 project tooling architecture is a recommendation and evidence model on top of this Level 3 readiness position. It is not a readiness-level promotion, not a higher-maturity claim, not enterprise or production certification, not a tool installation, not CI wiring, not MCP/global configuration, not cross-runtime active support, and not proof that any recommended tool ran.
+The v0.2 project tooling architecture is a recommendation and evidence model on top of this Level 3 readiness position. It is not a readiness-level promotion, not a higher-maturity claim, not enterprise or production certification, not a tool installation, not CI wiring, not MCP/global configuration, not cross-runtime active support, and not proof that any recommended tool ran. The v0.3 candidate's stable 15-agent static design, AI-system gates, and automatic planning-time risk assessment do not change that conclusion: observed host receipts, role-specific native pilots, production outcomes, rollback evidence, and owner acceptance remain blocked or absent.
 
 For v0.2 use, normal-language implementation requests first pass through `methods/governance/task-intake-routing-gate.md` so affected surfaces, required agents/skills/methods/tools, validation gates, stop conditions, and out-of-scope items are explicit before coding.
 
@@ -23,7 +23,7 @@ Phase 10L governance UX hardening did not upgrade readiness by itself. The Level
 | 2 | Fresh-session verified | A new Codex session confirms skill visibility, agent native/fallback status, support-tool availability, and no silent fallback | One controlled real-project pilot |
 | 3 | Pilot validated | One representative project sync is reviewed, version-pinned, validated, and merged through PR | Controlled AI coding-agent use in comparable real projects |
 | 4 | Broad rollout | Multiple project pilots pass with no governance drift or unsafe sync behavior | Wider rollout, still phase-gated |
-| 5 | Broad public/package maturity | Public/private blockers, license/contribution/security policy gaps, package allowlist, clean-clone release validation, and broader rollout evidence are resolved | Broad public/package distribution beyond the controlled `v0.2.3` path |
+| 5 | Broad public/package maturity | Public/private blockers, license/contribution/security policy gaps, package allowlist, clean-clone release validation, and broader rollout evidence are resolved | Broad public/package distribution beyond the controlled `v0.2.5` path |
 
 ## Level 2 Gate
 
@@ -32,7 +32,7 @@ Before the first real-project pilot, run a fresh-session smoke test and record a
 - The exact toolkit commit being certified.
 - `governance` is visible in the new session.
 - Retired helper aliases are not silently assumed active.
-- The 12 core agents report native-visible TOML file presence and compiled fallback file presence separately.
+- The 15 registry-declared agents report native-visible TOML file presence and compiled fallback file presence separately; three preview specialists—backend implementation, mobile platform, and desktop platform—are native-only.
 - Superpowers, GSD, GitHub/gh, browser/Playwright, Supabase, CodeRabbit, and other support tools are reported as available, unavailable with fallback, or not needed.
 - No fallback from native agent to compiled instructions is hidden.
 - No agent spawn, delegated review, or runtime execution is claimed from file presence alone.
@@ -82,7 +82,10 @@ The current Level 3 project-sync evidence is recorded in `docs/PROJECT_SYNC_VALI
 For real projects, use the toolkit as a governance and evidence layer:
 
 - Start in planning-only or review mode unless a project owner has approved implementation.
-- Select the smallest useful set from the 5 canonical skills and 12 repo-local Codex project agent lenses.
+- Let the kernel select the smallest complete set from the 5 canonical skills and 15 repo-local Codex project agent lenses.
+- Keep individual agents bounded and non-looping, with at most two specialists per wave. Current v0.3 assignments are single-attempt; a retry or replan requires a new plan digest and fresh context rather than an agent-controlled loop.
+- Treat automatic risk assessment as planning policy only. It may elevate verified canonical scope and authorized actions to medium, high, or critical and strengthen required gates or verification, but it is not proof that an agent ran, a check passed, or an implementation is correct.
+- Permit scoped writes only through the four declared writer postures—frontend, backend implementation, mobile platform, and desktop platform—and only for explicit, non-overlapping, repository-relative ownership with `scoped-local-write` authorization.
 - Report selected or recommended agents, `.codex/agents` TOML file presence, compiled fallback presence, inline fallback use, and agents that actually spawned as separate facts.
 - Prefer project-owned checks before proposing new tools.
 - Use v0.2 project tooling profiles as recommendation posture only; registry/profile/template presence is not tool execution.

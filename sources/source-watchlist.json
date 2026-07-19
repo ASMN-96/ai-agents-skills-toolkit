@@ -1,17 +1,23 @@
 {
-  "schemaVersion": "1.0.0",
-  "purpose": "Read-only source freshness monitoring for reviewed external GitHub repository sources and manual reviewed documentation sources.",
+  "schemaVersion": "2.0.0",
+  "catalogId": "enterprise-source-catalog",
+  "migratedAt": "2026-07-17T00:00:00.000Z",
+  "purpose": "Canonical review-only supply-chain inventory. Catalog freshness never authorizes import, installation, activation, extraction, or runtime use.",
   "policy": {
-    "readOnly": true,
+    "readOnlySupplyChainInputs": true,
     "neverAutoImport": true,
-    "doesNotAuthorize": [
-      "copying",
-      "installing",
-      "activating",
-      "extracting methods",
-      "updating source records",
-      "changing runtime configuration"
-    ]
+    "freshnessNeverActivatesRuntime": true
+  },
+  "freshnessClasses": {
+    "security-runtime": {
+      "maxAgeDays": 14
+    },
+    "platform-standards": {
+      "maxAgeDays": 30
+    },
+    "general-methods": {
+      "maxAgeDays": 90
+    }
   },
   "sources": [
     {
@@ -48,7 +54,40 @@
           "no product-repo changes",
           "no global configuration changes"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:anthropics/skills",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "fa0fa64bdc967915dc8399e803be67759e1e62b8"
+        },
+        "contentDigest": "sha256:0d9683641353f633dce3eaf81f4e4e623f582dca382dc3657ab47cea1bbd1205",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/anthropic-skills.md"
+      ]
     },
     {
       "id": "openai-skills",
@@ -80,7 +119,40 @@
           "no global configuration changes",
           "no product-repo changes"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:openai/skills",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "49f948faa9258a0c61caceaf225e179651397431"
+        },
+        "contentDigest": "sha256:011fb1b92f68e9ac8dec2c7549243e29c7598f0cdb3858e2191b9a711b7acd42",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/openai-skills.md"
+      ]
     },
     {
       "id": "addy-osmani-agent-skills",
@@ -113,7 +185,40 @@
           "no product-repo changes",
           "no runtime configuration changes"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:addyosmani/agent-skills",
+      "authority": "community",
+      "lifecycle": "review-input",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "2fbfa004a0192529bc997d103fc12f19a3804aab"
+        },
+        "contentDigest": "sha256:9f4cd96aa644fadbba6864b461c3cd9b1adc74ae901f69025913019d9cb94ae3",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/addy-osmani-agent-skills.md"
+      ]
     },
     {
       "id": "supabase-agent-skills",
@@ -142,7 +247,40 @@
           "no raw skill copying",
           "no product-repo changes"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:supabase/agent-skills",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "1ad9aaeb49caafd9e95c0a91116f71890eebbc53"
+        },
+        "contentDigest": "sha256:9e455e4d2320510ba82fa789ae4bdd26b062e6c4c3b96d03ed1519ceada05794",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/supabase-agent-skills.md"
+      ]
     },
     {
       "id": "trailofbits-skills",
@@ -174,7 +312,40 @@
           "no package changes",
           "no product-repo changes"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:trailofbits/skills",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af"
+        },
+        "contentDigest": "sha256:005afb4b80ab79f5b8e45682a83c9682e29f4e5fad35b8be6e98a8571e8f1458",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/trailofbits-skills.md"
+      ]
     },
     {
       "id": "microsoft-playwright",
@@ -208,7 +379,46 @@
           "no product-repo changes",
           "no global configuration changes"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [
+        "playwright"
+      ],
+      "identityKey": "github:microsoft/playwright",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "449349caea6d1c81dc8b6a6f447cf9bfca6b1350"
+        },
+        "contentDigest": "sha256:dc7581d4b48b882cfa6b1a670ff2fc58a326b667cd9567aa4b8ff2c809ef192a",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "playwright"
+      ],
+      "affectedArtifacts": [
+        "sources/playwright.md",
+        ".ai-toolkit/sources/records/playwright.md",
+        "registries/tools.registry.json"
+      ]
     },
     {
       "id": "karpathy-inspired-skills",
@@ -239,7 +449,40 @@
           "no global skill activation",
           "no product-repo changes"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:multica-ai/andrej-karpathy-skills",
+      "authority": "community",
+      "lifecycle": "review-input",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "2c606141936f1eeef17fa3043a72095b4765b9c2"
+        },
+        "contentDigest": "sha256:b1bf1488b4af3b8cfd044700e5302e93b4e735df0698b80a621d8fe5009435c4",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/karpathy-inspired-skills.md"
+      ]
     },
     {
       "id": "nagdy-guard-skills",
@@ -274,7 +517,40 @@
           "no global skill activation",
           "no product-repo changes"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:mabdeltawab/nagdy_guard-skills",
+      "authority": "community",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "d63607391ffd6b2763a3e62cb05a8e00b891a937"
+        },
+        "contentDigest": "sha256:d5bf9493007ee27515a2e4e312035b40724043eacc8b7e5435fff2bc380080f5",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/nagdy-guard-skills.md"
+      ]
     },
     {
       "id": "matt-pocock-skills",
@@ -306,7 +582,40 @@
           "no product-repo changes",
           "no duplication of Codex or Superpowers execution discipline"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:mattpocock/skills",
+      "authority": "community",
+      "lifecycle": "review-input",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "9603c1cc8118d08bc1b3bf34cf714f62178dea3b"
+        },
+        "contentDigest": "sha256:c162fda5560dc2b6c442fdb9312b0d2094119fe40c88e78e464246c6f8ff0755",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/matt-pocock-skills.md"
+      ]
     },
     {
       "id": "shadcn-ui",
@@ -342,7 +651,40 @@
           "no raw source extraction",
           "no runtime activation"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:shadcn-ui/ui",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "d28738b183c5eaa69d8d540826e450f30d39ab6c"
+        },
+        "contentDigest": "sha256:c3607b2ba1e0cf1eeb8ba825498d74f1014cde7b745a25a0be2e627a17bf9c29",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/shadcn-ui.md"
+      ]
     },
     {
       "id": "addyosmani-web-quality-skills",
@@ -374,7 +716,40 @@
           "no product-repo changes",
           "no runtime activation"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:addyosmani/web-quality-skills",
+      "authority": "community",
+      "lifecycle": "review-input",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "95d6e255afe1596b557d7a8498517884438f5b3a"
+        },
+        "contentDigest": "sha256:3f1abebc85cc287a6e8e6b7460cd1c37257d3634462650c2f1cba71d49212f1b",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/addyosmani-web-quality-skills.md"
+      ]
     },
     {
       "id": "voltagent-awesome-design-md",
@@ -405,7 +780,40 @@
           "no brand imitation",
           "no global configuration use"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:voltagent/awesome-design-md",
+      "authority": "aggregator",
+      "lifecycle": "review-input",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "664b3e78fd1a298ba11973822da988483256d4b4"
+        },
+        "contentDigest": "sha256:ae333fffcb3a026bc4bf76244ba8715992ddcff50a7604a0b2f40169d907ffb0",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/voltagent-awesome-design-md.md"
+      ]
     },
     {
       "id": "voltagent-awesome-agent-skills",
@@ -439,7 +847,40 @@
           "no MCP setup",
           "no runtime behavior changes"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:voltagent/awesome-agent-skills",
+      "authority": "aggregator",
+      "lifecycle": "review-input",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "c97eda5e3406670f3285c6bf9eb7639a7ecc03cc"
+        },
+        "contentDigest": "sha256:8b4d88fb86a6274f63a4645b5714953bdcefa84d215970830329a3fccc63b25d",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/voltagent-awesome-agent-skills.md"
+      ]
     },
     {
       "id": "impeccable",
@@ -473,7 +914,40 @@
           "no global config mutation",
           "no product-repo changes"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:pbakaus/impeccable",
+      "authority": "community",
+      "lifecycle": "review-input",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "e4ab5e24bdf5321b72163d2fbcbe6fa985c848ba"
+        },
+        "contentDigest": "sha256:9bdf023fc8c3738ddd194022b05c714fa2d02fb0024d81bfda923c6e30838d00",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/impeccable.md"
+      ]
     },
     {
       "id": "uncodixfy",
@@ -488,7 +962,40 @@
       "watchedPaths": [],
       "licenseConcern": "clear",
       "reviewPriority": "Medium",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:cyxzdev/uncodixfy",
+      "authority": "community",
+      "lifecycle": "review-input",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "e0e028058b5259debdd94b78147c6d6c77bf7da2"
+        },
+        "contentDigest": "sha256:ab4b0a4091b4fa6459c538eb96a52f5a40826766d220478703eb2a366a2984e2",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/uncodixfy.md"
+      ]
     },
     {
       "id": "superpowers",
@@ -521,7 +1028,40 @@
           "no product-repo changes",
           "no duplication of external Superpowers workflows"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:obra/superpowers",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "d884ae04edebef577e82ff7c4e143debd0bbec99"
+        },
+        "contentDigest": "sha256:4eb720d8d09486b14a3167420f7a54eb7bc3f2ee956373c806b4a593389a0057",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/superpowers.md"
+      ]
     },
     {
       "id": "everything-claude-code",
@@ -557,7 +1097,40 @@
           "no cross-runtime pipeline import",
           "no product-repo changes"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:affaan-m/ecc",
+      "authority": "community",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "754b8dd76ca885b764ec22f476664377aa46b6cd"
+        },
+        "contentDigest": "sha256:0fb14eeb7285b8042d5229c7ea3c9d5679aa038dcd38d8c57d1a055a3546f3b1",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/everything-claude-code.md"
+      ]
     },
     {
       "id": "ruflo",
@@ -593,7 +1166,40 @@
           "no product-repo indexing",
           "no global configuration use"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:ruvnet/ruflo",
+      "authority": "community",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "12ede21767a6dd669df1b79392a5d27d9154f237"
+        },
+        "contentDigest": "sha256:4c54773d948717b4c331910d927c430d9e3d0040fcc2064cf9062985152af5b1",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/ruflo.md"
+      ]
     },
     {
       "id": "gitlab-agent-skills",
@@ -618,7 +1224,36 @@
           "install or activation approval",
           "raw docs extraction approval"
         ]
-      }
+      },
+      "aliases": [],
+      "identityKey": "url:https://docs.gitlab.com/user/duo_agent_platform/customize/agent_skills",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (periodic owner review of the official docs URL and source-record notes) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/gitlab-agent-skills.md"
+      ]
     },
     {
       "id": "gitlab-agentic-tool-development",
@@ -643,7 +1278,36 @@
           "install or activation approval",
           "raw docs extraction approval"
         ]
-      }
+      },
+      "aliases": [],
+      "identityKey": "url:https://docs.gitlab.com/user/duo_agent_platform/agents/external",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (periodic owner review of the official docs URL and source-record notes) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/gitlab-agentic-tool-development.md"
+      ]
     },
     {
       "id": "aider-repo-map",
@@ -668,7 +1332,36 @@
           "runtime activation proof",
           "raw documentation copied"
         ]
-      }
+      },
+      "aliases": [],
+      "identityKey": "url:https://aider.chat/docs/repomap.html",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/aider-repo-map.md"
+      ]
     },
     {
       "id": "openai-prompt-caching",
@@ -693,7 +1386,36 @@
           "runtime activation proof",
           "raw documentation copied"
         ]
-      }
+      },
+      "aliases": [],
+      "identityKey": "url:https://developers.openai.com/api/docs/guides/prompt-caching",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/openai-prompt-caching.md"
+      ]
     },
     {
       "id": "openai-codex-behavior-boundaries",
@@ -718,7 +1440,36 @@
           "runtime activation proof",
           "raw documentation copied"
         ]
-      }
+      },
+      "aliases": [],
+      "identityKey": "url:https://developers.openai.com/codex/guides/agents-md",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/openai-codex-behavior-boundaries.md"
+      ]
     },
     {
       "id": "gsd-core",
@@ -751,7 +1502,44 @@
           "no product-repo changes",
           "no invocation claim without observed workflow output"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:open-gsd/gsd-core",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHANGED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "b2f4aa94356dc4859946f508965a2fa8e40bc93b"
+        },
+        "contentDigest": "sha256:f85d27660978b8e6406d16962e5432f4fcca91380bd5c7caed65dee22c0c3843",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "gsd-core"
+      ],
+      "affectedArtifacts": [
+        "sources/gsd-core.md",
+        ".ai-toolkit/sources/records/gsd-core.md",
+        "registries/tools.registry.json"
+      ]
     },
     {
       "id": "repomix",
@@ -787,7 +1575,3151 @@
           "no output claims without observed command output",
           "no raw upstream copying"
         ]
-      }
+      },
+      "sourceType": "github-repo",
+      "aliases": [],
+      "identityKey": "github:yamadashy/repomix",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "2418bd05ccfbd6c39594854ab12695513afafba9"
+        },
+        "contentDigest": "sha256:7093b0e83a72f9ce1da7a380c8ec56ad2087423b3eea47c7dff387c62796f2e2",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "repomix"
+      ],
+      "affectedArtifacts": [
+        "sources/repomix.md",
+        ".ai-toolkit/sources/records/repomix.md",
+        "registries/tools.registry.json"
+      ]
+    },
+    {
+      "id": "typescript",
+      "aliases": [],
+      "identityKey": "github:microsoft/typescript",
+      "name": "TypeScript",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/microsoft/TypeScript",
+      "repoOwner": "microsoft",
+      "repoName": "TypeScript",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/typescript.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "typescript"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/typescript.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "type system and source-code type checking",
+      "homepage": "https://www.typescriptlang.org",
+      "neverAutoImport": true
+    },
+    {
+      "id": "typescript-eslint",
+      "aliases": [],
+      "identityKey": "github:typescript-eslint/typescript-eslint",
+      "name": "typescript-eslint",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/typescript-eslint/typescript-eslint",
+      "repoOwner": "typescript-eslint",
+      "repoName": "typescript-eslint",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/typescript-eslint.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "typescript-eslint"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/typescript-eslint.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "typed linting for TypeScript and JavaScript",
+      "homepage": "https://typescript-eslint.io",
+      "neverAutoImport": true
+    },
+    {
+      "id": "eslint-plugin-react-hooks",
+      "aliases": [],
+      "identityKey": "github:facebook/react",
+      "name": "eslint-plugin-react-hooks",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/facebook/react",
+      "repoOwner": "facebook",
+      "repoName": "react",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/eslint-plugin-react-hooks.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "eslint-plugin-react-hooks"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/eslint-plugin-react-hooks.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "React hooks and compiler rule enforcement",
+      "homepage": "https://react.dev",
+      "neverAutoImport": true
+    },
+    {
+      "id": "biome",
+      "aliases": [],
+      "identityKey": "github:biomejs/biome",
+      "name": "Biome",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/biomejs/biome",
+      "repoOwner": "biomejs",
+      "repoName": "biome",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/biome.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "biome"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/biome.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "fast JavaScript and TypeScript formatter/linter",
+      "homepage": "https://biomejs.dev",
+      "neverAutoImport": true
+    },
+    {
+      "id": "oxlint",
+      "aliases": [],
+      "identityKey": "github:oxc-project/oxc",
+      "name": "Oxlint",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/oxc-project/oxc",
+      "repoOwner": "oxc-project",
+      "repoName": "oxc",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/oxlint.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "oxlint"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/oxlint.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "fast JavaScript and TypeScript linting",
+      "homepage": "https://oxc.rs",
+      "neverAutoImport": true
+    },
+    {
+      "id": "knip",
+      "aliases": [],
+      "identityKey": "github:webpro-nl/knip",
+      "name": "Knip",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/webpro-nl/knip",
+      "repoOwner": "webpro-nl",
+      "repoName": "knip",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/knip.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "knip"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/knip.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "unused files, dependencies, and exports detection",
+      "homepage": "https://knip.dev",
+      "neverAutoImport": true
+    },
+    {
+      "id": "react-doctor",
+      "aliases": [],
+      "identityKey": "github:millionco/react-doctor",
+      "name": "React Doctor",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/millionco/react-doctor",
+      "repoOwner": "millionco",
+      "repoName": "react-doctor",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/react-doctor.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [
+        "react-doctor"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/react-doctor.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "React codebase scanning for correctness, performance, architecture, accessibility, and AI-generated React risks",
+      "homepage": "https://react.doctor",
+      "neverAutoImport": true
+    },
+    {
+      "id": "vitest",
+      "aliases": [],
+      "identityKey": "github:vitest-dev/vitest",
+      "name": "Vitest",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/vitest-dev/vitest",
+      "repoOwner": "vitest-dev",
+      "repoName": "vitest",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/vitest.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "vitest"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/vitest.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "JavaScript and TypeScript unit and component testing",
+      "homepage": "https://vitest.dev",
+      "neverAutoImport": true
+    },
+    {
+      "id": "testing-library",
+      "aliases": [],
+      "identityKey": "github:testing-library/react-testing-library",
+      "name": "Testing Library",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/testing-library/react-testing-library",
+      "repoOwner": "testing-library",
+      "repoName": "react-testing-library",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/testing-library.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "testing-library"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/testing-library.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "user-centric DOM and component testing",
+      "homepage": "https://testing-library.com",
+      "neverAutoImport": true
+    },
+    {
+      "id": "axe-playwright",
+      "aliases": [],
+      "identityKey": "github:dequelabs/axe-core-npm",
+      "name": "axe with Playwright",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/dequelabs/axe-core-npm",
+      "repoOwner": "dequelabs",
+      "repoName": "axe-core-npm",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/axe-playwright.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "axe-playwright"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/axe-playwright.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "rendered accessibility checks with Playwright",
+      "homepage": "https://www.deque.com/axe",
+      "neverAutoImport": true
+    },
+    {
+      "id": "lighthouse-ci",
+      "aliases": [],
+      "identityKey": "github:googlechrome/lighthouse-ci",
+      "name": "Lighthouse CI",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/GoogleChrome/lighthouse-ci",
+      "repoOwner": "GoogleChrome",
+      "repoName": "lighthouse-ci",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/lighthouse-ci.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "lighthouse-ci"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/lighthouse-ci.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "performance, accessibility, SEO, and regression budgets",
+      "homepage": "https://github.com/GoogleChrome/lighthouse-ci",
+      "neverAutoImport": true
+    },
+    {
+      "id": "codeql",
+      "aliases": [],
+      "identityKey": "github:github/codeql",
+      "name": "CodeQL",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/github/codeql",
+      "repoOwner": "github",
+      "repoName": "codeql",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/codeql.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "codeql"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/codeql.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "semantic code security analysis",
+      "homepage": "https://codeql.github.com",
+      "neverAutoImport": true
+    },
+    {
+      "id": "semgrep",
+      "aliases": [],
+      "identityKey": "github:semgrep/semgrep",
+      "name": "Semgrep",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/semgrep/semgrep",
+      "repoOwner": "semgrep",
+      "repoName": "semgrep",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/semgrep.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "semgrep"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/semgrep.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "targeted static security and quality rules",
+      "homepage": "https://semgrep.dev",
+      "neverAutoImport": true
+    },
+    {
+      "id": "gitleaks",
+      "aliases": [],
+      "identityKey": "github:gitleaks/gitleaks",
+      "name": "Gitleaks",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/gitleaks/gitleaks",
+      "repoOwner": "gitleaks",
+      "repoName": "gitleaks",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/gitleaks.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "gitleaks"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/gitleaks.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "fast secret scanning",
+      "homepage": "https://gitleaks.io",
+      "neverAutoImport": true
+    },
+    {
+      "id": "trufflehog",
+      "aliases": [],
+      "identityKey": "github:trufflesecurity/trufflehog",
+      "name": "TruffleHog",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/trufflesecurity/trufflehog",
+      "repoOwner": "trufflesecurity",
+      "repoName": "trufflehog",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/trufflehog.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "owner-approved-install",
+      "dependentResourceIds": [
+        "trufflehog"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/trufflehog.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "deep secret and credential validation scanning",
+      "homepage": "https://trufflesecurity.com",
+      "neverAutoImport": true
+    },
+    {
+      "id": "osv-scanner",
+      "aliases": [],
+      "identityKey": "github:google/osv-scanner",
+      "name": "OSV-Scanner",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/google/osv-scanner",
+      "repoOwner": "google",
+      "repoName": "osv-scanner",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/osv-scanner.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "osv-scanner"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/osv-scanner.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "dependency vulnerability scanning using OSV data",
+      "homepage": "https://google.github.io/osv-scanner",
+      "neverAutoImport": true
+    },
+    {
+      "id": "dependabot",
+      "aliases": [],
+      "identityKey": "github:dependabot/dependabot-core",
+      "name": "Dependabot",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/dependabot/dependabot-core",
+      "repoOwner": "dependabot",
+      "repoName": "dependabot-core",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/dependabot.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "ci-advisory",
+      "dependentResourceIds": [
+        "dependabot"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/dependabot.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "dependency update PR automation",
+      "homepage": "https://docs.github.com/code-security/dependabot",
+      "neverAutoImport": true
+    },
+    {
+      "id": "renovate",
+      "aliases": [],
+      "identityKey": "github:renovatebot/renovate",
+      "name": "Renovate",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/renovatebot/renovate",
+      "repoOwner": "renovatebot",
+      "repoName": "renovate",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/renovate.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "ci-advisory",
+      "dependentResourceIds": [
+        "renovate"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/renovate.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "dependency update PR automation",
+      "homepage": "https://docs.renovatebot.com",
+      "neverAutoImport": true
+    },
+    {
+      "id": "socket",
+      "aliases": [],
+      "identityKey": "github:socketdev/socket-cli",
+      "name": "Socket",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/SocketDev/socket-cli",
+      "repoOwner": "SocketDev",
+      "repoName": "socket-cli",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/socket.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "owner-approved-install",
+      "dependentResourceIds": [
+        "socket"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/socket.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "npm malware and supply-chain risk analysis",
+      "homepage": "https://socket.dev",
+      "neverAutoImport": true
+    },
+    {
+      "id": "trivy",
+      "aliases": [],
+      "identityKey": "github:aquasecurity/trivy",
+      "name": "Trivy",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/aquasecurity/trivy",
+      "repoOwner": "aquasecurity",
+      "repoName": "trivy",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/trivy.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "trivy"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/trivy.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "container, filesystem, IaC, SBOM, vulnerability, secrets, and license scanning",
+      "homepage": "https://trivy.dev",
+      "neverAutoImport": true
+    },
+    {
+      "id": "checkov",
+      "aliases": [],
+      "identityKey": "github:bridgecrewio/checkov",
+      "name": "Checkov",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/bridgecrewio/checkov",
+      "repoOwner": "bridgecrewio",
+      "repoName": "checkov",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/checkov.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "checkov"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/checkov.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "IaC and cloud misconfiguration scanning",
+      "homepage": "https://www.checkov.io",
+      "neverAutoImport": true
+    },
+    {
+      "id": "owasp-zap-baseline",
+      "aliases": [],
+      "identityKey": "github:zaproxy/action-baseline",
+      "name": "OWASP ZAP baseline",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/zaproxy/action-baseline",
+      "repoOwner": "zaproxy",
+      "repoName": "action-baseline",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/owasp-zap-baseline.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "owner-approved-install",
+      "dependentResourceIds": [
+        "owasp-zap-baseline"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/owasp-zap-baseline.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "DAST baseline scan against approved URL",
+      "homepage": "https://www.zaproxy.org",
+      "neverAutoImport": true
+    },
+    {
+      "id": "actionlint",
+      "aliases": [],
+      "identityKey": "github:rhysd/actionlint",
+      "name": "actionlint",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/rhysd/actionlint",
+      "repoOwner": "rhysd",
+      "repoName": "actionlint",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/actionlint.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "actionlint"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/actionlint.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "GitHub Actions syntax and security linting",
+      "homepage": "https://github.com/rhysd/actionlint",
+      "neverAutoImport": true
+    },
+    {
+      "id": "zizmor",
+      "aliases": [],
+      "identityKey": "github:woodruffw/zizmor",
+      "name": "zizmor",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/woodruffw/zizmor",
+      "repoOwner": "woodruffw",
+      "repoName": "zizmor",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/zizmor.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "zizmor"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/zizmor.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "GitHub Actions security analysis",
+      "homepage": "https://github.com/woodruffw/zizmor",
+      "neverAutoImport": true
+    },
+    {
+      "id": "harden-runner",
+      "aliases": [],
+      "identityKey": "github:step-security/harden-runner",
+      "name": "Harden-Runner",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/step-security/harden-runner",
+      "repoOwner": "step-security",
+      "repoName": "harden-runner",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/harden-runner.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "ci-advisory",
+      "dependentResourceIds": [
+        "harden-runner"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/harden-runner.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "GitHub Actions runner hardening and egress monitoring",
+      "homepage": "https://www.stepsecurity.io/harden-runner",
+      "neverAutoImport": true
+    },
+    {
+      "id": "reviewdog",
+      "aliases": [],
+      "identityKey": "github:reviewdog/reviewdog",
+      "name": "reviewdog",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/reviewdog/reviewdog",
+      "repoOwner": "reviewdog",
+      "repoName": "reviewdog",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/reviewdog.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "ci-advisory",
+      "dependentResourceIds": [
+        "reviewdog"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/reviewdog.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "deterministic scanner-output PR reporter",
+      "homepage": "https://reviewdog.github.io",
+      "neverAutoImport": true
+    },
+    {
+      "id": "github-gh",
+      "aliases": [],
+      "identityKey": "github:cli/cli",
+      "name": "GitHub/gh",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/cli/cli",
+      "repoOwner": "cli",
+      "repoName": "cli",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/github-gh.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "active-if-detected",
+      "dependentResourceIds": [
+        "github-gh"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/github-gh.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "PR status, checks, review, and merge verification",
+      "homepage": "https://cli.github.com",
+      "neverAutoImport": true
+    },
+    {
+      "id": "open-design",
+      "aliases": [],
+      "identityKey": "github:nexu-io/open-design",
+      "name": "open-design",
+      "authority": "community",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/nexu-io/open-design",
+      "repoOwner": "nexu-io",
+      "repoName": "open-design",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/open-design.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [
+        "open-design"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/open-design.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "UI/UX reference and design-source scouting",
+      "homepage": null,
+      "neverAutoImport": true
+    },
+    {
+      "id": "openssf-scorecard",
+      "aliases": [],
+      "identityKey": "github:ossf/scorecard",
+      "name": "OpenSSF Scorecard",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/ossf/scorecard",
+      "repoOwner": "ossf",
+      "repoName": "scorecard",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/openssf-scorecard.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [
+        "openssf-scorecard"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/openssf-scorecard.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "third-party repo security posture and source trust signal",
+      "homepage": "https://scorecard.dev",
+      "neverAutoImport": true
+    },
+    {
+      "id": "dependency-cruiser",
+      "aliases": [],
+      "identityKey": "github:sverweij/dependency-cruiser",
+      "name": "dependency-cruiser",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/sverweij/dependency-cruiser",
+      "repoOwner": "sverweij",
+      "repoName": "dependency-cruiser",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/dependency-cruiser.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [
+        "dependency-cruiser"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/dependency-cruiser.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "dependency and architecture boundary checks",
+      "homepage": "https://github.com/sverweij/dependency-cruiser",
+      "neverAutoImport": true
+    },
+    {
+      "id": "eslint-plugin-boundaries",
+      "aliases": [],
+      "identityKey": "github:javierbrea/eslint-plugin-boundaries",
+      "name": "eslint-plugin-boundaries",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/javierbrea/eslint-plugin-boundaries",
+      "repoOwner": "javierbrea",
+      "repoName": "eslint-plugin-boundaries",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/eslint-plugin-boundaries.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [
+        "eslint-plugin-boundaries"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/eslint-plugin-boundaries.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "module import and layer boundary enforcement",
+      "homepage": "https://github.com/javierbrea/eslint-plugin-boundaries",
+      "neverAutoImport": true
+    },
+    {
+      "id": "madge",
+      "aliases": [],
+      "identityKey": "github:pahen/madge",
+      "name": "Madge",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/pahen/madge",
+      "repoOwner": "pahen",
+      "repoName": "madge",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/madge.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [
+        "madge"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/madge.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "dependency graph and circular dependency detection",
+      "homepage": "https://github.com/pahen/madge",
+      "neverAutoImport": true
+    },
+    {
+      "id": "jscpd",
+      "aliases": [],
+      "identityKey": "github:kucherenko/jscpd",
+      "name": "jscpd",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/kucherenko/jscpd",
+      "repoOwner": "kucherenko",
+      "repoName": "jscpd",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/jscpd.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [
+        "jscpd"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/jscpd.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "duplicate code detection",
+      "homepage": "https://github.com/kucherenko/jscpd",
+      "neverAutoImport": true
+    },
+    {
+      "id": "eslint",
+      "aliases": [],
+      "identityKey": "github:eslint/eslint",
+      "name": "ESLint",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/eslint/eslint",
+      "repoOwner": "eslint",
+      "repoName": "eslint",
+      "defaultBranch": "main",
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/sources/records/eslint.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "Medium",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Add a reviewed commit before monitoring this source."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "owner-approved-install",
+      "dependentResourceIds": [
+        "eslint"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/sources/records/eslint.md",
+        "registries/tools.registry.json"
+      ],
+      "purpose": "JavaScript and TypeScript lint baseline",
+      "homepage": "https://eslint.org",
+      "neverAutoImport": true
+    },
+    {
+      "id": "agency-agents",
+      "aliases": [],
+      "identityKey": "github:msitarzewski/agency-agents",
+      "name": "Agency Agents",
+      "authority": "historical",
+      "lifecycle": "historical-reference",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/msitarzewski/agency-agents",
+      "repoOwner": "msitarzewski",
+      "repoName": "agency-agents",
+      "defaultBranch": "main",
+      "lastReviewedCommit": "fb65f61d80344a9d768292c228d6cbb30f52c362",
+      "lastReviewedDate": "2026-06-04",
+      "sourceRecordPath": "sources/agency-agents.md",
+      "watchedPaths": [],
+      "licenseConcern": "clear",
+      "reviewPriority": "Low",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "459dce837db3bdfdc4763d3fefd1fd854e73c8f1"
+        },
+        "contentDigest": "sha256:ce2d56149f660c866f16a05e9b8fc040bd1eb36d7ec5c6dc9221b08c97c5fe7d",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "forbidden-runtime",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/agency-agents.md"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "bencium-marketplace",
+      "aliases": [],
+      "identityKey": "github:bencium/bencium-marketplace",
+      "name": "Bencium Marketplace",
+      "authority": "historical",
+      "lifecycle": "historical-reference",
+      "sourceType": "github-repo",
+      "sourceUrl": "https://github.com/bencium/bencium-marketplace",
+      "repoOwner": "bencium",
+      "repoName": "bencium-marketplace",
+      "defaultBranch": "main",
+      "lastReviewedCommit": "c6f5a718d43ba5a5d540bf74efbd4dba81400c72",
+      "lastReviewedDate": "2026-06-03",
+      "sourceRecordPath": "sources/bencium-marketplace.md",
+      "watchedPaths": [],
+      "licenseConcern": "clear",
+      "reviewPriority": "Low",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "CURRENT",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": {
+          "kind": "git-sha",
+          "value": "9db32365ca5755a6ca9b5ff8d88ff384ca47b015"
+        },
+        "contentDigest": "sha256:7d94323aa9739e34053dff2bfeddc2b879bb0fe67dee216d5cbc704598b0dcaf",
+        "failureReason": null
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "forbidden-runtime",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/bencium-marketplace.md"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "skills-sh",
+      "aliases": [],
+      "identityKey": "url:https://skills.sh",
+      "name": "skills.sh",
+      "authority": "historical",
+      "lifecycle": "historical-reference",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://skills.sh/",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "skills.sh",
+        "cadence": "90 days",
+        "reason": "Dynamic discovery index without an immutable repository revision.",
+        "forbiddenClaims": [
+          "installation approval",
+          "runtime activation",
+          "immutable source freshness"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": "2026-05-15",
+      "sourceRecordPath": "sources/skills-sh.md",
+      "watchedPaths": [],
+      "licenseConcern": "license-unclear",
+      "reviewPriority": "Low",
+      "freshnessClass": "general-methods",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (90 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "forbidden-runtime",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/skills-sh.md"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "coderabbit",
+      "aliases": [],
+      "identityKey": "url:https://docs.coderabbit.ai",
+      "name": "CodeRabbit",
+      "authority": "vendor-service",
+      "lifecycle": "service-integration",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://docs.coderabbit.ai",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "CodeRabbit",
+        "cadence": "14 days",
+        "reason": "Mutable vendor documentation and connected SaaS permission surface.",
+        "forbiddenClaims": [
+          "automatic activation",
+          "installation approval",
+          "GitHub App permission approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": ".ai-toolkit/integrations/coderabbit.md",
+      "watchedPaths": [],
+      "licenseConcern": "unknown-review-required",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "disposition": null
+      },
+      "runtimePosture": "owner-approved-install",
+      "dependentResourceIds": [
+        "coderabbit"
+      ],
+      "affectedArtifacts": [
+        ".ai-toolkit/integrations/coderabbit.md",
+        "registries/tools.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "android-accessibility",
+      "aliases": [],
+      "identityKey": "url:https://developer.android.com/guide/topics/ui/accessibility/testing",
+      "name": "Android Accessibility",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://developer.android.com/guide/topics/ui/accessibility/testing",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "Google Android",
+        "cadence": "30 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/android-accessibility.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "Medium",
+      "freshnessClass": "platform-standards",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/android-accessibility.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "android-core-app-quality",
+      "aliases": [],
+      "identityKey": "url:https://developer.android.com/develop/adaptive-apps/quality-guidelines/core-app-quality",
+      "name": "Android Core App Quality",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://developer.android.com/develop/adaptive-apps/quality-guidelines/core-app-quality",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "Google Android",
+        "cadence": "30 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/android-core-app-quality.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "Medium",
+      "freshnessClass": "platform-standards",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/android-core-app-quality.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "apple-accessibility",
+      "aliases": [],
+      "identityKey": "url:https://developer.apple.com/design/human-interface-guidelines/accessibility",
+      "name": "Apple Accessibility",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/accessibility",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "Apple",
+        "cadence": "30 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/apple-accessibility.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "Medium",
+      "freshnessClass": "platform-standards",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/apple-accessibility.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "apple-human-interface-guidelines",
+      "aliases": [],
+      "identityKey": "url:https://developer.apple.com/design/human-interface-guidelines",
+      "name": "Apple Human Interface Guidelines",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "Apple",
+        "cadence": "30 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/apple-human-interface-guidelines.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "Medium",
+      "freshnessClass": "platform-standards",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/apple-human-interface-guidelines.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "apple-privacy-manifests",
+      "aliases": [],
+      "identityKey": "url:https://developer.apple.com/documentation/bundleresources/privacy-manifest-files",
+      "name": "Apple Privacy Manifests",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://developer.apple.com/documentation/bundleresources/privacy-manifest-files",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "Apple",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/apple-privacy-manifests.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/apple-privacy-manifests.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "electron-security-guidance",
+      "aliases": [],
+      "identityKey": "url:https://www.electronjs.org/docs/latest/tutorial/security",
+      "name": "Electron Security Guidance",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://www.electronjs.org/docs/latest/tutorial/security",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "Electron",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/electron-security-guidance.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/electron-security-guidance.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "expo-documentation",
+      "aliases": [],
+      "identityKey": "url:https://docs.expo.dev",
+      "name": "Expo Documentation",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://docs.expo.dev/",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "Expo",
+        "cadence": "30 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/expo-documentation.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "Medium",
+      "freshnessClass": "platform-standards",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/expo-documentation.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "microsoft-windows-accessibility",
+      "aliases": [],
+      "identityKey": "url:https://learn.microsoft.com/en-us/windows/apps/design/accessibility",
+      "name": "Microsoft Windows Accessibility",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://learn.microsoft.com/en-us/windows/apps/design/accessibility/",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "Microsoft",
+        "cadence": "30 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/microsoft-windows-accessibility.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "Medium",
+      "freshnessClass": "platform-standards",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/microsoft-windows-accessibility.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "microsoft-windows-app-guidance",
+      "aliases": [],
+      "identityKey": "url:https://learn.microsoft.com/en-us/windows/apps/get-started/best-practices",
+      "name": "Microsoft Windows App Guidance",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://learn.microsoft.com/en-us/windows/apps/get-started/best-practices",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "Microsoft",
+        "cadence": "30 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/microsoft-windows-app-guidance.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "Medium",
+      "freshnessClass": "platform-standards",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/microsoft-windows-app-guidance.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "nist-ssdf-ai",
+      "aliases": [],
+      "identityKey": "url:https://csrc.nist.gov/pubs/sp/800/218/a/final",
+      "name": "NIST SP 800-218A Secure Software Development Practices for Generative AI",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://csrc.nist.gov/pubs/sp/800/218/a/final",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "NIST",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/nist-ssdf-ai.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/nist-ssdf-ai.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "nist-ai-rmf-genai",
+      "aliases": [],
+      "identityKey": "url:https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+      "name": "NIST AI 600-1 Generative AI Profile",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "NIST",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/nist-ai-rmf-genai.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/nist-ai-rmf-genai.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "owasp-llmsvs",
+      "aliases": [],
+      "identityKey": "url:https://owasp.org/www-project-llm-verification-standard/llmsvs-v2.0-en.html",
+      "name": "OWASP Large Language Model Security Verification Standard 2.0",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://owasp.org/www-project-llm-verification-standard/LLMSVS-v2.0-en.html",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "OWASP",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/owasp-llmsvs.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/owasp-llmsvs.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "owasp-agentic-applications",
+      "aliases": [],
+      "identityKey": "url:https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0",
+      "name": "OWASP Securing Agentic Applications Guide 1.0",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "OWASP Gen AI Security Project",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/owasp-agentic-applications.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/owasp-agentic-applications.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "slsa-v1-2",
+      "aliases": [],
+      "identityKey": "url:https://slsa.dev/spec/v1.2",
+      "name": "SLSA Specification 1.2",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://slsa.dev/spec/v1.2/",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "SLSA",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/slsa-v1-2.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/slsa-v1-2.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "openssf-ai-code-assistant-instructions",
+      "aliases": [],
+      "identityKey": "url:https://best.openssf.org/security-focused-guide-for-ai-code-assistant-instructions",
+      "name": "OpenSSF Security-Focused Guide for AI Code Assistant Instructions",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "OpenSSF",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/openssf-ai-code-assistant-instructions.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/openssf-ai-code-assistant-instructions.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "nist-ssdf",
+      "aliases": [],
+      "identityKey": "url:https://csrc.nist.gov/pubs/sp/800/218/final",
+      "name": "NIST Secure Software Development Framework",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "NIST",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/nist-ssdf.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/nist-ssdf.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "owasp-asvs",
+      "aliases": [],
+      "identityKey": "url:https://owasp.org/www-project-application-security-verification-standard",
+      "name": "OWASP Application Security Verification Standard",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://owasp.org/www-project-application-security-verification-standard/",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "OWASP",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/owasp-asvs.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/owasp-asvs.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "owasp-masvs",
+      "aliases": [],
+      "identityKey": "url:https://mas.owasp.org/masvs",
+      "name": "OWASP Mobile Application Security Verification Standard",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://mas.owasp.org/MASVS/",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "OWASP",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/owasp-masvs.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/owasp-masvs.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "tauri-security-guidance",
+      "aliases": [],
+      "identityKey": "url:https://v2.tauri.app/security",
+      "name": "Tauri Security Guidance",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://v2.tauri.app/security/",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "Tauri",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/tauri-security-guidance.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/tauri-security-guidance.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "w3c-wcag-22",
+      "aliases": [],
+      "identityKey": "url:https://www.w3.org/tr/wcag22",
+      "name": "W3C Web Content Accessibility Guidelines 2.2",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://www.w3.org/TR/WCAG22/",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "W3C",
+        "cadence": "30 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/w3c-wcag-22.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "Medium",
+      "freshnessClass": "platform-standards",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/w3c-wcag-22.md",
+        "registries/domain-packs.registry.json"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "openai-codex-guidance",
+      "aliases": [],
+      "identityKey": "url:https://learn.chatgpt.com/docs/agent-configuration/agents-md",
+      "name": "OpenAI Codex Agent Guidance",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://learn.chatgpt.com/docs/agent-configuration/agents-md",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "OpenAI",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/openai-codex-guidance.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/openai-codex-guidance.md",
+        "scripts/ai-toolkit/kernel/codex-adapter.mjs"
+      ],
+      "neverAutoImport": true
+    },
+    {
+      "id": "anthropic-claude-code-subagents",
+      "aliases": [],
+      "identityKey": "url:https://code.claude.com/docs/en/sub-agents",
+      "name": "Anthropic Claude Code Subagent Guidance",
+      "authority": "official",
+      "lifecycle": "review-input",
+      "sourceType": "manual-reviewed-doc",
+      "sourceUrl": "https://code.claude.com/docs/en/sub-agents",
+      "watchMode": "manual-reviewed-doc",
+      "manualReview": {
+        "publisher": "Anthropic",
+        "cadence": "14 days",
+        "reason": "Mutable authoritative guidance requires an exact content digest and owner-approved review receipt.",
+        "forbiddenClaims": [
+          "current source review",
+          "runtime activation or installation approval",
+          "raw content import or extraction approval"
+        ]
+      },
+      "lastReviewedCommit": null,
+      "lastReviewedDate": null,
+      "sourceRecordPath": "sources/anthropic-claude-code-subagents.md",
+      "watchedPaths": [],
+      "licenseConcern": "official-docs-terms-not-reviewed",
+      "reviewPriority": "High",
+      "freshnessClass": "security-runtime",
+      "monitor": {
+        "state": "MANUAL_DUE",
+        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "observedRevision": null,
+        "contentDigest": null,
+        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+      },
+      "review": {
+        "state": "QUARANTINED",
+        "currentReceipt": null,
+        "previousReceipt": null,
+        "receiptDigest": null,
+        "previousReceiptDigest": null,
+        "reviewedRevision": null,
+        "reviewedDigest": null,
+        "reviewedAt": null,
+        "expiresAt": null,
+        "disposition": null
+      },
+      "runtimePosture": "metadata-only",
+      "dependentResourceIds": [],
+      "affectedArtifacts": [
+        "sources/anthropic-claude-code-subagents.md",
+        "scripts/ai-toolkit/kernel/claude-adapter.mjs"
+      ],
+      "neverAutoImport": true
     }
-  ]
+  ],
+  "legacyCompatibility": {
+    "migratedFromSchema": "1.0.0",
+    "retainedFields": [
+      "lastReviewedCommit",
+      "lastReviewedDate",
+      "licenseConcern",
+      "reviewDecision"
+    ],
+    "authoritativeForCurrentReview": false
+  },
+  "approverPolicy": {
+    "authorizedIdentities": [],
+    "requiresExplicitOwnerRegistration": true
+  }
 }

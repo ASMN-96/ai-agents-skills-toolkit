@@ -2,13 +2,9 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
-  copyFileSync,
   existsSync,
-  mkdirSync,
   readdirSync,
   readFileSync,
-  statSync,
-  writeFileSync
 } from "node:fs";
 import path from "node:path";
 import process from "node:process";
@@ -23,14 +19,21 @@ import {
 import {
   PROJECT_MAP_ASSET_NAME,
   PROJECT_MAP_MANIFEST_PATH,
-  PROJECT_MAP_RELATIVE_PATH,
   buildProjectMap,
-  projectMapOutputPath,
-  validateProjectMap,
-  writeProjectMap
+  validateProjectMap
 } from "./project-context-preflight.mjs";
+import {
+  ManagedFilesystem,
+  assertPathContained,
+  recoverManagedDirectoryTransaction,
+  runManagedDirectoryTransaction,
+  snapshotManagedTree
+} from "./safe-filesystem.mjs";
 
 const TOOLKIT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const PROJECT_MANIFEST_SCHEMA_VERSION = "2.0.0";
+const LEGACY_PROJECT_MANIFEST_SCHEMA_VERSION = "1.0.0";
+const PROJECT_MANIFEST_KIND = "ai-toolkit-project-install";
 
 function usage(command) {
   const commands = {
@@ -122,9 +125,8 @@ function readJson(filePath) {
   return JSON.parse(readFileSync(filePath, "utf8"));
 }
 
-function writeJson(filePath, value) {
-  mkdirSync(path.dirname(filePath), { recursive: true });
-  writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+function writeManagedJson(filesystem, relativePath, value) {
+  filesystem.writeFile(relativePath, `${JSON.stringify(value, null, 2)}\n`, "utf8", `managed JSON ${relativePath}`);
 }
 
 function toSlash(filePath) {
@@ -273,6 +275,12 @@ function selectedFrom(options, config, key) {
 
 function buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedSkills, updateMode }) {
   const aiRoot = path.join(targetRoot, ".ai-toolkit");
+  assertPathContained(targetRoot, aiRoot, ".ai-toolkit root");
+  const destinationFor = (...segments) => assertPathContained(
+    targetRoot,
+    path.join(aiRoot, ...segments),
+    `.ai-toolkit destination ${segments.join("/")}`
+  );
   const plan = [];
   const missingLabel = updateMode ? "MissingTarget" : "Add";
 
@@ -280,7 +288,7 @@ function buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedS
     const name = normalizeAgentName(agent);
     const source = path.join(TOOLKIT_ROOT, "compiled-agents", `${name}.compiled.md`);
     if (!existsSync(source)) fail(`Compiled agent not found: ${name}`);
-    const destination = path.join(aiRoot, "compiled-agents", `${name}.compiled.md`);
+    const destination = destinationFor("compiled-agents", `${name}.compiled.md`);
     plan.push({
       type: "compiled-agent",
       name,
@@ -295,7 +303,7 @@ function buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedS
     const name = normalizeProfileName(profile);
     const source = path.join(TOOLKIT_ROOT, "profiles", `${name}.md`);
     if (!existsSync(source)) fail(`Profile not found: ${name}`);
-    const destination = path.join(aiRoot, "profiles", `${name}.md`);
+    const destination = destinationFor("profiles", `${name}.md`);
     plan.push({
       type: "profile",
       name,
@@ -311,7 +319,7 @@ function buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedS
     const skillRoot = path.join(TOOLKIT_ROOT, "skills", name);
     assertSingleFileSkill(skillRoot, name);
     const source = path.join(skillRoot, "SKILL.md");
-    const destination = path.join(aiRoot, "skills", name, "SKILL.md");
+    const destination = destinationFor("skills", name, "SKILL.md");
     plan.push({
       type: "skill",
       name,
@@ -333,7 +341,7 @@ function buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedS
     const relativePath = supportDestinationForSourcePath(asset.sourcePath).replace(/^\.ai-toolkit\//, "");
     const type = supportAssetTypeForSourcePath(asset.sourcePath);
     const source = path.join(TOOLKIT_ROOT, ...asset.sourcePath.split("/"));
-    const destination = path.join(aiRoot, ...relativePath.split("/"));
+    const destination = destinationFor(...relativePath.split("/"));
     plan.push({
       type,
       name: asset.sourcePath,
@@ -387,21 +395,25 @@ function printProjectMapPlan(projectMap, projectMapIssues) {
   }
 }
 
-function copyPlanFiles(plan) {
+function copyPlanFiles(plan, filesystem) {
   for (const item of plan) {
     if (item.action === "Unchanged") continue;
-    mkdirSync(path.dirname(item.destination), { recursive: true });
-    copyFileSync(item.source, item.destination);
+    filesystem.copyFileFrom(
+      TOOLKIT_ROOT,
+      item.source,
+      normalizeRelative(item.relativePath),
+      `.ai-toolkit destination ${item.relativePath}`
+    );
   }
 }
 
-function toolkitManifest(plan, toolkitCommit, extraAssets = []) {
+function toolkitManifest(plan, toolkitCommit, assetRoot, extraAssets = [], migration = null) {
   const assets = [
     ...plan.map((item) => ({
       type: item.type,
       name: item.name,
       path: normalizeRelative(item.relativePath),
-      sha256: sha256(item.destination)
+      sha256: sha256(path.join(assetRoot, ...normalizeRelative(item.relativePath).split("/")))
     })),
     ...extraAssets.map((asset) => ({
       type: asset.type,
@@ -412,17 +424,42 @@ function toolkitManifest(plan, toolkitCommit, extraAssets = []) {
   ];
 
   return {
-    schemaVersion: "1.0.0",
+    schemaVersion: PROJECT_MANIFEST_SCHEMA_VERSION,
+    manifestKind: PROJECT_MANIFEST_KIND,
     toolkitVersion: TOOLKIT_VERSION,
     toolkitCommit,
     generatedAtUtc: new Date().toISOString(),
+    ...(migration ? { migration } : {}),
     assets: assets
       .slice()
       .sort((left, right) => left.path.localeCompare(right.path))
   };
 }
 
-function writeInstallRecords({ aiRoot, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated }) {
+function validateManagedManifest(filesystem) {
+  const manifest = JSON.parse(filesystem.readFile(".ai-toolkit-manifest.json", "utf8", "managed toolkit manifest"));
+  if (manifest.schemaVersion !== PROJECT_MANIFEST_SCHEMA_VERSION) {
+    throw new Error(`managed toolkit manifest schemaVersion must be ${PROJECT_MANIFEST_SCHEMA_VERSION}`);
+  }
+  if (manifest.manifestKind !== PROJECT_MANIFEST_KIND) {
+    throw new Error(`managed toolkit manifest manifestKind must be ${PROJECT_MANIFEST_KIND}`);
+  }
+  if (!Array.isArray(manifest.assets) || manifest.assets.length === 0) {
+    throw new Error("managed toolkit manifest must contain at least one asset");
+  }
+  for (const asset of manifest.assets) {
+    const relativePath = normalizeRelative(String(asset?.path ?? ""));
+    if (!relativePath || relativePath.startsWith("..") || path.isAbsolute(relativePath)) {
+      throw new Error(`managed toolkit manifest contains an invalid asset path: ${asset?.path ?? ""}`);
+    }
+    const assetPath = filesystem.assertRegularFile(relativePath, `managed manifest asset ${relativePath}`);
+    if (sha256(assetPath) !== asset.sha256) {
+      throw new Error(`managed toolkit manifest digest mismatch: ${relativePath}`);
+    }
+  }
+}
+
+function writeInstallRecords({ filesystem, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated }) {
   const writtenConfig = {
     toolkitVersion: TOOLKIT_VERSION,
     toolkitCommit,
@@ -444,8 +481,8 @@ function writeInstallRecords({ aiRoot, config, selectedAgents, selectedProfiles,
     selectedSkills: writtenConfig.selectedSkills
   };
 
-  writeJson(path.join(aiRoot, ".ai-toolkit-version"), versionRecord);
-  writeJson(path.join(aiRoot, ".ai-toolkit.config.json"), writtenConfig);
+  writeManagedJson(filesystem, ".ai-toolkit-version", versionRecord);
+  writeManagedJson(filesystem, ".ai-toolkit.config.json", writtenConfig);
 }
 
 function reportGitSafety(targetRoot, branchPolicy, label = "Target Git safety") {
@@ -455,6 +492,14 @@ function reportGitSafety(targetRoot, branchPolicy, label = "Target Git safety") 
 
 function runInstall(options) {
   const targetRoot = resolveExisting(options.targetPath, "TargetPath");
+  const aiRoot = path.join(targetRoot, ".ai-toolkit");
+  if (options.confirmWrite) {
+    recoverManagedDirectoryTransaction({
+      repositoryRoot: targetRoot,
+      managedRoot: aiRoot,
+      log: (message) => console.log(message)
+    });
+  }
   const config = resolveConfig(options.configPath);
   const selectedAgents = selectedFrom(options, config, "agents");
   const selectedProfiles = selectedFrom(options, config, "profiles");
@@ -473,7 +518,6 @@ function runInstall(options) {
     fail("Unable to determine toolkit Git commit. Confirm mode requires a Git checkout of the toolkit repository.");
   }
   const plan = buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedSkills, updateMode: false });
-  const aiRoot = path.join(targetRoot, ".ai-toolkit");
   const projectMap = buildProjectMap({
     targetRoot,
     selectedAgents,
@@ -501,22 +545,25 @@ function runInstall(options) {
 
   assertTargetGitSafety(targetRoot, branchPolicy);
   if (projectMapIssues.length > 0) fail("Project context preflight map has safety issues. Refusing confirm-write.");
-  mkdirSync(path.join(aiRoot, "compiled-agents"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "profiles"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "skills"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "methods"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "templates"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "docs"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "context"), { recursive: true });
-  copyPlanFiles(plan);
-  const projectMapPath = writeProjectMap(targetRoot, projectMap);
-  writeInstallRecords({ aiRoot, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated: false });
-  writeJson(path.join(aiRoot, ".ai-toolkit-manifest.json"), toolkitManifest(plan, toolkitCommit, [{
-    type: "context-map",
-    name: PROJECT_MAP_ASSET_NAME,
-    path: PROJECT_MAP_MANIFEST_PATH,
-    fullPath: projectMapPath
-  }]));
+  runManagedDirectoryTransaction({
+    repositoryRoot: targetRoot,
+    managedRoot: aiRoot,
+    label: "project toolkit sync",
+    log: (message) => console.log(message),
+    prepare: (filesystem) => {
+      copyPlanFiles(plan, filesystem);
+      writeManagedJson(filesystem, PROJECT_MAP_MANIFEST_PATH, projectMap);
+      const projectMapPath = filesystem.assertRegularFile(PROJECT_MAP_MANIFEST_PATH, "project context map");
+      writeInstallRecords({ filesystem, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated: false });
+      writeManagedJson(filesystem, ".ai-toolkit-manifest.json", toolkitManifest(plan, toolkitCommit, filesystem.root, [{
+        type: "context-map",
+        name: PROJECT_MAP_ASSET_NAME,
+        path: PROJECT_MAP_MANIFEST_PATH,
+        fullPath: projectMapPath
+      }]));
+    },
+    validate: (filesystem) => validateManagedManifest(filesystem)
+  });
   console.log("Install complete. Managed files were written only under .ai-toolkit/.");
 }
 
@@ -538,15 +585,47 @@ function collectFiles(root) {
 function runUpdate(options) {
   const targetRoot = resolveExisting(options.targetPath, "TargetPath");
   const aiRoot = path.join(targetRoot, ".ai-toolkit");
+  if (options.confirmWrite) {
+    recoverManagedDirectoryTransaction({
+      repositoryRoot: targetRoot,
+      managedRoot: aiRoot,
+      log: (message) => console.log(message)
+    });
+  }
   const versionPath = path.join(aiRoot, ".ai-toolkit-version");
   if (!existsSync(aiRoot)) fail("Target does not contain .ai-toolkit/. Run install-project.sh first.");
   if (!existsSync(versionPath)) fail("Missing .ai-toolkit/.ai-toolkit-version.");
+  const installedFilesystem = new ManagedFilesystem({
+    repositoryRoot: targetRoot,
+    managedRoot: aiRoot,
+    label: "installed project toolkit"
+  });
+  installedFilesystem.assertRegularFile(".ai-toolkit-version", "installed toolkit version");
 
   const defaultConfigPath = path.join(aiRoot, ".ai-toolkit.config.json");
   const configPath = options.configPath ? resolveExisting(options.configPath, "ConfigPath") : defaultConfigPath;
   if (!existsSync(configPath)) fail(`Missing config file: ${configPath}`);
   const installedVersion = readJson(versionPath);
+  if (!options.configPath) installedFilesystem.assertRegularFile(configPath, "installed toolkit config");
   const config = readJson(configPath);
+  installedFilesystem.assertRegularFile(".ai-toolkit-manifest.json", "installed toolkit manifest");
+  const installedManifest = readManagedJson(
+    installedFilesystem,
+    ".ai-toolkit-manifest.json",
+    "installed toolkit manifest"
+  );
+  const installedManifestSchema = String(getJsonProperty(installedManifest, "schemaVersion", ""));
+  if (![LEGACY_PROJECT_MANIFEST_SCHEMA_VERSION, PROJECT_MANIFEST_SCHEMA_VERSION].includes(installedManifestSchema)) {
+    fail(`Unsupported installed toolkit manifest schemaVersion: ${installedManifestSchema || "<missing>"}.`);
+  }
+  const migration = installedManifestSchema === LEGACY_PROJECT_MANIFEST_SCHEMA_VERSION
+    ? {
+        fromSchemaVersion: LEGACY_PROJECT_MANIFEST_SCHEMA_VERSION,
+        previousToolkitVersion: String(getJsonProperty(installedVersion, "toolkitVersion", "unknown")),
+        previousToolkitCommit: String(getJsonProperty(installedVersion, "toolkitCommit", "unknown")),
+        previousToolkitPin: `${String(getJsonProperty(installedVersion, "toolkitVersion", "unknown"))}@${String(getJsonProperty(installedVersion, "toolkitCommit", "unknown"))}`
+      }
+    : getJsonProperty(installedManifest, "migration", null);
 
   if (Boolean(getJsonProperty(config, "allowOverwriteProjectContext", false))) {
     fail("allowOverwriteProjectContext:true is rejected in Phase 6 v1.");
@@ -608,22 +687,25 @@ function runUpdate(options) {
 
   assertTargetGitSafety(targetRoot, branchPolicy);
   if (projectMapIssues.length > 0) fail("Project context preflight map has safety issues. Refusing confirm-write.");
-  mkdirSync(path.join(aiRoot, "compiled-agents"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "profiles"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "skills"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "methods"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "templates"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "docs"), { recursive: true });
-  mkdirSync(path.join(aiRoot, "context"), { recursive: true });
-  copyPlanFiles(plan);
-  const projectMapPath = writeProjectMap(targetRoot, projectMap);
-  writeInstallRecords({ aiRoot, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated: true });
-  writeJson(path.join(aiRoot, ".ai-toolkit-manifest.json"), toolkitManifest(plan, toolkitCommit, [{
-    type: "context-map",
-    name: PROJECT_MAP_ASSET_NAME,
-    path: PROJECT_MAP_MANIFEST_PATH,
-    fullPath: projectMapPath
-  }]));
+  runManagedDirectoryTransaction({
+    repositoryRoot: targetRoot,
+    managedRoot: aiRoot,
+    label: "project toolkit sync",
+    log: (message) => console.log(message),
+    prepare: (filesystem) => {
+      copyPlanFiles(plan, filesystem);
+      writeManagedJson(filesystem, PROJECT_MAP_MANIFEST_PATH, projectMap);
+      const projectMapPath = filesystem.assertRegularFile(PROJECT_MAP_MANIFEST_PATH, "project context map");
+      writeInstallRecords({ filesystem, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated: true });
+      writeManagedJson(filesystem, ".ai-toolkit-manifest.json", toolkitManifest(plan, toolkitCommit, filesystem.root, [{
+        type: "context-map",
+        name: PROJECT_MAP_ASSET_NAME,
+        path: PROJECT_MAP_MANIFEST_PATH,
+        fullPath: projectMapPath
+      }], migration));
+    },
+    validate: (filesystem) => validateManagedManifest(filesystem)
+  });
   console.log("Update complete. Managed files were written only under .ai-toolkit/.");
 }
 
@@ -636,9 +718,19 @@ function buildManifestAssetMap(manifest) {
   return map;
 }
 
-function testSkillFrontmatter(filePath, expectedName) {
+function readManagedJson(filesystem, relativePath, label) {
+  return JSON.parse(filesystem.readFile(relativePath, "utf8", label));
+}
+
+function testSkillFrontmatter(filesystem, relativePath, expectedName) {
   const issues = [];
-  const lines = readFileSync(filePath, "utf8").split(/\r?\n/);
+  let text;
+  try {
+    text = filesystem.readFile(relativePath, "utf8", `installed skill ${expectedName}`);
+  } catch (error) {
+    return [`Skill ${expectedName} could not be read safely: ${error.message}`];
+  }
+  const lines = text.split(/\r?\n/);
   if (lines.length < 4 || lines[0] !== "---") return [`Skill ${expectedName} has invalid YAML frontmatter.`];
   const closingIndex = lines.findIndex((line, index) => index > 0 && line === "---");
   if (closingIndex < 0) return [`Skill ${expectedName} is missing closing YAML frontmatter marker.`];
@@ -658,11 +750,16 @@ function testSkillFrontmatter(filePath, expectedName) {
   return issues;
 }
 
-function testManifestAsset({ aiRoot, manifestAssets, relativePath, type, name }) {
+function testManifestAsset({ filesystem, manifestAssets, relativePath, type, name }) {
   const issues = [];
   const normalizedPath = normalizeRelative(relativePath);
-  const fullPath = path.join(aiRoot, ...normalizedPath.split("/"));
-  if (!existsSync(fullPath)) return [`Missing ${type}: ${name}`];
+  let contents;
+  try {
+    filesystem.assertRegularFile(normalizedPath, `installed ${type} ${name}`);
+    contents = filesystem.readFile(normalizedPath, null, `installed ${type} ${name}`);
+  } catch (error) {
+    return [`Missing or unsafe ${type}: ${name}: ${error.message}`];
+  }
   if (!manifestAssets.has(normalizedPath)) return [`Manifest is missing ${type} asset: ${normalizedPath}`];
 
   const asset = manifestAssets.get(normalizedPath);
@@ -670,7 +767,7 @@ function testManifestAsset({ aiRoot, manifestAssets, relativePath, type, name })
   if (!/^[0-9a-fA-F]{64}$/.test(expectedHash)) {
     issues.push(`Manifest asset ${normalizedPath} has invalid sha256.`);
   } else {
-    const actualHash = sha256(fullPath).toLowerCase();
+    const actualHash = createHash("sha256").update(contents).digest("hex").toLowerCase();
     if (actualHash !== expectedHash.toLowerCase()) issues.push(`Manifest hash mismatch for ${normalizedPath}.`);
   }
 
@@ -691,22 +788,57 @@ function basenameMatchesPattern(filePath, pattern) {
 function runValidate(options) {
   const targetRoot = resolveExisting(options.targetPath, "TargetPath");
   const aiRoot = path.join(targetRoot, ".ai-toolkit");
-  const versionPath = path.join(aiRoot, ".ai-toolkit-version");
-  const configPath = path.join(aiRoot, ".ai-toolkit.config.json");
-  const manifestPath = path.join(aiRoot, ".ai-toolkit-manifest.json");
   const failures = [];
+  let upgradeRequired = false;
+  let installedFilesystem = null;
+  let managedSnapshot = [];
 
-  if (!existsSync(aiRoot)) failures.push("Missing .ai-toolkit/ directory.");
-  if (!existsSync(versionPath)) failures.push("Missing .ai-toolkit/.ai-toolkit-version.");
-  if (!existsSync(configPath)) failures.push("Missing .ai-toolkit/.ai-toolkit.config.json.");
-  if (!existsSync(manifestPath)) {
-    failures.push("Missing .ai-toolkit/.ai-toolkit-manifest.json. Rerun update-project.sh --confirm-write from a clean aligned feature branch.");
+  if (!existsSync(aiRoot)) {
+    failures.push("Missing .ai-toolkit/ directory.");
+  } else {
+    try {
+      installedFilesystem = new ManagedFilesystem({
+        repositoryRoot: targetRoot,
+        managedRoot: aiRoot,
+        label: "installed project toolkit"
+      });
+      managedSnapshot = snapshotManagedTree(targetRoot, aiRoot, "installed project toolkit validation");
+      for (const [relativePath, missingMessage] of [
+        [".ai-toolkit-version", "Missing .ai-toolkit/.ai-toolkit-version."],
+        [".ai-toolkit.config.json", "Missing .ai-toolkit/.ai-toolkit.config.json."],
+        [
+          ".ai-toolkit-manifest.json",
+          "Missing .ai-toolkit/.ai-toolkit-manifest.json. Rerun update-project.sh --confirm-write from a clean aligned feature branch."
+        ]
+      ]) {
+        try {
+          installedFilesystem.assertRegularFile(relativePath, `required installed toolkit record ${relativePath}`);
+        } catch {
+          failures.push(missingMessage);
+        }
+      }
+    } catch (error) {
+      failures.push(`Installed toolkit filesystem is unsafe: ${error.message}`);
+    }
   }
 
-  if (failures.length === 0) {
-    const versionRecord = readJson(versionPath);
-    const config = readJson(configPath);
-    const manifest = readJson(manifestPath);
+  if (failures.length === 0 && installedFilesystem) {
+    try {
+    const versionRecord = readManagedJson(
+      installedFilesystem,
+      ".ai-toolkit-version",
+      "installed toolkit version"
+    );
+    const config = readManagedJson(
+      installedFilesystem,
+      ".ai-toolkit.config.json",
+      "installed toolkit config"
+    );
+    const manifest = readManagedJson(
+      installedFilesystem,
+      ".ai-toolkit-manifest.json",
+      "installed toolkit manifest"
+    );
     const recordedToolkitVersion = String(getJsonProperty(versionRecord, "toolkitVersion", ""));
     const recordedToolkitCommit = String(getJsonProperty(versionRecord, "toolkitCommit", ""));
     const selectedAgents = toStringArray(getJsonProperty(config, "selectedAgents", []));
@@ -714,7 +846,15 @@ function runValidate(options) {
     const selectedSkills = toStringArray(getJsonProperty(config, "selectedSkills", []));
     const manifestAssets = buildManifestAssetMap(manifest);
 
-    if (String(getJsonProperty(manifest, "schemaVersion", "")) !== "1.0.0") failures.push("Manifest schemaVersion must be 1.0.0.");
+    const manifestSchemaVersion = String(getJsonProperty(manifest, "schemaVersion", ""));
+    if (manifestSchemaVersion === LEGACY_PROJECT_MANIFEST_SCHEMA_VERSION) {
+      upgradeRequired = true;
+    } else if (manifestSchemaVersion !== PROJECT_MANIFEST_SCHEMA_VERSION) {
+      failures.push(`Manifest schemaVersion must be ${PROJECT_MANIFEST_SCHEMA_VERSION}.`);
+    }
+    if (!upgradeRequired && String(getJsonProperty(manifest, "manifestKind", "")) !== PROJECT_MANIFEST_KIND) {
+      failures.push(`Manifest manifestKind must be ${PROJECT_MANIFEST_KIND}.`);
+    }
     if (String(getJsonProperty(manifest, "toolkitCommit", "")) !== recordedToolkitCommit) {
       failures.push("Manifest toolkitCommit must match .ai-toolkit-version.");
     }
@@ -732,7 +872,7 @@ function runValidate(options) {
     for (const agent of selectedAgents) {
       const name = normalizeAgentName(agent);
       failures.push(...testManifestAsset({
-        aiRoot,
+        filesystem: installedFilesystem,
         manifestAssets,
         relativePath: `compiled-agents/${name}.compiled.md`,
         type: "compiled-agent",
@@ -743,7 +883,7 @@ function runValidate(options) {
     for (const profile of selectedProfiles) {
       const name = normalizeProfileName(profile);
       failures.push(...testManifestAsset({
-        aiRoot,
+        filesystem: installedFilesystem,
         manifestAssets,
         relativePath: `profiles/${name}.md`,
         type: "profile",
@@ -754,34 +894,34 @@ function runValidate(options) {
     for (const skill of selectedSkills) {
       const name = normalizeSkillName(skill);
       const relativePath = `skills/${name}/SKILL.md`;
-      const fullPath = path.join(aiRoot, "skills", name, "SKILL.md");
-      if (!existsSync(fullPath)) {
-        failures.push(`Missing skill: ${name}`);
-      } else {
-        failures.push(...testManifestAsset({ aiRoot, manifestAssets, relativePath, type: "skill", name }));
-        failures.push(...testSkillFrontmatter(fullPath, name));
-      }
+      failures.push(...testManifestAsset({
+        filesystem: installedFilesystem,
+        manifestAssets,
+        relativePath,
+        type: "skill",
+        name
+      }));
+      failures.push(...testSkillFrontmatter(installedFilesystem, relativePath, name));
     }
 
-    const projectMapPath = projectMapOutputPath(targetRoot);
-    if (!existsSync(projectMapPath)) {
-      failures.push(`Missing context-map: ${PROJECT_MAP_RELATIVE_PATH}`);
-    } else {
-      failures.push(...testManifestAsset({
-        aiRoot,
-        manifestAssets,
-        relativePath: PROJECT_MAP_MANIFEST_PATH,
-        type: "context-map",
-        name: PROJECT_MAP_ASSET_NAME
-      }));
-      try {
-        const projectMap = readJson(projectMapPath);
-        for (const issue of validateProjectMap(projectMap, { targetRoot })) {
-          failures.push(`Project context preflight map invalid: ${issue}`);
-        }
-      } catch (error) {
-        failures.push(`Project context preflight map is not valid JSON: ${error.message}`);
+    failures.push(...testManifestAsset({
+      filesystem: installedFilesystem,
+      manifestAssets,
+      relativePath: PROJECT_MAP_MANIFEST_PATH,
+      type: "context-map",
+      name: PROJECT_MAP_ASSET_NAME
+    }));
+    try {
+      const projectMap = readManagedJson(
+        installedFilesystem,
+        PROJECT_MAP_MANIFEST_PATH,
+        "installed project context preflight map"
+      );
+      for (const issue of validateProjectMap(projectMap, { targetRoot })) {
+        failures.push(`Project context preflight map invalid: ${issue}`);
       }
+    } catch (error) {
+      failures.push(`Project context preflight map is not valid or safely readable JSON: ${error.message}`);
     }
 
     for (const failure of collectReferenceClosureFailures({ root: targetRoot })) {
@@ -789,22 +929,27 @@ function runValidate(options) {
     }
 
     const contextNames = new Set(["AGENTS.md", "STATE.md", "DECISIONS.md", "PROJECT_CONTEXT.md", "RELEASE_GATES.md"]);
-    for (const filePath of collectFiles(aiRoot)) {
-      if (contextNames.has(path.basename(filePath))) failures.push("Project-local context files were found inside .ai-toolkit managed files.");
+    for (const entry of managedSnapshot.filter((item) => item.type === "file")) {
+      if (contextNames.has(path.posix.basename(entry.path))) {
+        failures.push("Project-local context files were found inside .ai-toolkit managed files.");
+      }
     }
 
     const unsafeFilePatterns = [".env", ".env.*", "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "npm-shrinkwrap.json", "*.log"];
-    for (const filePath of collectFiles(aiRoot)) {
-      if (unsafeFilePatterns.some((pattern) => basenameMatchesPattern(filePath, pattern))) {
-        failures.push(`Unsafe artifact found: ${filePath}`);
+    for (const entry of managedSnapshot.filter((item) => item.type === "file")) {
+      if (unsafeFilePatterns.some((pattern) => basenameMatchesPattern(entry.path, pattern))) {
+        failures.push(`Unsafe artifact found: ${path.join(aiRoot, ...entry.path.split("/"))}`);
       }
     }
 
     const unsafeDirectories = new Set(["node_modules", ".cache", "dist", "build", "temp", "scratch"]);
-    for (const entry of walkEntries(aiRoot)) {
-      if (existsSync(entry) && statSync(entry).isDirectory() && unsafeDirectories.has(path.basename(entry))) {
-        failures.push(`Unsafe directory found: ${entry}`);
+    for (const entry of managedSnapshot.filter((item) => item.type === "directory")) {
+      if (unsafeDirectories.has(path.posix.basename(entry.path))) {
+        failures.push(`Unsafe directory found: ${path.join(aiRoot, ...entry.path.split("/"))}`);
       }
+    }
+    } catch (error) {
+      failures.push(`Installed toolkit records could not be read safely: ${error.message}`);
     }
   }
 
@@ -812,6 +957,14 @@ function runValidate(options) {
     console.log("Validation failed:");
     for (const failure of failures) console.log(`- ${failure}`);
     process.exit(1);
+  }
+
+  if (upgradeRequired) {
+    console.log(
+      `Validation status: upgradeRequired. Installed manifest schemaVersion ${LEGACY_PROJECT_MANIFEST_SCHEMA_VERSION} must be migrated with update-project --confirm-write.`
+    );
+    process.exitCode = 2;
+    return;
   }
 
   console.log("Validation passed. Installed toolkit files are present and no unsafe .ai-toolkit artifacts were found.");

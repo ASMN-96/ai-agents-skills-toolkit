@@ -1,19 +1,25 @@
 #!/usr/bin/env node
-import { readdir, readFile, stat } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import process from "node:process";
 import {
-  ACTIVE_PROJECT_AGENTS,
+  assertPathContained,
+  assertRegularFileWithin,
+  snapshotManagedTree
+} from "../../install/safe-filesystem.mjs";
+import {
   ACTIVE_SKILLS,
   SOURCE_OF_TRUTH_MAP,
   TOOLKIT_VERSION,
   UNSAFE_COMMAND_PATTERNS
 } from "./embedded-data.mjs";
 import { collectReferenceClosureFailures } from "./reference-closure.mjs";
+import { validateSourceCatalog } from "./source-governance.mjs";
 
 const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
+const SCRIPT_PROVENANCE_DIRECTORIES = ["scripts", "scripts/ai-toolkit"];
 const failures = [];
 const warnings = [];
 const ENTERPRISE_RISK_FIELDS = [
@@ -66,41 +72,40 @@ async function exists(relativePath) {
   try {
     await stat(rootPath(relativePath));
     return true;
-  } catch {
-    return false;
+  } catch (error) {
+    if (error?.code === "ENOENT" || error?.code === "ENOTDIR") return false;
+    throw error;
   }
 }
 
 async function readJson(relativePath) {
   try {
-    return JSON.parse(await readFile(rootPath(relativePath), "utf8"));
+    return JSON.parse(await readRegularFile(relativePath, "utf8", `JSON document ${relativePath}`));
   } catch (error) {
     fail(relativePath, `JSON parse failed: ${error.message}`);
     return null;
   }
 }
 
-async function sha256(relativePath) {
-  const content = await readFile(rootPath(relativePath), "utf8");
-  return createHash("sha256").update(content.replace(/\r\n/g, "\n")).digest("hex");
+async function readRegularFile(relativePath, encoding = null, label = `regular file ${relativePath}`) {
+  const safePath = assertRegularFileWithin(ROOT, rootPath(relativePath), label);
+  return readFile(safePath, encoding);
+}
+
+async function sha256(relativePath, { exactBytes = false } = {}) {
+  const content = await readRegularFile(relativePath, null, `digest input ${relativePath}`);
+  const digestInput = exactBytes
+    ? content
+    : content.toString("utf8").replace(/\r\n/g, "\n");
+  return createHash("sha256").update(digestInput).digest("hex");
 }
 
 async function walk(relativeDir, output = []) {
-  let entries;
-  try {
-    entries = await readdir(rootPath(relativeDir), { withFileTypes: true });
-  } catch {
-    return output;
-  }
-  for (const entry of entries) {
-    const child = `${relativeDir}/${entry.name}`;
-    if (entry.isDirectory()) {
-      await walk(child, output);
-    } else {
-      output.push(child);
-    }
-  }
-  return output.sort();
+  const managedRoot = assertPathContained(ROOT, rootPath(relativeDir), `validation tree ${relativeDir}`);
+  return snapshotManagedTree(ROOT, managedRoot, `validation tree ${relativeDir}`)
+    .filter((entry) => entry.type === "file")
+    .map((entry) => `${relativeDir}/${entry.path}`)
+    .sort((left, right) => left.localeCompare(right));
 }
 
 function scanUnsafe(relativePath, text) {
@@ -191,6 +196,177 @@ function parseSourceRefs(value, location) {
   return value.split(",").map((part) => part.trim()).filter(Boolean);
 }
 
+function moduleSpecifiers(sourceText) {
+  const specifiers = [];
+  const patterns = [
+    /\bimport\s+[\s\S]*?\sfrom\s*["']([^"']+)["']/g,
+    /\bimport\s*["']([^"']+)["']/g,
+    /\bexport\s+(?:\*|\{[\s\S]*?\})\s+from\s*["']([^"']+)["']/g,
+    /\bimport\s*\(\s*["']([^"']+)["']\s*\)/g
+  ];
+  for (const pattern of patterns) {
+    for (const match of sourceText.matchAll(pattern)) specifiers.push(match[1]);
+  }
+  return [...new Set(specifiers)].sort((left, right) => left.localeCompare(right));
+}
+
+function isSafePackagePath(relativePath) {
+  const portable = String(relativePath ?? "").replace(/\\/g, "/");
+  return portable.length > 0
+    && portable === path.posix.normalize(portable)
+    && !portable.startsWith("/")
+    && !/^[A-Za-z]:\//.test(portable)
+    && !portable.split("/").includes("..");
+}
+
+async function validateScriptsManifest() {
+  const relativePath = `${AI_ROOT}/scripts-manifest.json`;
+  const manifest = await readJson(relativePath);
+  if (!manifest) return;
+  if (manifest.schemaVersion !== "2.0.0") {
+    fail(relativePath, "scripts manifest schemaVersion must be 2.0.0");
+  }
+  const scripts = Array.isArray(manifest.scripts) ? manifest.scripts : [];
+  if (!Array.isArray(manifest.scripts)) {
+    fail(relativePath, "scripts manifest scripts must be an array");
+  }
+  const expectedPaths = [];
+  for (const directory of SCRIPT_PROVENANCE_DIRECTORIES) {
+    const directoryPath = assertPathContained(
+      ROOT,
+      rootPath(directory),
+      `canonical script provenance directory ${directory}`
+    );
+    const entries = (await readdir(directoryPath, { withFileTypes: true }))
+      .sort((left, right) => left.name.localeCompare(right.name));
+    for (const entry of entries) {
+      if (!entry.name.endsWith(".mjs") || entry.name.startsWith("test-")) continue;
+      const scriptPath = `${directory}/${entry.name}`;
+      if (!entry.isFile()) {
+        fail(relativePath, `canonical script provenance path must be a regular file: ${scriptPath}`);
+        continue;
+      }
+      expectedPaths.push(scriptPath);
+    }
+  }
+  expectedPaths.sort((left, right) => left.localeCompare(right));
+  const manifestPaths = scripts.map((script) => script?.path);
+  if (
+    new Set(manifestPaths).size !== manifestPaths.length
+    || JSON.stringify(manifestPaths) !== JSON.stringify(expectedPaths)
+  ) {
+    fail(relativePath, "scripts manifest exact closure mismatch");
+  }
+
+  for (const script of scripts) {
+    if (!isSafePackagePath(script.path)) {
+      fail(relativePath, `unsafe script manifest path: ${script.path}`);
+      continue;
+    }
+    if (script.sha256 === null && script.status === "planned") {
+      if (await exists(script.path)) fail(relativePath, `planned script exists without an exact-byte digest: ${script.path}`);
+      continue;
+    }
+    if (!(await exists(script.path))) {
+      fail(relativePath, `script manifest source missing: ${script.path}`);
+      continue;
+    }
+    if (script.sha256 !== await sha256(script.path, { exactBytes: true })) {
+      fail(relativePath, `script manifest exact-byte digest drift: ${script.path}`);
+    }
+  }
+}
+
+async function validateDeliveryKernelPackage(topManifest, expectedAgentTomlPaths) {
+  const location = `${AI_ROOT}/manifest.json`;
+  const packageRoot = `${AI_ROOT}/runtime/delivery-kernel`;
+  const packageManifestPath = `${packageRoot}/package-manifest.json`;
+  if (
+    topManifest.deliveryKernelPackage?.root !== packageRoot
+    || topManifest.deliveryKernelPackage?.manifestPath !== packageManifestPath
+  ) {
+    fail(location, "delivery kernel package coordinates must use the governed embedded path");
+    return;
+  }
+
+  const packageManifest = await readJson(packageManifestPath);
+  if (!packageManifest) return;
+  if (packageManifest.schemaVersion !== "2.0.0") {
+    fail(packageManifestPath, "delivery kernel package schemaVersion must be 2.0.0");
+  }
+  const packageManifestDigest = await sha256(packageManifestPath, { exactBytes: true });
+  if (topManifest.deliveryKernelPackage.manifestSha256 !== packageManifestDigest) {
+    fail(packageManifestPath, "delivery kernel package manifest attestation drift");
+  }
+
+  const actualFiles = (await walk(packageRoot))
+    .map((file) => file.slice(`${packageRoot}/`.length))
+    .filter((file) => file !== "package-manifest.json")
+    .sort((left, right) => left.localeCompare(right));
+  const attestedFiles = [...(packageManifest.files ?? [])]
+    .sort((left, right) => String(left.path).localeCompare(String(right.path)));
+  const attestedPaths = attestedFiles.map((entry) => entry.path);
+  if (
+    new Set(attestedPaths).size !== attestedPaths.length
+    || attestedPaths.some((file) => !isSafePackagePath(file))
+  ) {
+    fail(packageManifestPath, "delivery kernel package manifest contains duplicate or unsafe file paths");
+  }
+  if (JSON.stringify(actualFiles) !== JSON.stringify(attestedPaths)) {
+    fail(packageManifestPath, "delivery kernel package manifest file closure mismatch");
+  }
+  for (const tomlPath of expectedAgentTomlPaths) {
+    if (!attestedPaths.includes(tomlPath)) {
+      fail(packageManifestPath, `delivery kernel package missing canonical agent runtime: ${tomlPath}`);
+    }
+  }
+  for (const entry of attestedFiles) {
+    if (!isSafePackagePath(entry.path) || !(await exists(`${packageRoot}/${entry.path}`))) continue;
+    if (entry.sha256 !== await sha256(`${packageRoot}/${entry.path}`, { exactBytes: true })) {
+      fail(`${packageRoot}/${entry.path}`, "delivery kernel package byte digest mismatch");
+    }
+  }
+
+  if (!isSafePackagePath(packageManifest.entrypoint)) {
+    fail(packageManifestPath, "delivery kernel entrypoint is unsafe");
+    return;
+  }
+  const packageFiles = new Set(actualFiles);
+  const queue = [packageManifest.entrypoint];
+  const visited = new Set();
+  while (queue.length > 0) {
+    const modulePath = queue.shift();
+    if (visited.has(modulePath)) continue;
+    if (!packageFiles.has(modulePath)) {
+      fail(packageManifestPath, `delivery kernel import closure is missing: ${modulePath}`);
+      continue;
+    }
+    visited.add(modulePath);
+    const sourceText = await readRegularFile(
+      `${packageRoot}/${modulePath}`,
+      "utf8",
+      `delivery kernel closure module ${modulePath}`
+    );
+    for (const specifier of moduleSpecifiers(sourceText)) {
+      if (specifier.startsWith("node:")) continue;
+      if (!specifier.startsWith(".")) {
+        fail(`${packageRoot}/${modulePath}`, `delivery kernel import closure contains an external dependency: ${specifier}`);
+        continue;
+      }
+      const resolved = path.posix.normalize(path.posix.join(path.posix.dirname(modulePath), specifier));
+      if (!isSafePackagePath(resolved)) {
+        fail(`${packageRoot}/${modulePath}`, `delivery kernel import closure escapes its package: ${specifier}`);
+        continue;
+      }
+      if (!packageFiles.has(resolved)) {
+        fail(packageManifestPath, `delivery kernel import closure is missing: ${resolved}`);
+        continue;
+      }
+      if (resolved.endsWith(".mjs")) queue.push(resolved);
+    }
+  }
+}
+
 async function validatePackageShape() {
   for (const dir of ["skills", "agents", "compiled-agents", "registries", "tool-packs", "checklists", "sources", "integrations", "templates", "evals", "methods", "docs"]) {
     if (!(await exists(`${AI_ROOT}/${dir}`))) {
@@ -219,17 +395,42 @@ async function validateManifest() {
   if (!/non-runtime/i.test(manifest.runtimeBoundary || "")) {
     fail(`${AI_ROOT}/manifest.json`, "runtimeBoundary must state .ai-toolkit is non-runtime storage");
   }
+  if (manifest.schemaVersion !== "2.0.0") {
+    fail(`${AI_ROOT}/manifest.json`, "embedded manifest schemaVersion must be 2.0.0");
+  }
+  const exactBytes = true;
   for (const skill of ACTIVE_SKILLS) {
     if (!manifest.activeSkills?.includes(skill)) {
       fail(`${AI_ROOT}/manifest.json`, `missing active skill ${skill}`);
     }
   }
-  for (const agent of ACTIVE_PROJECT_AGENTS) {
-    if (!manifest.activeProjectAgents?.includes(agent)) {
-      fail(`${AI_ROOT}/manifest.json`, `missing active project agent ${agent}`);
+  const canonicalAgentRegistry = await readJson("registries/agents.registry.json");
+  const expectedProjectAgents = (canonicalAgentRegistry?.agents ?? []).map((agent) => agent.name);
+  const expectedAgentTomlPaths = (canonicalAgentRegistry?.agents ?? []).map((agent) => agent.runtimeFiles?.tomlPath);
+  if (JSON.stringify(manifest.activeProjectAgents ?? []) !== JSON.stringify(expectedProjectAgents)) {
+    fail(`${AI_ROOT}/manifest.json`, "active project agents must exactly match the canonical registry");
+  }
+  for (const [index, tomlPath] of expectedAgentTomlPaths.entries()) {
+    const agentName = expectedProjectAgents[index];
+    const expectedPath = `.codex/agents/${agentName}.toml`;
+    if (tomlPath !== expectedPath) {
+      fail("registries/agents.registry.json", `canonical runtime TOML mismatch for ${agentName}`);
+      continue;
+    }
+    const runtimeTarget = `${AI_ROOT}/runtime-agents/${path.posix.basename(tomlPath)}`;
+    const runtimeMirror = (manifest.mirrors ?? []).find((entry) => (
+      entry.source === tomlPath && entry.target === runtimeTarget
+    ));
+    if (!runtimeMirror) {
+      fail(`${AI_ROOT}/manifest.json`, `missing canonical agent runtime mirror for ${agentName}`);
     }
   }
-  for (const mirror of manifest.mirrors || []) {
+  const mirrors = Array.isArray(manifest.mirrors) ? manifest.mirrors : [];
+  const mirrorTargets = mirrors.map((mirror) => mirror?.target);
+  if (new Set(mirrorTargets).size !== mirrorTargets.length) {
+    fail(`${AI_ROOT}/manifest.json`, "embedded mirror targets must be unique");
+  }
+  for (const mirror of mirrors) {
     if (!(await exists(mirror.source))) {
       fail(`${AI_ROOT}/manifest.json`, `mirror source missing: ${mirror.source}`);
       continue;
@@ -238,7 +439,7 @@ async function validateManifest() {
       fail(`${AI_ROOT}/manifest.json`, `mirror target missing: ${mirror.target}`);
       continue;
     }
-    const actualHash = await sha256(mirror.target);
+    const actualHash = await sha256(mirror.target, { exactBytes });
     if (mirror.sha256 !== actualHash) {
       fail(mirror.target, "manifest target hash drift");
     }
@@ -247,6 +448,12 @@ async function validateManifest() {
       const targetText = await readFile(rootPath(mirror.target), "utf8");
       if (sourceText !== targetText) {
         fail(mirror.target, `byte-identical mirror drifts from ${mirror.source}`);
+      }
+    }
+    if (mirror.source === "sources/source-watchlist.json") {
+      const sourceHash = await sha256(mirror.source, { exactBytes });
+      if (mirror.sourceSha256 !== sourceHash || mirror.targetSha256 !== actualHash) {
+        fail(mirror.target, "source catalog mirror source/target digest attestation drift");
       }
     }
   }
@@ -260,11 +467,12 @@ async function validateManifest() {
       fail(`${AI_ROOT}/manifest.json`, `generated artifact missing: ${artifact.path}`);
       continue;
     }
-    const actualHash = await sha256(artifact.path);
+    const actualHash = await sha256(artifact.path, { exactBytes });
     if (artifact.sha256 !== actualHash) {
       fail(artifact.path, "manifest generated artifact hash drift");
     }
   }
+  await validateDeliveryKernelPackage(manifest, expectedAgentTomlPaths.filter(Boolean));
 }
 
 async function validateSourceMap() {
@@ -412,32 +620,29 @@ async function validateWatchlist() {
   if (!watchlist) {
     return;
   }
+  try {
+    validateSourceCatalog(watchlist);
+  } catch (error) {
+    fail(`${AI_ROOT}/sources/watchlist.json`, error.message);
+    return;
+  }
+  const canonicalText = await readFile(rootPath("sources/source-watchlist.json"), "utf8");
+  const mirrorText = await readFile(rootPath(`${AI_ROOT}/sources/watchlist.json`), "utf8");
+  if (canonicalText !== mirrorText) {
+    fail(`${AI_ROOT}/sources/watchlist.json`, "generated source catalog mirror is not byte-identical to canonical input");
+  }
   const ids = new Set();
   for (const source of watchlist.sources || []) {
     const location = `${AI_ROOT}/sources/watchlist.json:${source.id || "<unknown>"}`;
-    for (const field of ["id", "name", "sourceUrl", "repoOwner", "repoName", "defaultBranch", "lastReviewedCommit", "lastReviewedDate", "sourceRecordPath", "watchedPaths", "licenseConcern", "reviewPriority", "neverAutoImport"]) {
-      if (!(field in source)) {
-        fail(location, `missing ${field}`);
-      }
-    }
     if (ids.has(source.id)) {
       fail(location, "duplicate source id");
     }
     ids.add(source.id);
-    if (source.id === "coderabbit") {
-      fail(location, "CodeRabbit must be represented as an integration record, not a source-watchlist entry");
-    }
-    if (source.neverAutoImport !== true) {
-      fail(location, "neverAutoImport must be true");
-    }
-    if (source.lastReviewedCommit !== null || source.lastReviewedDate !== null) {
-      warn(location, "review metadata is populated; ensure it came from a live review in this task");
-    }
     if (source.sourceRecordPath && !(await exists(source.sourceRecordPath))) {
       fail(location, `source record missing: ${source.sourceRecordPath}`);
     }
-    if (!Array.isArray(source.watchedPaths)) {
-      fail(location, "watchedPaths must be an array");
+    if (source.id === "coderabbit" && source.lifecycle !== "service-integration") {
+      fail(location, "CodeRabbit must remain a governed service-integration source");
     }
   }
   if (await exists(`${AI_ROOT}/sources/records/coderabbit.md`)) {
@@ -476,6 +681,7 @@ function validateReferenceClosure() {
 async function main() {
   await validatePackageShape();
   await validateManifest();
+  await validateScriptsManifest();
   await validateSourceMap();
   await validateToolRegistry();
   await validateMethodTraceability();

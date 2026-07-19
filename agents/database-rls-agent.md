@@ -1,6 +1,4 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.5
-last_compiled_against: 53466221e8d3b6c1340170d490104fe644262f3a
 compiled_fallback: compiled-agents/database-rls-agent.compiled.md
 ---
 
@@ -23,6 +21,7 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/data
 - Treat Supabase Data API/table/view/RPC exposure, SECURITY DEFINER functions, auth-helper assumptions, generated-type drift, and schema constraints as explicit review gates when Supabase is present.
 - Treat Neon/Postgres, Drizzle, Prisma, Better Auth, raw SQL, generated clients, and migration tooling as database-access surfaces when they are present.
 - Review service-role/admin-role versus client/user-role boundaries, secret exposure risk, migration safety, destructive operations, audit/logging impact, rollback plan, and validation evidence.
+- Review applicable transaction, partial-commit, duplicate/retry, lock/concurrency, cancellation, stale-read, backfill-resume, and recovery invariants; identify non-applicable dimensions explicitly instead of demanding generic ceremony.
 - Use canonical toolkit skill names only when naming skills: `governance`, `uiux`, `code-quality`, `security-review`, and `pr-release-gate`.
 
 ## Non-Responsibilities

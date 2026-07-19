@@ -8,10 +8,13 @@ import { ACTIVE_SKILLS, INTERNAL_HELPER_SKILLS } from "./ai-toolkit/embedded-dat
 const ROOT = process.cwd();
 const MANIFEST_PATH = ".ai-toolkit/manifest.json";
 const TARGET_ROOTS = [".agents/skills", ".ai-toolkit/skills"];
+const SKILL_WARN_WORDS = 800;
+const SKILL_MAX_WORDS = 1200;
 
 function usage() {
   return `Usage:
   node scripts/sync-runtime.mjs [--dry-run]
+  node scripts/sync-runtime.mjs --check
   node scripts/sync-runtime.mjs --confirm-write
   node scripts/sync-runtime.mjs --skill <active-skill> [--confirm-write]
 
@@ -25,6 +28,7 @@ hashes when --confirm-write is supplied.
 function parseArgs(argv) {
   const args = {
     confirmWrite: false,
+    check: false,
     help: false,
     skills: []
   };
@@ -35,8 +39,13 @@ function parseArgs(argv) {
       args.help = true;
     } else if (arg === "--dry-run") {
       args.confirmWrite = false;
+      args.check = false;
     } else if (arg === "--confirm-write") {
       args.confirmWrite = true;
+      args.check = false;
+    } else if (arg === "--check") {
+      args.confirmWrite = false;
+      args.check = true;
     } else if (arg === "--skill") {
       const skill = argv[index + 1];
       if (!skill) {
@@ -68,7 +77,15 @@ function assertInside(relativePath, allowedRoots) {
 }
 
 function sha256Text(text) {
-  return createHash("sha256").update(text.replace(/\r\n/g, "\n")).digest("hex");
+  return createHash("sha256").update(text).digest("hex");
+}
+
+function countWords(text) {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function skillBudgetStatus(words) {
+  return words > SKILL_WARN_WORDS ? `WARN word-budget>${SKILL_WARN_WORDS}` : "size-ok";
 }
 
 async function readTextIfPresent(relativePath) {
@@ -117,7 +134,9 @@ async function readManifest() {
 function validateManifestCoverage(manifest, actions) {
   const mirrors = manifest.mirrors || [];
   const mirrorByTarget = new Map(mirrors.map((mirror) => [mirror.target, mirror]));
-  const missing = actions.filter((action) => !mirrorByTarget.has(action.target)).map((action) => action.target);
+  const missing = actions
+    .filter((action) => action.target.startsWith(".ai-toolkit/") && !mirrorByTarget.has(action.target))
+    .map((action) => action.target);
 
   if (missing.length > 0) {
     throw new Error(`Manifest missing mirror entries for: ${missing.join(", ")}`);
@@ -138,7 +157,10 @@ function actionStatus(action, dryRun) {
 
 async function updateManifestHashes(manifest, mirrorByTarget, actions) {
   for (const action of actions) {
-    mirrorByTarget.get(action.target).sha256 = action.expectedHash;
+    const mirror = mirrorByTarget.get(action.target);
+    if (mirror) {
+      mirror.sha256 = action.expectedHash;
+    }
   }
   await writeFile(rootPath(MANIFEST_PATH), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 }
@@ -146,6 +168,10 @@ async function updateManifestHashes(manifest, mirrorByTarget, actions) {
 async function planSkill(skill) {
   const source = `skills/${skill}/SKILL.md`;
   const sourceText = await readFile(rootPath(source), "utf8");
+  const words = countWords(sourceText);
+  if (words > SKILL_MAX_WORDS) {
+    throw new Error(`runtime skill ${skill} word budget exceeds ${SKILL_MAX_WORDS} words: ${words}`);
+  }
   const expectedHash = sha256Text(sourceText);
   const actions = [];
 
@@ -162,7 +188,7 @@ async function planSkill(skill) {
     });
   }
 
-  return actions;
+  return { skill, words, budgetStatus: skillBudgetStatus(words), actions };
 }
 
 async function main() {
@@ -172,20 +198,42 @@ async function main() {
     return;
   }
 
-  const dryRun = !args.confirmWrite;
+  const dryRun = !args.confirmWrite && !args.check;
   const skills = selectSkills(args.skills);
-  const mode = dryRun ? "dry-run" : "confirm-write";
+  const mode = args.confirmWrite ? "confirm-write" : args.check ? "check" : "dry-run";
+  const plans = [];
   const allActions = [];
   for (const skill of skills) {
-    allActions.push(...await planSkill(skill));
+    const plan = await planSkill(skill);
+    plans.push(plan);
+    allActions.push(...plan.actions);
   }
   const manifest = await readManifest();
   const mirrorByTarget = validateManifestCoverage(manifest, allActions);
 
+  if (args.check) {
+    const contentDrift = allActions.filter((action) => action.needsWrite).map((action) => action.target);
+    if (contentDrift.length > 0) {
+      throw new Error(`runtime mirror check drift detected: ${contentDrift.join(", ")}`);
+    }
+    const hashDrift = allActions
+      .filter((action) => {
+        const mirror = mirrorByTarget.get(action.target);
+        return mirror && mirror.sha256 !== action.expectedHash;
+      })
+      .map((action) => action.target);
+    if (hashDrift.length > 0) {
+      throw new Error(`manifest hash drift detected during runtime mirror check: ${hashDrift.join(", ")}`);
+    }
+  }
+
   console.log(`sync-runtime mode: ${mode}`);
   console.log(`skills: ${skills.join(", ")}`);
+  for (const plan of plans) {
+    console.log(`- ${plan.skill}: words=${plan.words}; ${plan.budgetStatus}`);
+  }
 
-  if (!dryRun) {
+  if (args.confirmWrite) {
     for (const action of allActions) {
       if (action.needsWrite) {
         await writeText(action.target, action.sourceText);
@@ -195,10 +243,16 @@ async function main() {
   }
 
   for (const action of allActions) {
-    console.log(`- ${action.skill}: ${action.target}: ${actionStatus(action, dryRun)}`);
+    console.log(`- ${action.skill}: ${action.target}: ${args.check ? "up-to-date" : actionStatus(action, dryRun)}`);
   }
 
-  console.log(dryRun ? "manifest: checked; hashes not written" : "manifest: hashes updated");
+  console.log(
+    args.confirmWrite
+      ? "manifest: hashes updated"
+      : args.check
+        ? "manifest: content and hashes verified"
+        : "manifest: checked; hashes not written"
+  );
 }
 
 await main().catch((error) => {

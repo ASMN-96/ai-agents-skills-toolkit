@@ -79,6 +79,36 @@
       ]
     },
     {
+      "id": "applicable-ui-state-matrix",
+      "userPrompt": "Use governance. Review an async editor that can partially save, go offline, lose permission, show stale data, and perform a destructive action.",
+      "expectedCurrentSkill": "uiux",
+      "expectedCanonicalSkill": "uiux",
+      "expectedReviewBehaviors": [
+        "cover applicable partial permission offline stale confirmation cancellation and recovery states",
+        "distinguish recoverable from terminal failures",
+        "explain why an omitted state is not applicable"
+      ],
+      "forbiddenBehaviors": [
+        "require every generic state when the workflow cannot produce it",
+        "treat a happy path screenshot as state coverage"
+      ]
+    },
+    {
+      "id": "project-declared-localization-matrix",
+      "userPrompt": "Use governance. Verify this product for its declared English and Arabic locales, including prices and dates.",
+      "expectedCurrentSkill": "uiux",
+      "expectedCanonicalSkill": "uiux",
+      "expectedReviewBehaviors": [
+        "check declared locale text direction",
+        "check content expansion wrapping and truncation",
+        "check locale-aware date number and currency formatting"
+      ],
+      "forbiddenBehaviors": [
+        "assume a locale or region the product did not declare",
+        "claim RTL verification without rendered evidence"
+      ]
+    },
+    {
       "id": "non-trigger-backend-only",
       "userPrompt": "Use governance. Review this backend-only data access change.",
       "expectedCurrentSkill": null,

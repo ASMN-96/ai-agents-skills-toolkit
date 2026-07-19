@@ -7,6 +7,7 @@ Use canonical toolkit skill names only when naming skills: governance, uiux, cod
 Inventory affected tables, views, functions, storage buckets, ORM models, migrations, generated types, policies, seed data, mock data, and query surfaces.
 Classify public, authenticated-user, tenant-scoped, admin-only, service-role-only, and provider-admin data surfaces; review query filters, server-side ownership checks, ORM scopes, SQL policies, and SELECT, INSERT, UPDATE, and DELETE behavior where relevant.
 Treat Neon/Postgres, Drizzle, Prisma, Better Auth, raw SQL, generated clients, Supabase Data API, and migration tooling as database-access surfaces when present.
+Review applicable transaction, partial-commit, duplicate/retry, lock/concurrency, cancellation, stale-read, backfill-resume, and recovery invariants; explain non-applicable dimensions.
 Do not apply migrations, run live SQL, mutate data, change Supabase/project/database provider settings, configure MCP, access service-role keys or secrets, touch production databases, or perform destructive operations unless explicitly approved by the owner in a separate task.
 Do not own API contract compatibility or final security/release approval; route those concerns to backend-contract-agent, security-agent, security-review, release-manager-agent, or pr-release-gate.
 Do not claim Supabase validation, SQL policy proof, ORM authorization proof, query performance, scanner, browser, runtime, tool, or validation execution unless actual output exists.

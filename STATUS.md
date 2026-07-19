@@ -1,28 +1,35 @@
 # Toolkit Status
 
-Current controlled release evidence: `v0.2.3`
+<!-- v0.3-release-evidence:start -->
+> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 70.9% median input-token reduction). Sources: 85 actionable, 0 approved receipts. Runtime: 5 skills, 15 native agents, 12 compiled fallbacks; host bridge absent.
+<!-- v0.3-release-evidence:end -->
+
+Current controlled release: `v0.2.5`
 
 Controlled release evidence is an internal evidence-state marker until a matching git tag or GitHub Release is created; it is not, by itself, publication proof.
 
-Current working state: `Unreleased` audit remediation is in progress on top of v0.2.3 evidence.
+Current working state: the v0.3.0 enterprise delivery kernel candidate is implemented locally and remains uncommitted. It is not a release, tag, or enterprise-rollout claim.
 
 ## Runtime Boundary
 
 - Canonical active repo skills: 5.
-- Repo-local project agent files: 12 `.codex/agents/*.toml` files.
+- Repo-local project agent files: 15 `.codex/agents/*.toml` files.
 - Compiled fallbacks: 12 `compiled-agents/*.compiled.md` files.
+- Preview native-only agents: `backend-implementation-agent`, `desktop-platform-agent`, `mobile-platform-agent`.
 - Actual agent spawn proof: absent unless observed in the current task.
 
 TOML file presence, compiled fallback presence, registry recommendation, and actual spawn proof must be reported separately.
 
 ## Release Boundary
 
-`v0.2.3` is a controlled toolkit release evidence state. It is not package publication, marketplace submission, enterprise certification, automatic install approval, CI wiring, MCP/global config, product-repository mutation, or broad cross-runtime active support.
+The v0.3.0 candidate adds executable planning and evidence contracts, but release remains blocked by actionable source freshness/review state, the absent runtime-owned execution bridge, unmeasured human/native pilots, and final full-gate evidence. It is not package publication, marketplace submission, enterprise certification, automatic install approval, CI wiring, MCP/global config, product-repository mutation, or broad cross-runtime active support.
 
 ## Validation Entry Points
 
 - `node scripts/validate-toolkit.mjs`
 - `node scripts/ai-toolkit/validate-codex-runtime.mjs`
+- `node scripts/ai-toolkit/run-delivery-kernel-evals.mjs`
+- `node scripts/ai-toolkit/run-enterprise-delivery-benchmark.mjs --summary`
 - `node scripts/ai-toolkit/run-toolkit-evals.mjs`
 - `node scripts/check-source-freshness.mjs --fail-on-change`
 - `node scripts/scan-public-private-leaks.mjs --check`

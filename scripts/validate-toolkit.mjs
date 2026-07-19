@@ -1,9 +1,16 @@
 #!/usr/bin/env node
 import { execFile } from "node:child_process";
+import { createHash } from "node:crypto";
 import { access, readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { promisify } from "node:util";
+
+import {
+  COMPILER_DIGEST_PATHS,
+  digestCanonicalCompilerInputs
+} from "./ai-toolkit/compiler-provenance.mjs";
+import { embeddedValidatorPolicies } from "./ai-toolkit/subvalidator-policy.mjs";
 
 const ROOT = process.cwd();
 const execFileAsync = promisify(execFile);
@@ -15,6 +22,44 @@ const totals = {
   evals: 0,
   sources: 0
 };
+
+async function canonicalAgentInputFiles(relativeDirectory) {
+  const entries = await readdir(rootPath(relativeDirectory), { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const relativePath = `${relativeDirectory}/${entry.name}`;
+    if (entry.isSymbolicLink()) throw new Error(`canonical agent input must not be a symbolic link: ${relativePath}`);
+    if (entry.isDirectory()) files.push(...await canonicalAgentInputFiles(relativePath));
+    else if (entry.isFile()) files.push(relativePath);
+  }
+  return files;
+}
+
+async function canonicalAgentInputDigest() {
+  const files = (await Promise.all(["agents", "profiles", "methods"].map(canonicalAgentInputFiles))).flat();
+  files.push(
+    "registries/agents.registry.json",
+    "registries/profiles.registry.json",
+    "registries/methods.registry.json"
+  );
+  const hash = createHash("sha256");
+  for (const file of files.sort()) {
+    hash.update(file);
+    hash.update("\0");
+    hash.update((await readFile(rootPath(file), "utf8")).replace(/\r\n/g, "\n"));
+    hash.update("\0");
+  }
+  return `sha256:${hash.digest("hex")}`;
+}
+
+async function compilerDigest() {
+  return digestCanonicalCompilerInputs(await Promise.all(
+    COMPILER_DIGEST_PATHS.map(async (relativePath) => ({
+      relativePath,
+      text: await readFile(rootPath(relativePath), "utf8")
+    }))
+  ));
+}
 
 const PROVENANCE_CATEGORIES = new Set([
   "internal-artifact",
@@ -159,7 +204,6 @@ const GITHUB_OWNER_PATTERN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/;
 const GITHUB_REPO_PATTERN = /^[A-Za-z0-9._-]+$/;
 const SAFE_BRANCH_PATTERN = /^[A-Za-z0-9._/-]+$/;
 const PLACEHOLDER_PATTERN = /\b(?:Stub\.?|placeholder|TBD|compiled later|will be compiled later)\b/i;
-const COMPILED_AGENT_EXPECTED_COUNT = 12;
 
 function rel(filePath) {
   return path.relative(ROOT, filePath).split(path.sep).join("/");
@@ -702,17 +746,22 @@ async function validateRegistries(parsed, sourceRecords, watchlist) {
 
 async function validateAgentsAndCompiledFallbacks(registryState) {
   note("Approved agent and compiled fallback parity");
-
-  const compiledPaths = await walk("compiled-agents", { extension: ".compiled.md" });
-  if (compiledPaths.length !== COMPILED_AGENT_EXPECTED_COUNT) {
-    fail("compiled agent parity", "compiled-agents", `expected ${COMPILED_AGENT_EXPECTED_COUNT} compiled agents, found ${compiledPaths.length}`);
-  }
+  const expectedInputDigest = await canonicalAgentInputDigest();
+  const expectedCompilerDigest = await compilerDigest();
 
   const expectedCompiledPaths = new Set(
     [...registryState.agents.values()]
       .map((agent) => agent.compiledFallbackPath)
       .filter(Boolean)
   );
+  const compiledPaths = await walk("compiled-agents", { extension: ".compiled.md" });
+  if (compiledPaths.length !== expectedCompiledPaths.size) {
+    fail(
+      "compiled agent parity",
+      "compiled-agents",
+      `expected ${expectedCompiledPaths.size} registry-declared compiled agents, found ${compiledPaths.length}`
+    );
+  }
   for (const compiledPath of compiledPaths) {
     if (!expectedCompiledPaths.has(compiledPath)) {
       fail("compiled agent parity", compiledPath, "compiled agent is not referenced by agents registry");
@@ -766,6 +815,15 @@ async function validateAgentsAndCompiledFallbacks(registryState) {
     }
     if (!COMMIT_SHA_PATTERN.test(frontmatter.source_commit || "")) {
       fail("compiled agent parity", compiledPath, "source_commit must be a 40-character Git commit SHA");
+    }
+    if (frontmatter.input_digest !== expectedInputDigest) {
+      fail("compiled agent parity", compiledPath, `input_digest drift; expected ${expectedInputDigest}, got ${frontmatter.input_digest || "<missing>"}`);
+    }
+    if (frontmatter.input_digest_scope !== "canonical-agent-inputs-v1") {
+      fail("compiled agent parity", compiledPath, "input_digest_scope must be canonical-agent-inputs-v1");
+    }
+    if (frontmatter.compiler_digest !== expectedCompilerDigest) {
+      fail("compiled agent parity", compiledPath, `compiler_digest drift; expected ${expectedCompilerDigest}, got ${frontmatter.compiler_digest || "<missing>"}`);
     }
 
     const expectedProfileRefs = asArray(agent.profiles)
@@ -1254,21 +1312,13 @@ async function validateForbiddenArtifacts() {
 
 async function runAiToolkitSubvalidators() {
   note("Embedded AI Toolkit validators");
-  const validators = [
-    "scripts/validate-project-tooling-profiles.mjs",
-    "scripts/ai-toolkit/validate-ai-toolkit.mjs",
-    "scripts/ai-toolkit/validate-reference-closure.mjs",
-    "scripts/ai-toolkit/validate-codex-runtime.mjs",
-    "scripts/ai-toolkit/validate-version-consistency.mjs",
-    "scripts/ai-toolkit/run-toolkit-evals.mjs"
-  ];
-
-  for (const validator of validators) {
+  for (const policy of embeddedValidatorPolicies) {
+    const validator = policy.path;
     try {
       const result = await execFileAsync(process.execPath, [validator], {
         cwd: ROOT,
-        timeout: 60_000,
-        maxBuffer: 1024 * 1024 * 10
+        timeout: policy.timeoutMs,
+        maxBuffer: policy.maxBufferBytes
       });
       for (const line of `${result.stdout}${result.stderr}`.trim().split(/\r?\n/).filter(Boolean)) {
         if (line.startsWith("FAIL")) {
@@ -1277,7 +1327,12 @@ async function runAiToolkitSubvalidators() {
       }
       collectSubvalidatorWarnings("embedded validator", validator, `${result.stdout}${result.stderr}`);
     } catch (error) {
-      fail("embedded validator", validator, `subvalidator failed with exit ${error.code ?? "unknown"}`);
+      const failureIdentity = error.code ?? error.signal ?? (error.killed ? "timeout" : "unknown");
+      fail(
+        "embedded validator",
+        validator,
+        `subvalidator failed with ${failureIdentity} within ${policy.timeoutMs}ms budget`
+      );
       failSubvalidator("embedded validator", `${error.stdout || ""}${error.stderr || error.message || ""}`);
       collectSubvalidatorWarnings("embedded validator", validator, `${error.stdout || ""}${error.stderr || ""}`);
     }
