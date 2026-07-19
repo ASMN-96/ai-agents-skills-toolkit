@@ -1,10 +1,12 @@
 # Toolkit Status
 
-Current controlled release evidence: `v0.2.3`
+Current controlled release evidence: `v0.2.5`
 
-Controlled release evidence is an internal evidence-state marker until a matching git tag or GitHub Release is created; it is not, by itself, publication proof.
+The `v0.2.5` evidence state is backed by a matching git tag and GitHub Release. It is not package publication, marketplace submission, or certification proof.
 
-Current working state: `Unreleased` audit remediation is in progress on top of v0.2.3 evidence.
+`v0.2.3` remains historical evidence for the Level 3 controlled-pilot milestone. The v0.2.5 release does not promote the toolkit to Level 4 or Level 5.
+
+Current working state: `Unreleased` source maintenance is in progress on top of v0.2.5 evidence.
 
 ## Runtime Boundary
 
@@ -17,7 +19,7 @@ TOML file presence, compiled fallback presence, registry recommendation, and act
 
 ## Release Boundary
 
-`v0.2.3` is a controlled toolkit release evidence state. It is not package publication, marketplace submission, enterprise certification, automatic install approval, CI wiring, MCP/global config, product-repository mutation, or broad cross-runtime active support.
+`v0.2.5` is a controlled toolkit release evidence state. It is not package publication, marketplace submission, enterprise certification, automatic install approval, CI wiring, MCP/global config, product-repository mutation, or broad cross-runtime active support.
 
 ## Validation Entry Points
 

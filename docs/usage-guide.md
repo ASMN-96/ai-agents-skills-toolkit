@@ -153,4 +153,4 @@ Return an allow/defer/reject recommendation with evidence.
 
 ## Public Release Positioning
 
-`v0.2.3` is the controlled AI Vibe Coding Toolkit release after v0.2 hardening, no-write leak-scan validation mode, activation posture hardening, full resource refresh with zero passive source holds, runtime validation, public positioning cleanup, and release validation gates. It does not claim higher maturity, enterprise or production certification, automatic installs, package publication, marketplace submission, broad cross-runtime active support, or external submission.
+`v0.2.5` is the current controlled AI Vibe Coding Toolkit release. It carries forward the v0.2.3 governance and source-review baseline plus the v0.2.4 agent and risk hardening, then refreshes watched-source evidence. The release remains at the validated Level 3 maturity boundary and does not claim enterprise or production certification, automatic installs, package publication, marketplace submission, broad cross-runtime active support, or external submission.

@@ -15,7 +15,7 @@ Reading docs alone does not require running validators.
 
 1. Read `AGENTS.md`.
 2. Read `docs/usage-guide.md`.
-3. Confirm the current release posture in `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`.
+3. Confirm the current release and preserved Level 3 maturity posture in `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md`.
 4. Run:
 
 ```powershell
@@ -68,9 +68,9 @@ node scripts/scan-public-private-leaks.mjs --check
 
 For small documentation-only edits, run the narrowest subset first, then broaden if release or public-readiness claims are involved.
 
-## v0.2.3 Positioning
+## v0.2.5 Positioning
 
-`v0.2.3` is the controlled AI Vibe Coding Toolkit release for agent-assisted governance. It includes v0.2 hardening, task-intake routing, project-tooling governance, no-write leak-scan validation mode, full resource refresh with zero passive source holds, activation posture hardening, public positioning cleanup, and validated 5-skill/12-agent runtime metadata for this repository. It does not claim higher maturity, enterprise or production certification, automatic installs, package publication, marketplace submission, or broad cross-runtime active support.
+`v0.2.5` is the current controlled AI Vibe Coding Toolkit release for agent-assisted governance. It adds source-freshness hardening and public-package validation to the v0.2 foundations, while preserving the validated 5-skill/12-agent runtime boundary. It does not claim higher maturity, enterprise or production certification, automatic installs, package publication, marketplace submission, or broad cross-runtime active support.
 
 ## Next Step
 
