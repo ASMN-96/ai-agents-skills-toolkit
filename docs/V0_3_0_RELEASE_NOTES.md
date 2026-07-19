@@ -1,7 +1,7 @@
 # v0.3.0 Draft Release Notes
 
 <!-- v0.3-release-evidence:start -->
-> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 69.5% median input-token reduction). Sources: 85 actionable, 0 approved receipts. Runtime: 5 skills, 15 native agents, 12 compiled fallbacks; host bridge absent.
+> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 69.4% median input-token reduction). Sources: 85 actionable, 0 approved receipts. Runtime: 5 skills, 15 native agents, 12 compiled fallbacks; host bridge absent.
 <!-- v0.3-release-evidence:end -->
 
 These notes describe the untagged v0.3.0 candidate. `v0.2.5` remains the controlled release until the reviewed candidate passes the release profile and explicit tag/release authorization is received.
