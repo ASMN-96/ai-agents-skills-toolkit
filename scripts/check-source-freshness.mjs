@@ -69,6 +69,7 @@ const REASON_CODES = new Set([
   "DEGRADED_UPSTREAM_CHANGED",
   "BASELINE_MISSING",
   "REMOTE_CHECK_FAILED",
+  "IDENTITY_DRIFT_DETECTED",
   "MANUAL_EVIDENCE_REQUIRED",
   "MANUAL_DUE",
   "MANUAL_CURRENT"
@@ -915,6 +916,8 @@ function monitorEvidence(result, useMock) {
       contentDigest = result.review.reviewedDigest;
       digestBasis = "manual-review-receipt";
     }
+  } else if (result.status === "RELOCATED_REVIEW_REQUIRED") {
+    monitorState = "CHECK_FAILED";
   } else if (result.status === "UNCHANGED" && COMMIT_SHA_PATTERN.test(result.latestCommit || "")) {
     monitorState = "CURRENT";
     observedRevision = { kind: "git-sha", value: result.latestCommit.toLowerCase() };
@@ -938,7 +941,9 @@ function monitorEvidence(result, useMock) {
     const comparison = result.comparison || sourceComparisonCommit(result);
     comparisonRevision = comparison.revision;
     comparisonBasis = comparison.basis;
-    if (comparisonRevision === null) {
+    if (result.status === "RELOCATED_REVIEW_REQUIRED") {
+      reasonCode = "IDENTITY_DRIFT_DETECTED";
+    } else if (comparisonRevision === null) {
       reasonCode = "BASELINE_MISSING";
     } else if (monitorState === "CURRENT") {
       reasonCode = result.usedFallback ? "DEGRADED_COMPARISON_MATCH" : "COMPARISON_MATCH";
@@ -977,7 +982,13 @@ function monitorEvidence(result, useMock) {
     checkedAt: result.lastCheckedDate,
     missingCurrentReview,
     evidence: {
-      observationMode: useMock ? "deterministic-mock" : "live-read-only",
+      observationMode: useMock
+        ? "deterministic-mock"
+        : sourceType === "manual-reviewed-doc"
+          ? reasonCode === "MANUAL_EVIDENCE_REQUIRED"
+            ? "manual-evidence-required"
+            : "manual-receipt-only"
+          : "live-read-only",
       legacyStatus: result.status,
       sourceType,
       sourceUrl: result.sourceUrl,

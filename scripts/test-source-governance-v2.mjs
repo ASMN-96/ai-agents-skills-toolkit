@@ -1126,7 +1126,24 @@ test("freshness report and catalog must agree on exact observed revision, digest
         missingCurrentReview: true
       }]
     }, { now: NOW, requireCatalogAgreement: false }),
-    /REMOTE_CHECK_FAILED.*revision or digest/i
+    /REMOTE_CHECK_FAILED/i
+  );
+  assert.throws(
+    () => validateFreshnessReport(catalog(), {
+      ...report,
+      actionableCount: 1,
+      sources: [{
+        ...report.sources[0],
+        monitorState: "CHECK_FAILED",
+        observedRevision: null,
+        contentDigest: null,
+        comparisonRevision: SHA,
+        comparisonBasis: "PRIOR_MONITOR_OBSERVATION",
+        reasonCode: "COMPARISON_MATCH",
+        missingCurrentReview: true
+      }]
+    }, { now: NOW, requireCatalogAgreement: false }),
+    /GitHub CHECK_FAILED requires/i
   );
   assert.throws(
     () => validateFreshnessReport(catalog(), {
@@ -1180,6 +1197,100 @@ test("freshness report and catalog must agree on exact observed revision, digest
       sources: [{ ...report.sources[0], checkedAt: "2026-07-15T07:00:00.000Z" }]
     }, { now: NOW }),
     /older than 24 hours/i
+  );
+});
+
+test("manual receipt-backed freshness is validated against the catalog receipt and expiry", async () => {
+  const { validateFreshnessReport } = await governance();
+  const manualDigest = `sha256:${"f".repeat(64)}`;
+  const manualRevision = { kind: "content-digest", value: manualDigest };
+  const manualSource = source({
+    sourceType: "manual-reviewed-doc",
+    sourceUrl: "https://docs.example.com/manual",
+    identityKey: "url:https://docs.example.com/manual",
+    lastReviewedCommit: null,
+    runtimePosture: "metadata-only",
+    dependentResourceIds: [],
+    manualReview: {
+      publisher: "Example",
+      cadence: "manual",
+      reason: "Manual source.",
+      forbiddenClaims: ["live freshness"]
+    },
+    monitor: {
+      state: "CURRENT",
+      checkedAt: "2026-07-17T07:00:00.000Z",
+      observedRevision: manualRevision,
+      contentDigest: manualDigest,
+      failureReason: null
+    },
+    review: {
+      state: "REVIEWED_CURRENT",
+      currentReceipt: `sources/reviews/example-source/${manualDigest.slice("sha256:".length)}.json`,
+      previousReceipt: null,
+      receiptDigest: `sha256:${"e".repeat(64)}`,
+      previousReceiptDigest: null,
+      reviewedRevision: manualRevision,
+      reviewedDigest: manualDigest,
+      reviewedAt: "2026-07-17T07:15:00.000Z",
+      expiresAt: "2026-07-18T07:15:00.000Z",
+      disposition: "SYNCED_REFERENCE"
+    }
+  });
+  const manualReport = {
+    schemaVersion: "2.0.0",
+    checkedAt: "2026-07-17T07:00:00.000Z",
+    mode: "live",
+    readOnly: true,
+    disclaimer: "Receipt evidence only; no import or activation is authorized.",
+    actionableCount: 0,
+    sources: [{
+      sourceId: manualSource.id,
+      monitorState: "CURRENT",
+      observedRevision: manualRevision,
+      contentDigest: manualDigest,
+      comparisonRevision: manualDigest,
+      comparisonBasis: "MANUAL_REVIEW_RECEIPT",
+      reasonCode: "MANUAL_CURRENT",
+      checkedAt: "2026-07-17T07:00:00.000Z",
+      missingCurrentReview: false,
+      evidence: {
+        observationMode: "manual-receipt-only",
+        legacyStatus: "MANUAL_REVIEW_TRACKED",
+        sourceType: "manual-reviewed-doc",
+        sourceUrl: manualSource.sourceUrl,
+        digestBasis: "manual-review-receipt",
+        latestCommitDate: null,
+        releaseSignal: "manual receipt",
+        licenseSignal: "not reviewed",
+        notes: "Receipt-backed manual evidence.",
+        watchedPathSignals: []
+      }
+    }]
+  };
+
+  assert.equal(validateFreshnessReport(catalog([manualSource]), manualReport, { now: NOW }).sources.length, 1);
+  assert.throws(
+    () => validateFreshnessReport(catalog([manualSource]), {
+      ...manualReport,
+      actionableCount: 1,
+      sources: [{
+        ...manualReport.sources[0],
+        monitorState: "MANUAL_DUE",
+        observedRevision: null,
+        contentDigest: null,
+        reasonCode: "MANUAL_DUE",
+        missingCurrentReview: true
+      }]
+    }, { now: NOW, requireCatalogAgreement: false }),
+    /MANUAL_DUE.*expired/i
+  );
+  const expiredManualSource = structuredClone(manualSource);
+  expiredManualSource.review.expiresAt = "2026-07-16T07:15:00.000Z";
+  expiredManualSource.review.state = "QUARANTINED";
+  assert.throws(
+    () => validateFreshnessReport(catalog([expiredManualSource]), manualReport, { now: NOW, requireCatalogAgreement: false }),
+    /MANUAL_CURRENT.*expired/i
   );
 });
 

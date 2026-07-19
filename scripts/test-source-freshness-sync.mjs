@@ -138,6 +138,72 @@ test("freshness sync persists a structured failed-check reason code without appr
   }
 });
 
+test("freshness sync accepts receipt-backed manual CURRENT evidence without changing runtime posture", async () => {
+  const root = createFixture();
+  try {
+    const catalogPath = path.join(root, "sources", "source-watchlist.json");
+    const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
+    const manual = catalog.sources.find((source) => source.sourceType === "manual-reviewed-doc");
+    const revision = { kind: "content-digest", value: DIGEST };
+    manual.monitor = {
+      state: "CURRENT",
+      checkedAt: NOW,
+      observedRevision: revision,
+      contentDigest: DIGEST,
+      failureReason: null
+    };
+    manual.review = {
+      state: "REVIEWED_CURRENT",
+      currentReceipt: `sources/reviews/${manual.id}/${DIGEST.slice("sha256:".length)}.json`,
+      previousReceipt: null,
+      receiptDigest: `sha256:${"b".repeat(64)}`,
+      previousReceiptDigest: null,
+      reviewedRevision: revision,
+      reviewedDigest: DIGEST,
+      reviewedAt: NOW,
+      expiresAt: "2026-07-31T07:00:00.000Z",
+      disposition: "SYNCED_REFERENCE"
+    };
+    writeFileSync(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`, "utf8");
+    const report = liveReport(catalog);
+    const observation = report.sources.find((entry) => entry.sourceId === manual.id);
+    Object.assign(observation, {
+      monitorState: "CURRENT",
+      observedRevision: revision,
+      contentDigest: DIGEST,
+      comparisonRevision: DIGEST,
+      comparisonBasis: "MANUAL_REVIEW_RECEIPT",
+      reasonCode: "MANUAL_CURRENT",
+      missingCurrentReview: false,
+      evidence: {
+        ...observation.evidence,
+        observationMode: "manual-receipt-only",
+        digestBasis: "manual-review-receipt"
+      }
+    });
+    report.actionableCount -= 1;
+    const reportPath = path.join(root, "freshness.json");
+    writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
+
+    await applySourceFreshness({
+      repositoryRoot: root,
+      freshnessReport: "freshness.json",
+      mode: "confirm-write",
+      now: NOW
+    });
+
+    const updated = JSON.parse(readFileSync(catalogPath, "utf8"));
+    const updatedManual = updated.sources.find((source) => source.id === manual.id);
+    assert.equal(updatedManual.monitor.state, "CURRENT");
+    assert.deepEqual(updatedManual.monitor.observedRevision, revision);
+    assert.equal(updatedManual.monitor.contentDigest, DIGEST);
+    assert.equal(updatedManual.review.state, "REVIEWED_CURRENT");
+    assert.equal(updatedManual.runtimePosture, manual.runtimePosture);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test("freshness sync rejects mock evidence and traversal", async () => {
   const root = createFixture();
   try {

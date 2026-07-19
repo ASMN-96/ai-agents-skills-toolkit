@@ -227,6 +227,27 @@ test("--json-output emits deterministic SourceCatalog v2 monitor evidence", asyn
   });
 });
 
+test("canonical relocation is fail-closed identity drift even when the compared commit is unchanged", async () => {
+  await withWatchlist([
+    source({ mockCanonicalFullName: "openai/skills-renamed" })
+  ], async (cwd) => {
+    await mkdir(path.join(cwd, "docs"));
+    const result = await runFreshness(cwd, [
+      "--mock",
+      "--json-output",
+      "docs/SOURCE_FRESHNESS_REPORT.json"
+    ]);
+
+    assert.equal(result.code, 0, result.stderr);
+    const report = JSON.parse(await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_REPORT.json"), "utf8"));
+    assert.equal(report.sources[0].monitorState, "CHECK_FAILED");
+    assert.equal(report.sources[0].reasonCode, "IDENTITY_DRIFT_DETECTED");
+    assert.equal(report.sources[0].observedRevision, null);
+    assert.equal(report.sources[0].contentDigest, null);
+    assert.equal(report.sources[0].comparisonRevision, "a8924c2a35cfa290458852c4fad17c9133054c2e");
+  });
+});
+
 test("mock freshness evidence distinguishes a missing Git baseline from remote failure", async () => {
   await withWatchlist([
     source({ lastReviewedCommit: null, lastReviewedDate: null })
@@ -341,6 +362,54 @@ test("manual freshness requires a complete receipt and reports expiry only after
     ]);
     assert.equal(report.sources[1].comparisonBasis, "MANUAL_REVIEW_RECEIPT");
     assert.equal(report.sources[1].comparisonRevision, digest);
+    assert.equal(report.sources[1].evidence.observationMode, "deterministic-mock");
+  });
+});
+
+test("live manual receipt evidence is labelled manual-receipt-only", async () => {
+  const digest = `sha256:${"d".repeat(64)}`;
+  await withWatchlist([
+    source({
+      id: "manual-current",
+      name: "Manual Current",
+      sourceType: "manual-reviewed-doc",
+      watchMode: "manual-reviewed-doc",
+      sourceUrl: "https://docs.example.com/manual-current",
+      repoOwner: undefined,
+      repoName: undefined,
+      defaultBranch: undefined,
+      lastReviewedCommit: null,
+      manualReview: {
+        publisher: "Example",
+        cadence: "manual",
+        reason: "Manual source.",
+        forbiddenClaims: ["live freshness"]
+      },
+      review: {
+        state: "REVIEWED_CURRENT",
+        currentReceipt: "sources/reviews/manual-current/receipt.json",
+        reviewedRevision: { kind: "content-digest", value: digest },
+        reviewedDigest: digest,
+        reviewedAt: "2026-07-01T00:00:00.000Z",
+        expiresAt: "2099-01-01T00:00:00.000Z",
+        previousReceipt: null,
+        receiptDigest: `sha256:${"e".repeat(64)}`,
+        previousReceiptDigest: null,
+        disposition: "SYNCED_REFERENCE"
+      }
+    })
+  ], async (cwd) => {
+    await mkdir(path.join(cwd, "docs"));
+    const result = await runFreshness(cwd, [
+      "--json-output",
+      "docs/SOURCE_FRESHNESS_REPORT.json"
+    ]);
+
+    assert.equal(result.code, 0, result.stderr);
+    const report = JSON.parse(await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_REPORT.json"), "utf8"));
+    assert.equal(report.sources[0].monitorState, "CURRENT");
+    assert.equal(report.sources[0].evidence.observationMode, "manual-receipt-only");
+    assert.equal(report.sources[0].evidence.digestBasis, "manual-review-receipt");
   });
 });
 
