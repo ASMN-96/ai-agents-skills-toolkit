@@ -110,7 +110,7 @@
     },
     {
       "path": "scripts/sync-runtime.mjs",
-      "sha256": "1d4640fa0b4e0610db352fd652d9b6412b80e2be0556a60b2932e419d93cca4b"
+      "sha256": "208e36714461d7907085d1e0e7293cf49c455b925a299373f677232b5eb72226"
     },
     {
       "path": "scripts/validate-level4-readiness.mjs",

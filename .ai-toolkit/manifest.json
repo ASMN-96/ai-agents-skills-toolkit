@@ -791,31 +791,31 @@
       "source": "skills/code-quality/SKILL.md",
       "target": ".ai-toolkit/skills/code-quality/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "5b675335d35def38c7b300df49d1817853469940bc22158b285bd5e4a1e4b2f9"
+      "sha256": "593bd52e3cc1f5b1097a341473b4c46031c88319da1823b45a6cc1b810f54108"
     },
     {
       "source": "skills/governance/SKILL.md",
       "target": ".ai-toolkit/skills/governance/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "8316a858fdbbe17c71d537694b3da48720c011071964fa56abe68e85cdcb1499"
+      "sha256": "723688ce1e868bb773de94f9cdef79b26b5683547cff5b72489213aa1fa03255"
     },
     {
       "source": "skills/pr-release-gate/SKILL.md",
       "target": ".ai-toolkit/skills/pr-release-gate/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "de8f37651c276568d519ab04434eefbeea3be07a45a28af9b1b30f613bef2578"
+      "sha256": "976829b5965f72897e686c546595730946aca435bbfa774597c98d2df3d1a74f"
     },
     {
       "source": "skills/security-review/SKILL.md",
       "target": ".ai-toolkit/skills/security-review/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "830e8b417df1e91c0347299d58e50ac0dd0b962ceb4dcb44469281209a189467"
+      "sha256": "6bf802ca7848a480c43ea22ea57a532a00ce8424bc7f10366d1be509c4613d23"
     },
     {
       "source": "skills/uiux/SKILL.md",
       "target": ".ai-toolkit/skills/uiux/SKILL.md",
       "mode": "byte-identical",
-      "sha256": "dc3825153f9186239f5de0dae52244246200014df557250fdf33418d7d5647b5"
+      "sha256": "fcacf0eab4107fbf5543a09d1cf1878413471343fed3352d87803f5acb7a61df"
     },
     {
       "source": "sources/source-watchlist.json",
@@ -829,7 +829,7 @@
       "source": "templates/.ai-toolkit.config.example.json",
       "target": ".ai-toolkit/templates/.ai-toolkit.config.example.json",
       "mode": "byte-identical",
-      "sha256": "391dc6d65380f88bbf092589ed759fe526c31c81e4d3a55a12d84a802b43b2c1"
+      "sha256": "855d2887112a3389ac0a29859d08f00ab5448f33477537cad5c88b313a1bfd1d"
     },
     {
       "source": "templates/commit-message-template.md",

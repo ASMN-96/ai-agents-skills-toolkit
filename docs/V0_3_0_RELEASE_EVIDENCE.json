@@ -5,7 +5,7 @@
   "releaseState": "blocked",
   "artifactDigestMode": "sha256-utf8-lf-v1",
   "repository": {
-    "sourceCommit": "b55f367612a150020f46480c413d0b7b4d079c60",
+    "sourceCommit": "c6484a6fa3c1e89dde4bf0bc153e1e1feec84d5e",
     "compilerCommit": "86e77cb7168622ceaf8e922243ed93cf2cdcdeca",
     "reviewedMainCommit": null,
     "worktreeState": "clean"
@@ -29,7 +29,7 @@
     },
     "embeddedManifest": {
       "path": ".ai-toolkit/manifest.json",
-      "sha256": "1d8b7513db22c1fbb10849ae84ff04720f9afae11066c3c1749399658f96c005",
+      "sha256": "fb8db0cb4385af00647142e1ba5b4d198ac358122ef6ada04b126e8c7f486012",
       "state": "generated-current"
     }
   },

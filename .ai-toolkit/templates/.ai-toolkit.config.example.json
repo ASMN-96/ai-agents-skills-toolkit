@@ -11,6 +11,7 @@
   "selectedSkills": [
     "governance"
   ],
+  "includeDeliveryKernel": false,
   "projectContextPath": "docs/ai/PROJECT_CONTEXT.md",
   "approvalMode": "manual",
   "branchPolicy": "no-direct-main",
