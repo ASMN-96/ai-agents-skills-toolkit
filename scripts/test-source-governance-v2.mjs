@@ -108,7 +108,7 @@ function source(overrides = {}) {
 
 function catalog(sources = [source()]) {
   return {
-    schemaVersion: "2.0.0",
+    schemaVersion: "2.1.0",
     catalogId: "enterprise-source-catalog",
     policy: {
       readOnlySupplyChainInputs: true,
@@ -1280,7 +1280,7 @@ test("manual receipt-backed freshness is validated against the catalog receipt a
     }
   });
   const manualReport = {
-    schemaVersion: "2.1.0",
+    schemaVersion: "2.0.0",
     checkedAt: "2026-07-17T07:00:00.000Z",
     mode: "live",
     readOnly: true,
@@ -1336,17 +1336,20 @@ test("manual receipt-backed freshness is validated against the catalog receipt a
   );
 });
 
-test("source governance CLIs validate the catalog and keep review application dry-run unless confirmed", async () => {
+test("source governance release validation blocks generated drift and keeps review application dry-run unless confirmed", async () => {
   const validateScript = path.join(ROOT, "scripts", "validate-source-governance.mjs");
   const applyScript = path.join(ROOT, "scripts", "apply-source-review.mjs");
   const migrationScript = path.join(ROOT, "scripts", "migrate-source-catalog-v2.mjs");
-  const validation = await execFileAsync(process.execPath, [validateScript], { cwd: ROOT });
-  assert.match(validation.stdout, /PASS validate-source-governance/);
-  assert.match(validation.stdout, /"sourceCount":80/);
-  assert.match(validation.stdout, /"releaseEligible":false/);
-  assert.match(validation.stdout, /"actionableCount":80/);
+  await assert.rejects(
+    execFileAsync(process.execPath, [validateScript], { cwd: ROOT }),
+    (error) => {
+      assert.match(`${error.stdout}\n${error.stderr}`, /generated source catalog mirror drift detected/i);
+      return true;
+    },
+    "release validation must fail closed while the generated source catalog mirror is deferred"
+  );
   const migration = await execFileAsync(process.execPath, [migrationScript], { cwd: ROOT });
-  assert.match(migration.stdout, /"status":"already-v2"/);
+  assert.match(migration.stdout, /"status":"already-v2\.1"/);
   assert.match(migration.stdout, /"sourceCount":80/);
   const migrationSource = await readFile(migrationScript, "utf8");
   assert.match(

@@ -94,6 +94,38 @@ function catalog(sources = [source()]) {
   };
 }
 
+async function writeScopeGraphRegistries(root, {
+  supportedSourceIds = [],
+  previewSourceIds = [],
+  toolIds = []
+} = {}) {
+  const packs = [
+    ["supported", supportedSourceIds],
+    ["preview", previewSourceIds]
+  ].filter(([, sourceIds]) => sourceIds.length > 0).map(([maturity, sourceIds]) => ({
+    id: `fixture-${maturity}`,
+    lifecycle: "active",
+    maturity,
+    gates: [{
+      id: `fixture-${maturity}-gate`,
+      authoritativeSourceRefs: sourceIds.map((sourceId) => ({ sourceId }))
+    }]
+  }));
+  await mkdir(path.join(root, "registries"), { recursive: true });
+  await Promise.all([
+    writeFile(
+      path.join(root, "registries", "domain-packs.registry.json"),
+      `${JSON.stringify({ registryType: "domain-packs", packs }, null, 2)}\n`,
+      "utf8"
+    ),
+    writeFile(
+      path.join(root, "registries", "tools.registry.json"),
+      `${JSON.stringify({ registryType: "tools", tools: toolIds.map((id) => ({ id })) }, null, 2)}\n`,
+      "utf8"
+    )
+  ]);
+}
+
 function gate(sourceId = "nist-ssdf") {
   return {
     id: "enterprise-security-privacy",
@@ -218,6 +250,7 @@ test("runtime catalog loading validates exact immutable receipt bytes and reject
       `${JSON.stringify(catalog([reviewedSource]), null, 2)}\n`,
       "utf8"
     );
+    await writeScopeGraphRegistries(root);
 
     const loaded = await loadValidatedSourceCatalog({ repositoryRoot: root, now: NOW });
     assert.equal(loaded.validation.receiptCount, 1);
@@ -228,6 +261,44 @@ test("runtime catalog loading validates exact immutable receipt bytes and reject
       () => loadValidatedSourceCatalog({ repositoryRoot: root, now: NOW }),
       /receipt chain digest.*does not match/i
     );
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("runtime loading preserves graph-validated scope and reference eligibility", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "delivery-kernel-source-scope-"));
+  try {
+    const text = receiptText();
+    const digest = `sha256:${createHash("sha256").update(text, "utf8").digest("hex")}`;
+    const receiptPath = `sources/reviews/nist-ssdf/${SHA}.json`;
+    const reviewedSource = source({
+      scope: "core",
+      review: {
+        ...source().review,
+        receiptDigest: digest
+      }
+    });
+    await mkdir(path.join(root, "sources", "reviews", "nist-ssdf"), { recursive: true });
+    await writeFile(path.join(root, ...receiptPath.split("/")), text, "utf8");
+    await writeFile(
+      path.join(root, "sources", "source-watchlist.json"),
+      `${JSON.stringify(catalog([reviewedSource]), null, 2)}\n`,
+      "utf8"
+    );
+    await writeScopeGraphRegistries(root, { supportedSourceIds: ["nist-ssdf"] });
+
+    const loaded = await loadValidatedSourceCatalog({ repositoryRoot: root, now: NOW });
+    const snapshot = sourcePolicy.buildSourceReferenceSnapshot({
+      catalog: loaded.catalog,
+      gates: [gate()],
+      now: NOW,
+      receiptsValidated: loaded.validation.immutableReceiptChainsValidated
+    });
+
+    assert.equal(loaded.catalog.sources[0].scope, "core");
+    assert.equal(snapshot.sources[0].referenceEligible, true);
+    assert.equal(snapshot.sources[0].runtimeEligible, false);
   } finally {
     await rm(root, { recursive: true, force: true });
   }
@@ -281,6 +352,7 @@ test("runtime catalog loading binds mutable head review metadata to the immutabl
           `${JSON.stringify(catalog([reviewedSource]), null, 2)}\n`,
           "utf8"
         );
+        await writeScopeGraphRegistries(root);
 
         await assert.rejects(
           () => loadValidatedSourceCatalog({ repositoryRoot: root, now: NOW }),
@@ -328,6 +400,7 @@ test("runtime catalog loading rejects post-review tampering of an adopted artifa
       `${JSON.stringify(catalog([reviewedSource]), null, 2)}\n`,
       "utf8"
     );
+    await writeScopeGraphRegistries(root);
 
     const loaded = await loadValidatedSourceCatalog({ repositoryRoot: root, now: NOW });
     assert.equal(loaded.validation.receiptCount, 1);
