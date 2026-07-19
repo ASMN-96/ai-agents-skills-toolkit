@@ -1,11 +1,11 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "candidateVersion": "0.3.0",
   "controlledRelease": "0.2.5",
   "releaseState": "blocked",
   "artifactDigestMode": "sha256-utf8-lf-v1",
   "repository": {
-    "sourceCommit": "c6484a6fa3c1e89dde4bf0bc153e1e1feec84d5e",
+    "sourceCommit": "0abfc4453601d3299cdc0e9f5c635b124f3aa45a",
     "compilerCommit": "86e77cb7168622ceaf8e922243ed93cf2cdcdeca",
     "reviewedMainCommit": null,
     "worktreeState": "clean"
@@ -13,11 +13,11 @@
   "artifacts": {
     "sourceCatalog": {
       "path": "sources/source-watchlist.json",
-      "sha256": "25946fccbb45cad2596c7495f11664f5d96fe268e83e6b1ff4d33620f845af5e"
+      "sha256": "616f37583ca640e55ac9424e2aa0dc42ac3e4762a37cce1ceb23263532000cc7"
     },
     "freshnessReport": {
       "path": "docs/SOURCE_FRESHNESS_REPORT.json",
-      "sha256": "43822e8d3c882707fb7d3c44a8e50a3dbacafcbf2d2cd25e81518ddbb7274932"
+      "sha256": "51f7cf361dadb7e74bec5387305384a6a4ba70ae94613bfedd7b31c788d60e7a"
     },
     "agentRegistry": {
       "path": "registries/agents.registry.json",
@@ -29,20 +29,42 @@
     },
     "embeddedManifest": {
       "path": ".ai-toolkit/manifest.json",
-      "sha256": "fb8db0cb4385af00647142e1ba5b4d198ac358122ef6ada04b126e8c7f486012",
-      "state": "generated-current"
+      "sha256": null,
+      "state": "regeneration-pending"
     }
   },
   "sourceFreshness": {
-    "checkedAt": "2026-07-19T06:34:47.783Z",
-    "sourceCount": 85,
+    "checkedAt": "2026-07-19T22:11:13.031Z",
+    "sourceCount": 80,
     "monitorCounts": {
-      "CURRENT": 21,
-      "CHANGED": 1,
-      "CHECK_FAILED": 34,
-      "MANUAL_DUE": 29
+      "CURRENT": 13,
+      "CHANGED": 5,
+      "CHECK_FAILED": 62,
+      "MANUAL_DUE": 0
     },
-    "actionableSources": 85,
+    "actionableSources": 80,
+    "actionableCountsByScope": {
+      "core": 8,
+      "platform-preview": 12,
+      "optional-tool": 38,
+      "community-reference": 22,
+      "historical": 0
+    },
+    "supportedPackIds": [
+      "enterprise-core"
+    ],
+    "releaseBlockingSourceCount": 8,
+    "releaseBlockingSourceIds": [
+      "nist-ai-rmf-genai",
+      "nist-ssdf",
+      "nist-ssdf-ai",
+      "openssf-ai-code-assistant-instructions",
+      "owasp-agentic-applications",
+      "owasp-asvs",
+      "owasp-llmsvs",
+      "slsa-v1-2"
+    ],
+    "releaseNonblockingActionableCount": 72,
     "approvedReceiptCount": 0,
     "releaseEligible": false
   },
@@ -135,11 +157,13 @@
     }
   },
   "warnings": [
-    "All 85 governed sources remain actionable and quarantined for new v0.3 routing.",
+    "All 80 governed sources remain actionable and quarantined; 8 block the supported enterprise-core release scope.",
+    "The live monitor recorded 13 CURRENT, 5 CHANGED, and 62 CHECK_FAILED observations; 17 GitHub API 403 observations were resolved through read-only git ls-remote fallback.",
     "No source review receipt has an authorized approver identity.",
     "The runtime-owned Codex or Claude execution bridge is not implemented.",
     "Three preview native-only agents do not yet have compiled fallbacks.",
-    "Human, timing, defect-escape, and native-pilot thresholds are not measured."
+    "Human, timing, defect-escape, and native-pilot thresholds are not measured.",
+    "Generated source mirrors and the embedded manifest remain stale pending Task 7 regeneration."
   ],
   "approvals": {
     "sourceApproverIdentityRecorded": false,
@@ -147,12 +171,99 @@
     "tagAuthorized": false,
     "releaseAuthorized": false
   },
+  "releaseBlockerAccounting": [
+    {
+      "id": "source-governance-actionable",
+      "reasonCode": "RELEASE_SCOPED_SOURCES_ACTIONABLE",
+      "evidencePaths": [
+        "sources/source-watchlist.json",
+        "docs/SOURCE_FRESHNESS_REPORT.json"
+      ],
+      "dependencyIds": [
+        "nist-ai-rmf-genai",
+        "nist-ssdf",
+        "nist-ssdf-ai",
+        "openssf-ai-code-assistant-instructions",
+        "owasp-agentic-applications",
+        "owasp-asvs",
+        "owasp-llmsvs",
+        "slsa-v1-2"
+      ]
+    },
+    {
+      "id": "source-review-approver-unregistered",
+      "reasonCode": "SOURCE_APPROVER_IDENTITY_UNREGISTERED",
+      "evidencePaths": [
+        "sources/source-watchlist.json"
+      ],
+      "dependencyIds": [
+        "enterprise-core"
+      ]
+    },
+    {
+      "id": "runtime-host-bridge-unavailable",
+      "reasonCode": "RUNTIME_HOST_BRIDGE_UNAVAILABLE",
+      "evidencePaths": [
+        "docs/HOST_EXECUTION_BRIDGE.md",
+        "docs/V0_3_0_RELEASE_EVIDENCE.json"
+      ],
+      "dependencyIds": [
+        "runtime-host-bridge"
+      ]
+    },
+    {
+      "id": "human-and-native-pilot-evidence-not-measured",
+      "reasonCode": "HUMAN_AND_NATIVE_PILOT_EVIDENCE_NOT_MEASURED",
+      "evidencePaths": [
+        "docs/V0_3_0_RELEASE_EVIDENCE.json"
+      ],
+      "dependencyIds": [
+        "human-measurements",
+        "native-pilots"
+      ]
+    },
+    {
+      "id": "reviewed-clean-main-commit-unavailable",
+      "reasonCode": "REVIEWED_CLEAN_MAIN_COMMIT_UNAVAILABLE",
+      "evidencePaths": [
+        "docs/V0_3_0_RELEASE_EVIDENCE.json"
+      ],
+      "dependencyIds": [
+        "reviewed-main-commit"
+      ]
+    },
+    {
+      "id": "generated-artifact-drift",
+      "reasonCode": "GENERATED_ARTIFACT_DRIFT",
+      "evidencePaths": [
+        "sources/source-watchlist.json",
+        ".ai-toolkit/sources/watchlist.json",
+        ".ai-toolkit/manifest.json"
+      ],
+      "dependencyIds": [
+        "embedded-manifest",
+        "source-catalog-mirror"
+      ]
+    },
+    {
+      "id": "tag-and-release-authorization-absent",
+      "reasonCode": "TAG_OR_RELEASE_AUTHORIZATION_ABSENT",
+      "evidencePaths": [
+        "docs/V0_3_0_RELEASE_EVIDENCE.json"
+      ],
+      "dependencyIds": [
+        "tag-authorization",
+        "release-authorization"
+      ]
+    }
+  ],
   "releaseBlockers": [
     "source-governance-actionable",
     "source-review-approver-unregistered",
     "runtime-host-bridge-unavailable",
     "human-and-native-pilot-evidence-not-measured",
     "reviewed-clean-main-commit-unavailable",
+    "generated-artifact-drift",
     "tag-and-release-authorization-absent"
   ]
 }

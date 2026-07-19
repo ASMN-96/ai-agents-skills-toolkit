@@ -63,7 +63,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "fa0fa64bdc967915dc8399e803be67759e1e62b8"
@@ -129,7 +129,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "49f948faa9258a0c61caceaf225e179651397431"
@@ -196,7 +196,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "2fbfa004a0192529bc997d103fc12f19a3804aab"
@@ -259,7 +259,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "1ad9aaeb49caafd9e95c0a91116f71890eebbc53"
@@ -325,7 +325,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af"
@@ -395,12 +395,12 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "449349caea6d1c81dc8b6a6f447cf9bfca6b1350"
+          "value": "ef3a5830f960c00018f810cebf26133b35ec2b6f"
         },
-        "contentDigest": "sha256:dc7581d4b48b882cfa6b1a670ff2fc58a326b667cd9567aa4b8ff2c809ef192a",
+        "contentDigest": "sha256:de0a5d62cc8fb2839a59ee89299902d930d45c70da8e29a7a874f2f2eb50a241",
         "failureReason": null
       },
       "review": {
@@ -468,7 +468,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "d63607391ffd6b2763a3e62cb05a8e00b891a937"
@@ -534,7 +534,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "9603c1cc8118d08bc1b3bf34cf714f62178dea3b"
@@ -604,7 +604,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "d28738b183c5eaa69d8d540826e450f30d39ab6c"
@@ -670,7 +670,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "95d6e255afe1596b557d7a8498517884438f5b3a"
@@ -735,7 +735,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "664b3e78fd1a298ba11973822da988483256d4b4"
@@ -803,7 +803,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "e4ab5e24bdf5321b72163d2fbcbe6fa985c848ba"
@@ -852,7 +852,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "e0e028058b5259debdd94b78147c6d6c77bf7da2"
@@ -918,8 +918,8 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "d884ae04edebef577e82ff7c4e143debd0bbec99"
@@ -988,13 +988,13 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "754b8dd76ca885b764ec22f476664377aa46b6cd"
+          "value": "0071fa5c3c389d2b4b235a39402c891e146cdef3"
         },
-        "contentDigest": "sha256:0fb14eeb7285b8042d5229c7ea3c9d5679aa038dcd38d8c57d1a055a3546f3b1",
+        "contentDigest": "sha256:7150078d493ab0dbcf2a07ff56d5b01bb478cfeed733c4e7500832c41e88c5e7",
         "failureReason": null
       },
       "review": {
@@ -1058,8 +1058,8 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "12ede21767a6dd669df1b79392a5d27d9154f237"
@@ -1116,11 +1116,11 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (periodic owner review of the official docs URL and source-record notes) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1171,11 +1171,11 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (periodic owner review of the official docs URL and source-record notes) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1226,11 +1226,11 @@
       "lifecycle": "review-input",
       "freshnessClass": "general-methods",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1281,11 +1281,11 @@
       "lifecycle": "review-input",
       "freshnessClass": "general-methods",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1336,11 +1336,11 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1401,12 +1401,12 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHANGED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "b2f4aa94356dc4859946f508965a2fa8e40bc93b"
+          "value": "667a864896615f3a159d2834064bebfb6eb7fccf"
         },
-        "contentDigest": "sha256:f85d27660978b8e6406d16962e5432f4fcca91380bd5c7caed65dee22c0c3843",
+        "contentDigest": "sha256:f728f51fa4a86820e126fd12aa10b9f447c9e62696123ad09e33c5b1b1ab0941",
         "failureReason": null
       },
       "review": {
@@ -1474,13 +1474,13 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "2418bd05ccfbd6c39594854ab12695513afafba9"
+          "value": "44457c890236440bc683e9e5d84499a0a4911550"
         },
-        "contentDigest": "sha256:7093b0e83a72f9ce1da7a380c8ec56ad2087423b3eea47c7dff387c62796f2e2",
+        "contentDigest": "sha256:0efd90bf5522ab5642f6ad64a3c06418a39216991f40b644df0763a9d54076cb",
         "failureReason": null
       },
       "review": {
@@ -1527,10 +1527,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1578,10 +1578,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1629,10 +1629,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1680,10 +1680,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1731,10 +1731,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1782,10 +1782,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1833,10 +1833,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1884,10 +1884,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1935,10 +1935,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1986,10 +1986,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2037,10 +2037,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2088,10 +2088,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2139,10 +2139,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2190,10 +2190,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2241,10 +2241,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2292,10 +2292,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2343,10 +2343,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2394,10 +2394,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2445,10 +2445,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2496,10 +2496,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2547,10 +2547,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2598,10 +2598,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2649,10 +2649,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2700,10 +2700,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2751,10 +2751,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2802,10 +2802,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2853,10 +2853,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2904,10 +2904,10 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2955,10 +2955,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3006,10 +3006,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3057,10 +3057,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3108,10 +3108,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3159,10 +3159,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3210,10 +3210,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3268,11 +3268,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3325,11 +3325,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3380,11 +3380,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3435,11 +3435,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3490,11 +3490,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3545,11 +3545,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3600,11 +3600,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3655,11 +3655,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3710,11 +3710,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3765,11 +3765,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3820,11 +3820,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3875,11 +3875,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3930,11 +3930,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3985,11 +3985,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4040,11 +4040,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4095,11 +4095,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4150,11 +4150,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4205,11 +4205,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4260,11 +4260,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4315,11 +4315,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4370,11 +4370,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4425,11 +4425,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4480,11 +4480,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",

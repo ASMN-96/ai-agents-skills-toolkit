@@ -77,9 +77,9 @@ function commandsFor(profile, testFiles) {
   if (profile === "release") {
     return [
       ...prCommands(testFiles),
-      nodeCommand("live-source-freshness", [
+      nodeCommand("release-scoped-source-freshness", [
         "scripts/check-source-freshness.mjs",
-        "--fail-on-change",
+        "--fail-on-release-blocker",
         "--output",
         "docs/SOURCE_FRESHNESS_REPORT.md",
         "--json-output",

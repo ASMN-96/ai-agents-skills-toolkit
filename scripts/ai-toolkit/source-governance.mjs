@@ -20,6 +20,8 @@ import {
   validateSourceCatalog as validateSourceCatalogContract,
   validateSourceReviewReceipt as validateSourceReviewReceiptContract
 } from "./kernel/source-catalog-contract.mjs";
+import { deriveSourceReleaseAccounting } from "./kernel/source-release-accounting.mjs";
+export { deriveSourceReleaseAccounting } from "./kernel/source-release-accounting.mjs";
 
 export const FRESHNESS_WINDOWS_DAYS = CONTRACT_FRESHNESS_WINDOWS_DAYS;
 export const MONITOR_STATES = CONTRACT_MONITOR_STATES;
@@ -32,7 +34,7 @@ const MONITOR_STATE_SET = new Set(MONITOR_STATES);
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 const SHA256 = /^sha256:[0-9a-f]{64}$/;
 const GIT_SHA = /^[0-9a-f]{40}$/;
-const FRESHNESS_REPORT_SCHEMA_VERSION = "2.0.0";
+const FRESHNESS_REPORT_SCHEMA_VERSION = "2.1.0";
 const DAY_MS = 24 * 60 * 60 * 1000;
 const SOURCE_GOVERNANCE_MUTATION_LOCK = ".source-governance-mutation.lock";
 const MUTATION_LOCK_STALE_AFTER_MS = 60 * 60 * 1000;
@@ -318,10 +320,31 @@ export function validateFreshnessReport(catalog, report, options = {}) {
   requireRecord(report, "freshnessReport");
   rejectUnknownFields(
     report,
-    new Set(["schemaVersion", "checkedAt", "mode", "readOnly", "disclaimer", "actionableCount", "sources"]),
+    new Set([
+      "schemaVersion",
+      "catalogIdentity",
+      "checkedAt",
+      "mode",
+      "readOnly",
+      "disclaimer",
+      "sourceCount",
+      "monitorCounts",
+      "actionableCount",
+      "actionableCountsByScope",
+      "releaseScope",
+      "sources"
+    ]),
     "freshnessReport"
   );
   if (report.schemaVersion !== FRESHNESS_REPORT_SCHEMA_VERSION) fail(`freshnessReport.schemaVersion must be ${FRESHNESS_REPORT_SCHEMA_VERSION}`);
+  const expectedCatalogIdentity = {
+    schemaVersion: catalog.schemaVersion,
+    catalogId: catalog.catalogId,
+    sourceCount: catalog.sources.length
+  };
+  if (JSON.stringify(report.catalogIdentity) !== JSON.stringify(expectedCatalogIdentity)) {
+    fail("freshnessReport.catalogIdentity does not match the canonical catalog");
+  }
   requireIsoInstant(report.checkedAt, "freshnessReport.checkedAt");
   const now = requireNow(options.now);
   if (report.mode === "mock" && options.allowMock !== true) {
@@ -351,6 +374,8 @@ export function validateFreshnessReport(catalog, report, options = {}) {
       entry,
       new Set([
         "sourceId",
+        "identityKey",
+        "scope",
         "monitorState",
         "observedRevision",
         "contentDigest",
@@ -367,6 +392,9 @@ export function validateFreshnessReport(catalog, report, options = {}) {
     if (!source) fail(`freshness report contains unknown source: ${entry.sourceId}`);
     if (seen.has(entry.sourceId)) fail(`freshness report contains duplicate source: ${entry.sourceId}`);
     seen.add(entry.sourceId);
+    if (entry.identityKey !== source.identityKey || entry.scope !== source.scope) {
+      fail(`freshness source identity or scope does not match catalog for ${entry.sourceId}`);
+    }
     if (requireCatalogAgreement && entry.monitorState !== source.monitor.state) {
       fail(`freshness monitor state does not match catalog for ${entry.sourceId}`);
     }
@@ -454,6 +482,27 @@ export function validateFreshnessReport(catalog, report, options = {}) {
   }
   if (report.actionableCount !== actionableCount) {
     fail("freshnessReport.actionableCount does not match source evidence");
+  }
+  const accounting = deriveSourceReleaseAccounting({
+    catalog,
+    domainPacksRegistry: options.domainPacksRegistry ?? null,
+    freshnessReport: report
+  });
+  if (report.sourceCount !== accounting.sourceCount) fail("freshnessReport.sourceCount does not match catalog");
+  if (JSON.stringify(report.monitorCounts) !== JSON.stringify(accounting.monitorCounts)) {
+    fail("freshnessReport.monitorCounts do not match source evidence");
+  }
+  if (JSON.stringify(report.actionableCountsByScope) !== JSON.stringify(accounting.actionableCountsByScope)) {
+    fail("freshnessReport.actionableCountsByScope do not match source evidence");
+  }
+  const expectedReleaseScope = {
+    supportedPackIds: accounting.supportedPackIds,
+    releaseBlockingSourceCount: accounting.releaseBlockingSourceCount,
+    releaseBlockingSourceIds: accounting.releaseBlockingSourceIds,
+    releaseNonblockingActionableCount: accounting.releaseNonblockingActionableCount
+  };
+  if (JSON.stringify(report.releaseScope) !== JSON.stringify(expectedReleaseScope)) {
+    fail("freshnessReport.releaseScope does not match dependency-scoped source evidence");
   }
   return report;
 }
@@ -970,9 +1019,15 @@ export async function applySourceFreshness(options = {}) {
   validateSourceCatalog(catalog, { now });
   const reportPath = assertSafeRelativePath(options.freshnessReport, "freshnessReport");
   const report = await readJsonWithin(repositoryRoot, reportPath, "source freshness report");
+  const domainPacksRegistry = await readJsonWithin(
+    repositoryRoot,
+    "registries/domain-packs.registry.json",
+    "domain packs registry"
+  );
   validateFreshnessReport(catalog, report, {
     now,
-    requireCatalogAgreement: false
+    requireCatalogAgreement: false,
+    domainPacksRegistry
   });
 
   const updated = structuredClone(catalog);
@@ -993,7 +1048,7 @@ export async function applySourceFreshness(options = {}) {
     }
   }
   validateSourceCatalog(updated, { now });
-  validateFreshnessReport(updated, report, { now });
+  validateFreshnessReport(updated, report, { now, domainPacksRegistry });
   const counts = Object.fromEntries(MONITOR_STATES.map((state) => [state, 0]));
   for (const source of updated.sources) counts[source.monitor.state] += 1;
   const result = {
@@ -1036,7 +1091,7 @@ export async function applySourceFreshness(options = {}) {
     validate(staging) {
       const stagedCatalog = JSON.parse(staging.readFile("source-watchlist.json", "utf8"));
       validateSourceCatalog(stagedCatalog, { now });
-      validateFreshnessReport(stagedCatalog, report, { now });
+      validateFreshnessReport(stagedCatalog, report, { now, domainPacksRegistry });
     }
   });
   return result;
@@ -1079,6 +1134,11 @@ export async function validateSourceGovernanceRepository(options = {}) {
     fail("generated source catalog mirror drift detected");
   }
   const toolRegistry = await readJsonWithin(repositoryRoot, "registries/tools.registry.json", "tool registry");
+  const domainPacksRegistry = await readJsonWithin(
+    repositoryRoot,
+    "registries/domain-packs.registry.json",
+    "domain packs registry"
+  );
   const toolIds = new Set((toolRegistry.tools || []).map((tool) => tool.id));
   const dependentOwners = new Map();
   for (const source of catalog.sources) {
@@ -1119,7 +1179,7 @@ export async function validateSourceGovernanceRepository(options = {}) {
   if (options.freshnessReport) {
     const reportPath = assertSafeRelativePath(options.freshnessReport, "freshnessReport");
     const report = await readJsonWithin(repositoryRoot, reportPath, "source freshness report");
-    validateFreshnessReport(catalog, report, { now });
+    validateFreshnessReport(catalog, report, { now, domainPacksRegistry });
   }
   const counts = {
     CURRENT: 0,
@@ -1134,18 +1194,19 @@ export async function validateSourceGovernanceRepository(options = {}) {
     counts[source.monitor.state] += 1;
     counts[source.review.state] += 1;
   }
-  const actionableCount = catalog.sources.filter((source) => {
-    if (source.monitor.state !== "CURRENT" || !source.review.currentReceipt) return true;
-    if (source.review.state === "REVIEWED_CURRENT") return false;
-    const disposition = receiptsBySourceId.get(source.id)?.adoption?.disposition;
-    return !["ARCHIVED_HARD_BLOCKER", "REMOVED_REDUNDANT"].includes(disposition);
-  }).length;
+  const releaseAccounting = deriveSourceReleaseAccounting({ catalog, domainPacksRegistry });
+  const actionableCount = releaseAccounting.actionableCount;
   return {
     schemaVersion: FRESHNESS_REPORT_SCHEMA_VERSION,
     sourceCount: catalog.sources.length,
     receiptCount,
-    releaseEligible: actionableCount === 0,
+    releaseEligible: releaseAccounting.releaseBlockingSourceCount === 0,
     actionableCount,
+    actionableCountsByScope: releaseAccounting.actionableCountsByScope,
+    supportedPackIds: releaseAccounting.supportedPackIds,
+    releaseBlockingSourceCount: releaseAccounting.releaseBlockingSourceCount,
+    releaseBlockingSourceIds: releaseAccounting.releaseBlockingSourceIds,
+    releaseNonblockingActionableCount: releaseAccounting.releaseNonblockingActionableCount,
     counts
   };
 }

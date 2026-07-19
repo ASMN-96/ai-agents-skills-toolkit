@@ -1,23 +1,48 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { cpSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { applySourceFreshness } from "./ai-toolkit/source-governance.mjs";
+import { applySourceFreshness, deriveSourceReleaseAccounting } from "./ai-toolkit/source-governance.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIGEST = `sha256:${"a".repeat(64)}`;
 const canonicalCatalog = JSON.parse(readFileSync(path.join(ROOT, "sources", "source-watchlist.json"), "utf8"));
 const latestCanonicalCheck = Math.max(...canonicalCatalog.sources.map((source) => Date.parse(source.monitor.checkedAt)));
 const NOW = new Date(latestCanonicalCheck + 1_000).toISOString();
+const domainPacksRegistry = JSON.parse(readFileSync(path.join(ROOT, "registries", "domain-packs.registry.json"), "utf8"));
 
 function createFixture() {
   const root = mkdtempSync(path.join(os.tmpdir(), "source-freshness-sync-"));
   cpSync(path.join(ROOT, "sources"), path.join(root, "sources"), { recursive: true });
+  mkdirSync(path.join(root, "registries"), { recursive: true });
+  cpSync(
+    path.join(ROOT, "registries", "domain-packs.registry.json"),
+    path.join(root, "registries", "domain-packs.registry.json")
+  );
   return root;
+}
+
+function refreshReportAccounting(report, catalog) {
+  const accounting = deriveSourceReleaseAccounting({
+    catalog,
+    domainPacksRegistry,
+    freshnessReport: report
+  });
+  report.sourceCount = accounting.sourceCount;
+  report.monitorCounts = accounting.monitorCounts;
+  report.actionableCount = accounting.actionableCount;
+  report.actionableCountsByScope = accounting.actionableCountsByScope;
+  report.releaseScope = {
+    supportedPackIds: accounting.supportedPackIds,
+    releaseBlockingSourceCount: accounting.releaseBlockingSourceCount,
+    releaseBlockingSourceIds: accounting.releaseBlockingSourceIds,
+    releaseNonblockingActionableCount: accounting.releaseNonblockingActionableCount
+  };
+  return report;
 }
 
 function liveReport(catalog, checkedAt = NOW) {
@@ -32,6 +57,8 @@ function liveReport(catalog, checkedAt = NOW) {
         : "MANUAL_DUE";
     return {
       sourceId: source.id,
+      identityKey: source.identityKey,
+      scope: source.scope,
       monitorState,
       observedRevision: changed ? { kind: "git-sha", value: "f".repeat(40) } : null,
       contentDigest: changed ? DIGEST : null,
@@ -51,15 +78,20 @@ function liveReport(catalog, checkedAt = NOW) {
       }
     };
   });
-  return {
-    schemaVersion: "2.0.0",
+  const report = {
+    schemaVersion: "2.1.0",
+    catalogIdentity: {
+      schemaVersion: catalog.schemaVersion,
+      catalogId: catalog.catalogId,
+      sourceCount: catalog.sources.length
+    },
     checkedAt,
     mode: "live",
     readOnly: true,
     disclaimer: "Observation only; no review, activation, install, or upstream execution.",
-    actionableCount: sources.length,
     sources
   };
+  return refreshReportAccounting(report, catalog);
 }
 
 test("freshness sync is dry-run by default and confirm-write updates only monitor evidence", async () => {
@@ -181,7 +213,7 @@ test("freshness sync accepts receipt-backed manual CURRENT evidence without chan
         digestBasis: "manual-review-receipt"
       }
     });
-    report.actionableCount -= 1;
+    refreshReportAccounting(report, catalog);
     const reportPath = path.join(root, "freshness.json");
     writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
 

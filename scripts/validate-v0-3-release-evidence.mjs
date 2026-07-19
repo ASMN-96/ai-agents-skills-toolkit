@@ -6,6 +6,7 @@ import {
   fstatSync,
   lstatSync,
   openSync,
+  readFileSync,
   readSync,
   readdirSync
 } from "node:fs";
@@ -19,6 +20,10 @@ import {
   CANONICAL_TEXT_DIGEST_MODE,
   canonicalTextSha256
 } from "./ai-toolkit/kernel/canonical-digest.mjs";
+import {
+  deriveSourceReleaseAccounting,
+  validateFreshnessReport
+} from "./ai-toolkit/source-governance.mjs";
 
 const MODULE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const EVIDENCE_RELATIVE_PATH = "docs/V0_3_0_RELEASE_EVIDENCE.json";
@@ -153,11 +158,162 @@ function percent(value) {
   return `${(value * 100).toFixed(1)}%`;
 }
 
+function blocker(id, reasonCode, evidencePaths, dependencyIds) {
+  return { id, reasonCode, evidencePaths, dependencyIds };
+}
+
+export function inspectGeneratedArtifactState(root) {
+  const canonicalPath = path.join(root, "sources", "source-watchlist.json");
+  const mirrorPath = path.join(root, ".ai-toolkit", "sources", "watchlist.json");
+  const manifestPath = path.join(root, ".ai-toolkit", "manifest.json");
+  const canonicalBytes = readFileSync(canonicalPath);
+  const mirrorBytes = readFileSync(mirrorPath);
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  const canonicalDigest = canonicalTextSha256(canonicalBytes, "canonical source catalog");
+  const mirrorDigest = canonicalTextSha256(mirrorBytes, "generated source catalog mirror");
+  const mirrorAttestation = (manifest.mirrors ?? []).find((entry) => (
+    entry.source === "sources/source-watchlist.json"
+    && entry.target === ".ai-toolkit/sources/watchlist.json"
+  ));
+  const artifactAttestation = (manifest.generatedArtifacts ?? []).find(
+    (entry) => entry.path === ".ai-toolkit/sources/watchlist.json"
+  );
+  const manifestConsistent = (
+    mirrorAttestation?.mode === "byte-identical"
+    && mirrorAttestation.sha256 === canonicalDigest
+    && mirrorAttestation.sourceSha256 === canonicalDigest
+    && mirrorAttestation.targetSha256 === mirrorDigest
+    && artifactAttestation?.sha256 === mirrorDigest
+  );
+  return {
+    generatedArtifactDrift: !canonicalBytes.equals(mirrorBytes) || !manifestConsistent,
+    canonicalDigest,
+    mirrorDigest,
+    manifestConsistent
+  };
+}
+
+export function deriveReleaseBlockerAccounting(evidence, actualState = {}) {
+  const blockers = [];
+  const sourceFreshness = evidence.sourceFreshness ?? {};
+  if (sourceFreshness.releaseBlockingSourceCount > 0) {
+    blockers.push(blocker(
+      "source-governance-actionable",
+      "RELEASE_SCOPED_SOURCES_ACTIONABLE",
+      ["sources/source-watchlist.json", "docs/SOURCE_FRESHNESS_REPORT.json"],
+      [...(sourceFreshness.releaseBlockingSourceIds ?? [])]
+    ));
+  }
+  if (evidence.approvals?.sourceApproverIdentityRecorded !== true) {
+    blockers.push(blocker(
+      "source-review-approver-unregistered",
+      "SOURCE_APPROVER_IDENTITY_UNREGISTERED",
+      ["sources/source-watchlist.json"],
+      [...(sourceFreshness.supportedPackIds ?? [])]
+    ));
+  }
+  if (evidence.runtime?.hostExecutionBridge !== "available") {
+    blockers.push(blocker(
+      "runtime-host-bridge-unavailable",
+      "RUNTIME_HOST_BRIDGE_UNAVAILABLE",
+      ["docs/HOST_EXECUTION_BRIDGE.md", "docs/V0_3_0_RELEASE_EVIDENCE.json"],
+      ["runtime-host-bridge"]
+    ));
+  }
+  if (evidence.benchmark?.staticGatePassed !== true) {
+    blockers.push(blocker(
+      "static-benchmark-thresholds-failed",
+      "STATIC_BENCHMARK_THRESHOLDS_FAILED",
+      ["evals/routing/enterprise-delivery-benchmark.json"],
+      ["enterprise-delivery-benchmark"]
+    ));
+  }
+  if (evidence.benchmark?.notMeasured?.nativePilots?.status === "notMeasured") {
+    blockers.push(blocker(
+      "human-and-native-pilot-evidence-not-measured",
+      "HUMAN_AND_NATIVE_PILOT_EVIDENCE_NOT_MEASURED",
+      ["docs/V0_3_0_RELEASE_EVIDENCE.json"],
+      ["human-measurements", "native-pilots"]
+    ));
+  }
+  if (
+    evidence.repository?.reviewedMainCommit === null
+    || evidence.approvals?.reviewedMainCommitApproved !== true
+  ) {
+    blockers.push(blocker(
+      "reviewed-clean-main-commit-unavailable",
+      "REVIEWED_CLEAN_MAIN_COMMIT_UNAVAILABLE",
+      ["docs/V0_3_0_RELEASE_EVIDENCE.json"],
+      ["reviewed-main-commit"]
+    ));
+  }
+  if (actualState.generatedArtifactDrift === true) {
+    blockers.push(blocker(
+      "generated-artifact-drift",
+      "GENERATED_ARTIFACT_DRIFT",
+      [
+        "sources/source-watchlist.json",
+        ".ai-toolkit/sources/watchlist.json",
+        ".ai-toolkit/manifest.json"
+      ],
+      ["embedded-manifest", "source-catalog-mirror"]
+    ));
+  }
+  if (evidence.approvals?.tagAuthorized !== true || evidence.approvals?.releaseAuthorized !== true) {
+    const missing = [];
+    if (evidence.approvals?.tagAuthorized !== true) missing.push("tag-authorization");
+    if (evidence.approvals?.releaseAuthorized !== true) missing.push("release-authorization");
+    blockers.push(blocker(
+      "tag-and-release-authorization-absent",
+      "TAG_OR_RELEASE_AUTHORIZATION_ABSENT",
+      ["docs/V0_3_0_RELEASE_EVIDENCE.json"],
+      missing
+    ));
+  }
+  return blockers;
+}
+
+export function validateReleaseBlockerAccounting(evidence, actualState = {}) {
+  if (!Array.isArray(evidence.releaseBlockerAccounting)) fail("release-blocker-accounting");
+  if (!Array.isArray(evidence.releaseBlockers)) fail("release-blockers");
+  const ids = evidence.releaseBlockerAccounting.map((entry) => entry?.id);
+  if (new Set(ids).size !== ids.length) fail("release-blocker-accounting-duplicate-id");
+  for (const [index, entry] of evidence.releaseBlockerAccounting.entries()) {
+    if (!isPlainRecord(entry)) fail(`release-blocker-accounting-${index}`);
+    if (JSON.stringify(Object.keys(entry)) !== JSON.stringify([
+      "id", "reasonCode", "evidencePaths", "dependencyIds"
+    ])) fail(`release-blocker-accounting-${index}-fields`);
+    if (typeof entry.id !== "string" || typeof entry.reasonCode !== "string") {
+      fail(`release-blocker-accounting-${index}-identity`);
+    }
+    if (!Array.isArray(entry.evidencePaths) || !Array.isArray(entry.dependencyIds)) {
+      fail(`release-blocker-accounting-${index}-collections`);
+    }
+    if (
+      new Set(entry.evidencePaths).size !== entry.evidencePaths.length
+      || new Set(entry.dependencyIds).size !== entry.dependencyIds.length
+      || entry.evidencePaths.some((value) => typeof value !== "string" || value === "")
+      || entry.dependencyIds.some((value) => typeof value !== "string" || value === "")
+    ) {
+      fail(`release-blocker-accounting-${index}-values`);
+    }
+  }
+  const expected = deriveReleaseBlockerAccounting(evidence, actualState);
+  assertEqual(evidence.releaseBlockerAccounting, expected, "release-blocker-accounting-exact-derivation");
+  const projection = expected.map((entry) => entry.id);
+  if (JSON.stringify(evidence.releaseBlockers) !== JSON.stringify(projection)) {
+    fail("release-blockers-compatibility-projection");
+  }
+  if (evidence.releaseState === "ready" && expected.length > 0) fail("ready-state-has-blockers");
+  if (evidence.releaseState === "blocked" && expected.length === 0) fail("blocked-state-has-no-blockers");
+  return expected;
+}
+
 export function renderReleaseEvidenceSummaryBlock(evidence) {
   const measured = evidence.benchmark.measured;
   return [
     START_MARKER,
-    `> Release evidence: candidate \`${evidence.candidateVersion}\` is **${evidence.releaseState.toUpperCase()}**; controlled release remains \`${evidence.controlledRelease}\`. Static benchmark: **${evidence.benchmark.staticGatePassed ? "PASS" : "FAIL"}** (${percent(measured.mandatoryCompetencyCoverage)} competency, ${percent(measured.domainGateCoverage)} gates, ${percent(measured.exactGoldenRouting)} golden routing, ${percent(measured.medianInputTokenReduction)} median input-token reduction). Sources: ${evidence.sourceFreshness.actionableSources} actionable, ${evidence.sourceFreshness.approvedReceiptCount} approved receipts. Runtime: ${evidence.runtime.canonicalSkills} skills, ${evidence.runtime.nativeAgentDefinitions} native agents, ${evidence.runtime.compiledFallbacks} compiled fallbacks; host bridge ${evidence.runtime.hostExecutionBridge}.`,
+    `> Release evidence: candidate \`${evidence.candidateVersion}\` is **${evidence.releaseState.toUpperCase()}**; controlled release remains \`${evidence.controlledRelease}\`. Static benchmark: **${evidence.benchmark.staticGatePassed ? "PASS" : "FAIL"}** (${percent(measured.mandatoryCompetencyCoverage)} competency, ${percent(measured.domainGateCoverage)} gates, ${percent(measured.exactGoldenRouting)} golden routing, ${percent(measured.medianInputTokenReduction)} median input-token reduction). Sources: ${evidence.sourceFreshness.actionableSources} actionable globally, ${evidence.sourceFreshness.releaseBlockingSourceCount} release-blocking for ${evidence.sourceFreshness.supportedPackIds.join(", ")}, ${evidence.sourceFreshness.releaseNonblockingActionableCount} release-nonblocking, ${evidence.sourceFreshness.approvedReceiptCount} approved receipts. Runtime: ${evidence.runtime.canonicalSkills} skills, ${evidence.runtime.nativeAgentDefinitions} native agents, ${evidence.runtime.compiledFallbacks} compiled fallbacks; host bridge ${evidence.runtime.hostExecutionBridge}.`,
     END_MARKER
   ].join("\n");
 }
@@ -175,14 +331,10 @@ export function renderStatusRuntimeBoundaryLines(evidence) {
 }
 
 function validateEvidenceEnvelope(evidence) {
-  if (!isPlainRecord(evidence) || evidence.schemaVersion !== "1.0.0") fail("schema-version");
+  if (!isPlainRecord(evidence) || evidence.schemaVersion !== "1.1.0") fail("schema-version");
   if (evidence.candidateVersion !== "0.3.0") fail("candidate-version");
   if (evidence.controlledRelease !== "0.2.5") fail("controlled-release");
   if (!new Set(["blocked", "ready"]).has(evidence.releaseState)) fail("release-state");
-  if (!Array.isArray(evidence.releaseBlockers)) fail("release-blockers");
-  if (evidence.releaseState === "ready" && evidence.releaseBlockers.length > 0) {
-    fail("ready-state-has-blockers");
-  }
 }
 
 export function validateArtifactDigests(root, artifactDigestMode, artifacts, releaseState = "blocked") {
@@ -272,20 +424,55 @@ export function validateRepositoryState(root, evidence) {
 
 function validateSourceState(root, evidence) {
   const catalog = readJson(root, path.join(root, "sources/source-watchlist.json"), "source-catalog");
-  const counts = { CURRENT: 0, CHANGED: 0, CHECK_FAILED: 0, MANUAL_DUE: 0 };
-  for (const source of catalog.sources ?? []) {
-    if (!(source.monitor?.state in counts)) fail(`source-monitor-state-${source.id}`);
-    counts[source.monitor.state] += 1;
-  }
-  const actionable = (catalog.sources ?? []).filter(
-    (source) => source.monitor?.state !== "CURRENT" || source.review?.state !== "REVIEWED_CURRENT"
-  ).length;
+  const report = readJson(root, path.join(root, "docs/SOURCE_FRESHNESS_REPORT.json"), "source-freshness-report");
+  const domainPacksRegistry = readJson(
+    root,
+    path.join(root, "registries/domain-packs.registry.json"),
+    "domain-packs-registry"
+  );
+  validateFreshnessReport(catalog, report, {
+    now: new Date(Math.max(Date.now(), Date.parse(report.checkedAt))).toISOString(),
+    domainPacksRegistry
+  });
+  const accounting = deriveSourceReleaseAccounting({ catalog, domainPacksRegistry });
   const receipts = (catalog.sources ?? []).filter((source) => source.review?.currentReceipt).length;
-  assertEqual(catalog.sources.length, evidence.sourceFreshness.sourceCount, "source-count");
-  assertEqual(counts, evidence.sourceFreshness.monitorCounts, "source-monitor-counts");
-  assertEqual(actionable, evidence.sourceFreshness.actionableSources, "source-actionable-count");
+  assertEqual(report.checkedAt, evidence.sourceFreshness.checkedAt, "source-checked-at");
+  assertEqual(accounting.sourceCount, evidence.sourceFreshness.sourceCount, "source-count");
+  assertEqual(accounting.monitorCounts, evidence.sourceFreshness.monitorCounts, "source-monitor-counts");
+  assertEqual(accounting.actionableCount, evidence.sourceFreshness.actionableSources, "source-actionable-count");
+  assertEqual(
+    accounting.actionableCountsByScope,
+    evidence.sourceFreshness.actionableCountsByScope,
+    "source-actionable-counts-by-scope"
+  );
+  assertEqual(accounting.supportedPackIds, evidence.sourceFreshness.supportedPackIds, "source-supported-pack-ids");
+  assertEqual(
+    accounting.releaseBlockingSourceCount,
+    evidence.sourceFreshness.releaseBlockingSourceCount,
+    "source-release-blocking-count"
+  );
+  assertEqual(
+    accounting.releaseBlockingSourceIds,
+    evidence.sourceFreshness.releaseBlockingSourceIds,
+    "source-release-blocking-ids"
+  );
+  assertEqual(
+    accounting.releaseNonblockingActionableCount,
+    evidence.sourceFreshness.releaseNonblockingActionableCount,
+    "source-release-nonblocking-count"
+  );
   assertEqual(receipts, evidence.sourceFreshness.approvedReceiptCount, "source-receipt-count");
-  if (actionable > 0 && evidence.sourceFreshness.releaseEligible !== false) fail("source-release-eligibility");
+  assertEqual(
+    accounting.releaseBlockingSourceCount === 0,
+    evidence.sourceFreshness.releaseEligible,
+    "source-release-eligibility"
+  );
+  assertEqual(
+    catalog.approverPolicy?.authorizedIdentities?.length > 0,
+    evidence.approvals.sourceApproverIdentityRecorded,
+    "source-approver-identity-state"
+  );
+  return accounting;
 }
 
 function validateRuntimeState(root, evidence) {
@@ -365,6 +552,16 @@ export async function validateReleaseEvidence({
   );
   const evidence = readJson(canonicalRoot, resolvedEvidencePath, "release-evidence");
   validateEvidenceEnvelope(evidence);
+  const generatedArtifactState = inspectGeneratedArtifactState(canonicalRoot);
+  const expectedEmbeddedState = generatedArtifactState.generatedArtifactDrift
+    ? { state: "regeneration-pending", sha256: null }
+    : { state: "generated-current", sha256: evidence.artifacts.embeddedManifest.sha256 };
+  if (
+    evidence.artifacts.embeddedManifest.state !== expectedEmbeddedState.state
+    || evidence.artifacts.embeddedManifest.sha256 !== expectedEmbeddedState.sha256
+  ) {
+    fail("generated-artifact-state-does-not-match-repository");
+  }
   validateArtifactDigests(
     canonicalRoot,
     evidence.artifactDigestMode,
@@ -375,15 +572,17 @@ export async function validateReleaseEvidence({
   validateSourceState(canonicalRoot, evidence);
   validateRuntimeState(canonicalRoot, evidence);
   await validateBenchmarkState(canonicalRoot, evidence);
+  validateReleaseBlockerAccounting(evidence, generatedArtifactState);
   validateDocumentSummaries(canonicalRoot, evidence);
   validateStatusRuntimeBoundary(canonicalRoot, evidence);
   return {
-    schemaVersion: "1.0.0",
+    schemaVersion: "1.1.0",
     consistent: true,
     candidateVersion: evidence.candidateVersion,
     controlledRelease: evidence.controlledRelease,
     releaseState: evidence.releaseState,
     releaseBlockers: [...evidence.releaseBlockers],
+    releaseBlockerAccounting: structuredClone(evidence.releaseBlockerAccounting),
     warningCount: evidence.warnings.length,
     evidencePath: EVIDENCE_RELATIVE_PATH
   };

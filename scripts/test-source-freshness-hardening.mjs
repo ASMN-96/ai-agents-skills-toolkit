@@ -204,7 +204,10 @@ test("--json-output emits deterministic SourceCatalog v2 monitor evidence", asyn
 
     assert.equal(result.code, 0, result.stderr);
     const report = JSON.parse(await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_REPORT.json"), "utf8"));
-    assert.equal(report.schemaVersion, "2.0.0");
+    assert.equal(report.schemaVersion, "2.1.0");
+    assert.equal(report.sourceCount, 2);
+    assert.equal(report.actionableCount, 2);
+    assert.equal(report.releaseScope.releaseBlockingSourceCount, 0);
     assert.equal(report.mode, "mock");
     assert.equal(report.checkedAt, "2026-07-17T00:00:00.000Z");
     assert.deepEqual(report.sources.map((entry) => entry.monitorState), ["CURRENT", "CHECK_FAILED"]);

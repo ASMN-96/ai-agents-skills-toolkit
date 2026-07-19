@@ -214,8 +214,20 @@ async function writeRepository(root, sourceEntry = source({
     `${JSON.stringify({ schemaVersion: "1.0.0", registryType: "tools", tools: [{ id: "example-tool" }] }, null, 2)}\n`,
     "utf8"
   );
+  await writeFile(
+    path.join(root, "registries", "domain-packs.registry.json"),
+    `${JSON.stringify({ schemaVersion: "1.0.0", registryType: "domain-packs", packs: [] }, null, 2)}\n`,
+    "utf8"
+  );
   await execFileAsync("git", ["init", "--quiet"], { cwd: root });
-  await execFileAsync("git", ["add", "--", "sources/source-watchlist.json", "sources/example-source.md", "registries/tools.registry.json"], { cwd: root });
+  await execFileAsync("git", [
+    "add",
+    "--",
+    "sources/source-watchlist.json",
+    "sources/example-source.md",
+    "registries/tools.registry.json",
+    "registries/domain-packs.registry.json"
+  ], { cwd: root });
   await execFileAsync("git", [
     "-c",
     "user.name=Source Governance Fixture",
@@ -323,7 +335,7 @@ test("canonical SourceCatalog v2 retains only active source identities", async (
     assert.equal(entry.sourceType, "manual-reviewed-doc");
     assert.equal(entry.freshnessClass, freshnessClass);
     assert.equal(entry.runtimePosture, "metadata-only");
-    assert.equal(entry.monitor.state, "MANUAL_DUE");
+    assert.equal(entry.monitor.state, "CHECK_FAILED");
     assert.equal(entry.review.state, "QUARANTINED");
     assert.equal(entry.review.currentReceipt, null);
   }
@@ -331,6 +343,80 @@ test("canonical SourceCatalog v2 retains only active source identities", async (
   for (const entry of validated.sources) {
     assert.equal(entry.sourceRecordPath.startsWith("sources/archive/"), false, `archived record is active: ${entry.id}`);
   }
+});
+
+test("release accounting keeps portfolio actionability visible while blocking only real supported and selected dependencies", async () => {
+  const { deriveSourceReleaseAccounting } = await governance();
+  assert.equal(typeof deriveSourceReleaseAccounting, "function");
+  const blocked = (id, scope, dependentResourceIds = []) => ({
+    id,
+    scope,
+    lifecycle: "review-input",
+    monitor: { state: "CURRENT" },
+    review: { state: "QUARANTINED" },
+    dependentResourceIds
+  });
+  const releaseCatalog = {
+    sources: [
+      blocked("core-source", "core"),
+      blocked("preview-source", "platform-preview"),
+      blocked("optional-source", "optional-tool", ["optional-tool"]),
+      blocked("community-source", "community-reference"),
+      blocked("historical-source", "historical")
+    ]
+  };
+  const domainPacksRegistry = {
+    registryType: "domain-packs",
+    packs: [
+      {
+        id: "enterprise-core",
+        lifecycle: "active",
+        maturity: "supported",
+        gates: [{ id: "core-gate", authoritativeSourceRefs: [{ sourceId: "core-source" }] }]
+      },
+      {
+        id: "web-saas",
+        lifecycle: "active",
+        maturity: "preview",
+        gates: [{ id: "preview-gate", authoritativeSourceRefs: [{ sourceId: "preview-source" }] }]
+      }
+    ]
+  };
+
+  const portfolio = deriveSourceReleaseAccounting({
+    catalog: releaseCatalog,
+    domainPacksRegistry
+  });
+  assert.equal(portfolio.actionableCount, 5);
+  assert.deepEqual(portfolio.actionableCountsByScope, {
+    core: 1,
+    "platform-preview": 1,
+    "optional-tool": 1,
+    "community-reference": 1,
+    historical: 1
+  });
+  assert.deepEqual(portfolio.supportedPackIds, ["enterprise-core"]);
+  assert.deepEqual(portfolio.releaseBlockingSourceIds, ["core-source"]);
+  assert.equal(portfolio.releaseNonblockingActionableCount, 4);
+  assert.deepEqual(portfolio.previewDependencyBlockers, [{
+    packId: "web-saas",
+    gateId: "preview-gate",
+    sourceId: "preview-source",
+    reasonCode: "SOURCE_NOT_REVIEWED_CURRENT"
+  }]);
+  assert.deepEqual(portfolio.resourceDependencyBlockers, [{
+    resourceId: "optional-tool",
+    sourceId: "optional-source",
+    reasonCode: "SOURCE_NOT_REVIEWED_CURRENT"
+  }]);
+
+  const selected = deriveSourceReleaseAccounting({
+    catalog: releaseCatalog,
+    domainPacksRegistry,
+    trustedSelectedResourceIds: ["optional-tool"]
+  });
+  assert.deepEqual(selected.releaseBlockingSourceIds, ["core-source", "optional-source"]);
+  assert.equal(selected.releaseNonblockingActionableCount, 3);
 });
 
 test("retired portfolio records are read-only historical evidence, not governed decisions", async () => {
@@ -1043,14 +1129,36 @@ test("freshness report and catalog must agree on exact observed revision, digest
   const { validateFreshnessReport } = await governance();
   const sourceEntry = source();
   const report = {
-    schemaVersion: "2.0.0",
+    schemaVersion: "2.1.0",
+    catalogIdentity: {
+      schemaVersion: "2.1.0",
+      catalogId: "enterprise-source-catalog",
+      sourceCount: 1
+    },
     checkedAt: sourceEntry.monitor.checkedAt,
     mode: "live",
     readOnly: true,
     disclaimer: "Read-only freshness evidence; no import or activation is authorized.",
+    sourceCount: 1,
+    monitorCounts: { CURRENT: 1, CHANGED: 0, CHECK_FAILED: 0, MANUAL_DUE: 0 },
     actionableCount: 0,
+    actionableCountsByScope: {
+      core: 0,
+      "platform-preview": 0,
+      "optional-tool": 0,
+      "community-reference": 0,
+      historical: 0
+    },
+    releaseScope: {
+      supportedPackIds: [],
+      releaseBlockingSourceCount: 0,
+      releaseBlockingSourceIds: [],
+      releaseNonblockingActionableCount: 0
+    },
     sources: [{
       sourceId: sourceEntry.id,
+      identityKey: sourceEntry.identityKey,
+      scope: sourceEntry.scope,
       monitorState: sourceEntry.monitor.state,
       observedRevision: sourceEntry.monitor.observedRevision,
       contentDigest: sourceEntry.monitor.contentDigest,
@@ -1205,6 +1313,7 @@ test("freshness report and catalog must agree on exact observed revision, digest
       sources: [{
         ...report.sources[0],
         sourceId: manualSource.id,
+        identityKey: manualSource.identityKey,
         evidence: {
           ...report.sources[0].evidence,
           sourceType: "manual-reviewed-doc",
@@ -1219,6 +1328,7 @@ test("freshness report and catalog must agree on exact observed revision, digest
       ...report,
       sources: [{
         ...report.sources[0],
+        identityKey: manualSource.identityKey,
         comparisonBasis: "MANUAL_REVIEW_RECEIPT",
         reasonCode: "IDENTITY_DRIFT_DETECTED",
         evidence: {
@@ -1280,14 +1390,36 @@ test("manual receipt-backed freshness is validated against the catalog receipt a
     }
   });
   const manualReport = {
-    schemaVersion: "2.0.0",
+    schemaVersion: "2.1.0",
+    catalogIdentity: {
+      schemaVersion: "2.1.0",
+      catalogId: "enterprise-source-catalog",
+      sourceCount: 1
+    },
     checkedAt: "2026-07-17T07:00:00.000Z",
     mode: "live",
     readOnly: true,
     disclaimer: "Receipt evidence only; no import or activation is authorized.",
+    sourceCount: 1,
+    monitorCounts: { CURRENT: 1, CHANGED: 0, CHECK_FAILED: 0, MANUAL_DUE: 0 },
     actionableCount: 0,
+    actionableCountsByScope: {
+      core: 0,
+      "platform-preview": 0,
+      "optional-tool": 0,
+      "community-reference": 0,
+      historical: 0
+    },
+    releaseScope: {
+      supportedPackIds: [],
+      releaseBlockingSourceCount: 0,
+      releaseBlockingSourceIds: [],
+      releaseNonblockingActionableCount: 0
+    },
     sources: [{
       sourceId: manualSource.id,
+      identityKey: manualSource.identityKey,
+      scope: manualSource.scope,
       monitorState: "CURRENT",
       observedRevision: manualRevision,
       contentDigest: manualDigest,

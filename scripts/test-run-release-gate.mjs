@@ -64,11 +64,13 @@ test("discovery follows the selected repository rather than the orchestrator sou
     const listed = JSON.parse(result.stdout);
     assert.deepEqual(listed.testFiles, ["scripts/test-alpha.mjs", "scripts/test-zeta.mjs"]);
     assert.equal(listed.profile, "release");
-    assert.ok(listed.commands.some((command) => command.id === "live-source-freshness"));
+    const releaseFreshness = listed.commands.find((command) => command.id === "release-scoped-source-freshness");
+    assert.ok(releaseFreshness);
+    assert.ok(releaseFreshness.args.includes("--fail-on-release-blocker"));
+    assert.equal(releaseFreshness.args.includes("--fail-on-change"), false);
     assert.ok(listed.commands.some((command) => command.id === "deterministic-mock-source-freshness"));
-    const live = listed.commands.find((command) => command.id === "live-source-freshness");
-    assert.ok(live.args.includes("--output"));
-    assert.ok(live.args.includes("--json-output"));
+    assert.ok(releaseFreshness.args.includes("--output"));
+    assert.ok(releaseFreshness.args.includes("--json-output"));
   } finally {
     rmSync(fixture, { recursive: true, force: true });
   }

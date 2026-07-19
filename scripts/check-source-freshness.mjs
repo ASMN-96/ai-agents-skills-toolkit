@@ -5,9 +5,11 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { promisify } from "node:util";
+import { deriveSourceReleaseAccounting } from "./ai-toolkit/kernel/source-release-accounting.mjs";
 
 const WATCHLIST_PATH = "sources/source-watchlist.json";
 const METHODS_REGISTRY_PATH = "registries/methods.registry.json";
+const DOMAIN_PACKS_REGISTRY_PATH = "registries/domain-packs.registry.json";
 const ALLOWED_OUTPUT = "docs/SOURCE_FRESHNESS_REPORT.md";
 const ALLOWED_JSON_OUTPUT = "docs/SOURCE_FRESHNESS_REPORT.json";
 const ALLOWED_ISSUES_OUTPUT = "docs/SOURCE_FRESHNESS_ISSUES_DRY_RUN.md";
@@ -79,6 +81,7 @@ function parseArgs(argv) {
   const args = {
     help: false,
     failOnChange: false,
+    failOnReleaseBlocker: false,
     mock: false,
     output: null,
     jsonOutput: null,
@@ -92,6 +95,8 @@ function parseArgs(argv) {
       args.help = true;
     } else if (arg === "--fail-on-change") {
       args.failOnChange = true;
+    } else if (arg === "--fail-on-release-blocker") {
+      args.failOnReleaseBlocker = true;
     } else if (arg === "--mock") {
       args.mock = true;
     } else if (arg === "--create-issues") {
@@ -129,7 +134,7 @@ function printHelp() {
   console.log(`Read-only source freshness monitor.
 
 Usage:
-  node scripts/check-source-freshness.mjs [--mock] [--fail-on-change] [--output docs/SOURCE_FRESHNESS_REPORT.md] [--json-output docs/SOURCE_FRESHNESS_REPORT.json]
+  node scripts/check-source-freshness.mjs [--mock] [--fail-on-change|--fail-on-release-blocker] [--output docs/SOURCE_FRESHNESS_REPORT.md] [--json-output docs/SOURCE_FRESHNESS_REPORT.json]
   node scripts/check-source-freshness.mjs --mock --create-issues [--issues-output docs/SOURCE_FRESHNESS_ISSUES_DRY_RUN.md]
   node scripts/check-source-freshness.mjs --help
 
@@ -140,6 +145,7 @@ Behavior:
   - Falls back to read-only git ls-remote default-branch checks for GitHub API 403/429 responses
   - Prints a Markdown report to stdout by default
   - With --fail-on-change, exits non-zero after reporting actionable statuses
+  - With --fail-on-release-blocker, exits non-zero only for actionable supported-pack sources
   - Writes only to ${ALLOWED_OUTPUT} when --output is provided
   - Writes SourceCatalog v2 monitor evidence only to ${ALLOWED_JSON_OUTPUT} when --json-output is provided
   - With --create-issues, renders local dry-run issue drafts only; it never calls GitHub issue APIs or gh
@@ -973,6 +979,8 @@ function monitorEvidence(result, useMock) {
 
   return {
     sourceId: result.id,
+    identityKey: result.identityKey ?? null,
+    scope: result.scope ?? null,
     monitorState,
     observedRevision,
     contentDigest,
@@ -1002,15 +1010,63 @@ function monitorEvidence(result, useMock) {
   };
 }
 
-function buildJsonReport(results, useMock, checkedAt) {
-  const sources = results.map((result) => monitorEvidence(result, useMock));
+function fallbackAccounting(watchlist, sources) {
+  const monitorCounts = Object.fromEntries(["CURRENT", "CHANGED", "CHECK_FAILED", "MANUAL_DUE"]
+    .map((state) => [state, sources.filter((source) => source.monitorState === state).length]));
+  const actionable = sources.filter((source) => source.monitorState !== "CURRENT" || source.missingCurrentReview);
+  const actionableCountsByScope = {};
+  for (const source of actionable) {
+    const scope = source.scope ?? "unscoped";
+    actionableCountsByScope[scope] = (actionableCountsByScope[scope] ?? 0) + 1;
+  }
   return {
-    schemaVersion: "2.0.0",
+    sourceCount: sources.length,
+    monitorCounts,
+    actionableCount: actionable.length,
+    actionableCountsByScope,
+    supportedPackIds: [],
+    releaseBlockingSourceCount: 0,
+    releaseBlockingSourceIds: [],
+    releaseNonblockingActionableCount: actionable.length
+  };
+}
+
+function buildJsonReport(results, useMock, checkedAt, watchlist, domainPacksRegistry) {
+  const sources = results.map((result) => monitorEvidence(result, useMock));
+  const reportView = { sources };
+  const canDeriveReleaseScope = (
+    watchlist.schemaVersion === "2.1.0"
+    && watchlist.sources.every((source) => typeof source.scope === "string")
+    && domainPacksRegistry?.registryType === "domain-packs"
+  );
+  const accounting = canDeriveReleaseScope
+    ? deriveSourceReleaseAccounting({
+      catalog: watchlist,
+      domainPacksRegistry,
+      freshnessReport: reportView
+    })
+    : fallbackAccounting(watchlist, sources);
+  return {
+    schemaVersion: "2.1.0",
+    catalogIdentity: {
+      schemaVersion: watchlist.schemaVersion,
+      catalogId: watchlist.catalogId ?? null,
+      sourceCount: watchlist.sources.length
+    },
     checkedAt,
     mode: useMock ? "mock" : "live",
     readOnly: true,
     disclaimer: DISCLAIMER,
-    actionableCount: sources.filter((source) => source.monitorState !== "CURRENT" || source.missingCurrentReview).length,
+    sourceCount: accounting.sourceCount,
+    monitorCounts: accounting.monitorCounts,
+    actionableCount: accounting.actionableCount,
+    actionableCountsByScope: accounting.actionableCountsByScope,
+    releaseScope: {
+      supportedPackIds: accounting.supportedPackIds,
+      releaseBlockingSourceCount: accounting.releaseBlockingSourceCount,
+      releaseBlockingSourceIds: accounting.releaseBlockingSourceIds,
+      releaseNonblockingActionableCount: accounting.releaseNonblockingActionableCount
+    },
     sources
   };
 }
@@ -1178,7 +1234,7 @@ function formatAffectedMethods(methods) {
   return methods.sort().join("; ");
 }
 
-function renderReport(results, useMock, checkedAt) {
+function renderReport(results, useMock, checkedAt, jsonReport) {
   const generatedAt = checkedAt || new Date().toISOString();
   const counts = new Map();
   for (const status of STATUSES) {
@@ -1204,6 +1260,11 @@ function renderReport(results, useMock, checkedAt) {
     "| Status | Count |",
     "| --- | ---: |",
     ...Array.from(counts.entries()).map(([status, count]) => `| ${status} | ${count} |`),
+    "",
+    `Global actionable sources: ${jsonReport.actionableCount} of ${jsonReport.sourceCount}.`,
+    `Release-blocking actionable sources: ${jsonReport.releaseScope.releaseBlockingSourceCount} (${jsonReport.releaseScope.releaseBlockingSourceIds.join(", ") || "none"}).`,
+    `Release-nonblocking actionable sources: ${jsonReport.releaseScope.releaseNonblockingActionableCount}.`,
+    `Supported release packs: ${jsonReport.releaseScope.supportedPackIds.join(", ") || "none"}.`,
     "",
     "## Sources"
   ];
@@ -1281,10 +1342,11 @@ async function main() {
     const issuesOutputPath = resolveIssuesOutputPath(args.issuesOutput);
     const checkedAt = args.mock ? "2026-07-17T00:00:00.000Z" : new Date().toISOString();
     const watchlist = await readWatchlist();
+    const domainPacksRegistry = await readJsonIfPresent(DOMAIN_PACKS_REGISTRY_PATH);
     const methodImpactIndex = await buildMethodImpactIndex();
     const results = await buildResults(watchlist, args.mock, checkedAt, methodImpactIndex);
-    const report = renderReport(results, args.mock, checkedAt);
-    const jsonReport = buildJsonReport(results, args.mock, checkedAt);
+    const jsonReport = buildJsonReport(results, args.mock, checkedAt, watchlist, domainPacksRegistry);
+    const report = renderReport(results, args.mock, checkedAt, jsonReport);
 
     if (outputPath) {
       await writeFile(outputPath, report, "utf8");
@@ -1316,6 +1378,12 @@ async function main() {
         console.error(`Fatal: actionable source freshness status detected: ${summary}`);
         process.exitCode = 1;
       }
+    }
+    if (args.failOnReleaseBlocker && jsonReport.releaseScope.releaseBlockingSourceCount > 0) {
+      console.error(
+        `Fatal: release-scoped actionable source freshness detected: ${jsonReport.releaseScope.releaseBlockingSourceIds.join(", ")}`
+      );
+      process.exitCode = 1;
     }
   } catch (error) {
     console.error(`Fatal: ${error.message}`);

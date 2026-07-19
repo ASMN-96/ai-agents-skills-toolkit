@@ -22,10 +22,12 @@ import {
 import {
   formatReleaseEvidenceSummary,
   renderStatusRuntimeBoundaryLines,
+  renderReleaseEvidenceSummaryBlock,
   validateArtifactDigests,
   validateRepositoryState,
   validateReleaseEvidence
 } from "./validate-v0-3-release-evidence.mjs";
+import * as releaseEvidenceModule from "./validate-v0-3-release-evidence.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const VALIDATOR = path.join(ROOT, "scripts", "validate-v0-3-release-evidence.mjs");
@@ -138,6 +140,125 @@ test("release artifact digests are UTF-8 LF-normalized and otherwise content-sen
       ),
       /ready-state-artifact-embeddedManifest-pending/u
     );
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
+});
+
+test("structured release blockers are exactly derived and retain the ordered compatibility projection", () => {
+  const { deriveReleaseBlockerAccounting, validateReleaseBlockerAccounting } = releaseEvidenceModule;
+  assert.equal(typeof deriveReleaseBlockerAccounting, "function");
+  assert.equal(typeof validateReleaseBlockerAccounting, "function");
+  const ready = {
+    releaseState: "ready",
+    repository: { reviewedMainCommit: "a".repeat(40), worktreeState: "clean" },
+    artifacts: { embeddedManifest: { state: "generated-current", sha256: "b".repeat(64) } },
+    sourceFreshness: {
+      supportedPackIds: ["enterprise-core"],
+      releaseBlockingSourceCount: 0,
+      releaseBlockingSourceIds: []
+    },
+    runtime: { hostExecutionBridge: "available" },
+    benchmark: { staticGatePassed: true, notMeasured: { nativePilots: { status: "measured" } } },
+    approvals: {
+      sourceApproverIdentityRecorded: true,
+      reviewedMainCommitApproved: true,
+      tagAuthorized: true,
+      releaseAuthorized: true
+    }
+  };
+  assert.deepEqual(deriveReleaseBlockerAccounting(ready, { generatedArtifactDrift: false }), []);
+
+  const blocked = structuredClone(ready);
+  blocked.releaseState = "blocked";
+  blocked.sourceFreshness.releaseBlockingSourceCount = 2;
+  blocked.sourceFreshness.releaseBlockingSourceIds = ["a-source", "z-source"];
+  blocked.runtime.hostExecutionBridge = "absent";
+  blocked.benchmark.staticGatePassed = false;
+  blocked.benchmark.notMeasured.nativePilots.status = "notMeasured";
+  blocked.repository.reviewedMainCommit = null;
+  blocked.artifacts.embeddedManifest = { state: "regeneration-pending", sha256: null };
+  blocked.approvals = {
+    sourceApproverIdentityRecorded: false,
+    reviewedMainCommitApproved: false,
+    tagAuthorized: false,
+    releaseAuthorized: false
+  };
+  const accounting = deriveReleaseBlockerAccounting(blocked, { generatedArtifactDrift: true });
+  const projection = accounting.map((entry) => entry.id);
+  assert.deepEqual(projection, [
+    "source-governance-actionable",
+    "source-review-approver-unregistered",
+    "runtime-host-bridge-unavailable",
+    "static-benchmark-thresholds-failed",
+    "human-and-native-pilot-evidence-not-measured",
+    "reviewed-clean-main-commit-unavailable",
+    "generated-artifact-drift",
+    "tag-and-release-authorization-absent"
+  ]);
+  assert.deepEqual(accounting[0].dependencyIds, ["a-source", "z-source"]);
+  assert.deepEqual(
+    validateReleaseBlockerAccounting({
+      ...blocked,
+      releaseBlockerAccounting: accounting,
+      releaseBlockers: projection
+    }, { generatedArtifactDrift: true }),
+    accounting
+  );
+  assert.throws(
+    () => validateReleaseBlockerAccounting({
+      ...blocked,
+      releaseBlockerAccounting: [...accounting, accounting[0]],
+      releaseBlockers: [...projection, projection[0]]
+    }, { generatedArtifactDrift: true }),
+    /duplicate|exact derivation/u
+  );
+  assert.throws(
+    () => validateReleaseBlockerAccounting({
+      ...blocked,
+      releaseBlockerAccounting: accounting,
+      releaseBlockers: [...projection].reverse()
+    }, { generatedArtifactDrift: true }),
+    /compatibility.projection/u
+  );
+  assert.throws(
+    () => validateReleaseBlockerAccounting({
+      ...ready,
+      releaseState: "blocked",
+      releaseBlockerAccounting: [],
+      releaseBlockers: []
+    }, { generatedArtifactDrift: false }),
+    /blocked-state-has-no-blockers/u
+  );
+});
+
+test("generated artifact drift is recomputed from canonical mirror and manifest bytes", () => {
+  const { inspectGeneratedArtifactState } = releaseEvidenceModule;
+  assert.equal(typeof inspectGeneratedArtifactState, "function");
+  const fixture = mkdtempSync(path.join(tmpdir(), "release-generated-drift-"));
+  try {
+    mkdirSync(path.join(fixture, "sources"), { recursive: true });
+    mkdirSync(path.join(fixture, ".ai-toolkit", "sources"), { recursive: true });
+    const canonical = "{\n  \"schemaVersion\": \"2.1.0\"\n}\n";
+    const stale = "{\n  \"schemaVersion\": \"2.0.0\"\n}\n";
+    writeFileSync(path.join(fixture, "sources", "source-watchlist.json"), canonical, "utf8");
+    writeFileSync(path.join(fixture, ".ai-toolkit", "sources", "watchlist.json"), stale, "utf8");
+    writeFileSync(path.join(fixture, ".ai-toolkit", "manifest.json"), `${JSON.stringify({
+      mirrors: [{
+        source: "sources/source-watchlist.json",
+        target: ".ai-toolkit/sources/watchlist.json",
+        mode: "byte-identical",
+        sha256: "0".repeat(64),
+        sourceSha256: "0".repeat(64),
+        targetSha256: "0".repeat(64)
+      }],
+      generatedArtifacts: [{
+        path: ".ai-toolkit/sources/watchlist.json",
+        sha256: "0".repeat(64)
+      }]
+    }, null, 2)}\n`, "utf8");
+
+    assert.equal(inspectGeneratedArtifactState(fixture).generatedArtifactDrift, true);
   } finally {
     rmSync(fixture, { recursive: true, force: true });
   }
@@ -272,6 +393,14 @@ test("STATUS runtime inventory is derived from the release evidence record", () 
   for (const line of renderStatusRuntimeBoundaryLines(evidence)) {
     assert.ok(status.includes(line), `STATUS.md must contain evidence-derived line: ${line}`);
   }
+});
+
+test("managed release summaries distinguish global actionable and release-blocking sources", () => {
+  const evidence = JSON.parse(readFileSync(path.join(ROOT, "docs", "V0_3_0_RELEASE_EVIDENCE.json"), "utf8"));
+  const summary = renderReleaseEvidenceSummaryBlock(evidence);
+  assert.match(summary, /80 actionable globally/u);
+  assert.match(summary, /8 release-blocking/u);
+  assert.match(summary, /enterprise-core/u);
 });
 
 test("release evidence accepts source and compiler commits that are ancestors of generated HEAD", () => {
