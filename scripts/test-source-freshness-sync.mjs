@@ -107,6 +107,37 @@ test("freshness sync is dry-run by default and confirm-write updates only monito
   }
 });
 
+test("freshness sync persists a structured failed-check reason code without approving review or runtime", async () => {
+  const root = createFixture();
+  try {
+    const catalogPath = path.join(root, "sources", "source-watchlist.json");
+    const original = JSON.parse(readFileSync(catalogPath, "utf8"));
+    const report = liveReport(original);
+    const failed = report.sources.find((entry) => entry.monitorState === "CHECK_FAILED");
+    const source = original.sources.find((entry) => entry.id === failed.sourceId);
+    failed.comparisonRevision = source.monitor.observedRevision.value;
+    failed.comparisonBasis = "PRIOR_MONITOR_OBSERVATION";
+    failed.reasonCode = "REMOTE_CHECK_FAILED";
+    const reportPath = path.join(root, "freshness.json");
+    writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
+
+    await applySourceFreshness({
+      repositoryRoot: root,
+      freshnessReport: "freshness.json",
+      mode: "confirm-write",
+      now: NOW
+    });
+
+    const updated = JSON.parse(readFileSync(catalogPath, "utf8"));
+    const updatedSource = updated.sources.find((entry) => entry.id === failed.sourceId);
+    assert.equal(updatedSource.monitor.failureReason, "REMOTE_CHECK_FAILED");
+    assert.equal(updatedSource.review.state, "QUARANTINED");
+    assert.equal(updatedSource.runtimePosture, source.runtimePosture);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test("freshness sync rejects mock evidence and traversal", async () => {
   const root = createFixture();
   try {

@@ -50,9 +50,29 @@ const RESOLVED_REVIEW_OUTCOMES = new Set([
 ]);
 
 const COMMIT_SHA_PATTERN = /^[0-9a-f]{40}$/i;
+const SHA256_PATTERN = /^sha256:[0-9a-f]{64}$/i;
 const GITHUB_OWNER_PATTERN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/;
 const GITHUB_REPO_PATTERN = /^[A-Za-z0-9._-]+$/;
 const SAFE_BRANCH_PATTERN = /^[A-Za-z0-9._/-]+$/;
+const COMPARISON_BASES = new Set([
+  "PRIOR_MONITOR_OBSERVATION",
+  "REVIEWED_REVISION",
+  "LEGACY_REVIEW_METADATA",
+  "MANUAL_REVIEW_RECEIPT",
+  "MISSING",
+  "NOT_APPLICABLE"
+]);
+const REASON_CODES = new Set([
+  "COMPARISON_MATCH",
+  "UPSTREAM_CHANGED",
+  "DEGRADED_COMPARISON_MATCH",
+  "DEGRADED_UPSTREAM_CHANGED",
+  "BASELINE_MISSING",
+  "REMOTE_CHECK_FAILED",
+  "MANUAL_EVIDENCE_REQUIRED",
+  "MANUAL_DUE",
+  "MANUAL_CURRENT"
+]);
 
 function parseArgs(argv) {
   const args = {
@@ -487,12 +507,24 @@ async function githubJson(endpoint) {
 
 function sourceComparisonCommit(source) {
   if (source.monitor?.observedRevision?.kind === "git-sha") {
-    return source.monitor.observedRevision.value;
+    return {
+      revision: source.monitor.observedRevision.value.toLowerCase(),
+      basis: "PRIOR_MONITOR_OBSERVATION"
+    };
   }
   if (source.review?.reviewedRevision?.kind === "git-sha") {
-    return source.review.reviewedRevision.value;
+    return {
+      revision: source.review.reviewedRevision.value.toLowerCase(),
+      basis: "REVIEWED_REVISION"
+    };
   }
-  return source.lastReviewedCommit ?? null;
+  if (source.lastReviewedCommit) {
+    return {
+      revision: source.lastReviewedCommit.toLowerCase(),
+      basis: "LEGACY_REVIEW_METADATA"
+    };
+  }
+  return { revision: null, basis: "MISSING" };
 }
 
 async function inspectGithubSource(source) {
@@ -508,10 +540,11 @@ async function inspectGithubSource(source) {
     };
   }
 
-  const comparisonCommit = sourceComparisonCommit(source);
-  if (comparisonCommit === null) {
+  const comparison = sourceComparisonCommit(source);
+  if (comparison.revision === null) {
     return {
       status: "REVIEW_METADATA_MISSING",
+      comparison,
       latestCommit: null,
       latestCommitDate: null,
       releaseSignal: "not checked",
@@ -548,11 +581,13 @@ async function inspectGithubSource(source) {
 
     const latestCommit = commit?.sha || null;
     const latestCommitDate = commit?.commit?.committer?.date || null;
-    const changed = Boolean(latestCommit && latestCommit !== comparisonCommit);
+    const changed = Boolean(latestCommit && latestCommit !== comparison.revision);
     const relocated = Boolean(canonicalMismatch);
 
     return {
       status: relocated ? "RELOCATED_REVIEW_REQUIRED" : classifyStatus(source, changed, latestCommit),
+      comparison,
+      usedFallback: false,
       latestCommit,
       latestCommitDate,
       releaseSignal: release,
@@ -562,7 +597,7 @@ async function inspectGithubSource(source) {
       watchedPathSignals,
       notes: relocated
         ? `${canonicalMismatch} Update source identity after Skill Scout review; freshness commit comparison alone is not sufficient.`
-        : changed ? "Upstream default branch changed since last reviewed commit." : "Default branch commit matches last reviewed commit."
+        : changed ? "Upstream default branch changed relative to the comparison baseline." : "Default branch commit matches comparison baseline."
     };
   } catch (error) {
     if (error.status === 403 || error.status === 429) {
@@ -570,6 +605,7 @@ async function inspectGithubSource(source) {
     }
     return {
       status: "CHECK_FAILED",
+      comparison,
       latestCommit: null,
       latestCommitDate: null,
       releaseSignal: "check failed",
@@ -605,6 +641,7 @@ function inspectManualReviewedDocSource(source) {
 }
 
 async function inspectGithubSourceWithLsRemoteFallback(source, reason) {
+  const comparison = sourceComparisonCommit(source);
   try {
     const branch = source.defaultBranch || "main";
     const ref = `refs/heads/${branch}`;
@@ -614,7 +651,7 @@ async function inspectGithubSourceWithLsRemoteFallback(source, reason) {
     });
     const line = stdout.trim().split(/\r?\n/).find(Boolean);
     const latestCommit = line ? line.split(/\s+/)[0] : null;
-    const changed = Boolean(latestCommit && latestCommit !== sourceComparisonCommit(source));
+    const changed = Boolean(latestCommit && latestCommit !== comparison.revision);
 
     if (!latestCommit) {
       throw new Error(`git ls-remote returned no default-branch ref for ${ref}`);
@@ -622,16 +659,19 @@ async function inspectGithubSourceWithLsRemoteFallback(source, reason) {
 
     return {
       status: classifyStatus(source, changed, latestCommit),
+      comparison,
+      usedFallback: true,
       latestCommit,
       latestCommitDate: "not checked (git ls-remote fallback)",
       releaseSignal: "not checked (git ls-remote fallback)",
       licenseSignal: `not checked (source record: ${source.licenseConcern})`,
       watchedPathSignals: [],
-      notes: `${changed ? "Upstream default branch changed since last reviewed commit." : "Default branch commit matches last reviewed commit."} GitHub API fallback used after: ${reason}`
+      notes: `${changed ? "Upstream default branch changed relative to the comparison baseline." : "Default branch commit matches comparison baseline."} GitHub API fallback used after: ${reason}`
     };
   } catch (fallbackError) {
     return {
       status: "CHECK_FAILED",
+      comparison,
       latestCommit: null,
       latestCommitDate: null,
       releaseSignal: "check failed",
@@ -693,10 +733,11 @@ function mockInspection(source, index) {
     };
   }
 
-  const comparisonCommit = sourceComparisonCommit(source);
-  if (comparisonCommit === null) {
+  const comparison = sourceComparisonCommit(source);
+  if (comparison.revision === null) {
     return {
       status: "REVIEW_METADATA_MISSING",
+      comparison,
       latestCommit: null,
       latestCommitDate: null,
       releaseSignal: "mock: not checked",
@@ -706,14 +747,44 @@ function mockInspection(source, index) {
     };
   }
 
+  if (source.mockRemoteStatus === 403 || source.mockRemoteStatus === 429) {
+    if (source.mockLsRemoteFailure === true) {
+      return {
+        status: "CHECK_FAILED",
+        comparison,
+        latestCommit: null,
+        latestCommitDate: null,
+        releaseSignal: "mock: check failed",
+        licenseSignal: "mock: check failed",
+        watchedPathSignals: [],
+        notes: `Mock: GitHub API ${source.mockRemoteStatus} and git ls-remote fallback both failed.`
+      };
+    }
+    const latestCommit = source.mockLsRemoteRevision || comparison.revision;
+    const changed = latestCommit !== comparison.revision;
+    return {
+      status: classifyStatus(source, changed, latestCommit),
+      comparison,
+      usedFallback: true,
+      latestCommit,
+      latestCommitDate: "mock: not checked (git ls-remote fallback)",
+      releaseSignal: "mock: not checked (git ls-remote fallback)",
+      licenseSignal: "mock: not checked (git ls-remote fallback)",
+      watchedPathSignals: [],
+      notes: `Mock: ${changed ? "upstream changed relative to the comparison baseline" : "default branch matches comparison baseline"} after GitHub API ${source.mockRemoteStatus} fallback.`
+    };
+  }
+
   const changed = index % 4 === 1;
-  const latestCommit = changed ? `feed${comparisonCommit.slice(4)}` : comparisonCommit;
+  const latestCommit = changed ? `feed${comparison.revision.slice(4)}` : comparison.revision;
   const expectedFullName = `${source.repoOwner}/${source.repoName}`;
   const mockCanonicalMismatch = source.mockCanonicalFullName && source.mockCanonicalFullName !== expectedFullName
     ? `Mock: GitHub canonical repository is ${source.mockCanonicalFullName}, expected ${expectedFullName}.`
     : null;
   return {
     status: mockCanonicalMismatch ? "RELOCATED_REVIEW_REQUIRED" : classifyStatus(source, changed, latestCommit),
+    comparison,
+    usedFallback: false,
     latestCommit,
     latestCommitDate: changed ? "2026-05-10T00:00:00Z" : source.lastReviewedDate,
     releaseSignal: changed ? "mock: new tag signal" : "mock: unchanged",
@@ -723,7 +794,7 @@ function mockInspection(source, index) {
       sha: latestCommit,
       date: changed ? "2026-05-10T00:00:00Z" : source.lastReviewedDate
     })),
-    notes: mockCanonicalMismatch || (changed ? "Mock: upstream changed since review." : "Mock: default branch commit is unchanged.")
+    notes: mockCanonicalMismatch || (changed ? "Mock: upstream changed relative to the comparison baseline." : "Mock: default branch commit matches comparison baseline.")
   };
 }
 
@@ -790,15 +861,60 @@ function revisionIdentityDigest(result, revision) {
   return `sha256:${createHash("sha256").update(material, "utf8").digest("hex")}`;
 }
 
+function manualReviewEvidence(source, checkedAt) {
+  const review = source.review;
+  const revision = review?.reviewedRevision;
+  const complete = (
+    review?.state === "REVIEWED_CURRENT" &&
+    typeof review.currentReceipt === "string" && review.currentReceipt.length > 0 &&
+    revision &&
+    ["git-sha", "content-digest"].includes(revision.kind) &&
+    typeof revision.value === "string" &&
+    (revision.kind === "git-sha" ? COMMIT_SHA_PATTERN.test(revision.value) : SHA256_PATTERN.test(revision.value)) &&
+    typeof review.reviewedDigest === "string" && SHA256_PATTERN.test(review.reviewedDigest) &&
+    typeof review.expiresAt === "string" && !Number.isNaN(Date.parse(review.expiresAt))
+  );
+  if (!complete) {
+    return {
+      complete: false,
+      comparisonRevision: null,
+      comparisonBasis: "MISSING",
+      reasonCode: "MANUAL_EVIDENCE_REQUIRED"
+    };
+  }
+  return {
+    complete: true,
+    comparisonRevision: revision.value.toLowerCase(),
+    comparisonBasis: "MANUAL_REVIEW_RECEIPT",
+    reasonCode: Date.parse(review.expiresAt) <= Date.parse(checkedAt) ? "MANUAL_DUE" : "MANUAL_CURRENT"
+  };
+}
+
 function monitorEvidence(result, useMock) {
   const sourceType = result.sourceType || "github-repo";
   let monitorState;
   let observedRevision = null;
   let contentDigest = null;
   let digestBasis = null;
+  let comparisonRevision = null;
+  let comparisonBasis = "NOT_APPLICABLE";
+  let reasonCode;
 
   if (sourceType === "manual-reviewed-doc") {
-    monitorState = "MANUAL_DUE";
+    const manual = manualReviewEvidence(result, result.lastCheckedDate);
+    comparisonRevision = manual.comparisonRevision;
+    comparisonBasis = manual.comparisonBasis;
+    reasonCode = manual.reasonCode;
+    if (!manual.complete) {
+      monitorState = "CHECK_FAILED";
+    } else if (reasonCode === "MANUAL_DUE") {
+      monitorState = "MANUAL_DUE";
+    } else {
+      monitorState = "CURRENT";
+      observedRevision = structuredClone(result.review.reviewedRevision);
+      contentDigest = result.review.reviewedDigest;
+      digestBasis = "manual-review-receipt";
+    }
   } else if (result.status === "UNCHANGED" && COMMIT_SHA_PATTERN.test(result.latestCommit || "")) {
     monitorState = "CURRENT";
     observedRevision = { kind: "git-sha", value: result.latestCommit.toLowerCase() };
@@ -818,9 +934,28 @@ function monitorEvidence(result, useMock) {
     monitorState = "CHECK_FAILED";
   }
 
-  if (observedRevision) {
+  if (sourceType !== "manual-reviewed-doc") {
+    const comparison = result.comparison || sourceComparisonCommit(result);
+    comparisonRevision = comparison.revision;
+    comparisonBasis = comparison.basis;
+    if (comparisonRevision === null) {
+      reasonCode = "BASELINE_MISSING";
+    } else if (monitorState === "CURRENT") {
+      reasonCode = result.usedFallback ? "DEGRADED_COMPARISON_MATCH" : "COMPARISON_MATCH";
+    } else if (monitorState === "CHANGED") {
+      reasonCode = result.usedFallback ? "DEGRADED_UPSTREAM_CHANGED" : "UPSTREAM_CHANGED";
+    } else {
+      reasonCode = "REMOTE_CHECK_FAILED";
+    }
+  }
+
+  if (observedRevision && sourceType !== "manual-reviewed-doc") {
     contentDigest = revisionIdentityDigest(result, observedRevision);
     digestBasis = "git-revision-identity";
+  }
+
+  if (!COMPARISON_BASES.has(comparisonBasis) || !REASON_CODES.has(reasonCode)) {
+    throw new Error(`Internal error: invalid freshness comparison evidence for ${result.id}`);
   }
 
   const currentReview = result.review;
@@ -836,6 +971,9 @@ function monitorEvidence(result, useMock) {
     monitorState,
     observedRevision,
     contentDigest,
+    comparisonRevision,
+    comparisonBasis,
+    reasonCode,
     checkedAt: result.lastCheckedDate,
     missingCurrentReview,
     evidence: {
@@ -875,7 +1013,7 @@ function actionableResults(results) {
 }
 
 function issueDedupeKey(result) {
-  const commitSignal = shortSha(result.latestCommit || sourceComparisonCommit(result) || "metadata-missing");
+  const commitSignal = shortSha(result.latestCommit || sourceComparisonCommit(result).revision || "metadata-missing");
   return `source-freshness/${result.id}/${result.status}/${commitSignal}`;
 }
 
@@ -924,7 +1062,7 @@ function renderIssueBody(result) {
     "## Freshness Signal",
     "",
     `- Status: ${result.status}`,
-    `- Last reviewed commit: ${result.lastReviewedCommit || "n/a"}`,
+    `- Comparison baseline: ${sourceComparisonCommit(result).revision || "n/a"}`,
     `- Latest checked commit: ${result.latestCommit || "n/a"}`,
     `- Last reviewed date: ${result.lastReviewedDate || "n/a"}`,
     `- Latest checked date: ${result.latestCommitDate || "n/a"}`,
@@ -952,14 +1090,14 @@ function renderIssueBody(result) {
 
 function sourceTableHeader() {
   return [
-    "| Source | Repo | Status | Reviewed | Checked | Latest | Reviewed date | Latest date | License signal | v0.2.3 outcome | Hold classification | Hold decision | Affected methods | Next step | Notes |",
+    "| Source | Repo | Status | Comparison baseline | Checked | Latest | Reviewed date | Latest date | License signal | v0.2.3 outcome | Hold classification | Hold decision | Affected methods | Next step | Notes |",
     "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
   ];
 }
 
 function sourceTableRows(result) {
   const rows = [
-    `| ${escapeCell(result.name)} | ${escapeCell(sourceLocation(result))} | ${result.status} | ${shortSha(result.lastReviewedCommit)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | ${escapeCell(result.reviewedHold?.classification || "n/a")} | ${escapeCell(result.reviewedHold?.decision || "n/a")} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
+    `| ${escapeCell(result.name)} | ${escapeCell(sourceLocation(result))} | ${result.status} | ${shortSha(sourceComparisonCommit(result).revision)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | ${escapeCell(result.reviewedHold?.classification || "n/a")} | ${escapeCell(result.reviewedHold?.decision || "n/a")} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
   ];
 
   if (result.watchedPathSignals.length > 0) {
@@ -1074,7 +1212,7 @@ function renderReport(results, useMock, checkedAt) {
     "",
     "## Next Step Meanings",
     "",
-    "- no action: current default-branch signal matches the reviewed commit; this does not mean the source is safe forever.",
+    "- no action: current default-branch signal matches the comparison baseline; this does not mean the source is reviewed current or safe forever.",
     "- manual review cadence: non-GitHub reviewed documentation is tracked as a manual source and requires periodic owner review; it is not live freshness proof.",
     "- refresh source identity after Skill Scout review: GitHub reports a canonical repository or URL different from the watchlist entry; update source identity only after source-safety review.",
     "- resolve reviewed hold: `REVIEWED_HELD` is an unresolved/intermediate v0.2.3 status and must be converted to a final outcome or removed from active monitoring.",

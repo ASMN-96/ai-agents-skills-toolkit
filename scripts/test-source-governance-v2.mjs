@@ -1030,6 +1030,9 @@ test("freshness report and catalog must agree on exact observed revision, digest
       monitorState: sourceEntry.monitor.state,
       observedRevision: sourceEntry.monitor.observedRevision,
       contentDigest: sourceEntry.monitor.contentDigest,
+      comparisonRevision: SHA,
+      comparisonBasis: "PRIOR_MONITOR_OBSERVATION",
+      reasonCode: "COMPARISON_MATCH",
       checkedAt: sourceEntry.monitor.checkedAt,
       missingCurrentReview: false,
       evidence: {
@@ -1058,6 +1061,117 @@ test("freshness report and catalog must agree on exact observed revision, digest
   assert.throws(
     () => validateFreshnessReport(catalog(), { ...report, mode: "mock" }, { now: NOW }),
     /mock.*not valid governance evidence/i
+  );
+  assert.throws(
+    () => validateFreshnessReport(catalog(), {
+      ...report,
+      sources: [{ ...report.sources[0], comparisonBasis: "UNRECOGNIZED" }]
+    }, { now: NOW }),
+    /comparisonBasis.*unsupported/i
+  );
+  assert.throws(
+    () => validateFreshnessReport(catalog(), {
+      ...report,
+      sources: [{ ...report.sources[0], reasonCode: "UNRECOGNIZED" }]
+    }, { now: NOW }),
+    /reasonCode.*unsupported/i
+  );
+  assert.throws(
+    () => validateFreshnessReport(catalog(), {
+      ...report,
+      sources: [{ ...report.sources[0], comparisonRevision: "f".repeat(40) }]
+    }, { now: NOW }),
+    /CURRENT.*matching.*comparison/i
+  );
+  assert.throws(
+    () => validateFreshnessReport(catalog(), {
+      ...report,
+      actionableCount: 1,
+      sources: [{
+        ...report.sources[0],
+        monitorState: "CHANGED",
+        missingCurrentReview: true,
+        reasonCode: "UPSTREAM_CHANGED"
+      }]
+    }, { now: NOW, requireCatalogAgreement: false }),
+    /CHANGED.*different.*comparison/i
+  );
+  assert.throws(
+    () => validateFreshnessReport(catalog(), {
+      ...report,
+      actionableCount: 1,
+      sources: [{
+        ...report.sources[0],
+        monitorState: "CHECK_FAILED",
+        observedRevision: null,
+        contentDigest: null,
+        comparisonRevision: SHA,
+        comparisonBasis: "MISSING",
+        reasonCode: "BASELINE_MISSING",
+        missingCurrentReview: true
+      }]
+    }, { now: NOW, requireCatalogAgreement: false }),
+    /BASELINE_MISSING.*comparison revision/i
+  );
+  assert.throws(
+    () => validateFreshnessReport(catalog(), {
+      ...report,
+      actionableCount: 1,
+      sources: [{
+        ...report.sources[0],
+        monitorState: "CHECK_FAILED",
+        comparisonRevision: null,
+        comparisonBasis: "MISSING",
+        reasonCode: "REMOTE_CHECK_FAILED",
+        missingCurrentReview: true
+      }]
+    }, { now: NOW, requireCatalogAgreement: false }),
+    /REMOTE_CHECK_FAILED.*revision or digest/i
+  );
+  assert.throws(
+    () => validateFreshnessReport(catalog(), {
+      ...report,
+      actionableCount: 1,
+      sources: [{
+        ...report.sources[0],
+        monitorState: "CHECK_FAILED",
+        observedRevision: null,
+        contentDigest: null,
+        comparisonRevision: null,
+        comparisonBasis: "MISSING",
+        reasonCode: "MANUAL_EVIDENCE_REQUIRED",
+        missingCurrentReview: true
+      }]
+    }, { now: NOW, requireCatalogAgreement: false }),
+    /manual freshness reason or basis.*GitHub/i
+  );
+  const manualSource = {
+    ...sourceEntry,
+    sourceType: "manual-reviewed-doc",
+    sourceUrl: "https://docs.example.com/manual",
+    identityKey: "url:https://docs.example.com/manual",
+    lastReviewedCommit: null,
+    manualReview: {
+      publisher: "Example",
+      cadence: "manual",
+      reason: "Manual source.",
+      forbiddenClaims: ["live freshness"]
+    }
+  };
+  assert.throws(
+    () => validateFreshnessReport({ ...catalog(), sources: [manualSource] }, {
+      ...report,
+      sources: [{
+        ...report.sources[0],
+        sourceId: manualSource.id,
+        evidence: {
+          ...report.sources[0].evidence,
+          sourceType: "manual-reviewed-doc",
+          sourceUrl: manualSource.sourceUrl
+        }
+      }]
+    }, { now: NOW, requireCatalogAgreement: false }),
+    /Git comparison reason or basis.*manual/i
   );
   assert.throws(
     () => validateFreshnessReport(catalog(), {

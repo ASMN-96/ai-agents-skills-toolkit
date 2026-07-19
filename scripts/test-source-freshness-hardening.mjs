@@ -207,7 +207,7 @@ test("--json-output emits deterministic SourceCatalog v2 monitor evidence", asyn
     assert.equal(report.schemaVersion, "2.0.0");
     assert.equal(report.mode, "mock");
     assert.equal(report.checkedAt, "2026-07-17T00:00:00.000Z");
-    assert.deepEqual(report.sources.map((entry) => entry.monitorState), ["CURRENT", "MANUAL_DUE"]);
+    assert.deepEqual(report.sources.map((entry) => entry.monitorState), ["CURRENT", "CHECK_FAILED"]);
     assert.deepEqual(report.sources[0].observedRevision, {
       kind: "git-sha",
       value: "f".repeat(40)
@@ -215,9 +215,142 @@ test("--json-output emits deterministic SourceCatalog v2 monitor evidence", asyn
     assert.match(report.sources[0].contentDigest, /^sha256:[0-9a-f]{64}$/);
     assert.equal(report.sources[0].evidence.digestBasis, "git-revision-identity");
     assert.equal(report.sources[0].evidence.legacyStatus, "UNCHANGED");
+    assert.equal(report.sources[0].comparisonRevision, "f".repeat(40));
+    assert.equal(report.sources[0].comparisonBasis, "PRIOR_MONITOR_OBSERVATION");
+    assert.equal(report.sources[0].reasonCode, "COMPARISON_MATCH");
     assert.equal(report.sources[0].missingCurrentReview, true);
     assert.equal(report.sources[1].observedRevision, null);
     assert.equal(report.sources[1].contentDigest, null);
+    assert.equal(report.sources[1].comparisonRevision, null);
+    assert.equal(report.sources[1].comparisonBasis, "MISSING");
+    assert.equal(report.sources[1].reasonCode, "MANUAL_EVIDENCE_REQUIRED");
+  });
+});
+
+test("mock freshness evidence distinguishes a missing Git baseline from remote failure", async () => {
+  await withWatchlist([
+    source({ lastReviewedCommit: null, lastReviewedDate: null })
+  ], async (cwd) => {
+    await mkdir(path.join(cwd, "docs"));
+    const result = await runFreshness(cwd, [
+      "--mock",
+      "--json-output",
+      "docs/SOURCE_FRESHNESS_REPORT.json"
+    ]);
+
+    assert.equal(result.code, 0, result.stderr);
+    const report = JSON.parse(await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_REPORT.json"), "utf8"));
+    assert.equal(report.sources[0].monitorState, "CHECK_FAILED");
+    assert.equal(report.sources[0].comparisonRevision, null);
+    assert.equal(report.sources[0].comparisonBasis, "MISSING");
+    assert.equal(report.sources[0].reasonCode, "BASELINE_MISSING");
+    assert.doesNotMatch(report.sources[0].evidence.notes, /remote|network/i);
+  });
+});
+
+test("mock fallback evidence distinguishes degraded success from a failed remote check", async () => {
+  const baseline = "a8924c2a35cfa290458852c4fad17c9133054c2e";
+  await withWatchlist([
+    source({
+      mockRemoteStatus: 403,
+      mockLsRemoteRevision: baseline
+    }),
+    source({
+      id: "remote-and-fallback-failed",
+      name: "Remote and Fallback Failed",
+      mockRemoteStatus: 429,
+      mockLsRemoteFailure: true
+    }),
+    source({
+      id: "fallback-changed",
+      name: "Fallback Changed",
+      mockRemoteStatus: 403,
+      mockLsRemoteRevision: `feed${baseline.slice(4)}`
+    })
+  ], async (cwd) => {
+    await mkdir(path.join(cwd, "docs"));
+    const result = await runFreshness(cwd, [
+      "--mock",
+      "--json-output",
+      "docs/SOURCE_FRESHNESS_REPORT.json"
+    ]);
+
+    assert.equal(result.code, 0, result.stderr);
+    const report = JSON.parse(await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_REPORT.json"), "utf8"));
+    assert.deepEqual(report.sources.map((entry) => entry.monitorState), ["CURRENT", "CHECK_FAILED", "CHANGED"]);
+    assert.deepEqual(report.sources.map((entry) => entry.reasonCode), [
+      "DEGRADED_COMPARISON_MATCH",
+      "REMOTE_CHECK_FAILED",
+      "DEGRADED_UPSTREAM_CHANGED"
+    ]);
+  });
+});
+
+test("manual freshness requires a complete receipt and reports expiry only after a usable receipt", async () => {
+  const digest = `sha256:${"d".repeat(64)}`;
+  const reviewedRevision = { kind: "content-digest", value: digest };
+  const manual = (id, review) => source({
+    id,
+    name: id,
+    sourceType: "manual-reviewed-doc",
+    watchMode: "manual-reviewed-doc",
+    sourceUrl: `https://docs.example.com/${id}`,
+    repoOwner: undefined,
+    repoName: undefined,
+    defaultBranch: undefined,
+    lastReviewedCommit: null,
+    manualReview: {
+      publisher: "Example",
+      cadence: "manual",
+      reason: "Manual source.",
+      forbiddenClaims: ["live freshness"]
+    },
+    review
+  });
+  const completeReview = (expiresAt) => ({
+    state: "REVIEWED_CURRENT",
+    currentReceipt: "sources/reviews/manual/receipt.json",
+    reviewedRevision,
+    reviewedDigest: digest,
+    reviewedAt: "2026-07-01T00:00:00.000Z",
+    expiresAt,
+    previousReceipt: null,
+    receiptDigest: `sha256:${"e".repeat(64)}`,
+    previousReceiptDigest: null,
+    disposition: "SYNCED_REFERENCE"
+  });
+
+  await withWatchlist([
+    manual("manual-missing", { state: "QUARANTINED", currentReceipt: null }),
+    manual("manual-current", completeReview("2026-07-18T00:00:00.000Z")),
+    manual("manual-due", completeReview("2026-07-16T00:00:00.000Z"))
+  ], async (cwd) => {
+    await mkdir(path.join(cwd, "docs"));
+    const result = await runFreshness(cwd, [
+      "--mock",
+      "--json-output",
+      "docs/SOURCE_FRESHNESS_REPORT.json"
+    ]);
+
+    assert.equal(result.code, 0, result.stderr);
+    const report = JSON.parse(await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_REPORT.json"), "utf8"));
+    assert.deepEqual(report.sources.map((entry) => [entry.monitorState, entry.reasonCode]), [
+      ["CHECK_FAILED", "MANUAL_EVIDENCE_REQUIRED"],
+      ["CURRENT", "MANUAL_CURRENT"],
+      ["MANUAL_DUE", "MANUAL_DUE"]
+    ]);
+    assert.equal(report.sources[1].comparisonBasis, "MANUAL_REVIEW_RECEIPT");
+    assert.equal(report.sources[1].comparisonRevision, digest);
+  });
+});
+
+test("current report wording names the comparison baseline without implying review", async () => {
+  await withWatchlist([source()], async (cwd) => {
+    const result = await runFreshness(cwd, ["--mock"]);
+
+    assert.equal(result.code, 0, result.stderr);
+    assert.match(result.stdout, /matches comparison baseline/i);
+    assert.doesNotMatch(result.stdout, /matches last reviewed commit/i);
   });
 });
 

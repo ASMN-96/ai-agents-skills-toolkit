@@ -35,6 +35,34 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const SOURCE_GOVERNANCE_MUTATION_LOCK = ".source-governance-mutation.lock";
 const MUTATION_LOCK_STALE_AFTER_MS = 60 * 60 * 1000;
 const MUTATION_LOCK_HELD = Symbol("source-governance-mutation-lock-held");
+const COMPARISON_BASES = new Set([
+  "PRIOR_MONITOR_OBSERVATION",
+  "REVIEWED_REVISION",
+  "LEGACY_REVIEW_METADATA",
+  "MANUAL_REVIEW_RECEIPT",
+  "MISSING",
+  "NOT_APPLICABLE"
+]);
+const FRESHNESS_REASON_CODES = new Set([
+  "COMPARISON_MATCH",
+  "UPSTREAM_CHANGED",
+  "DEGRADED_COMPARISON_MATCH",
+  "DEGRADED_UPSTREAM_CHANGED",
+  "BASELINE_MISSING",
+  "REMOTE_CHECK_FAILED",
+  "MANUAL_EVIDENCE_REQUIRED",
+  "MANUAL_DUE",
+  "MANUAL_CURRENT"
+]);
+const MANUAL_REASON_CODES = new Set(["MANUAL_EVIDENCE_REQUIRED", "MANUAL_DUE", "MANUAL_CURRENT"]);
+const GIT_COMPARISON_REASON_CODES = new Set([
+  "COMPARISON_MATCH",
+  "UPSTREAM_CHANGED",
+  "DEGRADED_COMPARISON_MATCH",
+  "DEGRADED_UPSTREAM_CHANGED",
+  "BASELINE_MISSING",
+  "REMOTE_CHECK_FAILED"
+]);
 
 function isRecord(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -117,6 +145,93 @@ function validateRevision(value, field, { nullable = false } = {}) {
 function sameRevision(left, right) {
   if (left === null || right === null) return left === right;
   return Boolean(left && right && left.kind === right.kind && left.value === right.value);
+}
+
+function validateComparisonRevision(value, field) {
+  if (value === null) return null;
+  if (typeof value !== "string" || (!GIT_SHA.test(value) && !SHA256.test(value))) {
+    fail(`${field} must be null, an exact 40-character Git SHA, or a sha256 content digest`);
+  }
+  return value;
+}
+
+function validateStructuredFreshnessEvidence(entry, source, index) {
+  const field = `freshnessReport.sources[${index}]`;
+  const fields = ["comparisonRevision", "comparisonBasis", "reasonCode"];
+  const present = fields.filter((name) => Object.hasOwn(entry, name));
+  if (present.length === 0) return false;
+  if (present.length !== fields.length) {
+    fail(`${field} structured freshness evidence requires comparisonRevision, comparisonBasis, and reasonCode together`);
+  }
+  const comparisonRevision = validateComparisonRevision(entry.comparisonRevision, `${field}.comparisonRevision`);
+  if (!COMPARISON_BASES.has(entry.comparisonBasis)) {
+    fail(`freshness comparisonBasis is unsupported for ${entry.sourceId}`);
+  }
+  if (!FRESHNESS_REASON_CODES.has(entry.reasonCode)) {
+    fail(`freshness reasonCode is unsupported for ${entry.sourceId}`);
+  }
+
+  if (entry.reasonCode === "BASELINE_MISSING") {
+    if (entry.monitorState !== "CHECK_FAILED" || comparisonRevision !== null || entry.comparisonBasis !== "MISSING") {
+      fail(`BASELINE_MISSING requires CHECK_FAILED with a null comparison revision for ${entry.sourceId}`);
+    }
+  }
+  if (entry.reasonCode === "REMOTE_CHECK_FAILED") {
+    if (entry.monitorState !== "CHECK_FAILED" || entry.observedRevision !== null || entry.contentDigest !== null) {
+      fail(`REMOTE_CHECK_FAILED must not claim a successful observed revision or digest for ${entry.sourceId}`);
+    }
+  }
+
+  if (source.sourceType === "github-repo") {
+    if (MANUAL_REASON_CODES.has(entry.reasonCode) || ["MANUAL_REVIEW_RECEIPT", "NOT_APPLICABLE"].includes(entry.comparisonBasis)) {
+      fail(`manual freshness reason or basis is invalid for GitHub source ${entry.sourceId}`);
+    }
+    if (["CURRENT", "CHANGED"].includes(entry.monitorState)) {
+      if (entry.observedRevision?.kind !== "git-sha" || comparisonRevision === null) {
+        fail(`freshness ${entry.monitorState} requires an observed Git SHA and comparison revision for ${entry.sourceId}`);
+      }
+      if (entry.monitorState === "CURRENT") {
+        if (entry.observedRevision.value !== comparisonRevision) {
+          fail(`CURRENT requires a matching exact comparison revision and observed Git SHA for ${entry.sourceId}`);
+        }
+        if (!["COMPARISON_MATCH", "DEGRADED_COMPARISON_MATCH"].includes(entry.reasonCode)) {
+          fail(`CURRENT requires a comparison-match reasonCode for ${entry.sourceId}`);
+        }
+      } else {
+        if (entry.observedRevision.value === comparisonRevision) {
+          fail(`CHANGED requires different exact comparison and observed Git SHAs for ${entry.sourceId}`);
+        }
+        if (!["UPSTREAM_CHANGED", "DEGRADED_UPSTREAM_CHANGED"].includes(entry.reasonCode)) {
+          fail(`CHANGED requires an upstream-change reasonCode for ${entry.sourceId}`);
+        }
+      }
+    }
+  } else if (source.sourceType === "manual-reviewed-doc") {
+    if (GIT_COMPARISON_REASON_CODES.has(entry.reasonCode) || ["PRIOR_MONITOR_OBSERVATION", "REVIEWED_REVISION", "LEGACY_REVIEW_METADATA"].includes(entry.comparisonBasis)) {
+      fail(`Git comparison reason or basis is invalid for manual source ${entry.sourceId}`);
+    }
+    if (entry.reasonCode === "MANUAL_CURRENT") {
+      if (
+        entry.monitorState !== "CURRENT" ||
+        entry.comparisonBasis !== "MANUAL_REVIEW_RECEIPT" ||
+        !entry.observedRevision ||
+        entry.observedRevision.value !== comparisonRevision
+      ) {
+        fail(`MANUAL_CURRENT requires receipt-backed current evidence matching its comparison revision for ${entry.sourceId}`);
+      }
+    }
+    if (entry.reasonCode === "MANUAL_DUE") {
+      if (entry.monitorState !== "MANUAL_DUE" || entry.comparisonBasis !== "MANUAL_REVIEW_RECEIPT" || comparisonRevision === null) {
+        fail(`MANUAL_DUE requires complete receipt-backed comparison evidence for ${entry.sourceId}`);
+      }
+    }
+    if (entry.reasonCode === "MANUAL_EVIDENCE_REQUIRED") {
+      if (entry.monitorState !== "CHECK_FAILED" || entry.comparisonBasis !== "MISSING" || comparisonRevision !== null) {
+        fail(`MANUAL_EVIDENCE_REQUIRED requires CHECK_FAILED with missing comparison evidence for ${entry.sourceId}`);
+      }
+    }
+  }
+  return true;
 }
 
 export function validateSourceCatalog(catalog, options = {}) {
@@ -202,6 +317,9 @@ export function validateFreshnessReport(catalog, report, options = {}) {
         "monitorState",
         "observedRevision",
         "contentDigest",
+        "comparisonRevision",
+        "comparisonBasis",
+        "reasonCode",
         "checkedAt",
         "missingCurrentReview",
         "evidence"
@@ -217,6 +335,7 @@ export function validateFreshnessReport(catalog, report, options = {}) {
     }
     if (!MONITOR_STATE_SET.has(entry.monitorState)) fail(`freshness monitor state is unsupported for ${entry.sourceId}`);
     validateRevision(entry.observedRevision, `freshnessReport.sources[${index}].observedRevision`, { nullable: true });
+    validateStructuredFreshnessEvidence(entry, source, index);
     if (["CURRENT", "CHANGED"].includes(entry.monitorState)) {
       if (!entry.observedRevision || typeof entry.contentDigest !== "string" || !SHA256.test(entry.contentDigest)) {
         fail(`freshness ${entry.monitorState} evidence requires exact revision and digest for ${entry.sourceId}`);
@@ -810,7 +929,7 @@ export async function applySourceFreshness(options = {}) {
       contentDigest: observation.contentDigest,
       failureReason: ["CURRENT", "CHANGED"].includes(observation.monitorState)
         ? null
-        : observation.evidence.notes || observation.evidence.legacyStatus
+        : observation.reasonCode || observation.evidence.notes || observation.evidence.legacyStatus
     };
     if (observation.monitorState !== "CURRENT" || observation.missingCurrentReview) {
       source.review.state = "QUARANTINED";
