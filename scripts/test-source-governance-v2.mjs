@@ -1191,6 +1191,24 @@ test("freshness report and catalog must agree on exact observed revision, digest
     /Git comparison reason or basis.*manual/i
   );
   assert.throws(
+    () => validateFreshnessReport({ ...catalog(), sources: [manualSource] }, {
+      ...report,
+      sources: [{
+        ...report.sources[0],
+        comparisonBasis: "MANUAL_REVIEW_RECEIPT",
+        reasonCode: "IDENTITY_DRIFT_DETECTED",
+        evidence: {
+          ...report.sources[0].evidence,
+          observationMode: "manual-receipt-only",
+          sourceType: "manual-reviewed-doc",
+          sourceUrl: manualSource.sourceUrl,
+          digestBasis: "manual-review-receipt"
+        }
+      }]
+    }, { now: NOW, requireCatalogAgreement: false }),
+    /Git comparison reason or basis.*manual/i
+  );
+  assert.throws(
     () => validateFreshnessReport(catalog(), {
       ...report,
       checkedAt: "2026-07-15T07:00:00.000Z",
