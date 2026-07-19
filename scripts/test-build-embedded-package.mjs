@@ -760,7 +760,9 @@ test("package validation rejects a missing transitive runner import before promo
   try {
     minimizeBuilderFixture(fixture);
     const before = snapshotTree(path.join(fixture, ".ai-toolkit"));
-    rmSync(path.join(fixture, "scripts", "ai-toolkit", "kernel", "canonical-digest.mjs"));
+    // Remove a runner-only dependency. canonical-digest.mjs is also a builder
+    // bootstrap dependency, so removing it would fail before this closure gate.
+    rmSync(path.join(fixture, "scripts", "ai-toolkit", "kernel", "claude-adapter.mjs"));
 
     const result = runBuilder(fixture, ["--confirm-write"]);
 
