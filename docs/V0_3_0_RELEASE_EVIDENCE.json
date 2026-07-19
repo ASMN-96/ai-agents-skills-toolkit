@@ -3,9 +3,10 @@
   "candidateVersion": "0.3.0",
   "controlledRelease": "0.2.5",
   "releaseState": "blocked",
+  "artifactDigestMode": "sha256-utf8-lf-v1",
   "repository": {
-    "sourceCommit": "ef8e76a596e5f2bcd0dc29845316c9530bff9ac8",
-    "compilerCommit": "ef8e76a596e5f2bcd0dc29845316c9530bff9ac8",
+    "sourceCommit": "b55f367612a150020f46480c413d0b7b4d079c60",
+    "compilerCommit": "86e77cb7168622ceaf8e922243ed93cf2cdcdeca",
     "reviewedMainCommit": null,
     "worktreeState": "clean"
   },
@@ -16,11 +17,11 @@
     },
     "freshnessReport": {
       "path": "docs/SOURCE_FRESHNESS_REPORT.json",
-      "sha256": "b0890cf2fa8fd6072ca8e3f702766c28ec91af7ea0898ce0957a508493680f08"
+      "sha256": "43822e8d3c882707fb7d3c44a8e50a3dbacafcbf2d2cd25e81518ddbb7274932"
     },
     "agentRegistry": {
       "path": "registries/agents.registry.json",
-      "sha256": "09dd96b5058cfd27282632c9d659eaffd9c18a84864b1a0cd57b9e2d929616c8"
+      "sha256": "c9c1a7de10822ff1b8cb5621dda93ed4473e405bcce0c6fbae12f8084c36b9d1"
     },
     "benchmarkFixture": {
       "path": "evals/routing/enterprise-delivery-benchmark.json",
@@ -28,7 +29,7 @@
     },
     "embeddedManifest": {
       "path": ".ai-toolkit/manifest.json",
-      "sha256": "5220c852521158803ba460be931a19837d0c93776afeb6601b01d9a46043457a",
+      "sha256": "1d8b7513db22c1fbb10849ae84ff04720f9afae11066c3c1749399658f96c005",
       "state": "generated-current"
     }
   },

@@ -1,5 +1,6 @@
 {
   "schemaVersion": "2.0.0",
+  "digestMode": "sha256-utf8-lf-v1",
   "toolkitVersion": "0.3.0",
   "packageType": "self-contained-delivery-kernel",
   "runtime": "Node.js 22 ESM",
@@ -20,11 +21,11 @@
   "files": [
     {
       "path": ".codex/agents/architect-agent.toml",
-      "sha256": "e1dcaf90a1f9563389d15c4b3ed3b81f9b5adfc54c3d79a59a3e8bfa0d89344f"
+      "sha256": "65e3972e55a6325325294362c5240a7780b31d77f9fb5e46695ca6456d69a739"
     },
     {
       "path": ".codex/agents/backend-contract-agent.toml",
-      "sha256": "258732dcce3ad27da78f6b2bfab9a37d8a08d78267472147bb1d45c96895d0d3"
+      "sha256": "addadc6205f2311925bed8d3bd9b309870606a9f96add101c7e06a55090afd5e"
     },
     {
       "path": ".codex/agents/backend-implementation-agent.toml",
@@ -32,7 +33,7 @@
     },
     {
       "path": ".codex/agents/database-rls-agent.toml",
-      "sha256": "06191de88ecd7dd376ba42d2e41a5b070c3ce370405389cafa979d79b514fd48"
+      "sha256": "5bafd674d9765e44d18402473a5b0da0c3e42f05d3b842db963e715b2a89954c"
     },
     {
       "path": ".codex/agents/desktop-platform-agent.toml",
@@ -40,7 +41,7 @@
     },
     {
       "path": ".codex/agents/frontend-agent.toml",
-      "sha256": "0c03173d3be0e482943267d9c144ca589ca36718ad751f32250a7e5739afb9f4"
+      "sha256": "7fe76afebabe1c502ef2272762ea7b5ea156be14a37d1a6f896fdcadde1863e7"
     },
     {
       "path": ".codex/agents/mobile-platform-agent.toml",
@@ -48,35 +49,35 @@
     },
     {
       "path": ".codex/agents/product-agent.toml",
-      "sha256": "dde026a90db673c364dd2d21f7d163890f1454ed7507863237481c1a55cfe2c9"
+      "sha256": "648004bb17194cd18f48c1d578b31fe97e549b917e96cc7a2a761baa81142c51"
     },
     {
       "path": ".codex/agents/qa-test-agent.toml",
-      "sha256": "bc1f2a3ea644e2d371e5b8de21c464493f6d7357de78eedfe520b63d61e7aacf"
+      "sha256": "727c493cfddc8f3e69270959443f6af6caefb426c707e4ac03d7c4954bde268c"
     },
     {
       "path": ".codex/agents/release-manager-agent.toml",
-      "sha256": "813ad92395d534a3d61d7ff6481c54ff90f2312ab083e3a109351b35e14aa324"
+      "sha256": "9eb82c72db9f3a1805c56cbf2aaa04c197cb0b8b073296c59e25c2cebcc81688"
     },
     {
       "path": ".codex/agents/reviewer-agent.toml",
-      "sha256": "b07c295ad1d17eceb8d27a7373ef44d03fad8b9cfd2dda1136a8bb14a6bac153"
+      "sha256": "21298330cf039d651b1928ef0fdfa05d0e50dfa5c83bd8048334ab8094b528e2"
     },
     {
       "path": ".codex/agents/security-agent.toml",
-      "sha256": "ce6b5469c1d9027ec7c79b1f7fcca15265fcd3ec1f22c469f797c4537d6d4dc4"
+      "sha256": "c413d6bd50ce177ea997b93b5864c09fa6d553b66d9a83a6ba3566c60e5781ae"
     },
     {
       "path": ".codex/agents/skill-scout-agent.toml",
-      "sha256": "6ee7f5dfdb576a47c38b8db7b2ff0c4c42be8d465427897624e2dec13d17af61"
+      "sha256": "a4744e5650001026480e4c8ae5081436021a52a156b7ad41ede48fd851bb44dc"
     },
     {
       "path": ".codex/agents/sre-performance-agent.toml",
-      "sha256": "edad89a0a47ed2912b79c315fc9cab88a40def9a4aca9938ac971b012e461cd8"
+      "sha256": "b6811553491c15b3dd9ec563eddad7a3ea4d7ed7f80ca11079d13f5f680c0887"
     },
     {
       "path": ".codex/agents/uiux-agent.toml",
-      "sha256": "8d9cea835867319d027ef2e134c55f1e01059ea6812b4eb91fb6935371d1c168"
+      "sha256": "9888997eddfec5eddcc1051c3b16e30e87380bf2f016bd37a8d336e0a68c163b"
     },
     {
       "path": "install/safe-filesystem.mjs",
@@ -88,7 +89,7 @@
     },
     {
       "path": "registries/agents.registry.json",
-      "sha256": "10b5c9afdf7085b622ae5982aa1ffdc15de31a768fc508c2557eb6aa0651b8be"
+      "sha256": "c9c1a7de10822ff1b8cb5621dda93ed4473e405bcce0c6fbae12f8084c36b9d1"
     },
     {
       "path": "registries/domain-packs.registry.json",
@@ -112,7 +113,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/canonical-digest.mjs",
-      "sha256": "ad89cb4516d8d44c9e62af05722a493cd2b2b7761b6d30afa003f56147518dfa"
+      "sha256": "1d6a74d68325fe3e2daa6524b6be7a1d42136ca73bab179c0e336b52327f5e65"
     },
     {
       "path": "scripts/ai-toolkit/kernel/canonical-json.mjs",
@@ -140,7 +141,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/delivery-kernel.mjs",
-      "sha256": "1e57ba4e2d1c30226bc2608860e3268ad8c8da17ae1a3d4e9f6e64d54f6c67da"
+      "sha256": "c275dba31fc25894233bafe8e8c88c5d0442264db47a216673917f1c174ee34d"
     },
     {
       "path": "scripts/ai-toolkit/kernel/domain-packs.mjs",
@@ -196,7 +197,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/validation-policy.mjs",
-      "sha256": "16a865d7956fd7623e9042e2ee4313b7afb4d796252d61223e4af3bfd4edcf6e"
+      "sha256": "052252bcbb4b0b345166e1a527df540ba31f4cba0943d606175904f6cb5f6ef0"
     },
     {
       "path": "scripts/ai-toolkit/run-delivery-kernel.mjs",
@@ -204,23 +205,23 @@
     },
     {
       "path": "skills/code-quality/SKILL.md",
-      "sha256": "5b675335d35def38c7b300df49d1817853469940bc22158b285bd5e4a1e4b2f9"
+      "sha256": "593bd52e3cc1f5b1097a341473b4c46031c88319da1823b45a6cc1b810f54108"
     },
     {
       "path": "skills/governance/SKILL.md",
-      "sha256": "8316a858fdbbe17c71d537694b3da48720c011071964fa56abe68e85cdcb1499"
+      "sha256": "723688ce1e868bb773de94f9cdef79b26b5683547cff5b72489213aa1fa03255"
     },
     {
       "path": "skills/pr-release-gate/SKILL.md",
-      "sha256": "de8f37651c276568d519ab04434eefbeea3be07a45a28af9b1b30f613bef2578"
+      "sha256": "976829b5965f72897e686c546595730946aca435bbfa774597c98d2df3d1a74f"
     },
     {
       "path": "skills/security-review/SKILL.md",
-      "sha256": "830e8b417df1e91c0347299d58e50ac0dd0b962ceb4dcb44469281209a189467"
+      "sha256": "6bf802ca7848a480c43ea22ea57a532a00ce8424bc7f10366d1be509c4613d23"
     },
     {
       "path": "skills/uiux/SKILL.md",
-      "sha256": "dc3825153f9186239f5de0dae52244246200014df557250fdf33418d7d5647b5"
+      "sha256": "fcacf0eab4107fbf5543a09d1cf1878413471343fed3352d87803f5acb7a61df"
     },
     {
       "path": "sources/source-watchlist.json",
@@ -228,7 +229,7 @@
     },
     {
       "path": "templates/delivery-kernel.request.example.json",
-      "sha256": "da08e4dc7cd7d2749e1bc47a97e2d8cab621b4310868ac1508136dff1cf70c7f"
+      "sha256": "8733750bcbb784b8314e97d0de10e269e884ef38c39daaa0b7dced137a8bbb10"
     }
   ]
 }
