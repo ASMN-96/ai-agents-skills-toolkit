@@ -66,6 +66,7 @@ function source(overrides = {}) {
     aliases: [],
     identityKey: "github:example/source",
     name: "Example Source",
+    scope: "optional-tool",
     authority: "official",
     lifecycle: "review-input",
     sourceType: "github-repo",
@@ -1279,7 +1280,7 @@ test("manual receipt-backed freshness is validated against the catalog receipt a
     }
   });
   const manualReport = {
-    schemaVersion: "2.0.0",
+    schemaVersion: "2.1.0",
     checkedAt: "2026-07-17T07:00:00.000Z",
     mode: "live",
     readOnly: true,

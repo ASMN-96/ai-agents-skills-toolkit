@@ -5,7 +5,11 @@ import process from "node:process";
 import { pathToFileURL } from "node:url";
 import { ManagedFilesystem } from "../install/safe-filesystem.mjs";
 import { TOOL_ENTRIES } from "./ai-toolkit/embedded-data.mjs";
-import { FRESHNESS_WINDOWS_DAYS, validateSourceCatalog } from "./ai-toolkit/source-governance.mjs";
+import { FRESHNESS_WINDOWS_DAYS } from "./ai-toolkit/source-governance.mjs";
+import {
+  deriveSourceScopes,
+  validateSourceCatalogGraph
+} from "./ai-toolkit/kernel/source-catalog-contract.mjs";
 
 const ROOT = process.cwd();
 const CATALOG_PATH = "sources/source-watchlist.json";
@@ -312,6 +316,36 @@ function coderabbitSource() {
   };
 }
 
+export function upgradeSourceCatalogToV21(catalog, {
+  domainPacksRegistry,
+  toolsRegistry,
+  methodSourceIds = [],
+  now
+} = {}) {
+  if (!catalog || catalog.schemaVersion !== "2.0.0" || !Array.isArray(catalog.sources)) {
+    fail("input must be a valid SourceCatalog 2.0 catalog");
+  }
+  if (catalog.sources.some((source) => RETIRED_PORTFOLIO_SOURCE_IDS.has(source.id))) {
+    fail("retired source identities must not be reintroduced into SourceCatalog 2.1");
+  }
+  const upgraded = structuredClone(catalog);
+  upgraded.schemaVersion = "2.1.0";
+  const scopes = deriveSourceScopes({
+    catalog: upgraded,
+    domainPacksRegistry,
+    toolsRegistry,
+    methodSourceIds
+  });
+  for (const source of upgraded.sources) source.scope = scopes.get(source.id);
+  validateSourceCatalogGraph(upgraded, {
+    domainPacksRegistry,
+    toolsRegistry,
+    methodSourceIds,
+    now
+  });
+  return upgraded;
+}
+
 export function buildSourceCatalogV2(legacy) {
   if (!legacy || legacy.schemaVersion !== "1.0.0" || !Array.isArray(legacy.sources)) {
     fail("input must be the canonical SourceCatalog v1 watchlist");
@@ -389,7 +423,6 @@ export function buildSourceCatalogV2(legacy) {
   if (catalog.sources.length !== 74 || byIdentity.size !== 74) {
     fail(`expected 74 reconciled identities, received sources=${catalog.sources.length} identities=${byIdentity.size}`);
   }
-  validateSourceCatalog(catalog, { now: MIGRATION_TIME });
   return catalog;
 }
 
@@ -408,63 +441,45 @@ async function main() {
     return;
   }
   const legacy = JSON.parse(await readFile(path.join(ROOT, CATALOG_PATH), "utf8"));
-  if (legacy.schemaVersion === "2.0.0") {
-    const normalized = structuredClone(legacy);
-    normalized.legacyCompatibility = {
-      migratedFromSchema: "1.0.0",
-      retainedFields: ["lastReviewedCommit", "lastReviewedDate", "licenseConcern", "reviewDecision"],
-      authoritativeForCurrentReview: false
-    };
-    normalized.approverPolicy ??= {
-      authorizedIdentities: [],
-      requiresExplicitOwnerRegistration: true
-    };
-    for (const source of normalized.sources || []) {
-      delete source.review?.legacySnapshot;
-      if (!source.review) continue;
-      source.review.previousReceipt ??= null;
-      source.review.receiptDigest ??= null;
-      source.review.previousReceiptDigest ??= null;
-      source.review.disposition ??= null;
-    }
-    const identities = new Set((normalized.sources || []).map((source) => source.identityKey));
-    for (const authoritative of authoritativeManualSources()) {
-      if (!identities.has(authoritative.identityKey)) {
-        normalized.sources.push(authoritative);
-        identities.add(authoritative.identityKey);
-      }
-    }
-    validateSourceCatalog(normalized, { now: new Date().toISOString() });
-    const changed = JSON.stringify(normalized) !== JSON.stringify(legacy);
-    if (args.mode === "confirm-write" && changed) {
-      const sourceRoot = new ManagedFilesystem({
-        repositoryRoot: ROOT,
-        managedRoot: path.join(ROOT, "sources"),
-        label: "canonical source catalog migration"
-      });
-      sourceRoot.writeFile("source-watchlist.json", `${JSON.stringify(normalized, null, 2)}\n`, "utf8");
-    }
+  const domainPacksRegistry = JSON.parse(await readFile(path.join(ROOT, "registries", "domain-packs.registry.json"), "utf8"));
+  const toolsRegistry = JSON.parse(await readFile(path.join(ROOT, "registries", "tools.registry.json"), "utf8"));
+  if (legacy.schemaVersion === "2.1.0") {
+    validateSourceCatalogGraph(legacy, {
+      domainPacksRegistry,
+      toolsRegistry,
+      now: new Date().toISOString()
+    });
     console.log(JSON.stringify({
       mode: args.mode,
-      status: "already-v2",
-      normalized: changed,
-      sourceCount: normalized.sources.length,
-      schemaVersion: normalized.schemaVersion
+      status: "already-v2.1",
+      normalized: false,
+      sourceCount: legacy.sources.length,
+      schemaVersion: legacy.schemaVersion
     }));
     return;
   }
-  const catalog = buildSourceCatalogV2(legacy);
-  if (args.mode === "dry-run") {
-    console.log(JSON.stringify({ mode: "dry-run", sourceCount: catalog.sources.length, schemaVersion: catalog.schemaVersion }));
-    return;
-  }
-  const sourceRoot = new ManagedFilesystem({
-    repositoryRoot: ROOT,
-    managedRoot: path.join(ROOT, "sources"),
-    label: "canonical source catalog migration"
+  const v20Catalog = legacy.schemaVersion === "2.0.0" ? legacy : buildSourceCatalogV2(legacy);
+  const upgraded = upgradeSourceCatalogToV21(v20Catalog, {
+    domainPacksRegistry,
+    toolsRegistry,
+    now: new Date().toISOString()
   });
-  sourceRoot.writeFile("source-watchlist.json", `${JSON.stringify(catalog, null, 2)}\n`, "utf8");
-  console.log(JSON.stringify({ mode: "confirm-write", sourceCount: catalog.sources.length, schemaVersion: catalog.schemaVersion }));
+  const changed = JSON.stringify(upgraded) !== JSON.stringify(legacy);
+  if (args.mode === "confirm-write" && changed) {
+    const sourceRoot = new ManagedFilesystem({
+      repositoryRoot: ROOT,
+      managedRoot: path.join(ROOT, "sources"),
+      label: "canonical source catalog migration"
+    });
+    sourceRoot.writeFile("source-watchlist.json", `${JSON.stringify(upgraded, null, 2)}\n`, "utf8");
+  }
+  console.log(JSON.stringify({
+    mode: args.mode,
+    status: legacy.schemaVersion === "2.0.0" ? "migrated-v2.1" : "migrated-v1-to-v2.1",
+    normalized: changed,
+    sourceCount: upgraded.sources.length,
+    schemaVersion: upgraded.schemaVersion
+  }));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {

@@ -22,11 +22,20 @@ export const FINAL_DISPOSITIONS = Object.freeze([
   "ARCHIVED_HARD_BLOCKER",
   "REMOVED_REDUNDANT"
 ]);
+export const SOURCE_CATALOG_SCHEMA_VERSION = "2.1.0";
+export const SOURCE_SCOPES = Object.freeze([
+  "core",
+  "platform-preview",
+  "optional-tool",
+  "community-reference",
+  "historical"
+]);
 
 const MONITOR_STATE_SET = new Set(MONITOR_STATES);
 const REVIEW_STATE_SET = new Set(REVIEW_STATES);
 const RUNTIME_POSTURE_SET = new Set(RUNTIME_POSTURES);
 const FINAL_DISPOSITION_SET = new Set(FINAL_DISPOSITIONS);
+const SOURCE_SCOPE_SET = new Set(SOURCE_SCOPES);
 const AUTHORITIES = new Set(["official", "community", "aggregator", "historical", "vendor-service"]);
 const LIFECYCLES = new Set(["review-input", "historical-reference", "service-integration"]);
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
@@ -36,13 +45,14 @@ const SAFE_ID = /^[a-z0-9](?:[a-z0-9-]{0,126}[a-z0-9])?$/;
 const GITHUB_SEGMENT = /^[A-Za-z0-9](?:[A-Za-z0-9_.-]{0,98}[A-Za-z0-9_])?$/;
 const PLACEHOLDER_IDENTITY = /^(?:unknown|n\/a|none|tbd|todo|owner|repository-owner|owner-decision-required|approval-required|unassigned)$/i;
 const RECEIPT_SCHEMA_VERSION = "1.0.0";
-const CATALOG_SCHEMA_VERSION = "2.0.0";
+const CATALOG_SCHEMA_VERSION = SOURCE_CATALOG_SCHEMA_VERSION;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const SOURCE_FIELDS = new Set([
   "id",
   "aliases",
   "identityKey",
   "name",
+  "scope",
   "authority",
   "lifecycle",
   "sourceType",
@@ -532,6 +542,7 @@ function validateSourceEntry(source, index, now) {
   }
   requireString(source.name, `${field}.name`);
   requireString(source.identityKey, `${field}.identityKey`);
+  if (!SOURCE_SCOPE_SET.has(source.scope)) fail(`${field}.scope is unsupported`);
   if (!AUTHORITIES.has(source.authority)) fail(`${field}.authority is unsupported`);
   if (!LIFECYCLES.has(source.lifecycle)) fail(`${field}.lifecycle is unsupported`);
   requireString(source.sourceType, `${field}.sourceType`);
@@ -545,8 +556,15 @@ function validateSourceEntry(source, index, now) {
   } else {
     validateManualDocumentIdentity(source, field);
   }
-  if (source.lifecycle === "historical-reference" && (source.authority !== "historical" || source.runtimePosture !== "forbidden-runtime")) {
-    fail(`${field} historical-reference sources require historical authority and forbidden-runtime posture`);
+  if (
+    source.lifecycle === "historical-reference"
+    && (
+      source.authority !== "historical"
+      || source.runtimePosture !== "forbidden-runtime"
+      || source.scope !== "historical"
+    )
+  ) {
+    fail(`${field} historical-reference sources require historical authority, historical scope, and forbidden-runtime posture`);
   }
   assertSafeRelativePath(source.sourceRecordPath, `${field}.sourceRecordPath`);
   requireStringArray(source.watchedPaths, `${field}.watchedPaths`);
@@ -564,6 +582,9 @@ function validateSourceEntry(source, index, now) {
   source.dependentResourceIds.forEach((entry) => {
     if (!SAFE_ID.test(entry)) fail(`${field}.dependentResourceIds must use lowercase kebab-case IDs`);
   });
+  if (source.lifecycle === "historical-reference" && source.dependentResourceIds.length !== 0) {
+    fail(`${field} historical-reference sources must not have dependent resources`);
+  }
   requireStringArray(source.affectedArtifacts, `${field}.affectedArtifacts`, { allowEmpty: false });
   source.affectedArtifacts.forEach((entry, artifactIndex) => {
     assertSafeRelativePath(entry, `${field}.affectedArtifacts[${artifactIndex}]`);
@@ -701,6 +722,138 @@ function validateSourceEntry(source, index, now) {
     }
   }
   return source;
+}
+
+function graphSourceIndex(catalog) {
+  if (!isRecord(catalog) || !Array.isArray(catalog.sources)) {
+    fail("scope derivation requires a catalog with sources");
+  }
+  const sourcesById = new Map();
+  for (const source of catalog.sources) {
+    if (!isRecord(source) || typeof source.id !== "string" || source.id === "") {
+      fail("scope derivation catalog sources require stable IDs");
+    }
+    if (sourcesById.has(source.id)) fail(`scope derivation duplicate source ID: ${source.id}`);
+    sourcesById.set(source.id, source);
+  }
+  return sourcesById;
+}
+
+function registeredToolIds(toolsRegistry) {
+  if (!isRecord(toolsRegistry) || toolsRegistry.registryType !== "tools" || !Array.isArray(toolsRegistry.tools)) {
+    fail("scope derivation requires the canonical tools registry");
+  }
+  const toolIds = new Set();
+  for (const tool of toolsRegistry.tools) {
+    if (!isRecord(tool) || typeof tool.id !== "string" || tool.id === "") {
+      fail("scope derivation tools registry requires stable tool IDs");
+    }
+    if (toolIds.has(tool.id)) fail(`scope derivation duplicate tool ID: ${tool.id}`);
+    toolIds.add(tool.id);
+  }
+  return toolIds;
+}
+
+function gateSourceIdsByMaturity(domainPacksRegistry, sourcesById) {
+  if (
+    !isRecord(domainPacksRegistry)
+    || domainPacksRegistry.registryType !== "domain-packs"
+    || !Array.isArray(domainPacksRegistry.packs)
+  ) {
+    fail("scope derivation requires the canonical domain-packs registry");
+  }
+  const supported = new Set();
+  const preview = new Set();
+  for (const pack of domainPacksRegistry.packs) {
+    if (!isRecord(pack) || !Array.isArray(pack.gates)) {
+      fail("scope derivation domain packs require gates");
+    }
+    if (pack.lifecycle !== "active" || !["supported", "preview"].includes(pack.maturity)) continue;
+    for (const gate of pack.gates) {
+      if (!isRecord(gate) || typeof gate.id !== "string" || !Array.isArray(gate.authoritativeSourceRefs)) {
+        fail("scope derivation domain gates require authoritative source references");
+      }
+      for (const reference of gate.authoritativeSourceRefs) {
+        if (!isRecord(reference) || typeof reference.sourceId !== "string" || reference.sourceId === "") {
+          fail(`scope derivation gate ${gate.id} has an invalid authoritative source reference`);
+        }
+        if (!sourcesById.has(reference.sourceId)) {
+          fail(`scope derivation gate ${gate.id} references unknown source: ${reference.sourceId}`);
+        }
+        if (pack.maturity === "supported") supported.add(reference.sourceId);
+        else preview.add(reference.sourceId);
+      }
+    }
+  }
+  return { supported, preview };
+}
+
+function assertMethodSourceIds(methodSourceIds, sourcesById) {
+  if (!Array.isArray(methodSourceIds)) fail("scope derivation methodSourceIds must be an array");
+  for (const sourceId of methodSourceIds) {
+    if (typeof sourceId !== "string" || sourceId === "") {
+      fail("scope derivation methodSourceIds must contain source IDs");
+    }
+    if (!sourcesById.has(sourceId)) fail(`scope derivation method references unknown source: ${sourceId}`);
+  }
+}
+
+export function deriveSourceScopes({ catalog, domainPacksRegistry, toolsRegistry, methodSourceIds = [] } = {}) {
+  const sourcesById = graphSourceIndex(catalog);
+  const toolIds = registeredToolIds(toolsRegistry);
+  const gateSourceIds = gateSourceIdsByMaturity(domainPacksRegistry, sourcesById);
+  assertMethodSourceIds(methodSourceIds, sourcesById);
+  const methodSourceIdSet = new Set(methodSourceIds);
+  const scopes = new Map();
+
+  for (const source of sourcesById.values()) {
+    if (!Array.isArray(source.dependentResourceIds)) {
+      fail(`scope derivation source ${source.id} dependentResourceIds must be an array`);
+    }
+    for (const resourceId of source.dependentResourceIds) {
+      if (!toolIds.has(resourceId)) {
+        fail(`scope derivation source ${source.id} references unknown tool resource: ${resourceId}`);
+      }
+    }
+    if (source.lifecycle === "historical-reference") {
+      if (source.runtimePosture !== "forbidden-runtime" || source.dependentResourceIds.length !== 0) {
+        fail(`scope derivation historical source ${source.id} must be forbidden-runtime without dependent resources`);
+      }
+      if (gateSourceIds.supported.has(source.id) || gateSourceIds.preview.has(source.id)) {
+        fail(`scope derivation historical source ${source.id} must not back an active gate`);
+      }
+      if (methodSourceIdSet.has(source.id)) {
+        fail(`scope derivation historical source ${source.id} must not back an active method`);
+      }
+      scopes.set(source.id, "historical");
+    } else if (gateSourceIds.supported.has(source.id)) {
+      scopes.set(source.id, "core");
+    } else if (gateSourceIds.preview.has(source.id)) {
+      scopes.set(source.id, "platform-preview");
+    } else if (source.dependentResourceIds.length > 0) {
+      scopes.set(source.id, "optional-tool");
+    } else {
+      scopes.set(source.id, "community-reference");
+    }
+  }
+  return scopes;
+}
+
+export function validateSourceCatalogGraph(catalog, options = {}) {
+  const validated = validateSourceCatalog(catalog, { now: options.now });
+  const scopes = deriveSourceScopes({
+    catalog: validated,
+    domainPacksRegistry: options.domainPacksRegistry,
+    toolsRegistry: options.toolsRegistry,
+    methodSourceIds: options.methodSourceIds ?? []
+  });
+  for (const source of validated.sources) {
+    const expectedScope = scopes.get(source.id);
+    if (source.scope !== expectedScope) {
+      fail(`scope drift for ${source.id}: expected ${expectedScope}, received ${source.scope}`);
+    }
+  }
+  return validated;
 }
 
 export function validateSourceCatalog(catalog, options = {}) {

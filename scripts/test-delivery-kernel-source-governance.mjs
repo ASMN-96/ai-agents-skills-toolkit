@@ -32,6 +32,7 @@ function source(overrides = {}) {
     aliases: [],
     identityKey: "github:example/source",
     name: "Example source",
+    scope: "community-reference",
     authority: "official",
     lifecycle: "review-input",
     sourceType: "github-repo",
@@ -73,7 +74,7 @@ function source(overrides = {}) {
 
 function catalog(sources = [source()]) {
   return {
-    schemaVersion: "2.0.0",
+    schemaVersion: "2.1.0",
     catalogId: "enterprise-source-catalog",
     policy: {
       readOnlySupplyChainInputs: true,

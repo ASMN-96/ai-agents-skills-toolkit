@@ -16,6 +16,7 @@ import {
   MONITOR_STATES as CONTRACT_MONITOR_STATES,
   REVIEW_STATES as CONTRACT_REVIEW_STATES,
   RUNTIME_POSTURES as CONTRACT_RUNTIME_POSTURES,
+  SOURCE_CATALOG_SCHEMA_VERSION as CONTRACT_SOURCE_CATALOG_SCHEMA_VERSION,
   validateSourceCatalog as validateSourceCatalogContract,
   validateSourceReviewReceipt as validateSourceReviewReceiptContract
 } from "./kernel/source-catalog-contract.mjs";
@@ -25,12 +26,13 @@ export const MONITOR_STATES = CONTRACT_MONITOR_STATES;
 export const REVIEW_STATES = CONTRACT_REVIEW_STATES;
 export const RUNTIME_POSTURES = CONTRACT_RUNTIME_POSTURES;
 export const FINAL_DISPOSITIONS = CONTRACT_FINAL_DISPOSITIONS;
+export const SOURCE_CATALOG_SCHEMA_VERSION = CONTRACT_SOURCE_CATALOG_SCHEMA_VERSION;
 
 const MONITOR_STATE_SET = new Set(MONITOR_STATES);
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 const SHA256 = /^sha256:[0-9a-f]{64}$/;
 const GIT_SHA = /^[0-9a-f]{40}$/;
-const CATALOG_SCHEMA_VERSION = "2.0.0";
+const FRESHNESS_REPORT_SCHEMA_VERSION = "2.0.0";
 const DAY_MS = 24 * 60 * 60 * 1000;
 const SOURCE_GOVERNANCE_MUTATION_LOCK = ".source-governance-mutation.lock";
 const MUTATION_LOCK_STALE_AFTER_MS = 60 * 60 * 1000;
@@ -319,7 +321,7 @@ export function validateFreshnessReport(catalog, report, options = {}) {
     new Set(["schemaVersion", "checkedAt", "mode", "readOnly", "disclaimer", "actionableCount", "sources"]),
     "freshnessReport"
   );
-  if (report.schemaVersion !== CATALOG_SCHEMA_VERSION) fail(`freshnessReport.schemaVersion must be ${CATALOG_SCHEMA_VERSION}`);
+  if (report.schemaVersion !== FRESHNESS_REPORT_SCHEMA_VERSION) fail(`freshnessReport.schemaVersion must be ${FRESHNESS_REPORT_SCHEMA_VERSION}`);
   requireIsoInstant(report.checkedAt, "freshnessReport.checkedAt");
   const now = requireNow(options.now);
   if (report.mode === "mock" && options.allowMock !== true) {
@@ -1139,7 +1141,7 @@ export async function validateSourceGovernanceRepository(options = {}) {
     return !["ARCHIVED_HARD_BLOCKER", "REMOVED_REDUNDANT"].includes(disposition);
   }).length;
   return {
-    schemaVersion: CATALOG_SCHEMA_VERSION,
+    schemaVersion: FRESHNESS_REPORT_SCHEMA_VERSION,
     sourceCount: catalog.sources.length,
     receiptCount,
     releaseEligible: actionableCount === 0,

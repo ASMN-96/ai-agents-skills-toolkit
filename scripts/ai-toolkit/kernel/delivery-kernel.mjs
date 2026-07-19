@@ -42,6 +42,7 @@ import {
 import { assessRiskPolicy } from "./risk-policy.mjs";
 import { deriveValidationPolicy } from "./validation-policy.mjs";
 import { loadValidatedSourceCatalog } from "./source-catalog-loader.mjs";
+import { SOURCE_CATALOG_SCHEMA_VERSION } from "./source-catalog-contract.mjs";
 import {
   applySourceReferenceSnapshotToDomain,
   buildSourceReferenceSnapshot
@@ -631,7 +632,7 @@ export async function planDeliveryRun(input, hostOptions = {}) {
     gates: environmentDomain.gates,
     resourceIds: inspectedResources.map((resource) => resource.id),
     now: sourceEvaluatedAt,
-    receiptsValidated: sourceGovernanceValidation.schemaVersion === "2.0.0"
+    receiptsValidated: sourceGovernanceValidation.schemaVersion === SOURCE_CATALOG_SCHEMA_VERSION
   });
   const governedResources = applySourceReferenceSnapshotToResources(inspectedResources, sourceSnapshot);
   const domain = applySourceReferenceSnapshotToDomain(environmentDomain, sourceSnapshot);
