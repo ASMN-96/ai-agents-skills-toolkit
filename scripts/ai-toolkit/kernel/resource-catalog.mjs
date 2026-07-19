@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { assertRegularFileWithin } from "../../../install/safe-filesystem.mjs";
+import { canonicalTextSha256, canonicalTextUtf8LfBytes } from "./canonical-digest.mjs";
 import { assertResourceContract } from "./contracts.mjs";
 import { assertSourceReferenceSnapshot } from "./source-policy.mjs";
 
@@ -359,7 +360,8 @@ function capabilityForFile(repositoryRoot, resourceId, type, evidencePath, nativ
   const trustedPath = assertRegularFileWithin(repositoryRoot, candidate, label);
   const contents = readFileSync(trustedPath);
   assertRegularFileWithin(repositoryRoot, trustedPath, label);
-  const utf8Bytes = contents.byteLength;
+  const canonicalContents = canonicalTextUtf8LfBytes(contents, label);
+  const utf8Bytes = canonicalContents.byteLength;
   const sandboxMode = type === "agent"
     ? agentSandboxMode(contents, resourceId)
     : "not-applicable";
@@ -368,7 +370,7 @@ function capabilityForFile(repositoryRoot, resourceId, type, evidencePath, nativ
     type,
     state: "available",
     evidencePath,
-    contentDigest: createHash("sha256").update(contents).digest("hex"),
+    contentDigest: canonicalTextSha256(canonicalContents, label),
     utf8Bytes,
     measuredContextCost: Math.ceil(utf8Bytes / 3),
     measurementMethod: "conservative-token-estimate",

@@ -425,6 +425,61 @@ test("internal capability inspection records deterministic regular-file sha256 a
   );
 });
 
+test("internal capability evidence uses UTF-8 LF-normalized contracts across checkout line endings", (t) => {
+  const fixture = fixtureRepository(t);
+  const input = {
+    repositoryRoot: fixture.root,
+    agentsRegistry: fixture.agentsRegistry,
+    skillsRegistry: fixture.skillsRegistry
+  };
+  const normalizedAgentBytes = Buffer.byteLength(fixture.agentContents, "utf8");
+  const normalizedSkillContents = "# Quality\n\nVerify behavior.\n";
+  const normalizedSkillBytes = Buffer.byteLength(normalizedSkillContents, "utf8");
+  const expectedDigests = new Map([
+    ["architect-agent", sha256(fixture.agentContents)],
+    ["code-quality", sha256(normalizedSkillContents)]
+  ]);
+  const expectedBytes = new Map([
+    ["architect-agent", normalizedAgentBytes],
+    ["code-quality", normalizedSkillBytes]
+  ]);
+
+  const baselineCapabilities = resourceCatalog.inspectInternalCapabilities(input);
+  const baselineContracts = resourceCatalog.buildResourceCatalog({
+    ...input,
+    toolsRegistry: fixture.toolsRegistry
+  });
+  for (const capability of baselineCapabilities) {
+    assert.equal(capability.contentDigest, expectedDigests.get(capability.resourceId));
+    assert.equal(capability.utf8Bytes, expectedBytes.get(capability.resourceId));
+    assert.equal(capability.measuredContextCost, Math.ceil(capability.utf8Bytes / 3));
+  }
+
+  const agentPath = path.join(fixture.root, ".codex", "agents", "architect-agent.toml");
+  const skillPath = path.join(fixture.root, "skills", "code-quality", "SKILL.md");
+  const variants = [
+    {
+      agent: fixture.agentContents.replace(/\n/gu, "\r\n"),
+      skill: normalizedSkillContents.replace(/\n/gu, "\r\n")
+    },
+    {
+      agent: fixture.agentContents.replace("\n", "\r\n"),
+      skill: normalizedSkillContents.replace("\n", "\r\n")
+    }
+  ];
+  for (const variant of variants) {
+    writeFileSync(agentPath, variant.agent, "utf8");
+    writeFileSync(skillPath, variant.skill, "utf8");
+    const capabilities = resourceCatalog.inspectInternalCapabilities(input);
+    const contracts = resourceCatalog.buildResourceCatalog({
+      ...input,
+      toolsRegistry: fixture.toolsRegistry
+    });
+    assert.deepEqual(capabilities, baselineCapabilities);
+    assert.deepEqual(contracts, baselineContracts);
+  }
+});
+
 test("catalog eligibility requires trusted internal inspection and exposes no aliases", (t) => {
   const fixture = fixtureRepository(t);
   const catalog = resourceCatalog.buildResourceCatalog({
