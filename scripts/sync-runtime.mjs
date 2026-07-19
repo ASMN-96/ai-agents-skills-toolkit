@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { createHash } from "node:crypto";
 import path from "node:path";
 import process from "node:process";
 import { ACTIVE_SKILLS, INTERNAL_HELPER_SKILLS } from "./ai-toolkit/embedded-data.mjs";
+import {
+  CANONICAL_TEXT_DIGEST_MODE,
+  canonicalTextSha256
+} from "./ai-toolkit/kernel/canonical-digest.mjs";
 
 const ROOT = process.cwd();
 const MANIFEST_PATH = ".ai-toolkit/manifest.json";
@@ -76,10 +79,6 @@ function assertInside(relativePath, allowedRoots) {
   }
 }
 
-function sha256Text(text) {
-  return createHash("sha256").update(text).digest("hex");
-}
-
 function countWords(text) {
   return text.trim().split(/\s+/).filter(Boolean).length;
 }
@@ -88,9 +87,9 @@ function skillBudgetStatus(words) {
   return words > SKILL_WARN_WORDS ? `WARN word-budget>${SKILL_WARN_WORDS}` : "size-ok";
 }
 
-async function readTextIfPresent(relativePath) {
+async function readBytesIfPresent(relativePath) {
   try {
-    return await readFile(rootPath(relativePath), "utf8");
+    return await readFile(rootPath(relativePath));
   } catch (error) {
     if (error.code === "ENOENT") {
       return null;
@@ -99,10 +98,10 @@ async function readTextIfPresent(relativePath) {
   }
 }
 
-async function writeText(relativePath, text) {
+async function writeBytes(relativePath, bytes) {
   assertInside(relativePath, TARGET_ROOTS);
   await mkdir(path.dirname(rootPath(relativePath)), { recursive: true });
-  await writeFile(rootPath(relativePath), text, "utf8");
+  await writeFile(rootPath(relativePath), bytes);
 }
 
 function selectSkills(requestedSkills) {
@@ -128,7 +127,30 @@ function mirrorTargetsFor(skill) {
 
 async function readManifest() {
   const manifestRaw = await readFile(rootPath(MANIFEST_PATH), "utf8");
-  return JSON.parse(manifestRaw);
+  const withoutCrLf = manifestRaw.replaceAll("\r\n", "");
+  const hasCrLf = manifestRaw.includes("\r\n");
+  const hasBareLf = withoutCrLf.includes("\n");
+  const hasLoneCr = withoutCrLf.includes("\r");
+  if ((hasCrLf && hasBareLf) || hasLoneCr) {
+    throw new Error("Mixed or lone-CR manifest line endings are not supported");
+  }
+  const eol = hasCrLf ? "\r\n" : "\n";
+  return {
+    manifest: JSON.parse(manifestRaw),
+    eol,
+    hasTerminalEol: manifestRaw.endsWith("\n") || manifestRaw.endsWith("\r")
+  };
+}
+
+function validateManifestDigestMode(manifest) {
+  if (!manifest || !Object.hasOwn(manifest, "digestMode")) {
+    throw new Error(`Manifest digestMode is required; expected ${CANONICAL_TEXT_DIGEST_MODE}`);
+  }
+  if (manifest.digestMode !== CANONICAL_TEXT_DIGEST_MODE) {
+    throw new Error(
+      `Unsupported manifest digestMode ${JSON.stringify(manifest.digestMode)}; expected ${CANONICAL_TEXT_DIGEST_MODE}`
+    );
+  }
 }
 
 function validateManifestCoverage(manifest, actions) {
@@ -155,36 +177,39 @@ function actionStatus(action, dryRun) {
   return action.targetExists ? "updated" : "created";
 }
 
-async function updateManifestHashes(manifest, mirrorByTarget, actions) {
+async function updateManifestHashes(manifestState, mirrorByTarget, actions) {
+  const { manifest, eol, hasTerminalEol } = manifestState;
   for (const action of actions) {
     const mirror = mirrorByTarget.get(action.target);
     if (mirror) {
       mirror.sha256 = action.expectedHash;
     }
   }
-  await writeFile(rootPath(MANIFEST_PATH), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+  const serialized = JSON.stringify(manifest, null, 2).replaceAll("\n", eol);
+  await writeFile(rootPath(MANIFEST_PATH), `${serialized}${hasTerminalEol ? eol : ""}`, "utf8");
 }
 
 async function planSkill(skill) {
   const source = `skills/${skill}/SKILL.md`;
-  const sourceText = await readFile(rootPath(source), "utf8");
+  const sourceBytes = await readFile(rootPath(source));
+  const sourceText = sourceBytes.toString("utf8");
   const words = countWords(sourceText);
   if (words > SKILL_MAX_WORDS) {
     throw new Error(`runtime skill ${skill} word budget exceeds ${SKILL_MAX_WORDS} words: ${words}`);
   }
-  const expectedHash = sha256Text(sourceText);
+  const expectedHash = canonicalTextSha256(sourceBytes, `runtime skill ${skill}`);
   const actions = [];
 
   for (const target of mirrorTargetsFor(skill)) {
     assertInside(target, TARGET_ROOTS);
-    const targetText = await readTextIfPresent(target);
+    const targetBytes = await readBytesIfPresent(target);
     actions.push({
       skill,
       target,
-      sourceText,
+      sourceBytes,
       expectedHash,
-      targetExists: targetText !== null,
-      needsWrite: targetText !== sourceText
+      targetExists: targetBytes !== null,
+      needsWrite: targetBytes === null || !sourceBytes.equals(targetBytes)
     });
   }
 
@@ -208,8 +233,9 @@ async function main() {
     plans.push(plan);
     allActions.push(...plan.actions);
   }
-  const manifest = await readManifest();
-  const mirrorByTarget = validateManifestCoverage(manifest, allActions);
+  const manifestState = await readManifest();
+  validateManifestDigestMode(manifestState.manifest);
+  const mirrorByTarget = validateManifestCoverage(manifestState.manifest, allActions);
 
   if (args.check) {
     const contentDrift = allActions.filter((action) => action.needsWrite).map((action) => action.target);
@@ -236,10 +262,10 @@ async function main() {
   if (args.confirmWrite) {
     for (const action of allActions) {
       if (action.needsWrite) {
-        await writeText(action.target, action.sourceText);
+        await writeBytes(action.target, action.sourceBytes);
       }
     }
-    await updateManifestHashes(manifest, mirrorByTarget, allActions);
+    await updateManifestHashes(manifestState, mirrorByTarget, allActions);
   }
 
   for (const action of allActions) {

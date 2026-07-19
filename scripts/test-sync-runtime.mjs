@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -8,6 +7,10 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import {
+  CANONICAL_TEXT_DIGEST_MODE,
+  canonicalTextSha256
+} from "./ai-toolkit/kernel/canonical-digest.mjs";
 
 const execFileAsync = promisify(execFile);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -26,10 +29,6 @@ async function runSync(args, options = {}) {
   }
 }
 
-function sha256Text(text) {
-  return createHash("sha256").update(text).digest("hex");
-}
-
 async function withTempRuntimeFixture(callback) {
   const fixture = mkdtempSync(path.join(tmpdir(), "sync-runtime-test-"));
   try {
@@ -42,8 +41,13 @@ async function withTempRuntimeFixture(callback) {
   }
 }
 
-function writeManifest(fixture, mirrors) {
-  writeFileSync(path.join(fixture, ".ai-toolkit", "manifest.json"), `${JSON.stringify({ mirrors }, null, 2)}\n`, "utf8");
+function writeManifest(fixture, mirrors, options = {}) {
+  const manifest = options.includeDigestMode === false
+    ? { mirrors }
+    : { digestMode: options.digestMode ?? CANONICAL_TEXT_DIGEST_MODE, mirrors };
+  const eol = options.eol ?? "\n";
+  const serialized = JSON.stringify(manifest, null, 2).replaceAll("\n", eol);
+  writeFileSync(path.join(fixture, ".ai-toolkit", "manifest.json"), `${serialized}${eol}`, "utf8");
 }
 
 function skillMirrors() {
@@ -92,20 +96,87 @@ test("embedded manifest governs package mirrors while repo runtime mirrors remai
   });
 });
 
-test("manifest attests exact embedded skill bytes including CRLF", async () => {
+test("canonical manifest digest is CRLF/LF equivalent while mirrors retain exact source bytes", async () => {
+  const manifestHashes = [];
+  const sourceVariants = [
+    Buffer.from("skill fixture with canonical EOL\n", "utf8"),
+    Buffer.from("skill fixture with canonical EOL\r\n", "utf8")
+  ];
+
+  for (const sourceBytes of sourceVariants) {
+    await withTempRuntimeFixture(async (fixture) => {
+      const mirrors = skillMirrors();
+      writeFileSync(path.join(fixture, "skills", "governance", "SKILL.md"), sourceBytes);
+      writeManifest(fixture, [mirrors[1]]);
+
+      const generated = await runSync(["--confirm-write", "--skill", "governance"], { cwd: fixture });
+      assert.equal(generated.code, 0, generated.stderr);
+
+      const manifest = JSON.parse(readFileSync(path.join(fixture, ".ai-toolkit", "manifest.json"), "utf8"));
+      const embeddedMirror = manifest.mirrors.find((entry) => entry.target === mirrors[1].target);
+      manifestHashes.push(embeddedMirror.sha256);
+      for (const mirror of mirrors) {
+        assert.deepEqual(readFileSync(mirrorPath(fixture, mirror.target)), sourceBytes);
+      }
+    });
+  }
+
+  assert.equal(manifestHashes[0], manifestHashes[1]);
+  assert.equal(manifestHashes[0], canonicalTextSha256(sourceVariants[0]));
+});
+
+test("confirm-write preserves CRLF manifest line endings", async () => {
   await withTempRuntimeFixture(async (fixture) => {
-    const mirrors = skillMirrors();
-    const sourceText = "skill fixture with CRLF\r\n";
-    writeFileSync(path.join(fixture, "skills", "governance", "SKILL.md"), sourceText, "utf8");
-    writeManifest(fixture, [mirrors[1]]);
+    writeManifest(fixture, skillMirrors(), { eol: "\r\n" });
 
-    const generated = await runSync(["--confirm-write", "--skill", "governance"], { cwd: fixture });
-    assert.equal(generated.code, 0, generated.stderr);
+    const result = await runSync(["--confirm-write", "--skill", "governance"], { cwd: fixture });
+    assert.equal(result.code, 0, result.stderr);
 
-    const manifest = JSON.parse(readFileSync(path.join(fixture, ".ai-toolkit", "manifest.json"), "utf8"));
-    const embeddedMirror = manifest.mirrors.find((entry) => entry.target === mirrors[1].target);
-    const exactByteHash = createHash("sha256").update(sourceText).digest("hex");
-    assert.equal(embeddedMirror.sha256, exactByteHash);
+    const current = await runSync(["--check", "--skill", "governance"], { cwd: fixture });
+    assert.equal(current.code, 0, current.stderr);
+
+    const manifestRaw = readFileSync(path.join(fixture, ".ai-toolkit", "manifest.json"), "utf8");
+    assert.match(manifestRaw, /\r\n/u);
+    assert.equal(manifestRaw.replaceAll("\r\n", "").includes("\n"), false);
+    assert.equal(manifestRaw.endsWith("\r\n"), true);
+  });
+});
+
+test("rejects mixed or lone-CR manifest line endings", async () => {
+  for (const malformedManifest of [
+    '{\r\n  "digestMode": "sha256-utf8-lf-v1",\n  "mirrors": []\r\n}\r\n',
+    '{\r  "digestMode": "sha256-utf8-lf-v1",\r  "mirrors": []\r}\r'
+  ]) {
+    await withTempRuntimeFixture(async (fixture) => {
+      writeFileSync(path.join(fixture, ".ai-toolkit", "manifest.json"), malformedManifest, "utf8");
+
+      const result = await runSync(["--dry-run", "--skill", "governance"], { cwd: fixture });
+
+      assert.notEqual(result.code, 0);
+      assert.match(result.stderr, /mixed or lone-CR manifest line endings/i);
+    });
+  }
+});
+
+test("rejects a manifest without digestMode", async () => {
+  await withTempRuntimeFixture(async (fixture) => {
+    writeManifest(fixture, skillMirrors(), { includeDigestMode: false });
+
+    const result = await runSync(["--dry-run", "--skill", "governance"], { cwd: fixture });
+
+    assert.notEqual(result.code, 0);
+    assert.match(result.stderr, /manifest digestMode is required/i);
+  });
+});
+
+test("rejects an unsupported manifest digestMode", async () => {
+  await withTempRuntimeFixture(async (fixture) => {
+    writeManifest(fixture, skillMirrors(), { digestMode: "sha256-raw-bytes-v0" });
+
+    const result = await runSync(["--dry-run", "--skill", "governance"], { cwd: fixture });
+
+    assert.notEqual(result.code, 0);
+    assert.match(result.stderr, /unsupported manifest digestMode/i);
   });
 });
 
@@ -220,11 +291,11 @@ test("confirm-write creates missing mirrors and updates manifest hashes", async 
     assert.match(result.stdout, /created/);
     assert.match(result.stdout, /manifest: hashes updated/);
 
-    const sourceText = readFileSync(path.join(fixture, "skills", "governance", "SKILL.md"), "utf8");
-    const expectedHash = sha256Text(sourceText);
+    const sourceBytes = readFileSync(path.join(fixture, "skills", "governance", "SKILL.md"));
+    const expectedHash = canonicalTextSha256(sourceBytes);
     const manifest = JSON.parse(readFileSync(path.join(fixture, ".ai-toolkit", "manifest.json"), "utf8"));
     for (const mirror of mirrors) {
-      assert.equal(readFileSync(mirrorPath(fixture, mirror.target), "utf8"), sourceText);
+      assert.deepEqual(readFileSync(mirrorPath(fixture, mirror.target)), sourceBytes);
       const manifestMirror = manifest.mirrors.find((entry) => entry.target === mirror.target);
       assert.equal(manifestMirror.sha256, expectedHash);
     }
