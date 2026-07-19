@@ -12,6 +12,7 @@ import {
   rmSync
 } from "node:fs";
 import { createHash } from "node:crypto";
+import { isUtf8 } from "node:buffer";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import process from "node:process";
@@ -22,6 +23,9 @@ const AI_ROOT = ".ai-toolkit";
 const BUILDER_RELATIVE_PATH = "scripts/ai-toolkit/build-embedded-package.mjs";
 const VERIFIED_SELF_DIGEST_PARAMETER = "verifiedBuilderSha256";
 const EMBEDDED_SCHEMA_VERSION = "2.0.0";
+const EXPECTED_DIGEST_MODE = "sha256-utf8-lf-v1";
+const CANONICAL_TEXT_EXTENSIONS = new Set([".json", ".md", ".mjs", ".toml"]);
+const CANONICAL_TEXT_BASENAMES = new Set(["VERSION"]);
 const DELIVERY_KERNEL_ROOT = `${AI_ROOT}/runtime/delivery-kernel`;
 const DELIVERY_KERNEL_REGISTRIES = [
   "agents.registry.json",
@@ -48,8 +52,53 @@ let SOURCE_OF_TRUTH_MAP;
 let TOOLKIT_VERSION;
 let collectReferencedSupportAssets;
 let validateSourceCatalog;
+let CANONICAL_TEXT_DIGEST_MODE;
+let canonicalTextSha256;
+let outputEol = null;
 function rootPath(relativePath) {
   return path.resolve(ROOT, relativePath);
+}
+
+function readStrictUtf8(content, label) {
+  if (!(content instanceof Uint8Array) || !isUtf8(content)) {
+    throw new Error(`${label} must be valid UTF-8 text`);
+  }
+  return Buffer.from(content.buffer, content.byteOffset, content.byteLength).toString("utf8");
+}
+
+function detectUniformEol(content, label) {
+  const text = readStrictUtf8(content, label);
+  const withoutCrLf = text.replaceAll("\r\n", "");
+  const hasCrLf = text.includes("\r\n");
+  const hasLf = withoutCrLf.includes("\n");
+  const hasLoneCr = withoutCrLf.includes("\r");
+  if (hasLoneCr || (hasCrLf && hasLf)) {
+    throw new Error(`${label} must use one uniform LF or CRLF checkout line ending`);
+  }
+  if (!hasCrLf && !hasLf) {
+    throw new Error(`${label} must contain a checkout line ending`);
+  }
+  return hasCrLf ? "\r\n" : "\n";
+}
+
+function renderCheckoutText(text, label) {
+  if (typeof text !== "string") throw new Error(`${label} must be text`);
+  if (outputEol !== "\n" && outputEol !== "\r\n") {
+    throw new Error("embedded builder checkout line ending is not initialized");
+  }
+  const normalized = text.replace(/\r\n?/gu, "\n");
+  const terminated = normalized.endsWith("\n") ? normalized : `${normalized}\n`;
+  return outputEol === "\n" ? terminated : terminated.replaceAll("\n", "\r\n");
+}
+
+function assertCanonicalTextPath(relativePath, label) {
+  const normalized = toSlash(relativePath);
+  if (
+    !CANONICAL_TEXT_EXTENSIONS.has(path.posix.extname(normalized))
+    && !CANONICAL_TEXT_BASENAMES.has(path.posix.basename(normalized))
+  ) {
+    throw new Error(`${label} uses an unreviewed canonical text file type: ${relativePath}`);
+  }
 }
 
 function comparisonPath(filePath) {
@@ -165,6 +214,15 @@ async function importDigestBoundModule(relativePath, label, { bootstrap = false 
 async function loadDigestBoundCanonicalModules(selfDigest) {
   bootstrapCanonicalInputDigests = new Map([[BUILDER_RELATIVE_PATH, selfDigest]]);
 
+  const builderSource = readBootstrapRegularFile(
+    BUILDER_RELATIVE_PATH,
+    "embedded builder checkout line-ending source"
+  ).content;
+  if (rawSha256(builderSource) !== selfDigest) {
+    throw new Error("embedded builder changed before checkout line-ending detection");
+  }
+  outputEol = detectUniformEol(builderSource, "embedded builder checkout line-ending source");
+
   const safeFilesystem = await importDigestBoundModule(
     "install/safe-filesystem.mjs",
     "managed filesystem module",
@@ -185,6 +243,18 @@ async function loadDigestBoundCanonicalModules(selfDigest) {
   );
   if (rawSha256(readFileSync(safeFilesystemPath)) !== bootstrapCanonicalInputDigests.get("install/safe-filesystem.mjs")) {
     throw new Error("managed filesystem module changed across bootstrap containment verification");
+  }
+
+  const canonicalDigest = await importDigestBoundModule(
+    "scripts/ai-toolkit/kernel/canonical-digest.mjs",
+    "canonical text digest module"
+  );
+  ({ CANONICAL_TEXT_DIGEST_MODE, canonicalTextSha256 } = canonicalDigest);
+  if (
+    CANONICAL_TEXT_DIGEST_MODE !== EXPECTED_DIGEST_MODE
+    || typeof canonicalTextSha256 !== "function"
+  ) {
+    throw new Error(`canonical text digest module must implement ${EXPECTED_DIGEST_MODE}`);
   }
 
   const embeddedData = await importDigestBoundModule(
@@ -237,7 +307,7 @@ async function writeText(relativePath, text) {
   await ensureDir(path.dirname(relativePath));
   requireOutputManager().writeFile(
     outputRelativePath(relativePath),
-    text.endsWith("\n") ? text : `${text}\n`,
+    renderCheckoutText(text, `embedded output ${relativePath}`),
     "utf8",
     "embedded package file"
   );
@@ -325,12 +395,18 @@ function rawSha256(content) {
 }
 
 async function sha256Source(relativePath) {
-  return rawSha256(await readCanonicalInput(relativePath));
+  assertCanonicalTextPath(relativePath, "canonical digest source");
+  return canonicalTextSha256(
+    await readCanonicalInput(relativePath),
+    `canonical digest source ${relativePath}`
+  );
 }
 
 function sha256Output(relativePath) {
-  return rawSha256(
-    requireOutputManager().readFile(outputRelativePath(relativePath), null, `embedded digest ${relativePath}`)
+  assertCanonicalTextPath(relativePath, "embedded digest target");
+  return canonicalTextSha256(
+    requireOutputManager().readFile(outputRelativePath(relativePath), null, `embedded digest ${relativePath}`),
+    `embedded digest ${relativePath}`
   );
 }
 
@@ -968,7 +1044,7 @@ async function copyDeliveryKernelFile(source, packageRelativePath, files) {
   }
   files.push({
     path: packageRelativePath,
-    sha256: rawSha256Output(target)
+    sha256: sha256Output(target)
   });
 }
 
@@ -1044,12 +1120,13 @@ node .ai-toolkit/runtime/delivery-kernel/scripts/ai-toolkit/run-delivery-kernel.
 
 The request's repository root is resolved from the invocation working directory. When using the package against another repository, invoke the runner by absolute path and update the copied starter's repository root and expected commit. Never run the all-zero placeholder directly. Planning remains read-only and stdout-only unless the request and CLI explicitly authorize a scoped output file. This package does not install or activate tools, change global Codex or Claude configuration, or claim runtime evidence from file presence.
 `);
-  files.push({ path: "README.md", sha256: rawSha256Output(readmePath) });
+  files.push({ path: "README.md", sha256: sha256Output(readmePath) });
   files.sort((left, right) => left.path.localeCompare(right.path));
 
   const manifestPath = `${DELIVERY_KERNEL_ROOT}/package-manifest.json`;
   await writeJson(manifestPath, {
     schemaVersion: EMBEDDED_SCHEMA_VERSION,
+    digestMode: CANONICAL_TEXT_DIGEST_MODE,
     toolkitVersion: TOOLKIT_VERSION,
     packageType: "self-contained-delivery-kernel",
     runtime: "Node.js 22 ESM",
@@ -1066,7 +1143,7 @@ The request's repository root is resolved from the invocation working directory.
   return {
     root: DELIVERY_KERNEL_ROOT,
     manifestPath,
-    manifestSha256: rawSha256Output(manifestPath)
+    manifestSha256: sha256Output(manifestPath)
   };
 }
 
@@ -1090,6 +1167,7 @@ async function writeManifest(mirrors, deliveryKernelPackage) {
 
   await writeJson(`${AI_ROOT}/scripts-manifest.json`, {
     schemaVersion: EMBEDDED_SCHEMA_VERSION,
+    digestMode: CANONICAL_TEXT_DIGEST_MODE,
     manifestKind: "toolkit-script-provenance",
     toolkitVersion: TOOLKIT_VERSION,
     scripts: existingScripts
@@ -1103,6 +1181,7 @@ async function writeManifest(mirrors, deliveryKernelPackage) {
 
   await writeJson(`${AI_ROOT}/manifest.json`, {
     schemaVersion: EMBEDDED_SCHEMA_VERSION,
+    digestMode: CANONICAL_TEXT_DIGEST_MODE,
     manifestKind: "embedded-distribution-package",
     toolkitVersion: TOOLKIT_VERSION,
     packageModel: "main-toolkit-embedded-distribution-governance-package",
@@ -1230,6 +1309,15 @@ function validateEmbeddedOutput(manager) {
     if (packageManifest.schemaVersion !== EMBEDDED_SCHEMA_VERSION) {
       throw new Error(`delivery kernel package schemaVersion must be ${EMBEDDED_SCHEMA_VERSION}`);
     }
+    for (const [label, value] of [
+      ["embedded manifest", manifest.digestMode],
+      ["embedded scripts manifest", scriptsManifest.digestMode],
+      ["delivery kernel package manifest", packageManifest.digestMode]
+    ]) {
+      if (value !== CANONICAL_TEXT_DIGEST_MODE) {
+        throw new Error(`${label} digestMode must be ${CANONICAL_TEXT_DIGEST_MODE}`);
+      }
+    }
 
     for (const mirror of manifest.mirrors ?? []) {
       if (mirror.sha256 !== sha256Output(mirror.target)) {
@@ -1259,14 +1347,14 @@ function validateEmbeddedOutput(manager) {
     }
     for (const entry of attestedFiles) {
       const outputPath = `${DELIVERY_KERNEL_ROOT}/${entry.path}`;
-      if (entry.sha256 !== rawSha256Output(outputPath)) {
-        throw new Error(`delivery kernel package byte digest mismatch: ${entry.path}`);
+      if (entry.sha256 !== sha256Output(outputPath)) {
+        throw new Error(`delivery kernel package canonical text digest mismatch: ${entry.path}`);
       }
     }
     validateDeliveryKernelImportClosure(packageManifest, packageFiles);
     if (
       manifest.deliveryKernelPackage?.manifestSha256
-      !== rawSha256Output(`${DELIVERY_KERNEL_ROOT}/package-manifest.json`)
+      !== sha256Output(`${DELIVERY_KERNEL_ROOT}/package-manifest.json`)
     ) {
       throw new Error("embedded manifest delivery-kernel attestation mismatch");
     }

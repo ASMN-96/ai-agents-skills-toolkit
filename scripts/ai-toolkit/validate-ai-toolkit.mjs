@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { readFile, readdir, stat } from "node:fs/promises";
-import { createHash } from "node:crypto";
 import path from "node:path";
 import process from "node:process";
 import {
@@ -16,9 +15,15 @@ import {
 } from "./embedded-data.mjs";
 import { collectReferenceClosureFailures } from "./reference-closure.mjs";
 import { validateSourceCatalog } from "./source-governance.mjs";
+import {
+  CANONICAL_TEXT_DIGEST_MODE,
+  canonicalTextSha256
+} from "./kernel/canonical-digest.mjs";
 
 const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
+const CANONICAL_TEXT_EXTENSIONS = new Set([".json", ".md", ".mjs", ".toml"]);
+const CANONICAL_TEXT_BASENAMES = new Set(["VERSION"]);
 const SCRIPT_PROVENANCE_DIRECTORIES = ["scripts", "scripts/ai-toolkit"];
 const failures = [];
 const warnings = [];
@@ -92,12 +97,16 @@ async function readRegularFile(relativePath, encoding = null, label = `regular f
   return readFile(safePath, encoding);
 }
 
-async function sha256(relativePath, { exactBytes = false } = {}) {
+async function sha256(relativePath) {
+  const normalized = relativePath.replaceAll("\\", "/");
+  if (
+    !CANONICAL_TEXT_EXTENSIONS.has(path.posix.extname(normalized))
+    && !CANONICAL_TEXT_BASENAMES.has(path.posix.basename(normalized))
+  ) {
+    throw new Error(`digest input uses an unreviewed canonical text file type: ${relativePath}`);
+  }
   const content = await readRegularFile(relativePath, null, `digest input ${relativePath}`);
-  const digestInput = exactBytes
-    ? content
-    : content.toString("utf8").replace(/\r\n/g, "\n");
-  return createHash("sha256").update(digestInput).digest("hex");
+  return canonicalTextSha256(content, `digest input ${relativePath}`);
 }
 
 async function walk(relativeDir, output = []) {
@@ -226,6 +235,9 @@ async function validateScriptsManifest() {
   if (manifest.schemaVersion !== "2.0.0") {
     fail(relativePath, "scripts manifest schemaVersion must be 2.0.0");
   }
+  if (manifest.digestMode !== CANONICAL_TEXT_DIGEST_MODE) {
+    fail(relativePath, `scripts manifest digestMode must be ${CANONICAL_TEXT_DIGEST_MODE}`);
+  }
   const scripts = Array.isArray(manifest.scripts) ? manifest.scripts : [];
   if (!Array.isArray(manifest.scripts)) {
     fail(relativePath, "scripts manifest scripts must be an array");
@@ -264,15 +276,15 @@ async function validateScriptsManifest() {
       continue;
     }
     if (script.sha256 === null && script.status === "planned") {
-      if (await exists(script.path)) fail(relativePath, `planned script exists without an exact-byte digest: ${script.path}`);
+      if (await exists(script.path)) fail(relativePath, `planned script exists without a canonical text digest: ${script.path}`);
       continue;
     }
     if (!(await exists(script.path))) {
       fail(relativePath, `script manifest source missing: ${script.path}`);
       continue;
     }
-    if (script.sha256 !== await sha256(script.path, { exactBytes: true })) {
-      fail(relativePath, `script manifest exact-byte digest drift: ${script.path}`);
+    if (script.sha256 !== await sha256(script.path)) {
+      fail(relativePath, `script manifest canonical text digest drift: ${script.path}`);
     }
   }
 }
@@ -294,7 +306,10 @@ async function validateDeliveryKernelPackage(topManifest, expectedAgentTomlPaths
   if (packageManifest.schemaVersion !== "2.0.0") {
     fail(packageManifestPath, "delivery kernel package schemaVersion must be 2.0.0");
   }
-  const packageManifestDigest = await sha256(packageManifestPath, { exactBytes: true });
+  if (packageManifest.digestMode !== CANONICAL_TEXT_DIGEST_MODE) {
+    fail(packageManifestPath, `delivery kernel package digestMode must be ${CANONICAL_TEXT_DIGEST_MODE}`);
+  }
+  const packageManifestDigest = await sha256(packageManifestPath);
   if (topManifest.deliveryKernelPackage.manifestSha256 !== packageManifestDigest) {
     fail(packageManifestPath, "delivery kernel package manifest attestation drift");
   }
@@ -322,8 +337,8 @@ async function validateDeliveryKernelPackage(topManifest, expectedAgentTomlPaths
   }
   for (const entry of attestedFiles) {
     if (!isSafePackagePath(entry.path) || !(await exists(`${packageRoot}/${entry.path}`))) continue;
-    if (entry.sha256 !== await sha256(`${packageRoot}/${entry.path}`, { exactBytes: true })) {
-      fail(`${packageRoot}/${entry.path}`, "delivery kernel package byte digest mismatch");
+    if (entry.sha256 !== await sha256(`${packageRoot}/${entry.path}`)) {
+      fail(`${packageRoot}/${entry.path}`, "delivery kernel package canonical text digest mismatch");
     }
   }
 
@@ -398,7 +413,9 @@ async function validateManifest() {
   if (manifest.schemaVersion !== "2.0.0") {
     fail(`${AI_ROOT}/manifest.json`, "embedded manifest schemaVersion must be 2.0.0");
   }
-  const exactBytes = true;
+  if (manifest.digestMode !== CANONICAL_TEXT_DIGEST_MODE) {
+    fail(`${AI_ROOT}/manifest.json`, `embedded manifest digestMode must be ${CANONICAL_TEXT_DIGEST_MODE}`);
+  }
   for (const skill of ACTIVE_SKILLS) {
     if (!manifest.activeSkills?.includes(skill)) {
       fail(`${AI_ROOT}/manifest.json`, `missing active skill ${skill}`);
@@ -439,19 +456,19 @@ async function validateManifest() {
       fail(`${AI_ROOT}/manifest.json`, `mirror target missing: ${mirror.target}`);
       continue;
     }
-    const actualHash = await sha256(mirror.target, { exactBytes });
+    const actualHash = await sha256(mirror.target);
     if (mirror.sha256 !== actualHash) {
       fail(mirror.target, "manifest target hash drift");
     }
     if (mirror.mode === "byte-identical") {
-      const sourceText = await readFile(rootPath(mirror.source), "utf8");
-      const targetText = await readFile(rootPath(mirror.target), "utf8");
-      if (sourceText !== targetText) {
+      const sourceBytes = await readRegularFile(mirror.source, null, `mirror source ${mirror.source}`);
+      const targetBytes = await readRegularFile(mirror.target, null, `mirror target ${mirror.target}`);
+      if (!sourceBytes.equals(targetBytes)) {
         fail(mirror.target, `byte-identical mirror drifts from ${mirror.source}`);
       }
     }
     if (mirror.source === "sources/source-watchlist.json") {
-      const sourceHash = await sha256(mirror.source, { exactBytes });
+      const sourceHash = await sha256(mirror.source);
       if (mirror.sourceSha256 !== sourceHash || mirror.targetSha256 !== actualHash) {
         fail(mirror.target, "source catalog mirror source/target digest attestation drift");
       }
@@ -467,7 +484,7 @@ async function validateManifest() {
       fail(`${AI_ROOT}/manifest.json`, `generated artifact missing: ${artifact.path}`);
       continue;
     }
-    const actualHash = await sha256(artifact.path, { exactBytes });
+    const actualHash = await sha256(artifact.path);
     if (artifact.sha256 !== actualHash) {
       fail(artifact.path, "manifest generated artifact hash drift");
     }

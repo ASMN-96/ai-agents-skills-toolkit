@@ -54,9 +54,14 @@ const CANONICAL_RUNTIME_DIRECTORIES = [
   "sources",
   "templates"
 ];
+const DIGEST_POLICY = "sha256-utf8-lf-v1";
 
 function sha256(content) {
   return createHash("sha256").update(content).digest("hex");
+}
+
+function canonicalTextSha256(content) {
+  return sha256(Buffer.from(content.toString("utf8").replace(/\r\n?/gu, "\n"), "utf8"));
 }
 
 function snapshotTree(root) {
@@ -381,9 +386,29 @@ test("bootstrap rejects hard-linked and reparse-point managed filesystem modules
   }
 });
 
+test("builder rejects a mixed-EOL checkout source before generating output", () => {
+  const { parent, fixture } = createFixture("mixed-builder-eol");
+  try {
+    const builderPath = path.join(fixture, "scripts", "ai-toolkit", "build-embedded-package.mjs");
+    const builderText = readFileSync(builderPath, "utf8").replace(/\r\n?/gu, "\n");
+    writeFileSync(builderPath, builderText.replace("\n", "\r\n"), "utf8");
+    const before = snapshotTree(path.join(fixture, ".ai-toolkit"));
+
+    const result = runBuilder(fixture, ["--check"]);
+
+    assert.notEqual(result.status, 0, combinedOutput(result));
+    assert.match(combinedOutput(result), /uniform LF or CRLF checkout line ending/i);
+    assert.deepEqual(snapshotTree(path.join(fixture, ".ai-toolkit")), before);
+  } finally {
+    rmSync(parent, { recursive: true, force: true });
+  }
+});
+
 test("build promotes a schema-v2 package without rewriting canonical registries or runtime files", () => {
   const { parent, fixture } = createFixture("build");
   try {
+    const builderPath = path.join(fixture, "scripts", "ai-toolkit", "build-embedded-package.mjs");
+    writeFileSync(builderPath, readFileSync(builderPath, "utf8").replace(/\r\n?/gu, "\n").replaceAll("\n", "\r\n"), "utf8");
     const starterPath = path.join(fixture, "templates", "delivery-kernel.request.example.json");
     writeFileSync(starterPath, readFileSync(starterPath, "utf8").replace(/\r?\n/g, "\r\n"), "utf8");
     const canonicalBefore = snapshotSelected(fixture, CANONICAL_RUNTIME_DIRECTORIES);
@@ -408,6 +433,11 @@ test("build promotes a schema-v2 package without rewriting canonical registries 
     const scriptsManifest = JSON.parse(readFileSync(path.join(embeddedRoot, "scripts-manifest.json"), "utf8"));
     assert.equal(manifest.schemaVersion, "2.0.0");
     assert.equal(scriptsManifest.schemaVersion, "2.0.0");
+    assert.equal(manifest.digestMode, DIGEST_POLICY);
+    assert.equal(scriptsManifest.digestMode, DIGEST_POLICY);
+    const manifestBytes = readFileSync(path.join(embeddedRoot, "manifest.json"));
+    assert.equal(manifestBytes.includes(Buffer.from("\r\n")), true);
+    assert.equal(manifestBytes.toString("utf8").replaceAll("\r\n", "").includes("\n"), false);
     assert.equal(manifest.generationMode, "clean-staging-transactional-promotion");
     const expectedScripts = immediateProductionScripts(fixture);
     assert.deepEqual(
@@ -418,7 +448,7 @@ test("build promotes a schema-v2 package without rewriting canonical registries 
     for (const entry of scriptsManifest.scripts) {
       assert.equal(
         entry.sha256,
-        sha256(readFileSync(path.join(fixture, ...entry.path.split("/")))),
+        canonicalTextSha256(readFileSync(path.join(fixture, ...entry.path.split("/")))),
         `scripts manifest digest drift for ${entry.path}`
       );
     }
@@ -454,16 +484,33 @@ test("build promotes a schema-v2 package without rewriting canonical registries 
       && entry.target === ".ai-toolkit/templates/delivery-kernel.request.example.json"
     ));
     assert.ok(starterMirror, "starter template mirror must be attested");
+    const starterSourceBytes = readFileSync(starterPath);
+    const starterTargetBytes = readFileSync(
+      path.join(embeddedRoot, "templates", "delivery-kernel.request.example.json")
+    );
+    const starterLfBytes = Buffer.from(starterSourceBytes.toString("utf8").replace(/\r\n?/gu, "\n"), "utf8");
     assert.equal(
       starterMirror.sha256,
-      sha256(readFileSync(path.join(embeddedRoot, "templates", "delivery-kernel.request.example.json"))),
-      "schema-v2 sha256 must attest exact bytes without newline normalization"
+      canonicalTextSha256(starterTargetBytes),
+      "schema-v2 sha256 must follow the declared canonical text digest policy"
+    );
+    assert.equal(starterMirror.sha256, sha256(starterLfBytes));
+    assert.notEqual(
+      starterMirror.sha256,
+      sha256(starterSourceBytes),
+      "the CRLF fixture must distinguish canonical attestation from raw-byte hashing"
+    );
+    assert.deepEqual(
+      starterTargetBytes,
+      starterSourceBytes,
+      "canonical digest normalization must not rewrite a byte-identical mirror"
     );
 
     const packageRoot = path.join(embeddedRoot, "runtime", "delivery-kernel");
     const packageManifestPath = path.join(packageRoot, "package-manifest.json");
     const packageManifest = JSON.parse(readFileSync(packageManifestPath, "utf8"));
     assert.equal(packageManifest.schemaVersion, "2.0.0");
+    assert.equal(packageManifest.digestMode, DIGEST_POLICY);
     assert.equal(packageManifest.offlineCapable, true);
     assert.equal(packageManifest.entrypoint, "scripts/ai-toolkit/run-delivery-kernel.mjs");
     assert.equal(packageManifest.starter, "templates/delivery-kernel.request.example.json");
@@ -496,7 +543,11 @@ test("build promotes a schema-v2 package without rewriting canonical registries 
     for (const relativePath of requiredFiles) {
       const fullPath = path.join(packageRoot, ...relativePath.split("/"));
       assert.equal(existsSync(fullPath), true, `missing self-contained package file ${relativePath}`);
-      assert.equal(attestedFiles.get(relativePath), sha256(readFileSync(fullPath)), `digest drift for ${relativePath}`);
+      assert.equal(
+        attestedFiles.get(relativePath),
+        canonicalTextSha256(readFileSync(fullPath)),
+        `digest drift for ${relativePath}`
+      );
     }
     for (const forbiddenPath of [
       "scripts/ai-toolkit/source-governance.mjs",
@@ -514,7 +565,11 @@ test("build promotes a schema-v2 package without rewriting canonical registries 
       const tomlPath = agent.runtimeFiles.tomlPath;
       const packagedToml = path.join(packageRoot, ...tomlPath.split("/"));
       assert.equal(existsSync(packagedToml), true, `missing registry agent TOML ${tomlPath}`);
-      assert.equal(attestedFiles.get(tomlPath), sha256(readFileSync(packagedToml)), `digest drift for ${tomlPath}`);
+      assert.equal(
+        attestedFiles.get(tomlPath),
+        canonicalTextSha256(readFileSync(packagedToml)),
+        `digest drift for ${tomlPath}`
+      );
 
       const runtimeMirror = path.join(embeddedRoot, "runtime-agents", path.basename(tomlPath));
       assert.equal(existsSync(runtimeMirror), true, `missing embedded runtime agent ${agent.name}`);
@@ -603,6 +658,14 @@ test("build promotes a schema-v2 package without rewriting canonical registries 
     assert.match(combinedOutput(duplicateMirrorValidation), /embedded mirror targets must be unique/i);
     writeFileSync(manifestPath, manifestText, "utf8");
 
+    const unsupportedDigestManifest = JSON.parse(manifestText);
+    unsupportedDigestManifest.digestMode = "sha256-raw-bytes";
+    writeFileSync(manifestPath, `${JSON.stringify(unsupportedDigestManifest, null, 2)}\n`, "utf8");
+    const digestModeValidation = runValidator(fixture);
+    assert.notEqual(digestModeValidation.status, 0, combinedOutput(digestModeValidation));
+    assert.match(combinedOutput(digestModeValidation), /embedded manifest digestMode must be sha256-utf8-lf-v1/i);
+    writeFileSync(manifestPath, manifestText, "utf8");
+
     const scriptsManifestPath = path.join(embeddedRoot, "scripts-manifest.json");
     const scriptsManifestText = readFileSync(scriptsManifestPath, "utf8");
     const downgradedScriptsManifest = JSON.parse(scriptsManifestText);
@@ -636,7 +699,7 @@ test("build promotes a schema-v2 package without rewriting canonical registries 
     );
     const packageDriftValidation = runValidator(fixture);
     assert.notEqual(packageDriftValidation.status, 0, combinedOutput(packageDriftValidation));
-    assert.match(combinedOutput(packageDriftValidation), /delivery kernel package byte digest mismatch/i);
+    assert.match(combinedOutput(packageDriftValidation), /delivery kernel package canonical text digest mismatch/i);
 
     const packageKernelPath = path.dirname(packageModulePath);
     const externalKernelPath = path.join(fixture, "external-linked-kernel");

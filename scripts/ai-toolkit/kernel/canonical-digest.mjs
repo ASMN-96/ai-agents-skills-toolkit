@@ -1,4 +1,22 @@
 import { createHash } from "node:crypto";
+import { isUtf8 } from "node:buffer";
+
+export const CANONICAL_TEXT_DIGEST_MODE = "sha256-utf8-lf-v1";
+
+export function canonicalTextSha256(content, label = "canonical text digest input") {
+  if (!(content instanceof Uint8Array)) {
+    throw new Error(`${label} must be provided as UTF-8 bytes`);
+  }
+  const bytes = Buffer.from(content.buffer, content.byteOffset, content.byteLength);
+  if (bytes.includes(0)) {
+    throw new Error(`${label} must not contain NUL bytes`);
+  }
+  if (!isUtf8(bytes)) {
+    throw new Error(`${label} must be valid UTF-8 text`);
+  }
+  const normalized = bytes.toString("utf8").replace(/\r\n?/gu, "\n");
+  return createHash("sha256").update(normalized, "utf8").digest("hex");
+}
 
 function canonicalJson(value, seen, label) {
   if (value === null || typeof value === "boolean" || typeof value === "string") {

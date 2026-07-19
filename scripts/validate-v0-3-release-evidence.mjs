@@ -1,12 +1,24 @@
 #!/usr/bin/env node
 import { execFileSync } from "node:child_process";
-import { createHash } from "node:crypto";
-import { readdirSync, readFileSync } from "node:fs";
+import {
+  closeSync,
+  constants as fsConstants,
+  fstatSync,
+  lstatSync,
+  openSync,
+  readSync,
+  readdirSync
+} from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
+import { assertPathContained, assertRegularFileWithin } from "../install/safe-filesystem.mjs";
 import { runEnterpriseDeliveryBenchmark } from "./ai-toolkit/run-enterprise-delivery-benchmark.mjs";
+import {
+  CANONICAL_TEXT_DIGEST_MODE,
+  canonicalTextSha256
+} from "./ai-toolkit/kernel/canonical-digest.mjs";
 
 const MODULE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const EVIDENCE_RELATIVE_PATH = "docs/V0_3_0_RELEASE_EVIDENCE.json";
@@ -18,6 +30,14 @@ const SUMMARY_DOCUMENTS = Object.freeze([
 ]);
 const START_MARKER = "<!-- v0.3-release-evidence:start -->";
 const END_MARKER = "<!-- v0.3-release-evidence:end -->";
+const MAX_INTEGRITY_FILE_BYTES = 64 * 1024 * 1024;
+const REQUIRED_ARTIFACT_PATHS = Object.freeze({
+  sourceCatalog: "sources/source-watchlist.json",
+  freshnessReport: "docs/SOURCE_FRESHNESS_REPORT.json",
+  agentRegistry: "registries/agents.registry.json",
+  benchmarkFixture: "evals/routing/enterprise-delivery-benchmark.json",
+  embeddedManifest: ".ai-toolkit/manifest.json"
+});
 
 function fail(message) {
   throw new Error(`release-evidence-inconsistent:${message}`);
@@ -47,16 +67,80 @@ function assertRepositoryPath(root, relativePath, label) {
   return resolved;
 }
 
-function readJson(filePath, label) {
-  try {
-    return JSON.parse(readFileSync(filePath, "utf8"));
-  } catch (error) {
-    fail(`${label}-unreadable:${error.message}`);
+function integritySnapshot(stats) {
+  return Object.freeze({
+    dev: stats.dev,
+    ino: stats.ino,
+    mode: stats.mode,
+    nlink: stats.nlink,
+    size: stats.size,
+    ctimeNs: stats.ctimeNs,
+    mtimeNs: stats.mtimeNs,
+    birthtimeNs: stats.birthtimeNs
+  });
+}
+
+function assertStableSnapshot(expected, actual, label) {
+  for (const field of Object.keys(expected)) {
+    if (expected[field] !== actual[field]) fail(`${label}-changed-during-read:${field}`);
   }
 }
 
-function sha256File(filePath) {
-  return createHash("sha256").update(readFileSync(filePath)).digest("hex");
+function readIntegrityFile(root, filePath, label, encoding = null) {
+  const resolved = assertRegularFileWithin(root, filePath, label);
+  const pathBefore = lstatSync(resolved, { bigint: true });
+  if (!pathBefore.isFile() || pathBefore.nlink !== 1n) fail(`${label}-not-exclusive-regular-file`);
+  const expectedPathSnapshot = integritySnapshot(pathBefore);
+  const noFollow = Number.isInteger(fsConstants.O_NOFOLLOW) ? fsConstants.O_NOFOLLOW : 0;
+  let descriptor;
+  let contents;
+  try {
+    descriptor = openSync(resolved, fsConstants.O_RDONLY | noFollow);
+    const descriptorBefore = fstatSync(descriptor, { bigint: true });
+    if (!descriptorBefore.isFile() || descriptorBefore.nlink !== 1n) {
+      fail(`${label}-descriptor-not-exclusive-regular-file`);
+    }
+    const expectedDescriptorSnapshot = integritySnapshot(descriptorBefore);
+    assertStableSnapshot(expectedPathSnapshot, expectedDescriptorSnapshot, label);
+    if (descriptorBefore.size > BigInt(MAX_INTEGRITY_FILE_BYTES)) {
+      fail(`${label}-exceeds-${MAX_INTEGRITY_FILE_BYTES}-byte-limit`);
+    }
+    const expectedSize = Number(descriptorBefore.size);
+    contents = Buffer.alloc(expectedSize);
+    let offset = 0;
+    while (offset < expectedSize) {
+      const bytesRead = readSync(descriptor, contents, offset, expectedSize - offset, offset);
+      if (bytesRead === 0) fail(`${label}-truncated-during-read`);
+      offset += bytesRead;
+    }
+    const growthProbe = Buffer.alloc(1);
+    if (readSync(descriptor, growthProbe, 0, 1, expectedSize) !== 0) {
+      fail(`${label}-grew-during-read`);
+    }
+    assertStableSnapshot(
+      expectedDescriptorSnapshot,
+      integritySnapshot(fstatSync(descriptor, { bigint: true })),
+      label
+    );
+  } finally {
+    if (descriptor !== undefined) closeSync(descriptor);
+  }
+
+  assertRegularFileWithin(root, resolved, `${label} post-read`);
+  assertStableSnapshot(
+    expectedPathSnapshot,
+    integritySnapshot(lstatSync(resolved, { bigint: true })),
+    label
+  );
+  return encoding === null ? contents : contents.toString(encoding);
+}
+
+function readJson(root, filePath, label) {
+  try {
+    return JSON.parse(readIntegrityFile(root, filePath, label, "utf8"));
+  } catch (error) {
+    fail(`${label}-unreadable:${error.message}`);
+  }
 }
 
 function assertEqual(actual, expected, label) {
@@ -101,19 +185,46 @@ function validateEvidenceEnvelope(evidence) {
   }
 }
 
-function validateArtifactDigests(root, artifacts) {
+export function validateArtifactDigests(root, artifactDigestMode, artifacts, releaseState = "blocked") {
+  if (artifactDigestMode !== CANONICAL_TEXT_DIGEST_MODE) fail("artifact-digest-mode");
   if (!isPlainRecord(artifacts)) fail("artifacts");
-  for (const [id, artifact] of Object.entries(artifacts)) {
+  const requiredIds = Object.keys(REQUIRED_ARTIFACT_PATHS).sort();
+  if (JSON.stringify(Object.keys(artifacts).sort()) !== JSON.stringify(requiredIds)) {
+    fail("artifact-ids");
+  }
+  for (const id of Object.keys(REQUIRED_ARTIFACT_PATHS)) {
+    const artifact = artifacts[id];
     if (!isPlainRecord(artifact)) fail(`artifact-${id}`);
+    if (artifact.path !== REQUIRED_ARTIFACT_PATHS[id]) fail(`artifact-${id}-path`);
+    if (id !== "embeddedManifest" && Object.hasOwn(artifact, "state")) {
+      fail(`artifact-${id}-state-unexpected`);
+    }
     const filePath = assertRepositoryPath(root, artifact.path, `artifact-${id}`);
     if (artifact.sha256 === null) {
+      if (releaseState === "ready") {
+        fail(`ready-state-artifact-${id}-pending`);
+      }
       if (id !== "embeddedManifest" || artifact.state !== "regeneration-pending") {
-        fail(`artifact-${id}-digest-missing`);
+        fail(id === "embeddedManifest"
+          ? `artifact-${id}-state-contradiction`
+          : `artifact-${id}-digest-missing`);
       }
       continue;
     }
     if (!/^[0-9a-f]{64}$/u.test(artifact.sha256)) fail(`artifact-${id}-digest-format`);
-    assertEqual(sha256File(filePath), artifact.sha256, `artifact-${id}-digest`);
+    if (id === "embeddedManifest" && artifact.state !== "generated-current") {
+      fail(`artifact-${id}-state-contradiction`);
+    }
+    let actualDigest;
+    try {
+      actualDigest = canonicalTextSha256(
+        readIntegrityFile(root, filePath, `release artifact ${id}`),
+        `release artifact ${id}`
+      );
+    } catch (error) {
+      fail(`artifact-${id}-digest-unreadable:${error.message}`);
+    }
+    assertEqual(actualDigest, artifact.sha256, `artifact-${id}-digest`);
   }
 }
 
@@ -160,7 +271,7 @@ export function validateRepositoryState(root, evidence) {
 }
 
 function validateSourceState(root, evidence) {
-  const catalog = readJson(path.join(root, "sources/source-watchlist.json"), "source-catalog");
+  const catalog = readJson(root, path.join(root, "sources/source-watchlist.json"), "source-catalog");
   const counts = { CURRENT: 0, CHANGED: 0, CHECK_FAILED: 0, MANUAL_DUE: 0 };
   for (const source of catalog.sources ?? []) {
     if (!(source.monitor?.state in counts)) fail(`source-monitor-state-${source.id}`);
@@ -178,10 +289,31 @@ function validateSourceState(root, evidence) {
 }
 
 function validateRuntimeState(root, evidence) {
-  const agents = readJson(path.join(root, "registries/agents.registry.json"), "agent-registry").agents ?? [];
-  const skills = readJson(path.join(root, "registries/skills.registry.json"), "skill-registry").skills ?? [];
-  const fallbacks = readdirSync(path.join(root, "compiled-agents"), { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".compiled.md"));
+  const agents = readJson(root, path.join(root, "registries/agents.registry.json"), "agent-registry").agents ?? [];
+  const skills = readJson(root, path.join(root, "registries/skills.registry.json"), "skill-registry").skills ?? [];
+  const fallbackRoot = assertPathContained(
+    root,
+    path.join(root, "compiled-agents"),
+    "compiled-agent inventory"
+  );
+  const fallbackRootBefore = lstatSync(fallbackRoot, { bigint: true });
+  if (!fallbackRootBefore.isDirectory()) fail("compiled-agent-inventory-not-directory");
+  const fallbacks = readdirSync(fallbackRoot, { withFileTypes: true })
+    .filter((entry) => entry.name.endsWith(".compiled.md"))
+    .map((entry) => {
+      assertRegularFileWithin(
+        root,
+        path.join(fallbackRoot, entry.name),
+        `compiled-agent output ${entry.name}`
+      );
+      return entry;
+    });
+  assertPathContained(root, fallbackRoot, "compiled-agent inventory post-read");
+  assertStableSnapshot(
+    integritySnapshot(fallbackRootBefore),
+    integritySnapshot(lstatSync(fallbackRoot, { bigint: true })),
+    "compiled-agent-inventory"
+  );
   const nativeOnly = agents
     .filter((agent) => agent.compiledFallbackPath === null)
     .map((agent) => agent.name)
@@ -205,7 +337,7 @@ async function validateBenchmarkState(root, evidence) {
 function validateDocumentSummaries(root, evidence) {
   const expected = renderReleaseEvidenceSummaryBlock(evidence);
   for (const relativePath of SUMMARY_DOCUMENTS) {
-    const contents = readFileSync(path.join(root, relativePath), "utf8");
+    const contents = readIntegrityFile(root, path.join(root, relativePath), `summary document ${relativePath}`, "utf8");
     const start = contents.indexOf(START_MARKER);
     const end = contents.indexOf(END_MARKER);
     if (start === -1 || end === -1 || end < start) fail(`summary-marker-missing:${relativePath}`);
@@ -215,7 +347,7 @@ function validateDocumentSummaries(root, evidence) {
 }
 
 function validateStatusRuntimeBoundary(root, evidence) {
-  const contents = readFileSync(path.join(root, "STATUS.md"), "utf8");
+  const contents = readIntegrityFile(root, path.join(root, "STATUS.md"), "STATUS runtime boundary", "utf8");
   for (const expectedLine of renderStatusRuntimeBoundaryLines(evidence)) {
     if (!contents.includes(expectedLine)) fail("status-runtime-boundary-drift");
   }
@@ -226,9 +358,19 @@ export async function validateReleaseEvidence({
   evidencePath = path.join(root, EVIDENCE_RELATIVE_PATH)
 } = {}) {
   const canonicalRoot = path.resolve(root);
-  const evidence = readJson(assertRepositoryPath(canonicalRoot, path.relative(canonicalRoot, evidencePath).replace(/\\/gu, "/"), "release-evidence"), "release-evidence");
+  const resolvedEvidencePath = assertRepositoryPath(
+    canonicalRoot,
+    path.relative(canonicalRoot, evidencePath).replace(/\\/gu, "/"),
+    "release-evidence"
+  );
+  const evidence = readJson(canonicalRoot, resolvedEvidencePath, "release-evidence");
   validateEvidenceEnvelope(evidence);
-  validateArtifactDigests(canonicalRoot, evidence.artifacts);
+  validateArtifactDigests(
+    canonicalRoot,
+    evidence.artifactDigestMode,
+    evidence.artifacts,
+    evidence.releaseState
+  );
   validateRepositoryState(canonicalRoot, evidence);
   validateSourceState(canonicalRoot, evidence);
   validateRuntimeState(canonicalRoot, evidence);
