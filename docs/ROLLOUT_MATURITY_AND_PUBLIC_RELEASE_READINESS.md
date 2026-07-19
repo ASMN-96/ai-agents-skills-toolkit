@@ -1,8 +1,10 @@
 # Rollout Maturity and Public Release Readiness
 
-Status: Level 3 controlled-pilot milestone complete; `v0.2.3` is the controlled AI Vibe Coding Toolkit release path for AI coding-agent governance after v0.2 hardening, activation posture hardening, full resource refresh with zero passive source holds, and no-write leak-scan validation. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
+Status: Level 3 controlled-pilot milestone complete. `v0.2.3` established this maturity evidence; `v0.2.5` is the current controlled AI Vibe Coding Toolkit release and preserves the same boundary while refreshing watched-source evidence. Level 4 enterprise rollout and Level 5 broad public/package maturity remain deferred.
 
-Date: 2026-06-05
+Level 3 evidence date: 2026-06-05
+
+Release guidance reviewed: 2026-07-17
 
 This document is a promotion gate. It does not activate runtimes, publish packages, create releases, open PRs, merge branches, install tools, or approve public distribution.
 
@@ -21,7 +23,7 @@ This document is a promotion gate. It does not activate runtimes, publish packag
 
 Current level: Level 3 complete.
 
-Controlled release: `v0.2.3` for AI coding-agent governance after the full local validation gate, PR merge, post-merge verification, tag creation, and GitHub release verification pass. This release does not claim higher maturity, enterprise or production certification, automatic installs, or broad cross-runtime active support. `v0.1.0` remains the historical first controlled public release, and `docs/V0_2_0_RELEASE_NOTES.md` remains historical v0.2.0 evidence.
+Controlled release: `v0.2.5` for AI coding-agent governance. It carries forward the v0.2.3 Level 3 governance baseline and v0.2.4 agent and risk hardening, then refreshes watched-source evidence. It does not claim higher maturity, enterprise or production certification, automatic installs, or broad cross-runtime active support. `v0.2.3` remains historical Level 3 milestone evidence, `v0.1.0` remains the historical first controlled public release, and `docs/V0_2_0_RELEASE_NOTES.md` remains historical v0.2.0 evidence.
 
 Evidence:
 
@@ -47,13 +49,13 @@ Deferred Level 4 evidence backlog:
 Current blockers for Level 5 broad public/package maturity:
 
 - Public package validation is allowlist-only and does not certify the whole repository tree or Git history for public GitHub visibility.
-- Whole-repo publication review retains non-current-tree owner/history findings that are acceptable for the controlled `v0.2.3` path only when owner acceptance is explicit.
+- Whole-repo publication review retains non-current-tree owner/history findings that are acceptable for the controlled `v0.2.5` path only when owner acceptance is explicit.
 - Historical Git exposure remains unresolved until the owner chooses a clean sanitized repository/mirror or verified history cleanup.
 - Public runtime is canonical-only: 5 active skills and 12 active repo-local project agents. Old aliases are not active runtime names.
 - Public package allowlist is enforced by `node scripts/validate-public-package.mjs`; current report is `docs/PUBLIC_PACKAGE_VALIDATION_REPORT.md`.
 - `LICENSE`, `CONTRIBUTING.md`, and `CODE_OF_CONDUCT.md` are present but still require owner/legal/community approval before publication.
 - `SECURITY.md` now defines supported scope and reporting expectations, but the final vulnerability-reporting channel still needs an owner-approved private contact path.
-- Clean-clone verification remains required before any future broad package/distribution claim beyond the controlled `v0.2.3` path.
+- Clean-clone verification remains required before any future broad package/distribution claim beyond the controlled `v0.2.5` path.
 
 ## Required Validators
 
@@ -172,7 +174,7 @@ Forbidden without separate approval:
 - [x] Embedded package mirrors were regenerated through the repository build script.
 - [x] Historical release notes are preserved in `docs/V0_2_0_RELEASE_NOTES.md`.
 
-## Controlled v0.2.2 Release Checklist
+## Historical Controlled v0.2.2 Release Checklist
 
 - [x] v0.2.2 toolkit activation hardening PRs merged.
 - [x] No-write leak-scan validation mode exists and leaves the tree clean.
@@ -185,7 +187,9 @@ Forbidden without separate approval:
 - [ ] `v0.2.2` annotated tag was created only from validated `main`.
 - [ ] GitHub release notes state controlled AI coding-agent toolkit readiness, validation evidence, known exclusions, rollback path, and no external submission.
 
-## Controlled v0.2.3 Release Checklist
+## Historical Controlled v0.2.3 Release Checklist
+
+This checklist preserves the evidence state that established the Level 3 milestone. Unchecked historical items are not current v0.2.5 release claims.
 
 - [x] v0.2.3 full resource refresh PR updates source records, source utilization, methods, routing, evals, generated package metadata, and compiled fallbacks.
 - [x] Passive active-source `REVIEWED_HELD` is not a final allowed source outcome.

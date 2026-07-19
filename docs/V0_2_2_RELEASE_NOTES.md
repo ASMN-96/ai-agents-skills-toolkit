@@ -1,6 +1,6 @@
 # v0.2.2 Controlled Toolkit Release Notes
 
-> Historical release evidence. `v0.2.2` is superseded by `v0.2.3` as the current controlled toolkit release evidence. Use this file for historical context only, not current source-freshness or release-readiness claims.
+> Historical release evidence. `v0.2.2` was superseded by `v0.2.3`; both versions are now historical. `v0.2.5` is current. Use this file for v0.2.2 context, not current source-freshness or release-readiness claims.
 
 ## Release Type
 

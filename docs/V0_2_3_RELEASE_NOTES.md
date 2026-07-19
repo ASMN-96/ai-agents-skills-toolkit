@@ -1,6 +1,6 @@
 # v0.2.3 Full Resource Refresh
 
-> Current controlled release evidence. `v0.2.3` supersedes `v0.2.2`; do not use v0.2.2 source-freshness, tool-posture, or readiness evidence for current release claims without rerunning the relevant validators.
+> Historical controlled release evidence. `v0.2.3` superseded `v0.2.2` and established the Level 3 governance baseline. `v0.2.5` is current; use this file for v0.2.3 evidence, not current release claims.
 
 v0.2.3 resolves the source-freshness backlog without passive holds. The goal is not to hide risk; it is to review the latest upstream state, adopt useful guidance into toolkit-owned methods/routing/evals where safe, delegate live execution to first-party or project-owned tools where appropriate, and keep unsafe runtime behavior out of the toolkit.
 

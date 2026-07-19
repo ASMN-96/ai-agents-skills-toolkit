@@ -788,6 +788,54 @@
           "no raw upstream copying"
         ]
       }
+    },
+    {
+      "id": "tweetclaw",
+      "name": "TweetClaw",
+      "sourceUrl": "https://github.com/Xquik-dev/tweetclaw",
+      "repoOwner": "Xquik-dev",
+      "repoName": "tweetclaw",
+      "defaultBranch": "master",
+      "lastReviewedCommit": "49a2a5af0fc342398f695707f40ec4cec84dbfe4",
+      "lastReviewedDate": "2026-07-17",
+      "sourceRecordPath": "sources/tweetclaw.md",
+      "watchedPaths": [
+        "skills/tweetclaw",
+        "openclaw.plugin.json",
+        "package.json",
+        "README.md",
+        "docs/openclaw-setup.md",
+        ".github/workflows/publish.yml",
+        ".github/workflows/publish-clawhub.yml",
+        "scripts/check-openclaw-platform-fitness.mjs",
+        "scripts/check-public-copy.mjs",
+        "src/api-spec.ts",
+        "src/index.ts"
+      ],
+      "licenseConcern": "clear",
+      "reviewPriority": "Medium",
+      "neverAutoImport": true,
+      "reviewDecision": {
+        "outcome": "SYNCED_REFERENCE",
+        "reviewedCommit": "49a2a5af0fc342398f695707f40ec4cec84dbfe4",
+        "reviewedDate": "2026-07-17",
+        "summary": "TweetClaw 1.6.37 reviewed as an MIT-licensed OpenClaw plugin with verified ClawHub publisher metadata, optional-tool and per-call approval gates, API-key and MPP credential boundaries, npm provenance, and unsigned NVIDIA skill status.",
+        "boundaries": [
+          "no raw skill copying",
+          "no package install",
+          "no plugin activation",
+          "no OpenClaw command execution",
+          "no live social-media actions",
+          "no credential access",
+          "no MPP signing-key access",
+          "no ClawHub install or publication",
+          "no CI or package changes",
+          "no product-repo changes",
+          "no global configuration changes",
+          "no npm provenance interpreted as an NVIDIA skill signature",
+          "no NVIDIA-verified or signed-status claim without current evidence"
+        ]
+      }
     }
   ]
 }

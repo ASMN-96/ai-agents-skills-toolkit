@@ -2,9 +2,13 @@
 
 This repository is not a Node package. There is intentionally no root `package.json`; use direct `node scripts/...` commands from the repository root.
 
-## v0.2.2 To v0.2.3
+## Current Version
 
-- Treat `v0.2.3` as the current controlled release evidence. `v0.2.2` is historical.
+Treat `v0.2.5` as the current controlled release. It carries forward the v0.2.3 governance baseline and v0.2.4 agent and risk hardening, then refreshes watched-source evidence without changing the Level 3 maturity boundary.
+
+## Historical v0.2.2 To v0.2.3
+
+- At this migration boundary, v0.2.3 replaced v0.2.2 as the controlled release evidence. Both versions are now historical.
 - Replace passive `REVIEWED_HELD` source posture with final reviewed outcomes such as `SYNCED_ADOPTED`, `SYNCED_REFERENCE`, or `SYNCED_PLUGIN_DELEGATED`.
 - Keep tool posture metadata as recommendation/evidence only. `active-if-detected` means project-owned tooling can be recommended when detected; it does not install or run tools.
 - Report native-visible TOML files, compiled fallbacks, registry recommendation, inline fallback use, and actual spawned agents separately.

@@ -1,6 +1,6 @@
 # v0.2.4 Agent And Risk Hardening
 
-> Current controlled release evidence. `v0.2.4` supersedes `v0.2.3` for current agent/compiled parity, source-risk metadata, project-map safety, template routing, and embedded package validation claims.
+> Historical controlled release evidence. `v0.2.4` superseded `v0.2.3` for agent/compiled parity, source-risk metadata, project-map safety, template routing, and embedded package validation. `v0.2.5` carries this hardening forward and is the current release.
 
 ## Benefit
 
@@ -44,4 +44,3 @@ The release gate should include:
 ## Residual Risk
 
 Baseline tool enterprise-risk entries are evidence-backed metadata only. License legal approval, package release contents, telemetry behavior, execution network behavior, project-specific permissions, and CI behavior remain unapproved unless a later owner-reviewed tool adoption PR records that evidence.
-
