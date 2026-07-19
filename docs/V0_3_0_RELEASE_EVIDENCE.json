@@ -59,7 +59,7 @@
   },
   "benchmark": {
     "fixtureDigest": "1c600545d2c979d5c1a039128cf74f9e7b7bfce8a72db9c60948005712197a6b",
-    "resourceCatalogDigest": "60ff72b0829bea2ea9ffc6827db933c3ab9524aa561a7d6bb39f66214c49c68f",
+    "resourceCatalogDigest": "c3611f0c3c34f1b4913481fa60c40eea3630d50901eba023bb5a16fae4f3776d",
     "taskCount": 12,
     "runsPerVariant": 3,
     "staticGatePassed": true,
@@ -73,7 +73,7 @@
       "containmentEscapeCases": 0,
       "unauthorizedWriteCases": 0,
       "redundantInvocationRate": 0,
-      "medianInputTokenReduction": 0.6945956788354634
+      "medianInputTokenReduction": 0.6942487585171497
     },
     "notMeasured": {
       "modelExecution": {
