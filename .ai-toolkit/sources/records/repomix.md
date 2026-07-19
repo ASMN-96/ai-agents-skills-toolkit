@@ -1,31 +1,26 @@
-# Repomix Source Record
+# Repomix Source State Mirror
 
-- Source name: Repomix
-- Repository: yamadashy/repomix
-- Source URL: https://github.com/yamadashy/repomix
-- Homepage: https://repomix.com
-- Last reviewed commit: bb4ac4763faeb7fc3d31438f072a6946b5b290b9
-- Last reviewed date: 2026-06-19
-- Review level: optional-tool posture reference
-- Classification: active-if-detected or owner-approved-install candidate for scoped context packing/token counts
-- License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
-- Maintenance signal: active public repository at reviewed commit; not runtime-approved by toolkit metadata
+- Catalog source ID: repomix
+- Dependent resource ID: repomix
+- Canonical catalog: sources/source-watchlist.json
+- Canonical source record: sources/repomix.md
+- Catalog evidence instant: 2026-07-19T06:34:47.783Z
+- Monitor state: CURRENT
+- Observed revision: git-sha:2418bd05ccfbd6c39594854ab12695513afafba9
+- Content digest: sha256:7093b0e83a72f9ce1da7a380c8ec56ad2087423b3eea47c7dff387c62796f2e2
+- Review state: QUARANTINED
+- Reviewed revision: none
+- Reviewed digest: none
+- Review expires at: none
+- Current receipt: none
+- Disposition: none
+- Runtime posture: active-if-detected
+- Reference eligibility: BLOCKED
+- Dependent-resource source state: BLOCKED
+- Runtime eligibility: false
+- Eligibility reason: review-quarantined
 - neverAutoImport: true
 
-## Toolkit Value
+## Boundary
 
-Repomix is useful only as optional practical support for scoped context packs and token counts when the project already owns it or the owner explicitly approves execution. It is not a default dependency and not the primary design model.
-
-## Active-If-Detected Boundary
-
-- Detect project-owned Repomix config or dependency before recommending use.
-- Use only scoped packs tied to selected files, directories, or task neighborhoods.
-- Use token counts as measurement evidence only when actual output is observed.
-
-## Forbidden By Default
-
-- no install or activation from registry presence;
-- no automatic whole-repo dumps;
-- no package edits, CI wiring, MCP setup, global config, or product-repo scanning;
-- no secrets, .env values, private overlays, generated build output, package caches, or user-local paths;
-- no Repomix output claims without approved observed command output.
+This generated compatibility record mirrors SourceCatalog v2. It is not an independent inventory, review receipt, install approval, runtime activation, detection evidence, or execution proof. Source freshness never activates its dependent tool, and live policy may impose stricter time-based blocking.

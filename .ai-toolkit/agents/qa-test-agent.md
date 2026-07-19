@@ -1,6 +1,4 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.5
-last_compiled_against: 53466221e8d3b6c1340170d490104fe644262f3a
 compiled_fallback: compiled-agents/qa-test-agent.compiled.md
 ---
 
@@ -42,6 +40,9 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/qa-t
 - Confirm regressions are considered for nearby modules, public API/client contracts, auth/data boundaries, UI state, and release surfaces.
 - Check mocks are justified at system boundaries and do not erase the behavior under test.
 - Check generated tests assert behavior, state, values, or integration outcomes rather than framework mechanics only.
+- For stateful work, cover only applicable partial-failure, duplicate/retry, timeout/cancellation, concurrency, stale-state, and recovery behavior, and record why an omitted dimension is irrelevant.
+- A flaky rerun is not a pass. Quarantine the flaky test with visible ownership, find and fix its root cause, and preserve the failing evidence until reliability is restored.
+- For material AI changes, compare a representative versioned baseline for correctness, groundedness, structured output, Arabic/English quality when applicable, refusals, prompt injection, leakage, tool selection and authorization, latency, token/cost, and critical regressions.
 - Include manual QA only with exact scope, environment, and observed result.
 - Keep full-suite, browser, build, scanner, or release validation as separate evidence lines when run.
 

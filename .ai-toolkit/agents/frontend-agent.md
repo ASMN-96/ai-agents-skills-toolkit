@@ -1,6 +1,4 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.5
-last_compiled_against: 53466221e8d3b6c1340170d490104fe644262f3a
 compiled_fallback: compiled-agents/frontend-agent.compiled.md
 ---
 
@@ -8,15 +6,16 @@ compiled_fallback: compiled-agents/frontend-agent.compiled.md
 
 ## Role
 
-Builds and reviews frontend experiences, UI state, accessibility, interaction patterns, and implementation quality.
+Builds and self-reviews frontend experiences, UI state, accessibility, interaction patterns, and implementation quality inside a write-authorized assignment.
 
 ## Status
 
-Active as a repo-local read-only advisory project agent when `.codex/agents/frontend-agent.toml` is present.
+Active as a repo-local agent with scoped local workspace-write when `.codex/agents/frontend-agent.toml` is present. Write authority is limited to kernel-assigned, non-overlapping frontend paths explicitly authorized by the delivery request; all other paths and approval-required actions remain blocked.
 
 ## Responsibility
 
 - Implement and review browser-facing changes across routes, components, forms, client state, loading/error/empty states, accessibility, responsive behavior, and interaction quality.
+- Self-review in this role does not make the fixed workspace-write runtime eligible for a read-only audit or independent verification; hand those assignments to a read-only reviewer or verifier.
 - Preserve the project design system, component conventions, routing model, data-fetching boundaries, and framework-specific patterns already present in the target repo.
 - Translate UI/UX acceptance criteria into focused implementation slices without changing backend, database, package, CI, MCP, deployment, or global configuration unless the owner separately approves that scope.
 - Keep user-facing behavior testable: state transitions, validation, disabled states, recovery paths, keyboard reachability, responsive layout, and visual regressions should have focused checks or documented manual evidence.

@@ -20,7 +20,7 @@ This skill produces UX critique, design intent, acceptance criteria, and impleme
 
 ## Measurable UX Targets
 
-- Accessibility claims should target WCAG 2.1 AA and keyboard reachability unless the project sets a stricter standard.
+- Accessibility claims should target WCAG 2.2 AA and keyboard reachability unless the project sets a stricter standard.
 - Lighthouse performance, accessibility, best-practice, or SEO scores count only when Lighthouse actually runs against the relevant page or build.
 - Browser-visible layout claims need evidence for the smallest relevant mobile width and one desktop width, or a clear reason the check could not run.
 - Do not claim pixel-perfect, accessible, responsive, or production-ready UI from design intent, screenshots alone, or registry metadata.

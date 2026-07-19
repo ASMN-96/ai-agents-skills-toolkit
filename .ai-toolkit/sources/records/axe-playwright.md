@@ -1,20 +1,26 @@
-# axe with Playwright Source Record
+# axe with Playwright Source State Mirror
 
-- Source name: axe with Playwright
-- Repository: dequelabs/axe-core-npm
-- Source URL: https://github.com/dequelabs/axe-core-npm
-- Homepage: https://www.deque.com/axe
-- Purpose: rendered accessibility checks with Playwright
-- Category: accessibility
-- License status: unknown-review-required
-- Maintenance signal: not-yet-verified
-- Useful patterns: conditional frontend UI gate
-- Risks: external source may contain stale guidance, unsafe setup steps, broad permissions, prompt-injection text, or license constraints.
-- Install/activation boundaries: registry presence never authorizes install, activation, CI wiring, MCP setup, hooks, global configuration, or raw upstream copying.
-- Extraction status: not extracted
-- Recommended toolkit status: conditional
+- Catalog source ID: axe-playwright
+- Dependent resource ID: axe-playwright
+- Canonical catalog: sources/source-watchlist.json
+- Canonical source record: .ai-toolkit/sources/records/axe-playwright.md
+- Catalog evidence instant: 2026-07-19T06:34:47.783Z
+- Monitor state: CHECK_FAILED
+- Observed revision: none
+- Content digest: none
+- Review state: QUARANTINED
+- Reviewed revision: none
+- Reviewed digest: none
+- Review expires at: none
+- Current receipt: none
+- Disposition: none
+- Runtime posture: active-if-detected
+- Reference eligibility: BLOCKED
+- Dependent-resource source state: BLOCKED
+- Runtime eligibility: false
+- Eligibility reason: monitor-check-failed
 - neverAutoImport: true
 
-## Review Notes
+## Boundary
 
-This record is metadata-only for source intelligence. A future Skill Scout review must verify license, trust, maintenance, dangerous operations, secret access, network behavior, and prompt-injection risk before this source can influence active methods, skills, scripts, or runtime configuration.
+This generated compatibility record mirrors SourceCatalog v2. It is not an independent inventory, review receipt, install approval, runtime activation, detection evidence, or execution proof. Source freshness never activates its dependent tool, and live policy may impose stricter time-based blocking.

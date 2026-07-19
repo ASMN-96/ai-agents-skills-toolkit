@@ -274,10 +274,14 @@ test("compiled fallbacks preserve adopted falsification and agent-safety control
 });
 
 test("compiled fallbacks stay below the unwaived warning budget", async () => {
-  for (const agentName of COMPILED_FALLBACK_AGENT_NAMES) {
-    const compiled = await regularFile(`compiled-agents/${agentName}.compiled.md`);
+  const registry = JSON.parse(await regularFile("registries/agents.registry.json"));
+  const fallbackAgents = registry.agents.filter(
+    (agent) => typeof agent.compiledFallbackPath === "string"
+  );
+  for (const agent of fallbackAgents) {
+    const compiled = await regularFile(agent.compiledFallbackPath);
     const words = compiled.trim().split(/\s+/u).filter(Boolean).length;
-    assert.ok(words <= 4500, `${agentName} compiled fallback has ${words} words`);
+    assert.ok(words <= 4500, `${agent.name} compiled fallback has ${words} words`);
   }
 });
 

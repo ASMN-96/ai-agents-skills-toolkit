@@ -17,6 +17,8 @@ This pivot intentionally creates local runtime copies for a small approved surfa
 
 In this main toolkit repository, `.ai-toolkit/` is an embedded distribution and governance package. It is not a target-project install state, and it is not an active Codex runtime path by itself.
 
+The package manifest is `.ai-toolkit/manifest.json` in the toolkit distribution. A confirmed consumer-project sync writes the separate consumer runtime manifest `.ai-toolkit/.ai-toolkit-manifest.json` inside that consumer repository. The package manifest describes packaged canonical assets; the consumer manifest records the assets managed in that consumer. Neither manifest is runtime visibility, command execution, validation, or spawn proof by itself.
+
 Runtime reporting must follow `docs/NO_FAKE_VALIDATION_POLICY.md`. Files under `.ai-toolkit/`, registries, source records, manifests, or packaged copies are storage and metadata evidence only; they must not be described as active runtime visibility, installed tools, executed validation, or approval unless an actual runtime or command check proves it.
 
 ## Active Runtime Boundary
@@ -29,7 +31,7 @@ Active repo skills are limited to five reviewed canonical runtime entries.
 - `.agents/skills/security-review/SKILL.md`
 - `.agents/skills/pr-release-gate/SKILL.md`
 
-Repo-local project custom-agent files are limited to twelve approved `.codex/agents/*.toml` files:
+The v0.3 candidate has fifteen approved repo-local `.codex/agents/*.toml` definitions. Twelve have compiled fallbacks; the backend implementation and two platform specialists are preview native-only definitions:
 
 - `.codex/agents/product-agent.toml`
 - `.codex/agents/architect-agent.toml`
@@ -37,14 +39,17 @@ Repo-local project custom-agent files are limited to twelve approved `.codex/age
 - `.codex/agents/uiux-agent.toml`
 - `.codex/agents/frontend-agent.toml`
 - `.codex/agents/backend-contract-agent.toml`
+- `.codex/agents/backend-implementation-agent.toml` (preview, scoped workspace-write, no compiled fallback)
 - `.codex/agents/database-rls-agent.toml`
 - `.codex/agents/security-agent.toml`
 - `.codex/agents/qa-test-agent.toml`
 - `.codex/agents/release-manager-agent.toml`
 - `.codex/agents/skill-scout-agent.toml`
 - `.codex/agents/sre-performance-agent.toml`
+- `.codex/agents/mobile-platform-agent.toml` (preview, scoped workspace-write, no compiled fallback)
+- `.codex/agents/desktop-platform-agent.toml` (preview, scoped workspace-write, no compiled fallback)
 
-The seven specialist agents added in this activation pass are read-only advisory agent files. They expand repo-local custom-agent file availability for product framing, architecture framing, UI/UX criteria, backend/API contract review, database/RLS review, source-safety scouting, and SRE/performance review, but they do not prove an agent spawned and do not authorize package changes, CI changes, MCP configuration, global Codex config changes, product-repository sync, secret access, production/data/destructive changes, external source import, scanner execution, or fake validation claims.
+Eleven definitions remain fixed read-only roles. Frontend, backend implementation, mobile platform, and desktop platform are fixed scoped-workspace-write roles and are eligible only for kernel-assigned, non-overlapping paths explicitly authorized by the request. Their self-review stays inside a write-authorized assignment; they are not eligible for a read-only assignment and cannot serve as the independent verifier. File presence does not prove an agent spawned or wrote, and it does not authorize package changes, CI changes, MCP/global configuration, product-repository sync, signing/credential access, production/data/destructive changes, external source import, scanner execution, or fake validation claims.
 
 Backend Contract, Database RLS, and SRE Performance were upgraded from stubs to bounded read-only advisory agents before activation. Their hardening is anchored in OpenAPI/OAI contract description, OWASP API Security Top 10 risk categories, Supabase/Postgres RLS documentation, public/private leak gates, Google SRE golden signals, OpenTelemetry signals, and existing toolkit governance, security-review, code-quality, performance, release, and no-fake-validation methods. They still cannot approve production database changes, weaken RLS, perform security signoff alone, change deployment/CI/infrastructure, access secrets, or claim scanner/browser/runtime evidence without actual output.
 

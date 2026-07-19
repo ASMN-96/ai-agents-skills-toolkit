@@ -1,6 +1,4 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.5
-last_compiled_against: 53466221e8d3b6c1340170d490104fe644262f3a
 compiled_fallback: compiled-agents/backend-contract-agent.compiled.md
 ---
 
@@ -47,6 +45,7 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/back
 - Type/schema/validation alignment.
 - Consumer and compatibility impact.
 - Error, empty, loading, disabled, and failure behavior when API behavior affects UI.
+- Define applicable stateful-failure invariants for partial completion, duplicate delivery or retry, timeout or cancellation, concurrency, stale state, and recovery; mark genuinely irrelevant dimensions with a reason.
 - Public/private payload boundary review.
 - Object-level authorization/BOLA and exposed table/view/RPC review when user-controlled identifiers or Supabase-generated clients are involved.
 - Rollback, migration, and release impact classification.

@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "1.0.0",
+  "candidateVersion": "0.3.0",
+  "controlledRelease": "0.2.5",
+  "releaseState": "blocked",
+  "repository": {
+    "sourceCommit": "ef8e76a596e5f2bcd0dc29845316c9530bff9ac8",
+    "compilerCommit": "ef8e76a596e5f2bcd0dc29845316c9530bff9ac8",
+    "reviewedMainCommit": null,
+    "worktreeState": "clean"
+  },
+  "artifacts": {
+    "sourceCatalog": {
+      "path": "sources/source-watchlist.json",
+      "sha256": "25946fccbb45cad2596c7495f11664f5d96fe268e83e6b1ff4d33620f845af5e"
+    },
+    "freshnessReport": {
+      "path": "docs/SOURCE_FRESHNESS_REPORT.json",
+      "sha256": "b0890cf2fa8fd6072ca8e3f702766c28ec91af7ea0898ce0957a508493680f08"
+    },
+    "agentRegistry": {
+      "path": "registries/agents.registry.json",
+      "sha256": "09dd96b5058cfd27282632c9d659eaffd9c18a84864b1a0cd57b9e2d929616c8"
+    },
+    "benchmarkFixture": {
+      "path": "evals/routing/enterprise-delivery-benchmark.json",
+      "sha256": "593edab54fa0f3ab940cd17fea2c11bcb7d49a005916f94fb4c35e4ad77239cd"
+    },
+    "embeddedManifest": {
+      "path": ".ai-toolkit/manifest.json",
+      "sha256": "5220c852521158803ba460be931a19837d0c93776afeb6601b01d9a46043457a",
+      "state": "generated-current"
+    }
+  },
+  "sourceFreshness": {
+    "checkedAt": "2026-07-19T06:34:47.783Z",
+    "sourceCount": 85,
+    "monitorCounts": {
+      "CURRENT": 21,
+      "CHANGED": 1,
+      "CHECK_FAILED": 34,
+      "MANUAL_DUE": 29
+    },
+    "actionableSources": 85,
+    "approvedReceiptCount": 0,
+    "releaseEligible": false
+  },
+  "runtime": {
+    "canonicalSkills": 5,
+    "nativeAgentDefinitions": 15,
+    "compiledFallbacks": 12,
+    "previewNativeOnlyAgents": [
+      "backend-implementation-agent",
+      "desktop-platform-agent",
+      "mobile-platform-agent"
+    ],
+    "hostExecutionBridge": "absent"
+  },
+  "benchmark": {
+    "fixtureDigest": "1c600545d2c979d5c1a039128cf74f9e7b7bfce8a72db9c60948005712197a6b",
+    "resourceCatalogDigest": "60ff72b0829bea2ea9ffc6827db933c3ab9524aa561a7d6bb39f66214c49c68f",
+    "taskCount": 12,
+    "runsPerVariant": 3,
+    "staticGatePassed": true,
+    "measured": {
+      "mandatoryCompetencyCoverage": 1,
+      "domainGateCoverage": 1,
+      "exactGoldenRouting": 1,
+      "unsafeActivationCases": 0,
+      "falseReadyCases": 0,
+      "secretLeakCases": 0,
+      "containmentEscapeCases": 0,
+      "unauthorizedWriteCases": 0,
+      "redundantInvocationRate": 0,
+      "medianInputTokenReduction": 0.6945956788354634
+    },
+    "notMeasured": {
+      "modelExecution": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "firstPassAcceptance": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "finalAcceptance": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "escapedDefects": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "wallClockTiming": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "humanCorrectness": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "humanUsefulness": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "humanTraceability": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "reworkRate": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "unsupportedClaimRate": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "verificationCompleteness": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "humanReviewEffort": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "falseEscalationRate": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      },
+      "nativePilots": {
+        "status": "notMeasured",
+        "reason": "The static benchmark does not invoke a model, host runtime, human reviewer, native pilot, or wall clock comparison."
+      }
+    }
+  },
+  "warnings": [
+    "All 85 governed sources remain actionable and quarantined for new v0.3 routing.",
+    "No source review receipt has an authorized approver identity.",
+    "The runtime-owned Codex or Claude execution bridge is not implemented.",
+    "Three preview native-only agents do not yet have compiled fallbacks.",
+    "Human, timing, defect-escape, and native-pilot thresholds are not measured."
+  ],
+  "approvals": {
+    "sourceApproverIdentityRecorded": false,
+    "reviewedMainCommitApproved": false,
+    "tagAuthorized": false,
+    "releaseAuthorized": false
+  },
+  "releaseBlockers": [
+    "source-governance-actionable",
+    "source-review-approver-unregistered",
+    "runtime-host-bridge-unavailable",
+    "human-and-native-pilot-evidence-not-measured",
+    "reviewed-clean-main-commit-unavailable",
+    "tag-and-release-authorization-absent"
+  ]
+}

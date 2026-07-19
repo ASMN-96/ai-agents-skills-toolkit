@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.2.5",
+  "toolkitVersion": "0.3.0",
   "domains": [
     {
       "domain": "skills",
@@ -44,11 +44,11 @@
     },
     {
       "domain": "sources",
-      "canonicalSource": "sources/*.md and sources/source-watchlist.json",
+      "canonicalSource": "sources/source-watchlist.json, sources/*.md, and immutable sources/reviews/** receipts",
       "runtimeCopy": "none",
-      "distributionCopy": ".ai-toolkit/sources/**",
+      "distributionCopy": ".ai-toolkit/sources/** as generated-only output; never a canonical input",
       "historicalArchive": "restricted/reference-only source records stay explicitly marked",
-      "driftControl": "neverAutoImport plus source-record and watchlist validation"
+      "driftControl": "byte-identical SourceCatalog v2 mirror plus immutable receipt, neverAutoImport, freshness, and source-record validation"
     },
     {
       "domain": "profiles",

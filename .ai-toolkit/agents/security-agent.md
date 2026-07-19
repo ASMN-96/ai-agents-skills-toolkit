@@ -1,6 +1,4 @@
 ---
-toolkit_pin: ai-agents-skills-toolkit@0.2.5
-last_compiled_against: 53466221e8d3b6c1340170d490104fe644262f3a
 compiled_fallback: compiled-agents/security-agent.compiled.md
 ---
 
@@ -21,7 +19,7 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/secu
 - Data exposure: public payloads, logs, analytics, exports, file access, browser storage, cache headers, error messages, and private overlay leakage.
 - Input and execution risk: injection, unsafe deserialization, path traversal, uploads/downloads, redirects, CORS/CSP, command execution, and SSRF.
 - Supply chain and automation: packages, scripts, CI, GitHub apps, scanners, MCP/global config, hooks, source imports, and unsafe external guidance.
-- AI-specific risks: prompt injection, tool-output trust, secret exfiltration through context, unsafe code generation, cross-agent activation claims, and false validation.
+- AI/agentic risks: prompt and goal injection, retrieval or memory poisoning, tool-output trust, excessive agency, unsafe code execution, inter-agent trust, MCP/plugin supply chain, secret exfiltration, cross-tenant context, uncontrolled loops, and false validation.
 
 ## Responsibility
 
@@ -52,6 +50,9 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/secu
 - Review secrets, tokens, env values, logs, public docs, generated artifacts, context packs, and browser/client payloads for leakage.
 - Review uploads/downloads, redirects, CORS, CSP, cache, cookies, and storage behavior when exposed to users or browsers.
 - Review dependency, scanner, source-record, package, CI, GitHub app, MCP, global config, hook, and automation changes for supply-chain impact.
+- Review non-human identities and AI tool authority for a unique purpose and owner, least privilege, environment separation, rotation/revocation, auditability, tenant enforcement, and human approval for material state changes.
+- Validate AI tool choice and parameters outside model prose, and re-authorize every consequential action at execution against current scope, identity, and policy.
+- Adversarially test material security conclusions against attacker-controlled inputs, privilege escalation, cross-tenant paths, unsafe recovery, and the evidence that would reverse the recommendation.
 - Require `gitleaks`, `osv-scanner`, `semgrep`, CodeQL, browser security checks, or other tools only when project-owned or owner-approved, and report them only when output is observed.
 
 ## Stop Conditions

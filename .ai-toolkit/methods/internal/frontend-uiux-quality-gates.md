@@ -24,7 +24,11 @@ UIUX Agent, Frontend Agent, QA Test Agent, Reviewer Agent.
 
 ## Operating Rules
 
-Check visual hierarchy, accessibility, responsive layout, interaction states, loading/error states, typography, spacing, color contrast, and browser verification.
+Check visual hierarchy, accessibility, responsive layout, interaction states, typography, spacing, color contrast, and browser verification.
+
+Build a state matrix only when applicable to the workflow: loading, empty, error, disabled, partial success, permission denied, offline, stale data, destructive-action confirmation, cancellation, and recovery. State why a dimension is not applicable rather than adding fake UI states.
+
+When the project declares multiple locales or directionality requirements, verify text direction, content expansion, truncation/wrapping, and locale-aware date, number, and currency formatting. Do not impose a specific language, region, or right-to-left policy on products that have not declared it.
 
 ## Verification Requirements
 
@@ -32,10 +36,11 @@ Use screenshots, browser checks, accessibility review, and target workflow testi
 
 Minimum evidence:
 
-- contrast meets WCAG 2.1 AA: 4.5:1 for normal text and 3:1 for large text,
+- contrast meets WCAG 2.2 AA: 4.5:1 for normal text and 3:1 for large text,
 - all interactive elements are keyboard reachable with visible focus,
 - semantic controls have labels, roles, or accessible names,
-- mobile and desktop breakpoints plus interaction states are covered,
+- mobile and desktop breakpoints plus applicable interaction, permission, offline, stale, partial, confirmation, and recovery states are covered,
+- project-declared locales are checked for text direction, content expansion, and date, number, and currency formatting when applicable,
 - screenshots or automated reports from tools such as Axe, Lighthouse, or a color contrast checker are attached or summarized.
 
 ## Risks / Anti-Patterns

@@ -1,70 +1,139 @@
 {
-  "schemaVersion": "1.0.0",
-  "toolkitVersion": "0.2.5",
+  "schemaVersion": "2.0.0",
+  "manifestKind": "toolkit-script-provenance",
+  "toolkitVersion": "0.3.0",
   "scripts": [
     {
-      "path": "scripts/validate-toolkit.mjs",
-      "sha256": "9e713dddb4a95e6cf861421b5192e1506bdea9ae8ccb4f3f7bb4bcd6d2ebf44a"
-    },
-    {
-      "path": "scripts/scan-public-private-leaks.mjs",
-      "sha256": "eff7bade5c87b57cbaf8469e5f67bdc349c0e56692e972349d155d0d6e680f5b"
-    },
-    {
-      "path": "scripts/classify-stale-unverified-data.mjs",
-      "sha256": "147c42798a9442c76ebe0df0fd00680e5ea4e3508e3716941a5b896e74c69d67"
-    },
-    {
-      "path": "scripts/report-registry-generation-readiness.mjs",
-      "sha256": "b2e9e93a6931f161e1aea0cf43c4c157aad6e97e2a802af6d4b438d91f927851"
-    },
-    {
-      "path": "scripts/sync-runtime.mjs",
-      "sha256": "d9070184601c55f04e6076871b28721215103d820109485ceee42d0ca0adc22d"
-    },
-    {
-      "path": "scripts/check-source-freshness.mjs",
-      "sha256": "c55221180d9a54e6cfbe0e6b25d6a3ed743dcd82cd9607da8316291e48d1534a"
-    },
-    {
-      "path": "scripts/validate-project-tooling-profiles.mjs",
-      "sha256": "ddade892d71b79d825514fe21eec6b562257fb31484836a6bc4c9f0196198c4d"
-    },
-    {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "cf90c428e0a11fa13d8c36e61214f052829002c23e18f21ade3e29870e0681d6"
-    },
-    {
-      "path": "scripts/ai-toolkit/reference-closure.mjs",
-      "sha256": "5133b8cdb63631965236213134f48de6af8232faf410aa5cf901be79624c199c"
-    },
-    {
-      "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
-      "sha256": "9f62a2c03eecbbd5e98f17529bffe41c1a0285050c9a3d346ff0ccee736af185"
-    },
-    {
-      "path": "scripts/ai-toolkit/validate-reference-closure.mjs",
-      "sha256": "c6654801204eff2a3be8605a602f0aaa2d63cf9d95f96dc3d2739f020d4406eb"
-    },
-    {
-      "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",
-      "sha256": "6aeab52f7a0f54aa26532ac8f208dad2181b5c4eaed30271e2b6f6735646cf0f"
-    },
-    {
-      "path": "scripts/ai-toolkit/validate-version-consistency.mjs",
-      "sha256": "8ea8b20992f6428bde1006a3ae4f53e5a67e68b129c36c0599e3f93586607d3d"
-    },
-    {
-      "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "39c2093b2135a7f8d88a5f54bdf28bf81842ae6accb5da939f41438754f98816"
+      "sha256": "1ad1b6f238cdf719102e7a1eea9201f101c7a0e5a8b982110f93f5192dbeabcc"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",
-      "sha256": "81e11ff2634370845e0689df004603e09f70fe0a5372d01b334aa86bf35af460"
+      "sha256": "fb22adb1118dccc3429c25baf7991301dd7688d0b83514445210cc70cf09ebe6"
+    },
+    {
+      "path": "scripts/ai-toolkit/compiler-provenance.mjs",
+      "sha256": "ed1fd729d580e82121549a3f2aa27d5623278357974e0565cb89ad30786df435"
+    },
+    {
+      "path": "scripts/ai-toolkit/embedded-data.mjs",
+      "sha256": "edbf2ec254084ace00462a3e45bf1c84d6f95aa251f8ec70cfc73cb724cc6b6e"
+    },
+    {
+      "path": "scripts/ai-toolkit/reference-closure.mjs",
+      "sha256": "3ee62a756ba8848c6e9b5f8dcc709b7cab92fa0e8b6200f74fa40b32e973a1a6"
+    },
+    {
+      "path": "scripts/ai-toolkit/run-delivery-kernel-evals.mjs",
+      "sha256": "804540a6a4ea474b2cd74d6a5afc4db18182c8eab69ec43880e3e1c3f30ea196"
+    },
+    {
+      "path": "scripts/ai-toolkit/run-delivery-kernel.mjs",
+      "sha256": "043e93f6683633f6feb29504da77afc50de4537f61461c83d3a1e5c7f42e1d1f"
+    },
+    {
+      "path": "scripts/ai-toolkit/run-enterprise-delivery-benchmark.mjs",
+      "sha256": "458b2f5fcab86093105428a3746c1efec4151d734ce9ae8bba7f660589878054"
     },
     {
       "path": "scripts/ai-toolkit/run-quality-gate.mjs",
-      "sha256": "61ecb44a9d19dbc906d473f84f9b01fa805c971115f9bb536e93fb2fd8ef65b8"
+      "sha256": "d37c33c86de28918138be05ed4495506c892f98f9a8524c7110494b05a1eca8b"
+    },
+    {
+      "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
+      "sha256": "c195682756e8a04cf94087878eaa7a9ebf9fd701b655c15428abe5dffae11278"
+    },
+    {
+      "path": "scripts/ai-toolkit/runtime-agent-inventory.mjs",
+      "sha256": "0055d6ff1eea4860a5e8a1cb11f1feb5b3f62fdbebcc66c539cda50a9f91f3a4"
+    },
+    {
+      "path": "scripts/ai-toolkit/source-governance.mjs",
+      "sha256": "a57fad67dc5cb91362863e833b86baeea4ba8b416b1c781c0c1a129acc5aaddd"
+    },
+    {
+      "path": "scripts/ai-toolkit/subvalidator-policy.mjs",
+      "sha256": "2b858be73ee4d284f8a0d8aad71857a8247c11cdf0c1fcca0aa7d3e34c4eae66"
+    },
+    {
+      "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
+      "sha256": "2f9df41c9a8a7d457d167b66ecb6f0149afb146d709bf87747d5ad1b8725b3e1"
+    },
+    {
+      "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",
+      "sha256": "3f6fc55c9bd71005be4a272705525d35415b649cca41520366b8c951439671c3"
+    },
+    {
+      "path": "scripts/ai-toolkit/validate-reference-closure.mjs",
+      "sha256": "d20af7445458901862e22f2b78ad6e989ce014902eb82c462888b1c6b5d9330e"
+    },
+    {
+      "path": "scripts/ai-toolkit/validate-version-consistency.mjs",
+      "sha256": "bfffced005186f85f9300b47897246b7164630d234988c6ddeaf8d7d610b0ad4"
+    },
+    {
+      "path": "scripts/apply-source-freshness.mjs",
+      "sha256": "4d145c662e814c92b03b72ef8af3c90301a474516f355f5f3cb74129aaf5f8c6"
+    },
+    {
+      "path": "scripts/apply-source-review.mjs",
+      "sha256": "1712c417bd58872781da36466d071c3ba18dc28d7201473c71ed426316bf9987"
+    },
+    {
+      "path": "scripts/check-source-freshness.mjs",
+      "sha256": "95d089dd697110c7cb9e8a87b056a9973dd44d8329bbae562c69e7c60f49469f"
+    },
+    {
+      "path": "scripts/classify-stale-unverified-data.mjs",
+      "sha256": "7e7201681f53a0bf1fae24209cf6e73793e4e5949d1bd8603b1fb34c15462791"
+    },
+    {
+      "path": "scripts/compile-agents.mjs",
+      "sha256": "f4a21e5e8bdafe2cc8ebda5bae60f87d7c1c5aca20c71cbc6641895f569757a6"
+    },
+    {
+      "path": "scripts/migrate-source-catalog-v2.mjs",
+      "sha256": "47b9bc8591353a107cac431718548e93c0bf8c63b6f15b87d1873e47593ebe36"
+    },
+    {
+      "path": "scripts/report-registry-generation-readiness.mjs",
+      "sha256": "4dfeb8b21ce4893f0e15d51761f34d0a5c0c264a7dccb0911d4dde19e515767e"
+    },
+    {
+      "path": "scripts/run-release-gate.mjs",
+      "sha256": "b77e39af67b0be454fcc3f681c3e5ccc01d14bcbe3a3515a73132a4a27f6e50e"
+    },
+    {
+      "path": "scripts/scan-public-private-leaks.mjs",
+      "sha256": "cf3de546a7d2c67ce81b1bcc3ca3f067aee261df48e09ceb59f05783f75c529d"
+    },
+    {
+      "path": "scripts/sync-runtime.mjs",
+      "sha256": "400289d193e91481f72116ecac792527436e225edc56932dff8f8eb079c5451a"
+    },
+    {
+      "path": "scripts/validate-level4-readiness.mjs",
+      "sha256": "441e747e251c1362859d35768b237cc157ef77f98706b03652d090a8de206dd2"
+    },
+    {
+      "path": "scripts/validate-project-tooling-profiles.mjs",
+      "sha256": "05a9a79467bd0a60c52197fe65448bfeaa96138e0a58b0cd383501fafca5491c"
+    },
+    {
+      "path": "scripts/validate-public-package.mjs",
+      "sha256": "0fc85d6f8b4fbe0ccfac606a04e07bf23cae3e702d38c01fe82194693505ba5a"
+    },
+    {
+      "path": "scripts/validate-source-governance.mjs",
+      "sha256": "eda26fbd1434cba73507f21334ab05e74856b16639eaebdaa8fbb03121f85583"
+    },
+    {
+      "path": "scripts/validate-toolkit.mjs",
+      "sha256": "eef7161f2e506c02811a48485e3f673c101764e9cf5a92932c40849eb9fceb49"
+    },
+    {
+      "path": "scripts/validate-v0-3-release-evidence.mjs",
+      "sha256": "65f0e15313c1a87207b30d60136b962c9db25c22ae5c90b5cbb6d5ada50a2fae"
     }
   ]
 }

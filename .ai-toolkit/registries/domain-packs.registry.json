@@ -1,0 +1,2256 @@
+{
+  "schemaVersion": "2.0.0",
+  "registryType": "domain-packs",
+  "supportPolicy": "Domain packs define policy requirements only. Registry presence, environment detection, planned checks, or selected resources never prove verification or release readiness.",
+  "aliases": [
+    {
+      "id": "cross-platform-desktop",
+      "lifecycle": "deprecated",
+      "replacementIds": [
+        "windows-desktop",
+        "macos-desktop"
+      ],
+      "requiresExplicitTarget": true
+    }
+  ],
+  "packs": [
+    {
+      "id": "enterprise-core",
+      "displayName": "Enterprise Engineering Core",
+      "kind": "core",
+      "lifecycle": "active",
+      "maturity": "supported",
+      "competencies": [
+        "product-discovery",
+        "acceptance-criteria",
+        "architecture",
+        "implementation",
+        "verification",
+        "testing",
+        "security",
+        "privacy",
+        "performance",
+        "observability",
+        "reliability",
+        "failure-semantics",
+        "adversarial-review",
+        "technical-research",
+        "release",
+        "rollback"
+      ],
+      "gates": [
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-low-risk-scope-review",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "low"
+            ]
+          },
+          "requiredCompetencies": [
+            "governance",
+            "verification"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "owner-review"
+          ],
+          "evidenceType": "review-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 proportional review and change control practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-product-acceptance",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "product-discovery",
+            "acceptance-criteria"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "owner-review"
+          ],
+          "evidenceType": "review-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 prepare and protect practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-architecture-rollback",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "architecture",
+            "rollback"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "owner-review"
+          ],
+          "evidenceType": "review-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 software design and provenance practices"
+            },
+            {
+              "sourceId": "slsa-v1-2",
+              "locator": "SLSA v1.2 build provenance and integrity requirements"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-security-privacy",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "security",
+            "privacy"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "security-review"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "owasp-asvs",
+              "locator": "application security verification requirements"
+            },
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 protect and respond practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-independent-verification",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "verification",
+            "testing"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "integration-test"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 verify software practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-adversarial-review",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "adversarial-review"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "static-analysis"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 independent review, defect discovery, and risk response practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "stateful-failure-semantics",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [
+              "supabase-rls-migration",
+              "generic-postgres-orm-data-isolation",
+              "api-contract-change",
+              "ai-agent-system-change",
+              "cross-surface-api-contracts",
+              "api-contract-and-routing-readiness"
+            ],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "failure-semantics",
+            "testing",
+            "reliability"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "integration-test"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 verification of failure handling, recovery, and repeatable behavior"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "stack-version-evidence",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [
+              "dependency-supply-chain-review",
+              "external-tool-source-update",
+              "missing-capability-skill-discovery",
+              "package-manager-workspace-migration",
+              "react-typescript-quality-change",
+              "ai-agent-system-change"
+            ],
+            "riskLevels": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "technical-research"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "static-analysis"
+          ],
+          "evidenceType": "review-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 dependency, provenance, and version-specific verification practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "focused-tests",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [
+              "large-governed-implementation"
+            ],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "testing"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "unit-test"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 software verification practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "verification-evidence",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [
+              "large-governed-implementation"
+            ],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "verification"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "integration-test"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 evidence and software verification practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-operability-performance",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "performance",
+            "observability",
+            "reliability"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "performance-profile"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 release integrity and response practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-operability-owner-review",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "observability",
+            "reliability"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "owner-review"
+          ],
+          "evidenceType": "review-receipt",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 release integrity, response ownership, and operational review practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-critical-owner-approval",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "governance",
+            "release"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "owner-review"
+          ],
+          "evidenceType": "review-receipt",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 accountable authorization and release decision practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-critical-recovery-restore",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "rollback",
+            "reliability"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "packaging-install-rollback"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 release recovery and integrity practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-critical-staged-rollout",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "release",
+            "rollback"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "owner-review"
+          ],
+          "evidenceType": "review-receipt",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 controlled release and stop-condition practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "enterprise-critical-heightened-monitoring",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "observability",
+            "reliability"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "performance-profile"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf",
+              "locator": "SP 800-218 release monitoring and vulnerability response practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "ai-versioned-behavior-contract",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [
+              "ai-agent-system-change"
+            ],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "ai-systems",
+            "architecture"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "owner-review"
+          ],
+          "evidenceType": "review-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ssdf-ai",
+              "locator": "SP 800-218A AI model and system configuration lifecycle practices"
+            },
+            {
+              "sourceId": "nist-ai-rmf-genai",
+              "locator": "NIST AI 600-1 governance, mapping, measurement, and management outcomes"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "ai-evaluation-regression",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [
+              "ai-agent-system-change"
+            ],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "ai-evaluation",
+            "testing",
+            "verification"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "integration-test"
+          ],
+          "evidenceType": "observed-command-receipt",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "owasp-llmsvs",
+              "locator": "LLMSVS v2 AI and LLM security verification requirements"
+            },
+            {
+              "sourceId": "nist-ai-rmf-genai",
+              "locator": "NIST AI 600-1 pre-deployment testing and measurement guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "ai-agentic-security-review",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [
+              "ai-agent-system-change"
+            ],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "agentic-security",
+            "security",
+            "privacy"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "security-review"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "owasp-agentic-applications",
+              "locator": "agent identity, delegated authority, tool, memory, MCP, and loop security guidance"
+            },
+            {
+              "sourceId": "owasp-llmsvs",
+              "locator": "prompt injection, retrieval, data, and tool-boundary verification requirements"
+            },
+            {
+              "sourceId": "openssf-ai-code-assistant-instructions",
+              "locator": "security-focused instruction and guardrail practices for AI coding assistants"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "ai-accountable-human-approval",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [
+              "ai-agent-system-change"
+            ],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "governance",
+            "release"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "owner-review"
+          ],
+          "evidenceType": "review-receipt",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "nist-ai-rmf-genai",
+              "locator": "accountable governance and human oversight for material generative AI risks"
+            },
+            {
+              "sourceId": "owasp-agentic-applications",
+              "locator": "human authorization and minimum-agency controls for state-changing tools"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "web-saas",
+      "displayName": "Web and SaaS",
+      "kind": "platform",
+      "lifecycle": "active",
+      "maturity": "preview",
+      "competencies": [
+        "responsive-ui",
+        "web-accessibility",
+        "api-contracts",
+        "data-isolation",
+        "security",
+        "performance"
+      ],
+      "gates": [
+        {
+          "schemaVersion": "1.0.0",
+          "id": "web-wcag-22-aa",
+          "applicability": {
+            "platformIds": [
+              "web-saas"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "web-accessibility"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "browser"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "accessibility-audit"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "w3c-wcag-22",
+              "locator": "WCAG 2.2 Level AA"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "web-browser-interaction",
+          "applicability": {
+            "platformIds": [
+              "web-saas"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "responsive-ui"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "browser"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "browser-runtime"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "w3c-wcag-22",
+              "locator": "WCAG 2.2 complete user interaction and responsive presentation checks"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "web-runtime-security-quality",
+          "applicability": {
+            "platformIds": [
+              "web-saas"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "responsive-ui",
+            "api-contracts",
+            "contract-review",
+            "data-isolation",
+            "security"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "node",
+              "browser"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "integration-test"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "owasp-asvs",
+              "locator": "web application verification requirements"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "web-security-review",
+          "applicability": {
+            "platformIds": [
+              "web-saas"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "security",
+            "data-isolation"
+          ],
+          "environmentRequirements": {
+            "allOf": [],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "security-review"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "owasp-asvs",
+              "locator": "web application security and isolation verification requirements"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ios",
+      "displayName": "iOS Native",
+      "kind": "platform",
+      "lifecycle": "active",
+      "maturity": "preview",
+      "competencies": [
+        "ios-native",
+        "apple-hig",
+        "ios-accessibility",
+        "privacy-manifest",
+        "performance",
+        "release"
+      ],
+      "gates": [
+        {
+          "schemaVersion": "1.0.0",
+          "id": "ios-native-quality-accessibility",
+          "applicability": {
+            "platformIds": [
+              "ios"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "ios-native",
+            "apple-hig",
+            "ios-accessibility"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "macos",
+              "xcode",
+              "simulator-or-device"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "native-build"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "apple-human-interface-guidelines",
+              "locator": "iOS interaction and navigation guidance"
+            },
+            {
+              "sourceId": "apple-accessibility",
+              "locator": "platform accessibility guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "ios-simulator-device-behavior",
+          "applicability": {
+            "platformIds": [
+              "ios"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "ios-native",
+            "apple-hig"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "macos",
+              "xcode",
+              "simulator-or-device"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "simulator-device"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "apple-human-interface-guidelines",
+              "locator": "iOS runtime interaction and navigation guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "ios-accessibility-audit",
+          "applicability": {
+            "platformIds": [
+              "ios"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "ios-accessibility"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "macos",
+              "xcode",
+              "simulator-or-device"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "accessibility-audit"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "apple-accessibility",
+              "locator": "iOS accessibility verification guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "ios-privacy-performance-release",
+          "applicability": {
+            "platformIds": [
+              "ios"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "privacy-manifest",
+            "performance",
+            "release"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "macos",
+              "xcode"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "security-review"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "apple-privacy-manifests",
+              "locator": "privacy manifest and required-reason API guidance"
+            },
+            {
+              "sourceId": "owasp-masvs",
+              "locator": "mobile application security verification controls"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "ios-performance-profile",
+          "applicability": {
+            "platformIds": [
+              "ios"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "performance"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "macos",
+              "xcode"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "performance-profile"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "apple-human-interface-guidelines",
+              "locator": "iOS responsiveness and performance expectations"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "ios-packaging-install-rollback",
+          "applicability": {
+            "platformIds": [
+              "ios"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "release",
+            "rollback"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "macos",
+              "xcode"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "packaging-install-rollback"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "apple-privacy-manifests",
+              "locator": "iOS release packaging and rollback evidence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "android",
+      "displayName": "Android Native",
+      "kind": "platform",
+      "lifecycle": "active",
+      "maturity": "preview",
+      "competencies": [
+        "android-native",
+        "android-quality",
+        "android-accessibility",
+        "security",
+        "performance",
+        "release"
+      ],
+      "gates": [
+        {
+          "schemaVersion": "1.0.0",
+          "id": "android-native-quality-accessibility",
+          "applicability": {
+            "platformIds": [
+              "android"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "android-native",
+            "android-quality",
+            "android-accessibility"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "android-sdk",
+              "emulator-or-device"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "native-build"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "android-core-app-quality",
+              "locator": "core app quality and adaptive app criteria"
+            },
+            {
+              "sourceId": "android-accessibility",
+              "locator": "Android accessibility testing guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "android-emulator-device-behavior",
+          "applicability": {
+            "platformIds": [
+              "android"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "android-native",
+            "android-quality"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "android-sdk",
+              "emulator-or-device"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "simulator-device"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "android-core-app-quality",
+              "locator": "device behavior and adaptive app quality criteria"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "android-accessibility-audit",
+          "applicability": {
+            "platformIds": [
+              "android"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "android-accessibility"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "android-sdk",
+              "emulator-or-device"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "accessibility-audit"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "android-accessibility",
+              "locator": "Android accessibility test guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "android-security-performance-release",
+          "applicability": {
+            "platformIds": [
+              "android"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "security",
+            "performance",
+            "release"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "android-sdk",
+              "emulator-or-device"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "security-review"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "owasp-masvs",
+              "locator": "mobile application security verification controls"
+            },
+            {
+              "sourceId": "android-core-app-quality",
+              "locator": "performance, packaging, and release quality"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "android-performance-profile",
+          "applicability": {
+            "platformIds": [
+              "android"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "performance"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "android-sdk",
+              "emulator-or-device"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "performance-profile"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "android-core-app-quality",
+              "locator": "Android performance and resource quality criteria"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "android-packaging-install-rollback",
+          "applicability": {
+            "platformIds": [
+              "android"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "release",
+            "rollback"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "android-sdk",
+              "emulator-or-device"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "packaging-install-rollback"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "android-core-app-quality",
+              "locator": "Android packaging, update, install, and release quality"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "windows-desktop",
+      "displayName": "Windows Desktop",
+      "kind": "platform",
+      "lifecycle": "active",
+      "maturity": "preview",
+      "competencies": [
+        "windows-native",
+        "windows-accessibility",
+        "security",
+        "performance",
+        "release",
+        "rollback"
+      ],
+      "gates": [
+        {
+          "schemaVersion": "1.0.0",
+          "id": "windows-native-quality-accessibility",
+          "applicability": {
+            "platformIds": [
+              "windows-desktop"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "windows-native",
+            "windows-accessibility"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "windows",
+              "native-packaging"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "native-build"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "microsoft-windows-app-guidance",
+              "locator": "Windows app quality and design practices"
+            },
+            {
+              "sourceId": "microsoft-windows-accessibility",
+              "locator": "Windows accessibility guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "windows-accessibility-audit",
+          "applicability": {
+            "platformIds": [
+              "windows-desktop"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "windows-accessibility"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "windows",
+              "native-packaging"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "accessibility-audit"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "microsoft-windows-accessibility",
+              "locator": "Windows accessibility verification guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "windows-security-packaging-rollback",
+          "applicability": {
+            "platformIds": [
+              "windows-desktop"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "security",
+            "performance",
+            "release",
+            "rollback"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "windows",
+              "native-packaging"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "security-review"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "microsoft-windows-app-guidance",
+              "locator": "packaging, deployment, update, and performance practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "windows-performance-profile",
+          "applicability": {
+            "platformIds": [
+              "windows-desktop"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "performance"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "windows",
+              "native-packaging"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "performance-profile"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "microsoft-windows-app-guidance",
+              "locator": "Windows responsiveness and performance practices"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "windows-packaging-install-rollback",
+          "applicability": {
+            "platformIds": [
+              "windows-desktop"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "release",
+            "rollback"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "windows",
+              "native-packaging"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "packaging-install-rollback"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "microsoft-windows-app-guidance",
+              "locator": "Windows packaging, installation, update, and rollback practices"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "macos-desktop",
+      "displayName": "macOS Desktop",
+      "kind": "platform",
+      "lifecycle": "active",
+      "maturity": "preview",
+      "competencies": [
+        "macos-native",
+        "apple-hig",
+        "macos-accessibility",
+        "privacy-manifest",
+        "performance",
+        "release"
+      ],
+      "gates": [
+        {
+          "schemaVersion": "1.0.0",
+          "id": "macos-native-quality-accessibility",
+          "applicability": {
+            "platformIds": [
+              "macos-desktop"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "macos-native",
+            "apple-hig",
+            "macos-accessibility"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "macos",
+              "xcode"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "native-build"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "apple-human-interface-guidelines",
+              "locator": "macOS interaction, windowing, and input guidance"
+            },
+            {
+              "sourceId": "apple-accessibility",
+              "locator": "macOS accessibility guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "macos-accessibility-audit",
+          "applicability": {
+            "platformIds": [
+              "macos-desktop"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "macos-accessibility"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "macos",
+              "xcode"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "accessibility-audit"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "apple-accessibility",
+              "locator": "macOS accessibility verification guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "macos-privacy-performance-release",
+          "applicability": {
+            "platformIds": [
+              "macos-desktop"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "privacy-manifest",
+            "performance",
+            "release"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "macos",
+              "xcode"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "security-review"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "apple-privacy-manifests",
+              "locator": "privacy manifest and required-reason API guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "macos-performance-profile",
+          "applicability": {
+            "platformIds": [
+              "macos-desktop"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "performance"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "macos",
+              "xcode"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "performance-profile"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "apple-human-interface-guidelines",
+              "locator": "macOS responsiveness and performance expectations"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "macos-packaging-install-rollback",
+          "applicability": {
+            "platformIds": [
+              "macos-desktop"
+            ],
+            "frameworkOverlayIds": [],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "release",
+            "rollback"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "macos",
+              "xcode"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "packaging-install-rollback"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "apple-privacy-manifests",
+              "locator": "macOS packaging, installation, and rollback evidence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "expo-react-native",
+      "displayName": "Expo and React Native",
+      "kind": "framework-overlay",
+      "lifecycle": "active",
+      "maturity": "preview",
+      "competencies": [
+        "expo-react-native",
+        "mobile-accessibility",
+        "native-boundaries",
+        "release"
+      ],
+      "gates": [
+        {
+          "schemaVersion": "1.0.0",
+          "id": "expo-native-behavior-accessibility",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [
+              "expo-react-native"
+            ],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "expo-react-native",
+            "mobile-accessibility",
+            "native-boundaries"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "node"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "integration-test"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "expo-documentation",
+              "locator": "Expo native development and deployment guidance"
+            },
+            {
+              "sourceId": "owasp-masvs",
+              "locator": "mobile application boundary controls"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "expo-simulator-device-behavior",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [
+              "expo-react-native"
+            ],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "expo-react-native",
+            "native-boundaries"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "node",
+              "simulator-or-device"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "simulator-device"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "expo-documentation",
+              "locator": "Expo native runtime and device behavior guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "expo-accessibility-audit",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [
+              "expo-react-native"
+            ],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "mobile-accessibility"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "node",
+              "simulator-or-device"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "accessibility-audit"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "expo-documentation",
+              "locator": "Expo and React Native accessibility verification guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "expo-build-release",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [
+              "expo-react-native"
+            ],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "release"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "node"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "packaging-install-rollback"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "expo-documentation",
+              "locator": "build, signing, deployment, and update guidance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "electron",
+      "displayName": "Electron",
+      "kind": "framework-overlay",
+      "lifecycle": "active",
+      "maturity": "preview",
+      "competencies": [
+        "electron",
+        "desktop-security",
+        "native-boundaries",
+        "release",
+        "rollback"
+      ],
+      "gates": [
+        {
+          "schemaVersion": "1.0.0",
+          "id": "electron-process-ipc-security",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [
+              "electron"
+            ],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "electron",
+            "desktop-security",
+            "native-boundaries"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "node",
+              "native-packaging"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "security-review"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "electron-security-guidance",
+              "locator": "Electron security checklist and process isolation guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "electron-process-ipc-integration",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [
+              "electron"
+            ],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "electron",
+            "native-boundaries"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "node",
+              "native-packaging"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "integration-test"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "electron-security-guidance",
+              "locator": "Electron process, IPC, and preload integration verification"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "electron-packaging-update-rollback",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [
+              "electron"
+            ],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "release",
+            "rollback"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "node",
+              "native-packaging"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "packaging-install-rollback"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "electron-security-guidance",
+              "locator": "packaging, updates, and distribution guidance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tauri",
+      "displayName": "Tauri",
+      "kind": "framework-overlay",
+      "lifecycle": "active",
+      "maturity": "preview",
+      "competencies": [
+        "tauri",
+        "desktop-security",
+        "native-boundaries",
+        "release",
+        "rollback"
+      ],
+      "gates": [
+        {
+          "schemaVersion": "1.0.0",
+          "id": "tauri-command-capability-security",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [
+              "tauri"
+            ],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "tauri",
+            "desktop-security",
+            "native-boundaries"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "rust",
+              "native-packaging"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "security-review"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "tauri-security-guidance",
+              "locator": "capability, command, IPC, and security guidance"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "tauri-command-capability-integration",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [
+              "tauri"
+            ],
+            "scenarioIds": [],
+            "riskLevels": [
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "tauri",
+            "native-boundaries"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "rust",
+              "native-packaging"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "integration-test"
+          ],
+          "evidenceType": "observed-verification-receipt",
+          "blockingStage": "verified-for-review",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "tauri-security-guidance",
+              "locator": "Tauri command, capability, and IPC integration verification"
+            }
+          ]
+        },
+        {
+          "schemaVersion": "1.0.0",
+          "id": "tauri-packaging-update-rollback",
+          "applicability": {
+            "platformIds": [],
+            "frameworkOverlayIds": [
+              "tauri"
+            ],
+            "scenarioIds": [],
+            "riskLevels": [
+              "high",
+              "critical"
+            ]
+          },
+          "requiredCompetencies": [
+            "release",
+            "rollback"
+          ],
+          "environmentRequirements": {
+            "allOf": [
+              "rust",
+              "native-packaging"
+            ],
+            "anyOf": []
+          },
+          "verifierKinds": [
+            "packaging-install-rollback"
+          ],
+          "evidenceType": "observed-artifact",
+          "blockingStage": "verified-for-release",
+          "authoritativeSourceRefs": [
+            {
+              "sourceId": "tauri-security-guidance",
+              "locator": "bundling, signing, updater, and rollback guidance"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

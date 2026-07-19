@@ -1,10 +1,13 @@
 ---
 toolkit_name: AI Agent Skills Toolkit
-toolkit_version: 0.2.5
-toolkit_pin: ai-agents-skills-toolkit@0.2.5
+toolkit_version: 0.3.0
+toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 53466221e8d3b6c1340170d490104fe644262f3a
+source_commit: 86e77cb7168622ceaf8e922243ed93cf2cdcdeca
+input_digest: sha256:f857293b9729d569ee197254acfe0b6c202c5b37ab7924a135ff71f91c83a2d5
+input_digest_scope: canonical-agent-inputs-v1
+compiler_digest: sha256:e592d4a8f92c898f9f60465d5eb50e511f0408513beb55c3687f194ca366eaaf
 source_agent: agents/product-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -43,10 +46,47 @@ Defines product goals, user needs, scope boundaries, acceptance criteria, and re
 - Handoff structure, sequencing, and rollback concerns to Architect Agent.
 
 
+## Required Inputs
+
+
+- User or business goal, target users, and the problem or workflow being changed.
+- Included and excluded scope, constraints, risk tolerance, and authorized actions.
+- Known product evidence, current behavior, and decisions already made.
+- Target platforms and the smallest useful release boundary.
+
+
+## Required Checks
+
+
+- Goals and non-goals are explicit and do not contradict each other.
+- Every acceptance criterion is observable, testable, and mapped to a delivery gate.
+- Primary, failure, empty, loading, recovery, and accessibility-sensitive user paths are covered when applicable.
+- Scope, rollout, compatibility, privacy, cost, and operational assumptions are visible rather than implied.
+- Proposed slices can be implemented and independently verified without losing the original intent.
+
+
+## Stop Conditions
+
+
+- Multiple plausible interpretations would produce materially different behavior.
+- Required user, legal, privacy, pricing, rollout, or ownership decisions are missing.
+- Acceptance would depend on evidence, environment access, or authority that is unavailable.
+- The requested slice cannot be made reviewable without an owner-approved scope decision.
+
+
+## Output Contract
+
+
+- Return the goal, users, included scope, exclusions, constraints, and non-goals.
+- List acceptance criteria with gate IDs and identify assumptions or unresolved decisions.
+- Recommend bounded release slices and the next accountable handoff.
+- Do not imply implementation, validation, or approval occurred unless observed evidence proves it.
+
+
 ## Runtime Status
 
 
-Repo-local Codex project agent when `.codex/agents/product-agent.toml` is present. Availability means the agent can be selected/recommended; it is not automatically spawned. Runtime behavior is constrained by the TOML sandbox and instruction boundaries. This agent does not authorize product repo edits, package/CI/MCP changes, global configuration edits, external installs, secret access, or release/application actions without explicit owner approval.
+Read-only repo-local Codex project agent when `.codex/agents/product-agent.toml` is present. Availability means the agent can be selected/recommended; it is not automatically spawned. Runtime behavior is constrained by the TOML sandbox and instruction boundaries. This agent does not authorize product repo edits, package/CI/MCP changes, global configuration edits, external installs, secret access, or release/application actions without explicit owner approval.
 
 ## Profiles
 
@@ -136,32 +176,6 @@ Use when compiling agents or reviewing whether a project workflow has enough gat
 
 Do not require every gate for tiny documentation changes with no behavior or release impact.
 
-## Agent Roles That Should Embed It
-
-Product Agent, Architect Agent, QA Test Agent, Reviewer Agent, Release Manager Agent.
-
-## Operating Rules
-
-Apply these gates: define, plan, build, verify, review, release. Each gate must produce evidence before moving forward.
-
-## Verification Requirements
-
-- Define: problem statement and acceptance criteria.
-- Plan: implementation plan and risk assessment.
-- Build: branch or commit reference and scoped implementation notes.
-- Verify: test results, check output, or documented manual validation.
-- Review: review summary and action items.
-- Release: release notes and rollback or recovery notes.
-
-## Risks / Anti-Patterns
-
-Skipping evidence, treating release as only a push, or applying heavy gates to trivial changes.
-
-## Source Inspiration / License Status
-
-Inspired by Addy Osmani engineering workflow patterns.
-This is normalized/paraphrased guidance, not raw upstream activation.
-
 ### internal.documentation-accuracy-guard
 
 Source: `methods/internal/documentation-accuracy-guard.md`
@@ -179,31 +193,6 @@ Use when writing or reviewing READMEs, API docs, docstrings, changelogs, tutoria
 ## When Not To Use
 
 Do not use for marketing copy, visual site theming, or docs changes that make no technical claims.
-
-## Agent Roles That Should Embed It
-
-Reviewer Agent, QA Test Agent, Product Agent, Backend Contract Agent, Frontend Agent.
-
-## Operating Rules
-
-- Verify every referenced symbol, file path, command, flag, endpoint, config key, environment variable, and API shape against the source, schema, route table, CLI help, or current docs.
-- Document actual behavior, not intended behavior; if code and docs disagree, flag the mismatch instead of silently choosing one.
-- Remove unverifiable scale, performance, compatibility, and production-readiness claims unless they have repository evidence.
-- Keep code samples runnable on a clean machine without local paths, real credentials, or hidden prior state.
-- When code behavior changes, search related docs for the old symbol, flag, route, or behavior and update all affected surfaces in the same scoped change.
-- Do not paraphrase external documentation as local truth; link to upstream docs and describe only how this project uses the external dependency.
-
-## Verification Requirements
-
-For docs updates, report which claim surfaces were checked and what evidence was used. If samples, commands, or links were not executed or verified, label that gap explicitly.
-
-## Risks / Anti-Patterns
-
-Hallucinated function names, stale flags, broken examples, unsupported compatibility claims, docstrings that restate signatures, and documentation updates that drift from actual code.
-
-## Source Safety / License Status
-
-Toolkit-authored cleanroom method inspired by Nagdy Guard Skills docs-review concepts. No upstream wording, examples, prompt structure, scripts, reference files, or runtime behavior were copied or activated.
 
 ### karpathy.assumption-surfacing
 
@@ -223,30 +212,6 @@ Use when intent, constraints, ownership, production risk, or success criteria ar
 
 Do not ask about facts that can be discovered by reading local files, docs, registries, source records, or command output.
 
-## Agent Roles That Should Embed It
-
-Product Agent, Architect Agent, Reviewer Agent, Skill Scout Agent.
-
-## Operating Rules
-
-- Inspect discoverable context first.
-- Label assumptions, repo facts, inferences, and user preferences separately.
-- Lock a conservative default when the remaining ambiguity is low-risk.
-- Ask only when the answer changes architecture, security, data integrity, cost, scope, or release posture.
-
-## Verification Requirements
-
-Check that the plan or final report names material assumptions, states which facts were verified, and identifies any owner decision still required.
-
-## Risks / Anti-Patterns
-
-Analysis paralysis, asking questions already answered by local evidence, or silently choosing an interpretation that changes production risk.
-
-## Source Safety / License Status
-
-Toolkit-authored cleanroom method. Historical Karpathy-inspired source evidence remains license-caveated and is not active source authority for this method.
-No upstream wording, examples, prompt structure, scripts, or runtime behavior were copied or activated.
-
 ### karpathy.goal-driven-execution
 
 Source: `methods/karpathy/goal-driven-execution.md`
@@ -264,31 +229,6 @@ Use when implementing features, fixing bugs, planning releases, auditing source 
 ## When Not To Use
 
 Do not use as a shortcut around safety, review, source-freshness, leak, runtime, or test gates.
-
-## Agent Roles That Should Embed It
-
-Product Agent, Architect Agent, QA Test Agent, Release Manager Agent, Reviewer Agent.
-
-## Operating Rules
-
-- Restate the outcome in terms the user can verify.
-- Define success criteria and non-goals before changing files.
-- Prefer the shortest path that satisfies the outcome without weakening safety boundaries.
-- Treat validation evidence as part of the work, not a postscript.
-- Stop when success cannot be proven honestly.
-
-## Verification Requirements
-
-Report the goal, the proof collected, the checks that were skipped or unavailable, and any remaining uncertainty.
-
-## Risks / Anti-Patterns
-
-Confusing activity with progress, widening scope to look productive, or declaring completion without current evidence.
-
-## Source Safety / License Status
-
-Toolkit-authored cleanroom method. Historical Karpathy-inspired source evidence remains license-caveated and is not active source authority for this method.
-No upstream wording, examples, prompt structure, scripts, or runtime behavior were copied or activated.
 
 ### matt.grill-me
 
@@ -308,30 +248,6 @@ Use when the goal, scope, success criteria, audience, or tradeoffs are unclear.
 
 Do not ask questions that local inspection can answer.
 
-## Agent Roles That Should Embed It
-
-Product Agent, Architect Agent, UIUX Agent, Reviewer Agent.
-
-## Operating Rules
-
-- Ask material questions one at a time.
-- Prefer concrete choices.
-- Continue until decisions are actionable.
-- Record assumptions when proceeding.
-
-## Verification Requirements
-
-The final plan must be decision-complete for the next worker.
-
-## Risks / Anti-Patterns
-
-Interrogating users unnecessarily, delaying simple work, or asking vague questions.
-
-## Source Inspiration / License Status
-
-Inspired by `mattpocock/skills`, MIT visible during evaluation. Source record: `sources/matt-pocock-skills.md`.
-This is normalized/paraphrased guidance, not raw upstream activation.
-
 ### matt.to-issues
 
 Source: `methods/matt/to-issues.md`
@@ -349,29 +265,6 @@ Use when a spec needs task slicing for branch or issue workflow.
 ## When Not To Use
 
 Do not create issue churn for a single-file or trivial change.
-
-## Agent Roles That Should Embed It
-
-Product Agent, Architect Agent, Release Manager Agent, QA Test Agent.
-
-## Operating Rules
-
-- Slice by user-visible or independently verifiable outcomes.
-- Include acceptance criteria.
-- Minimize dependencies between issues.
-
-## Verification Requirements
-
-Each issue should be implementable and testable without guessing.
-
-## Risks / Anti-Patterns
-
-Layer-based tickets that cannot ship alone, vague acceptance, or hidden dependencies.
-
-## Source Inspiration / License Status
-
-Inspired by `mattpocock/skills`, MIT visible during evaluation.
-This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### matt.to-prd
 
@@ -391,29 +284,6 @@ Use when a feature needs shared product intent before planning.
 
 Do not create a PRD for tiny implementation-only changes.
 
-## Agent Roles That Should Embed It
-
-Product Agent, Architect Agent, Release Manager Agent.
-
-## Operating Rules
-
-- Capture problem, users, scope, non-goals, acceptance criteria, and constraints.
-- Keep wording specific enough for implementation.
-- Avoid inventing product strategy beyond known context.
-
-## Verification Requirements
-
-Check that each requirement has a corresponding acceptance signal.
-
-## Risks / Anti-Patterns
-
-Overwriting user intent, making assumptions look like facts, or adding unapproved scope.
-
-## Source Inspiration / License Status
-
-Inspired by `mattpocock/skills`, MIT visible during evaluation.
-This is normalized/paraphrased guidance, not raw upstream activation.
-
 ### matt.triage-issue
 
 Source: `methods/matt/triage-issue.md`
@@ -431,29 +301,6 @@ Use when reviewing bugs, feature requests, source findings, or unclear backlog i
 ## When Not To Use
 
 Do not use as a substitute for fixing a clearly scoped urgent bug.
-
-## Agent Roles That Should Embed It
-
-Product Agent, QA Test Agent, Reviewer Agent, Release Manager Agent.
-
-## Operating Rules
-
-- Identify type, severity, owner, evidence, and next action.
-- Separate reproducible facts from speculation.
-- Prefer labels or categories that drive action.
-
-## Verification Requirements
-
-Every triaged item must have a recommended next state.
-
-## Risks / Anti-Patterns
-
-Over-labeling, treating triage as resolution, or ignoring missing reproduction data.
-
-## Source Inspiration / License Status
-
-Inspired by `mattpocock/skills`, MIT visible during evaluation.
-This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### osmani.spec-driven-development
 
@@ -473,29 +320,6 @@ Use for new features, cross-module work, architectural changes, and unclear requ
 
 Do not require a full spec for a clearly bounded typo or tiny doc correction.
 
-## Agent Roles That Should Embed It
-
-Product Agent, Architect Agent, Backend Contract Agent, Frontend Agent.
-
-## Operating Rules
-
-- Capture goal, users, scope, constraints, interfaces, and success criteria.
-- Resolve high-impact ambiguities before implementation.
-- Keep specs decision-complete but not bloated.
-
-## Verification Requirements
-
-Confirm bidirectional traceability: every planned task maps to a spec requirement, and every spec requirement maps to at least one task and ideally one test. Maintain a traceability matrix or linked checklist so requirements cannot drop silently.
-
-## Risks / Anti-Patterns
-
-Writing vague specs, hiding decisions in implementation, or planning features not requested.
-
-## Source Inspiration / License Status
-
-Inspired by `addyosmani/agent-skills`, MIT visible during evaluation.
-This is normalized/paraphrased guidance, not raw upstream activation.
-
 ### uiux.dashboard-ux
 
 Source: `methods/uiux/dashboard-ux.md`
@@ -513,30 +337,6 @@ Use for dashboards, admin tools, CRMs, analytics surfaces, and internal operatio
 ## When Not To Use
 
 Do not use marketing-page composition for dense work surfaces.
-
-## Agent Roles That Should Embed It
-
-UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
-
-## Operating Rules
-
-- Prioritize clear navigation, density, filters, empty states, and table/card readability.
-- Keep visual style restrained.
-- Make frequent actions efficient.
-- Surface status and exceptions clearly.
-
-## Verification Requirements
-
-Check scan paths, sorting/filtering affordances, responsive density, and empty/error states.
-
-## Risks / Anti-Patterns
-
-Oversized hero sections, decorative card-heavy layouts, low information density, or hidden actions.
-
-## Source Inspiration / License Status
-
-Inspired by Anthropic restricted-source guidance and toolkit UI/UX rules.
-This is normalized/paraphrased guidance, not raw upstream activation.
 
 ### uiux.premium-visual-quality
 
@@ -556,34 +356,6 @@ Use for branded websites, polished apps, demos, and high-visibility UI.
 
 Do not prioritize aesthetics over clarity, accessibility, or product workflow.
 
-## Agent Roles That Should Embed It
-
-UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
-
-## Operating Rules
-
-- Use a domain-appropriate visual language.
-- Avoid one-note palettes and generic gradients.
-- Make typography, spacing, media, and hierarchy deliberate.
-- Prefer real product signals over decoration.
-- Load relevant product, design-system, and workflow context before visual changes.
-- Evaluate polish through concrete dimensions: hierarchy, spacing, contrast, motion restraint, interaction feedback, responsive fit, copy clarity, and state coverage.
-- Treat intentionally hidden accessibility text as semantic support first; only flag it as visual overflow when rendered evidence shows a user-visible fit or layout defect.
-- Use rendered evidence when making visual-quality claims; do not rely on source records or design vocabulary alone.
-
-## Verification Requirements
-
-Review screenshots across viewports and inspect for overlap, low contrast, visible text overflow, and generic composition. Distinguish visible copy defects from accessibility-only hidden labels before reporting fit issues.
-
-## Risks / Anti-Patterns
-
-AI-looking polish, decorative orbs, illegible text, stock-like imagery, or animation that distracts.
-
-## Source Inspiration / License Status
-
-Inspired by Anthropic restricted-source guidance, normalized Impeccable UI quality guidance, and toolkit frontend guidance.
-This is normalized/paraphrased guidance, not raw upstream activation.
-
 ### uiux.commercial-dashboard-polish-rubric
 
 Source: `methods/uiux/commercial-dashboard-polish-rubric.md`
@@ -602,31 +374,6 @@ Use during UI/UX review for customer-facing dashboards, investor-demo admin tool
 
 Do not use as permission to imitate marketplace screenshots, commercial copy, brand assets, template layouts, or proprietary examples.
 
-## Agent Roles That Should Embed It
-
-UIUX Agent, Frontend Agent, Product Agent, Reviewer Agent.
-
-## Operating Rules
-
-- Make the primary job-to-be-done visible before decorative content.
-- Keep density high enough for repeated work, with clear grouping and hierarchy.
-- Show status, exceptions, empty states, loading states, disabled states, and error recovery.
-- Put revenue, risk, usage, account, or workflow signals near the decisions they support.
-- Keep navigation predictable and actions easy to compare, undo, or confirm.
-- Use polish to improve trust, not to hide missing data or weak workflow design.
-
-## Verification Requirements
-
-Review desktop and mobile screenshots for hierarchy, scan speed, state coverage, action clarity, and content fit. Any commercial-quality claim needs rendered evidence, not only method selection.
-
-## Risks / Anti-Patterns
-
-Marketing layouts inside operational tools, vanity metrics without decisions, decorative card sprawl, weak empty/error states, hidden disabled states, and brand imitation.
-
-## Source Safety / License Status
-
-Toolkit-authored generic rubric. Historical Bencium source-safety evidence may remain as archive/reference context, but this method does not use Bencium as active source authority and does not copy upstream content.
-
 ### orchestration.project-context-preflight
 
 Source: `methods/orchestration/project-context-preflight.md`
@@ -643,35 +390,6 @@ Project Context Preflight gives Codex a compact, trusted project map before broa
 
 - `.ai-toolkit/context/project-map.json` when present and fresh
 - task goal and risk level
-- selected toolkit agents, profiles, skills, methods, and validation commands
-- current target git head and staleness hashes
-- private-overlay, secret, and generated-output exclusions
-
-## Task-Start Rules
-
-1. Check whether `.ai-toolkit/context/project-map.json` exists and matches current project staleness signals.
-2. If the map is stale, unsafe, or missing for a map-dependent task, stop and report the limitation before broad exploration.
-3. Choose token mode: `concise`, `standard`, or `detailed`.
-4. Identify likely files from `keyFiles`, `sourceLocations`, `testLocations`, `configFiles`, package scripts, and validation commands.
-5. Report the selected context before expanding to broader repo search.
-
-## Token Modes
-
-- `concise`: key files, direct task file, and one validation command are enough.
-- `standard`: key files, direct neighbors, relevant tests, validators, and one policy or method reference are needed.
-- `detailed`: architecture, security, release, or source-provenance context is needed and explicitly justified.
-
-## Prompt-Caching Layout
-
-- Put stable toolkit/project context first.
-- Put the project map summary before task-specific file excerpts.
-- Put volatile user/task-specific content last.
-- Do not churn static map field ordering without a schema reason.
-
-## Hard Boundaries
-
-- Do not dump a whole repo or whole-repo packed file into context by default.
-- Do not include absolute paths, `.env` values, secrets, credentials, private overlays, raw full-file dumps, package caches, or generated build output.
 
 ### orchestration.compact-agent-context-pack
 
@@ -687,37 +405,12 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - project-map freshness result
 - selected files and reason for each
 - changed-file neighborhood summary
-- source/method/profile references
-- validation commands and expected evidence
-- stop conditions
-- private-overlay, secret, and product-repo exclusions
-- token mode and budget rationale
-- omitted context and reason
-- context evidence label: `project-map`, `manual/static`, or `tool-generated`
-
-## Token Modes
-
-- `concise`: use for narrow tasks where the changed files, direct tests, and one or two policy/source references are enough.
-- `standard`: use for normal implementation plans, PR reviews, and source reviews that need direct neighbors, validators, evals, and relevant policy records.
-- `detailed`: use for high-risk audits or multi-agent planning where additional architecture, security, release, or source provenance context is necessary and explicitly justified.
-
-## Rules
-
-- Keep the pack compact enough that the receiving reviewer can identify scope without loading the whole repo.
-- Prefer links or paths to stable docs over pasted policies.
-- Include only actionable source records and methods.
-- Mark tool, browser, CodeRabbit, reviewdog, source freshness, and runtime evidence as `not invoked` unless actual output exists.
-- Label context evidence as `project-map` only when `.ai-toolkit/context/project-map.json` is fresh, `manual/static` when it comes from focused repo inspection, and `tool-generated` only when an approved tool actually ran and produced output.
-- Repomix may be used only after scoped owner approval, even when project-owned or detected, for a scoped pack or token count; never as an automatic whole-repo dump.
-- Treat whole-repo context dumping, loop agents, subagent creation, MCP setup, and global config activation as forbidden unless a later task explicitly approves a different execution mode.
-
-## Passive Visibility
-
-This approved method may be visible to project-sync consumers as passive governance guidance only. Approved method status does not authorize tool activation, MCP setup, external approval, runtime agent activation, product-repo indexing, generated context-pack output, or release approval.
 
 ## Provenance
 
 - Source agent path: `agents/product-agent.md`
+- Canonical input digest: `sha256:f857293b9729d569ee197254acfe0b6c202c5b37ab7924a135ff71f91c83a2d5`
+- Compiler digest: `sha256:e592d4a8f92c898f9f60465d5eb50e511f0408513beb55c3687f194ca366eaaf`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/uiux-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`

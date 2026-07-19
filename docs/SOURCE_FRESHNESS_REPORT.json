@@ -1,0 +1,1798 @@
+{
+  "schemaVersion": "2.0.0",
+  "checkedAt": "2026-07-19T06:34:47.783Z",
+  "mode": "live",
+  "readOnly": true,
+  "disclaimer": "Changed upstream source is not approved for import. This report does not authorize copying, installing, activating, extracting methods, updating source records, or changing runtime configuration.",
+  "actionableCount": 85,
+  "sources": [
+    {
+      "sourceId": "anthropic-skills",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "fa0fa64bdc967915dc8399e803be67759e1e62b8"
+      },
+      "contentDigest": "sha256:0d9683641353f633dce3eaf81f4e4e623f582dca382dc3657ab47cea1bbd1205",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/anthropics/skills",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-07-17T02:47:37Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "not found",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": [
+          {
+            "path": "skills/skill-creator",
+            "sha": "b9e19e6f44773509fbdd7001d77ff41a49a486c1",
+            "date": "2026-04-20T21:38:16Z"
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "openai-skills",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "49f948faa9258a0c61caceaf225e179651397431"
+      },
+      "contentDigest": "sha256:011fb1b92f68e9ac8dec2c7549243e29c7598f0cdb3858e2191b9a711b7acd42",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/openai/skills",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-06-24T02:36:12Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "not found",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "addy-osmani-agent-skills",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "2fbfa004a0192529bc997d103fc12f19a3804aab"
+      },
+      "contentDigest": "sha256:9f4cd96aa644fadbba6864b461c3cd9b1adc74ae901f69025913019d9cb94ae3",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/addyosmani/agent-skills",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-07-18T13:19:55Z",
+        "releaseSignal": "release 0.6.4",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "supabase-agent-skills",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "1ad9aaeb49caafd9e95c0a91116f71890eebbc53"
+      },
+      "contentDigest": "sha256:9e455e4d2320510ba82fa789ae4bdd26b062e6c4c3b96d03ed1519ceada05794",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/supabase/agent-skills",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-07-10T15:50:32Z",
+        "releaseSignal": "release v0.1.6",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "trailofbits-skills",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af"
+      },
+      "contentDigest": "sha256:005afb4b80ab79f5b8e45682a83c9682e29f4e5fad35b8be6e98a8571e8f1458",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/trailofbits/skills",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-06-30T15:14:46Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "CC-BY-SA-4.0 (LICENSE)",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "microsoft-playwright",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "449349caea6d1c81dc8b6a6f447cf9bfca6b1350"
+      },
+      "contentDigest": "sha256:dc7581d4b48b882cfa6b1a670ff2fc58a326b667cd9567aa4b8ff2c809ef192a",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/microsoft/playwright",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-07-17T22:36:09Z",
+        "releaseSignal": "release v1.61.1",
+        "licenseSignal": "Apache-2.0 (LICENSE)",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "karpathy-inspired-skills",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "2c606141936f1eeef17fa3043a72095b4765b9c2"
+      },
+      "contentDigest": "sha256:b1bf1488b4af3b8cfd044700e5302e93b4e735df0698b80a621d8fe5009435c4",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/multica-ai/andrej-karpathy-skills",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-04-20T10:05:04Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "not found",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "nagdy-guard-skills",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "d63607391ffd6b2763a3e62cb05a8e00b891a937"
+      },
+      "contentDigest": "sha256:d5bf9493007ee27515a2e4e312035b40724043eacc8b7e5435fff2bc380080f5",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/mabdeltawab/Nagdy_guard-skills",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-06-07T11:45:52Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": [
+          {
+            "path": "skills/clean-code-guard",
+            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
+            "date": "2026-06-07T11:45:52Z"
+          },
+          {
+            "path": "skills/test-guard",
+            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
+            "date": "2026-06-07T11:45:52Z"
+          },
+          {
+            "path": "skills/docs-guard",
+            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
+            "date": "2026-06-07T11:45:52Z"
+          }
+        ]
+      }
+    },
+    {
+      "sourceId": "matt-pocock-skills",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "9603c1cc8118d08bc1b3bf34cf714f62178dea3b"
+      },
+      "contentDigest": "sha256:c162fda5560dc2b6c442fdb9312b0d2094119fe40c88e78e464246c6f8ff0755",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/mattpocock/skills",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-07-16T09:03:12Z",
+        "releaseSignal": "release v1.1.0",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "shadcn-ui",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "d28738b183c5eaa69d8d540826e450f30d39ab6c"
+      },
+      "contentDigest": "sha256:c3607b2ba1e0cf1eeb8ba825498d74f1014cde7b745a25a0be2e627a17bf9c29",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/shadcn-ui/ui",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-07-17T15:40:59Z",
+        "releaseSignal": "release shadcn@4.13.1",
+        "licenseSignal": "MIT (LICENSE.md)",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "addyosmani-web-quality-skills",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "95d6e255afe1596b557d7a8498517884438f5b3a"
+      },
+      "contentDigest": "sha256:3f1abebc85cc287a6e8e6b7460cd1c37257d3634462650c2f1cba71d49212f1b",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/addyosmani/web-quality-skills",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-06-14T09:08:35Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "voltagent-awesome-design-md",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "664b3e78fd1a298ba11973822da988483256d4b4"
+      },
+      "contentDigest": "sha256:ae333fffcb3a026bc4bf76244ba8715992ddcff50a7604a0b2f40169d907ffb0",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/VoltAgent/awesome-design-md",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "2026-06-16T14:21:08Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches last reviewed commit.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "voltagent-awesome-agent-skills",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "c97eda5e3406670f3285c6bf9eb7639a7ecc03cc"
+      },
+      "contentDigest": "sha256:8b4d88fb86a6274f63a4645b5714953bdcefa84d215970830329a3fccc63b25d",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/VoltAgent/awesome-agent-skills",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "impeccable",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "e4ab5e24bdf5321b72163d2fbcbe6fa985c848ba"
+      },
+      "contentDigest": "sha256:9bdf023fc8c3738ddd194022b05c714fa2d02fb0024d81bfda923c6e30838d00",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/pbakaus/impeccable",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "uncodixfy",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "e0e028058b5259debdd94b78147c6d6c77bf7da2"
+      },
+      "contentDigest": "sha256:ab4b0a4091b4fa6459c538eb96a52f5a40826766d220478703eb2a366a2984e2",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/cyxzdev/Uncodixfy",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "superpowers",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "d884ae04edebef577e82ff7c4e143debd0bbec99"
+      },
+      "contentDigest": "sha256:4eb720d8d09486b14a3167420f7a54eb7bc3f2ee956373c806b4a593389a0057",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/obra/superpowers",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "everything-claude-code",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "754b8dd76ca885b764ec22f476664377aa46b6cd"
+      },
+      "contentDigest": "sha256:0fb14eeb7285b8042d5229c7ea3c9d5679aa038dcd38d8c57d1a055a3546f3b1",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/affaan-m/ECC",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "ruflo",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "12ede21767a6dd669df1b79392a5d27d9154f237"
+      },
+      "contentDigest": "sha256:4c54773d948717b4c331910d927c430d9e3d0040fcc2064cf9062985152af5b1",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/ruvnet/ruflo",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "gitlab-agent-skills",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://docs.gitlab.com/user/duo_agent_platform/customize/agent_skills/",
+        "digestBasis": null,
+        "latestCommitDate": "2026-06-19",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (periodic owner review of the official docs URL and source-record notes) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "gitlab-agentic-tool-development",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://docs.gitlab.com/user/duo_agent_platform/agents/external/",
+        "digestBasis": null,
+        "latestCommitDate": "2026-06-19",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (periodic owner review of the official docs URL and source-record notes) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "aider-repo-map",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://aider.chat/docs/repomap.html",
+        "digestBasis": null,
+        "latestCommitDate": "2026-06-19",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-doc-reference",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "openai-prompt-caching",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://developers.openai.com/api/docs/guides/prompt-caching",
+        "digestBasis": null,
+        "latestCommitDate": "2026-06-19",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-doc-reference",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "openai-codex-behavior-boundaries",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://developers.openai.com/codex/guides/agents-md",
+        "digestBasis": null,
+        "latestCommitDate": "2026-06-19",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-doc-reference",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "gsd-core",
+      "monitorState": "CHANGED",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "b2f4aa94356dc4859946f508965a2fa8e40bc93b"
+      },
+      "contentDigest": "sha256:f85d27660978b8e6406d16962e5432f4fcca91380bd5c7caed65dee22c0c3843",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "CHANGED_REVIEW_REQUIRED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/open-gsd/gsd-core",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Upstream default branch changed since last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "repomix",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "2418bd05ccfbd6c39594854ab12695513afafba9"
+      },
+      "contentDigest": "sha256:7093b0e83a72f9ce1da7a380c8ec56ad2087423b3eea47c7dff387c62796f2e2",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/yamadashy/repomix",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "typescript",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/microsoft/TypeScript",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "typescript-eslint",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/typescript-eslint/typescript-eslint",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "eslint-plugin-react-hooks",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/facebook/react",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "biome",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/biomejs/biome",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "oxlint",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/oxc-project/oxc",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "knip",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/webpro-nl/knip",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "react-doctor",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/millionco/react-doctor",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "vitest",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/vitest-dev/vitest",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "testing-library",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/testing-library/react-testing-library",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "axe-playwright",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/dequelabs/axe-core-npm",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "lighthouse-ci",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/GoogleChrome/lighthouse-ci",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "codeql",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/github/codeql",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "semgrep",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/semgrep/semgrep",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "gitleaks",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/gitleaks/gitleaks",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "trufflehog",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/trufflesecurity/trufflehog",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "osv-scanner",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/google/osv-scanner",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "dependabot",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/dependabot/dependabot-core",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "renovate",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/renovatebot/renovate",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "socket",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/SocketDev/socket-cli",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "trivy",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/aquasecurity/trivy",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "checkov",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/bridgecrewio/checkov",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "owasp-zap-baseline",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/zaproxy/action-baseline",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "actionlint",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/rhysd/actionlint",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "zizmor",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/woodruffw/zizmor",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "harden-runner",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/step-security/harden-runner",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "reviewdog",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/reviewdog/reviewdog",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "github-gh",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/cli/cli",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "open-design",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/nexu-io/open-design",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "openssf-scorecard",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/ossf/scorecard",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "dependency-cruiser",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/sverweij/dependency-cruiser",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "eslint-plugin-boundaries",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/javierbrea/eslint-plugin-boundaries",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "madge",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/pahen/madge",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "jscpd",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/kucherenko/jscpd",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "eslint",
+      "monitorState": "CHECK_FAILED",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "REVIEW_METADATA_MISSING",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/eslint/eslint",
+        "digestBasis": null,
+        "latestCommitDate": null,
+        "releaseSignal": "not checked",
+        "licenseSignal": "not checked",
+        "notes": "Add a reviewed commit before monitoring this source.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "agency-agents",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "459dce837db3bdfdc4763d3fefd1fd854e73c8f1"
+      },
+      "contentDigest": "sha256:ce2d56149f660c866f16a05e9b8fc040bd1eb36d7ec5c6dc9221b08c97c5fe7d",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/msitarzewski/agency-agents",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "bencium-marketplace",
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "git-sha",
+        "value": "9db32365ca5755a6ca9b5ff8d88ff384ca47b015"
+      },
+      "contentDigest": "sha256:7d94323aa9739e34053dff2bfeddc2b879bb0fe67dee216d5cbc704598b0dcaf",
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "UNCHANGED",
+        "sourceType": "github-repo",
+        "sourceUrl": "https://github.com/bencium/bencium-marketplace",
+        "digestBasis": "git-revision-identity",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches last reviewed commit. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "skills-sh",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://skills.sh/",
+        "digestBasis": null,
+        "latestCommitDate": "2026-05-15",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "license-unclear",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (90 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "coderabbit",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://docs.coderabbit.ai",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "unknown-review-required",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "android-accessibility",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://developer.android.com/guide/topics/ui/accessibility/testing",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "android-core-app-quality",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://developer.android.com/develop/adaptive-apps/quality-guidelines/core-app-quality",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "apple-accessibility",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/accessibility",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "apple-human-interface-guidelines",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://developer.apple.com/design/human-interface-guidelines/",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "apple-privacy-manifests",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://developer.apple.com/documentation/bundleresources/privacy-manifest-files",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "electron-security-guidance",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://www.electronjs.org/docs/latest/tutorial/security",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "expo-documentation",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://docs.expo.dev/",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "microsoft-windows-accessibility",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://learn.microsoft.com/en-us/windows/apps/design/accessibility/",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "microsoft-windows-app-guidance",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://learn.microsoft.com/en-us/windows/apps/get-started/best-practices",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "nist-ssdf-ai",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://csrc.nist.gov/pubs/sp/800/218/a/final",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "nist-ai-rmf-genai",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "owasp-llmsvs",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://owasp.org/www-project-llm-verification-standard/LLMSVS-v2.0-en.html",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "owasp-agentic-applications",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "slsa-v1-2",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://slsa.dev/spec/v1.2/",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "openssf-ai-code-assistant-instructions",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "nist-ssdf",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://csrc.nist.gov/pubs/sp/800/218/final",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "owasp-asvs",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://owasp.org/www-project-application-security-verification-standard/",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "owasp-masvs",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://mas.owasp.org/MASVS/",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "tauri-security-guidance",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://v2.tauri.app/security/",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "w3c-wcag-22",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://www.w3.org/TR/WCAG22/",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "openai-codex-guidance",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://learn.chatgpt.com/docs/agent-configuration/agents-md",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    },
+    {
+      "sourceId": "anthropic-claude-code-subagents",
+      "monitorState": "MANUAL_DUE",
+      "observedRevision": null,
+      "contentDigest": null,
+      "checkedAt": "2026-07-19T06:34:47.783Z",
+      "missingCurrentReview": true,
+      "evidence": {
+        "observationMode": "live-read-only",
+        "legacyStatus": "MANUAL_REVIEW_TRACKED",
+        "sourceType": "manual-reviewed-doc",
+        "sourceUrl": "https://code.claude.com/docs/en/sub-agents",
+        "digestBasis": null,
+        "latestCommitDate": "manual review only",
+        "releaseSignal": "manual reviewed-doc source; no live repository release check",
+        "licenseSignal": "official-docs-terms-not-reviewed",
+        "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
+        "watchedPathSignals": []
+      }
+    }
+  ]
+}

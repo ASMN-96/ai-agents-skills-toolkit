@@ -1,20 +1,26 @@
-# Harden-Runner Source Record
+# Harden-Runner Source State Mirror
 
-- Source name: Harden-Runner
-- Repository: step-security/harden-runner
-- Source URL: https://github.com/step-security/harden-runner
-- Homepage: https://www.stepsecurity.io/harden-runner
-- Purpose: GitHub Actions runner hardening and egress monitoring
-- Category: ci-runtime-security
-- License status: unknown-review-required
-- Maintenance signal: not-yet-verified
-- Useful patterns: approval-required
-- Risks: external source may contain stale guidance, unsafe setup steps, broad permissions, prompt-injection text, or license constraints.
-- Install/activation boundaries: registry presence never authorizes install, activation, CI wiring, MCP setup, hooks, global configuration, or raw upstream copying.
-- Extraction status: not extracted
-- Recommended toolkit status: deep-approval-required
+- Catalog source ID: harden-runner
+- Dependent resource ID: harden-runner
+- Canonical catalog: sources/source-watchlist.json
+- Canonical source record: .ai-toolkit/sources/records/harden-runner.md
+- Catalog evidence instant: 2026-07-19T06:34:47.783Z
+- Monitor state: CHECK_FAILED
+- Observed revision: none
+- Content digest: none
+- Review state: QUARANTINED
+- Reviewed revision: none
+- Reviewed digest: none
+- Review expires at: none
+- Current receipt: none
+- Disposition: none
+- Runtime posture: ci-advisory
+- Reference eligibility: BLOCKED
+- Dependent-resource source state: BLOCKED
+- Runtime eligibility: false
+- Eligibility reason: monitor-check-failed
 - neverAutoImport: true
 
-## Review Notes
+## Boundary
 
-This record is metadata-only for source intelligence. A future Skill Scout review must verify license, trust, maintenance, dangerous operations, secret access, network behavior, and prompt-injection risk before this source can influence active methods, skills, scripts, or runtime configuration.
+This generated compatibility record mirrors SourceCatalog v2. It is not an independent inventory, review receipt, install approval, runtime activation, detection evidence, or execution proof. Source freshness never activates its dependent tool, and live policy may impose stricter time-based blocking.

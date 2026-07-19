@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.0.0",
+  "task": {
+    "id": "TASK-001",
+    "goal": "Deliver a reviewable feature without overstating execution evidence.",
+    "scenario": "large-governed-implementation",
+    "scope": [
+      "src/feature",
+      "tests/feature"
+    ],
+    "exclusions": [
+      "deployment",
+      "production data"
+    ],
+    "constraints": [
+      "Preserve backward compatibility",
+      "Do not install or activate external tools"
+    ],
+    "risk": "high",
+    "targets": {
+      "platforms": [
+        "web-saas"
+      ],
+      "frameworkOverlays": []
+    },
+    "authorizedActions": [
+      "repository-read",
+      "scoped-local-write",
+      "project-validation"
+    ],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1",
+        "statement": "Behavior is covered by focused tests.",
+        "requiredGateIds": [
+          "focused-tests"
+        ]
+      },
+      {
+        "id": "AC-2",
+        "statement": "Required verification evidence is observed.",
+        "requiredGateIds": [
+          "verification-evidence"
+        ]
+      }
+    ],
+    "competencies": [
+      "architecture",
+      "implementation",
+      "testing",
+      "security",
+      "verification"
+    ],
+    "gates": [
+      "focused-tests",
+      "verification-evidence"
+    ]
+  },
+  "repository": {
+    "root": ".",
+    "expectedCommit": "0000000000000000000000000000000000000000"
+  },
+  "contextPolicy": {
+    "mode": "detailed",
+    "modelWindowTokens": 128000,
+    "maxInputFraction": 0.35
+  }
+}

@@ -1,6 +1,6 @@
 # Embedded AI Toolkit Distribution Package
 
-Version: 0.2.5
+Version: 0.3.0
 
 This directory is the main toolkit repository's embedded distribution and governance package. It is not a product-repo install state and it is not a Codex runtime activation surface by itself.
 
@@ -13,6 +13,8 @@ Active runtime surfaces remain intentionally small:
 
 No file in this package installs tools, activates external sources, configures CI, configures MCP, changes global Codex config, or imports raw upstream content.
 
+The self-contained delivery kernel at `.ai-toolkit/runtime/delivery-kernel/` may be invoked explicitly with Node.js 22. It is not auto-activated and its default planning path is read-only, stdout-only, and offline-capable.
+
 ## Source Of Truth Map
 
 | Domain | Canonical source | Runtime copy | Distribution copy | Historical/archive | Drift control |
@@ -22,7 +24,7 @@ No file in this package installs tools, activates external sources, configures C
 | compiled-agents | `compiled-agents/*.compiled.md` | none; compiled agents are fallback documentation and inline-use material, not native spawn proof | .ai-toolkit/compiled-agents/*.compiled.md when packaged | Older compiled-agent versions remain explicit drift until provenance is updated | manifest hashes plus source_commit/compiler/registry provenance |
 | registries | `registries/*.json` | none | .ai-toolkit/registries/*.json | none | byte identity for mirrored registry files |
 | methods | `methods/**` | none | .ai-toolkit/methods/** | restricted or historical sources remain marked in provenance | manifest hashes and source-provenance validation |
-| sources | `sources/*.md and sources/source-watchlist.json` | none | .ai-toolkit/sources/** | restricted/reference-only source records stay explicitly marked | neverAutoImport plus source-record and watchlist validation |
+| sources | `sources/source-watchlist.json, sources/*.md, and immutable sources/reviews/** receipts` | none | .ai-toolkit/sources/** as generated-only output; never a canonical input | restricted/reference-only source records stay explicitly marked | byte-identical SourceCatalog v2 mirror plus immutable receipt, neverAutoImport, freshness, and source-record validation |
 | profiles | `profiles/*.md` | none | not emitted in the current embedded package; profile registry mirror remains packaged | older profile notes only if marked | top-level profile files plus registry reference validation |
 | evals | `evals/**` | none | .ai-toolkit/evals/** | none | JSON parse and expected routing-case validation |
 | scripts | `scripts/*.mjs and scripts/ai-toolkit/*.mjs` | none | .ai-toolkit/scripts-manifest.json metadata only | old scripts remain top-level until a later cleanup PR | command allowlist, unsafe-command scan, and manifest hashes |
@@ -32,7 +34,7 @@ No file in this package installs tools, activates external sources, configures C
 - Registries are metadata only.
 - Tool records are source-intelligence only.
 - Source watchlist entries always use `neverAutoImport: true`.
-- Active runtime is limited to 5 reviewed skills and 12 project custom agents.
+- Active runtime is limited to 5 reviewed skills and 15 registry-declared project custom agents.
 - Helper skills remain internal and must not be copied into active runtime paths.
 - Top-level folders remain canonical and are not deleted, relocated, or flattened in this pass.
 - The embedded builder preserves reviewed registries instead of regenerating them from stale defaults.

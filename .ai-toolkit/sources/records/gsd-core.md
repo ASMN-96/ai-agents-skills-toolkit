@@ -1,34 +1,26 @@
-# GSD Core Source Record
+# GSD Core Source State Mirror
 
-- Source name: GSD Core
-- Repository: open-gsd/gsd-core
-- Source URL: https://github.com/open-gsd/gsd-core
-- Homepage: https://github.com/open-gsd/gsd-core
-- Last reviewed commit: 7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034
-- Last reviewed date: 2026-06-20
-- Review level: first-class governed tool metadata
-- Classification: active-if-detected or owner-approved-install candidate for phase/state governance
-- License status: MIT signal at reviewed commit; not legal approval to copy raw upstream content
-- Maintenance signal: active public repository at reviewed commit; default branch is next
+- Catalog source ID: gsd-core
+- Dependent resource ID: gsd-core
+- Canonical catalog: sources/source-watchlist.json
+- Canonical source record: sources/gsd-core.md
+- Catalog evidence instant: 2026-07-19T06:34:47.783Z
+- Monitor state: CHANGED
+- Observed revision: git-sha:b2f4aa94356dc4859946f508965a2fa8e40bc93b
+- Content digest: sha256:f85d27660978b8e6406d16962e5432f4fcca91380bd5c7caed65dee22c0c3843
+- Review state: QUARANTINED
+- Reviewed revision: none
+- Reviewed digest: none
+- Review expires at: none
+- Current receipt: none
+- Disposition: none
+- Runtime posture: active-if-detected
+- Reference eligibility: BLOCKED
+- Dependent-resource source state: BLOCKED
+- Runtime eligibility: false
+- Eligibility reason: monitor-changed
 - neverAutoImport: true
 
-## Relocation Evidence
+## Boundary
 
-The previous GSD repository, gsd-build/get-shit-done, now points users to open-gsd/gsd-core as the active home. The toolkit tracks the new canonical repository only.
-
-## Toolkit Value
-
-GSD Core is useful as phase/state planning and execution discipline for serious multi-step governed work when already available in the operator or project environment, or when the owner approves installation.
-
-## Active-If-Detected Boundary
-
-- Detect project-owned or operator-owned GSD before recommending invocation.
-- Report selected, invoked, blocked-unavailable, or manual fallback status honestly.
-- Count workflow output as evidence only when observed in the current task.
-
-## Forbidden By Default
-
-- no vendoring or raw source copying;
-- no install or activation from registry presence;
-- no package edits, CI wiring, MCP setup, hooks, global config, or product-repo mutation;
-- no GSD invocation claim without observed workflow output.
+This generated compatibility record mirrors SourceCatalog v2. It is not an independent inventory, review receipt, install approval, runtime activation, detection evidence, or execution proof. Source freshness never activates its dependent tool, and live policy may impose stricter time-based blocking.
