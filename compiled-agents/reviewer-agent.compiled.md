@@ -4,10 +4,10 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 86e77cb7168622ceaf8e922243ed93cf2cdcdeca
-input_digest: sha256:f857293b9729d569ee197254acfe0b6c202c5b37ab7924a135ff71f91c83a2d5
+source_commit: e5a0bb92e0a9d35c6efdd6f8dbc9b20e1e8dd0da
+input_digest: sha256:fefe304be6164a6de90b869cb60a42a343f556c79545b4cf752c4f6de8627fdd
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:e592d4a8f92c898f9f60465d5eb50e511f0408513beb55c3687f194ca366eaaf
+compiler_digest: sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e
 source_agent: agents/reviewer-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -1043,13 +1043,13 @@ Gate PR, merge, release-candidate, and post-merge decisions on observed evidence
 ## Provenance
 
 - Source agent path: `agents/reviewer-agent.md`
-- Canonical input digest: `sha256:f857293b9729d569ee197254acfe0b6c202c5b37ab7924a135ff71f91c83a2d5`
-- Compiler digest: `sha256:e592d4a8f92c898f9f60465d5eb50e511f0408513beb55c3687f194ca366eaaf`
+- Canonical input digest: `sha256:fefe304be6164a6de90b869cb60a42a343f556c79545b4cf752c4f6de8627fdd`
+- Compiler digest: `sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/audit-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
 - Method IDs: `backend.supabase-postgres-rls-gates`, `backend.database-access-isolation-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `internal.tdd-verification-alignment`, `internal.documentation-accuracy-guard`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.git-guardrails`, `matt.grill-me`, `matt.improve-architecture`, `matt.tdd`, `matt.triage-issue`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.shipping-launch`, `osmani.test-driven-development`, `security.differential-security-review`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.premium-visual-quality`, `uiux.webapp-testing`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.project-context-preflight`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.project-map-staleness-check`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `internal.decision-driven-stack-intelligence`, `release.release-rollback-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `aider-repo-map`, `anthropic-skills`, `everything-claude-code`, `impeccable`, `matt-pocock-skills`, `microsoft-playwright`, `nagdy-guard-skills`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `ruflo`, `shadcn-ui`, `skills-sh`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `aider-repo-map`, `anthropic-skills`, `everything-claude-code`, `impeccable`, `matt-pocock-skills`, `microsoft-playwright`, `nagdy-guard-skills`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `ruflo`, `shadcn-ui`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

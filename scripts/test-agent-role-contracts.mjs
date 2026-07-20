@@ -153,7 +153,10 @@ test("new compiled fallbacks retain preview writer boundaries without claiming n
     assert.match(native, /^sandbox_mode = "workspace-write"$/mu);
     assert.match(compiled, /scoped (?:local )?workspace-write/iu);
     assert.match(compiled, /does not activate native custom agents/iu);
-    assert.match(compiled, /never claim.*(?:spawned|wrote|verified).*task-specific runtime evidence/isu);
+    assert.match(
+      compiled,
+      /never claim.*(?:spawned|wrote|verified|execution|verification).*task-specific runtime evidence/isu
+    );
   }
 
   const backend = await regularFile("compiled-agents/backend-implementation-agent.compiled.md");
