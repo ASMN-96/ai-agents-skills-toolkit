@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 import { runDeliveryKernelCli } from "./ai-toolkit/run-delivery-kernel.mjs";
 import { canonicalDigest } from "./ai-toolkit/kernel/canonical-digest.mjs";
-import { prepareExecutionPlan } from "./ai-toolkit/kernel/execution-lifecycle.mjs";
+import { inspectExecutionPlanPreparation } from "./ai-toolkit/kernel/execution-lifecycle.mjs";
 import { readPinnedDeliveryRequestSync } from "./test-support/live-repository-fixture.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -16,19 +16,47 @@ const RAW_TEMPLATE = path.join(ROOT, "templates", "delivery-kernel.request.examp
 const MATERIALIZED_TEMPLATE_ROOT = mkdtempSync(path.join(tmpdir(), "delivery-kernel-cli-template-"));
 const TEMPLATE = path.join(MATERIALIZED_TEMPLATE_ROOT, "request.json");
 const CREATED_AT = "2026-07-17T08:00:00.000Z";
+const WORKTREE_FIXTURES = new Set();
 
 writeFileSync(
   TEMPLATE,
   `${JSON.stringify(readPinnedDeliveryRequestSync(RAW_TEMPLATE, ROOT), null, 2)}\n`,
   "utf8"
 );
-after(() => rmSync(MATERIALIZED_TEMPLATE_ROOT, { recursive: true, force: true }));
+after(() => {
+  rmSync(MATERIALIZED_TEMPLATE_ROOT, { recursive: true, force: true });
+  for (const fixture of WORKTREE_FIXTURES) {
+    rmSync(fixture, { recursive: true, force: true });
+  }
+});
+
+function worktreeFixture(prefix) {
+  const fixture = mkdtempSync(path.join(ROOT, "temp", prefix));
+  WORKTREE_FIXTURES.add(fixture);
+  return fixture;
+}
 
 function outputSink() {
   let value = "";
   return {
     stream: { write(chunk) { value += String(chunk); } },
     value() { return value; }
+  };
+}
+
+function structurallyPrepareExecutionPlan(rawPlan, options) {
+  const { plan, executionManifestCore } = inspectExecutionPlanPreparation(rawPlan, options);
+  const planDigest = canonicalDigest(
+    { plan, executionManifest: executionManifestCore },
+    "structural CLI forgery fixture"
+  );
+  return {
+    ...plan,
+    executionManifest: {
+      ...executionManifestCore,
+      runId: `run-${planDigest.slice(0, 24)}`,
+      planDigest
+    }
   };
 }
 
@@ -132,6 +160,18 @@ test("ingest rejects a re-hashed plan that removes canonical policy gates", asyn
     const accounting = forged.sourceDependencyAccounting;
     accounting.selectedGateIds = [...forged.domain.resolvedGateIds].sort();
     const selectedGates = new Set(accounting.selectedGateIds);
+    const movedSupportedBlockers = accounting.selectedSupportedDependencyBlockers
+      .filter((blocker) => !selectedGates.has(blocker.gateId));
+    accounting.selectedSupportedDependencyBlockers = accounting.selectedSupportedDependencyBlockers
+      .filter((blocker) => selectedGates.has(blocker.gateId));
+    accounting.diagnosticSupportedDependencyBlockers = [
+      ...accounting.diagnosticSupportedDependencyBlockers,
+      ...movedSupportedBlockers
+    ].sort((left, right) => (
+      left.packId.localeCompare(right.packId)
+      || left.gateId.localeCompare(right.gateId)
+      || left.sourceId.localeCompare(right.sourceId)
+    ));
     const movedPreviewBlockers = accounting.selectedPreviewDependencyBlockers
       .filter((blocker) => !selectedGates.has(blocker.gateId));
     accounting.selectedPreviewDependencyBlockers = accounting.selectedPreviewDependencyBlockers
@@ -145,7 +185,7 @@ test("ingest rejects a re-hashed plan that removes canonical policy gates", asyn
       || left.sourceId.localeCompare(right.sourceId)
     ));
     accounting.blockingSourceIds = [...new Set([
-      ...accounting.supportedDependencyBlockers,
+      ...accounting.selectedSupportedDependencyBlockers,
       ...accounting.selectedPreviewDependencyBlockers,
       ...accounting.selectedResourceDependencyBlockers
     ].map((blocker) => blocker.sourceId))].sort();
@@ -154,7 +194,10 @@ test("ingest rejects a re-hashed plan that removes canonical policy gates", asyn
     const ttlSeconds = Math.round(
       (new Date(contextExpiresAt).valueOf() - new Date(createdAt).valueOf()) / 1000
     );
-    const preparedForgery = prepareExecutionPlan(forged, { createdAt, contextTtlSeconds: ttlSeconds });
+    const preparedForgery = structurallyPrepareExecutionPlan(
+      forged,
+      { createdAt, contextTtlSeconds: ttlSeconds }
+    );
     const identity = {
       schemaVersion: "1.0.0",
       runId: preparedForgery.executionManifest.runId,
@@ -192,7 +235,10 @@ test("ingest rejects a re-hashed plan that alters inspected context and adapter 
     const ttlSeconds = Math.round(
       (new Date(contextExpiresAt).valueOf() - new Date(createdAt).valueOf()) / 1000
     );
-    const preparedForgery = prepareExecutionPlan(forged, { createdAt, contextTtlSeconds: ttlSeconds });
+    const preparedForgery = structurallyPrepareExecutionPlan(
+      forged,
+      { createdAt, contextTtlSeconds: ttlSeconds }
+    );
     const identity = {
       schemaVersion: "1.0.0",
       runId: preparedForgery.executionManifest.runId,
@@ -249,7 +295,7 @@ test("ingest rejects caller-forged source dependency accounting after canonical 
 });
 
 test("output writes require dual authorization, stay within cwd, and never overwrite", async () => {
-  const fixture = mkdtempSync(path.join(ROOT, ".delivery-kernel-cli-output-"));
+  const fixture = worktreeFixture("delivery-kernel-cli-output-");
   try {
     const outputPath = path.join(fixture, "prepared.json");
     await assert.rejects(
@@ -305,7 +351,7 @@ test("output writes require dual authorization, stay within cwd, and never overw
 });
 
 test("output rejects a linked parent path component", async (context) => {
-  const fixture = mkdtempSync(path.join(ROOT, ".delivery-kernel-cli-link-"));
+  const fixture = worktreeFixture("delivery-kernel-cli-link-");
   const target = mkdtempSync(path.join(tmpdir(), "delivery-kernel-cli-link-target-"));
   try {
     const linked = path.join(fixture, "linked");
@@ -335,7 +381,7 @@ test("output rejects a linked parent path component", async (context) => {
 });
 
 test("output rejects NTFS stream, reserved-device, and trailing-alias names", async () => {
-  const fixture = mkdtempSync(path.join(ROOT, ".delivery-kernel-cli-windows-alias-"));
+  const fixture = worktreeFixture("delivery-kernel-cli-windows-alias-");
   try {
     for (const unsafeName of ["result.json:stream", "CON.json", "NUL", "result.json.", "nested. /result.json"]) {
       const outputPath = path.join(fixture, ...unsafeName.split("/"));

@@ -11,7 +11,7 @@ import * as sourcePolicy from "./ai-toolkit/kernel/source-policy.mjs";
 import * as resourceCatalog from "./ai-toolkit/kernel/resource-catalog.mjs";
 import { canonicalDigest } from "./ai-toolkit/kernel/canonical-digest.mjs";
 import { planDeliveryRun } from "./ai-toolkit/kernel/delivery-kernel.mjs";
-import { prepareExecutionPlan } from "./ai-toolkit/kernel/execution-lifecycle.mjs";
+import { inspectExecutionPlanPreparation } from "./ai-toolkit/kernel/execution-lifecycle.mjs";
 import { loadValidatedSourceCatalog } from "./ai-toolkit/kernel/source-catalog-loader.mjs";
 import { readPinnedDeliveryRequest } from "./test-support/live-repository-fixture.mjs";
 
@@ -671,6 +671,10 @@ test("the materialized committed starter derives dependencies and stays blocked"
     [...plan.domain.selectedPackIds].sort()
   );
   assert.deepEqual(
+    plan.sourceDependencyAccounting.selectedPackMaturities,
+    [...plan.domain.packMaturities].sort((left, right) => left.packId.localeCompare(right.packId))
+  );
+  assert.deepEqual(
     plan.sourceDependencyAccounting.selectedGateIds,
     [...plan.domain.resolvedGateIds].sort()
   );
@@ -679,6 +683,22 @@ test("the materialized committed starter derives dependencies and stays blocked"
     plan.routing.selected.map((resource) => resource.id).sort()
   );
   assert.equal(plan.sourceDependencyAccounting.status, "blocked");
+  assert.ok(
+    plan.sourceDependencyAccounting.selectedSupportedDependencyBlockers.every(
+      (blocker) => plan.domain.selectedPackIds.includes(blocker.packId)
+        && plan.domain.resolvedGateIds.includes(blocker.gateId)
+        && plan.domain.packMaturities.some(
+          (entry) => entry.packId === blocker.packId && entry.declaredMaturity === "supported"
+        )
+    )
+  );
+  assert.ok(plan.sourceDependencyAccounting.diagnosticSupportedDependencyBlockers.length > 0);
+  assert.ok(
+    plan.sourceDependencyAccounting.diagnosticSupportedDependencyBlockers.every(
+      (blocker) => !plan.domain.selectedPackIds.includes(blocker.packId)
+        || !plan.domain.resolvedGateIds.includes(blocker.gateId)
+    )
+  );
   assert.ok(
     plan.sourceDependencyAccounting.selectedPreviewDependencyBlockers.some(
       (blocker) => blocker.packId === "web-saas"
@@ -703,29 +723,29 @@ test("the materialized committed starter derives dependencies and stays blocked"
   assert.equal(plan.claude.sourceSnapshotDigest, plan.domain.sourceGovernance.snapshotDigest);
 });
 
-test("execution preparation rejects a forged authoritative source snapshot", async () => {
+test("structural preparation inspection rejects a forged authoritative source snapshot", async () => {
   const request = await starterRequest();
   const plan = structuredClone(await planDeliveryRun({ request }, { invocationRoot: ROOT }));
   plan.domain.sourceGovernance.sources[0].reason = "forged-current";
   assert.throws(
-    () => prepareExecutionPlan(plan, { createdAt: NOW }),
+    () => inspectExecutionPlanPreparation(plan, { createdAt: NOW }),
     /blockers do not match dependencies/
   );
 });
 
-test("execution preparation requires the canonical source snapshot and adapter bindings", async () => {
+test("structural preparation inspection requires the canonical source snapshot and adapter bindings", async () => {
   const request = await starterRequest();
   const missing = structuredClone(await planDeliveryRun({ request }, { invocationRoot: ROOT }));
   delete missing.domain.sourceGovernance;
   assert.throws(
-    () => prepareExecutionPlan(missing, { createdAt: NOW }),
+    () => inspectExecutionPlanPreparation(missing, { createdAt: NOW }),
     /requires domain\.sourceGovernance/
   );
 
   const unbound = structuredClone(await planDeliveryRun({ request }, { invocationRoot: ROOT }));
   unbound.codex.sourceSnapshotDigest = null;
   assert.throws(
-    () => prepareExecutionPlan(unbound, { createdAt: NOW }),
+    () => inspectExecutionPlanPreparation(unbound, { createdAt: NOW }),
     /adapters must bind the authoritative source snapshot digest/
   );
 });

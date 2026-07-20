@@ -360,6 +360,7 @@ test("release accounting keeps portfolio actionability visible while plan accoun
   const releaseCatalog = {
     sources: [
       blocked("core-source", "core"),
+      blocked("core-inapplicable-source", "core"),
       blocked("secondary-supported-source", "core"),
       blocked("preview-source", "platform-preview"),
       blocked("optional-source", "optional-tool", ["optional-tool"]),
@@ -374,7 +375,13 @@ test("release accounting keeps portfolio actionability visible while plan accoun
         id: "enterprise-core",
         lifecycle: "active",
         maturity: "supported",
-        gates: [{ id: "core-gate", authoritativeSourceRefs: [{ sourceId: "core-source" }] }]
+        gates: [
+          { id: "core-gate", authoritativeSourceRefs: [{ sourceId: "core-source" }] },
+          {
+            id: "core-inapplicable-gate",
+            authoritativeSourceRefs: [{ sourceId: "core-inapplicable-source" }]
+          }
+        ]
       },
       {
         id: "data-ai",
@@ -398,16 +405,20 @@ test("release accounting keeps portfolio actionability visible while plan accoun
     catalog: releaseCatalog,
     domainPacksRegistry
   });
-  assert.equal(portfolio.actionableCount, 6);
+  assert.equal(portfolio.actionableCount, 7);
   assert.deepEqual(portfolio.actionableCountsByScope, {
-    core: 2,
+    core: 3,
     "platform-preview": 1,
     "optional-tool": 1,
     "community-reference": 1,
     historical: 1
   });
   assert.deepEqual(portfolio.supportedPackIds, ["data-ai", "enterprise-core"]);
-  assert.deepEqual(portfolio.releaseBlockingSourceIds, ["core-source", "secondary-supported-source"]);
+  assert.deepEqual(portfolio.releaseBlockingSourceIds, [
+    "core-inapplicable-source",
+    "core-source",
+    "secondary-supported-source"
+  ]);
   assert.equal(portfolio.releaseNonblockingActionableCount, 4);
   assert.deepEqual(portfolio.previewDependencyBlockers, [{
     packId: "web-saas",
@@ -424,10 +435,35 @@ test("release accounting keeps portfolio actionability visible while plan accoun
   const unselected = derivePlanSourceDependencyAccounting({
     sourceAccounting: portfolio,
     selectedPackIds: ["enterprise-core"],
+    selectedPackMaturities: [{
+      packId: "enterprise-core",
+      declaredMaturity: "supported",
+      effectiveMaturity: "supported"
+    }],
     selectedGateIds: ["core-gate"],
     selectedResourceIds: []
   });
   assert.deepEqual(unselected.blockingSourceIds, ["core-source"]);
+  assert.deepEqual(unselected.selectedSupportedDependencyBlockers, [{
+    packId: "enterprise-core",
+    gateId: "core-gate",
+    sourceId: "core-source",
+    reasonCode: "SOURCE_NOT_REVIEWED_CURRENT"
+  }]);
+  assert.deepEqual(unselected.diagnosticSupportedDependencyBlockers, [
+    {
+      packId: "data-ai",
+      gateId: "secondary-supported-gate",
+      sourceId: "secondary-supported-source",
+      reasonCode: "SOURCE_NOT_REVIEWED_CURRENT"
+    },
+    {
+      packId: "enterprise-core",
+      gateId: "core-inapplicable-gate",
+      sourceId: "core-inapplicable-source",
+      reasonCode: "SOURCE_NOT_REVIEWED_CURRENT"
+    }
+  ]);
   assert.deepEqual(unselected.selectedPreviewDependencyBlockers, []);
   assert.deepEqual(unselected.selectedResourceDependencyBlockers, []);
   assert.deepEqual(unselected.diagnosticPreviewDependencyBlockers, portfolio.previewDependencyBlockers);
@@ -436,6 +472,18 @@ test("release accounting keeps portfolio actionability visible while plan accoun
   const selected = derivePlanSourceDependencyAccounting({
     sourceAccounting: portfolio,
     selectedPackIds: ["enterprise-core", "web-saas"],
+    selectedPackMaturities: [
+      {
+        packId: "enterprise-core",
+        declaredMaturity: "supported",
+        effectiveMaturity: "supported"
+      },
+      {
+        packId: "web-saas",
+        declaredMaturity: "preview",
+        effectiveMaturity: "preview"
+      }
+    ],
     selectedGateIds: ["core-gate", "preview-gate"],
     selectedResourceIds: ["optional-tool"]
   });

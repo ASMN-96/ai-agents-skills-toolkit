@@ -7,10 +7,13 @@ import test from "node:test";
 
 import * as resourceCatalog from "./ai-toolkit/kernel/resource-catalog.mjs";
 import {
-  finalizeExecutionRun,
-  ingestExecutionEvents,
-  prepareExecutionPlan,
-  validatePreparedExecutionPlan
+  finalizeExecutionRun as finalizeAuthoritativeExecutionRun,
+  ingestExecutionEvents as ingestAuthoritativeExecutionEvents,
+  inspectExecutionEvents,
+  inspectExecutionFinalization,
+  inspectExecutionPlanPreparation,
+  inspectPreparedExecutionPlan,
+  prepareExecutionPlan as prepareAuthoritativeExecutionPlan
 } from "./ai-toolkit/kernel/execution-lifecycle.mjs";
 import { buildResourceDigestBindings, canonicalDigest } from "./ai-toolkit/kernel/canonical-digest.mjs";
 import { inspectProjectCapabilities } from "./ai-toolkit/kernel/project-inspector.mjs";
@@ -199,11 +202,37 @@ function sourceDependencyAccounting() {
   return {
     schemaVersion: "1.0.0",
     selectedPackIds: ["enterprise-core", "web-saas"],
+    selectedPackMaturities: [
+      {
+        packId: "enterprise-core",
+        declaredMaturity: "supported",
+        effectiveMaturity: "supported"
+      },
+      {
+        packId: "web-saas",
+        declaredMaturity: "preview",
+        effectiveMaturity: "preview"
+      }
+    ],
+    dependencyClassifications: [
+      {
+        packId: "enterprise-core",
+        gateId: "release-gate",
+        dependencyClass: "supported"
+      },
+      { packId: "web-saas", gateId: "review-gate", dependencyClass: "preview" }
+    ],
+    dependencyUniverseDigest: canonicalDigest({
+      supportedDependencyBlockers: [],
+      previewDependencyBlockers: [],
+      resourceDependencyBlockers: []
+    }, "source dependency blocker universe"),
     selectedGateIds: ["release-gate", "review-gate"],
     selectedResourceIds: ["architect-agent", "code-quality"],
     status: "current",
     blockingSourceIds: [],
-    supportedDependencyBlockers: [],
+    selectedSupportedDependencyBlockers: [],
+    diagnosticSupportedDependencyBlockers: [],
     selectedPreviewDependencyBlockers: [],
     selectedResourceDependencyBlockers: [],
     diagnosticPreviewDependencyBlockers: [],
@@ -292,6 +321,18 @@ function basePlan() {
       status: "planned",
       readinessCeiling: "planned",
       selectedPackIds: ["enterprise-core", "web-saas"],
+      packMaturities: [
+        {
+          packId: "enterprise-core",
+          declaredMaturity: "supported",
+          effectiveMaturity: "supported"
+        },
+        {
+          packId: "web-saas",
+          declaredMaturity: "preview",
+          effectiveMaturity: "preview"
+        }
+      ],
       resolvedGateIds: ["review-gate", "release-gate"],
       gates: [
         domainGate("review-gate", "verified-for-review"),
@@ -319,6 +360,8 @@ function basePlan() {
 
 function bindPlanDigests(plan) {
   plan.sourceDependencyAccounting.selectedPackIds = [...plan.domain.selectedPackIds].sort();
+  plan.sourceDependencyAccounting.selectedPackMaturities = [...plan.domain.packMaturities]
+    .sort((left, right) => left.packId.localeCompare(right.packId));
   plan.sourceDependencyAccounting.selectedGateIds = [...plan.domain.resolvedGateIds].sort();
   plan.sourceDependencyAccounting.selectedResourceIds = plan.routing.selected
     .map((resource) => resource.id)
@@ -328,12 +371,54 @@ function bindPlanDigests(plan) {
   plan.team.domainSelectionDigest = canonicalDigest(plan.domain, "test domain");
 }
 
+function prepareExecutionPlan(rawPlan, options) {
+  const { plan, executionManifestCore } = inspectExecutionPlanPreparation(rawPlan, options);
+  const planDigest = canonicalDigest(
+    { plan, executionManifest: executionManifestCore },
+    "structural prepared execution plan fixture"
+  );
+  return {
+    ...plan,
+    executionManifest: {
+      ...executionManifestCore,
+      runId: `run-${planDigest.slice(0, 24)}`,
+      planDigest
+    }
+  };
+}
+
+const ingestExecutionEvents = inspectExecutionEvents;
+const finalizeExecutionRun = inspectExecutionFinalization;
+const validatePreparedExecutionPlan = inspectPreparedExecutionPlan;
+
 function preparedPlan() {
   return prepareExecutionPlan(basePlan(), {
     createdAt: "2026-07-17T07:55:00.000Z",
     contextTtlSeconds: 600
   });
 }
+
+test("execution preparation rejects structurally valid raw plans without planner authority", () => {
+  assert.throws(
+    () => prepareAuthoritativeExecutionPlan(basePlan(), {
+      createdAt: "2026-07-17T07:55:00.000Z",
+      contextTtlSeconds: 600
+    }),
+    /planner-created canonical delivery plan/
+  );
+});
+
+test("structural preparation cannot authorize event ingestion or finalization", () => {
+  const structural = preparedPlan();
+  assert.throws(
+    () => ingestAuthoritativeExecutionEvents({ plan: structural, events: {} }),
+    /authoritative planner-prepared execution plan/
+  );
+  assert.throws(
+    () => finalizeAuthoritativeExecutionRun({ plan: structural, events: {}, receipts: {} }),
+    /authoritative planner-prepared execution plan/
+  );
+});
 
 test("execution preparation rejects caller-forged selected source dependency IDs", () => {
   const forged = basePlan();
@@ -344,6 +429,261 @@ test("execution preparation rejects caller-forged selected source dependency IDs
       contextTtlSeconds: 600
     }),
     /sourceDependencyAccounting selectedResourceIds must exactly match routing\.selected/
+  );
+});
+
+function blockedGateDependencyPlan(packId, selectedBucket) {
+  const plan = basePlan();
+  const snapshot = plan.domain.sourceGovernance;
+  const selectedGateId = packId === "enterprise-core" ? "release-gate" : "review-gate";
+  snapshot.dependencies = snapshot.dependencies.filter(
+    (dependency) => dependency.gateId === selectedGateId
+  );
+  snapshot.sources[0].reviewState = "QUARANTINED";
+  snapshot.sources[0].referenceEligible = false;
+  snapshot.sources[0].reason = "review-quarantined";
+  snapshot.status = "blocked";
+  snapshot.validUntil = null;
+  snapshot.blockedGateIds = [selectedGateId];
+  snapshot.blockers = snapshot.dependencies.map((dependency) => ({
+    code: "authoritative-source-unavailable",
+    gateId: dependency.gateId,
+    sourceId: dependency.sourceId,
+    reason: "review-quarantined"
+  }));
+  const { snapshotDigest: ignored, ...snapshotCore } = snapshot;
+  void ignored;
+  snapshot.snapshotDigest = canonicalDigest(snapshotCore, "blocked gate source snapshot");
+  plan.domain.status = "blocked";
+  plan.domain.blockedGateIds = [...snapshot.blockedGateIds];
+  const blockers = snapshot.dependencies.map((dependency) => ({
+    packId,
+    gateId: dependency.gateId,
+    sourceId: dependency.sourceId,
+    reasonCode: "SOURCE_NOT_REVIEWED_CURRENT"
+  }));
+  plan.sourceDependencyAccounting.status = "blocked";
+  plan.sourceDependencyAccounting.blockingSourceIds = ["nist-ssdf"];
+  plan.sourceDependencyAccounting[selectedBucket] = blockers;
+  plan.sourceDependencyAccounting.dependencyUniverseDigest = canonicalDigest({
+    supportedDependencyBlockers: selectedBucket === "selectedSupportedDependencyBlockers"
+      ? blockers
+      : [],
+    previewDependencyBlockers: selectedBucket === "selectedPreviewDependencyBlockers"
+      ? blockers
+      : [],
+    resourceDependencyBlockers: []
+  }, "source dependency blocker universe");
+  plan.team = {
+    ...plan.team,
+    lead: null,
+    specialists: [],
+    verifier: null,
+    waves: [],
+    assignments: [],
+    blockers: ["source-dependency-blocked:nist-ssdf"],
+    executionStatus: "blocked"
+  };
+  plan.codex.sourceSnapshotDigest = snapshot.snapshotDigest;
+  plan.claude.sourceSnapshotDigest = snapshot.snapshotDigest;
+  bindPlanDigests(plan);
+  return plan;
+}
+
+test("execution preparation rejects relabeling a selected preview blocker as supported", () => {
+  const forged = blockedGateDependencyPlan(
+    "web-saas",
+    "selectedPreviewDependencyBlockers"
+  );
+  forged.sourceDependencyAccounting.selectedSupportedDependencyBlockers = (
+    forged.sourceDependencyAccounting.selectedPreviewDependencyBlockers
+  );
+  forged.sourceDependencyAccounting.selectedPreviewDependencyBlockers = [];
+
+  assert.throws(
+    () => prepareExecutionPlan(forged, {
+      createdAt: "2026-07-17T07:55:00.000Z",
+      contextTtlSeconds: 600
+    }),
+    /supported blockers require selected supported pack maturity and gate/
+  );
+});
+
+test("execution preparation rejects moving a preview gate blocker onto a supported pack", () => {
+  const forged = blockedGateDependencyPlan(
+    "web-saas",
+    "selectedPreviewDependencyBlockers"
+  );
+  forged.sourceDependencyAccounting.selectedSupportedDependencyBlockers = (
+    forged.sourceDependencyAccounting.selectedPreviewDependencyBlockers.map((blocker) => ({
+      ...blocker,
+      packId: "enterprise-core"
+    }))
+  );
+  forged.sourceDependencyAccounting.selectedPreviewDependencyBlockers = [];
+
+  assert.throws(
+    () => prepareExecutionPlan(forged, {
+      createdAt: "2026-07-17T07:55:00.000Z",
+      contextTtlSeconds: 600
+    }),
+    /supported blockers contradict canonical gate ownership or classification/
+  );
+});
+
+test("authoritative preparation rejects a fully re-bound and re-hashed cross-pack relabel", () => {
+  const forged = blockedGateDependencyPlan(
+    "web-saas",
+    "selectedPreviewDependencyBlockers"
+  );
+  const previewBlocker = forged.sourceDependencyAccounting.selectedPreviewDependencyBlockers[0];
+  const moved = { ...previewBlocker, packId: "enterprise-core" };
+  forged.sourceDependencyAccounting.selectedPreviewDependencyBlockers = [];
+  forged.sourceDependencyAccounting.selectedSupportedDependencyBlockers = [moved];
+  forged.sourceDependencyAccounting.dependencyClassifications = (
+    forged.sourceDependencyAccounting.dependencyClassifications.map((entry) => (
+      entry.gateId === previewBlocker.gateId
+        ? { ...entry, packId: "enterprise-core", dependencyClass: "supported" }
+        : entry
+    )).sort((left, right) => (
+      left.packId.localeCompare(right.packId) || left.gateId.localeCompare(right.gateId)
+    ))
+  );
+  forged.sourceDependencyAccounting.dependencyUniverseDigest = canonicalDigest({
+    supportedDependencyBlockers: [moved],
+    previewDependencyBlockers: [],
+    resourceDependencyBlockers: []
+  }, "source dependency blocker universe");
+  bindPlanDigests(forged);
+
+  assert.doesNotThrow(() => inspectExecutionPlanPreparation(forged, {
+    createdAt: "2026-07-17T07:55:00.000Z",
+    contextTtlSeconds: 600
+  }));
+  assert.throws(
+    () => prepareAuthoritativeExecutionPlan(forged, {
+      createdAt: "2026-07-17T07:55:00.000Z",
+      contextTtlSeconds: 600
+    }),
+    /planner-created canonical delivery plan/
+  );
+});
+
+test("structural accounting rejects classifying a declared-unavailable pack as preview", () => {
+  const forged = blockedGateDependencyPlan(
+    "web-saas",
+    "selectedPreviewDependencyBlockers"
+  );
+  const maturity = forged.domain.packMaturities.find((entry) => entry.packId === "web-saas");
+  maturity.declaredMaturity = "unavailable";
+  maturity.effectiveMaturity = "unavailable";
+  bindPlanDigests(forged);
+
+  assert.throws(
+    () => inspectExecutionPlanPreparation(forged, {
+      createdAt: "2026-07-17T07:55:00.000Z",
+      contextTtlSeconds: 600
+    }),
+    /dependency classifications contradict domain pack maturity/
+  );
+});
+
+test("execution preparation rejects supported and preview diagnostic bucket reshuffling", () => {
+  const cases = [
+    {
+      packId: "enterprise-core",
+      selected: "selectedSupportedDependencyBlockers",
+      diagnostic: "diagnosticSupportedDependencyBlockers"
+    },
+    {
+      packId: "web-saas",
+      selected: "selectedPreviewDependencyBlockers",
+      diagnostic: "diagnosticPreviewDependencyBlockers"
+    }
+  ];
+  for (const entry of cases) {
+    const forged = blockedGateDependencyPlan(entry.packId, entry.selected);
+    forged.sourceDependencyAccounting[entry.diagnostic] = (
+      forged.sourceDependencyAccounting[entry.selected]
+    );
+    forged.sourceDependencyAccounting[entry.selected] = [];
+    forged.sourceDependencyAccounting.blockingSourceIds = [];
+    forged.sourceDependencyAccounting.status = "current";
+    assert.throws(
+      () => prepareExecutionPlan(forged, {
+        createdAt: "2026-07-17T07:55:00.000Z",
+        contextTtlSeconds: 600
+      }),
+      /selected and diagnostic buckets do not match canonical selections/
+    );
+  }
+});
+
+test("execution preparation rejects omission of an unselected diagnostic resource blocker", () => {
+  const forged = basePlan();
+  const snapshot = forged.domain.sourceGovernance;
+  const resourceSource = structuredClone(snapshot.sources[0]);
+  resourceSource.reviewState = "QUARANTINED";
+  resourceSource.referenceEligible = false;
+  resourceSource.reason = "review-quarantined";
+  snapshot.resourceGovernance = {
+    schemaVersion: "1.0.0",
+    status: "blocked",
+    requiredSourceIds: ["nist-ssdf"],
+    dependencies: [{ resourceId: "unselected-tool", sourceId: "nist-ssdf" }],
+    sources: [resourceSource],
+    blockedResourceIds: ["unselected-tool"],
+    blockers: [{
+      code: "dependent-source-unavailable",
+      resourceId: "unselected-tool",
+      sourceId: "nist-ssdf",
+      reason: "review-quarantined"
+    }]
+  };
+  const { snapshotDigest: ignored, ...snapshotCore } = snapshot;
+  void ignored;
+  snapshot.snapshotDigest = canonicalDigest(snapshotCore, "diagnostic resource source snapshot");
+  forged.codex.sourceSnapshotDigest = snapshot.snapshotDigest;
+  forged.claude.sourceSnapshotDigest = snapshot.snapshotDigest;
+  const resourceBlocker = {
+    resourceId: "unselected-tool",
+    sourceId: "nist-ssdf",
+    reasonCode: "SOURCE_NOT_REVIEWED_CURRENT"
+  };
+  forged.sourceDependencyAccounting.diagnosticResourceDependencyBlockers = [resourceBlocker];
+  forged.sourceDependencyAccounting.dependencyUniverseDigest = canonicalDigest({
+    supportedDependencyBlockers: [],
+    previewDependencyBlockers: [],
+    resourceDependencyBlockers: [resourceBlocker]
+  }, "source dependency blocker universe");
+  bindPlanDigests(forged);
+  forged.sourceDependencyAccounting.diagnosticResourceDependencyBlockers = [];
+
+  assert.throws(
+    () => prepareExecutionPlan(forged, {
+      createdAt: "2026-07-17T07:55:00.000Z",
+      contextTtlSeconds: 600
+    }),
+    /blocker universe does not match its canonical digest/
+  );
+
+  const rehashed = structuredClone(forged);
+  rehashed.sourceDependencyAccounting.dependencyUniverseDigest = canonicalDigest({
+    supportedDependencyBlockers: [],
+    previewDependencyBlockers: [],
+    resourceDependencyBlockers: []
+  }, "source dependency blocker universe");
+  bindPlanDigests(rehashed);
+  assert.doesNotThrow(() => inspectExecutionPlanPreparation(rehashed, {
+    createdAt: "2026-07-17T07:55:00.000Z",
+    contextTtlSeconds: 600
+  }));
+  assert.throws(
+    () => prepareAuthoritativeExecutionPlan(rehashed, {
+      createdAt: "2026-07-17T07:55:00.000Z",
+      contextTtlSeconds: 600
+    }),
+    /planner-created canonical delivery plan/
   );
 });
 
@@ -659,7 +999,7 @@ function verifierEvidence(plan, verifierOverrides = {}) {
   return { events, receipts };
 }
 
-test("prepared execution plans are deterministic and survive JSON serialization without WeakSet trust", () => {
+test("structural prepared-plan fixtures are deterministic and JSON-round-trip through inspection", () => {
   const first = preparedPlan();
   const second = preparedPlan();
   assert.deepEqual(first, second);

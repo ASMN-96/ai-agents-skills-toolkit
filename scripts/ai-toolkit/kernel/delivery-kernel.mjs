@@ -59,6 +59,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../.
 const PLANNER_INPUTS = new Set(["request"]);
 const HOST_OPTION_FIELDS = new Set(["invocationRoot"]);
 const COMMAND_EVIDENCE_TYPES = new Set(["observed-command-receipt"]);
+const PLANNER_CREATED_DELIVERY_PLANS = new WeakSet();
 const FORBIDDEN_TRUST_INPUTS = [
   "resources",
   "domainPacks",
@@ -78,6 +79,13 @@ function deepFreeze(value) {
   if (value === null || typeof value !== "object" || Object.isFrozen(value)) return value;
   Object.freeze(value);
   for (const nested of Object.values(value)) deepFreeze(nested);
+  return value;
+}
+
+export function assertPlannerCreatedDeliveryPlan(value) {
+  if (!value || typeof value !== "object" || !PLANNER_CREATED_DELIVERY_PLANS.has(value)) {
+    throw new Error("execution preparation requires a planner-created canonical delivery plan");
+  }
   return value;
 }
 
@@ -693,6 +701,7 @@ export async function planDeliveryRun(input, hostOptions = {}) {
   const sourceDependencyAccounting = derivePlanSourceDependencyAccounting({
     sourceAccounting: sourceReleaseAccounting,
     selectedPackIds: domain.selectedPackIds,
+    selectedPackMaturities: domain.packMaturities,
     selectedGateIds: gates,
     selectedResourceIds: routing.selected.map((resource) => resource.id)
   });
@@ -799,5 +808,7 @@ export async function planDeliveryRun(input, hostOptions = {}) {
       configurable: false
     });
   }
-  return plan;
+  const authoritativePlan = deepFreeze(plan);
+  PLANNER_CREATED_DELIVERY_PLANS.add(authoritativePlan);
+  return authoritativePlan;
 }

@@ -1,6 +1,7 @@
 import { buildResourceDigestBindings, canonicalDigest } from "./canonical-digest.mjs";
 import { assertDomainGate, assertResourceContract } from "./contracts.mjs";
 import { buildExecutionEvidenceRecord } from "./evidence.mjs";
+import { assertPlannerCreatedDeliveryPlan } from "./delivery-kernel.mjs";
 import { assertSourceReferenceSnapshot } from "./source-policy.mjs";
 import { assertPlanSourceDependencyAccounting } from "./source-release-accounting.mjs";
 
@@ -29,6 +30,7 @@ const TOOL_ACTIONS_BY_ADAPTER_KIND = new Map([
   ["project-script", "project-validation"]
 ]);
 const MAX_FINALIZATION_DELAY_MS = 86_400_000;
+const PLANNER_PREPARED_EXECUTION_PLANS = new WeakSet();
 
 function isPlainRecord(value) {
   if (value === null || typeof value !== "object" || Array.isArray(value)) return false;
@@ -389,6 +391,7 @@ function validateBasePlan(rawPlan) {
     plan.sourceDependencyAccounting,
     {
       selectedPackIds,
+      selectedPackMaturities: plan.domain.packMaturities,
       selectedGateIds: resolvedGateIds,
       selectedResourceIds: resources.map((resource) => resource.id),
       sourceSnapshot
@@ -442,7 +445,10 @@ function manifestCore(plan, createdAt, contextExpiresAt) {
   };
 }
 
-export function prepareExecutionPlan(rawPlan, { createdAt, contextTtlSeconds = 3600 } = {}) {
+function inspectExecutionPlanPreparationCore(
+  rawPlan,
+  { createdAt, contextTtlSeconds = 3600 } = {}
+) {
   if (isPlainRecord(rawPlan) && Object.hasOwn(rawPlan, "executionManifest")) {
     throw new Error("delivery execution plan is already prepared");
   }
@@ -466,14 +472,30 @@ export function prepareExecutionPlan(rawPlan, { createdAt, contextTtlSeconds = 3
     ? sourceSnapshot.validUntil
     : requestedContextExpiresAt;
   const core = manifestCore(plan, preparedAt, contextExpiresAt);
+  return { plan, executionManifestCore: core };
+}
+
+// Structural inspection only: returns no run identity and grants no lifecycle authority.
+export function inspectExecutionPlanPreparation(rawPlan, options = {}) {
+  return deepFreeze(inspectExecutionPlanPreparationCore(rawPlan, options));
+}
+
+export function prepareExecutionPlan(rawPlan, options = {}) {
+  assertPlannerCreatedDeliveryPlan(rawPlan);
+  const { plan, executionManifestCore: core } = inspectExecutionPlanPreparationCore(
+    rawPlan,
+    options
+  );
   const planDigest = canonicalDigest({ plan, executionManifest: core }, "prepared execution plan");
-  return deepFreeze({
+  const prepared = deepFreeze({
     ...plan,
     executionManifest: { ...core, runId: `run-${planDigest.slice(0, 24)}`, planDigest }
   });
+  PLANNER_PREPARED_EXECUTION_PLANS.add(prepared);
+  return prepared;
 }
 
-export function validatePreparedExecutionPlan(rawPlan) {
+function inspectPreparedExecutionPlanStructure(rawPlan) {
   const prepared = cloneJson(rawPlan, "prepared execution plan");
   const manifest = requireRecord(prepared.executionManifest, "executionManifest");
   requireFields(manifest, new Set([
@@ -508,6 +530,20 @@ export function validatePreparedExecutionPlan(rawPlan) {
   if (manifest.planDigest !== digest) throw new Error("executionManifest planDigest does not match prepared plan");
   if (manifest.runId !== `run-${digest.slice(0, 24)}`) throw new Error("executionManifest runId does not match planDigest");
   return deepFreeze({ ...validatedPlan, executionManifest: structuredClone(manifest) });
+}
+
+// Structural inspection only: JSON-valid prepared bytes do not regain runtime authority.
+export function inspectPreparedExecutionPlan(rawPlan) {
+  return inspectPreparedExecutionPlanStructure(rawPlan);
+}
+
+export function validatePreparedExecutionPlan(rawPlan) {
+  if (!rawPlan || typeof rawPlan !== "object" || !PLANNER_PREPARED_EXECUTION_PLANS.has(rawPlan)) {
+    throw new Error("execution lifecycle requires an authoritative planner-prepared execution plan");
+  }
+  const prepared = inspectPreparedExecutionPlanStructure(rawPlan);
+  PLANNER_PREPARED_EXECUTION_PLANS.add(prepared);
+  return prepared;
 }
 
 function validateRepositoryState(rawState, plan, label) {
@@ -793,8 +829,11 @@ function planBlockingReasons(plan) {
   return uniqueOrdered(reasons);
 }
 
-export function ingestExecutionEvents({ plan: rawPlan, events: rawEvents } = {}) {
-  const plan = validatePreparedExecutionPlan(rawPlan);
+function deriveExecutionEventState(
+  { plan: rawPlan, events: rawEvents } = {},
+  planValidator
+) {
+  const plan = planValidator(rawPlan);
   const envelope = validateEventEnvelope(rawEvents, plan);
   const blockingReasons = planBlockingReasons(plan);
   const warnings = [];
@@ -834,6 +873,15 @@ export function ingestExecutionEvents({ plan: rawPlan, events: rawEvents } = {})
     warnings: uniqueOrdered(warnings),
     blockingReasons: uniqueOrdered(blockingReasons)
   });
+}
+
+// Structural inspection only: the result cannot authorize ingestion or finalization.
+export function inspectExecutionEvents(input = {}) {
+  return deriveExecutionEventState(input, inspectPreparedExecutionPlanStructure);
+}
+
+export function ingestExecutionEvents(input = {}) {
+  return deriveExecutionEventState(input, validatePreparedExecutionPlan);
 }
 
 function resolvedGatePolicies(plan) {
@@ -1277,13 +1325,15 @@ function validateReceiptAgainstEvent(receipt, event) {
   }
 }
 
-export function finalizeExecutionRun(
+function deriveExecutionFinalization(
   { plan: rawPlan, events: rawEvents, receipts: rawReceipts } = {},
-  hostOptions = {}
+  hostOptions = {},
+  planValidator,
+  eventStateBuilder
 ) {
-  const plan = validatePreparedExecutionPlan(rawPlan);
+  const plan = planValidator(rawPlan);
   const eventEnvelope = validateEventEnvelope(rawEvents, plan);
-  const eventState = ingestExecutionEvents({ plan, events: eventEnvelope });
+  const eventState = eventStateBuilder({ plan, events: eventEnvelope });
   const receiptEnvelope = validateReceiptEnvelope(rawReceipts, plan);
   const finalization = validateFinalizationHost(hostOptions);
   const blockingReasons = [...eventState.blockingReasons];
@@ -1447,4 +1497,23 @@ export function finalizeExecutionRun(
     blockingReasons: reasons,
     evidence
   });
+}
+
+// Structural inspection only: this never creates a trusted evidence issuer or lifecycle authority.
+export function inspectExecutionFinalization(input = {}, hostOptions = {}) {
+  return deriveExecutionFinalization(
+    input,
+    hostOptions,
+    inspectPreparedExecutionPlanStructure,
+    inspectExecutionEvents
+  );
+}
+
+export function finalizeExecutionRun(input = {}, hostOptions = {}) {
+  return deriveExecutionFinalization(
+    input,
+    hostOptions,
+    validatePreparedExecutionPlan,
+    ingestExecutionEvents
+  );
 }

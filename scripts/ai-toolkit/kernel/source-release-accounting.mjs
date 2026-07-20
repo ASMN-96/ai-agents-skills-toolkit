@@ -1,3 +1,5 @@
+import { canonicalDigest } from "./canonical-digest.mjs";
+
 const MONITOR_STATES = Object.freeze(["CURRENT", "CHANGED", "CHECK_FAILED", "MANUAL_DUE"]);
 const SOURCE_SCOPES = Object.freeze([
   "core",
@@ -10,6 +12,9 @@ const ACTIONABILITY_REASONS = new Set([
   "SOURCE_MONITOR_ACTIONABLE",
   "SOURCE_NOT_REVIEWED_CURRENT"
 ]);
+const PACK_MATURITIES = new Set(["supported", "preview", "unavailable"]);
+const DEPENDENCY_CLASSES = new Set(["supported", "preview"]);
+const SHA256 = /^[a-f0-9]{64}$/;
 
 function stableStrings(values) {
   return [...new Set(values)].sort((left, right) => left.localeCompare(right));
@@ -73,10 +78,16 @@ function domainDependencies(domainPacksRegistry, sourcesById) {
   const supportedPackIds = [];
   const supported = [];
   const preview = [];
+  const dependencyClassifications = [];
   for (const pack of requireArray(domainPacksRegistry.packs, "domain-packs registry packs")) {
     if (pack?.lifecycle !== "active" || !["supported", "preview"].includes(pack?.maturity)) continue;
     if (pack.maturity === "supported") supportedPackIds.push(pack.id);
     for (const gate of requireArray(pack.gates, `domain pack ${pack.id} gates`)) {
+      dependencyClassifications.push({
+        packId: pack.id,
+        gateId: gate.id,
+        dependencyClass: pack.maturity === "supported" ? "supported" : "preview"
+      });
       for (const reference of requireArray(
         gate.authoritativeSourceRefs,
         `domain gate ${gate.id} authoritativeSourceRefs`
@@ -96,6 +107,11 @@ function domainDependencies(domainPacksRegistry, sourcesById) {
   );
   return {
     supportedPackIds: stableStrings(supportedPackIds),
+    dependencyClassifications: dependencyClassifications.sort(
+      (left, right) => (
+        left.packId.localeCompare(right.packId) || left.gateId.localeCompare(right.gateId)
+      )
+    ),
     supported: supported.sort(compare),
     preview: preview.sort(compare)
   };
@@ -154,6 +170,11 @@ export function deriveSourceReleaseAccounting({
   const releaseBlockingSourceIds = stableStrings(
     supportedDependencyBlockers.map((entry) => entry.sourceId)
   );
+  const dependencyUniverseDigest = canonicalDigest({
+    supportedDependencyBlockers,
+    previewDependencyBlockers,
+    resourceDependencyBlockers
+  }, "source dependency blocker universe");
   return {
     sourceCount: sourcesById.size,
     monitorCounts,
@@ -161,6 +182,8 @@ export function deriveSourceReleaseAccounting({
     actionableCountsByScope,
     actionableSourceIds,
     supportedPackIds: domains.supportedPackIds,
+    dependencyClassifications: domains.dependencyClassifications,
+    dependencyUniverseDigest,
     releaseBlockingSourceCount: releaseBlockingSourceIds.length,
     releaseBlockingSourceIds,
     releaseNonblockingActionableCount: actionableSourceIds.length - releaseBlockingSourceIds.length,
@@ -178,6 +201,53 @@ function selectedIds(values, label) {
   return selected;
 }
 
+function normalizedSelectedPackMaturities(values, selectedPackIds, label) {
+  const entries = requireArray(values, label).map((entry) => {
+    requireExactFields(
+      entry,
+      ["packId", "declaredMaturity", "effectiveMaturity"],
+      `${label} entry`
+    );
+    if (typeof entry.packId !== "string" || entry.packId === "") {
+      throw new Error(`${label} entry packId must be a non-empty string`);
+    }
+    if (!PACK_MATURITIES.has(entry.declaredMaturity)
+      || !PACK_MATURITIES.has(entry.effectiveMaturity)) {
+      throw new Error(`${label} entry maturity is invalid`);
+    }
+    return { ...entry };
+  }).sort((left, right) => left.packId.localeCompare(right.packId));
+  if (new Set(entries.map((entry) => entry.packId)).size !== entries.length
+    || !sameJson(entries.map((entry) => entry.packId), selectedPackIds)) {
+    throw new Error(`${label} must exactly cover selectedPackIds`);
+  }
+  return entries;
+}
+
+function normalizedDependencyClassifications(values, label) {
+  const entries = requireArray(values, label).map((entry) => {
+    requireExactFields(entry, ["packId", "gateId", "dependencyClass"], `${label} entry`);
+    if (typeof entry.packId !== "string" || entry.packId === ""
+      || typeof entry.gateId !== "string" || entry.gateId === ""
+      || !DEPENDENCY_CLASSES.has(entry.dependencyClass)) {
+      throw new Error(`${label} entry is invalid`);
+    }
+    return { ...entry };
+  }).sort((left, right) => (
+    left.packId.localeCompare(right.packId) || left.gateId.localeCompare(right.gateId)
+  ));
+  if (new Set(entries.map((entry) => entry.gateId)).size !== entries.length
+    || !sameJson(entries, values)) {
+    throw new Error(`${label} must bind unique gates in sorted order`);
+  }
+  return entries;
+}
+
+function dependencyClassForMaturity(maturity) {
+  if (maturity === "supported" || maturity === "preview") return maturity;
+  return null;
+}
+
 function dependencyKey(entry) {
   return entry.resourceId === undefined
     ? `${entry.packId}\0${entry.gateId}\0${entry.sourceId}`
@@ -185,12 +255,21 @@ function dependencyKey(entry) {
 }
 
 function stableDependencies(values) {
-  return [...values].sort((left, right) => dependencyKey(left).localeCompare(dependencyKey(right)));
+  return [...values].sort((left, right) => {
+    if (left.resourceId !== undefined || right.resourceId !== undefined) {
+      return left.resourceId.localeCompare(right.resourceId)
+        || left.sourceId.localeCompare(right.sourceId);
+    }
+    return left.packId.localeCompare(right.packId)
+      || left.gateId.localeCompare(right.gateId)
+      || left.sourceId.localeCompare(right.sourceId);
+  });
 }
 
 export function derivePlanSourceDependencyAccounting({
   sourceAccounting,
   selectedPackIds,
+  selectedPackMaturities,
   selectedGateIds,
   selectedResourceIds
 } = {}) {
@@ -207,13 +286,33 @@ export function derivePlanSourceDependencyAccounting({
     "plan source accounting resourceDependencyBlockers"
   );
   const packs = selectedIds(selectedPackIds, "plan source accounting selectedPackIds");
+  const packMaturities = normalizedSelectedPackMaturities(
+    selectedPackMaturities,
+    packs,
+    "plan source accounting selectedPackMaturities"
+  );
+  const dependencyClassifications = normalizedDependencyClassifications(
+    sourceAccounting?.dependencyClassifications,
+    "plan source accounting dependencyClassifications"
+  );
+  const dependencyUniverseDigest = sourceAccounting?.dependencyUniverseDigest;
+  if (!SHA256.test(dependencyUniverseDigest ?? "")) {
+    throw new Error("plan source accounting dependencyUniverseDigest is invalid");
+  }
   const gates = selectedIds(selectedGateIds, "plan source accounting selectedGateIds");
   const resources = selectedIds(selectedResourceIds, "plan source accounting selectedResourceIds");
   const selectedPacks = new Set(packs);
   const selectedGates = new Set(gates);
   const selectedResources = new Set(resources);
   const selectedSupportedDependencyBlockers = stableDependencies(
-    supportedDependencyBlockers.filter((entry) => selectedPacks.has(entry.packId))
+    supportedDependencyBlockers.filter(
+      (entry) => selectedPacks.has(entry.packId) && selectedGates.has(entry.gateId)
+    )
+  );
+  const diagnosticSupportedDependencyBlockers = stableDependencies(
+    supportedDependencyBlockers.filter(
+      (entry) => !selectedPacks.has(entry.packId) || !selectedGates.has(entry.gateId)
+    )
   );
   const selectedPreviewDependencyBlockers = stableDependencies(
     previewDependencyBlockers.filter(
@@ -239,11 +338,15 @@ export function derivePlanSourceDependencyAccounting({
   return {
     schemaVersion: "1.0.0",
     selectedPackIds: packs,
+    selectedPackMaturities: packMaturities,
+    dependencyClassifications,
+    dependencyUniverseDigest,
     selectedGateIds: gates,
     selectedResourceIds: resources,
     status: blockingSourceIds.length === 0 ? "current" : "blocked",
     blockingSourceIds,
-    supportedDependencyBlockers: selectedSupportedDependencyBlockers,
+    selectedSupportedDependencyBlockers,
+    diagnosticSupportedDependencyBlockers,
     selectedPreviewDependencyBlockers,
     selectedResourceDependencyBlockers,
     diagnosticPreviewDependencyBlockers,
@@ -291,8 +394,21 @@ function assertDependencies(entries, kind, label) {
   return entries;
 }
 
+function assertExactDependencyPartition(selected, diagnostic, isSelected, label) {
+  const combined = [...selected, ...diagnostic];
+  if (new Set(combined.map(dependencyKey)).size !== combined.length) {
+    throw new Error(`${label} selected and diagnostic buckets must not overlap`);
+  }
+  const expectedSelected = stableDependencies(combined.filter(isSelected));
+  const expectedDiagnostic = stableDependencies(combined.filter((entry) => !isSelected(entry)));
+  if (!sameJson(selected, expectedSelected) || !sameJson(diagnostic, expectedDiagnostic)) {
+    throw new Error(`${label} selected and diagnostic buckets do not match canonical selections`);
+  }
+}
+
 export function assertPlanSourceDependencyAccounting(accounting, {
   selectedPackIds,
+  selectedPackMaturities,
   selectedGateIds,
   selectedResourceIds,
   sourceSnapshot
@@ -300,11 +416,15 @@ export function assertPlanSourceDependencyAccounting(accounting, {
   requireExactFields(accounting, [
     "schemaVersion",
     "selectedPackIds",
+    "selectedPackMaturities",
+    "dependencyClassifications",
+    "dependencyUniverseDigest",
     "selectedGateIds",
     "selectedResourceIds",
     "status",
     "blockingSourceIds",
-    "supportedDependencyBlockers",
+    "selectedSupportedDependencyBlockers",
+    "diagnosticSupportedDependencyBlockers",
     "selectedPreviewDependencyBlockers",
     "selectedResourceDependencyBlockers",
     "diagnosticPreviewDependencyBlockers",
@@ -314,10 +434,20 @@ export function assertPlanSourceDependencyAccounting(accounting, {
     throw new Error("sourceDependencyAccounting schemaVersion is invalid");
   }
   const expectedPacks = selectedIds(selectedPackIds, "selected domain pack IDs");
+  const expectedPackMaturities = normalizedSelectedPackMaturities(
+    selectedPackMaturities,
+    expectedPacks,
+    "selected domain pack maturities"
+  );
   const expectedGates = selectedIds(selectedGateIds, "selected domain gate IDs");
   const expectedResources = selectedIds(selectedResourceIds, "routing selected resource IDs");
   if (!sameJson(accounting.selectedPackIds, expectedPacks)) {
     throw new Error("sourceDependencyAccounting selectedPackIds must exactly match domain.selectedPackIds");
+  }
+  if (!sameJson(accounting.selectedPackMaturities, expectedPackMaturities)) {
+    throw new Error(
+      "sourceDependencyAccounting selectedPackMaturities must exactly match domain.packMaturities"
+    );
   }
   if (!sameJson(accounting.selectedGateIds, expectedGates)) {
     throw new Error("sourceDependencyAccounting selectedGateIds must exactly match domain.resolvedGateIds");
@@ -325,10 +455,22 @@ export function assertPlanSourceDependencyAccounting(accounting, {
   if (!sameJson(accounting.selectedResourceIds, expectedResources)) {
     throw new Error("sourceDependencyAccounting selectedResourceIds must exactly match routing.selected");
   }
-  const supported = assertDependencies(
-    accounting.supportedDependencyBlockers,
+  if (!SHA256.test(accounting.dependencyUniverseDigest ?? "")) {
+    throw new Error("sourceDependencyAccounting dependencyUniverseDigest is invalid");
+  }
+  const dependencyClassifications = normalizedDependencyClassifications(
+    accounting.dependencyClassifications,
+    "sourceDependencyAccounting dependencyClassifications"
+  );
+  const selectedSupported = assertDependencies(
+    accounting.selectedSupportedDependencyBlockers,
     "gate",
-    "sourceDependencyAccounting supportedDependencyBlockers"
+    "sourceDependencyAccounting selectedSupportedDependencyBlockers"
+  );
+  const diagnosticSupported = assertDependencies(
+    accounting.diagnosticSupportedDependencyBlockers,
+    "gate",
+    "sourceDependencyAccounting diagnosticSupportedDependencyBlockers"
   );
   const selectedPreview = assertDependencies(
     accounting.selectedPreviewDependencyBlockers,
@@ -353,26 +495,90 @@ export function assertPlanSourceDependencyAccounting(accounting, {
   const packSet = new Set(expectedPacks);
   const gateSet = new Set(expectedGates);
   const resourceSet = new Set(expectedResources);
-  if (supported.some((entry) => !packSet.has(entry.packId))) {
-    throw new Error("sourceDependencyAccounting supported blockers must belong to a selected pack");
+  const selectedClassByPack = new Map(expectedPackMaturities.map((entry) => [
+    entry.packId,
+    dependencyClassForMaturity(entry.declaredMaturity)
+  ]));
+  const dependencyBindingByGate = new Map(dependencyClassifications.map(
+    (entry) => [entry.gateId, entry]
+  ));
+  for (const binding of dependencyClassifications) {
+    const selectedClass = selectedClassByPack.get(binding.packId);
+    if (selectedClass !== undefined && binding.dependencyClass !== selectedClass) {
+      throw new Error(
+        "sourceDependencyAccounting dependency classifications contradict domain pack maturity"
+      );
+    }
   }
-  if (selectedPreview.some((entry) => !packSet.has(entry.packId) || !gateSet.has(entry.gateId))) {
-    throw new Error("sourceDependencyAccounting preview blockers must belong to selected packs and gates");
+  const supportedUniverse = [...selectedSupported, ...diagnosticSupported];
+  const previewUniverse = [...selectedPreview, ...diagnosticPreview];
+  if (selectedSupported.some((entry) => (
+    !packSet.has(entry.packId)
+    || !gateSet.has(entry.gateId)
+    || selectedClassByPack.get(entry.packId) !== "supported"
+  ))) {
+    throw new Error(
+      "sourceDependencyAccounting supported blockers require selected supported pack maturity and gate"
+    );
   }
-  if (diagnosticPreview.some((entry) => packSet.has(entry.packId) && gateSet.has(entry.gateId))) {
-    throw new Error("sourceDependencyAccounting selected preview blockers cannot remain diagnostic");
+  if (selectedPreview.some((entry) => (
+    !packSet.has(entry.packId)
+    || !gateSet.has(entry.gateId)
+    || selectedClassByPack.get(entry.packId) !== "preview"
+  ))) {
+    throw new Error(
+      "sourceDependencyAccounting preview blockers require selected preview pack maturity and gate"
+    );
   }
-  if (selectedResources.some((entry) => !resourceSet.has(entry.resourceId))) {
-    throw new Error("sourceDependencyAccounting resource blockers must belong to selected resources");
+  if (supportedUniverse.some((entry) => {
+    const binding = dependencyBindingByGate.get(entry.gateId);
+    return binding?.packId !== entry.packId || binding.dependencyClass !== "supported";
+  })) {
+    throw new Error(
+      "sourceDependencyAccounting supported blockers contradict canonical gate ownership or classification"
+    );
   }
-  if (diagnosticResources.some((entry) => resourceSet.has(entry.resourceId))) {
-    throw new Error("sourceDependencyAccounting selected resource blockers cannot remain diagnostic");
+  if (previewUniverse.some((entry) => {
+    const binding = dependencyBindingByGate.get(entry.gateId);
+    return binding?.packId !== entry.packId || binding.dependencyClass !== "preview";
+  })) {
+    throw new Error(
+      "sourceDependencyAccounting preview blockers contradict canonical gate ownership or classification"
+    );
   }
+  const resourceUniverse = [...selectedResources, ...diagnosticResources];
+  const actualDependencyUniverseDigest = canonicalDigest({
+    supportedDependencyBlockers: stableDependencies(supportedUniverse),
+    previewDependencyBlockers: stableDependencies(previewUniverse),
+    resourceDependencyBlockers: stableDependencies(resourceUniverse)
+  }, "source dependency blocker universe");
+  if (accounting.dependencyUniverseDigest !== actualDependencyUniverseDigest) {
+    throw new Error(
+      "sourceDependencyAccounting blocker universe does not match its canonical digest"
+    );
+  }
+  assertExactDependencyPartition(
+    selectedSupported,
+    diagnosticSupported,
+    (entry) => packSet.has(entry.packId) && gateSet.has(entry.gateId),
+    "sourceDependencyAccounting supported blockers"
+  );
+  assertExactDependencyPartition(
+    selectedPreview,
+    diagnosticPreview,
+    (entry) => packSet.has(entry.packId) && gateSet.has(entry.gateId),
+    "sourceDependencyAccounting preview blockers"
+  );
+  assertExactDependencyPartition(
+    selectedResources,
+    diagnosticResources,
+    (entry) => resourceSet.has(entry.resourceId),
+    "sourceDependencyAccounting resource blockers"
+  );
   const snapshotGateBlockers = new Set((sourceSnapshot?.blockers ?? []).map(
     (entry) => `${entry.gateId}\0${entry.sourceId}`
   ));
-  const selectedGateBlockers = new Set([...supported, ...selectedPreview]
-    .filter((entry) => gateSet.has(entry.gateId))
+  const selectedGateBlockers = new Set([...selectedSupported, ...selectedPreview]
     .map((entry) => `${entry.gateId}\0${entry.sourceId}`));
   for (const key of snapshotGateBlockers) {
     if (!selectedGateBlockers.has(key)) {
@@ -394,7 +600,7 @@ export function assertPlanSourceDependencyAccounting(accounting, {
     throw new Error("sourceDependencyAccounting selected resource blockers contradict source snapshot");
   }
   const expectedBlockingSourceIds = stableStrings([
-    ...supported.map((entry) => entry.sourceId),
+    ...selectedSupported.map((entry) => entry.sourceId),
     ...selectedPreview.map((entry) => entry.sourceId),
     ...selectedResources.map((entry) => entry.sourceId)
   ]);
