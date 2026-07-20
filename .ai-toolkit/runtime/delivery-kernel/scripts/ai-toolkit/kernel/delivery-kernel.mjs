@@ -42,10 +42,15 @@ import {
 import { assessRiskPolicy } from "./risk-policy.mjs";
 import { deriveValidationPolicy } from "./validation-policy.mjs";
 import { loadValidatedSourceCatalog } from "./source-catalog-loader.mjs";
+import { SOURCE_CATALOG_SCHEMA_VERSION } from "./source-catalog-contract.mjs";
 import {
   applySourceReferenceSnapshotToDomain,
   buildSourceReferenceSnapshot
 } from "./source-policy.mjs";
+import {
+  derivePlanSourceDependencyAccounting,
+  deriveSourceReleaseAccounting
+} from "./source-release-accounting.mjs";
 
 export { VALIDATION_LANES } from "./validation-policy.mjs";
 export { deriveValidationPolicy };
@@ -54,6 +59,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../.
 const PLANNER_INPUTS = new Set(["request"]);
 const HOST_OPTION_FIELDS = new Set(["invocationRoot"]);
 const COMMAND_EVIDENCE_TYPES = new Set(["observed-command-receipt"]);
+const PLANNER_CREATED_DELIVERY_PLANS = new WeakSet();
 const FORBIDDEN_TRUST_INPUTS = [
   "resources",
   "domainPacks",
@@ -73,6 +79,13 @@ function deepFreeze(value) {
   if (value === null || typeof value !== "object" || Object.isFrozen(value)) return value;
   Object.freeze(value);
   for (const nested of Object.values(value)) deepFreeze(nested);
+  return value;
+}
+
+export function assertPlannerCreatedDeliveryPlan(value) {
+  if (!value || typeof value !== "object" || !PLANNER_CREATED_DELIVERY_PLANS.has(value)) {
+    throw new Error("execution preparation requires a planner-created canonical delivery plan");
+  }
   return value;
 }
 
@@ -301,17 +314,26 @@ function buildTrustedAssignmentIntents({ task, routing }) {
   return { intents, blockers: [] };
 }
 
-export function buildExecutionTeam({ task, routing, resolvedGateIds, domainSelection = null }) {
-  if (domainSelection?.status === "blocked") {
-    const sourceBlockers = (domainSelection.sourceGovernance?.blockers ?? []).map((blocker) => (
+export function buildExecutionTeam({
+  task,
+  routing,
+  resolvedGateIds,
+  domainSelection = null,
+  sourceDependencyAccounting = null
+}) {
+  if (domainSelection?.status === "blocked" || sourceDependencyAccounting?.status === "blocked") {
+    const sourceBlockers = (domainSelection?.sourceGovernance?.blockers ?? []).map((blocker) => (
       `${blocker.code}:${blocker.gateId}:${blocker.sourceId}:${blocker.reason}`
     ));
-    const domainBlockers = domainSelection.blockedGateIds.map(
+    const accountingBlockers = (sourceDependencyAccounting?.blockingSourceIds ?? []).map(
+      (sourceId) => `source-dependency-blocked:${sourceId}`
+    );
+    const domainBlockers = (domainSelection?.blockedGateIds ?? []).map(
       (gateId) => `domain-gate-blocked:${gateId}`
     );
     return buildBlockedExecutionWavePlan({
       task,
-      blockers: uniqueStrings([...sourceBlockers, ...domainBlockers]),
+      blockers: uniqueStrings([...sourceBlockers, ...accountingBlockers, ...domainBlockers]),
       selectedResources: routing.selected,
       domainSelection
     });
@@ -631,7 +653,11 @@ export async function planDeliveryRun(input, hostOptions = {}) {
     gates: environmentDomain.gates,
     resourceIds: inspectedResources.map((resource) => resource.id),
     now: sourceEvaluatedAt,
-    receiptsValidated: sourceGovernanceValidation.schemaVersion === "2.0.0"
+    receiptsValidated: sourceGovernanceValidation.schemaVersion === SOURCE_CATALOG_SCHEMA_VERSION
+  });
+  const sourceReleaseAccounting = deriveSourceReleaseAccounting({
+    catalog: sourceCatalog,
+    domainPacksRegistry: domainRegistry
   });
   const governedResources = applySourceReferenceSnapshotToResources(inspectedResources, sourceSnapshot);
   const domain = applySourceReferenceSnapshotToDomain(environmentDomain, sourceSnapshot);
@@ -672,6 +698,13 @@ export async function planDeliveryRun(input, hostOptions = {}) {
     requiredCompetencies: [...routingTask.requiredCompetencies]
   };
   const gates = [...scenarioPolicy.requiredGateIds];
+  const sourceDependencyAccounting = derivePlanSourceDependencyAccounting({
+    sourceAccounting: sourceReleaseAccounting,
+    selectedPackIds: domain.selectedPackIds,
+    selectedPackMaturities: domain.packMaturities,
+    selectedGateIds: gates,
+    selectedResourceIds: routing.selected.map((resource) => resource.id)
+  });
   const validationPolicy = deriveValidationPolicy({
     effectiveRisk: riskAssessment.effectiveRisk,
     authorizedActions: [...validatedTask.authorizedActions],
@@ -683,7 +716,8 @@ export async function planDeliveryRun(input, hostOptions = {}) {
     task: effectiveTask,
     routing,
     resolvedGateIds: gates,
-    domainSelection: domain
+    domainSelection: domain,
+    sourceDependencyAccounting
   });
   const maxInputFraction = validatedRequest.contextPolicy.maxInputFraction ?? 0.35;
   const selectedAgentIds = routing.selected
@@ -756,6 +790,7 @@ export async function planDeliveryRun(input, hostOptions = {}) {
     riskAssessment,
     scenarioPolicy,
     requiredGateIds: gates,
+    sourceDependencyAccounting,
     routing,
     context,
     team,
@@ -773,5 +808,7 @@ export async function planDeliveryRun(input, hostOptions = {}) {
       configurable: false
     });
   }
-  return plan;
+  const authoritativePlan = deepFreeze(plan);
+  PLANNER_CREATED_DELIVERY_PLANS.add(authoritativePlan);
+  return authoritativePlan;
 }

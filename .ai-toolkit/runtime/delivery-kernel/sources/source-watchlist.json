@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "2.0.0",
+  "schemaVersion": "2.1.0",
   "catalogId": "enterprise-source-catalog",
   "migratedAt": "2026-07-17T00:00:00.000Z",
   "purpose": "Canonical review-only supply-chain inventory. Catalog freshness never authorizes import, installation, activation, extraction, or runtime use.",
@@ -63,7 +63,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "fa0fa64bdc967915dc8399e803be67759e1e62b8"
@@ -87,7 +87,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/anthropic-skills.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "openai-skills",
@@ -128,7 +129,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "49f948faa9258a0c61caceaf225e179651397431"
@@ -152,7 +153,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/openai-skills.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "addy-osmani-agent-skills",
@@ -194,7 +196,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "2fbfa004a0192529bc997d103fc12f19a3804aab"
@@ -218,7 +220,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/addy-osmani-agent-skills.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "supabase-agent-skills",
@@ -256,7 +259,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "1ad9aaeb49caafd9e95c0a91116f71890eebbc53"
@@ -280,7 +283,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/supabase-agent-skills.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "trailofbits-skills",
@@ -321,7 +325,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af"
@@ -345,7 +349,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/trailofbits-skills.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "microsoft-playwright",
@@ -390,12 +395,12 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "449349caea6d1c81dc8b6a6f447cf9bfca6b1350"
+          "value": "ef3a5830f960c00018f810cebf26133b35ec2b6f"
         },
-        "contentDigest": "sha256:dc7581d4b48b882cfa6b1a670ff2fc58a326b667cd9567aa4b8ff2c809ef192a",
+        "contentDigest": "sha256:de0a5d62cc8fb2839a59ee89299902d930d45c70da8e29a7a874f2f2eb50a241",
         "failureReason": null
       },
       "review": {
@@ -418,71 +423,8 @@
         "sources/playwright.md",
         ".ai-toolkit/sources/records/playwright.md",
         "registries/tools.registry.json"
-      ]
-    },
-    {
-      "id": "karpathy-inspired-skills",
-      "name": "Karpathy-Inspired Skills",
-      "sourceUrl": "https://github.com/multica-ai/andrej-karpathy-skills",
-      "repoOwner": "multica-ai",
-      "repoName": "andrej-karpathy-skills",
-      "defaultBranch": "main",
-      "lastReviewedCommit": "2c606141936f1eeef17fa3043a72095b4765b9c2",
-      "lastReviewedDate": "2026-06-19",
-      "sourceRecordPath": "sources/karpathy-inspired-skills.md",
-      "watchedPaths": [],
-      "licenseConcern": "license-unclear",
-      "reviewPriority": "Medium",
-      "neverAutoImport": true,
-      "reviewDecision": {
-        "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "2c606141936f1eeef17fa3043a72095b4765b9c2",
-        "reviewedDate": "2026-06-19",
-        "summary": "Canonical GitHub source identity refreshed from forrestchang/andrej-karpathy-skills to multica-ai/andrej-karpathy-skills; reviewed commit unchanged and license-unclear cleanroom boundaries remain intact.",
-        "boundaries": [
-          "no raw upstream text copying",
-          "no skill installation",
-          "no active runtime skill creation",
-          "no source authority claim",
-          "no license-unclear content extraction",
-          "no raw skill copying",
-          "no global skill activation",
-          "no product-repo changes"
-        ]
-      },
-      "sourceType": "github-repo",
-      "aliases": [],
-      "identityKey": "github:multica-ai/andrej-karpathy-skills",
-      "authority": "community",
-      "lifecycle": "review-input",
-      "freshnessClass": "general-methods",
-      "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
-        "observedRevision": {
-          "kind": "git-sha",
-          "value": "2c606141936f1eeef17fa3043a72095b4765b9c2"
-        },
-        "contentDigest": "sha256:b1bf1488b4af3b8cfd044700e5302e93b4e735df0698b80a621d8fe5009435c4",
-        "failureReason": null
-      },
-      "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "previousReceipt": null,
-        "receiptDigest": null,
-        "previousReceiptDigest": null,
-        "disposition": null
-      },
-      "runtimePosture": "metadata-only",
-      "dependentResourceIds": [],
-      "affectedArtifacts": [
-        "sources/karpathy-inspired-skills.md"
-      ]
+      ],
+      "scope": "optional-tool"
     },
     {
       "id": "nagdy-guard-skills",
@@ -526,7 +468,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "d63607391ffd6b2763a3e62cb05a8e00b891a937"
@@ -550,7 +492,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/nagdy-guard-skills.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "matt-pocock-skills",
@@ -591,7 +534,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "9603c1cc8118d08bc1b3bf34cf714f62178dea3b"
@@ -615,7 +558,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/matt-pocock-skills.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "shadcn-ui",
@@ -660,7 +604,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "d28738b183c5eaa69d8d540826e450f30d39ab6c"
@@ -684,7 +628,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/shadcn-ui.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "addyosmani-web-quality-skills",
@@ -725,7 +670,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "95d6e255afe1596b557d7a8498517884438f5b3a"
@@ -749,7 +694,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/addyosmani-web-quality-skills.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "voltagent-awesome-design-md",
@@ -789,7 +735,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "664b3e78fd1a298ba11973822da988483256d4b4"
@@ -813,74 +759,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/voltagent-awesome-design-md.md"
-      ]
-    },
-    {
-      "id": "voltagent-awesome-agent-skills",
-      "name": "VoltAgent Awesome Agent Skills",
-      "sourceUrl": "https://github.com/VoltAgent/awesome-agent-skills",
-      "repoOwner": "VoltAgent",
-      "repoName": "awesome-agent-skills",
-      "defaultBranch": "main",
-      "lastReviewedCommit": "e1b5e34de393a8599ecf25dc1934ddc07a860d30",
-      "lastReviewedDate": "2026-06-19",
-      "sourceRecordPath": "sources/voltagent-awesome-agent-skills.md",
-      "watchedPaths": [],
-      "licenseConcern": "clear",
-      "reviewPriority": "Medium",
-      "neverAutoImport": true,
-      "reviewDecision": {
-        "outcome": "SYNCED_REFERENCE",
-        "reviewedCommit": "e1b5e34de393a8599ecf25dc1934ddc07a860d30",
-        "reviewedDate": "2026-06-19",
-        "summary": "README directory additions for Aegis, Alpha Insights, and related skill listings reviewed; retained as source-discovery reference only.",
-        "boundaries": [
-          "no raw README/listing copy",
-          "no skill import",
-          "no skill activation",
-          "no package install",
-          "no routing adoption",
-          "no source extraction",
-          "no product-repo changes",
-          "no global configuration changes",
-          "no CI wiring",
-          "no MCP setup",
-          "no runtime behavior changes"
-        ]
-      },
-      "sourceType": "github-repo",
-      "aliases": [],
-      "identityKey": "github:voltagent/awesome-agent-skills",
-      "authority": "aggregator",
-      "lifecycle": "review-input",
-      "freshnessClass": "general-methods",
-      "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
-        "observedRevision": {
-          "kind": "git-sha",
-          "value": "c97eda5e3406670f3285c6bf9eb7639a7ecc03cc"
-        },
-        "contentDigest": "sha256:8b4d88fb86a6274f63a4645b5714953bdcefa84d215970830329a3fccc63b25d",
-        "failureReason": null
-      },
-      "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "previousReceipt": null,
-        "receiptDigest": null,
-        "previousReceiptDigest": null,
-        "disposition": null
-      },
-      "runtimePosture": "metadata-only",
-      "dependentResourceIds": [],
-      "affectedArtifacts": [
-        "sources/voltagent-awesome-agent-skills.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "impeccable",
@@ -923,7 +803,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "e4ab5e24bdf5321b72163d2fbcbe6fa985c848ba"
@@ -947,7 +827,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/impeccable.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "uncodixfy",
@@ -971,7 +852,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "e0e028058b5259debdd94b78147c6d6c77bf7da2"
@@ -995,7 +876,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/uncodixfy.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "superpowers",
@@ -1036,8 +918,8 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "d884ae04edebef577e82ff7c4e143debd0bbec99"
@@ -1061,7 +943,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/superpowers.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "everything-claude-code",
@@ -1105,13 +988,13 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "754b8dd76ca885b764ec22f476664377aa46b6cd"
+          "value": "0071fa5c3c389d2b4b235a39402c891e146cdef3"
         },
-        "contentDigest": "sha256:0fb14eeb7285b8042d5229c7ea3c9d5679aa038dcd38d8c57d1a055a3546f3b1",
+        "contentDigest": "sha256:7150078d493ab0dbcf2a07ff56d5b01bb478cfeed733c4e7500832c41e88c5e7",
         "failureReason": null
       },
       "review": {
@@ -1130,7 +1013,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/everything-claude-code.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "ruflo",
@@ -1174,8 +1058,8 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "12ede21767a6dd669df1b79392a5d27d9154f237"
@@ -1199,7 +1083,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/ruflo.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "gitlab-agent-skills",
@@ -1231,11 +1116,11 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (periodic owner review of the official docs URL and source-record notes) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1253,7 +1138,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/gitlab-agent-skills.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "gitlab-agentic-tool-development",
@@ -1285,11 +1171,11 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (periodic owner review of the official docs URL and source-record notes) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1307,7 +1193,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/gitlab-agentic-tool-development.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "aider-repo-map",
@@ -1339,11 +1226,11 @@
       "lifecycle": "review-input",
       "freshnessClass": "general-methods",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1361,7 +1248,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/aider-repo-map.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "openai-prompt-caching",
@@ -1393,11 +1281,11 @@
       "lifecycle": "review-input",
       "freshnessClass": "general-methods",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1415,7 +1303,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/openai-prompt-caching.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "openai-codex-behavior-boundaries",
@@ -1447,11 +1336,11 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1469,7 +1358,8 @@
       "dependentResourceIds": [],
       "affectedArtifacts": [
         "sources/openai-codex-behavior-boundaries.md"
-      ]
+      ],
+      "scope": "community-reference"
     },
     {
       "id": "gsd-core",
@@ -1511,12 +1401,12 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHANGED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "b2f4aa94356dc4859946f508965a2fa8e40bc93b"
+          "value": "667a864896615f3a159d2834064bebfb6eb7fccf"
         },
-        "contentDigest": "sha256:f85d27660978b8e6406d16962e5432f4fcca91380bd5c7caed65dee22c0c3843",
+        "contentDigest": "sha256:f728f51fa4a86820e126fd12aa10b9f447c9e62696123ad09e33c5b1b1ab0941",
         "failureReason": null
       },
       "review": {
@@ -1539,7 +1429,8 @@
         "sources/gsd-core.md",
         ".ai-toolkit/sources/records/gsd-core.md",
         "registries/tools.registry.json"
-      ]
+      ],
+      "scope": "optional-tool"
     },
     {
       "id": "repomix",
@@ -1583,13 +1474,13 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "2418bd05ccfbd6c39594854ab12695513afafba9"
+          "value": "44457c890236440bc683e9e5d84499a0a4911550"
         },
-        "contentDigest": "sha256:7093b0e83a72f9ce1da7a380c8ec56ad2087423b3eea47c7dff387c62796f2e2",
+        "contentDigest": "sha256:0efd90bf5522ab5642f6ad64a3c06418a39216991f40b644df0763a9d54076cb",
         "failureReason": null
       },
       "review": {
@@ -1612,7 +1503,8 @@
         "sources/repomix.md",
         ".ai-toolkit/sources/records/repomix.md",
         "registries/tools.registry.json"
-      ]
+      ],
+      "scope": "optional-tool"
     },
     {
       "id": "typescript",
@@ -1635,10 +1527,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1662,7 +1554,8 @@
       ],
       "purpose": "type system and source-code type checking",
       "homepage": "https://www.typescriptlang.org",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "typescript-eslint",
@@ -1685,10 +1578,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1712,7 +1605,8 @@
       ],
       "purpose": "typed linting for TypeScript and JavaScript",
       "homepage": "https://typescript-eslint.io",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "eslint-plugin-react-hooks",
@@ -1735,10 +1629,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1762,7 +1656,8 @@
       ],
       "purpose": "React hooks and compiler rule enforcement",
       "homepage": "https://react.dev",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "biome",
@@ -1785,10 +1680,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1812,7 +1707,8 @@
       ],
       "purpose": "fast JavaScript and TypeScript formatter/linter",
       "homepage": "https://biomejs.dev",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "oxlint",
@@ -1835,10 +1731,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1862,7 +1758,8 @@
       ],
       "purpose": "fast JavaScript and TypeScript linting",
       "homepage": "https://oxc.rs",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "knip",
@@ -1885,10 +1782,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1912,7 +1809,8 @@
       ],
       "purpose": "unused files, dependencies, and exports detection",
       "homepage": "https://knip.dev",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "react-doctor",
@@ -1935,10 +1833,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -1962,7 +1860,8 @@
       ],
       "purpose": "React codebase scanning for correctness, performance, architecture, accessibility, and AI-generated React risks",
       "homepage": "https://react.doctor",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "vitest",
@@ -1985,10 +1884,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2012,7 +1911,8 @@
       ],
       "purpose": "JavaScript and TypeScript unit and component testing",
       "homepage": "https://vitest.dev",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "testing-library",
@@ -2035,10 +1935,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2062,7 +1962,8 @@
       ],
       "purpose": "user-centric DOM and component testing",
       "homepage": "https://testing-library.com",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "axe-playwright",
@@ -2085,10 +1986,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2112,7 +2013,8 @@
       ],
       "purpose": "rendered accessibility checks with Playwright",
       "homepage": "https://www.deque.com/axe",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "lighthouse-ci",
@@ -2135,10 +2037,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2162,7 +2064,8 @@
       ],
       "purpose": "performance, accessibility, SEO, and regression budgets",
       "homepage": "https://github.com/GoogleChrome/lighthouse-ci",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "codeql",
@@ -2185,10 +2088,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2212,7 +2115,8 @@
       ],
       "purpose": "semantic code security analysis",
       "homepage": "https://codeql.github.com",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "semgrep",
@@ -2235,10 +2139,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2262,7 +2166,8 @@
       ],
       "purpose": "targeted static security and quality rules",
       "homepage": "https://semgrep.dev",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "gitleaks",
@@ -2285,10 +2190,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2312,7 +2217,8 @@
       ],
       "purpose": "fast secret scanning",
       "homepage": "https://gitleaks.io",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "trufflehog",
@@ -2335,10 +2241,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2362,7 +2268,8 @@
       ],
       "purpose": "deep secret and credential validation scanning",
       "homepage": "https://trufflesecurity.com",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "osv-scanner",
@@ -2385,10 +2292,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2412,7 +2319,8 @@
       ],
       "purpose": "dependency vulnerability scanning using OSV data",
       "homepage": "https://google.github.io/osv-scanner",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "dependabot",
@@ -2435,10 +2343,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2462,7 +2370,8 @@
       ],
       "purpose": "dependency update PR automation",
       "homepage": "https://docs.github.com/code-security/dependabot",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "renovate",
@@ -2485,10 +2394,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2512,7 +2421,8 @@
       ],
       "purpose": "dependency update PR automation",
       "homepage": "https://docs.renovatebot.com",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "socket",
@@ -2535,10 +2445,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2562,7 +2472,8 @@
       ],
       "purpose": "npm malware and supply-chain risk analysis",
       "homepage": "https://socket.dev",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "trivy",
@@ -2585,10 +2496,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2612,7 +2523,8 @@
       ],
       "purpose": "container, filesystem, IaC, SBOM, vulnerability, secrets, and license scanning",
       "homepage": "https://trivy.dev",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "checkov",
@@ -2635,10 +2547,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2662,7 +2574,8 @@
       ],
       "purpose": "IaC and cloud misconfiguration scanning",
       "homepage": "https://www.checkov.io",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "owasp-zap-baseline",
@@ -2685,10 +2598,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2712,7 +2625,8 @@
       ],
       "purpose": "DAST baseline scan against approved URL",
       "homepage": "https://www.zaproxy.org",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "actionlint",
@@ -2735,10 +2649,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2762,7 +2676,8 @@
       ],
       "purpose": "GitHub Actions syntax and security linting",
       "homepage": "https://github.com/rhysd/actionlint",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "zizmor",
@@ -2785,10 +2700,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2812,7 +2727,8 @@
       ],
       "purpose": "GitHub Actions security analysis",
       "homepage": "https://github.com/woodruffw/zizmor",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "harden-runner",
@@ -2835,10 +2751,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2862,7 +2778,8 @@
       ],
       "purpose": "GitHub Actions runner hardening and egress monitoring",
       "homepage": "https://www.stepsecurity.io/harden-runner",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "reviewdog",
@@ -2885,10 +2802,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2912,7 +2829,8 @@
       ],
       "purpose": "deterministic scanner-output PR reporter",
       "homepage": "https://reviewdog.github.io",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "github-gh",
@@ -2935,10 +2853,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -2962,7 +2880,8 @@
       ],
       "purpose": "PR status, checks, review, and merge verification",
       "homepage": "https://cli.github.com",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "open-design",
@@ -2985,10 +2904,10 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3012,7 +2931,8 @@
       ],
       "purpose": "UI/UX reference and design-source scouting",
       "homepage": null,
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "openssf-scorecard",
@@ -3035,10 +2955,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3062,7 +2982,8 @@
       ],
       "purpose": "third-party repo security posture and source trust signal",
       "homepage": "https://scorecard.dev",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "dependency-cruiser",
@@ -3085,10 +3006,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3112,7 +3033,8 @@
       ],
       "purpose": "dependency and architecture boundary checks",
       "homepage": "https://github.com/sverweij/dependency-cruiser",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "eslint-plugin-boundaries",
@@ -3135,10 +3057,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3162,7 +3084,8 @@
       ],
       "purpose": "module import and layer boundary enforcement",
       "homepage": "https://github.com/javierbrea/eslint-plugin-boundaries",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "madge",
@@ -3185,10 +3108,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3212,7 +3135,8 @@
       ],
       "purpose": "dependency graph and circular dependency detection",
       "homepage": "https://github.com/pahen/madge",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "jscpd",
@@ -3235,10 +3159,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3262,7 +3186,8 @@
       ],
       "purpose": "duplicate code detection",
       "homepage": "https://github.com/kucherenko/jscpd",
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "eslint",
@@ -3285,10 +3210,10 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Add a reviewed commit before monitoring this source."
+        "failureReason": "BASELINE_MISSING"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3312,156 +3237,8 @@
       ],
       "purpose": "JavaScript and TypeScript lint baseline",
       "homepage": "https://eslint.org",
-      "neverAutoImport": true
-    },
-    {
-      "id": "agency-agents",
-      "aliases": [],
-      "identityKey": "github:msitarzewski/agency-agents",
-      "name": "Agency Agents",
-      "authority": "historical",
-      "lifecycle": "historical-reference",
-      "sourceType": "github-repo",
-      "sourceUrl": "https://github.com/msitarzewski/agency-agents",
-      "repoOwner": "msitarzewski",
-      "repoName": "agency-agents",
-      "defaultBranch": "main",
-      "lastReviewedCommit": "fb65f61d80344a9d768292c228d6cbb30f52c362",
-      "lastReviewedDate": "2026-06-04",
-      "sourceRecordPath": "sources/agency-agents.md",
-      "watchedPaths": [],
-      "licenseConcern": "clear",
-      "reviewPriority": "Low",
-      "freshnessClass": "general-methods",
-      "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
-        "observedRevision": {
-          "kind": "git-sha",
-          "value": "459dce837db3bdfdc4763d3fefd1fd854e73c8f1"
-        },
-        "contentDigest": "sha256:ce2d56149f660c866f16a05e9b8fc040bd1eb36d7ec5c6dc9221b08c97c5fe7d",
-        "failureReason": null
-      },
-      "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "previousReceipt": null,
-        "receiptDigest": null,
-        "previousReceiptDigest": null,
-        "disposition": null
-      },
-      "runtimePosture": "forbidden-runtime",
-      "dependentResourceIds": [],
-      "affectedArtifacts": [
-        "sources/agency-agents.md"
-      ],
-      "neverAutoImport": true
-    },
-    {
-      "id": "bencium-marketplace",
-      "aliases": [],
-      "identityKey": "github:bencium/bencium-marketplace",
-      "name": "Bencium Marketplace",
-      "authority": "historical",
-      "lifecycle": "historical-reference",
-      "sourceType": "github-repo",
-      "sourceUrl": "https://github.com/bencium/bencium-marketplace",
-      "repoOwner": "bencium",
-      "repoName": "bencium-marketplace",
-      "defaultBranch": "main",
-      "lastReviewedCommit": "c6f5a718d43ba5a5d540bf74efbd4dba81400c72",
-      "lastReviewedDate": "2026-06-03",
-      "sourceRecordPath": "sources/bencium-marketplace.md",
-      "watchedPaths": [],
-      "licenseConcern": "clear",
-      "reviewPriority": "Low",
-      "freshnessClass": "general-methods",
-      "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
-        "observedRevision": {
-          "kind": "git-sha",
-          "value": "9db32365ca5755a6ca9b5ff8d88ff384ca47b015"
-        },
-        "contentDigest": "sha256:7d94323aa9739e34053dff2bfeddc2b879bb0fe67dee216d5cbc704598b0dcaf",
-        "failureReason": null
-      },
-      "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "previousReceipt": null,
-        "receiptDigest": null,
-        "previousReceiptDigest": null,
-        "disposition": null
-      },
-      "runtimePosture": "forbidden-runtime",
-      "dependentResourceIds": [],
-      "affectedArtifacts": [
-        "sources/bencium-marketplace.md"
-      ],
-      "neverAutoImport": true
-    },
-    {
-      "id": "skills-sh",
-      "aliases": [],
-      "identityKey": "url:https://skills.sh",
-      "name": "skills.sh",
-      "authority": "historical",
-      "lifecycle": "historical-reference",
-      "sourceType": "manual-reviewed-doc",
-      "sourceUrl": "https://skills.sh/",
-      "watchMode": "manual-reviewed-doc",
-      "manualReview": {
-        "publisher": "skills.sh",
-        "cadence": "90 days",
-        "reason": "Dynamic discovery index without an immutable repository revision.",
-        "forbiddenClaims": [
-          "installation approval",
-          "runtime activation",
-          "immutable source freshness"
-        ]
-      },
-      "lastReviewedCommit": null,
-      "lastReviewedDate": "2026-05-15",
-      "sourceRecordPath": "sources/skills-sh.md",
-      "watchedPaths": [],
-      "licenseConcern": "license-unclear",
-      "reviewPriority": "Low",
-      "freshnessClass": "general-methods",
-      "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
-        "observedRevision": null,
-        "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (90 days) without import, install, activation, extraction, or runtime changes."
-      },
-      "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "previousReceipt": null,
-        "receiptDigest": null,
-        "previousReceiptDigest": null,
-        "disposition": null
-      },
-      "runtimePosture": "forbidden-runtime",
-      "dependentResourceIds": [],
-      "affectedArtifacts": [
-        "sources/skills-sh.md"
-      ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "coderabbit",
@@ -3491,11 +3268,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3517,7 +3294,8 @@
         ".ai-toolkit/integrations/coderabbit.md",
         "registries/tools.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "optional-tool"
     },
     {
       "id": "android-accessibility",
@@ -3547,11 +3325,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3571,7 +3349,8 @@
         "sources/android-accessibility.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "android-core-app-quality",
@@ -3601,11 +3380,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3625,7 +3404,8 @@
         "sources/android-core-app-quality.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "apple-accessibility",
@@ -3655,11 +3435,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3679,7 +3459,8 @@
         "sources/apple-accessibility.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "apple-human-interface-guidelines",
@@ -3709,11 +3490,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3733,7 +3514,8 @@
         "sources/apple-human-interface-guidelines.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "apple-privacy-manifests",
@@ -3763,11 +3545,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3787,7 +3569,8 @@
         "sources/apple-privacy-manifests.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "electron-security-guidance",
@@ -3817,11 +3600,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3841,7 +3624,8 @@
         "sources/electron-security-guidance.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "expo-documentation",
@@ -3871,11 +3655,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3895,7 +3679,8 @@
         "sources/expo-documentation.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "microsoft-windows-accessibility",
@@ -3925,11 +3710,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -3949,7 +3734,8 @@
         "sources/microsoft-windows-accessibility.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "microsoft-windows-app-guidance",
@@ -3979,11 +3765,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4003,7 +3789,8 @@
         "sources/microsoft-windows-app-guidance.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "nist-ssdf-ai",
@@ -4033,11 +3820,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4057,7 +3844,8 @@
         "sources/nist-ssdf-ai.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "core"
     },
     {
       "id": "nist-ai-rmf-genai",
@@ -4087,11 +3875,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4111,7 +3899,8 @@
         "sources/nist-ai-rmf-genai.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "core"
     },
     {
       "id": "owasp-llmsvs",
@@ -4141,11 +3930,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4165,7 +3954,8 @@
         "sources/owasp-llmsvs.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "core"
     },
     {
       "id": "owasp-agentic-applications",
@@ -4195,11 +3985,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4219,7 +4009,8 @@
         "sources/owasp-agentic-applications.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "core"
     },
     {
       "id": "slsa-v1-2",
@@ -4249,11 +4040,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4273,7 +4064,8 @@
         "sources/slsa-v1-2.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "core"
     },
     {
       "id": "openssf-ai-code-assistant-instructions",
@@ -4303,11 +4095,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4327,7 +4119,8 @@
         "sources/openssf-ai-code-assistant-instructions.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "core"
     },
     {
       "id": "nist-ssdf",
@@ -4357,11 +4150,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4381,7 +4174,8 @@
         "sources/nist-ssdf.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "core"
     },
     {
       "id": "owasp-asvs",
@@ -4411,11 +4205,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4435,7 +4229,8 @@
         "sources/owasp-asvs.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "core"
     },
     {
       "id": "owasp-masvs",
@@ -4465,11 +4260,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4489,7 +4284,8 @@
         "sources/owasp-masvs.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "tauri-security-guidance",
@@ -4519,11 +4315,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4543,7 +4339,8 @@
         "sources/tauri-security-guidance.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "w3c-wcag-22",
@@ -4573,11 +4370,11 @@
       "reviewPriority": "Medium",
       "freshnessClass": "platform-standards",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4597,7 +4394,8 @@
         "sources/w3c-wcag-22.md",
         "registries/domain-packs.registry.json"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "platform-preview"
     },
     {
       "id": "openai-codex-guidance",
@@ -4627,11 +4425,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4651,7 +4449,8 @@
         "sources/openai-codex-guidance.md",
         "scripts/ai-toolkit/kernel/codex-adapter.mjs"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "community-reference"
     },
     {
       "id": "anthropic-claude-code-subagents",
@@ -4681,11 +4480,11 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "MANUAL_DUE",
-        "checkedAt": "2026-07-19T06:34:47.783Z",
+        "state": "CHECK_FAILED",
+        "checkedAt": "2026-07-19T22:11:13.031Z",
         "observedRevision": null,
         "contentDigest": null,
-        "failureReason": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes."
+        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
       },
       "review": {
         "state": "QUARANTINED",
@@ -4705,7 +4504,8 @@
         "sources/anthropic-claude-code-subagents.md",
         "scripts/ai-toolkit/kernel/claude-adapter.mjs"
       ],
-      "neverAutoImport": true
+      "neverAutoImport": true,
+      "scope": "community-reference"
     }
   ],
   "legacyCompatibility": {

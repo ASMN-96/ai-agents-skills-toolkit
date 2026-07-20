@@ -4,10 +4,10 @@
 - Dependent resource ID: repomix
 - Canonical catalog: sources/source-watchlist.json
 - Canonical source record: sources/repomix.md
-- Catalog evidence instant: 2026-07-19T06:34:47.783Z
-- Monitor state: CURRENT
-- Observed revision: git-sha:2418bd05ccfbd6c39594854ab12695513afafba9
-- Content digest: sha256:7093b0e83a72f9ce1da7a380c8ec56ad2087423b3eea47c7dff387c62796f2e2
+- Catalog evidence instant: 2026-07-19T22:11:13.031Z
+- Monitor state: CHANGED
+- Observed revision: git-sha:44457c890236440bc683e9e5d84499a0a4911550
+- Content digest: sha256:0efd90bf5522ab5642f6ad64a3c06418a39216991f40b644df0763a9d54076cb
 - Review state: QUARANTINED
 - Reviewed revision: none
 - Reviewed digest: none
@@ -18,7 +18,7 @@
 - Reference eligibility: BLOCKED
 - Dependent-resource source state: BLOCKED
 - Runtime eligibility: false
-- Eligibility reason: review-quarantined
+- Eligibility reason: monitor-changed
 - neverAutoImport: true
 
 ## Boundary

@@ -4,7 +4,7 @@
 - Dependent resource ID: openssf-scorecard
 - Canonical catalog: sources/source-watchlist.json
 - Canonical source record: .ai-toolkit/sources/records/openssf-scorecard.md
-- Catalog evidence instant: 2026-07-19T06:34:47.783Z
+- Catalog evidence instant: 2026-07-19T22:11:13.031Z
 - Monitor state: CHECK_FAILED
 - Observed revision: none
 - Content digest: none

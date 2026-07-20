@@ -29,7 +29,7 @@
     },
     {
       "path": ".codex/agents/backend-implementation-agent.toml",
-      "sha256": "d215da7eb2d72b324f13ba6c92a11c190c69c17af09193f6721bf256b3993981"
+      "sha256": "f31b3506f2dc2ce36aa49cf4d6d9102702a3184cb58ffd77391271ac0f26f279"
     },
     {
       "path": ".codex/agents/database-rls-agent.toml",
@@ -37,7 +37,7 @@
     },
     {
       "path": ".codex/agents/desktop-platform-agent.toml",
-      "sha256": "6105aab7d9329c419da5a57df710601cf9810d38a3488e234c0ba93458352037"
+      "sha256": "90c7567cb0f9e2857b83dd47654c69553342877d423af9dbf27c62b5fbb7c54a"
     },
     {
       "path": ".codex/agents/frontend-agent.toml",
@@ -45,7 +45,7 @@
     },
     {
       "path": ".codex/agents/mobile-platform-agent.toml",
-      "sha256": "def22db04b0f96eb00cdd1b31332ce59ca273162e2c29b86a575799f8dd6c20e"
+      "sha256": "6f0a3d18996e7a452aeafbb7b2a7e4293dc90fb135fdf5c5ac481b8d69301f50"
     },
     {
       "path": ".codex/agents/product-agent.toml",
@@ -89,7 +89,7 @@
     },
     {
       "path": "registries/agents.registry.json",
-      "sha256": "c9c1a7de10822ff1b8cb5621dda93ed4473e405bcce0c6fbae12f8084c36b9d1"
+      "sha256": "00c7fbd76f29c2711cdd3caa7bde8203fdce7c7099e31102b53431fec579630d"
     },
     {
       "path": "registries/domain-packs.registry.json",
@@ -113,7 +113,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/canonical-digest.mjs",
-      "sha256": "1d6a74d68325fe3e2daa6524b6be7a1d42136ca73bab179c0e336b52327f5e65"
+      "sha256": "80cf67e6aa72c707fa7923ff0d5d755e51f8618aff1143a405818ff03a79103f"
     },
     {
       "path": "scripts/ai-toolkit/kernel/canonical-json.mjs",
@@ -141,7 +141,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/delivery-kernel.mjs",
-      "sha256": "c275dba31fc25894233bafe8e8c88c5d0442264db47a216673917f1c174ee34d"
+      "sha256": "8dba543838747031053b987a2dfcd8c886bb4c2b06f29d5ff4358b227dd2a8ab"
     },
     {
       "path": "scripts/ai-toolkit/kernel/domain-packs.mjs",
@@ -153,7 +153,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/execution-lifecycle.mjs",
-      "sha256": "940e8c304c9f5b544cc6cf88ff39c483ddfa2674e5cefe0d56e132a7fba42e0f"
+      "sha256": "b579a63425f8a30e8dd59126e0b31073174e88094326319a49ad8802700d7a02"
     },
     {
       "path": "scripts/ai-toolkit/kernel/freshness-policy.mjs",
@@ -165,7 +165,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/resource-catalog.mjs",
-      "sha256": "ac52e264c6c5f9bbbcd598f099c1835e96a11dda06161cb9b05de00620dcff6c"
+      "sha256": "4716ca51f4e0f2120657c1c783e2bed7ed841a041d7b33d0cf289c2db713f736"
     },
     {
       "path": "scripts/ai-toolkit/kernel/resource-router.mjs",
@@ -181,15 +181,19 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-contract.mjs",
-      "sha256": "e65a185764f43f97f5778998107681cbe5cfc87bb4a38d060a0d6d75e42ebb08"
+      "sha256": "fdbd726f6f911825440de3b1f134c9ef0f031bbdced4e01e15f8ee5a10783b62"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-loader.mjs",
-      "sha256": "a54feeb31a18aa1d878a5f7dc45e684b209c5424bca3d946e6d8ee518f2fafee"
+      "sha256": "53e668a1faa48ecdebc397c57e78cbead54646440de1144b3994a71b61dbe49e"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-policy.mjs",
       "sha256": "df6750d6d67d230d800797df570845f7d21c62a7cdd0cfb747164c15e5818fa5"
+    },
+    {
+      "path": "scripts/ai-toolkit/kernel/source-release-accounting.mjs",
+      "sha256": "f95bdc2b7e30f1f871e7b59abe5a6d96e8b4de36acf3fcaebc368b6ab16fb62e"
     },
     {
       "path": "scripts/ai-toolkit/kernel/team-planner.mjs",
@@ -201,7 +205,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-delivery-kernel.mjs",
-      "sha256": "043e93f6683633f6feb29504da77afc50de4537f61461c83d3a1e5c7f42e1d1f"
+      "sha256": "d7c67c57705e1bb22ab101085d66c49b2ed1dfaf359cca1a29b65a264166ec88"
     },
     {
       "path": "skills/code-quality/SKILL.md",
@@ -225,7 +229,7 @@
     },
     {
       "path": "sources/source-watchlist.json",
-      "sha256": "25946fccbb45cad2596c7495f11664f5d96fe268e83e6b1ff4d33620f845af5e"
+      "sha256": "616f37583ca640e55ac9424e2aa0dc42ac3e4762a37cce1ceb23263532000cc7"
     },
     {
       "path": "templates/delivery-kernel.request.example.json",

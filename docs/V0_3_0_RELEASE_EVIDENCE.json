@@ -5,8 +5,8 @@
   "releaseState": "blocked",
   "artifactDigestMode": "sha256-utf8-lf-v1",
   "repository": {
-    "sourceCommit": "0abfc4453601d3299cdc0e9f5c635b124f3aa45a",
-    "compilerCommit": "86e77cb7168622ceaf8e922243ed93cf2cdcdeca",
+    "sourceCommit": "a78b54fbdb54161347eb1db0826223b521588016",
+    "compilerCommit": "4f73505e0f9705f2c0cb1fa1728cb75616a8a5c7",
     "reviewedMainCommit": null,
     "worktreeState": "clean"
   },
@@ -29,8 +29,8 @@
     },
     "embeddedManifest": {
       "path": ".ai-toolkit/manifest.json",
-      "sha256": null,
-      "state": "regeneration-pending"
+      "sha256": "2726aa732fa1ea0dbc6f4e475f086c71687f0c9fd6e5da60fc9b1e1497853973",
+      "state": "generated-current"
     }
   },
   "sourceFreshness": {
@@ -163,8 +163,7 @@
     "No source review receipt has an authorized approver identity.",
     "The runtime-owned Codex or Claude execution bridge is not implemented.",
     "Three agents remain preview despite having inline compiled fallbacks; fallback availability is not native execution, runtime support, or pilot evidence.",
-    "Human, timing, defect-escape, and native-pilot thresholds are not measured.",
-    "Generated source mirrors and the embedded manifest remain stale pending Task 7 regeneration."
+    "Human, timing, defect-escape, and native-pilot thresholds are not measured."
   ],
   "approvals": {
     "sourceApproverIdentityRecorded": false,
@@ -234,19 +233,6 @@
       ]
     },
     {
-      "id": "generated-artifact-drift",
-      "reasonCode": "GENERATED_ARTIFACT_DRIFT",
-      "evidencePaths": [
-        "sources/source-watchlist.json",
-        ".ai-toolkit/sources/watchlist.json",
-        ".ai-toolkit/manifest.json"
-      ],
-      "dependencyIds": [
-        "embedded-manifest",
-        "source-catalog-mirror"
-      ]
-    },
-    {
       "id": "tag-and-release-authorization-absent",
       "reasonCode": "TAG_OR_RELEASE_AUTHORIZATION_ABSENT",
       "evidencePaths": [
@@ -264,7 +250,6 @@
     "runtime-host-bridge-unavailable",
     "human-and-native-pilot-evidence-not-measured",
     "reviewed-clean-main-commit-unavailable",
-    "generated-artifact-drift",
     "tag-and-release-authorization-absent"
   ]
 }

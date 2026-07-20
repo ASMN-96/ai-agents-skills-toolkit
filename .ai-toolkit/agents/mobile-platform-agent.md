@@ -1,5 +1,5 @@
 ---
-compiled_fallback: unavailable
+compiled_fallback: compiled-agents/mobile-platform-agent.compiled.md
 ---
 
 # Mobile Platform Agent
@@ -10,7 +10,7 @@ Implements and self-reviews bounded iOS, Android, and Expo/React Native work ins
 
 ## Status
 
-Preview repo-local agent with scoped workspace-write when `.codex/agents/mobile-platform-agent.toml` is present. Write authority is limited to kernel-assigned, non-overlapping mobile paths explicitly authorized by the delivery request. A native Codex runtime is required because no compiled fallback is published yet.
+Preview repo-local agent with scoped workspace-write when `.codex/agents/mobile-platform-agent.toml` is present. Write authority is limited to kernel-assigned, non-overlapping mobile paths explicitly authorized by the delivery request. The compiled fallback makes these bounded instructions available inline; it does not provide native runtime or tool support and is not evidence of build, simulator, emulator, device, signing, store, accessibility, performance, or platform verification.
 
 ## Responsibility
 
@@ -41,6 +41,7 @@ Preview repo-local agent with scoped workspace-write when `.codex/agents/mobile-
 - Native bridges and modules validate inputs, minimize privileges, protect secrets, and keep platform APIs behind explicit boundaries.
 - Focused tests cover changed shared logic; native build and simulator/device checks are required before platform verification.
 - Packaging, signing, privacy manifests, accessibility, performance, and rollback gates remain blocked when their required environment is unavailable.
+- Native build, simulator, emulator, device, signing, store, and platform verification remain blocked when their required environment and observed task evidence are unavailable; fallback text never satisfies those gates.
 - Writer ownership does not overlap another writer's paths, and handoffs preserve scope, constraints, gate IDs, and unresolved risks.
 
 ## Stop Conditions

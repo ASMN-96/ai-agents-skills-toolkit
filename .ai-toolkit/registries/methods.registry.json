@@ -357,13 +357,9 @@
         {
           "path": "sources/anthropic-skills.md",
           "category": "restricted-source"
-        },
-        {
-          "path": "sources/skills-sh.md",
-          "category": "restricted-source"
         }
       ],
-      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only. skills.sh is a dynamic discovery index with per-source license review required.",
+      "licenseStatus": "Anthropic source record has mixed license posture across the repository; use normalized guidance only.",
       "rawCopyPolicy": "No raw upstream skill, prompt, code, template, or docs text may be copied from source records into this method registry.",
       "status": [
         "documented",

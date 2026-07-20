@@ -5,7 +5,8 @@ import path from "node:path";
 import { assertRegularFileWithin } from "../../../install/safe-filesystem.mjs";
 import { readCanonicalJsonDocumentWithin } from "./canonical-json.mjs";
 import {
-  validateSourceCatalog,
+  SOURCE_CATALOG_SCHEMA_VERSION,
+  validateSourceCatalogGraph,
   validateSourceReviewReceipt
 } from "./source-catalog-contract.mjs";
 
@@ -206,7 +207,21 @@ async function validateReceiptChain({
 export async function loadValidatedSourceCatalog({ repositoryRoot, now } = {}) {
   const root = path.resolve(repositoryRoot);
   const before = await readDocument(root, CATALOG_PATH, "canonical SourceCatalog v2");
-  const catalog = validateSourceCatalog(before.parsed, { now });
+  const domainPacksRegistry = await readDocument(
+    root,
+    "registries/domain-packs.registry.json",
+    "canonical domain-packs registry for source scope validation"
+  );
+  const toolsRegistry = await readDocument(
+    root,
+    "registries/tools.registry.json",
+    "canonical tools registry for source scope validation"
+  );
+  const catalog = validateSourceCatalogGraph(before.parsed, {
+    now,
+    domainPacksRegistry: domainPacksRegistry.parsed,
+    toolsRegistry: toolsRegistry.parsed
+  });
   let receiptCount = 0;
   const evidenceByPath = new Map();
   for (const source of catalog.sources) {
@@ -223,11 +238,15 @@ export async function loadValidatedSourceCatalog({ repositoryRoot, now } = {}) {
   if (sha256Text(before.text) !== sha256Text(after.text)) {
     throw new Error("Source governance: SourceCatalog changed during trusted runtime inspection");
   }
-  validateSourceCatalog(after.parsed, { now });
+  validateSourceCatalogGraph(after.parsed, {
+    now,
+    domainPacksRegistry: domainPacksRegistry.parsed,
+    toolsRegistry: toolsRegistry.parsed
+  });
   return {
     catalog,
     validation: {
-      schemaVersion: "2.0.0",
+      schemaVersion: SOURCE_CATALOG_SCHEMA_VERSION,
       sourceCount: catalog.sources.length,
       receiptCount,
       immutableReceiptChainsValidated: true

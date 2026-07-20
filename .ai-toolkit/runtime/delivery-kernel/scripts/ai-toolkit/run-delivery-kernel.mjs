@@ -122,7 +122,7 @@ function canonicalPlannerProjection(plan) {
   return plannerOutput;
 }
 
-async function assertSerializedPlanMatchesCanonicalPolicy(plan, cwd) {
+async function reconstructCanonicalPreparedPlan(plan, cwd) {
   const replanned = await planDeliveryRun(
     { request: plan.request },
     { invocationRoot: cwd }
@@ -140,6 +140,26 @@ async function assertSerializedPlanMatchesCanonicalPolicy(plan, cwd) {
       "serialized plan does not match the current canonical planner policy; run plan again"
     );
   }
+  const createdAt = plan.executionManifest?.createdAt;
+  const contextExpiresAt = plan.executionManifest?.contextExpiresAt;
+  const durationMs = new Date(contextExpiresAt).valueOf() - new Date(createdAt).valueOf();
+  const contextTtlSeconds = durationMs / 1000;
+  if (!Number.isSafeInteger(contextTtlSeconds)
+    || contextTtlSeconds < 1
+    || contextTtlSeconds > 86400) {
+    throw new Error("serialized execution manifest has an invalid context lifetime");
+  }
+  const canonicalPrepared = prepareExecutionPlan(replanned, {
+    createdAt,
+    contextTtlSeconds
+  });
+  if (canonicalDigest(plan, "serialized prepared execution plan")
+    !== canonicalDigest(canonicalPrepared, "canonical prepared execution plan")) {
+    throw new Error(
+      "serialized prepared plan does not match canonical preparation; run plan again"
+    );
+  }
+  return canonicalPrepared;
 }
 
 async function buildResult(command, flags, cwd) {
@@ -154,8 +174,8 @@ async function buildResult(command, flags, cwd) {
       authorizationPlan: planned
     };
   }
-  const plan = await readJson(resolveInput(cwd, flags.plan), "prepared execution plan");
-  await assertSerializedPlanMatchesCanonicalPolicy(plan, cwd);
+  const serializedPlan = await readJson(resolveInput(cwd, flags.plan), "prepared execution plan");
+  const plan = await reconstructCanonicalPreparedPlan(serializedPlan, cwd);
   const events = await readJson(resolveInput(cwd, flags.events), "execution events");
   if (command === "ingest-events") {
     return { result: ingestExecutionEvents({ plan, events }), authorizationPlan: plan };

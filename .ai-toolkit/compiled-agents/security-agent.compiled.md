@@ -4,10 +4,10 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 86e77cb7168622ceaf8e922243ed93cf2cdcdeca
-input_digest: sha256:f857293b9729d569ee197254acfe0b6c202c5b37ab7924a135ff71f91c83a2d5
+source_commit: 4f73505e0f9705f2c0cb1fa1728cb75616a8a5c7
+input_digest: sha256:c3f06c59c391fbfeb079543340e5fe55f51012cba5f4946498c9a607a5bb2145
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:e592d4a8f92c898f9f60465d5eb50e511f0408513beb55c3687f194ca366eaaf
+compiler_digest: sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e
 source_agent: agents/security-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -525,13 +525,13 @@ Gate PR, merge, release-candidate, and post-merge decisions on observed evidence
 ## Provenance
 
 - Source agent path: `agents/security-agent.md`
-- Canonical input digest: `sha256:f857293b9729d569ee197254acfe0b6c202c5b37ab7924a135ff71f91c83a2d5`
-- Compiler digest: `sha256:e592d4a8f92c898f9f60465d5eb50e511f0408513beb55c3687f194ca366eaaf`
+- Canonical input digest: `sha256:c3f06c59c391fbfeb079543340e5fe55f51012cba5f4946498c9a607a5bb2145`
+- Compiler digest: `sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/security-profile.md`, `profiles/audit-profile.md`, `profiles/backend-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
 - Method IDs: `backend.supabase-postgres-rls-gates`, `backend.database-access-isolation-gates`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `osmani.code-review-quality`, `osmani.security-hardening`, `security.differential-security-review`, `orchestration.project-context-preflight`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.project-map-staleness-check`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `api.api-contract-and-routing-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `aider-repo-map`, `anthropic-skills`, `everything-claude-code`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `skills-sh`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `aider-repo-map`, `anthropic-skills`, `everything-claude-code`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

@@ -4,10 +4,10 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 86e77cb7168622ceaf8e922243ed93cf2cdcdeca
-input_digest: sha256:f857293b9729d569ee197254acfe0b6c202c5b37ab7924a135ff71f91c83a2d5
+source_commit: 4f73505e0f9705f2c0cb1fa1728cb75616a8a5c7
+input_digest: sha256:c3f06c59c391fbfeb079543340e5fe55f51012cba5f4946498c9a607a5bb2145
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:e592d4a8f92c898f9f60465d5eb50e511f0408513beb55c3687f194ca366eaaf
+compiler_digest: sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e
 source_agent: agents/uiux-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -375,8 +375,8 @@ Run `methods/governance/task-intake-routing-gate.md` first for normal-language m
 ## Provenance
 
 - Source agent path: `agents/uiux-agent.md`
-- Canonical input digest: `sha256:f857293b9729d569ee197254acfe0b6c202c5b37ab7924a135ff71f91c83a2d5`
-- Compiler digest: `sha256:e592d4a8f92c898f9f60465d5eb50e511f0408513beb55c3687f194ca366eaaf`
+- Canonical input digest: `sha256:c3f06c59c391fbfeb079543340e5fe55f51012cba5f4946498c9a607a5bb2145`
+- Compiler digest: `sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/uiux-profile.md`, `profiles/frontend-profile.md`, `profiles/fullstack-profile.md`

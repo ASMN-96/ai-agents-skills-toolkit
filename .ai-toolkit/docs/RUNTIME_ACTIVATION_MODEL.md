@@ -31,7 +31,7 @@ Active repo skills are limited to five reviewed canonical runtime entries.
 - `.agents/skills/security-review/SKILL.md`
 - `.agents/skills/pr-release-gate/SKILL.md`
 
-The v0.3 candidate has fifteen approved repo-local `.codex/agents/*.toml` definitions. Twelve have compiled fallbacks; the backend implementation and two platform specialists are preview native-only definitions:
+The v0.3 candidate has fifteen approved repo-local `.codex/agents/*.toml` definitions and fifteen compiled fallbacks. Backend implementation and the two platform specialists remain preview; fallback availability does not promote maturity or prove native runtime/tool support:
 
 - `.codex/agents/product-agent.toml`
 - `.codex/agents/architect-agent.toml`
@@ -39,15 +39,15 @@ The v0.3 candidate has fifteen approved repo-local `.codex/agents/*.toml` defini
 - `.codex/agents/uiux-agent.toml`
 - `.codex/agents/frontend-agent.toml`
 - `.codex/agents/backend-contract-agent.toml`
-- `.codex/agents/backend-implementation-agent.toml` (preview, scoped workspace-write, no compiled fallback)
+- `.codex/agents/backend-implementation-agent.toml` (preview, scoped workspace-write, compiled fallback available inline)
 - `.codex/agents/database-rls-agent.toml`
 - `.codex/agents/security-agent.toml`
 - `.codex/agents/qa-test-agent.toml`
 - `.codex/agents/release-manager-agent.toml`
 - `.codex/agents/skill-scout-agent.toml`
 - `.codex/agents/sre-performance-agent.toml`
-- `.codex/agents/mobile-platform-agent.toml` (preview, scoped workspace-write, no compiled fallback)
-- `.codex/agents/desktop-platform-agent.toml` (preview, scoped workspace-write, no compiled fallback)
+- `.codex/agents/mobile-platform-agent.toml` (preview, scoped workspace-write, compiled fallback available inline)
+- `.codex/agents/desktop-platform-agent.toml` (preview, scoped workspace-write, compiled fallback available inline)
 
 Eleven definitions remain fixed read-only roles. Frontend, backend implementation, mobile platform, and desktop platform are fixed scoped-workspace-write roles and are eligible only for kernel-assigned, non-overlapping paths explicitly authorized by the request. Their self-review stays inside a write-authorized assignment; they are not eligible for a read-only assignment and cannot serve as the independent verifier. File presence does not prove an agent spawned or wrote, and it does not authorize package changes, CI changes, MCP/global configuration, product-repository sync, signing/credential access, production/data/destructive changes, external source import, scanner execution, or fake validation claims.
 

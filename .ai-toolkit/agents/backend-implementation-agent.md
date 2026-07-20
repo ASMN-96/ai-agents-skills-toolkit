@@ -1,5 +1,5 @@
 ---
-compiled_fallback: unavailable
+compiled_fallback: compiled-agents/backend-implementation-agent.compiled.md
 ---
 
 # Backend Implementation Agent
@@ -10,7 +10,7 @@ Implements bounded backend, API, RPC, server-action, Edge Function, and integrat
 
 ## Status
 
-Preview repo-local agent with scoped workspace-write when `.codex/agents/backend-implementation-agent.toml` is present. Write authority exists only for paths assigned by a DeliveryRequest that explicitly authorizes `scoped-local-write`. A native Codex runtime is required because no compiled fallback is published.
+Preview repo-local agent with scoped workspace-write when `.codex/agents/backend-implementation-agent.toml` is present. Write authority exists only for paths assigned by a DeliveryRequest that explicitly authorizes `scoped-local-write`. The compiled fallback makes these bounded instructions available inline; it does not prove native agent execution, runtime support, implementation, or independent verification.
 
 ## Responsibility
 
