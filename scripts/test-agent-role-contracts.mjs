@@ -323,6 +323,33 @@ test("implementation competency belongs only to bounded writer-capable delivery 
   assert.doesNotMatch(`${canonical}\n${native}`, /\b(?:while true|loop forever|unbounded (?:retry|loop))\b/iu);
 });
 
+test("the four scoped writers declare exact canonical target affinities", async () => {
+  const registry = JSON.parse(await regularFile("registries/agents.registry.json"));
+  const byName = new Map(registry.agents.map((agent) => [agent.name, agent.deliveryKernel]));
+
+  assert.deepEqual(byName.get("frontend-agent").targetAffinity, {
+    platforms: ["web-saas"],
+    frameworkOverlays: []
+  });
+  assert.deepEqual(byName.get("mobile-platform-agent").targetAffinity, {
+    platforms: ["ios", "android"],
+    frameworkOverlays: ["expo-react-native"]
+  });
+  assert.deepEqual(byName.get("desktop-platform-agent").targetAffinity, {
+    platforms: ["windows-desktop", "macos-desktop"],
+    frameworkOverlays: ["electron", "tauri"]
+  });
+  assert.deepEqual(byName.get("backend-implementation-agent").targetAffinity, {
+    platforms: [],
+    frameworkOverlays: []
+  });
+  assert.doesNotMatch(
+    JSON.stringify(byName.get("backend-implementation-agent").targetAffinity),
+    /docs|generic/iu,
+    "backend implementation must require explicit scenario preference instead of generic docs affinity"
+  );
+});
+
 test("existing roles carry the net-new falsification, resilience, and agent-safety controls", async () => {
   const registry = JSON.parse(await regularFile("registries/agents.registry.json"));
   const byName = new Map(registry.agents.map((agent) => [agent.name, agent]));

@@ -228,6 +228,27 @@ test("resolver enforces risk and token floors and strengthens verifier role on e
   assert.equal(escalated.provenance.requiredRoles.verifier, "effective-risk");
 });
 
+test("resolver preserves immutable scenario-owned agent, skill, and representable tool preferences", async () => {
+  const registry = clone(await loadScenarioPolicyRegistry());
+  const policy = scenario(registry, "frontend-ui-bug");
+  policy.supportTools.push("playwright");
+  const validated = assertScenarioPolicyRegistry(registry);
+
+  const result = resolveScenarioPolicy({
+    registry: validated,
+    scenario: "frontend-ui-bug"
+  });
+
+  assert.deepEqual(result.resourcePreferences, {
+    agentIds: [...policy.agents],
+    skillIds: [...policy.skills],
+    toolIds: ["playwright"]
+  });
+  assert.equal(Object.isFrozen(result.resourcePreferences), true);
+  assert.equal(Object.isFrozen(result.resourcePreferences.agentIds), true);
+  assert.throws(() => result.resourcePreferences.agentIds.push("mobile-platform-agent"), TypeError);
+});
+
 test("resolver unions scenario, domain, then caller additions with immutable provenance", async () => {
   const registry = await loadScenarioPolicyRegistry();
   const result = resolveScenarioPolicy({
@@ -353,6 +374,22 @@ test("policy and resolver inputs reject status, proof, and replacement fields", 
       additions: { requiredCompetencies: [] }
     }),
     /additions\.requiredCompetencies is not allowed; callers may add requirements but never replace them/
+  );
+  assert.throws(
+    () => resolveScenarioPolicy({
+      registry: valid,
+      scenario: "plain-language-product-request",
+      additions: { resourcePreferences: { agentIds: ["mobile-platform-agent"] } }
+    }),
+    /additions\.resourcePreferences is not allowed; callers may add requirements but never replace them/
+  );
+  assert.throws(
+    () => resolveScenarioPolicy({
+      registry: valid,
+      scenario: "plain-language-product-request",
+      resourcePreferences: { agentIds: ["mobile-platform-agent"] }
+    }),
+    /resolver\.resourcePreferences is not allowed/
   );
   assert.throws(
     () => resolveScenarioPolicy({

@@ -87,6 +87,7 @@ const RESOURCE_FIELDS = new Set([
   "type",
   "canonicalCompetencies",
   "eligibleRoles",
+  "targetAffinity",
   "verificationCapabilities",
   "measuredContextCost",
   "contextCostUnit",
@@ -680,6 +681,41 @@ export function assertResourceContract(resource) {
       issues.push(`eligibleRoles[${index}] is unknown: ${role}`);
     }
   });
+  if (resource.targetAffinity !== undefined) {
+    if (requirePlainRecord(resource.targetAffinity, "targetAffinity", issues)) {
+      rejectUnknownFields(
+        resource.targetAffinity,
+        new Set(["platforms", "frameworkOverlays"]),
+        "targetAffinity",
+        issues
+      );
+      const affinityPlatforms = uniqueStrings(
+        resource.targetAffinity.platforms,
+        "targetAffinity.platforms",
+        issues,
+        { allowEmpty: true }
+      );
+      affinityPlatforms.forEach((platform, index) => {
+        if (typeof platform === "string" && !PLATFORM_IDS.has(platform)) {
+          issues.push(`targetAffinity.platforms[${index}] has unknown platform: ${platform}`);
+        }
+      });
+      const affinityOverlays = uniqueStrings(
+        resource.targetAffinity.frameworkOverlays,
+        "targetAffinity.frameworkOverlays",
+        issues,
+        { allowEmpty: true }
+      );
+      affinityOverlays.forEach((overlay, index) => {
+        if (typeof overlay === "string" && !FRAMEWORK_OVERLAY_IDS.has(overlay)) {
+          issues.push(`targetAffinity.frameworkOverlays[${index}] has unknown framework overlay: ${overlay}`);
+        }
+      });
+    }
+    if (resource.type !== "agent") {
+      issues.push("targetAffinity is supported only for agent resources");
+    }
+  }
   const verificationCapabilities = resource.verificationCapabilities === undefined
     ? []
     : uniqueStrings(

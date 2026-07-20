@@ -20,7 +20,8 @@ function resource({
   available,
   supported,
   freshness = "current",
-  sandboxMode = "read-only"
+  sandboxMode = "read-only",
+  targetAffinity
 }) {
   const runtimeAvailable = available ?? freshness === "current";
   const runtimeSupported = supported ?? runtimeAvailable;
@@ -41,7 +42,7 @@ function resource({
       ? "codex-skill"
       : "project-script";
 
-  return {
+  const contract = {
     schemaVersion: "1.0.0",
     id,
     type,
@@ -88,6 +89,8 @@ function resource({
     } : null,
     eligibility: { eligible: resourceEligible, reasons: eligibilityReasons }
   };
+  if (targetAffinity !== undefined) contract.targetAffinity = targetAffinity;
+  return contract;
 }
 
 function task(requiredCompetencies, risk = "medium", authorizedActions = ["repository-read"]) {
@@ -265,6 +268,80 @@ test("routing optimizes resource count, then context, authority/freshness, then 
   );
 });
 
+test("scenario preferences minimize fallback resources before context without becoming an allowlist", () => {
+  const preferredLead = resource({
+    id: "preferred-lead",
+    type: "agent",
+    roles: ["lead"],
+    cost: 1
+  });
+  const preferredExpensive = resource({
+    id: "preferred-expensive",
+    competencies: ["architecture"],
+    cost: 20
+  });
+  const fallbackCheap = resource({
+    id: "fallback-cheap",
+    competencies: ["architecture"],
+    cost: 1
+  });
+  const fallbackAdditive = resource({
+    id: "fallback-additive",
+    competencies: ["domain-escalation"],
+    cost: 1
+  });
+
+  const result = selectResources({
+    task: {
+      ...task(["architecture", "domain-escalation"]),
+      resourcePreferences: {
+        agentIds: ["preferred-lead"],
+        skillIds: ["preferred-expensive"],
+        toolIds: []
+      }
+    },
+    resources: [preferredLead, preferredExpensive, fallbackCheap, fallbackAdditive]
+  });
+
+  assert.deepEqual(selectedIds(result), [
+    "preferred-lead",
+    "fallback-additive",
+    "preferred-expensive"
+  ]);
+  assert.deepEqual(result.preferenceAccounting, {
+    preferredResourceIds: ["preferred-expensive", "preferred-lead"],
+    selectedPreferredResourceIds: ["preferred-expensive", "preferred-lead"],
+    selectedFallbackResourceIds: ["fallback-additive"],
+    unselectedPreferredResourceIds: []
+  });
+  assert.equal(
+    result.decisions.find(({ id }) => id === "fallback-cheap")?.decision,
+    "dominated"
+  );
+});
+
+test("fewest-resource coverage remains ahead of scenario preference scoring", () => {
+  const result = selectResources({
+    task: {
+      ...task(["a", "b"]),
+      resourcePreferences: {
+        agentIds: ["lead"],
+        skillIds: ["preferred-a", "preferred-b"],
+        toolIds: []
+      }
+    },
+    resources: [
+      resource({ id: "lead", type: "agent", roles: ["lead"] }),
+      resource({ id: "preferred-a", competencies: ["a"], cost: 1 }),
+      resource({ id: "preferred-b", competencies: ["b"], cost: 1 }),
+      resource({ id: "fallback-combined", competencies: ["a", "b"], cost: 100 })
+    ]
+  });
+
+  assert.deepEqual(selectedIds(result), ["lead", "fallback-combined"]);
+  assert.deepEqual(result.preferenceAccounting.selectedFallbackResourceIds, ["fallback-combined"]);
+});
+
 test("routing rejects forged current freshness evidence at the low-level boundary", () => {
   const forged = resource({
     id: "forged-current",
@@ -350,7 +427,8 @@ test("read-only routing excludes fixed workspace-write agents unless scoped writ
       type: "agent",
       roles: ["specialist"],
       competencies: ["implementation"],
-      sandboxMode: "workspace-write"
+      sandboxMode: "workspace-write",
+      targetAffinity: { platforms: ["web-saas"], frameworkOverlays: [] }
     })
   ];
 
@@ -363,11 +441,234 @@ test("read-only routing excludes fixed workspace-write agents unless scoped writ
   );
 
   const writeAuthorized = selectResources({
-    task: task(["implementation"], "medium", ["repository-read", "scoped-local-write"]),
+    task: {
+      ...task(["implementation"], "medium", ["repository-read", "scoped-local-write"]),
+      targets: { platforms: ["web-saas"], frameworkOverlays: [] }
+    },
     resources
   });
   assert.deepEqual(selectedIds(writeAuthorized), ["least-privilege-lead", "fixed-writer"]);
   assert.deepEqual(writeAuthorized.blockedReasons, []);
+});
+
+test("a support skill cannot satisfy the hard scoped-write implementation-owner constraint", () => {
+  const result = selectResources({
+    task: {
+      ...task(["implementation"], "medium", ["repository-read", "scoped-local-write"]),
+      targets: { platforms: [], frameworkOverlays: [] }
+    },
+    resources: [
+      resource({ id: "architect", type: "agent", roles: ["lead"] }),
+      resource({ id: "implementation-skill", competencies: ["implementation"] })
+    ]
+  });
+
+  assert.deepEqual(selectedIds(result), []);
+  assert.deepEqual(result.uncoveredCompetencies, []);
+  assert.deepEqual(result.blockedReasons, [
+    "scoped-local-write:no-eligible-implementation-writer"
+  ]);
+  assert.equal(
+    result.decisions.find(({ id }) => id === "implementation-skill")?.decision,
+    "blocked-by-writer"
+  );
+});
+
+test("generic high-risk write blocks instead of selecting an untargeted platform writer", () => {
+  const result = selectResources({
+    task: {
+      ...task(
+        ["implementation", "verification"],
+        "high",
+        ["repository-read", "scoped-local-write"]
+      ),
+      targets: { platforms: [], frameworkOverlays: [] },
+      resourcePreferences: { agentIds: ["architect", "verifier"], skillIds: [], toolIds: [] }
+    },
+    resources: [
+      resource({ id: "architect", type: "agent", roles: ["lead"] }),
+      resource({
+        id: "verifier",
+        type: "agent",
+        roles: ["verifier"],
+        competencies: ["verification"]
+      }),
+      resource({ id: "implementation-skill", competencies: ["implementation"] }),
+      resource({
+        id: "mobile-writer",
+        type: "agent",
+        roles: ["specialist"],
+        competencies: ["implementation"],
+        sandboxMode: "workspace-write",
+        targetAffinity: {
+          platforms: ["ios", "android"],
+          frameworkOverlays: ["expo-react-native"]
+        }
+      }),
+      resource({
+        id: "desktop-writer",
+        type: "agent",
+        roles: ["specialist"],
+        competencies: ["implementation"],
+        sandboxMode: "workspace-write",
+        targetAffinity: {
+          platforms: ["windows-desktop", "macos-desktop"],
+          frameworkOverlays: ["electron", "tauri"]
+        }
+      })
+    ]
+  });
+
+  assert.deepEqual(selectedIds(result), []);
+  assert.deepEqual(result.blockedReasons, [
+    "scoped-local-write:no-eligible-implementation-writer"
+  ]);
+  for (const id of ["mobile-writer", "desktop-writer"]) {
+    assert.equal(
+      result.decisions.find((decision) => decision.id === id)?.decision,
+      "writer-target-mismatch",
+      id
+    );
+  }
+});
+
+test("explicit web, mobile, and desktop intent admits only a target-matched fallback writer", () => {
+  const cases = [
+    {
+      expected: "frontend-writer",
+      targets: { platforms: ["web-saas"], frameworkOverlays: [] }
+    },
+    {
+      expected: "mobile-writer",
+      targets: { platforms: ["ios"], frameworkOverlays: ["expo-react-native"] }
+    },
+    {
+      expected: "desktop-writer",
+      targets: { platforms: ["windows-desktop"], frameworkOverlays: ["electron"] }
+    }
+  ];
+  const writers = [
+    resource({
+      id: "frontend-writer",
+      type: "agent",
+      roles: ["specialist"],
+      competencies: ["implementation"],
+      sandboxMode: "workspace-write",
+      targetAffinity: { platforms: ["web-saas"], frameworkOverlays: [] }
+    }),
+    resource({
+      id: "mobile-writer",
+      type: "agent",
+      roles: ["specialist"],
+      competencies: ["implementation"],
+      sandboxMode: "workspace-write",
+      targetAffinity: {
+        platforms: ["ios", "android"],
+        frameworkOverlays: ["expo-react-native"]
+      }
+    }),
+    resource({
+      id: "desktop-writer",
+      type: "agent",
+      roles: ["specialist"],
+      competencies: ["implementation"],
+      sandboxMode: "workspace-write",
+      targetAffinity: {
+        platforms: ["windows-desktop", "macos-desktop"],
+        frameworkOverlays: ["electron", "tauri"]
+      }
+    })
+  ];
+
+  for (const fixture of cases) {
+    const result = selectResources({
+      task: {
+        ...task(["implementation"], "medium", ["repository-read", "scoped-local-write"]),
+        targets: fixture.targets,
+        resourcePreferences: { agentIds: ["architect"], skillIds: [], toolIds: [] }
+      },
+      resources: [
+        resource({ id: "architect", type: "agent", roles: ["lead"] }),
+        ...writers
+      ]
+    });
+
+    assert.deepEqual(selectedIds(result), ["architect", fixture.expected]);
+    assert.deepEqual(result.preferenceAccounting.selectedFallbackResourceIds, [fixture.expected]);
+    assert.deepEqual(result.blockedReasons, []);
+    for (const writer of writers.filter(({ id }) => id !== fixture.expected)) {
+      assert.equal(
+        result.decisions.find(({ id }) => id === writer.id)?.decision,
+        "writer-target-mismatch"
+      );
+    }
+  }
+});
+
+test("a scenario-preferred backend writer is eligible without generic platform or docs affinity", () => {
+  const result = selectResources({
+    task: {
+      ...task(["implementation"], "medium", ["repository-read", "scoped-local-write"]),
+      targets: { platforms: [], frameworkOverlays: [] },
+      resourcePreferences: {
+        agentIds: ["architect", "backend-writer"],
+        skillIds: [],
+        toolIds: []
+      }
+    },
+    resources: [
+      resource({ id: "architect", type: "agent", roles: ["lead"] }),
+      resource({
+        id: "backend-writer",
+        type: "agent",
+        roles: ["specialist"],
+        competencies: ["implementation", "api-contracts"],
+        sandboxMode: "workspace-write",
+        targetAffinity: { platforms: [], frameworkOverlays: [] }
+      })
+    ]
+  });
+
+  assert.deepEqual(selectedIds(result), ["architect", "backend-writer"]);
+  assert.deepEqual(result.preferenceAccounting.selectedFallbackResourceIds, []);
+});
+
+test("low-risk read-only routing stays deterministic while the write form blocks honestly", () => {
+  const resources = [
+    resource({ id: "architect", type: "agent", roles: ["lead"] }),
+    resource({ id: "governance", competencies: ["governance"] }),
+    resource({
+      id: "mobile-writer",
+      type: "agent",
+      roles: ["specialist"],
+      competencies: ["implementation"],
+      sandboxMode: "workspace-write",
+      targetAffinity: { platforms: ["ios"], frameworkOverlays: [] }
+    })
+  ];
+  const preferences = { agentIds: ["architect"], skillIds: ["governance"], toolIds: [] };
+  const readOnlyTask = {
+    ...task(["governance"], "low"),
+    targets: { platforms: [], frameworkOverlays: [] },
+    resourcePreferences: preferences
+  };
+
+  const first = selectResources({ task: readOnlyTask, resources });
+  const second = selectResources({ task: readOnlyTask, resources });
+  assert.deepEqual(selectedIds(first), ["architect", "governance"]);
+  assert.equal(JSON.stringify(first), JSON.stringify(second));
+
+  const write = selectResources({
+    task: {
+      ...readOnlyTask,
+      authorizedActions: ["repository-read", "scoped-local-write"]
+    },
+    resources
+  });
+  assert.deepEqual(selectedIds(write), []);
+  assert.deepEqual(write.blockedReasons, [
+    "scoped-local-write:no-eligible-implementation-writer"
+  ]);
 });
 
 test("routing fails closed instead of approximating an adversarial exact-cover search", () => {

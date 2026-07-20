@@ -15,6 +15,14 @@ files as proof that Codex, Claude Code, a tool, or a human approver actually ran
   `verified-for-review` or `verified-for-release`.
 - No public kernel function can mint trusted execution or owner-approval
   authority.
+- No trusted host-owned root execution principal exists yet. The Architect is
+  therefore the fixed read-only accountable lead, including for low-risk
+  read-only work; it cannot be converted into or replaced by a fabricated
+  workspace-write root agent.
+- A scoped write must route to a canonical implementation writer preferred by
+  the scenario or matched to explicit platform/framework intent. If none is
+  eligible, planning blocks before assignments instead of deferring the writer
+  failure to execution.
 
 This fail-closed behavior is intentional until a runtime-owned bridge is
 integrated and independently tested.

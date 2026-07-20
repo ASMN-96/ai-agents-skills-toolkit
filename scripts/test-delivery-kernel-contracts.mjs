@@ -119,6 +119,20 @@ test("DeliveryRequest v1 preserves the governed envelope and additive requiremen
   assert.equal(request.contextPolicy.maxInputFraction, 0.35);
 });
 
+test("DeliveryRequest caller JSON cannot inject internal scenario resource preferences", () => {
+  const request = validRequest();
+  request.task.resourcePreferences = {
+    agentIds: ["mobile-platform-agent"],
+    skillIds: [],
+    toolIds: []
+  };
+
+  assert.throws(
+    () => contracts.assertDeliveryRequest(request, { registeredScenarios: REGISTERED_SCENARIOS }),
+    /task\.resourcePreferences is not allowed/
+  );
+});
+
 test("DeliveryRequest v1 rejects the previous flat prototype with the exact migration message", () => {
   assert.equal(typeof contracts.assertDeliveryRequest, "function");
   assert.equal(typeof contracts.DELIVERY_REQUEST_V1_MIGRATION_MESSAGE, "string");
@@ -282,6 +296,65 @@ test("ResourceContract v1 validates every routing and execution boundary without
   );
 });
 
+test("ResourceContract v1 exactly validates registry-derived writer target affinity", () => {
+  const writer = validResource({
+    id: "frontend-agent",
+    type: "agent",
+    canonicalCompetencies: ["implementation", "responsive-ui"],
+    eligibleRoles: ["specialist"],
+    runtimePosture: {
+      registryPresent: true,
+      available: true,
+      supported: true,
+      executionProof: false,
+      sandboxMode: "workspace-write",
+      scopedLocalWrite: true
+    },
+    nativeAdapter: { kind: "codex-agent", id: "frontend-agent" },
+    commandReference: null,
+    targetAffinity: {
+      platforms: ["web-saas"],
+      frameworkOverlays: []
+    }
+  });
+
+  const validated = contracts.assertResourceContract(writer);
+  assert.deepEqual(validated.targetAffinity, {
+    platforms: ["web-saas"],
+    frameworkOverlays: []
+  });
+  assert.equal(Object.isFrozen(validated.targetAffinity), true);
+
+  assert.throws(
+    () => contracts.assertResourceContract({
+      ...writer,
+      targetAffinity: {
+        platforms: ["web-saas"],
+        frameworkOverlays: [],
+        docs: ["generic"]
+      }
+    }),
+    /targetAffinity\.docs is not allowed/
+  );
+  assert.throws(
+    () => contracts.assertResourceContract({
+      ...writer,
+      targetAffinity: {
+        platforms: ["generic-docs"],
+        frameworkOverlays: ["flutter"]
+      }
+    }),
+    /targetAffinity\.platforms\[0\].*unknown platform.*targetAffinity\.frameworkOverlays\[0\].*unknown framework overlay/
+  );
+  assert.throws(
+    () => contracts.assertResourceContract({
+      ...validResource({ id: "implementation-skill", type: "skill" }),
+      targetAffinity: { platforms: ["web-saas"], frameworkOverlays: [] }
+    }),
+    /targetAffinity is supported only for agent resources/
+  );
+});
+
 test("ResourceContract v1 rejects unknown lifecycle/freshness state and contradictory eligibility", () => {
   const base = validResource();
 
@@ -420,6 +493,14 @@ test("canonical agent and skill registries own delivery-kernel competencies, rol
   assert.ok(catalog.every((resource) => Number.isInteger(resource.measuredContextCost)));
   assert.ok(catalog.find((resource) => resource.id === "architect-agent")?.eligibleRoles.includes("lead"));
   assert.ok(catalog.find((resource) => resource.id === "reviewer-agent")?.eligibleRoles.includes("verifier"));
+  assert.deepEqual(catalog.find((resource) => resource.id === "frontend-agent")?.targetAffinity, {
+    platforms: ["web-saas"],
+    frameworkOverlays: []
+  });
+  assert.deepEqual(catalog.find((resource) => resource.id === "backend-implementation-agent")?.targetAffinity, {
+    platforms: [],
+    frameworkOverlays: []
+  });
 });
 
 test("every canonical DomainGate has an executable owner or qualified verification producer path", async () => {
@@ -587,6 +668,101 @@ test("delivery planning preserves the governed request and derives gate evidence
   assert.ok(plan.requiredGateIds.includes("focused-tests"));
   assert.equal(new Set(plan.requiredGateIds).size, plan.requiredGateIds.length);
   assert.deepEqual(plan.evidence.unverifiedRequiredChecks, plan.requiredGateIds);
+  const expectedPreferences = [
+    ...plan.scenarioPolicy.resourcePreferences.agentIds,
+    ...plan.scenarioPolicy.resourcePreferences.skillIds,
+    ...plan.scenarioPolicy.resourcePreferences.toolIds
+  ].sort();
+  assert.deepEqual(plan.routing.preferenceAccounting.preferredResourceIds, expectedPreferences);
+  assert.deepEqual(
+    [
+      ...plan.routing.preferenceAccounting.selectedPreferredResourceIds,
+      ...plan.routing.preferenceAccounting.selectedFallbackResourceIds
+    ].sort(),
+    plan.routing.selected.map((resource) => resource.id).sort()
+  );
+});
+
+test("low-risk read-only typo planning retains the Architect lead while its write form blocks early", async () => {
+  const request = pinRequestToCurrentRepositoryCommit(validRequest(), ROOT);
+  request.task = {
+    ...request.task,
+    id: "TASK-TYPO",
+    goal: "Correct one documentation typo",
+    scenario: "small-low-risk-typo-doc-change",
+    scope: ["README.md"],
+    exclusions: [],
+    constraints: ["do not change policy meaning"],
+    risk: "low",
+    targets: { platforms: [], frameworkOverlays: [] },
+    authorizedActions: ["repository-read"],
+    acceptanceCriteria: [{
+      id: "AC-TYPO",
+      statement: "The narrow typo scope is verified.",
+      requiredGateIds: ["enterprise-low-risk-scope-review"]
+    }],
+    competencies: [],
+    gates: []
+  };
+  request.contextPolicy.mode = "concise";
+
+  const readOnly = await planDeliveryRun({ request }, { invocationRoot: ROOT });
+  assert.equal(readOnly.routing.requiredRoles.lead, "architect-agent");
+  assert.deepEqual(readOnly.routing.blockedReasons, []);
+  assert.deepEqual(
+    readOnly.routing.selected.map((resource) => resource.id),
+    ["architect-agent", "reviewer-agent"]
+  );
+
+  const writeRequest = structuredClone(request);
+  writeRequest.task.authorizedActions = ["repository-read", "scoped-local-write"];
+  const write = await planDeliveryRun({ request: writeRequest }, { invocationRoot: ROOT });
+  assert.equal(write.readinessState, "blocked");
+  assert.deepEqual(write.routing.selected, []);
+  assert.deepEqual(write.routing.blockedReasons, [
+    "scoped-local-write:no-eligible-implementation-writer"
+  ]);
+  assert.deepEqual(write.team.assignments, []);
+});
+
+test("canonical high-risk empty-target write blocks every unpreferred platform writer", async () => {
+  const request = pinRequestToCurrentRepositoryCommit(validRequest(), ROOT);
+  request.task = {
+    ...request.task,
+    id: "TASK-HIGH-RISK-WRITE",
+    goal: "Review a security-sensitive data change before implementation",
+    scenario: "high-risk-security-data-request",
+    targets: { platforms: [], frameworkOverlays: [] },
+    authorizedActions: ["repository-read", "scoped-local-write"],
+    acceptanceCriteria: [{
+      id: "AC-HIGH-RISK",
+      statement: "Security and data authorization are reviewed before implementation.",
+      requiredGateIds: ["enterprise-security-privacy"]
+    }],
+    competencies: [],
+    gates: []
+  };
+  request.contextPolicy.mode = "detailed";
+
+  const plan = await planDeliveryRun({ request }, { invocationRoot: ROOT });
+  assert.equal(plan.readinessState, "blocked");
+  assert.deepEqual(plan.routing.selected, []);
+  assert.ok(plan.routing.blockedReasons.includes(
+    "scoped-local-write:no-eligible-implementation-writer"
+  ));
+  for (const id of [
+    "frontend-agent",
+    "backend-implementation-agent",
+    "mobile-platform-agent",
+    "desktop-platform-agent"
+  ]) {
+    assert.equal(
+      plan.routing.decisions.find((decision) => decision.id === id)?.decision,
+      "writer-target-mismatch",
+      id
+    );
+  }
+  assert.deepEqual(plan.team.assignments, []);
 });
 
 test("delivery planning rejects a repository commit that was not observed", async () => {

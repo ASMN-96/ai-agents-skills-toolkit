@@ -685,6 +685,7 @@ export async function planDeliveryRun(input, hostOptions = {}) {
     ...effectiveTask,
     risk: scenarioPolicy.risk,
     requiredRoles: scenarioPolicy.requiredRoles,
+    resourcePreferences: scenarioPolicy.resourcePreferences,
     requiredCompetencies: uniqueStrings([
       ...scenarioPolicy.requiredCompetencies,
       ...commandCompetencies

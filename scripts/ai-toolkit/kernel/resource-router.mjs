@@ -37,12 +37,70 @@ function uniqueStrings(values) {
   return [...new Set((Array.isArray(values) ? values : []).map(String).filter(Boolean))];
 }
 
+function isPlainRecord(value) {
+  if (value === null || typeof value !== "object" || Array.isArray(value)) return false;
+  const prototype = Object.getPrototypeOf(value);
+  return prototype === Object.prototype || prototype === null;
+}
+
+function resourcePreferenceIds(task) {
+  const preferences = task?.resourcePreferences;
+  if (preferences === undefined) return new Set();
+  if (!isPlainRecord(preferences)) {
+    throw new Error("routing task resourcePreferences must be a plain record");
+  }
+  const fields = ["agentIds", "skillIds", "toolIds"];
+  for (const field of Object.keys(preferences)) {
+    if (!fields.includes(field)) {
+      throw new Error(`routing task resourcePreferences.${field} is not allowed`);
+    }
+  }
+  const ids = [];
+  for (const field of fields) {
+    if (!Array.isArray(preferences[field])) {
+      throw new Error(`routing task resourcePreferences.${field} must be an array`);
+    }
+    const seen = new Set();
+    preferences[field].forEach((id, index) => {
+      if (typeof id !== "string" || id === "") {
+        throw new Error(`routing task resourcePreferences.${field}[${index}] must be a non-empty string`);
+      }
+      if (seen.has(id)) {
+        throw new Error(`routing task resourcePreferences.${field}[${index}] must be unique`);
+      }
+      seen.add(id);
+      ids.push(id);
+    });
+  }
+  return new Set(ids);
+}
+
 function competencies(resource) {
   return uniqueStrings(resource?.canonicalCompetencies);
 }
 
 function roles(resource) {
   return uniqueStrings(resource?.eligibleRoles);
+}
+
+function isExecutableWriter(resource) {
+  return resource?.type === "agent"
+    && resource.runtimePosture?.sandboxMode === "workspace-write"
+    && resource.runtimePosture?.scopedLocalWrite === true
+    && competencies(resource).includes("implementation");
+}
+
+function requiresExecutableWriter(task) {
+  return uniqueStrings(task?.authorizedActions).includes("scoped-local-write");
+}
+
+function targetAffinityMatches(resource, task) {
+  const platforms = new Set(uniqueStrings(task?.targets?.platforms));
+  const overlays = new Set(uniqueStrings(task?.targets?.frameworkOverlays));
+  const affinityPlatforms = uniqueStrings(resource?.targetAffinity?.platforms);
+  const affinityOverlays = uniqueStrings(resource?.targetAffinity?.frameworkOverlays);
+  return affinityPlatforms.some((platform) => platforms.has(platform))
+    || affinityOverlays.some((overlay) => overlays.has(overlay));
 }
 
 function roleFlags(resource) {
@@ -54,7 +112,7 @@ function roleFlags(resource) {
   };
 }
 
-function exclusionDecision(resource, task) {
+function exclusionDecision(resource, task, preferredIds) {
   if (EXCLUDED_LIFECYCLES.has(resource.lifecycle)) return resource.lifecycle;
   if (resource.lifecycle !== "active") return "quarantined";
   if (resource.eligibility?.eligible !== true) return "ineligible";
@@ -66,9 +124,15 @@ function exclusionDecision(resource, task) {
   if (resource.freshness?.state !== "current") return "freshness-unresolved";
   if (
     resource.runtimePosture?.sandboxMode === "workspace-write"
-    && !uniqueStrings(task?.authorizedActions).includes("scoped-local-write")
+    && !requiresExecutableWriter(task)
   ) {
     return "task-permission-mismatch";
+  }
+  if (resource.runtimePosture?.sandboxMode === "workspace-write" && requiresExecutableWriter(task)) {
+    if (!isExecutableWriter(resource)) return "writer-implementation-mismatch";
+    if (!preferredIds.has(resource.id) && !targetAffinityMatches(resource, task)) {
+      return "writer-target-mismatch";
+    }
   }
   return null;
 }
@@ -82,12 +146,19 @@ function isSuperset(candidate, subset) {
   return true;
 }
 
-function roleSignature(resource) {
+function roleSignature(resource, requireWriter) {
   const flags = roleFlags(resource);
-  return `${resource.type}:${flags.lead}:${flags.verifier}`;
+  return `${resource.type}:${flags.lead}:${flags.verifier}:${requireWriter && isExecutableWriter(resource)}`;
 }
 
-function dominates(dominant, candidate, required, requireIndependentVerifier) {
+function dominates(
+  dominant,
+  candidate,
+  required,
+  requireIndependentVerifier,
+  requireWriter,
+  preferredIds
+) {
   if (dominant.id === candidate.id || dominant.type !== candidate.type) return false;
   const dominantFlags = roleFlags(dominant);
   const candidateFlags = roleFlags(candidate);
@@ -97,11 +168,16 @@ function dominates(dominant, candidate, required, requireIndependentVerifier) {
   ) {
     return false;
   }
-  if (roleSignature(dominant) !== roleSignature(candidate)) return false;
+  if (roleSignature(dominant, requireWriter) !== roleSignature(candidate, requireWriter)) return false;
 
   const dominantCoverage = coverageSet(dominant, required);
   const candidateCoverage = coverageSet(candidate, required);
   if (!isSuperset(dominantCoverage, candidateCoverage)) return false;
+
+  const dominantPreferred = preferredIds.has(dominant.id);
+  const candidatePreferred = preferredIds.has(candidate.id);
+  if (!dominantPreferred && candidatePreferred) return false;
+  if (dominantPreferred && !candidatePreferred) return true;
 
   const dominantCost = Number(dominant.measuredContextCost ?? Number.POSITIVE_INFINITY);
   const candidateCost = Number(candidate.measuredContextCost ?? Number.POSITIVE_INFINITY);
@@ -129,12 +205,19 @@ function dominates(dominant, candidate, required, requireIndependentVerifier) {
   return strictCoverage || strictQuality || stableDuplicate;
 }
 
-function pruneDominated(resources, required, requireIndependentVerifier) {
+function pruneDominated(resources, required, requireIndependentVerifier, requireWriter, preferredIds) {
   const sorted = [...resources].sort(compareStableIds);
   const dominated = new Set();
   for (const candidate of sorted) {
     for (const dominant of sorted) {
-      if (dominates(dominant, candidate, required, requireIndependentVerifier)) {
+      if (dominates(
+        dominant,
+        candidate,
+        required,
+        requireIndependentVerifier,
+        requireWriter,
+        preferredIds
+      )) {
         dominated.add(candidate.id);
         break;
       }
@@ -189,9 +272,10 @@ function compareNumberVectors(left, right, { higherIsBetter = false } = {}) {
   return 0;
 }
 
-function solutionScore(selected) {
+function solutionScore(selected, preferredIds) {
   return {
     count: selected.length,
+    fallbackCount: selected.filter((resource) => !preferredIds.has(resource.id)).length,
     context: selected.reduce(
       (total, resource) => total + Number(resource.measuredContextCost ?? Number.MAX_SAFE_INTEGER),
       0
@@ -208,10 +292,13 @@ function solutionScore(selected) {
   };
 }
 
-function compareSolutions(left, right) {
-  const leftScore = solutionScore(left);
-  const rightScore = solutionScore(right);
+function compareSolutions(left, right, preferredIds) {
+  const leftScore = solutionScore(left, preferredIds);
+  const rightScore = solutionScore(right, preferredIds);
   if (leftScore.count !== rightScore.count) return leftScore.count - rightScore.count;
+  if (leftScore.fallbackCount !== rightScore.fallbackCount) {
+    return leftScore.fallbackCount - rightScore.fallbackCount;
+  }
   if (leftScore.context !== rightScore.context) return leftScore.context - rightScore.context;
   const authority = compareNumberVectors(leftScore.authority, rightScore.authority, { higherIsBetter: true });
   if (authority !== 0) return authority;
@@ -239,7 +326,12 @@ function remainingCanSatisfyRoles(candidates, start, selected, requireIndependen
   return roleAssignment(possible, requireIndependentVerifier) !== null;
 }
 
-function exactCover(candidates, required, requireIndependentVerifier) {
+function remainingCanSatisfyWriter(candidates, start, selected, requireWriter) {
+  if (!requireWriter) return true;
+  return [...selected, ...candidates.slice(start)].some(isExecutableWriter);
+}
+
+function exactCover(candidates, required, requireIndependentVerifier, requireWriter, preferredIds) {
   let best = null;
   let visitedNodes = 0;
 
@@ -249,8 +341,9 @@ function exactCover(candidates, required, requireIndependentVerifier) {
 
     if (required.size === covered.size) {
       const assignment = roleAssignment(selected, requireIndependentVerifier);
-      if (assignment) {
-        if (best === null || compareSolutions(selected, best) < 0) best = [...selected];
+      const writerSatisfied = !requireWriter || selected.some(isExecutableWriter);
+      if (assignment && writerSatisfied) {
+        if (best === null || compareSolutions(selected, best, preferredIds) < 0) best = [...selected];
         return;
       }
     }
@@ -258,6 +351,7 @@ function exactCover(candidates, required, requireIndependentVerifier) {
     if (best && selected.length >= best.length) return;
     if (!remainingCanCover(candidates, index, covered, required)) return;
     if (!remainingCanSatisfyRoles(candidates, index, selected, requireIndependentVerifier)) return;
+    if (!remainingCanSatisfyWriter(candidates, index, selected, requireWriter)) return;
 
     const candidate = candidates[index];
     const withCoverage = new Set(covered);
@@ -304,6 +398,8 @@ export function selectResources({ task, resources }) {
   const requiredList = uniqueStrings(task?.requiredCompetencies).sort();
   const required = new Set(requiredList);
   const requireIndependentVerifier = requiresIndependentVerifier(task);
+  const requireWriter = requiresExecutableWriter(task);
+  const preferredIds = resourcePreferenceIds(task);
   const inputResources = Array.isArray(resources)
     ? resources.map((resource) => assertResourceContract(resource))
     : [];
@@ -317,7 +413,7 @@ export function selectResources({ task, resources }) {
     }
     if (ids.has(resource.id)) throw new Error(`duplicate resource id: ${resource.id}`);
     ids.add(resource.id);
-    const excluded = exclusionDecision(resource, task);
+    const excluded = exclusionDecision(resource, task, preferredIds);
     if (excluded) decisions.set(resource.id, excluded);
     else eligible.push(resource);
   }
@@ -326,7 +422,8 @@ export function selectResources({ task, resources }) {
     const flags = roleFlags(resource);
     return coverageSet(resource, required).size > 0
       || flags.lead
-      || (requireIndependentVerifier && flags.verifier);
+      || (requireIndependentVerifier && flags.verifier)
+      || (requireWriter && isExecutableWriter(resource));
   });
 
   if (contributors.length > MAX_EXACT_SEARCH_CANDIDATES) {
@@ -336,12 +433,21 @@ export function selectResources({ task, resources }) {
   const { candidates, dominated } = pruneDominated(
     contributors,
     required,
-    requireIndependentVerifier
+    requireIndependentVerifier,
+    requireWriter,
+    preferredIds
   );
   const aggregateRoleAssignment = roleAssignment(candidates, requireIndependentVerifier);
   const rolesSatisfiable = aggregateRoleAssignment !== null;
+  const writerSatisfiable = !requireWriter || candidates.some(isExecutableWriter);
   const aggregateCovered = coversRequired(candidates, required);
-  const best = exactCover(candidates, required, requireIndependentVerifier);
+  const best = exactCover(
+    candidates,
+    required,
+    requireIndependentVerifier,
+    requireWriter,
+    preferredIds
+  );
   const assignment = best ? roleAssignment(best, requireIndependentVerifier) : null;
   const selected = best ? selectedOrder(best, assignment) : [];
   const selectedIds = new Set(selected.map(({ id }) => id));
@@ -353,6 +459,7 @@ export function selectResources({ task, resources }) {
     }
     if (dominated.has(resource.id)) decisions.set(resource.id, "dominated");
     else if (best === null && !rolesSatisfiable) decisions.set(resource.id, "blocked-by-role");
+    else if (best === null && !writerSatisfiable) decisions.set(resource.id, "blocked-by-writer");
     else decisions.set(resource.id, "eligible-not-selected");
   }
 
@@ -361,9 +468,22 @@ export function selectResources({ task, resources }) {
   if (requireIndependentVerifier && !aggregateRoleAssignment?.verifier) {
     blockedReasons.push("independent-verifier-unavailable");
   }
+  if (requireWriter && !writerSatisfiable) {
+    blockedReasons.push("scoped-local-write:no-eligible-implementation-writer");
+  }
   for (const competency of requiredList) {
     if (!aggregateCovered.has(competency)) blockedReasons.push(`competency-uncovered:${competency}`);
   }
+
+  const selectedPreferredResourceIds = selected
+    .map(({ id }) => id)
+    .filter((id) => preferredIds.has(id))
+    .sort(compareStableIds);
+  const selectedFallbackResourceIds = selected
+    .map(({ id }) => id)
+    .filter((id) => !preferredIds.has(id))
+    .sort(compareStableIds);
+  const selectedIdSet = new Set(selected.map(({ id }) => id));
 
   return {
     selected,
@@ -375,6 +495,14 @@ export function selectResources({ task, resources }) {
     requiredRoles: {
       lead: assignment?.lead ?? null,
       verifier: assignment?.verifier ?? null
+    },
+    preferenceAccounting: {
+      preferredResourceIds: [...preferredIds].sort(compareStableIds),
+      selectedPreferredResourceIds,
+      selectedFallbackResourceIds,
+      unselectedPreferredResourceIds: [...preferredIds]
+        .filter((id) => !selectedIdSet.has(id))
+        .sort(compareStableIds)
     },
     blockedReasons
   };
