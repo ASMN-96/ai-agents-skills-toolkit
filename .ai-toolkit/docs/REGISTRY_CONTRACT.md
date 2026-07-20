@@ -103,6 +103,7 @@ Each agent entry must include:
 - `secondarySkills`
 - `profiles`
 - `nativeCodexAgentName`
+- `deliveryKernel`
 - `compiledFallbackPath`
 - `expectedDeliverables`
 - `successMetrics`
@@ -115,6 +116,15 @@ Each agent entry must include:
 - `activationStatus`
 - `registrySurface`
 - `visibility`
+
+`deliveryKernel.targetAffinity`, when present, is an exact agent-only record
+with `platforms` and `frameworkOverlays` arrays drawn from the closed
+DeliveryRequest target enums. The four scoped implementation writers declare
+this metadata canonically: frontend matches `web-saas`; mobile matches iOS,
+Android, and `expo-react-native`; desktop matches Windows, macOS, `electron`,
+and `tauri`; backend implementation declares empty target arrays and is
+admitted only through explicit scenario preference. Empty backend affinity is
+not generic documentation-write authority.
 
 ## Compiled-Agent Promotion Semantics
 
@@ -232,6 +242,29 @@ Each routing entry should include:
 - optional `methodReferences`
 
 `methodReferences` contains method IDs from `registries/methods.registry.json`. These references are passive guidance only; they do not change selected agents, skills, support tools, or approval requirements.
+
+Scenario `agents` and `skills` are immutable routing preferences, not a strict
+allowlist. Stable `supportTools` ID candidates that are not canonical agent or
+skill IDs enter the typed tool-preference channel; descriptive or conditional
+prose remains passive guidance. The governed resource catalog is the tool
+source of truth: only an exact `tool` resource match receives preference, while
+unknown IDs remain inert and visible as unselected preferences. Agent, skill,
+and tool categories stay type-bound in the router; cross-category duplicates
+or known IDs in the wrong category fail closed. After mandatory competency,
+role, writer, and minimum-resource constraints, the router minimizes
+nonpreferred fallbacks before context cost and exposes deterministic preference
+accounting. Caller DeliveryRequest JSON cannot inject or replace these
+preferences.
+
+## Delivery-Kernel Resource Contract
+
+`ResourceContract v1` accepts optional agent-only `targetAffinity` metadata and
+rejects unknown fields, unknown platforms, unknown framework overlays, or
+affinity on skills and tools. `scoped-local-write` is executable only when the
+selected team includes an eligible workspace-write agent with the
+`implementation` competency. Skills and tools cannot satisfy writer ownership,
+and an unpreferred writer without an explicit target-affinity match is recorded
+as `writer-target-mismatch`.
 
 ## Governance Rules
 

@@ -672,6 +672,7 @@
       "selectedProfile": "backend-profile",
       "agents": [
         "backend-contract-agent",
+        "backend-implementation-agent",
         "architect-agent",
         "security-agent",
         "qa-test-agent",

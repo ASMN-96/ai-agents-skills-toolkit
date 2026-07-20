@@ -5,7 +5,7 @@
   "releaseState": "blocked",
   "artifactDigestMode": "sha256-utf8-lf-v1",
   "repository": {
-    "sourceCommit": "a78b54fbdb54161347eb1db0826223b521588016",
+    "sourceCommit": "91480f149135f830ed71d21c973ed171dad47082",
     "compilerCommit": "4f73505e0f9705f2c0cb1fa1728cb75616a8a5c7",
     "reviewedMainCommit": null,
     "worktreeState": "clean"
@@ -21,15 +21,15 @@
     },
     "agentRegistry": {
       "path": "registries/agents.registry.json",
-      "sha256": "00c7fbd76f29c2711cdd3caa7bde8203fdce7c7099e31102b53431fec579630d"
+      "sha256": "324084cbd6dcf763cb65f0318d9ebac62f0f1210708fa269d09dd7adf000015c"
     },
     "benchmarkFixture": {
       "path": "evals/routing/enterprise-delivery-benchmark.json",
-      "sha256": "593edab54fa0f3ab940cd17fea2c11bcb7d49a005916f94fb4c35e4ad77239cd"
+      "sha256": "4da05a9d832b6e1c095e2c980db5d060b183f963305131f76391140e0946d835"
     },
     "embeddedManifest": {
       "path": ".ai-toolkit/manifest.json",
-      "sha256": "2726aa732fa1ea0dbc6f4e475f086c71687f0c9fd6e5da60fc9b1e1497853973",
+      "sha256": "ef75a6c2acc10bfe2561ed24e0d84df9160a3090b1431ae806bc54ba32c0a425",
       "state": "generated-current"
     }
   },
@@ -81,8 +81,8 @@
     "hostExecutionBridge": "absent"
   },
   "benchmark": {
-    "fixtureDigest": "1c600545d2c979d5c1a039128cf74f9e7b7bfce8a72db9c60948005712197a6b",
-    "resourceCatalogDigest": "ee8ae7d22e9b133fb3e520a6085aab6aebc50fdf434988a51f79c05ceeb254b3",
+    "fixtureDigest": "c40bd2cc43fcd22c09b698bc4c763e333d62260c061c01c047eca043b716bc26",
+    "resourceCatalogDigest": "307e0021e5b4cf109b97d9eaaccb253acd7a7176fe70cc00416604c075540b27",
     "taskCount": 12,
     "runsPerVariant": 3,
     "staticGatePassed": true,
@@ -91,12 +91,13 @@
       "domainGateCoverage": 1,
       "exactGoldenRouting": 1,
       "unsafeActivationCases": 0,
+      "writerIntentMismatches": 0,
       "falseReadyCases": 0,
       "secretLeakCases": 0,
       "containmentEscapeCases": 0,
       "unauthorizedWriteCases": 0,
       "redundantInvocationRate": 0,
-      "medianInputTokenReduction": 0.6940721649484536
+      "medianInputTokenReduction": 0.6596792668957617
     },
     "notMeasured": {
       "modelExecution": {

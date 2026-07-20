@@ -34,7 +34,7 @@
     },
     {
       "path": "scripts/ai-toolkit/run-enterprise-delivery-benchmark.mjs",
-      "sha256": "458b2f5fcab86093105428a3746c1efec4151d734ce9ae8bba7f660589878054"
+      "sha256": "9a85b5b18bfb15980bfe96bf923e89ae3b4dab5ee28fb66b48bf7d47a3887fd4"
     },
     {
       "path": "scripts/ai-toolkit/run-quality-gate.mjs",

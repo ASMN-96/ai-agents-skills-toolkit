@@ -4,7 +4,11 @@ import path from "node:path";
 
 import { assertRegularFileWithin } from "../../../install/safe-filesystem.mjs";
 import { canonicalTextSha256, canonicalTextUtf8LfBytes } from "./canonical-digest.mjs";
-import { assertResourceContract } from "./contracts.mjs";
+import {
+  DELIVERY_REQUEST_FRAMEWORK_OVERLAY_IDS,
+  DELIVERY_REQUEST_PLATFORM_IDS,
+  assertResourceContract
+} from "./contracts.mjs";
 import { assertSourceReferenceSnapshot } from "./source-policy.mjs";
 
 const SCHEMA_VERSION = "1.0.0";
@@ -50,6 +54,8 @@ const AUTHORITIES = new Set([
 ]);
 const LIFECYCLES = new Set(["active", "experimental", "retired", "quarantined", "stale"]);
 const AGENT_SANDBOX_MODES = new Set(["read-only", "workspace-write"]);
+const TARGET_PLATFORMS = new Set(DELIVERY_REQUEST_PLATFORM_IDS);
+const TARGET_FRAMEWORK_OVERLAYS = new Set(DELIVERY_REQUEST_FRAMEWORK_OVERLAY_IDS);
 const TRUSTED_CATALOG_RESOURCES = new WeakSet();
 const FORBIDDEN_CATALOG_INPUTS = [
   "capabilityEvidence",
@@ -156,13 +162,30 @@ function assertEnvironmentRestrictions(value, label) {
   };
 }
 
+function assertTargetAffinity(value, label) {
+  assertKnownFields(value, new Set(["platforms", "frameworkOverlays"]), label);
+  const platforms = assertStringArray(value.platforms, `${label}.platforms`, { allowEmpty: true });
+  const frameworkOverlays = assertStringArray(
+    value.frameworkOverlays,
+    `${label}.frameworkOverlays`,
+    { allowEmpty: true }
+  );
+  platforms.forEach((platform) => {
+    if (!TARGET_PLATFORMS.has(platform)) fail(`${label} has unknown platform: ${platform}`);
+  });
+  frameworkOverlays.forEach((overlay) => {
+    if (!TARGET_FRAMEWORK_OVERLAYS.has(overlay)) {
+      fail(`${label} has unknown framework overlay: ${overlay}`);
+    }
+  });
+  return { platforms, frameworkOverlays };
+}
+
 function canonicalKernelMetadata(record, type) {
   const id = record?.name ?? "unknown";
   const label = `invalid ${type} registry record ${id}`;
   const metadata = record?.deliveryKernel;
-  assertKnownFields(
-    metadata,
-    new Set([
+  const allowedFields = new Set([
       "canonicalCompetencies",
       "eligibleRoles",
       "verificationCapabilities",
@@ -171,7 +194,11 @@ function canonicalKernelMetadata(record, type) {
       "authority",
       "lifecycle",
       "environmentRestrictions"
-    ]),
+    ]);
+  if (type === "agent") allowedFields.add("targetAffinity");
+  assertKnownFields(
+    metadata,
+    allowedFields,
     `${label}.deliveryKernel`
   );
   const canonicalCompetencies = assertStringArray(
@@ -207,12 +234,20 @@ function canonicalKernelMetadata(record, type) {
   if (!LIFECYCLES.has(metadata.lifecycle)) {
     fail(`${label}.deliveryKernel has unknown lifecycle: ${metadata.lifecycle}`);
   }
+  let targetAffinity;
+  if (hasOwn(metadata, "targetAffinity")) {
+    targetAffinity = assertTargetAffinity(
+      metadata.targetAffinity,
+      `${label}.deliveryKernel.targetAffinity`
+    );
+  }
   return {
     canonicalCompetencies,
     eligibleRoles,
     verificationCapabilities,
     authority: metadata.authority,
     lifecycle: metadata.lifecycle,
+    ...(targetAffinity === undefined ? {} : { targetAffinity }),
     environmentRestrictions: assertEnvironmentRestrictions(
       metadata.environmentRestrictions,
       `${label}.deliveryKernel.environmentRestrictions`
@@ -497,6 +532,7 @@ function buildAgentResource(entry, capability) {
     type: "agent",
     canonicalCompetencies: metadata.canonicalCompetencies,
     eligibleRoles: metadata.eligibleRoles,
+    ...(metadata.targetAffinity === undefined ? {} : { targetAffinity: metadata.targetAffinity }),
     verificationCapabilities: metadata.verificationCapabilities,
     measuredContextCost: capability.measuredContextCost,
     contextCostUnit: "tokens",

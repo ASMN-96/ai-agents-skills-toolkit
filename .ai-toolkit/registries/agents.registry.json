@@ -257,6 +257,10 @@
       "deliveryKernel": {
         "canonicalCompetencies": ["implementation", "responsive-ui", "web-accessibility"],
         "eligibleRoles": ["specialist"],
+        "targetAffinity": {
+          "platforms": ["web-saas"],
+          "frameworkOverlays": []
+        },
         "measuredContextCost": 1733,
         "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
         "authority": "internal-reviewed",
@@ -576,6 +580,10 @@
       "deliveryKernel": {
         "canonicalCompetencies": ["implementation", "api-contracts", "failure-semantics"],
         "eligibleRoles": ["specialist"],
+        "targetAffinity": {
+          "platforms": [],
+          "frameworkOverlays": []
+        },
         "measuredContextCost": 1385,
         "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
         "authority": "internal-reviewed",
@@ -1434,6 +1442,10 @@
           "native-boundaries"
         ],
         "eligibleRoles": ["specialist"],
+        "targetAffinity": {
+          "platforms": ["ios", "android"],
+          "frameworkOverlays": ["expo-react-native"]
+        },
         "measuredContextCost": 1923,
         "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
         "authority": "internal-reviewed",
@@ -1521,6 +1533,10 @@
           "native-boundaries"
         ],
         "eligibleRoles": ["specialist"],
+        "targetAffinity": {
+          "platforms": ["windows-desktop", "macos-desktop"],
+          "frameworkOverlays": ["electron", "tauri"]
+        },
         "measuredContextCost": 1955,
         "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
         "authority": "internal-reviewed",

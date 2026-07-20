@@ -89,7 +89,7 @@
     },
     {
       "path": "registries/agents.registry.json",
-      "sha256": "00c7fbd76f29c2711cdd3caa7bde8203fdce7c7099e31102b53431fec579630d"
+      "sha256": "324084cbd6dcf763cb65f0318d9ebac62f0f1210708fa269d09dd7adf000015c"
     },
     {
       "path": "registries/domain-packs.registry.json",
@@ -97,7 +97,7 @@
     },
     {
       "path": "registries/routing-matrix.json",
-      "sha256": "11f1ef1cb56b9f1e89523060ec12fb3b401adb717fe2051529de127f2bdef450"
+      "sha256": "b8105e618773ebd0f01188241d7cda242059eccb35d1e31a5a41c68d20606a20"
     },
     {
       "path": "registries/skills.registry.json",
@@ -137,11 +137,11 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/contracts.mjs",
-      "sha256": "0b1400061926f9fe19f2ad08b11707ac989d2869e81e654f0a8a467fc1b7d99c"
+      "sha256": "2d76a5aa8703058bdff4aff5fb3ed3e34cabd323a8077030c96abd3a9bb9aa13"
     },
     {
       "path": "scripts/ai-toolkit/kernel/delivery-kernel.mjs",
-      "sha256": "8dba543838747031053b987a2dfcd8c886bb4c2b06f29d5ff4358b227dd2a8ab"
+      "sha256": "3c489d554034169c5356b20e99cc48f10055ae6046eb01fccc7f2c87061c3486"
     },
     {
       "path": "scripts/ai-toolkit/kernel/domain-packs.mjs",
@@ -165,11 +165,11 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/resource-catalog.mjs",
-      "sha256": "4716ca51f4e0f2120657c1c783e2bed7ed841a041d7b33d0cf289c2db713f736"
+      "sha256": "ce6d39e1769a1fa8ace2582c933d25274490c9696ef5de78c09ccbcc4be7c325"
     },
     {
       "path": "scripts/ai-toolkit/kernel/resource-router.mjs",
-      "sha256": "52d1fc126c03358f6e96016f35d3ef19786dd4986f352a880e987b6db925ae84"
+      "sha256": "22add9696c32efb7bc5b17984eb654c4049639da4de68877bc865161daf33c90"
     },
     {
       "path": "scripts/ai-toolkit/kernel/risk-policy.mjs",
@@ -177,7 +177,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/scenario-policy.mjs",
-      "sha256": "e5277ea07e7d2168e91ad2b5b350d80fe4c11c8111a274ac72d94c014c5a7274"
+      "sha256": "f0081ae3effcb190a58c5fce3160452698775aa7f96bc4b7e8c64cbbd96a5f7d"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-contract.mjs",
