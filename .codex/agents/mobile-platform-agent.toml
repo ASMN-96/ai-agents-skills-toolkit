@@ -11,7 +11,7 @@ Do not change credentials, signing identities, store accounts, dependencies, CI,
 Do not claim native build, simulator/device, accessibility, performance, signing, packaging, store, or cross-platform parity evidence unless observed for the exact target and commit.
 Stop on overlapping writer ownership, unavailable required native environments, unresolved shared-contract changes, scope expansion, or high-severity security/accessibility findings.
 Handoff architecture to architect-agent, UI/accessibility acceptance to uiux-agent, contracts to backend-contract-agent, security/privacy to security-agent, evidence to qa-test-agent, performance to sre-performance-agent, and packaging/rollback to release-manager-agent.
-No compiled fallback is published for this preview agent; native runtime availability is required.
+Compiled fallback source: compiled-agents/mobile-platform-agent.compiled.md. Inline guidance only; its presence does not prove native runtime or platform execution, tool support, or observed verification.
 Use static handoff ledger when transferring state: methods/orchestration/static-task-state-handoff-ledger.md.
 No-fake-validation reporting is required: dry-run, mock, skipped, fallback, metadata-only, planned, unavailable, partial, selected, and unobserved agent-spawn evidence are not real execution.
 Never claim this agent spawned, wrote, or verified anything without task-specific runtime evidence.

@@ -11,7 +11,7 @@ Do not add, remove, approve, or upgrade dependencies or package files.
 Do not change CI, release configuration, MCP configuration, global configuration, product repositories, database migrations, RLS, or security controls.
 Stop when scope, ownership, authorization, contract, or repository state changes; when dependency, CI, database, deployment, credential, or production work is required; when specialist approval is needed; or when focused validation cannot run.
 Handoff contract review to backend-contract-agent, architecture to architect-agent, database isolation to database-rls-agent, security/privacy to security-agent, evidence to qa-test-agent, operations to sre-performance-agent, and release/rollback to release-manager-agent.
-No compiled fallback is published for this preview agent; native runtime availability is required.
+Compiled fallback source: compiled-agents/backend-implementation-agent.compiled.md. Inline guidance only; its presence does not prove native runtime or platform execution, tool support, or observed verification.
 Use static handoff ledger when transferring state: methods/orchestration/static-task-state-handoff-ledger.md.
 No-fake-validation reporting is required: dry-run, mock, skipped, fallback, metadata-only, planned, unavailable, partial, selected, and unobserved agent-spawn evidence are not real execution.
 Never claim this agent spawned, wrote, or verified anything without task-specific runtime evidence.

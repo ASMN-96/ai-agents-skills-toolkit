@@ -49,7 +49,7 @@ Current blockers for Level 5 broad public/package maturity:
 - Public package validation is allowlist-only and does not certify the whole repository tree or Git history for public GitHub visibility.
 - Whole-repo publication review retains non-current-tree owner/history findings that are acceptable for the controlled `v0.2.5` path only when owner acceptance is explicit.
 - Historical Git exposure remains unresolved until the owner chooses a clean sanitized repository/mirror or verified history cleanup.
-- The v0.3 candidate runtime is canonical-only: 5 skills, 15 native repo-local agent definitions, and 12 compiled fallbacks. Registry or file presence is not execution proof.
+- The v0.3 candidate runtime is canonical-only: 5 skills, 15 native repo-local agent definitions, and 15 compiled fallbacks. Registry or file presence is not execution proof.
 - Public package allowlist is enforced by `node scripts/validate-public-package.mjs`; current report is `docs/PUBLIC_PACKAGE_VALIDATION_REPORT.md`.
 - `LICENSE`, `CONTRIBUTING.md`, and `CODE_OF_CONDUCT.md` are present but still require owner/legal/community approval before publication.
 - `SECURITY.md` now defines supported scope and reporting expectations, but the final vulnerability-reporting channel still needs an owner-approved private contact path.
@@ -83,7 +83,7 @@ Level 5 broad public/package maturity additionally requires:
 - public/private leak scan with zero unresolved public-release blockers in public package paths,
 - whole-repo publication review with zero unresolved public-repository blockers,
 - resolved repository-history decision,
-- canonical-only runtime validation for 5 skills, 15 native agent definitions, and 12 compiled fallbacks,
+- canonical-only runtime validation for 5 skills, 15 native agent definitions, and 15 compiled fallbacks,
 - license/contribution/security/community policy files approved,
 - owner-approved security disclosure channel,
 - release artifact reproducibility check,
@@ -203,7 +203,7 @@ Forbidden without separate approval:
 - Whole-repo publication review has zero unresolved blockers.
 - Repository-history exposure decisions are resolved.
 - Stale/unverified classification has no unresolved `review-required` content in public package output.
-- Current v0.3 candidate runtime is canonical-only: 5 skills, 15 native agent definitions, and 12 compiled fallbacks.
+- Current v0.3 candidate runtime is canonical-only: 5 skills, 15 native agent definitions, and 15 compiled fallbacks.
 - `sourceRef`, `lastExtracted`, and method status are present and validated.
 - External tool enterprise metadata is complete for any tool described as approved.
 - Source freshness issue workflow remains dry-run unless live issue creation receives separate approval.

@@ -26,7 +26,7 @@ All numeric scores are static engineering judgments based on the committed-style
 
 - **Contract quality:** clarity, boundaries, deliverables, stop conditions, handoffs, and evidence discipline.
 - **Agentic design:** ability to complete a bounded assignment and participate safely in a multi-agent wave. This is not permission for open-ended autonomy.
-- **AI compatibility:** portability and structure across the kernel, native Codex definitions, and compiled fallback path. Native-only preview agents score lower until fallback and cross-runtime pilots exist.
+- **AI compatibility:** portability and structure across the kernel, native Codex definitions, and compiled fallback path. Preview agents remain capped until cross-runtime and native-platform pilots exist; fallback presence alone is not runtime support.
 - **Coding/delivery fit:** ability to contribute to software delivery in the role it owns. A lower score for a non-coding governance role is not a quality defect.
 - **Observed accuracy:** requires repeated task execution against golden outcomes and verified host receipts. It is currently `not measured` for every role.
 
@@ -47,7 +47,7 @@ Agentic levels use this scale:
 | Frontend | Native + fallback; scoped writer | 9.1 | 8.4 | L3 | 9.2 | 9.0 | Not measured |
 | UI/UX | Native + fallback; read-only specialist | 8.9 | 7.7 | L2 | 9.0 | 7.5 | Not measured |
 | Backend Contract | Native + fallback; read-only specialist | 8.8 | 7.7 | L2 | 9.0 | 8.1 | Not measured |
-| Backend Implementation | Native preview; scoped writer; no fallback | 8.7 | 8.2 | L3 | 7.6 | 8.8 | Not measured |
+| Backend Implementation | Native + fallback; preview scoped writer | 8.7 | 8.2 | L3 | 7.6 | 8.8 | Not measured |
 | Database/RLS | Native + fallback; read-only specialist | 8.9 | 7.7 | L2 | 9.0 | 8.1 | Not measured |
 | Security | Native + fallback; read-only specialist | 9.1 | 7.9 | L2 | 9.0 | 8.2 | Not measured |
 | QA/Test | Native + fallback; independent verifier | 9.1 | 8.3 | L2 | 9.1 | 8.5 | Not measured |
@@ -55,8 +55,8 @@ Agentic levels use this scale:
 | Release Manager | Native + fallback; read-only specialist | 8.8 | 7.9 | L2 | 9.0 | 7.5 | Not measured |
 | SRE/Performance | Native + fallback; read-only specialist | 8.8 | 7.8 | L2 | 9.0 | 8.0 | Not measured |
 | Skill Scout | Native + fallback; read-only specialist | 8.9 | 7.6 | L2 | 9.0 | 6.8 | Not measured |
-| Mobile Platform | Native preview; scoped writer; no fallback | 8.6 | 8.1 | L3 | 7.6 | 8.6 | Not measured |
-| Desktop Platform | Native preview; scoped writer; no fallback | 8.6 | 8.1 | L3 | 7.6 | 8.6 | Not measured |
+| Mobile Platform | Native + fallback; preview scoped writer | 8.6 | 8.1 | L3 | 7.6 | 8.6 | Not measured |
+| Desktop Platform | Native + fallback; preview scoped writer | 8.6 | 8.1 | L3 | 7.6 | 8.6 | Not measured |
 
 Portfolio averages, computed from the 15 displayed rows and rounded to one decimal, are descriptive only: contract quality **8.9/10**, agentic design **8.0/10**, AI compatibility **8.7/10**, and role-appropriate coding/delivery fit **8.1/10**. These figures must not be promoted as measured productivity, correctness, accuracy, or enterprise impact. The added AI-system gates and automatic risk classification improve static control coverage; they do not establish observed model or agent accuracy.
 
@@ -82,7 +82,7 @@ Portfolio averages, computed from the 15 displayed rows and rounded to one decim
 - Retry/flaky attempt sequences are not yet modeled as trusted receipts. The current conservative contract allows one observation per selected executable tool and keeps host evidence untrusted.
 - Database/RLS review is strong, but generic local migration-file authorship remains intentionally blocked until a separate scoped, non-live, independently reviewed writer contract is proven.
 - No role has repeated observed outcomes, failure-recovery evidence, human usefulness scores, or production-repository pilot results.
-- Backend implementation, mobile, and desktop are preview native-only agents with no compiled fallback. None has the role-specific native pilot evidence needed for a production-performance claim.
+- Backend implementation, mobile, and desktop remain preview despite compiled fallback availability. Their fallbacks provide inline instructions only; none has the role-specific native pilot evidence needed for a runtime-support or production-performance claim.
 - Static routing proves selection behavior, not the quality of a model's implementation.
 - The portfolio has not yet demonstrated sustained token, latency, defect-escape, and first-pass acceptance performance in real repositories.
 

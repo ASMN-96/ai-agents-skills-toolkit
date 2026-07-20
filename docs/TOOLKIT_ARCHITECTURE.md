@@ -13,7 +13,7 @@ The pivot keeps the top-level folders as canonical source material. This impleme
 Active runtime remains intentionally small:
 
 - repo skills under `.agents/skills/`: canonical skills `governance`, `uiux`, `code-quality`, `security-review`, and `pr-release-gate`;
-- project custom agents under `.codex/agents/`: the registry-declared approved repo-local definitions, with compiled-fallback and preview native-only posture derived from the canonical agent registry.
+- project custom agents under `.codex/agents/`: the registry-declared approved repo-local definitions, with compiled-fallback availability and preview maturity derived independently from the canonical agent registry.
 
 All mirrors must be validated by byte identity or manifest hash. Registries and source records remain metadata only; they do not install, activate, approve, configure CI, configure MCP, change global Codex config, or import raw upstream content.
 

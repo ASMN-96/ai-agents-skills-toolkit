@@ -70,7 +70,7 @@ For small documentation-only edits, run the narrowest subset first, then broaden
 
 ## Controlled-Release Positioning
 
-`v0.2.5` remains the controlled release while the untagged v0.3 candidate is blocked on its recorded release evidence. The candidate contains five skills, fifteen native agent definitions, and twelve compiled fallbacks, but those files and registries are not execution or enterprise-impact proof. Neither release status authorizes automatic installs, package publication, marketplace submission, or broad cross-runtime activation.
+`v0.2.5` remains the controlled release while the untagged v0.3 candidate is blocked on its recorded release evidence. The candidate contains five skills, fifteen native agent definitions, and fifteen compiled fallbacks, but those files and registries are not execution, native-platform support, or enterprise-impact proof. Neither release status authorizes automatic installs, package publication, marketplace submission, or broad cross-runtime activation.
 
 ## Next Step
 

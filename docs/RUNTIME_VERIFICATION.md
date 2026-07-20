@@ -8,7 +8,7 @@ Fresh-session runtime verification should confirm:
 
 - `governance` skill visibility
 - no retired helper aliases exposed as active runtime skills
-- native custom-agent visibility for every registry-declared agent, including each agent's registry-declared compiled-fallback or preview native-only posture
+- native custom-agent visibility for every registry-declared agent, with compiled-fallback availability and preview maturity reported independently
 - Superpowers availability if installed
 - GSD availability if installed
 - Playwright/browser availability when needed

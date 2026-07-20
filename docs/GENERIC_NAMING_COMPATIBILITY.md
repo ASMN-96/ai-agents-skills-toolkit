@@ -10,7 +10,7 @@ The public runtime uses one canonical naming system:
 - `security-review`
 - `pr-release-gate`
 
-The v0.3 candidate project-agent surface is the registry-declared set of approved repo-local definitions documented in `docs/RUNTIME_ACTIVATION_MODEL.md`. Compiled-fallback and preview native-only posture comes from the canonical agent registry and release-evidence record rather than a duplicated count here.
+The v0.3 candidate project-agent surface is the registry-declared set of approved repo-local definitions documented in `docs/RUNTIME_ACTIVATION_MODEL.md`. Compiled-fallback availability and preview maturity come independently from the canonical agent registry and release-evidence record rather than a duplicated count here.
 
 ## Compatibility Boundary
 

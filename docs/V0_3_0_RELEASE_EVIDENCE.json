@@ -21,7 +21,7 @@
     },
     "agentRegistry": {
       "path": "registries/agents.registry.json",
-      "sha256": "c9c1a7de10822ff1b8cb5621dda93ed4473e405bcce0c6fbae12f8084c36b9d1"
+      "sha256": "90ca1026eded3f473d2d95d35deacaf18f71b9a4c9a361ad4e53b1383003026e"
     },
     "benchmarkFixture": {
       "path": "evals/routing/enterprise-delivery-benchmark.json",
@@ -71,12 +71,13 @@
   "runtime": {
     "canonicalSkills": 5,
     "nativeAgentDefinitions": 15,
-    "compiledFallbacks": 12,
-    "previewNativeOnlyAgents": [
+    "compiledFallbacks": 15,
+    "previewAgents": [
       "backend-implementation-agent",
       "desktop-platform-agent",
       "mobile-platform-agent"
     ],
+    "agentsWithoutCompiledFallbacks": [],
     "hostExecutionBridge": "absent"
   },
   "benchmark": {
@@ -161,7 +162,7 @@
     "The live monitor recorded 13 CURRENT, 5 CHANGED, and 62 CHECK_FAILED observations; 17 GitHub API 403 observations were resolved through read-only git ls-remote fallback.",
     "No source review receipt has an authorized approver identity.",
     "The runtime-owned Codex or Claude execution bridge is not implemented.",
-    "Three preview native-only agents do not yet have compiled fallbacks.",
+    "Three agents remain preview despite having inline compiled fallbacks; fallback availability is not native execution, runtime support, or pilot evidence.",
     "Human, timing, defect-escape, and native-pilot thresholds are not measured.",
     "Generated source mirrors and the embedded manifest remain stale pending Task 7 regeneration."
   ],

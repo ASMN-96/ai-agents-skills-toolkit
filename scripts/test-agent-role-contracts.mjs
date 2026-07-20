@@ -111,18 +111,63 @@ test("all registry-declared agent surfaces form one bounded role contract", asyn
     for (const expectedPath of [canonicalPath, nativePath]) {
       assert.equal(provenancePaths.has(expectedPath), true, `${agent.name} missing ${expectedPath} provenance`);
     }
-    if (agent.compiledFallbackPath === null) {
-      assert.equal(agent.status.includes("preview"), true, `${agent.name} without fallback must be preview`);
-      assert.equal(agent.runtimeFiles.compiledFallbackPath, null);
-      assert.equal(agent.runtimeFiles.compiledFallbackPresent, false);
-      assert.match(native, /No compiled fallback is published/iu);
-    } else {
-      const fallbackPath = `compiled-agents/${agent.name}.compiled.md`;
-      assert.equal(agent.compiledFallbackPath, fallbackPath);
-      await regularFile(fallbackPath);
-      assert.equal(provenancePaths.has(fallbackPath), true, `${agent.name} missing ${fallbackPath} provenance`);
-      assert.equal(agent.runtimeFiles.compiledFallbackPresent, true);
+    const fallbackPath = `compiled-agents/${agent.name}.compiled.md`;
+    assert.equal(agent.compiledFallbackPath, fallbackPath);
+    await regularFile(fallbackPath);
+    assert.equal(provenancePaths.has(fallbackPath), true, `${agent.name} missing ${fallbackPath} provenance`);
+    assert.equal(agent.runtimeFiles.compiledFallbackPath, fallbackPath);
+    assert.equal(agent.runtimeFiles.compiledFallbackPresent, true);
+  }
+});
+
+test("native definitions and registry agree on compiled fallback availability", async () => {
+  const registry = JSON.parse(await regularFile("registries/agents.registry.json"));
+  for (const agent of registry.agents) {
+    const native = await regularFile(`.codex/agents/${agent.name}.toml`);
+    const fallbackPath = `compiled-agents/${agent.name}.compiled.md`;
+    assert.equal(agent.compiledFallbackPath, fallbackPath);
+    assert.match(
+      native,
+      new RegExp(`Compiled fallback source: ${fallbackPath.replaceAll(".", "\\.")}\\.`, "u"),
+      `${agent.name} native definition must match registry fallback availability`
+    );
+    assert.doesNotMatch(native, /No compiled fallback is published/iu);
+    if (agent.status.includes("preview")) {
+      assert.match(native, /inline guidance only/iu);
+      assert.match(native, /does not prove native.*(?:runtime|platform).*execution/isu);
     }
+  }
+});
+
+test("new compiled fallbacks retain preview writer boundaries without claiming native execution", async () => {
+  const registry = JSON.parse(await regularFile("registries/agents.registry.json"));
+  const previewAgents = registry.agents.filter((agent) => agent.status.includes("preview"));
+  assert.deepEqual(
+    previewAgents.map((agent) => agent.name),
+    ["backend-implementation-agent", "mobile-platform-agent", "desktop-platform-agent"]
+  );
+
+  for (const agent of previewAgents) {
+    const native = await regularFile(`.codex/agents/${agent.name}.toml`);
+    const compiled = await regularFile(agent.compiledFallbackPath);
+    assert.match(native, /^sandbox_mode = "workspace-write"$/mu);
+    assert.match(compiled, /scoped (?:local )?workspace-write/iu);
+    assert.match(compiled, /does not activate native custom agents/iu);
+    assert.match(compiled, /never claim.*(?:spawned|wrote|verified).*task-specific runtime evidence/isu);
+  }
+
+  const backend = await regularFile("compiled-agents/backend-implementation-agent.compiled.md");
+  assert.match(backend, /kernel-assigned.*non-overlapping/iu);
+  assert.match(backend, /independent evidence|independent verification/iu);
+  assert.match(backend, /does not perform production changes|do not perform production changes/iu);
+
+  for (const name of ["mobile-platform-agent", "desktop-platform-agent"]) {
+    const compiled = await regularFile(`compiled-agents/${name}.compiled.md`);
+    assert.match(compiled, /native build/iu);
+    assert.match(compiled, /simulator|emulator|OS-runtime/iu);
+    assert.match(compiled, /signing/iu);
+    assert.match(compiled, /(?:store|installer|packaging)/iu);
+    assert.match(compiled, /remain blocked when .*required environment is unavailable/isu);
   }
 });
 

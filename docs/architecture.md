@@ -18,7 +18,7 @@ The toolkit is intentionally thin: governance metadata, compiled artifacts, and 
 
 ### 3) Runtime artifact layer
 
-- The v0.3 candidate runtime surface is the registry-declared skill and native-agent set. Compiled-fallback and preview native-only posture is derived from the canonical registries and release-evidence record.
+- The v0.3 candidate runtime surface is the registry-declared skill and native-agent set. Compiled-fallback availability and preview maturity are derived independently from the canonical registries and release-evidence record.
 - Compiled artifacts are the only intended artifacts synced to projects.
 - Compiled outputs are tracked by versioned scripts and validator checks.
 

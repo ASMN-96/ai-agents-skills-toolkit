@@ -1,7 +1,7 @@
 # Toolkit Status
 
 <!-- v0.3-release-evidence:start -->
-> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 69.4% median input-token reduction). Sources: 80 actionable globally, 8 release-blocking for enterprise-core, 72 release-nonblocking, 0 approved receipts. Runtime: 5 skills, 15 native agents, 12 compiled fallbacks; host bridge absent.
+> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 69.4% median input-token reduction). Sources: 80 actionable globally, 8 release-blocking for enterprise-core, 72 release-nonblocking, 0 approved receipts. Runtime: 5 skills, 15 native agents, 15 compiled fallbacks; host bridge absent.
 <!-- v0.3-release-evidence:end -->
 
 Current controlled release: `v0.2.5`
@@ -14,8 +14,9 @@ Current working state: the v0.3.0 enterprise delivery kernel candidate is implem
 
 - Canonical active repo skills: 5.
 - Repo-local project agent files: 15 `.codex/agents/*.toml` files.
-- Compiled fallbacks: 12 `compiled-agents/*.compiled.md` files.
-- Preview native-only agents: `backend-implementation-agent`, `desktop-platform-agent`, `mobile-platform-agent`.
+- Compiled fallbacks: 15 `compiled-agents/*.compiled.md` files.
+- Preview agents: `backend-implementation-agent`, `desktop-platform-agent`, `mobile-platform-agent`.
+- Agents without compiled fallbacks: none.
 - Actual agent spawn proof: absent unless observed in the current task.
 
 TOML file presence, compiled fallback presence, registry recommendation, and actual spawn proof must be reported separately.

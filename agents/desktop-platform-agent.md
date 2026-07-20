@@ -1,5 +1,5 @@
 ---
-compiled_fallback: unavailable
+compiled_fallback: compiled-agents/desktop-platform-agent.compiled.md
 ---
 
 # Desktop Platform Agent
@@ -10,7 +10,7 @@ Implements and self-reviews bounded Windows, macOS, Electron, and Tauri work ins
 
 ## Status
 
-Preview repo-local agent with scoped workspace-write when `.codex/agents/desktop-platform-agent.toml` is present. Write authority is limited to kernel-assigned, non-overlapping desktop paths explicitly authorized by the delivery request. A native Codex runtime is required because no compiled fallback is published yet.
+Preview repo-local agent with scoped workspace-write when `.codex/agents/desktop-platform-agent.toml` is present. Write authority is limited to kernel-assigned, non-overlapping desktop paths explicitly authorized by the delivery request. The compiled fallback makes these bounded instructions available inline; it does not provide native runtime or tool support and is not evidence of build, OS-runtime, device, signing, store, installer, updater, accessibility, performance, rollback, or platform verification.
 
 ## Responsibility
 
@@ -41,6 +41,7 @@ Preview repo-local agent with scoped workspace-write when `.codex/agents/desktop
 - IPC, preload, commands, native bridges, URLs, file access, and updater inputs are validated and least-privileged.
 - Focused tests cover changed logic; native build and packaging checks are required before platform or installer verification.
 - Signing, accessibility, performance, updater, installation, and rollback gates remain blocked when their required environment is unavailable.
+- Native build, OS-runtime or device, signing, store, installer, updater, and platform verification remain blocked when their required environment and observed task evidence are unavailable; fallback text never satisfies those gates.
 - Writer ownership does not overlap another writer's paths, and handoffs preserve scope, constraints, gate IDs, and unresolved risks.
 
 ## Stop Conditions

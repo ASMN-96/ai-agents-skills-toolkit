@@ -25,7 +25,7 @@ Historical v0.2 migration note: at the time of this naming migration, the projec
 - `skill-scout-agent`
 - `sre-performance-agent`
 
-The untagged v0.3 candidate subsequently added backend implementation, mobile platform, and desktop platform agents. Current candidate truth is fifteen native definitions and twelve compiled fallbacks; see `docs/RUNTIME_ACTIVATION_MODEL.md` and `docs/V0_3_0_RELEASE_EVIDENCE.json`.
+The untagged v0.3 candidate subsequently added backend implementation, mobile platform, and desktop platform agents. Current candidate truth is fifteen native definitions and fifteen compiled fallbacks; the three added specialists remain preview. See `docs/RUNTIME_ACTIVATION_MODEL.md` and `docs/V0_3_0_RELEASE_EVIDENCE.json`.
 
 The following old aliases and helper names were removed from active runtime and public package skill surfaces: `ai-project-governance`, `legacy-governance`, `premium-uiux-review`, `legacy-uiux-review`, `webapp-code-quality`, `legacy-code-quality`, `app-security-review`, `legacy-security-review`, `legacy-release-gate`, `legacy-agent-governance`, and `legacy-skill-governance`.
 

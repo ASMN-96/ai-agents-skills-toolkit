@@ -576,7 +576,7 @@
       "deliveryKernel": {
         "canonicalCompetencies": ["implementation", "api-contracts", "failure-semantics"],
         "eligibleRoles": ["specialist"],
-        "measuredContextCost": 1337,
+        "measuredContextCost": 1385,
         "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
         "authority": "internal-reviewed",
         "lifecycle": "active",
@@ -585,7 +585,7 @@
           "forbidden": []
         }
       },
-      "compiledFallbackPath": null,
+      "compiledFallbackPath": "compiled-agents/backend-implementation-agent.compiled.md",
       "expectedDeliverables": [
         "Owned-path backend implementation",
         "Focused behavior and negative-path tests",
@@ -610,6 +610,7 @@
       "riskDomains": ["backend", "api", "authorization", "integration"],
       "sourceProvenance": [
         { "path": "agents/backend-implementation-agent.md", "category": "internal-artifact" },
+        { "path": "compiled-agents/backend-implementation-agent.compiled.md", "category": "internal-artifact" },
         { "path": ".codex/agents/backend-implementation-agent.toml", "category": "internal-artifact" }
       ],
       "status": ["documented", "available", "approved", "native-visible", "preview"],
@@ -617,12 +618,12 @@
       "activationStatus": ["documented", "available", "approved", "native-visible", "preview"],
       "registrySurface": "internal-helper",
       "visibility": ["repo", "project-sync"],
-      "runtimeActivationNotes": "Preview repo-local TOML is selectable only when present and scoped-local-write is explicitly authorized. No compiled fallback exists. Registry presence is not execution evidence; backend verification remains separate from implementation evidence.",
+      "runtimeActivationNotes": "Preview repo-local TOML is selectable only when present and scoped-local-write is explicitly authorized. The compiled fallback provides inline documentation only; it is not native execution or runtime-support evidence. Registry and fallback presence are not execution evidence, and backend verification remains independent from implementation evidence.",
       "runtimeFiles": {
         "tomlPath": ".codex/agents/backend-implementation-agent.toml",
         "tomlPresent": true,
-        "compiledFallbackPath": null,
-        "compiledFallbackPresent": false
+        "compiledFallbackPath": "compiled-agents/backend-implementation-agent.compiled.md",
+        "compiledFallbackPresent": true
       },
       "registryRecommendation": "selectable-preview-backend-writer",
       "actualSpawnProof": null,
@@ -1433,7 +1434,7 @@
           "native-boundaries"
         ],
         "eligibleRoles": ["specialist"],
-        "measuredContextCost": 1780,
+        "measuredContextCost": 1923,
         "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
         "authority": "internal-reviewed",
         "lifecycle": "active",
@@ -1442,7 +1443,7 @@
           "forbidden": []
         }
       },
-      "compiledFallbackPath": null,
+      "compiledFallbackPath": "compiled-agents/mobile-platform-agent.compiled.md",
       "expectedDeliverables": [
         "Platform-scoped implementation or review",
         "Native-boundary and lifecycle notes",
@@ -1468,6 +1469,7 @@
       "riskDomains": ["mobile", "native-boundaries", "privacy", "accessibility", "release"],
       "sourceProvenance": [
         { "path": "agents/mobile-platform-agent.md", "category": "internal-artifact" },
+        { "path": "compiled-agents/mobile-platform-agent.compiled.md", "category": "internal-artifact" },
         { "path": ".codex/agents/mobile-platform-agent.toml", "category": "internal-artifact" }
       ],
       "status": ["documented", "available", "approved", "native-visible", "preview"],
@@ -1475,12 +1477,12 @@
       "activationStatus": ["documented", "available", "approved", "native-visible", "preview"],
       "registrySurface": "internal-helper",
       "visibility": ["repo", "project-sync"],
-      "runtimeActivationNotes": "Preview repo-local TOML is selectable only for scoped workspace-write when present. Self-review stays inside that write-authorized assignment; the agent is ineligible for read-only audit and independent verification. No compiled fallback exists. Registry presence is not execution evidence; native platform verification remains blocked until the exact environment and task receipts are observed.",
+      "runtimeActivationNotes": "Preview repo-local TOML is selectable only for scoped workspace-write when present. Self-review stays inside that write-authorized assignment; the agent is ineligible for read-only audit and independent verification. The compiled fallback provides inline documentation only, not native execution or tool support. Native build, simulator, emulator, device, signing, store, and platform verification remain blocked until the exact environment and task receipts are observed.",
       "runtimeFiles": {
         "tomlPath": ".codex/agents/mobile-platform-agent.toml",
         "tomlPresent": true,
-        "compiledFallbackPath": null,
-        "compiledFallbackPresent": false
+        "compiledFallbackPath": "compiled-agents/mobile-platform-agent.compiled.md",
+        "compiledFallbackPresent": true
       },
       "registryRecommendation": "selectable-preview-platform-agent",
       "actualSpawnProof": null,
@@ -1519,7 +1521,7 @@
           "native-boundaries"
         ],
         "eligibleRoles": ["specialist"],
-        "measuredContextCost": 1800,
+        "measuredContextCost": 1955,
         "contextCostMeasurement": "ceil(UTF-8 LF-normalized source bytes/3)",
         "authority": "internal-reviewed",
         "lifecycle": "active",
@@ -1528,7 +1530,7 @@
           "forbidden": []
         }
       },
-      "compiledFallbackPath": null,
+      "compiledFallbackPath": "compiled-agents/desktop-platform-agent.compiled.md",
       "expectedDeliverables": [
         "OS and overlay-scoped implementation or review",
         "Native and IPC/command boundary notes",
@@ -1554,6 +1556,7 @@
       "riskDomains": ["desktop", "native-boundaries", "ipc", "accessibility", "release"],
       "sourceProvenance": [
         { "path": "agents/desktop-platform-agent.md", "category": "internal-artifact" },
+        { "path": "compiled-agents/desktop-platform-agent.compiled.md", "category": "internal-artifact" },
         { "path": ".codex/agents/desktop-platform-agent.toml", "category": "internal-artifact" }
       ],
       "status": ["documented", "available", "approved", "native-visible", "preview"],
@@ -1561,12 +1564,12 @@
       "activationStatus": ["documented", "available", "approved", "native-visible", "preview"],
       "registrySurface": "internal-helper",
       "visibility": ["repo", "project-sync"],
-      "runtimeActivationNotes": "Preview repo-local TOML is selectable only for scoped workspace-write when present. Self-review stays inside that write-authorized assignment; the agent is ineligible for read-only audit and independent verification. No compiled fallback exists. Registry presence is not execution evidence; native platform verification remains blocked until the exact environment and task receipts are observed.",
+      "runtimeActivationNotes": "Preview repo-local TOML is selectable only for scoped workspace-write when present. Self-review stays inside that write-authorized assignment; the agent is ineligible for read-only audit and independent verification. The compiled fallback provides inline documentation only, not native execution or tool support. Native build, OS-runtime or device, signing, store, installer, updater, and platform verification remain blocked until the exact environment and task receipts are observed.",
       "runtimeFiles": {
         "tomlPath": ".codex/agents/desktop-platform-agent.toml",
         "tomlPresent": true,
-        "compiledFallbackPath": null,
-        "compiledFallbackPresent": false
+        "compiledFallbackPath": "compiled-agents/desktop-platform-agent.compiled.md",
+        "compiledFallbackPresent": true
       },
       "registryRecommendation": "selectable-preview-platform-agent",
       "actualSpawnProof": null,

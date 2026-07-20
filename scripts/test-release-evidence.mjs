@@ -395,6 +395,23 @@ test("STATUS runtime inventory is derived from the release evidence record", () 
   }
 });
 
+test("preview maturity and compiled-fallback availability are independent runtime inventories", () => {
+  const evidence = JSON.parse(readFileSync(path.join(ROOT, "docs", "V0_3_0_RELEASE_EVIDENCE.json"), "utf8"));
+  assert.deepEqual(evidence.runtime.previewAgents, [
+    "backend-implementation-agent",
+    "desktop-platform-agent",
+    "mobile-platform-agent"
+  ]);
+  assert.deepEqual(evidence.runtime.agentsWithoutCompiledFallbacks, []);
+  assert.equal(Object.hasOwn(evidence.runtime, "previewNativeOnlyAgents"), false);
+  assert.deepEqual(renderStatusRuntimeBoundaryLines(evidence), [
+    "- Repo-local project agent files: 15 `.codex/agents/*.toml` files.",
+    "- Compiled fallbacks: 15 `compiled-agents/*.compiled.md` files.",
+    "- Preview agents: `backend-implementation-agent`, `desktop-platform-agent`, `mobile-platform-agent`.",
+    "- Agents without compiled fallbacks: none."
+  ]);
+});
+
 test("managed release summaries distinguish global actionable and release-blocking sources", () => {
   const evidence = JSON.parse(readFileSync(path.join(ROOT, "docs", "V0_3_0_RELEASE_EVIDENCE.json"), "utf8"));
   const summary = renderReleaseEvidenceSummaryBlock(evidence);

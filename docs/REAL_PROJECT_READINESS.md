@@ -32,7 +32,7 @@ Before the first real-project pilot, run a fresh-session smoke test and record a
 - The exact toolkit commit being certified.
 - `governance` is visible in the new session.
 - Retired helper aliases are not silently assumed active.
-- The 15 registry-declared agents report native-visible TOML file presence and compiled fallback file presence separately; three preview specialists—backend implementation, mobile platform, and desktop platform—are native-only.
+- The 15 registry-declared agents report native-visible TOML file presence and compiled fallback file presence separately; all have compiled fallbacks, while backend implementation, mobile platform, and desktop platform remain preview.
 - Superpowers, GSD, GitHub/gh, browser/Playwright, Supabase, CodeRabbit, and other support tools are reported as available, unavailable with fallback, or not needed.
 - No fallback from native agent to compiled instructions is hidden.
 - No agent spawn, delegated review, or runtime execution is claimed from file presence alone.

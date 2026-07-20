@@ -1,7 +1,7 @@
 # AI Vibe Coding Toolkit
 
 <!-- v0.3-release-evidence:start -->
-> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 69.4% median input-token reduction). Sources: 80 actionable globally, 8 release-blocking for enterprise-core, 72 release-nonblocking, 0 approved receipts. Runtime: 5 skills, 15 native agents, 12 compiled fallbacks; host bridge absent.
+> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 69.4% median input-token reduction). Sources: 80 actionable globally, 8 release-blocking for enterprise-core, 72 release-nonblocking, 0 approved receipts. Runtime: 5 skills, 15 native agents, 15 compiled fallbacks; host bridge absent.
 <!-- v0.3-release-evidence:end -->
 
 AI Vibe Coding Toolkit is a documentation-first governance repository for AI coding-agent workflows. It standardizes reviewed methods, source provenance, validated agents, activation boundaries, and controlled sync artifacts so teams can scale high-quality AI-assisted engineering without copying raw external runtime behavior.
@@ -43,7 +43,7 @@ The toolkit defines how to discover, evaluate, and operationalize reusable AI co
 - **Validators**: command-gated checks for runtime consistency, package surface rules, and public/private safety policy.
 - **Source records**: explicit provenance records (license, freshness, trust review, extraction limits).
 
-Current v0.3 candidate runtime is **5 skills + 15 repo-local agent files**. Twelve agents have compiled fallbacks; the backend implementation, mobile platform, and desktop platform specialists remain preview, native-only agents until fallback contracts and bounded pilots are explicitly completed. Agent file presence, compiled fallback presence, registry recommendation, inline fallback use, and actual spawned-agent proof are separate facts.
+Current v0.3 candidate runtime is **5 skills + 15 repo-local agent files**, with a compiled fallback for every agent. The backend implementation, mobile platform, and desktop platform specialists remain preview until bounded native pilots are explicitly completed. Agent file presence, inline compiled-fallback availability, registry recommendation, native runtime/tool support, and actual spawned-agent proof are separate facts.
 
 ## Quick start
 
@@ -93,7 +93,7 @@ There is no dependency install step for the toolkit itself. Do not run `npm inst
 
 Public-facing status:
 
-- The v0.3 candidate runtime is **5 skills and 15 native agent definitions**, with **12 compiled fallbacks** and three preview native-only specialists.
+- The v0.3 candidate runtime is **5 skills and 15 native agent definitions**, with **15 compiled fallbacks** and three preview specialists.
 - Public package validation can pass while still not proving whole-repo publication readiness.
 - `v0.2.5` remains the controlled toolkit release until a reviewed v0.3 commit passes the release profile and receives explicit tag/release authorization.
 - External submissions, marketplace listings, package publication, and broader runtime support remain separate approval-gated actions.

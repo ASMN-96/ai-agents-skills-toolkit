@@ -6,6 +6,34 @@ export const COMPILER_DIGEST_PATHS = Object.freeze([
   "install/safe-filesystem.mjs"
 ]);
 
+export function resolveProfileSourcePath(profile) {
+  const profileName = typeof profile?.name === "string" && profile.name.trim()
+    ? profile.name.trim()
+    : "<unknown>";
+  const provenance = profile?.sourceProvenance;
+  if (!Array.isArray(provenance) || provenance.length !== 1) {
+    throw new Error(
+      `profile ${profileName} sourceProvenance must contain exactly one canonical profile Markdown path`
+    );
+  }
+
+  const sourcePath = provenance[0]?.path;
+  if (
+    typeof sourcePath !== "string"
+    || sourcePath.length === 0
+    || sourcePath.includes("\\")
+    || !sourcePath.startsWith("profiles/")
+    || !sourcePath.endsWith(".md")
+    || sourcePath === "profiles/.md"
+    || sourcePath.split("/").some((segment) => segment === "" || segment === "." || segment === "..")
+  ) {
+    throw new Error(
+      `profile ${profileName} sourceProvenance must contain one normalized path below profiles/ ending in .md`
+    );
+  }
+  return sourcePath;
+}
+
 export function digestCanonicalCompilerInputs(inputs) {
   if (!Array.isArray(inputs) || inputs.length === 0) {
     throw new TypeError("canonical compiler digest inputs must be a non-empty array");

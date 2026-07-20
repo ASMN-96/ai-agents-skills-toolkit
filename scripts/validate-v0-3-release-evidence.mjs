@@ -319,14 +319,19 @@ export function renderReleaseEvidenceSummaryBlock(evidence) {
 }
 
 export function renderStatusRuntimeBoundaryLines(evidence) {
-  const nativeOnlyAgents = [...evidence.runtime.previewNativeOnlyAgents]
+  const previewAgents = [...evidence.runtime.previewAgents]
     .sort()
     .map((agentId) => `\`${agentId}\``)
     .join(", ");
+  const agentsWithoutCompiledFallbacks = [...evidence.runtime.agentsWithoutCompiledFallbacks]
+    .sort()
+    .map((agentId) => `\`${agentId}\``)
+    .join(", ") || "none";
   return [
     `- Repo-local project agent files: ${evidence.runtime.nativeAgentDefinitions} \`.codex/agents/*.toml\` files.`,
     `- Compiled fallbacks: ${evidence.runtime.compiledFallbacks} \`compiled-agents/*.compiled.md\` files.`,
-    `- Preview native-only agents: ${nativeOnlyAgents}.`
+    `- Preview agents: ${previewAgents}.`,
+    `- Agents without compiled fallbacks: ${agentsWithoutCompiledFallbacks}.`
   ];
 }
 
@@ -501,14 +506,23 @@ function validateRuntimeState(root, evidence) {
     integritySnapshot(lstatSync(fallbackRoot, { bigint: true })),
     "compiled-agent-inventory"
   );
-  const nativeOnly = agents
-    .filter((agent) => agent.compiledFallbackPath === null)
+  const previewAgents = agents
+    .filter((agent) => Array.isArray(agent.status) && agent.status.includes("preview"))
+    .map((agent) => agent.name)
+    .sort();
+  const agentsWithoutCompiledFallbacks = agents
+    .filter((agent) => !agent.compiledFallbackPath)
     .map((agent) => agent.name)
     .sort();
   assertEqual(skills.length, evidence.runtime.canonicalSkills, "runtime-skill-count");
   assertEqual(agents.length, evidence.runtime.nativeAgentDefinitions, "runtime-agent-count");
   assertEqual(fallbacks.length, evidence.runtime.compiledFallbacks, "runtime-fallback-count");
-  assertEqual(nativeOnly, [...evidence.runtime.previewNativeOnlyAgents].sort(), "runtime-native-only-agents");
+  assertEqual(previewAgents, [...evidence.runtime.previewAgents].sort(), "runtime-preview-agents");
+  assertEqual(
+    agentsWithoutCompiledFallbacks,
+    [...evidence.runtime.agentsWithoutCompiledFallbacks].sort(),
+    "runtime-agents-without-compiled-fallbacks"
+  );
 }
 
 async function validateBenchmarkState(root, evidence) {

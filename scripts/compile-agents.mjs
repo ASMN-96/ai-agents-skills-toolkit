@@ -15,7 +15,8 @@ import {
 import {
   COMPILER_DIGEST_PATHS,
   createCompilerPromotionValidator,
-  digestCanonicalCompilerInputs
+  digestCanonicalCompilerInputs,
+  resolveProfileSourcePath
 } from "./ai-toolkit/compiler-provenance.mjs";
 
 const ROOT = process.cwd();
@@ -426,7 +427,12 @@ async function compileAgent(agent, registries, commit, inputDigest, compilerHash
   if (approved && qualityIssues.length > 0) {
     throw new Error(`approved agent ${agent.name} cannot compile as approved: ${qualityIssues.join("; ")}`);
   }
-  const profileRefs = asArray(agent.profiles).filter((profile) => registries.profiles.has(profile));
+  const profileRefs = asArray(agent.profiles)
+    .filter((profile) => registries.profiles.has(profile))
+    .map((profile) => ({
+      name: profile,
+      sourcePath: resolveProfileSourcePath(registries.profiles.get(profile))
+    }));
   const methodRefs = [];
 
   for (const method of registries.methods.values()) {
@@ -455,7 +461,7 @@ async function compileAgent(agent, registries, commit, inputDigest, compilerHash
 
   const profileSections = [];
   for (const profile of profileRefs) {
-    profileSections.push(`### ${profile}\n\n${summarize(await readText(`profiles/${profile}.md`), 10) || "No profile body available."}`);
+    profileSections.push(`### ${profile.name}\n\n${summarize(await readText(profile.sourcePath), 10) || "No profile body available."}`);
   }
 
   const methodSections = [];
@@ -481,7 +487,7 @@ compiler_digest: ${compilerHash}
 source_agent: ${sourceAgent}
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
-source_profile_refs: ${blockList(profileRefs.map((profile) => `profiles/${profile}.md`))}
+source_profile_refs: ${blockList(profileRefs.map((profile) => profile.sourcePath))}
 source_method_refs: ${blockList(methodRefs)}
 compile_contract_version: ${COMPILE_CONTRACT_VERSION}
 ---
@@ -511,7 +517,7 @@ ${methodSections.length > 0 ? methodSections.join("\n\n") : "No passive method r
 - Compiler digest: \`${compilerHash}\`
 - Compiler: \`scripts/compile-agents.mjs\`
 - Agent registry input: \`registries/agents.registry.json\`
-- Profile paths: ${profileRefs.length > 0 ? profileRefs.map((profile) => `\`profiles/${profile}.md\``).join(", ") : "none"}
+- Profile paths: ${profileRefs.length > 0 ? profileRefs.map((profile) => `\`${profile.sourcePath}\``).join(", ") : "none"}
 - Method IDs: ${methodRefs.length > 0 ? methodRefs.map((method) => `\`${method}\``).join(", ") : "none"}
 - Inherited sourceRef IDs: ${inheritedSourceRefs.size > 0 ? [...inheritedSourceRefs].sort().map((ref) => `\`${ref}\``).join(", ") : "`unknown-review-required`"}
 - Registry files: \`registries/agents.registry.json\`, \`registries/profiles.registry.json\`, \`registries/methods.registry.json\`

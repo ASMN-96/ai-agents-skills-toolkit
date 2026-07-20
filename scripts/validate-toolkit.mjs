@@ -8,9 +8,11 @@ import { promisify } from "node:util";
 
 import {
   COMPILER_DIGEST_PATHS,
-  digestCanonicalCompilerInputs
+  digestCanonicalCompilerInputs,
+  resolveProfileSourcePath
 } from "./ai-toolkit/compiler-provenance.mjs";
 import { embeddedValidatorPolicies } from "./ai-toolkit/subvalidator-policy.mjs";
+import { assertRegularFileWithin } from "../install/safe-filesystem.mjs";
 
 const ROOT = process.cwd();
 const execFileAsync = promisify(execFile);
@@ -685,6 +687,7 @@ async function validateRegistries(parsed, sourceRecords, watchlist) {
   const agents = byName(agentsRegistry?.agents);
   const agentDisplays = new Set(asArray(agentsRegistry?.agents).map((agent) => agent.displayName));
   const profiles = byName(profilesRegistry?.profiles);
+  const profileSourcePaths = new Map();
   const methods = byName(methodsRegistry?.methods, "id");
   const tools = byName(toolsRegistry?.tools, "id");
   const watchlistRecordPaths = new Set(asArray(watchlist?.sources).map((source) => source.sourceRecordPath));
@@ -714,6 +717,13 @@ async function validateRegistries(parsed, sourceRecords, watchlist) {
     requireKnown("referenced agents", `profiles.registry:${name}`, profile.agents, agents, "agent");
     requireKnown("referenced skills", `profiles.registry:${name}`, profile.skills, skills, "skill");
     await validateSourceProvenance(`profiles.registry:${name}`, profile.sourceProvenance, sourceRecords, watchlistRecordPaths);
+    try {
+      const sourcePath = resolveProfileSourcePath(profile);
+      assertRegularFileWithin(ROOT, rootPath(sourcePath), `canonical profile source ${name}`);
+      profileSourcePaths.set(name, sourcePath);
+    } catch (error) {
+      fail("profile source provenance", `profiles.registry:${name}`, error.message);
+    }
   }
 
   for (const [id, method] of methods) {
@@ -741,7 +751,7 @@ async function validateRegistries(parsed, sourceRecords, watchlist) {
     requireKnown("referenced methods", location, scenario.methodReferences, methods, "method");
   }
 
-  return { skills, agents, profiles, methods, tools, routingMatrix };
+  return { skills, agents, profiles, profileSourcePaths, methods, tools, routingMatrix };
 }
 
 async function validateAgentsAndCompiledFallbacks(registryState) {
@@ -828,7 +838,8 @@ async function validateAgentsAndCompiledFallbacks(registryState) {
 
     const expectedProfileRefs = asArray(agent.profiles)
       .filter((profile) => registryState.profiles.has(profile))
-      .map((profile) => `profiles/${profile}.md`);
+      .map((profile) => registryState.profileSourcePaths.get(profile))
+      .filter(Boolean);
     const actualProfileRefs = parseFrontmatterArray(frontmatter.source_profile_refs);
     if (!arraysEqual(actualProfileRefs, expectedProfileRefs)) {
       fail("compiled agent parity", compiledPath, `source_profile_refs drift; expected ${JSON.stringify(expectedProfileRefs)}, got ${JSON.stringify(actualProfileRefs)}`);

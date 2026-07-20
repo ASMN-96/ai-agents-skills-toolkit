@@ -143,7 +143,12 @@ Return findings first, then assumptions, verification status, residual risk, and
         activationStatus: ["approved"]
       }]
     }, null, 2)}\n`, "utf8");
-    writeFileSync(path.join(fixture, "registries", "profiles.registry.json"), `${JSON.stringify({ profiles: [{ name: "audit-profile" }] }, null, 2)}\n`, "utf8");
+    writeFileSync(path.join(fixture, "registries", "profiles.registry.json"), `${JSON.stringify({
+      profiles: [{
+        name: "audit-profile",
+        sourceProvenance: [{ path: "profiles/audit-profile.md", category: "internal-artifact" }]
+      }]
+    }, null, 2)}\n`, "utf8");
     writeFileSync(path.join(fixture, "registries", "methods.registry.json"), `${JSON.stringify({
       methods: [{
         id: "internal.review",
@@ -199,6 +204,59 @@ test("confirm-write generates metadata-rich compiled agent and reports provenanc
     assert.match(compiled, /internal\.review/);
     assert.equal(compiledSourceCommit(fixture), latestCanonicalSourceCommit(fixture));
   });
+});
+
+test("profile source paths come from registry provenance and support contained nested files", async () => {
+  await withCompilerFixture(async (fixture) => {
+    const nestedProfile = "profiles/project-tooling/mobile-webview.md";
+    mkdirSync(path.join(fixture, "profiles", "project-tooling"), { recursive: true });
+    writeFileSync(path.join(fixture, nestedProfile), "# Mobile WebView Profile\n\nUse bounded mobile tooling.\n", "utf8");
+
+    const agentsPath = path.join(fixture, "registries", "agents.registry.json");
+    const agents = JSON.parse(readFileSync(agentsPath, "utf8"));
+    agents.agents[0].profiles = ["project-tooling-mobile-webview"];
+    writeFileSync(agentsPath, `${JSON.stringify(agents, null, 2)}\n`, "utf8");
+
+    const profilesPath = path.join(fixture, "registries", "profiles.registry.json");
+    writeFileSync(profilesPath, `${JSON.stringify({
+      profiles: [{
+        name: "project-tooling-mobile-webview",
+        sourceProvenance: [{ path: nestedProfile, category: "toolkit-authored" }]
+      }]
+    }, null, 2)}\n`, "utf8");
+    gitCommitAll(fixture, "nested profile fixture");
+
+    const result = await runCompiler(fixture, ["--confirm-write"]);
+
+    assert.equal(result.code, 0, result.stderr);
+    const compiled = readFileSync(path.join(fixture, "compiled-agents", "reviewer-agent.compiled.md"), "utf8");
+    assert.match(compiled, /source_profile_refs: \["profiles\/project-tooling\/mobile-webview\.md"\]/u);
+    assert.match(compiled, /Profile paths: `profiles\/project-tooling\/mobile-webview\.md`/u);
+    assert.match(compiled, /Use bounded mobile tooling\./u);
+  });
+});
+
+test("profile source provenance fails closed when missing, ambiguous, or outside profiles", async () => {
+  for (const sourceProvenance of [
+    [],
+    [
+      { path: "profiles/audit-profile.md", category: "internal-artifact" },
+      { path: "profiles/second.md", category: "internal-artifact" }
+    ],
+    [{ path: "agents/reviewer-agent.md", category: "internal-artifact" }]
+  ]) {
+    await withCompilerFixture(async (fixture) => {
+      const profilesPath = path.join(fixture, "registries", "profiles.registry.json");
+      const registry = JSON.parse(readFileSync(profilesPath, "utf8"));
+      registry.profiles[0].sourceProvenance = sourceProvenance;
+      writeFileSync(profilesPath, `${JSON.stringify(registry, null, 2)}\n`, "utf8");
+
+      const result = await runCompiler(fixture, ["--dry-run"]);
+
+      assert.notEqual(result.code, 0);
+      assert.match(result.stderr, /profile.*sourceProvenance|canonical profile.*path/i);
+    });
+  }
 });
 
 test("canonical agent sources reject generated compile provenance metadata", async () => {
