@@ -11,6 +11,7 @@ import { buildExecutionEvidenceRecord } from "./kernel/evidence.mjs";
 import { assertSafeTextContent } from "./kernel/project-inspector.mjs";
 import { buildResourceCatalog } from "./kernel/resource-catalog.mjs";
 import { selectResources } from "./kernel/resource-router.mjs";
+import { assertScenarioPolicyRegistry, resolveScenarioPolicy } from "./kernel/scenario-policy.mjs";
 
 const MODULE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const BENCHMARK_RELATIVE_PATH = "evals/routing/enterprise-delivery-benchmark.json";
@@ -25,6 +26,7 @@ const REQUIRED_CATEGORIES = Object.freeze([
 const RISKS = new Set(["low", "medium", "high", "critical"]);
 
 export const BENCHMARK_RUNS_PER_VARIANT = 3;
+export const BENCHMARK_SCHEMA_VERSION = "1.1.0";
 export const DEFAULT_BENCHMARK_PATH = path.join(MODULE_ROOT, BENCHMARK_RELATIVE_PATH);
 
 function stableStrings(values) {
@@ -50,8 +52,8 @@ function assertStringArray(value, label, { allowEmpty = true } = {}) {
 }
 
 function assertBenchmarkFixture(fixture) {
-  if (!isPlainRecord(fixture) || fixture.schemaVersion !== "1.0.0") {
-    throw new Error("enterprise benchmark requires schemaVersion 1.0.0");
+  if (!isPlainRecord(fixture) || fixture.schemaVersion !== BENCHMARK_SCHEMA_VERSION) {
+    throw new Error(`enterprise benchmark requires schemaVersion ${BENCHMARK_SCHEMA_VERSION}`);
   }
   if (fixture.runsPerVariant !== BENCHMARK_RUNS_PER_VARIANT) {
     throw new Error(`enterprise benchmark requires exactly ${BENCHMARK_RUNS_PER_VARIANT} runs per variant`);
@@ -83,6 +85,18 @@ function assertBenchmarkFixture(fixture) {
     assertStringArray(task.targets.frameworkOverlays, `${label}.targets.frameworkOverlays`);
     assertStringArray(task.environmentCapabilities, `${label}.environmentCapabilities`);
     assertStringArray(task.authorizedActions, `${label}.authorizedActions`, { allowEmpty: false });
+    const authorizesWrite = task.authorizedActions.includes("scoped-local-write");
+    if (authorizesWrite) {
+      if (
+        typeof task.expectedWriterResourceId !== "string"
+        || task.expectedWriterResourceId === ""
+        || task.expectedWriterResourceId !== task.expectedWriterResourceId.trim()
+      ) {
+        throw new Error(`${label}.expectedWriterResourceId must name the intended writer for a write task`);
+      }
+    } else if (task.expectedWriterResourceId !== null) {
+      throw new Error(`${label}.expectedWriterResourceId must be null for a read-only task`);
+    }
     assertStringArray(task.additionalCompetencies, `${label}.additionalCompetencies`);
     assertStringArray(task.goldenSelectedResourceIds, `${label}.goldenSelectedResourceIds`, { allowEmpty: false });
     if (
@@ -101,17 +115,19 @@ function assertBenchmarkFixture(fixture) {
 }
 
 async function loadCanonicalState(root, benchmarkPath) {
-  const [fixture, agentsRegistry, skillsRegistry, toolsRegistry, domainRegistry] = await Promise.all([
+  const [fixture, agentsRegistry, skillsRegistry, toolsRegistry, domainRegistry, routingMatrix] = await Promise.all([
     readCanonicalJsonWithin(root, benchmarkPath, "enterprise delivery benchmark fixture"),
     readCanonicalJsonWithin(root, path.join(root, "registries/agents.registry.json"), "agent registry"),
     readCanonicalJsonWithin(root, path.join(root, "registries/skills.registry.json"), "skill registry"),
     readCanonicalJsonWithin(root, path.join(root, "registries/tools.registry.json"), "tool registry"),
-    readCanonicalJsonWithin(root, path.join(root, "registries/domain-packs.registry.json"), "domain registry")
+    readCanonicalJsonWithin(root, path.join(root, "registries/domain-packs.registry.json"), "domain registry"),
+    readCanonicalJsonWithin(root, path.join(root, "registries/routing-matrix.json"), "scenario-policy registry")
   ]);
   return {
     fixture: assertBenchmarkFixture(fixture),
     resources: buildResourceCatalog({ repositoryRoot: root, agentsRegistry, skillsRegistry, toolsRegistry }),
-    domainRegistry
+    domainRegistry,
+    routingMatrix: assertScenarioPolicyRegistry(routingMatrix)
   };
 }
 
@@ -214,13 +230,30 @@ function notMeasuredDimensions() {
   ].map((dimension) => [dimension, { status: "notMeasured", reason }]));
 }
 
+export function benchmarkStaticGatePassed(measured) {
+  return measured.mandatoryCompetencyCoverage === 1
+    && measured.domainGateCoverage === 1
+    && measured.exactGoldenRouting >= 0.9
+    && measured.unsafeActivationCases === 0
+    && measured.writerIntentMismatches === 0
+    && measured.falseReadyCases === 0
+    && measured.secretLeakCases === 0
+    && measured.containmentEscapeCases === 0
+    && measured.unauthorizedWriteCases === 0
+    && measured.redundantInvocationRate <= 0.05
+    && measured.medianInputTokenReduction >= 0.25;
+}
+
 export async function runEnterpriseDeliveryBenchmark({
   root = MODULE_ROOT,
   benchmarkPath = path.join(root, BENCHMARK_RELATIVE_PATH)
 } = {}) {
   const canonicalRoot = path.resolve(root);
   const canonicalBenchmarkPath = path.resolve(benchmarkPath);
-  const { fixture, resources, domainRegistry } = await loadCanonicalState(canonicalRoot, canonicalBenchmarkPath);
+  const { fixture, resources, domainRegistry, routingMatrix } = await loadCanonicalState(
+    canonicalRoot,
+    canonicalBenchmarkPath
+  );
   const baselineResources = resources.filter(isEligibleBaselineResource);
   if (baselineResources.length === 0) throw new Error("enterprise benchmark has no eligible baseline resources");
 
@@ -233,6 +266,7 @@ export async function runEnterpriseDeliveryBenchmark({
   let unsafeActivationCases = 0;
   let redundantSelections = 0;
   let candidateSelections = 0;
+  let writerIntentMismatches = 0;
   const tokenReductions = [];
 
   for (const benchmarkTask of fixture.tasks) {
@@ -247,10 +281,25 @@ export async function runEnterpriseDeliveryBenchmark({
       },
       environmentCapabilities: benchmarkTask.environmentCapabilities
     });
-    const requiredCompetencies = stableStrings([
-      ...domain.requiredCompetencies,
-      ...benchmarkTask.additionalCompetencies
-    ]);
+    const scenarioPolicy = resolveScenarioPolicy({
+      registry: routingMatrix,
+      scenario: benchmarkTask.scenario,
+      risk: benchmarkTask.risk,
+      domainPolicy: {
+        requiredCompetencies: domain.requiredCompetencies,
+        requiredGateIds: domain.resolvedGateIds,
+        requiredDomainPackIds: domain.selectedPackIds
+      },
+      additions: {
+        competencies: benchmarkTask.additionalCompetencies,
+        gateIds: [],
+        domainPackIds: []
+      }
+    });
+    if (JSON.stringify(scenarioPolicy.requiredRoles) !== JSON.stringify(benchmarkTask.requiredRoles)) {
+      throw new Error(`${benchmarkTask.id} requiredRoles do not match resolved scenario policy`);
+    }
+    const requiredCompetencies = stableStrings(scenarioPolicy.requiredCompetencies);
     const counterexample = cloneQuarantinedCounterexample(
       baselineResources[0],
       benchmarkTask.id,
@@ -261,7 +310,8 @@ export async function runEnterpriseDeliveryBenchmark({
         id: benchmarkTask.id,
         risk: benchmarkTask.risk,
         requiredCompetencies,
-        requiredRoles: benchmarkTask.requiredRoles,
+        requiredRoles: scenarioPolicy.requiredRoles,
+        resourcePreferences: scenarioPolicy.resourcePreferences,
         targets: benchmarkTask.targets,
         authorizedActions: benchmarkTask.authorizedActions
       },
@@ -269,10 +319,20 @@ export async function runEnterpriseDeliveryBenchmark({
     });
     const covered = selectedCompetencies(routing.selected);
     const missingCompetencies = requiredCompetencies.filter((competency) => !covered.has(competency));
+    const requiredGateIds = new Set(scenarioPolicy.requiredGateIds);
     const missingGateIds = domain.gates
+      .filter((gate) => requiredGateIds.has(gate.id))
       .filter((gate) => gate.requiredCompetencies.some((competency) => !covered.has(competency)))
       .map(({ id }) => id);
+    const blockedGateIds = domain.blockedGateIds.filter((gateId) => requiredGateIds.has(gateId));
     const selectedIds = stableStrings(routing.selected.map(({ id }) => id));
+    const selectedWriterResourceIds = stableStrings(routing.selected
+      .filter((resource) => resource.runtimePosture?.sandboxMode === "workspace-write")
+      .map(({ id }) => id));
+    const expectedWriterResourceIds = benchmarkTask.expectedWriterResourceId === null
+      ? []
+      : [benchmarkTask.expectedWriterResourceId];
+    const writerIntentMatched = sameStringSet(selectedWriterResourceIds, expectedWriterResourceIds);
     const goldenMatched = sameStringSet(selectedIds, benchmarkTask.goldenSelectedResourceIds);
     const baselineTokens = resourceTokens(baselineResources);
     const candidateTokens = resourceTokens(routing.selected);
@@ -280,13 +340,14 @@ export async function runEnterpriseDeliveryBenchmark({
 
     requiredCompetencyCount += requiredCompetencies.length;
     coveredCompetencyCount += requiredCompetencies.length - missingCompetencies.length;
-    requiredGateCount += domain.resolvedGateIds.length;
-    coveredGateCount += domain.resolvedGateIds.length
-      - new Set([...domain.blockedGateIds, ...missingGateIds]).size;
+    requiredGateCount += scenarioPolicy.requiredGateIds.length;
+    coveredGateCount += scenarioPolicy.requiredGateIds.length
+      - new Set([...blockedGateIds, ...missingGateIds]).size;
     if (goldenMatched) exactGoldenCount += 1;
     unsafeActivationCases += routing.selected.filter((resource) => !isEligibleBaselineResource(resource)).length;
     redundantSelections += countRedundantSelections(routing, requiredCompetencies);
     candidateSelections += routing.selected.length;
+    if (!writerIntentMatched) writerIntentMismatches += 1;
 
     const baselineRuns = [];
     const candidateRuns = [];
@@ -312,10 +373,13 @@ export async function runEnterpriseDeliveryBenchmark({
       id: benchmarkTask.id,
       category: benchmarkTask.category,
       domainPackIds: domain.selectedPackIds,
-      requiredGateIds: domain.resolvedGateIds,
-      blockedGateIds: domain.blockedGateIds,
+      requiredGateIds: scenarioPolicy.requiredGateIds,
+      blockedGateIds,
       targets: structuredClone(benchmarkTask.targets),
       authorizedActions: [...benchmarkTask.authorizedActions],
+      expectedWriterResourceId: benchmarkTask.expectedWriterResourceId,
+      selectedWriterResourceIds,
+      writerIntentMatched,
       requiredCompetencies,
       missingCompetencies,
       missingGateIds,
@@ -334,20 +398,12 @@ export async function runEnterpriseDeliveryBenchmark({
     domainGateCoverage: coveredGateCount / requiredGateCount,
     exactGoldenRouting: exactGoldenCount / fixture.tasks.length,
     unsafeActivationCases,
+    writerIntentMismatches,
     ...safety,
     redundantInvocationRate: candidateSelections === 0 ? 1 : redundantSelections / candidateSelections,
     medianInputTokenReduction: median(tokenReductions)
   };
-  const staticGatePassed = measured.mandatoryCompetencyCoverage === 1
-    && measured.domainGateCoverage === 1
-    && measured.exactGoldenRouting >= 0.9
-    && measured.unsafeActivationCases === 0
-    && measured.falseReadyCases === 0
-    && measured.secretLeakCases === 0
-    && measured.containmentEscapeCases === 0
-    && measured.unauthorizedWriteCases === 0
-    && measured.redundantInvocationRate <= 0.05
-    && measured.medianInputTokenReduction >= 0.25;
+  const staticGatePassed = benchmarkStaticGatePassed(measured);
   const releaseBlockers = [
     "runtime-host-bridge-unavailable",
     "human-and-pilot-evidence-not-measured"
@@ -355,7 +411,7 @@ export async function runEnterpriseDeliveryBenchmark({
   if (!staticGatePassed) releaseBlockers.unshift("static-benchmark-thresholds-failed");
 
   return {
-    schemaVersion: "1.0.0",
+    schemaVersion: BENCHMARK_SCHEMA_VERSION,
     benchmarkDigest: canonicalDigest(fixture, "enterprise benchmark fixture"),
     resourceCatalogDigest: canonicalDigest(resources, "enterprise benchmark resource catalog"),
     taskCount: fixture.tasks.length,

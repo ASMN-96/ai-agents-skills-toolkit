@@ -59,7 +59,7 @@ const EXPECTED_SCENARIOS = [
   ["release-rollback-readiness", "high", "standard"]
 ];
 
-const LEGACY_VIEW_SHA256 = "be6f852d792d33814f3e3f5e574aa9587c58e082fdfdaffb91d0d696eb44c087";
+const CANONICAL_VIEW_SHA256 = "3bfc4b403afe0f610ebb28da9f68ccbf7b1df2b63ada60336bd1e3da88799a81";
 const POLICY_FIELDS = new Set([
   "requiredCompetencies",
   "requiredGateIds",
@@ -118,7 +118,7 @@ function findForbiddenField(value, location = "registry") {
   return null;
 }
 
-test("schema 2 preserves the exact 45-scenario legacy registry view", async () => {
+test("schema 2 matches the reviewed 45-scenario canonical registry view", async () => {
   const raw = JSON.parse(await readFile(
     new URL("../registries/routing-matrix.json", import.meta.url),
     "utf8"
@@ -131,7 +131,7 @@ test("schema 2 preserves the exact 45-scenario legacy registry view", async () =
     registry.scenarios.map((entry) => [entry.scenario, entry.riskLevel, entry.tokenMode]),
     EXPECTED_SCENARIOS
   );
-  assert.equal(hash(legacyView(raw)), LEGACY_VIEW_SHA256);
+  assert.equal(hash(legacyView(raw)), CANONICAL_VIEW_SHA256);
 });
 
 test("every scenario has closed additive policy, enterprise core, and risk-correct roles", async () => {

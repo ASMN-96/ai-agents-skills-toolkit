@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "runsPerVariant": 3,
   "executionSettings": {
     "kind": "deterministic-static-policy",
@@ -10,14 +10,15 @@
     {
       "id": "BENCH-MAINT-01",
       "category": "maintenance",
-      "scenario": "large-governed-implementation",
+      "scenario": "react-code-quality",
       "risk": "medium",
       "targets": { "platforms": ["web-saas"], "frameworkOverlays": [] },
       "environmentCapabilities": ["node", "browser"],
       "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "expectedWriterResourceId": "frontend-agent",
       "additionalCompetencies": [],
       "requiredRoles": { "lead": "required", "verifier": "none" },
-      "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "product-agent", "security-review"]
+      "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "product-agent", "qa-test-agent", "security-review"]
     },
     {
       "id": "BENCH-WEB-01",
@@ -27,6 +28,7 @@
       "targets": { "platforms": ["web-saas"], "frameworkOverlays": [] },
       "environmentCapabilities": ["node", "browser"],
       "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "expectedWriterResourceId": "frontend-agent",
       "additionalCompetencies": [],
       "requiredRoles": { "lead": "required", "verifier": "independent" },
       "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
@@ -34,122 +36,132 @@
     {
       "id": "BENCH-WEB-UX-02",
       "category": "web-saas",
-      "scenario": "large-governed-implementation",
+      "scenario": "dashboard-ui-redesign",
       "risk": "medium",
       "targets": { "platforms": ["web-saas"], "frameworkOverlays": [] },
       "environmentCapabilities": ["node", "browser"],
       "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "expectedWriterResourceId": "frontend-agent",
       "additionalCompetencies": ["uiux", "accessibility", "design-system"],
       "requiredRoles": { "lead": "required", "verifier": "none" },
-      "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "product-agent", "security-review", "uiux-agent"]
+      "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "product-agent", "qa-test-agent", "security-review", "uiux-agent"]
     },
     {
       "id": "BENCH-API-01",
       "category": "api-data-security",
-      "scenario": "large-governed-implementation",
+      "scenario": "api-contract-change",
       "risk": "critical",
-      "targets": { "platforms": ["web-saas"], "frameworkOverlays": [] },
-      "environmentCapabilities": ["node", "browser"],
+      "targets": { "platforms": [], "frameworkOverlays": [] },
+      "environmentCapabilities": ["node"],
       "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "expectedWriterResourceId": "backend-implementation-agent",
       "additionalCompetencies": ["database"],
       "requiredRoles": { "lead": "required", "verifier": "independent" },
-      "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "pr-release-gate", "product-agent", "qa-test-agent", "reviewer-agent", "security-review", "sre-performance-agent"]
+      "goldenSelectedResourceIds": ["architect-agent", "backend-implementation-agent", "database-rls-agent", "pr-release-gate", "product-agent", "qa-test-agent", "reviewer-agent", "security-review", "sre-performance-agent"]
     },
     {
       "id": "BENCH-IOS-01",
       "category": "mobile",
-      "scenario": "large-governed-implementation",
+      "scenario": "mobile-native-app-quality",
       "risk": "high",
       "targets": { "platforms": ["ios"], "frameworkOverlays": [] },
       "environmentCapabilities": ["macos", "xcode", "simulator-or-device"],
       "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "expectedWriterResourceId": "mobile-platform-agent",
       "additionalCompetencies": [],
       "requiredRoles": { "lead": "required", "verifier": "independent" },
-      "goldenSelectedResourceIds": ["architect-agent", "mobile-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+      "goldenSelectedResourceIds": ["architect-agent", "mobile-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent", "uiux-agent"]
     },
     {
       "id": "BENCH-ANDROID-02",
       "category": "mobile",
-      "scenario": "large-governed-implementation",
+      "scenario": "mobile-native-app-quality",
       "risk": "high",
       "targets": { "platforms": ["android"], "frameworkOverlays": [] },
       "environmentCapabilities": ["android-sdk", "emulator-or-device"],
       "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "expectedWriterResourceId": "mobile-platform-agent",
       "additionalCompetencies": [],
       "requiredRoles": { "lead": "required", "verifier": "independent" },
-      "goldenSelectedResourceIds": ["architect-agent", "mobile-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+      "goldenSelectedResourceIds": ["architect-agent", "mobile-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent", "uiux-agent"]
     },
     {
       "id": "BENCH-EXPO-03",
       "category": "mobile",
-      "scenario": "large-governed-implementation",
+      "scenario": "mobile-native-app-quality",
       "risk": "high",
       "targets": { "platforms": ["ios"], "frameworkOverlays": ["expo-react-native"] },
       "environmentCapabilities": ["macos", "xcode", "simulator-or-device", "node"],
       "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "expectedWriterResourceId": "mobile-platform-agent",
       "additionalCompetencies": [],
       "requiredRoles": { "lead": "required", "verifier": "independent" },
-      "goldenSelectedResourceIds": ["architect-agent", "mobile-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+      "goldenSelectedResourceIds": ["architect-agent", "mobile-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent", "uiux-agent"]
     },
     {
       "id": "BENCH-WINDOWS-01",
       "category": "desktop",
-      "scenario": "large-governed-implementation",
+      "scenario": "desktop-native-app-quality",
       "risk": "high",
       "targets": { "platforms": ["windows-desktop"], "frameworkOverlays": [] },
       "environmentCapabilities": ["windows", "native-packaging"],
       "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "expectedWriterResourceId": "desktop-platform-agent",
       "additionalCompetencies": [],
       "requiredRoles": { "lead": "required", "verifier": "independent" },
-      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent", "uiux-agent"]
     },
     {
       "id": "BENCH-MACOS-02",
       "category": "desktop",
-      "scenario": "large-governed-implementation",
+      "scenario": "desktop-native-app-quality",
       "risk": "medium",
       "targets": { "platforms": ["macos-desktop"], "frameworkOverlays": [] },
       "environmentCapabilities": ["macos", "xcode"],
       "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "expectedWriterResourceId": "desktop-platform-agent",
       "additionalCompetencies": [],
       "requiredRoles": { "lead": "required", "verifier": "none" },
-      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "sre-performance-agent"]
+      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "sre-performance-agent", "uiux-agent"]
     },
     {
       "id": "BENCH-ELECTRON-03",
       "category": "desktop",
-      "scenario": "large-governed-implementation",
+      "scenario": "desktop-native-app-quality",
       "risk": "high",
       "targets": { "platforms": ["windows-desktop"], "frameworkOverlays": ["electron"] },
       "environmentCapabilities": ["windows", "native-packaging", "node"],
       "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "expectedWriterResourceId": "desktop-platform-agent",
       "additionalCompetencies": [],
       "requiredRoles": { "lead": "required", "verifier": "independent" },
-      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent", "uiux-agent"]
     },
     {
       "id": "BENCH-TAURI-04",
       "category": "desktop",
-      "scenario": "large-governed-implementation",
+      "scenario": "desktop-native-app-quality",
       "risk": "high",
       "targets": { "platforms": ["windows-desktop"], "frameworkOverlays": ["tauri"] },
       "environmentCapabilities": ["windows", "native-packaging", "rust"],
       "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "expectedWriterResourceId": "desktop-platform-agent",
       "additionalCompetencies": [],
       "requiredRoles": { "lead": "required", "verifier": "independent" },
-      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent"]
+      "goldenSelectedResourceIds": ["architect-agent", "desktop-platform-agent", "pr-release-gate", "product-agent", "qa-test-agent", "security-agent", "sre-performance-agent", "uiux-agent"]
     },
     {
       "id": "BENCH-SOURCE-RELEASE-01",
       "category": "source-release",
-      "scenario": "large-governed-implementation",
+      "scenario": "release-readiness",
       "risk": "critical",
-      "targets": { "platforms": ["web-saas"], "frameworkOverlays": [] },
-      "environmentCapabilities": ["node", "browser"],
-      "authorizedActions": ["repository-read", "scoped-local-write", "project-validation"],
+      "targets": { "platforms": [], "frameworkOverlays": [] },
+      "environmentCapabilities": ["node"],
+      "authorizedActions": ["repository-read", "project-validation"],
+      "expectedWriterResourceId": null,
       "additionalCompetencies": ["source-safety", "freshness", "governance"],
       "requiredRoles": { "lead": "required", "verifier": "independent" },
-      "goldenSelectedResourceIds": ["architect-agent", "backend-contract-agent", "database-rls-agent", "frontend-agent", "pr-release-gate", "product-agent", "qa-test-agent", "reviewer-agent", "security-review", "skill-scout-agent", "sre-performance-agent"]
+      "goldenSelectedResourceIds": ["architect-agent", "pr-release-gate", "product-agent", "qa-test-agent", "reviewer-agent", "security-review", "skill-scout-agent", "sre-performance-agent"]
     }
   ]
 }
