@@ -1562,18 +1562,14 @@ test("manual receipt-backed freshness is validated against the catalog receipt a
   );
 });
 
-test("source governance release validation blocks generated drift and keeps review application dry-run unless confirmed", async () => {
+test("source governance validates a regenerated mirror and keeps review application dry-run unless confirmed", async () => {
   const validateScript = path.join(ROOT, "scripts", "validate-source-governance.mjs");
   const applyScript = path.join(ROOT, "scripts", "apply-source-review.mjs");
   const migrationScript = path.join(ROOT, "scripts", "migrate-source-catalog-v2.mjs");
-  await assert.rejects(
-    execFileAsync(process.execPath, [validateScript], { cwd: ROOT }),
-    (error) => {
-      assert.match(`${error.stdout}\n${error.stderr}`, /generated source catalog mirror drift detected/i);
-      return true;
-    },
-    "release validation must fail closed while the generated source catalog mirror is deferred"
-  );
+  const validation = await execFileAsync(process.execPath, [validateScript], { cwd: ROOT });
+  assert.match(validation.stdout, /PASS validate-source-governance/);
+  assert.match(validation.stdout, /"schemaVersion":"2\.1\.0"/);
+  assert.match(validation.stdout, /"releaseEligible":false/);
   const migration = await execFileAsync(process.execPath, [migrationScript], { cwd: ROOT });
   assert.match(migration.stdout, /"status":"already-v2\.1"/);
   assert.match(migration.stdout, /"sourceCount":80/);
