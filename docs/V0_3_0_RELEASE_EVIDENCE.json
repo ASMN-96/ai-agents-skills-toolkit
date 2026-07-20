@@ -21,7 +21,7 @@
     },
     "agentRegistry": {
       "path": "registries/agents.registry.json",
-      "sha256": "90ca1026eded3f473d2d95d35deacaf18f71b9a4c9a361ad4e53b1383003026e"
+      "sha256": "00c7fbd76f29c2711cdd3caa7bde8203fdce7c7099e31102b53431fec579630d"
     },
     "benchmarkFixture": {
       "path": "evals/routing/enterprise-delivery-benchmark.json",

@@ -4,8 +4,8 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: e5a0bb92e0a9d35c6efdd6f8dbc9b20e1e8dd0da
-input_digest: sha256:fefe304be6164a6de90b869cb60a42a343f556c79545b4cf752c4f6de8627fdd
+source_commit: 4f73505e0f9705f2c0cb1fa1728cb75616a8a5c7
+input_digest: sha256:c3f06c59c391fbfeb079543340e5fe55f51012cba5f4946498c9a607a5bb2145
 input_digest_scope: canonical-agent-inputs-v1
 compiler_digest: sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e
 source_agent: agents/database-rls-agent.md
@@ -328,7 +328,7 @@ Review application security risk at coding time across auth, authorization, tena
 ## Provenance
 
 - Source agent path: `agents/database-rls-agent.md`
-- Canonical input digest: `sha256:fefe304be6164a6de90b869cb60a42a343f556c79545b4cf752c4f6de8627fdd`
+- Canonical input digest: `sha256:c3f06c59c391fbfeb079543340e5fe55f51012cba5f4946498c9a607a5bb2145`
 - Compiler digest: `sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
