@@ -139,6 +139,50 @@ test("native definitions and registry agree on compiled fallback availability", 
   }
 });
 
+test("compiled-fallback markers exist iff registry paths and runtime presence exist", async () => {
+  const registry = JSON.parse(await regularFile("registries/agents.registry.json"));
+  const previewNames = new Set([
+    "backend-implementation-agent",
+    "mobile-platform-agent",
+    "desktop-platform-agent"
+  ]);
+
+  for (const agent of registry.agents) {
+    const expectedPath = `compiled-agents/${agent.name}.compiled.md`;
+    const hasFallbackPath = typeof agent.compiledFallbackPath === "string";
+    assert.equal(
+      agent.status.includes("compiled-fallback"),
+      hasFallbackPath,
+      `${agent.name} status marker/path parity`
+    );
+    assert.equal(
+      agent.activationStatus.includes("compiled-fallback"),
+      hasFallbackPath,
+      `${agent.name} activation marker/path parity`
+    );
+    assert.equal(
+      agent.runtimeFiles.compiledFallbackPresent,
+      hasFallbackPath,
+      `${agent.name} runtime presence/path parity`
+    );
+    assert.equal(
+      agent.runtimeFiles.compiledFallbackPath,
+      hasFallbackPath ? expectedPath : null,
+      `${agent.name} runtime path parity`
+    );
+    assert.equal(agent.compiledFallbackPath, hasFallbackPath ? expectedPath : null);
+
+    if (previewNames.has(agent.name)) {
+      assert.equal(agent.status.includes("preview"), true, `${agent.name} status must remain preview`);
+      assert.equal(
+        agent.activationStatus.includes("preview"),
+        true,
+        `${agent.name} activation status must remain preview`
+      );
+    }
+  }
+});
+
 test("preview lifecycle is explicit and consistent across canonical, native, and registry surfaces", async () => {
   const registry = JSON.parse(await regularFile("registries/agents.registry.json"));
   const byName = new Map(registry.agents.map((agent) => [agent.name, agent]));
