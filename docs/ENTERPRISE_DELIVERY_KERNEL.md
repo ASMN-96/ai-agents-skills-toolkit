@@ -40,11 +40,14 @@ output path, the request's `scoped-local-write` authorization, and the matching
 CLI authorization flag. Standalone serialized evidence remains untrusted and
 cannot produce verified readiness; see `docs/HOST_EXECUTION_BRIDGE.md`.
 
-Scenario `agents` and `skills`, plus support-tool entries that are canonical
-resource IDs, become priority inputs owned by the trusted routing policy. They
-are not a global allowlist and caller JSON cannot replace them. Routing output
-records selected preferred resources, selected fallbacks, and unselected
-preferences so policy drift remains reviewable.
+Scenario `agents` and `skills`, plus stable support-tool ID candidates, become
+priority inputs owned by the trusted routing policy. The governed resource
+catalog remains the tool source of truth: a tool preference applies only to an
+actual catalogued `tool`, while unknown IDs remain inert and visible as
+unselected preferences. Agent, skill, and tool categories stay type-bound;
+cross-category duplicates or a known resource in the wrong category fail
+closed. Preferences are not a global allowlist and caller JSON cannot replace
+them.
 
 `scoped-local-write` also creates a hard routing constraint: the selected team
 must contain an eligible workspace-write agent with the `implementation`

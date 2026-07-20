@@ -244,12 +244,17 @@ Each routing entry should include:
 `methodReferences` contains method IDs from `registries/methods.registry.json`. These references are passive guidance only; they do not change selected agents, skills, support tools, or approval requirements.
 
 Scenario `agents` and `skills` are immutable routing preferences, not a strict
-allowlist. A `supportTools` value participates only when it is already a
-canonical resource ID; descriptive or conditional prose remains passive
-guidance and never activates a tool. After mandatory competency, role, writer,
-and minimum-resource constraints, the router minimizes nonpreferred fallbacks
-before context cost and exposes deterministic preference accounting. Caller
-DeliveryRequest JSON cannot inject or replace these preferences.
+allowlist. Stable `supportTools` ID candidates that are not canonical agent or
+skill IDs enter the typed tool-preference channel; descriptive or conditional
+prose remains passive guidance. The governed resource catalog is the tool
+source of truth: only an exact `tool` resource match receives preference, while
+unknown IDs remain inert and visible as unselected preferences. Agent, skill,
+and tool categories stay type-bound in the router; cross-category duplicates
+or known IDs in the wrong category fail closed. After mandatory competency,
+role, writer, and minimum-resource constraints, the router minimizes
+nonpreferred fallbacks before context cost and exposes deterministic preference
+accounting. Caller DeliveryRequest JSON cannot inject or replace these
+preferences.
 
 ## Delivery-Kernel Resource Contract
 

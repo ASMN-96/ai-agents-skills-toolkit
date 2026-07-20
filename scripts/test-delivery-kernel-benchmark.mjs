@@ -35,6 +35,26 @@ test("enterprise benchmark is a deterministic 12-task, three-run baseline/candid
   assert.equal(JSON.stringify(first), JSON.stringify(second));
 });
 
+test("write benchmark tasks preserve explicit target intent and select a matching writer", async () => {
+  const fixture = JSON.parse(readFileSync(DEFAULT_BENCHMARK_PATH, "utf8"));
+  const fixtureById = new Map(fixture.tasks.map((task) => [task.id, task]));
+  const result = await runEnterpriseDeliveryBenchmark({ root: ROOT });
+
+  for (const taskResult of result.taskResults) {
+    const benchmarkTask = fixtureById.get(taskResult.id);
+    assert.deepEqual(taskResult.targets, benchmarkTask.targets, taskResult.id);
+    if (!benchmarkTask.authorizedActions.includes("scoped-local-write")) continue;
+
+    const platforms = new Set(benchmarkTask.targets.platforms);
+    const expectedWriter = platforms.has("web-saas")
+      ? "frontend-agent"
+      : platforms.has("ios") || platforms.has("android")
+        ? "mobile-platform-agent"
+        : "desktop-platform-agent";
+    assert.ok(taskResult.selectedResourceIds.includes(expectedWriter), taskResult.id);
+  }
+});
+
 test("measured static thresholds pass without manufacturing unavailable execution evidence", async () => {
   const result = await runEnterpriseDeliveryBenchmark({ root: ROOT });
 

@@ -262,6 +262,7 @@ export async function runEnterpriseDeliveryBenchmark({
         risk: benchmarkTask.risk,
         requiredCompetencies,
         requiredRoles: benchmarkTask.requiredRoles,
+        targets: benchmarkTask.targets,
         authorizedActions: benchmarkTask.authorizedActions
       },
       resources: [...resources, counterexample]
@@ -313,6 +314,7 @@ export async function runEnterpriseDeliveryBenchmark({
       domainPackIds: domain.selectedPackIds,
       requiredGateIds: domain.resolvedGateIds,
       blockedGateIds: domain.blockedGateIds,
+      targets: structuredClone(benchmarkTask.targets),
       authorizedActions: [...benchmarkTask.authorizedActions],
       requiredCompetencies,
       missingCompetencies,

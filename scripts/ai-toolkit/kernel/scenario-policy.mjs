@@ -662,7 +662,9 @@ export function resolveScenarioPolicy(input) {
   const resourcePreferences = {
     agentIds: [...policy.agents],
     skillIds: [...policy.skills],
-    toolIds: policy.supportTools.filter((value) => STABLE_ID.test(value))
+    toolIds: policy.supportTools.filter(
+      (value) => STABLE_ID.test(value) && !AGENT_IDS.has(value) && !SKILL_IDS.has(value)
+    )
   };
   const result = {
     scenario: policy.scenario,

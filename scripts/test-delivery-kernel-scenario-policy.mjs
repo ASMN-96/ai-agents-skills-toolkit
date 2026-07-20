@@ -231,7 +231,12 @@ test("resolver enforces risk and token floors and strengthens verifier role on e
 test("resolver preserves immutable scenario-owned agent, skill, and representable tool preferences", async () => {
   const registry = clone(await loadScenarioPolicyRegistry());
   const policy = scenario(registry, "frontend-ui-bug");
-  policy.supportTools.push("playwright");
+  policy.supportTools.push(
+    "playwright",
+    "backend-implementation-agent",
+    "security-review",
+    "not-registered-tool"
+  );
   const validated = assertScenarioPolicyRegistry(registry);
 
   const result = resolveScenarioPolicy({
@@ -242,7 +247,7 @@ test("resolver preserves immutable scenario-owned agent, skill, and representabl
   assert.deepEqual(result.resourcePreferences, {
     agentIds: [...policy.agents],
     skillIds: [...policy.skills],
-    toolIds: ["playwright"]
+    toolIds: ["playwright", "not-registered-tool"]
   });
   assert.equal(Object.isFrozen(result.resourcePreferences), true);
   assert.equal(Object.isFrozen(result.resourcePreferences.agentIds), true);

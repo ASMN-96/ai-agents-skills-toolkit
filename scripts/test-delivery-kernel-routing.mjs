@@ -342,6 +342,37 @@ test("fewest-resource coverage remains ahead of scenario preference scoring", ()
   assert.deepEqual(result.preferenceAccounting.selectedFallbackResourceIds, ["fallback-combined"]);
 });
 
+test("a newly governed tool can be preferred without a scenario-policy tool catalog", () => {
+  const result = selectResources({
+    task: {
+      ...task(["architecture"]),
+      resourcePreferences: {
+        agentIds: ["lead"],
+        skillIds: [],
+        toolIds: ["future-governed-tool", "missing-governed-tool"]
+      }
+    },
+    resources: [
+      resource({ id: "lead", type: "agent", roles: ["lead"] }),
+      resource({
+        id: "future-governed-tool",
+        type: "tool",
+        competencies: ["architecture"],
+        cost: 20
+      }),
+      resource({ id: "fallback-skill", competencies: ["architecture"], cost: 1 })
+    ]
+  });
+
+  assert.deepEqual(selectedIds(result), ["lead", "future-governed-tool"]);
+  assert.deepEqual(result.preferenceAccounting, {
+    preferredResourceIds: ["future-governed-tool", "lead", "missing-governed-tool"],
+    selectedPreferredResourceIds: ["future-governed-tool", "lead"],
+    selectedFallbackResourceIds: [],
+    unselectedPreferredResourceIds: ["missing-governed-tool"]
+  });
+});
+
 test("routing rejects forged current freshness evidence at the low-level boundary", () => {
   const forged = resource({
     id: "forged-current",
@@ -631,6 +662,54 @@ test("a scenario-preferred backend writer is eligible without generic platform o
 
   assert.deepEqual(selectedIds(result), ["architect", "backend-writer"]);
   assert.deepEqual(result.preferenceAccounting.selectedFallbackResourceIds, []);
+});
+
+test("resource preference categories cannot authorize a resource of another type", () => {
+  const resources = [
+    resource({ id: "architect", type: "agent", roles: ["lead"] }),
+    resource({
+      id: "backend-writer",
+      type: "agent",
+      roles: ["specialist"],
+      competencies: ["implementation"],
+      sandboxMode: "workspace-write",
+      targetAffinity: { platforms: [], frameworkOverlays: [] }
+    })
+  ];
+  const writeTask = {
+    ...task(["implementation"], "medium", ["repository-read", "scoped-local-write"]),
+    targets: { platforms: [], frameworkOverlays: [] }
+  };
+
+  assert.throws(
+    () => selectResources({
+      task: {
+        ...writeTask,
+        resourcePreferences: {
+          agentIds: ["architect"],
+          skillIds: [],
+          toolIds: ["backend-writer"]
+        }
+      },
+      resources
+    }),
+    /resourcePreferences\.toolIds contains agent resource backend-writer/
+  );
+
+  assert.throws(
+    () => selectResources({
+      task: {
+        ...writeTask,
+        resourcePreferences: {
+          agentIds: ["architect", "shared-preference"],
+          skillIds: [],
+          toolIds: ["shared-preference"]
+        }
+      },
+      resources
+    }),
+    /resourcePreferences ID shared-preference appears in multiple type categories/
+  );
 });
 
 test("low-risk read-only routing stays deterministic while the write form blocks honestly", () => {

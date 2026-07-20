@@ -43,20 +43,32 @@ function isPlainRecord(value) {
   return prototype === Object.prototype || prototype === null;
 }
 
-function resourcePreferenceIds(task) {
+const PREFERENCE_CATEGORIES = Object.freeze([
+  Object.freeze({ field: "agentIds", type: "agent" }),
+  Object.freeze({ field: "skillIds", type: "skill" }),
+  Object.freeze({ field: "toolIds", type: "tool" })
+]);
+
+function resourcePreferences(task) {
   const preferences = task?.resourcePreferences;
-  if (preferences === undefined) return new Set();
+  if (preferences === undefined) {
+    return {
+      all: new Set(),
+      byType: { agent: new Set(), skill: new Set(), tool: new Set() }
+    };
+  }
   if (!isPlainRecord(preferences)) {
     throw new Error("routing task resourcePreferences must be a plain record");
   }
-  const fields = ["agentIds", "skillIds", "toolIds"];
+  const fields = PREFERENCE_CATEGORIES.map(({ field }) => field);
   for (const field of Object.keys(preferences)) {
     if (!fields.includes(field)) {
       throw new Error(`routing task resourcePreferences.${field} is not allowed`);
     }
   }
-  const ids = [];
-  for (const field of fields) {
+  const all = new Set();
+  const byType = { agent: new Set(), skill: new Set(), tool: new Set() };
+  for (const { field, type } of PREFERENCE_CATEGORIES) {
     if (!Array.isArray(preferences[field])) {
       throw new Error(`routing task resourcePreferences.${field} must be an array`);
     }
@@ -68,11 +80,29 @@ function resourcePreferenceIds(task) {
       if (seen.has(id)) {
         throw new Error(`routing task resourcePreferences.${field}[${index}] must be unique`);
       }
+      if (all.has(id)) {
+        throw new Error(`routing task resourcePreferences ID ${id} appears in multiple type categories`);
+      }
       seen.add(id);
-      ids.push(id);
+      all.add(id);
+      byType[type].add(id);
     });
   }
-  return new Set(ids);
+  return { all, byType };
+}
+
+function isPreferredResource(resource, preferences) {
+  return preferences.byType[resource?.type]?.has(resource?.id) === true;
+}
+
+function assertPreferenceResourceType(resource, preferences) {
+  if (!preferences.all.has(resource.id) || isPreferredResource(resource, preferences)) return;
+  const suppliedCategory = PREFERENCE_CATEGORIES.find(
+    ({ type }) => preferences.byType[type].has(resource.id)
+  );
+  throw new Error(
+    `routing task resourcePreferences.${suppliedCategory.field} contains ${resource.type} resource ${resource.id}`
+  );
 }
 
 function competencies(resource) {
@@ -112,7 +142,7 @@ function roleFlags(resource) {
   };
 }
 
-function exclusionDecision(resource, task, preferredIds) {
+function exclusionDecision(resource, task, preferences) {
   if (EXCLUDED_LIFECYCLES.has(resource.lifecycle)) return resource.lifecycle;
   if (resource.lifecycle !== "active") return "quarantined";
   if (resource.eligibility?.eligible !== true) return "ineligible";
@@ -130,7 +160,7 @@ function exclusionDecision(resource, task, preferredIds) {
   }
   if (resource.runtimePosture?.sandboxMode === "workspace-write" && requiresExecutableWriter(task)) {
     if (!isExecutableWriter(resource)) return "writer-implementation-mismatch";
-    if (!preferredIds.has(resource.id) && !targetAffinityMatches(resource, task)) {
+    if (!isPreferredResource(resource, preferences) && !targetAffinityMatches(resource, task)) {
       return "writer-target-mismatch";
     }
   }
@@ -157,7 +187,7 @@ function dominates(
   required,
   requireIndependentVerifier,
   requireWriter,
-  preferredIds
+  preferences
 ) {
   if (dominant.id === candidate.id || dominant.type !== candidate.type) return false;
   const dominantFlags = roleFlags(dominant);
@@ -174,8 +204,8 @@ function dominates(
   const candidateCoverage = coverageSet(candidate, required);
   if (!isSuperset(dominantCoverage, candidateCoverage)) return false;
 
-  const dominantPreferred = preferredIds.has(dominant.id);
-  const candidatePreferred = preferredIds.has(candidate.id);
+  const dominantPreferred = isPreferredResource(dominant, preferences);
+  const candidatePreferred = isPreferredResource(candidate, preferences);
   if (!dominantPreferred && candidatePreferred) return false;
   if (dominantPreferred && !candidatePreferred) return true;
 
@@ -205,7 +235,7 @@ function dominates(
   return strictCoverage || strictQuality || stableDuplicate;
 }
 
-function pruneDominated(resources, required, requireIndependentVerifier, requireWriter, preferredIds) {
+function pruneDominated(resources, required, requireIndependentVerifier, requireWriter, preferences) {
   const sorted = [...resources].sort(compareStableIds);
   const dominated = new Set();
   for (const candidate of sorted) {
@@ -216,7 +246,7 @@ function pruneDominated(resources, required, requireIndependentVerifier, require
         required,
         requireIndependentVerifier,
         requireWriter,
-        preferredIds
+        preferences
       )) {
         dominated.add(candidate.id);
         break;
@@ -272,10 +302,10 @@ function compareNumberVectors(left, right, { higherIsBetter = false } = {}) {
   return 0;
 }
 
-function solutionScore(selected, preferredIds) {
+function solutionScore(selected, preferences) {
   return {
     count: selected.length,
-    fallbackCount: selected.filter((resource) => !preferredIds.has(resource.id)).length,
+    fallbackCount: selected.filter((resource) => !isPreferredResource(resource, preferences)).length,
     context: selected.reduce(
       (total, resource) => total + Number(resource.measuredContextCost ?? Number.MAX_SAFE_INTEGER),
       0
@@ -292,9 +322,9 @@ function solutionScore(selected, preferredIds) {
   };
 }
 
-function compareSolutions(left, right, preferredIds) {
-  const leftScore = solutionScore(left, preferredIds);
-  const rightScore = solutionScore(right, preferredIds);
+function compareSolutions(left, right, preferences) {
+  const leftScore = solutionScore(left, preferences);
+  const rightScore = solutionScore(right, preferences);
   if (leftScore.count !== rightScore.count) return leftScore.count - rightScore.count;
   if (leftScore.fallbackCount !== rightScore.fallbackCount) {
     return leftScore.fallbackCount - rightScore.fallbackCount;
@@ -331,7 +361,7 @@ function remainingCanSatisfyWriter(candidates, start, selected, requireWriter) {
   return [...selected, ...candidates.slice(start)].some(isExecutableWriter);
 }
 
-function exactCover(candidates, required, requireIndependentVerifier, requireWriter, preferredIds) {
+function exactCover(candidates, required, requireIndependentVerifier, requireWriter, preferences) {
   let best = null;
   let visitedNodes = 0;
 
@@ -343,7 +373,7 @@ function exactCover(candidates, required, requireIndependentVerifier, requireWri
       const assignment = roleAssignment(selected, requireIndependentVerifier);
       const writerSatisfied = !requireWriter || selected.some(isExecutableWriter);
       if (assignment && writerSatisfied) {
-        if (best === null || compareSolutions(selected, best, preferredIds) < 0) best = [...selected];
+        if (best === null || compareSolutions(selected, best, preferences) < 0) best = [...selected];
         return;
       }
     }
@@ -399,7 +429,7 @@ export function selectResources({ task, resources }) {
   const required = new Set(requiredList);
   const requireIndependentVerifier = requiresIndependentVerifier(task);
   const requireWriter = requiresExecutableWriter(task);
-  const preferredIds = resourcePreferenceIds(task);
+  const preferences = resourcePreferences(task);
   const inputResources = Array.isArray(resources)
     ? resources.map((resource) => assertResourceContract(resource))
     : [];
@@ -413,7 +443,8 @@ export function selectResources({ task, resources }) {
     }
     if (ids.has(resource.id)) throw new Error(`duplicate resource id: ${resource.id}`);
     ids.add(resource.id);
-    const excluded = exclusionDecision(resource, task, preferredIds);
+    assertPreferenceResourceType(resource, preferences);
+    const excluded = exclusionDecision(resource, task, preferences);
     if (excluded) decisions.set(resource.id, excluded);
     else eligible.push(resource);
   }
@@ -435,7 +466,7 @@ export function selectResources({ task, resources }) {
     required,
     requireIndependentVerifier,
     requireWriter,
-    preferredIds
+    preferences
   );
   const aggregateRoleAssignment = roleAssignment(candidates, requireIndependentVerifier);
   const rolesSatisfiable = aggregateRoleAssignment !== null;
@@ -446,7 +477,7 @@ export function selectResources({ task, resources }) {
     required,
     requireIndependentVerifier,
     requireWriter,
-    preferredIds
+    preferences
   );
   const assignment = best ? roleAssignment(best, requireIndependentVerifier) : null;
   const selected = best ? selectedOrder(best, assignment) : [];
@@ -476,12 +507,12 @@ export function selectResources({ task, resources }) {
   }
 
   const selectedPreferredResourceIds = selected
+    .filter((resource) => isPreferredResource(resource, preferences))
     .map(({ id }) => id)
-    .filter((id) => preferredIds.has(id))
     .sort(compareStableIds);
   const selectedFallbackResourceIds = selected
+    .filter((resource) => !isPreferredResource(resource, preferences))
     .map(({ id }) => id)
-    .filter((id) => !preferredIds.has(id))
     .sort(compareStableIds);
   const selectedIdSet = new Set(selected.map(({ id }) => id));
 
@@ -497,10 +528,10 @@ export function selectResources({ task, resources }) {
       verifier: assignment?.verifier ?? null
     },
     preferenceAccounting: {
-      preferredResourceIds: [...preferredIds].sort(compareStableIds),
+      preferredResourceIds: [...preferences.all].sort(compareStableIds),
       selectedPreferredResourceIds,
       selectedFallbackResourceIds,
-      unselectedPreferredResourceIds: [...preferredIds]
+      unselectedPreferredResourceIds: [...preferences.all]
         .filter((id) => !selectedIdSet.has(id))
         .sort(compareStableIds)
     },
