@@ -14,7 +14,7 @@ These notes describe the untagged v0.3.0 candidate. `v0.2.5` remains the control
 - full-catalog resource evaluation with minimal capability coverage and explicit exclusions;
 - high-risk independent-verification requirements and bounded agent teams;
 - supported enterprise-core plus preview web/SaaS, iOS, Android, Windows, macOS, Expo/React Native, Electron, and Tauri packs;
-- fifteen native agent definitions, including bounded preview backend implementation, mobile platform, and desktop platform writers; twelve agents currently retain compiled fallbacks;
+- fifteen native agent definitions and fifteen compiled fallbacks, including bounded preview backend implementation, mobile platform, and desktop platform writers;
 - a deterministic 12-task static benchmark that separates measured routing, gate, safety, and context results from unmeasured runtime, human, timing, defect, and pilot claims;
 - real-registry CLI execution and executable behavior evaluations;
 - traversal and junction containment, atomic project sync rollback, and compiler input/compiler provenance digests;

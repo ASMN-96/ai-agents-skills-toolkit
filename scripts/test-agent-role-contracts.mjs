@@ -139,6 +139,33 @@ test("native definitions and registry agree on compiled fallback availability", 
   }
 });
 
+test("preview lifecycle is explicit and consistent across canonical, native, and registry surfaces", async () => {
+  const registry = JSON.parse(await regularFile("registries/agents.registry.json"));
+  const byName = new Map(registry.agents.map((agent) => [agent.name, agent]));
+  for (const name of [
+    "backend-implementation-agent",
+    "mobile-platform-agent",
+    "desktop-platform-agent"
+  ]) {
+    const canonical = await regularFile(`agents/${name}.md`);
+    const native = await regularFile(`.codex/agents/${name}.toml`);
+    assert.equal(byName.get(name)?.status.includes("preview"), true, `${name} registry must remain preview`);
+    assert.match(canonical, /\bpreview\b/iu, `${name} canonical contract must state preview lifecycle`);
+    assert.match(native, /\bpreview\b/iu, `${name} native contract must state preview lifecycle`);
+  }
+});
+
+test("current candidate release notes cannot retain a stale compiled-fallback count", async () => {
+  const registry = JSON.parse(await regularFile("registries/agents.registry.json"));
+  const notes = await regularFile("docs/V0_3_0_RELEASE_NOTES.md");
+  const fallbackCount = registry.agents.filter(
+    (agent) => typeof agent.compiledFallbackPath === "string"
+  ).length;
+  assert.equal(fallbackCount, registry.agents.length);
+  assert.match(notes, new RegExp(`\\b${fallbackCount} compiled fallbacks\\b`, "iu"));
+  assert.doesNotMatch(notes, /\b(?:twelve|12)\b[^\n]*compiled fallbacks/iu);
+});
+
 test("new compiled fallbacks retain preview writer boundaries without claiming native execution", async () => {
   const registry = JSON.parse(await regularFile("registries/agents.registry.json"));
   const previewAgents = registry.agents.filter((agent) => agent.status.includes("preview"));
