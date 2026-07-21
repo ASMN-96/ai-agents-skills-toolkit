@@ -7,6 +7,7 @@ files as proof that Codex, Claude Code, a tool, or a human approver actually ran
 ## Current v0.3 boundary
 
 - v0.3 ships a fail-closed bridge contract for plan, event, and receipt-shape validation. It is a `preview-contract`, not an available trusted host runtime: standalone JSON cannot mint trusted readiness.
+- Even an `available` bridge value in ReleaseEvidence remains self-declared and cannot establish trusted readiness; that requires host-owned, verifiable attestation outside repository-controlled JSON.
 - `plan` re-derives gates, resources, waves, ownership, and verifier policy from
   the canonical registries.
 - `ingest-events` re-runs that planning policy before accepting a serialized

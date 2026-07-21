@@ -40,13 +40,28 @@ const REQUIRED_ARTIFACT_PATHS = Object.freeze({
   sourceCatalog: "sources/source-watchlist.json",
   freshnessReport: "docs/SOURCE_FRESHNESS_REPORT.json",
   agentRegistry: "registries/agents.registry.json",
+  domainPacksRegistry: "registries/domain-packs.registry.json",
   benchmarkFixture: "evals/routing/enterprise-delivery-benchmark.json",
   embeddedManifest: ".ai-toolkit/manifest.json"
 });
 const HOST_EXECUTION_BRIDGE_STATES = new Set(["absent", "preview-contract", "available"]);
-const TRUSTED_READINESS_CEILINGS = new Set(["blocked", "trusted"]);
 const PLATFORM_PACK_LIFECYCLES = new Set(["supported", "preview"]);
 const NATIVE_EVIDENCE_STATUSES = new Set(["observed", "absent"]);
+const OBSERVED_ENTERPRISE_CORE_FIELDS = Object.freeze([
+  "status",
+  "evidencePath",
+  "sha256",
+  "repositoryCommit",
+  "ownerReview"
+]);
+const OWNER_REVIEW_FIELDS = Object.freeze(["ownerId", "decision", "reviewedAt"]);
+const OBSERVED_ENTERPRISE_CORE_EVIDENCE_FIELDS = Object.freeze([
+  "schemaVersion",
+  "evidenceType",
+  "repositoryCommit",
+  "ownerReview",
+  "observations"
+]);
 const REQUIRED_ADVISORY_KEYS = Object.freeze([
   "optionalSources",
   "previewPacks",
@@ -176,9 +191,6 @@ export function validateRuntimeTrustBoundary(runtime) {
   if (!HOST_EXECUTION_BRIDGE_STATES.has(runtime.hostExecutionBridge)) {
     fail("runtime-host-execution-bridge");
   }
-  if (!TRUSTED_READINESS_CEILINGS.has(runtime.trustedReadinessCeiling)) {
-    fail("runtime-trusted-readiness-ceiling");
-  }
   if (
     runtime.hostExecutionBridge === "preview-contract"
     && runtime.trustedReadinessCeiling !== "blocked"
@@ -186,44 +198,137 @@ export function validateRuntimeTrustBoundary(runtime) {
     fail("preview-contract-trusted-readiness-ceiling");
   }
   if (
+    runtime.hostExecutionBridge === "available"
+    && runtime.trustedReadinessCeiling !== "blocked"
+  ) {
+    fail("release-evidence-cannot-establish-trusted-readiness");
+  }
+  if (
     runtime.hostExecutionBridge === "absent"
     && runtime.trustedReadinessCeiling !== "blocked"
   ) {
     fail("absent-bridge-trusted-readiness-ceiling");
   }
-  if (
-    runtime.trustedReadinessCeiling === "trusted"
-    && runtime.hostExecutionBridge !== "available"
-  ) {
-    fail("trusted-readiness-requires-available-bridge");
+  if (runtime.trustedReadinessCeiling !== "blocked") {
+    fail("runtime-trusted-readiness-ceiling");
   }
 }
 
-function validateObservedEnterpriseCoreEvidence(benchmark) {
-  const observed = benchmark?.observedEnterpriseCore;
+function validateOwnerReview(ownerReview, label) {
+  if (
+    !isPlainRecord(ownerReview)
+    || JSON.stringify(Object.keys(ownerReview)) !== JSON.stringify(OWNER_REVIEW_FIELDS)
+    || typeof ownerReview.ownerId !== "string"
+    || ownerReview.ownerId === ""
+    || ownerReview.decision !== "approved"
+    || typeof ownerReview.reviewedAt !== "string"
+    || Number.isNaN(Date.parse(ownerReview.reviewedAt))
+  ) {
+    fail(label);
+  }
+}
+
+function validateObservedEnterpriseCoreDeclaration(observed) {
   if (
     !isPlainRecord(observed)
-    || JSON.stringify(Object.keys(observed)) !== JSON.stringify(["status", "evidencePath"])
+    || JSON.stringify(Object.keys(observed)) !== JSON.stringify(OBSERVED_ENTERPRISE_CORE_FIELDS)
     || !new Set(["observed", "notMeasured"]).has(observed.status)
   ) {
     fail("benchmark-observed-enterprise-core");
   }
   if (observed.status === "observed") {
-    if (typeof observed.evidencePath !== "string" || observed.evidencePath === "") {
-      fail("benchmark-observed-enterprise-core-evidence-path");
+    if (
+      typeof observed.evidencePath !== "string"
+      || observed.evidencePath === ""
+      || !/^[0-9a-f]{64}$/u.test(observed.sha256)
+      || typeof observed.repositoryCommit !== "string"
+      || !/^[0-9a-f]{40}$/u.test(observed.repositoryCommit)
+    ) {
+      fail("benchmark-observed-enterprise-core-binding");
     }
-  } else if (observed.evidencePath !== null) {
-    fail("benchmark-observed-enterprise-core-not-measured-evidence-path");
+    validateOwnerReview(observed.ownerReview, "benchmark-observed-enterprise-core-owner-review");
+  } else if (
+    observed.evidencePath !== null
+    || observed.sha256 !== null
+    || observed.repositoryCommit !== null
+    || observed.ownerReview !== null
+  ) {
+    fail("benchmark-observed-enterprise-core-not-measured-binding");
   }
 }
 
-function hasObservedEnterpriseCoreEvidence(benchmark) {
-  return benchmark?.observedEnterpriseCore?.status === "observed"
-    && typeof benchmark.observedEnterpriseCore.evidencePath === "string"
-    && benchmark.observedEnterpriseCore.evidencePath !== "";
+function validateObservedEnterpriseCoreEvidence(benchmark) {
+  validateObservedEnterpriseCoreDeclaration(benchmark?.observedEnterpriseCore);
 }
 
-export function validatePlatformPackEvidence(platformPacks) {
+function hasObservedEnterpriseCoreEvidence(benchmark) {
+  const observed = benchmark?.observedEnterpriseCore;
+  return observed?.status === "observed"
+    && typeof observed.evidencePath === "string"
+    && /^[0-9a-f]{64}$/u.test(observed.sha256)
+    && /^[0-9a-f]{40}$/u.test(observed.repositoryCommit)
+    && isPlainRecord(observed.ownerReview)
+    && observed.ownerReview.decision === "approved";
+}
+
+export function validateObservedEnterpriseCoreEvidenceRecord(root, observed) {
+  validateObservedEnterpriseCoreDeclaration(observed);
+  if (observed.status !== "observed") return;
+  const evidencePath = assertRepositoryPath(
+    root,
+    observed.evidencePath,
+    "observed-enterprise-core-evidence"
+  );
+  const contents = readIntegrityFile(
+    root,
+    evidencePath,
+    "observed-enterprise-core-evidence",
+    "utf8"
+  );
+  assertEqual(
+    canonicalTextSha256(Buffer.from(contents, "utf8"), "observed enterprise-core evidence"),
+    observed.sha256,
+    "observed-enterprise-core-evidence-digest"
+  );
+  let record;
+  try {
+    record = JSON.parse(contents);
+  } catch {
+    fail("observed-enterprise-core-evidence-semantic");
+  }
+  if (
+    !isPlainRecord(record)
+    || JSON.stringify(Object.keys(record)) !== JSON.stringify(OBSERVED_ENTERPRISE_CORE_EVIDENCE_FIELDS)
+    || record.schemaVersion !== "1.0.0"
+    || record.evidenceType !== "owner-reviewed-manual-enterprise-core-observation"
+    || !Array.isArray(record.observations)
+    || record.observations.length === 0
+  ) {
+    fail("observed-enterprise-core-evidence-semantic");
+  }
+  if (record.observations.some((observation) => (
+    !isPlainRecord(observation)
+    || JSON.stringify(Object.keys(observation)) !== JSON.stringify(["id", "outcome"])
+    || typeof observation.id !== "string"
+    || observation.id === ""
+    || observation.outcome !== "observed"
+  ))) {
+    fail("observed-enterprise-core-evidence-semantic");
+  }
+  validateOwnerReview(record.ownerReview, "observed-enterprise-core-evidence-owner-review");
+  assertEqual(
+    record.repositoryCommit,
+    observed.repositoryCommit,
+    "observed-enterprise-core-evidence-commit-mismatch"
+  );
+  assertEqual(
+    record.ownerReview,
+    observed.ownerReview,
+    "observed-enterprise-core-evidence-owner-review-mismatch"
+  );
+}
+
+export function validatePlatformPackEvidence(platformPacks, domainPacksRegistry = undefined) {
   if (!Array.isArray(platformPacks)) fail("platform-packs");
   const ids = new Set();
   for (const [index, platformPack] of platformPacks.entries()) {
@@ -251,6 +356,24 @@ export function validatePlatformPackEvidence(platformPacks) {
     );
     if (platformPack.releaseBlocking !== expectedReleaseBlocking) {
       fail(`platform-pack-${index}-release-blocking`);
+    }
+  }
+  if (domainPacksRegistry === undefined) return;
+  if (!isPlainRecord(domainPacksRegistry) || !Array.isArray(domainPacksRegistry.packs)) {
+    fail("platform-pack-registry");
+  }
+  const canonicalPlatformPacks = domainPacksRegistry.packs.filter((pack) => (
+    pack?.kind === "platform" || pack?.kind === "framework-overlay"
+  ));
+  if (
+    JSON.stringify(platformPacks.map((pack) => pack.id))
+    !== JSON.stringify(canonicalPlatformPacks.map((pack) => pack.id))
+  ) {
+    fail("platform-pack-registry-projection");
+  }
+  for (const [index, canonicalPlatformPack] of canonicalPlatformPacks.entries()) {
+    if (platformPacks[index].lifecycle !== canonicalPlatformPack.maturity) {
+      fail("platform-pack-lifecycle-mismatch");
     }
   }
 }
@@ -586,6 +709,7 @@ function validateSourceState(root, evidence) {
     path.join(root, "registries/domain-packs.registry.json"),
     "domain-packs-registry"
   );
+  validatePlatformPackEvidence(evidence.platformPacks, domainPacksRegistry);
   validateFreshnessReport(catalog, report, {
     now: new Date(Math.max(Date.now(), Date.parse(report.checkedAt))).toISOString(),
     domainPacksRegistry
@@ -687,12 +811,13 @@ async function validateBenchmarkState(root, evidence) {
   assertEqual(result.measured, evidence.benchmark.measured, "benchmark-measured");
   validateObservedEnterpriseCoreEvidence(evidence.benchmark);
   if (evidence.benchmark.observedEnterpriseCore.status === "observed") {
-    const evidencePath = assertRepositoryPath(
-      root,
-      evidence.benchmark.observedEnterpriseCore.evidencePath,
-      "benchmark-observed-enterprise-core"
+    const observed = evidence.benchmark.observedEnterpriseCore;
+    validateObservedEnterpriseCoreEvidenceRecord(root, observed);
+    assertEqual(
+      observed.repositoryCommit,
+      evidence.repository.sourceCommit,
+      "observed-enterprise-core-release-commit"
     );
-    assertRegularFileWithin(root, evidencePath, "benchmark-observed-enterprise-core");
   }
 }
 

@@ -23,6 +23,10 @@
       "path": "registries/agents.registry.json",
       "sha256": "324084cbd6dcf763cb65f0318d9ebac62f0f1210708fa269d09dd7adf000015c"
     },
+    "domainPacksRegistry": {
+      "path": "registries/domain-packs.registry.json",
+      "sha256": "d91feaac286f4032549014e6456d207bab6544ab2bde6500c9848ccc97776eeb"
+    },
     "benchmarkFixture": {
       "path": "evals/routing/enterprise-delivery-benchmark.json",
       "sha256": "4da05a9d832b6e1c095e2c980db5d060b183f963305131f76391140e0946d835"
@@ -89,7 +93,10 @@
     "staticGatePassed": true,
     "observedEnterpriseCore": {
       "status": "notMeasured",
-      "evidencePath": null
+      "evidencePath": null,
+      "sha256": null,
+      "repositoryCommit": null,
+      "ownerReview": null
     },
     "measured": {
       "mandatoryCompetencyCoverage": 1,

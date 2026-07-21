@@ -36,6 +36,7 @@ const ARTIFACT_PATHS = Object.freeze({
   sourceCatalog: "sources/source-watchlist.json",
   freshnessReport: "docs/SOURCE_FRESHNESS_REPORT.json",
   agentRegistry: "registries/agents.registry.json",
+  domainPacksRegistry: "registries/domain-packs.registry.json",
   benchmarkFixture: "evals/routing/enterprise-delivery-benchmark.json",
   embeddedManifest: ".ai-toolkit/manifest.json"
 });
@@ -158,12 +159,19 @@ test("structured release blockers are exactly derived and retain the ordered com
       releaseBlockingSourceCount: 0,
       releaseBlockingSourceIds: []
     },
-    runtime: { hostExecutionBridge: "available", trustedReadinessCeiling: "trusted" },
+    runtime: { hostExecutionBridge: "available", trustedReadinessCeiling: "blocked" },
     benchmark: {
       staticGatePassed: true,
       observedEnterpriseCore: {
         status: "observed",
-        evidencePath: "docs/observed-enterprise-core-evidence.md"
+        evidencePath: "docs/observed-enterprise-core-evidence.json",
+        sha256: "c".repeat(64),
+        repositoryCommit: "d".repeat(40),
+        ownerReview: {
+          ownerId: "owner@example.invalid",
+          decision: "approved",
+          reviewedAt: "2026-07-21T00:00:00.000Z"
+        }
       },
       notMeasured: { nativePilots: { status: "measured" } }
     },
@@ -184,7 +192,13 @@ test("structured release blockers are exactly derived and retain the ordered com
   blocked.sourceFreshness.releaseBlockingSourceIds = ["a-source", "z-source"];
   blocked.runtime.hostExecutionBridge = "absent";
   blocked.benchmark.staticGatePassed = false;
-  blocked.benchmark.observedEnterpriseCore = { status: "notMeasured", evidencePath: null };
+  blocked.benchmark.observedEnterpriseCore = {
+    status: "notMeasured",
+    evidencePath: null,
+    sha256: null,
+    repositoryCommit: null,
+    ownerReview: null
+  };
   blocked.platformPacks = [{
     id: "supported-platform",
     lifecycle: "supported",
@@ -270,13 +284,20 @@ function releaseReadyEvidence() {
       nativeAgentDefinitions: 0,
       compiledFallbacks: 0,
       hostExecutionBridge: "available",
-      trustedReadinessCeiling: "trusted"
+      trustedReadinessCeiling: "blocked"
     },
     benchmark: {
       staticGatePassed: true,
       observedEnterpriseCore: {
         status: "observed",
-        evidencePath: "docs/observed-enterprise-core-evidence.md"
+        evidencePath: "docs/observed-enterprise-core-evidence.json",
+        sha256: "c".repeat(64),
+        repositoryCommit: "d".repeat(40),
+        ownerReview: {
+          ownerId: "owner@example.invalid",
+          decision: "approved",
+          reviewedAt: "2026-07-21T00:00:00.000Z"
+        }
       },
       notMeasured: { nativePilots: { status: "measured" } },
       measured: {
@@ -335,6 +356,116 @@ test("preview bridge contracts are publication-compatible but cap trusted readin
   );
 });
 
+test("release evidence cannot self-declare trusted readiness for an available host bridge", () => {
+  const { validateRuntimeTrustBoundary } = releaseEvidenceModule;
+  assert.throws(
+    () => validateRuntimeTrustBoundary({
+      hostExecutionBridge: "available",
+      trustedReadinessCeiling: "trusted"
+    }),
+    /release-evidence-cannot-establish-trusted-readiness/u
+  );
+  assert.doesNotThrow(() => validateRuntimeTrustBoundary({
+    hostExecutionBridge: "available",
+    trustedReadinessCeiling: "blocked"
+  }));
+});
+
+test("observed enterprise-core evidence rejects arbitrary local JSON despite a declared digest", () => {
+  const { validateObservedEnterpriseCoreEvidenceRecord } = releaseEvidenceModule;
+  assert.equal(typeof validateObservedEnterpriseCoreEvidenceRecord, "function");
+  const fixture = mkdtempSync(path.join(tmpdir(), "release-observed-evidence-"));
+  try {
+    const docs = path.join(fixture, "docs");
+    mkdirSync(docs, { recursive: true });
+    const ownerReview = {
+      ownerId: "owner@example.invalid",
+      decision: "approved",
+      reviewedAt: "2026-07-21T00:00:00.000Z"
+    };
+    const validRecord = {
+      schemaVersion: "1.0.0",
+      evidenceType: "owner-reviewed-manual-enterprise-core-observation",
+      repositoryCommit: "a".repeat(40),
+      ownerReview,
+      observations: [{ id: "enterprise-core-manual-pilot", outcome: "observed" }]
+    };
+    const validPath = path.join(docs, "observed.json");
+    writeFileSync(validPath, `${JSON.stringify(validRecord, null, 2)}\n`, "utf8");
+    const observed = {
+      status: "observed",
+      evidencePath: "docs/observed.json",
+      sha256: canonicalTextSha256(readFileSync(validPath)),
+      repositoryCommit: validRecord.repositoryCommit,
+      ownerReview
+    };
+    assert.doesNotThrow(() => validateObservedEnterpriseCoreEvidenceRecord(fixture, observed));
+
+    const arbitraryPath = path.join(docs, "arbitrary.json");
+    writeFileSync(arbitraryPath, "{\n  \"claim\": \"observed\"\n}\n", "utf8");
+    const arbitrary = {
+      ...observed,
+      evidencePath: "docs/arbitrary.json",
+      sha256: canonicalTextSha256(readFileSync(arbitraryPath))
+    };
+    assert.throws(
+      () => validateObservedEnterpriseCoreEvidenceRecord(fixture, arbitrary),
+      /observed-enterprise-core-evidence-semantic/u
+    );
+    assert.throws(
+      () => validateObservedEnterpriseCoreEvidenceRecord(fixture, {
+        ...observed,
+        repositoryCommit: "b".repeat(40)
+      }),
+      /observed-enterprise-core-evidence-commit-mismatch/u
+    );
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
+});
+
+test("platform evidence lifecycle must exactly match the canonical registry projection", () => {
+  const { validatePlatformPackEvidence } = releaseEvidenceModule;
+  const registry = {
+    packs: [
+      { id: "enterprise-core", kind: "core", maturity: "supported" },
+      { id: "ios", kind: "platform", maturity: "preview" }
+    ]
+  };
+  assert.throws(
+    () => validatePlatformPackEvidence([{
+      id: "ios",
+      lifecycle: "supported",
+      nativeEvidenceStatus: "observed",
+      releaseBlocking: false
+    }], registry),
+    /platform-pack-lifecycle-mismatch/u
+  );
+});
+
+test("release artifact integrity includes the canonical platform-pack registry", () => {
+  const fixture = mkdtempSync(path.join(tmpdir(), "release-domain-pack-artifact-"));
+  try {
+    const artifacts = writeArtifactFixture(fixture);
+    const pathName = "registries/domain-packs.registry.json";
+    const filePath = path.join(fixture, pathName);
+    mkdirSync(path.dirname(filePath), { recursive: true });
+    writeFileSync(filePath, "{\n  \"registryType\": \"domain-packs\"\n}\n", "utf8");
+    artifacts.domainPacksRegistry = {
+      path: pathName,
+      sha256: canonicalTextSha256(readFileSync(filePath))
+    };
+    assert.doesNotThrow(() => validateArtifactDigests(
+      fixture,
+      CANONICAL_TEXT_DIGEST_MODE,
+      artifacts,
+      "blocked"
+    ));
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
+});
+
 test("native evidence blocks supported platform packs but remains advisory for preview packs", () => {
   const { deriveReleaseBlockerAccounting } = releaseEvidenceModule;
   const preview = releaseReadyEvidence();
@@ -367,7 +498,13 @@ test("native evidence blocks supported platform packs but remains advisory for p
 test("missing observed enterprise-core evidence blocks the v0.3 candidate", () => {
   const { deriveReleaseBlockerAccounting } = releaseEvidenceModule;
   const evidence = releaseReadyEvidence();
-  evidence.benchmark.observedEnterpriseCore = { status: "notMeasured", evidencePath: null };
+  evidence.benchmark.observedEnterpriseCore = {
+    status: "notMeasured",
+    evidencePath: null,
+    sha256: null,
+    repositoryCommit: null,
+    ownerReview: null
+  };
   assert.equal(
     deriveReleaseBlockerAccounting(evidence, { generatedArtifactDrift: false })
       .some((entry) => entry.id === "enterprise-core-observed-evidence-not-measured"),
