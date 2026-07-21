@@ -1,0 +1,15 @@
+{
+  "id": "BENCH-MAINT-01",
+  "input": "Repair a governed web maintenance defect and verify the focused behavior.",
+  "executionBoundary": {
+    "productRepositoryAccess": "forbidden",
+    "productSourceAccess": "forbidden",
+    "remoteAccess": "forbidden",
+    "freshFixtureCopyPerRun": true
+  },
+  "goldenValidator": {
+    "expectedTaskId": "BENCH-MAINT-01",
+    "mandatoryCompetencies": ["maintenance", "testing"],
+    "requiredGateIds": ["focused-verification"]
+  }
+}

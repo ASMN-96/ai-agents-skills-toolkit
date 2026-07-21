@@ -1,0 +1,15 @@
+{
+  "id": "BENCH-WEB-UX-02",
+  "input": "Improve a web UI while preserving accessibility and design-system constraints.",
+  "executionBoundary": {
+    "productRepositoryAccess": "forbidden",
+    "productSourceAccess": "forbidden",
+    "remoteAccess": "forbidden",
+    "freshFixtureCopyPerRun": true
+  },
+  "goldenValidator": {
+    "expectedTaskId": "BENCH-WEB-UX-02",
+    "mandatoryCompetencies": ["uiux", "accessibility", "design-system"],
+    "requiredGateIds": ["visual-and-interaction-verification"]
+  }
+}

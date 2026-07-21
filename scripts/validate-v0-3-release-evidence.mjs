@@ -20,6 +20,7 @@ import {
   CANONICAL_TEXT_DIGEST_MODE,
   canonicalTextSha256
 } from "./ai-toolkit/kernel/canonical-digest.mjs";
+import { validateObservedEnterpriseBenchmark } from "./validate-observed-enterprise-benchmark.mjs";
 import {
   deriveSourceReleaseAccounting,
   validateFreshnessReport
@@ -55,13 +56,6 @@ const OBSERVED_ENTERPRISE_CORE_FIELDS = Object.freeze([
   "ownerReview"
 ]);
 const OWNER_REVIEW_FIELDS = Object.freeze(["ownerId", "decision", "reviewedAt"]);
-const OBSERVED_ENTERPRISE_CORE_EVIDENCE_FIELDS = Object.freeze([
-  "schemaVersion",
-  "evidenceType",
-  "repositoryCommit",
-  "ownerReview",
-  "observations"
-]);
 const REQUIRED_ADVISORY_KEYS = Object.freeze([
   "optionalSources",
   "previewPacks",
@@ -274,57 +268,37 @@ function hasObservedEnterpriseCoreEvidence(benchmark) {
 export function validateObservedEnterpriseCoreEvidenceRecord(root, observed) {
   validateObservedEnterpriseCoreDeclaration(observed);
   if (observed.status !== "observed") return;
-  const evidencePath = assertRepositoryPath(
-    root,
-    observed.evidencePath,
-    "observed-enterprise-core-evidence"
-  );
-  const contents = readIntegrityFile(
-    root,
-    evidencePath,
-    "observed-enterprise-core-evidence",
-    "utf8"
-  );
-  assertEqual(
-    canonicalTextSha256(Buffer.from(contents, "utf8"), "observed enterprise-core evidence"),
-    observed.sha256,
-    "observed-enterprise-core-evidence-digest"
-  );
   let record;
   try {
-    record = JSON.parse(contents);
-  } catch {
-    fail("observed-enterprise-core-evidence-semantic");
+    record = validateObservedEnterpriseBenchmark({
+      root,
+      relativePath: observed.evidencePath,
+      expectedCommit: observed.repositoryCommit
+    });
+  } catch (error) {
+    fail(`observed-enterprise-core-evidence-semantic:${error.message}`);
   }
-  if (
-    !isPlainRecord(record)
-    || JSON.stringify(Object.keys(record)) !== JSON.stringify(OBSERVED_ENTERPRISE_CORE_EVIDENCE_FIELDS)
-    || record.schemaVersion !== "1.0.0"
-    || record.evidenceType !== "owner-reviewed-manual-enterprise-core-observation"
-    || !Array.isArray(record.observations)
-    || record.observations.length === 0
-  ) {
-    fail("observed-enterprise-core-evidence-semantic");
+  if (record.status !== "measured-passed" || record.releaseEligible !== true) {
+    fail("observed-enterprise-core-evidence-measured-passed");
   }
-  if (record.observations.some((observation) => (
-    !isPlainRecord(observation)
-    || JSON.stringify(Object.keys(observation)) !== JSON.stringify(["id", "outcome"])
-    || typeof observation.id !== "string"
-    || observation.id === ""
-    || observation.outcome !== "observed"
-  ))) {
-    fail("observed-enterprise-core-evidence-semantic");
-  }
-  validateOwnerReview(record.ownerReview, "observed-enterprise-core-evidence-owner-review");
   assertEqual(
-    record.repositoryCommit,
+    record.toolkitCommit,
     observed.repositoryCommit,
     "observed-enterprise-core-evidence-commit-mismatch"
   );
   assertEqual(
-    record.ownerReview,
+    {
+      ownerId: record.ownerReview.identity,
+      decision: record.ownerReview.decision,
+      reviewedAt: record.ownerReview.approvedAt
+    },
     observed.ownerReview,
     "observed-enterprise-core-evidence-owner-review-mismatch"
+  );
+  assertEqual(
+    record.digest?.replace(/^sha256:/u, ""),
+    observed.sha256,
+    "observed-enterprise-core-evidence-digest"
   );
 }
 

@@ -1,0 +1,15 @@
+{
+  "id": "BENCH-API-01",
+  "input": "Implement a governed API/data change with authorization and security boundaries.",
+  "executionBoundary": {
+    "productRepositoryAccess": "forbidden",
+    "productSourceAccess": "forbidden",
+    "remoteAccess": "forbidden",
+    "freshFixtureCopyPerRun": true
+  },
+  "goldenValidator": {
+    "expectedTaskId": "BENCH-API-01",
+    "mandatoryCompetencies": ["api", "data", "security"],
+    "requiredGateIds": ["authorization-review", "contract-validation"]
+  }
+}

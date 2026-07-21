@@ -1,0 +1,15 @@
+{
+  "id": "BENCH-WEB-01",
+  "input": "Implement a governed Web/SaaS change with explicit validation and review gates.",
+  "executionBoundary": {
+    "productRepositoryAccess": "forbidden",
+    "productSourceAccess": "forbidden",
+    "remoteAccess": "forbidden",
+    "freshFixtureCopyPerRun": true
+  },
+  "goldenValidator": {
+    "expectedTaskId": "BENCH-WEB-01",
+    "mandatoryCompetencies": ["web-saas", "security", "testing"],
+    "requiredGateIds": ["independent-review", "project-validation"]
+  }
+}

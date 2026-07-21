@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "not-measured",
+  "evidenceType": "owner-reviewed-manual-enterprise-core-observation",
+  "toolkitCommit": null,
+  "hostTrust": "not-trusted-host-bridge",
+  "model": null,
+  "variantSettings": null,
+  "taskIds": [
+    "BENCH-MAINT-01",
+    "BENCH-WEB-01",
+    "BENCH-WEB-UX-02",
+    "BENCH-API-01",
+    "BENCH-SOURCE-RELEASE-01"
+  ],
+  "runsPerVariant": 3,
+  "fixtureDigests": {
+    "BENCH-MAINT-01": "sha256:d16c94bbb42757c42df0d045b20495d1e0e1fc3a29fff8a37d5c1be11c44e654",
+    "BENCH-WEB-01": "sha256:3d5c77bfa4007fcf05ac8607911cf4e01358d31e08fb3d9871afe5a96b303ba5",
+    "BENCH-WEB-UX-02": "sha256:e42613f9b17351aae11bc61c7e79b367d7f74a801a30081f0f4ba5934f5d15b0",
+    "BENCH-API-01": "sha256:77f29a22037f4e654101cc86dd3c893b035db84869163ef516f88e4ddeb73835",
+    "BENCH-SOURCE-RELEASE-01": "sha256:0e5737461f1fb2f9a63ec143728ec34bf6082b993a1a6eb4e5901c8a7951e58d"
+  },
+  "runs": [],
+  "summary": {},
+  "ownerReview": null
+}
