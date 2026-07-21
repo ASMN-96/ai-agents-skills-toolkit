@@ -4,10 +4,10 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 01adecf7bade28b092d937601c56edb4b1c26e75
+source_commit: 44bd4e6965eaa1250f5fda577358b74c1cbe97ee
 input_digest: sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:0fc7de6d001caa24535c95af8861bc465371b3cdfb9f444fb637d4e7072f9d4e
+compiler_digest: sha256:cffb8276a3d42b019a8d20d30f17ac46d1b0eb8328e71de06863025b1d38412b
 source_agent: agents/sre-performance-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -308,7 +308,7 @@ Ensure coding-time changes leave enough evidence for debugging without leaking s
 
 - Source agent path: `agents/sre-performance-agent.md`
 - Canonical input digest: `sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822`
-- Compiler digest: `sha256:0fc7de6d001caa24535c95af8861bc465371b3cdfb9f444fb637d4e7072f9d4e`
+- Compiler digest: `sha256:cffb8276a3d42b019a8d20d30f17ac46d1b0eb8328e71de06863025b1d38412b`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/sre-profile.md`, `profiles/release-profile.md`, `profiles/implementation-profile.md`
