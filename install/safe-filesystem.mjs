@@ -422,7 +422,7 @@ function artifactPrefix(managedRoot) {
   return name.startsWith(".") ? name : `.${name}`;
 }
 
-function transactionCoordinates(repositoryRoot, managedRoot, id = null) {
+function transactionCoordinates(repositoryRoot, managedRoot, id = null, { legacyArtifacts = false } = {}) {
   const resolvedRepository = path.resolve(repositoryRoot);
   const resolvedManaged = path.resolve(managedRoot);
   if (!isWithin(resolvedRepository, resolvedManaged) || normalizeForComparison(resolvedManaged) === normalizeForComparison(resolvedRepository)) {
@@ -430,14 +430,15 @@ function transactionCoordinates(repositoryRoot, managedRoot, id = null) {
   }
   const parent = path.dirname(resolvedManaged);
   const prefix = artifactPrefix(resolvedManaged);
+  const transactionArtifactId = id?.replaceAll("-", "").slice(0, 12);
   return {
     repositoryRoot: resolvedRepository,
     managedRoot: resolvedManaged,
     parent,
     lockPath: path.join(parent, `${prefix}.transaction.lock`),
     journalPath: path.join(parent, `${prefix}.transaction.json`),
-    stagingRoot: id ? path.join(parent, `${prefix}.staging-${id}`) : null,
-    backupRoot: id ? path.join(parent, `${prefix}.backup-${id}`) : null
+    stagingRoot: id ? path.join(parent, legacyArtifacts ? `${prefix}.staging-${id}` : `.s-${transactionArtifactId}`) : null,
+    backupRoot: id ? path.join(parent, legacyArtifacts ? `${prefix}.backup-${id}` : `.b-${transactionArtifactId}`) : null
   };
 }
 
@@ -542,7 +543,7 @@ function acquireTransactionLock(coordinates, transactionId, label) {
     throw new Error(`${label} transaction lock is held by a live or unverifiable owner`);
   }
   const interruptedJournal = readJournal(coordinates);
-  if (interruptedJournal && interruptedJournal.id !== existing.document.transactionId) {
+  if (interruptedJournal && interruptedJournal.journal.id !== existing.document.transactionId) {
     throw new Error("stale lock transaction does not match the managed transaction journal");
   }
   assertPathComponents(coordinates.repositoryRoot, coordinates.lockPath, `${label} stale transaction lock`, {
@@ -754,18 +755,19 @@ function readJournal(coordinates) {
   if (!journal.hadManagedRoot && journal.backupSnapshot.length !== 0) {
     throw new Error(`invalid managed transaction journal backupSnapshot in ${coordinates.journalPath}`);
   }
-  const expected = transactionCoordinates(coordinates.repositoryRoot, coordinates.managedRoot, journal.id);
-  for (const [field, value] of [
-    ["managedRoot", expected.managedRoot],
-    ["stagingRoot", expected.stagingRoot],
-    ["backupRoot", expected.backupRoot]
-  ]) {
-    if (typeof journal[field] !== "string" || journal[field] !== value) {
-      throw new Error(`managed transaction journal has an invalid ${field}`);
-    }
+  const expectedCoordinates = [
+    transactionCoordinates(coordinates.repositoryRoot, coordinates.managedRoot, journal.id),
+    transactionCoordinates(coordinates.repositoryRoot, coordinates.managedRoot, journal.id, { legacyArtifacts: true })
+  ].find((candidate) => [
+    ["managedRoot", candidate.managedRoot],
+    ["stagingRoot", candidate.stagingRoot],
+    ["backupRoot", candidate.backupRoot]
+  ].every(([field, value]) => typeof journal[field] === "string" && journal[field] === value));
+  if (!expectedCoordinates) {
+    throw new Error("managed transaction journal has invalid transaction paths");
   }
-  assertJournalPhaseState(journal, coordinates);
-  return journal;
+  assertJournalPhaseState(journal, expectedCoordinates);
+  return { journal, coordinates: expectedCoordinates };
 }
 
 function renameDirectory(repositoryRoot, source, destination, label) {
@@ -799,8 +801,10 @@ function rollbackJournal(coordinates, journal, ownership) {
 
 function recoverManagedDirectoryTransactionLocked({ coordinates, ownership, log }) {
   assertTransactionLockOwned(coordinates, ownership);
-  const journal = readJournal(coordinates);
-  if (!journal) return { recovered: false, phase: null };
+  const journalRecord = readJournal(coordinates);
+  if (!journalRecord) return { recovered: false, phase: null };
+  const { journal } = journalRecord;
+  coordinates = journalRecord.coordinates;
   if (ownership.staleLock && ownership.staleLock.transactionId !== journal.id) {
     throw new Error("stale lock transaction does not match the managed transaction journal");
   }

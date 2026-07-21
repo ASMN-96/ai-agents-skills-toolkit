@@ -827,8 +827,13 @@ async function validateImmutableReceiptChain({
       sameRevision(receipt.reviewedRevision, source.monitor.observedRevision) &&
       receipt.contentDigest === source.monitor.contentDigest
     );
+    const receiptSource = isCurrentReview && Date.parse(receipt.reviewedAt) < Date.parse(source.monitor.checkedAt)
+      ? historicalReceiptSource(source, receipt)
+      : isCurrentReview
+        ? source
+        : historicalReceiptSource(source, receipt);
     validateSourceReviewReceipt(receipt, {
-      source: isCurrentReview ? source : historicalReceiptSource(source, receipt),
+      source: receiptSource,
       now: isCurrentReview ? now : receipt.approver?.approvedAt ?? now,
       authorizedApproverIdentities,
       expectedPreviousReceipt: rollback.previousReceipt,

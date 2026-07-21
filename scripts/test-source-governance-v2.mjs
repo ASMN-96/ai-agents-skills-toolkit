@@ -770,6 +770,14 @@ test("SourceReviewReceipt v1 binds exact revision and digest and restricts non-p
     /reviewedAt.*future/i
   );
   assert.throws(
+    () => validateSourceReviewReceipt(receipt({
+      reviewedAt: "2026-07-17T06:45:00.000Z",
+      expiresAt: "2026-07-31T06:45:00.000Z",
+      approver: { identity: "repository-owner:abdal", approvedAt: "2026-07-17T06:50:00.000Z" }
+    }), reviewOptions),
+    /reviewedAt.*predate the monitor observation/i
+  );
+  assert.throws(
     () => validateSourceReviewReceipt(receipt({ expiresAt: "2026-08-02T07:15:00.000Z" }), reviewOptions),
     /freshness class/i
   );
@@ -842,6 +850,195 @@ test("apply review is dry-run by default, writes immutable evidence only with co
     validateSourceGovernanceRepository({ repositoryRoot: root, now: NOW }),
     /receipt chain digest.*example-source/i
   );
+});
+
+test("review application promotes a long source identifier without an overlong Windows staging path", { skip: process.platform !== "win32" }, async () => {
+  const { applySourceReview } = await governance();
+  const fixtureRoot = await mkdtemp(path.join(os.tmpdir(), "source-governance-long-staging-"));
+  const sourceId = "openssf-ai-code-assistant-instructions";
+  const finalSuffix = path.join("sources", "reviews", sourceId, `${SHA}.json`);
+  const root = path.join(fixtureRoot, "r".repeat(Math.max(1, 120 - fixtureRoot.length - 1)));
+  await mkdir(root);
+  const longSource = source({
+    id: sourceId,
+    monitor: {
+      state: "CHANGED",
+      checkedAt: "2026-07-17T07:00:00.000Z",
+      observedRevision: { kind: "git-sha", value: SHA },
+      contentDigest: DIGEST,
+      failureReason: null
+    },
+    review: {
+      state: "QUARANTINED",
+      currentReceipt: null,
+      previousReceipt: null,
+      receiptDigest: null,
+      previousReceiptDigest: null,
+      reviewedRevision: null,
+      reviewedDigest: null,
+      reviewedAt: null,
+      expiresAt: null,
+      disposition: null
+    }
+  });
+  const { artifactRevision } = await writeRepository(root, longSource);
+  await writePendingReceipt(root, receipt({
+    receiptId: `${sourceId}:${SHA}`,
+    sourceId,
+    rollbackTarget: {
+      previousReceipt: null,
+      previousReceiptDigest: null,
+      artifactRevision
+    }
+  }));
+
+  assert.ok(path.join(root, finalSuffix).length < 260);
+  assert.ok(path.join(root, `.sources.staging-${"0".repeat(36)}`, "reviews", sourceId, `${SHA}.json`).length > 260);
+
+  const applied = await applySourceReview({
+    repositoryRoot: root,
+    receiptPath: "sources/pending/receipt.json",
+    mode: "confirm-write",
+    now: NOW
+  });
+
+  assert.equal(applied.receiptPath, finalSuffix.replaceAll(path.sep, "/"));
+  await stat(path.join(root, finalSuffix));
+});
+
+test("a later receipt-backed manual freshness observation preserves its immutable matching receipt", async () => {
+  const { applySourceFreshness, applySourceReview, deriveSourceReleaseAccounting, mirrorSourceCatalog, validateSourceGovernanceRepository } = await governance();
+  const root = await mkdtemp(path.join(os.tmpdir(), "manual-receipt-freshness-order-"));
+  const observedAt = "2026-07-17T07:00:00.000Z";
+  const reviewedAt = "2026-07-17T07:15:00.000Z";
+  const refreshedAt = "2026-07-17T08:00:00.000Z";
+  const revision = { kind: "content-digest", value: DIGEST };
+  const manualSource = source({
+    identityKey: "url:https://docs.example.com/example-source",
+    sourceType: "manual-reviewed-doc",
+    sourceUrl: "https://docs.example.com/example-source",
+    runtimePosture: "metadata-only",
+    dependentResourceIds: [],
+    watchMode: "manual-reviewed-doc",
+    manualReview: {
+      publisher: "Example",
+      cadence: "manual",
+      reason: "Manual source review evidence.",
+      forbiddenClaims: ["live freshness"]
+    },
+    monitor: {
+      state: "CHANGED",
+      checkedAt: observedAt,
+      observedRevision: revision,
+      contentDigest: DIGEST,
+      failureReason: null
+    },
+    review: {
+      state: "QUARANTINED",
+      currentReceipt: null,
+      previousReceipt: null,
+      receiptDigest: null,
+      previousReceiptDigest: null,
+      reviewedRevision: null,
+      reviewedDigest: null,
+      reviewedAt: null,
+      expiresAt: null,
+      disposition: null
+    }
+  });
+  try {
+    const { artifactRevision } = await writeRepository(root, manualSource);
+    await writePendingReceipt(root, receipt({
+      receiptId: `example-source:${DIGEST}`,
+      reviewedRevision: revision,
+      contentDigest: DIGEST,
+      reviewedAt,
+      expiresAt: "2026-07-31T07:15:00.000Z",
+      adoption: {
+        ...receipt().adoption,
+        runtimePosture: "metadata-only"
+      },
+      approver: {
+        identity: "repository-owner:abdal",
+        approvedAt: "2026-07-17T07:30:00.000Z"
+      },
+      rollbackTarget: {
+        previousReceipt: null,
+        previousReceiptDigest: null,
+        artifactRevision
+      }
+    }));
+    await applySourceReview({
+      repositoryRoot: root,
+      receiptPath: "sources/pending/receipt.json",
+      mode: "confirm-write",
+      now: NOW
+    });
+
+    const catalog = JSON.parse(await readFile(path.join(root, "sources", "source-watchlist.json"), "utf8"));
+    const report = {
+      schemaVersion: "2.1.0",
+      catalogIdentity: {
+        schemaVersion: catalog.schemaVersion,
+        catalogId: catalog.catalogId,
+        sourceCount: catalog.sources.length
+      },
+      checkedAt: refreshedAt,
+      mode: "live",
+      readOnly: true,
+      disclaimer: "Receipt evidence only; no import or activation is authorized.",
+      sources: [{
+        sourceId: manualSource.id,
+        identityKey: manualSource.identityKey,
+        scope: manualSource.scope,
+        monitorState: "CURRENT",
+        observedRevision: revision,
+        contentDigest: DIGEST,
+        comparisonRevision: DIGEST,
+        comparisonBasis: "MANUAL_REVIEW_RECEIPT",
+        reasonCode: "MANUAL_CURRENT",
+        checkedAt: refreshedAt,
+        missingCurrentReview: false,
+        evidence: {
+          observationMode: "manual-receipt-only",
+          legacyStatus: "MANUAL_REVIEW_TRACKED",
+          sourceType: "manual-reviewed-doc",
+          sourceUrl: manualSource.sourceUrl,
+          digestBasis: "manual-review-receipt",
+          latestCommitDate: null,
+          releaseSignal: "manual receipt",
+          licenseSignal: "not reviewed",
+          notes: "Receipt-backed manual evidence.",
+          watchedPathSignals: []
+        }
+      }]
+    };
+    const accounting = deriveSourceReleaseAccounting({ catalog, domainPacksRegistry: { registryType: "domain-packs", packs: [] }, freshnessReport: report });
+    Object.assign(report, {
+      sourceCount: accounting.sourceCount,
+      monitorCounts: accounting.monitorCounts,
+      actionableCount: accounting.actionableCount,
+      actionableCountsByScope: accounting.actionableCountsByScope,
+      releaseScope: {
+        supportedPackIds: accounting.supportedPackIds,
+        releaseBlockingSourceCount: accounting.releaseBlockingSourceCount,
+        releaseBlockingSourceIds: accounting.releaseBlockingSourceIds,
+        releaseNonblockingActionableCount: accounting.releaseNonblockingActionableCount
+      }
+    });
+    await writeFile(path.join(root, "freshness.json"), `${JSON.stringify(report, null, 2)}\n`, "utf8");
+
+    await applySourceFreshness({
+      repositoryRoot: root,
+      freshnessReport: "freshness.json",
+      mode: "confirm-write",
+      now: NOW
+    });
+    await mirrorSourceCatalog({ repositoryRoot: root });
+    await validateSourceGovernanceRepository({ repositoryRoot: root, now: NOW });
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
 });
 
 test("review apply and repository validation verify the full immutable A to B to C receipt chain", async () => {

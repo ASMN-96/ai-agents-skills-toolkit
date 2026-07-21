@@ -33,6 +33,10 @@ function fileSnapshot(relativePath, contents) {
   }];
 }
 
+function transactionArtifacts(root) {
+  return readdirSync(root).filter((name) => /^(?:\.managed\.(?:staging|backup)-|\.[sb]-[0-9a-f]+)$/i.test(name));
+}
+
 async function waitForFile(filePath, timeoutMs = 10_000) {
   const startedAt = Date.now();
   while (!existsSync(filePath)) {
@@ -154,7 +158,7 @@ test("a stale lock from another transaction cannot authorize journal rollback", 
     );
     assert.equal(existsSync(lockPath), true, "mismatched stale owner evidence must be preserved");
     assert.equal(existsSync(path.join(fixture, ".managed.transaction.json")), true);
-    assert.equal(existsSync(path.join(fixture, ".managed.backup-" + JSON.parse(readFileSync(path.join(fixture, ".managed.transaction.json"), "utf8")).id)), true);
+    assert.equal(existsSync(JSON.parse(readFileSync(path.join(fixture, ".managed.transaction.json"), "utf8")).backupRoot), true);
     assert.equal(existsSync(managedRoot), false);
   } finally {
     rmSync(fixture, { recursive: true, force: true });
@@ -335,10 +339,7 @@ test("beforeBackup CAS failure preserves the current root and removes transactio
 
     assert.equal(readFileSync(path.join(managedRoot, "sentinel.txt"), "utf8"), "current\n");
     assert.equal(existsSync(path.join(fixture, ".managed.transaction.json")), false);
-    assert.deepEqual(
-      readdirSync(fixture).filter((name) => /^\.managed\.(?:staging|backup)-/.test(name)),
-      []
-    );
+    assert.deepEqual(transactionArtifacts(fixture), []);
     assert.throws(() => runManagedDirectoryTransaction({
       repositoryRoot: fixture,
       managedRoot,
@@ -407,6 +408,40 @@ test("forged no-prior promoted state-100 journal preserves mismatched current ma
   }
 });
 
+test("valid legacy backup-created journal restores the prior managed tree and removes every transaction artifact", () => {
+  const fixture = mkdtempSync(path.join(tmpdir(), "managed-fs-legacy-recovery-"));
+  try {
+    const id = "11111111-1111-4111-8111-111111111111";
+    const managedRoot = path.join(fixture, "managed");
+    const stagingRoot = path.join(fixture, `.managed.staging-${id}`);
+    const backupRoot = path.join(fixture, `.managed.backup-${id}`);
+    const journalPath = path.join(fixture, ".managed.transaction.json");
+    writeSentinel(stagingRoot, "candidate\n");
+    writeSentinel(backupRoot, "current\n");
+    writeFileSync(journalPath, `${JSON.stringify({
+      schemaVersion: "1.0.0",
+      id,
+      phase: "backup-created",
+      managedRoot,
+      stagingRoot,
+      backupRoot,
+      hadManagedRoot: true,
+      backupSnapshot: fileSnapshot("sentinel.txt", "current\n"),
+      outputSnapshot: fileSnapshot("sentinel.txt", "candidate\n")
+    }, null, 2)}\n`, "utf8");
+
+    const recovery = recoverManagedDirectoryTransaction({ repositoryRoot: fixture, managedRoot });
+
+    assert.equal(recovery.recovered, true);
+    assert.equal(recovery.phase, "backup-created");
+    assert.equal(readFileSync(path.join(managedRoot, "sentinel.txt"), "utf8"), "current\n");
+    assert.equal(existsSync(journalPath), false);
+    assert.deepEqual(transactionArtifacts(fixture), []);
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
+});
+
 test("legitimate no-prior promotion recovery validates and finalizes promoted output", () => {
   const fixture = mkdtempSync(path.join(tmpdir(), "managed-fs-no-prior-promotion-"));
   const managedRoot = path.join(fixture, "managed");
@@ -428,10 +463,7 @@ test("legitimate no-prior promotion recovery validates and finalizes promoted ou
     assert.equal(recovery.phase, "promoted");
     assert.equal(readFileSync(path.join(managedRoot, "sentinel.txt"), "utf8"), "promoted\n");
     assert.equal(existsSync(path.join(fixture, ".managed.transaction.json")), false);
-    assert.deepEqual(
-      readdirSync(fixture).filter((name) => /^\.managed\.(?:staging|backup)-/.test(name)),
-      []
-    );
+    assert.deepEqual(transactionArtifacts(fixture), []);
   } finally {
     if (previousFailpoint === undefined) delete process.env.AI_TOOLKIT_FAILPOINT;
     else process.env.AI_TOOLKIT_FAILPOINT = previousFailpoint;
