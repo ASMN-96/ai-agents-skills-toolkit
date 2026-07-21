@@ -104,7 +104,7 @@ function installManagedFixture(repo) {
 }
 
 function transactionArtifacts(repo) {
-  return readdirSync(repo).filter((name) => /^\.ai-toolkit\.(?:backup|staging)-/.test(name));
+  return readdirSync(repo).filter((name) => /^(?:\.ai-toolkit\.(?:backup|staging)-|\.(?:b|s)-)/.test(name));
 }
 
 function sha256Bytes(bytes) {
@@ -648,8 +648,9 @@ for (const [failpoint, expectedPhase] of [
       assert.match(interrupted.output, new RegExp(failpoint, "i"));
       const journalPath = path.join(repo, ".ai-toolkit.transaction.json");
       assert.equal(existsSync(journalPath), true, interrupted.output);
-      assert.equal(JSON.parse(readFileSync(journalPath, "utf8")).phase, expectedPhase);
-      assert.equal(transactionArtifacts(repo).some((name) => name.startsWith(".ai-toolkit.backup-")), true);
+      const interruptedJournal = JSON.parse(readFileSync(journalPath, "utf8"));
+      assert.equal(interruptedJournal.phase, expectedPhase);
+      assert.equal(existsSync(interruptedJournal.backupRoot), true);
 
       const recovered = runResult("node", [
         coreScript,
