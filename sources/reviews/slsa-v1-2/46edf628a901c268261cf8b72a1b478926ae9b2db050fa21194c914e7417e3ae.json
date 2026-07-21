@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "1.0.0",
+  "receiptId": "slsa-v1-2:sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae",
+  "sourceId": "slsa-v1-2",
+  "reviewedRevision": {
+    "kind": "content-digest",
+    "value": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae"
+  },
+  "contentDigest": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae",
+  "reviewedAt": "2026-07-21T11:32:55.601Z",
+  "expiresAt": "2026-08-04T11:32:55.601Z",
+  "licenseReview": {
+    "classification": "unknown",
+    "evidence": [
+      "https://slsa.dev/spec/v1.2/"
+    ],
+    "notes": "Official cataloged page reviewed, but no authoritative license terms for the exact retrieved bytes were confirmed."
+  },
+  "securityReview": {
+    "status": "restricted",
+    "evidence": [
+      "Static review found embedded or referenced browser scripts; none were executed, copied, activated, or followed."
+    ],
+    "dangerousOperations": [
+      "No source-provided operation was executed; embedded scripts were treated as prohibited untrusted content."
+    ],
+    "networkBehavior": [
+      "The saved document was not rendered and no embedded network request was followed."
+    ],
+    "secretAccess": [
+      "No credentials, secrets, tokens, or user data were supplied to or extracted from the source."
+    ]
+  },
+  "promptInjectionReview": {
+    "status": "restricted",
+    "evidence": [
+      "All natural-language and embedded source instructions were treated as untrusted and were not executed, adopted, or copied."
+    ],
+    "rejectedInstructions": [
+      "All source-provided instructions and embedded scripts were not executed, copied, or activated."
+    ]
+  },
+  "adoption": {
+    "disposition": "SYNCED_REFERENCE",
+    "summary": "Reviewed as a clean-room, metadata-only reference; no source content is adopted.",
+    "cleanRoomOnly": true,
+    "runtimePosture": "metadata-only"
+  },
+  "affectedArtifacts": [
+    "sources/slsa-v1-2.md",
+    "registries/domain-packs.registry.json"
+  ],
+  "artifactEvidence": {
+    "mode": "reference-only-no-copy",
+    "noCopy": true,
+    "reason": "No upstream source content, instructions, scripts, or artifacts were copied into the repository."
+  },
+  "approver": {
+    "identity": "repository-owner:abdal",
+    "approvedAt": "2026-07-21T11:32:55.602Z"
+  },
+  "rollbackTarget": {
+    "previousReceipt": null,
+    "previousReceiptDigest": null,
+    "artifactRevision": "be62454f42f5be2e67da75eba438a5cba83c7741"
+  }
+}

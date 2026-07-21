@@ -5,20 +5,20 @@
     "catalogId": "enterprise-source-catalog",
     "sourceCount": 80
   },
-  "checkedAt": "2026-07-19T22:11:13.031Z",
+  "checkedAt": "2026-07-21T11:56:51.432Z",
   "mode": "live",
   "readOnly": true,
   "disclaimer": "Changed upstream source is not approved for import. This report does not authorize copying, installing, activating, extracting methods, updating source records, or changing runtime configuration.",
   "sourceCount": 80,
   "monitorCounts": {
-    "CURRENT": 13,
-    "CHANGED": 5,
-    "CHECK_FAILED": 62,
+    "CURRENT": 18,
+    "CHANGED": 8,
+    "CHECK_FAILED": 54,
     "MANUAL_DUE": 0
   },
-  "actionableCount": 80,
+  "actionableCount": 72,
   "actionableCountsByScope": {
-    "core": 8,
+    "core": 0,
     "platform-preview": 12,
     "optional-tool": 38,
     "community-reference": 22,
@@ -28,17 +28,8 @@
     "supportedPackIds": [
       "enterprise-core"
     ],
-    "releaseBlockingSourceCount": 8,
-    "releaseBlockingSourceIds": [
-      "nist-ai-rmf-genai",
-      "nist-ssdf",
-      "nist-ssdf-ai",
-      "openssf-ai-code-assistant-instructions",
-      "owasp-agentic-applications",
-      "owasp-asvs",
-      "owasp-llmsvs",
-      "slsa-v1-2"
-    ],
+    "releaseBlockingSourceCount": 0,
+    "releaseBlockingSourceIds": [],
     "releaseNonblockingActionableCount": 72
   },
   "sources": [
@@ -54,8 +45,8 @@
       "contentDigest": "sha256:0d9683641353f633dce3eaf81f4e4e623f582dca382dc3657ab47cea1bbd1205",
       "comparisonRevision": "fa0fa64bdc967915dc8399e803be67759e1e62b8",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -63,11 +54,17 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/anthropics/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: mixed-license)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
-        "watchedPathSignals": []
+        "latestCommitDate": "2026-07-17T02:47:37Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "not found",
+        "notes": "Default branch commit matches comparison baseline.",
+        "watchedPathSignals": [
+          {
+            "path": "skills/skill-creator",
+            "sha": "b9e19e6f44773509fbdd7001d77ff41a49a486c1",
+            "date": "2026-04-20T21:38:16Z"
+          }
+        ]
       }
     },
     {
@@ -82,8 +79,8 @@
       "contentDigest": "sha256:011fb1b92f68e9ac8dec2c7549243e29c7598f0cdb3858e2191b9a711b7acd42",
       "comparisonRevision": "49f948faa9258a0c61caceaf225e179651397431",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -91,10 +88,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/openai/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: mixed-license)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-06-24T02:36:12Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "not found",
+        "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
       }
     },
@@ -110,8 +107,8 @@
       "contentDigest": "sha256:9f4cd96aa644fadbba6864b461c3cd9b1adc74ae901f69025913019d9cb94ae3",
       "comparisonRevision": "2fbfa004a0192529bc997d103fc12f19a3804aab",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -119,10 +116,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/addyosmani/agent-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-18T13:19:55Z",
+        "releaseSignal": "release 0.6.4",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
       }
     },
@@ -138,8 +135,8 @@
       "contentDigest": "sha256:9e455e4d2320510ba82fa789ae4bdd26b062e6c4c3b96d03ed1519ceada05794",
       "comparisonRevision": "1ad9aaeb49caafd9e95c0a91116f71890eebbc53",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -147,10 +144,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/supabase/agent-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-10T15:50:32Z",
+        "releaseSignal": "release v0.1.6",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
       }
     },
@@ -166,8 +163,8 @@
       "contentDigest": "sha256:005afb4b80ab79f5b8e45682a83c9682e29f4e5fad35b8be6e98a8571e8f1458",
       "comparisonRevision": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -175,10 +172,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/trailofbits/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: cc-by-sa)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-06-30T15:14:46Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "CC-BY-SA-4.0 (LICENSE)",
+        "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
       }
     },
@@ -186,27 +183,27 @@
       "sourceId": "microsoft-playwright",
       "identityKey": "github:microsoft/playwright",
       "scope": "optional-tool",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "ef3a5830f960c00018f810cebf26133b35ec2b6f"
+        "value": "a7b4d5e0e1fc36bcb2b1b2ae4ebeaddbd9473a21"
       },
-      "contentDigest": "sha256:de0a5d62cc8fb2839a59ee89299902d930d45c70da8e29a7a874f2f2eb50a241",
+      "contentDigest": "sha256:9059d3a73a265eca4650c1bc455b52f2e07617bfc434b81f8f628977d2354643",
       "comparisonRevision": "ef3a5830f960c00018f810cebf26133b35ec2b6f",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/microsoft/playwright",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-19T12:01:13Z",
+        "latestCommitDate": "2026-07-21T10:27:10Z",
         "releaseSignal": "release v1.61.1",
         "licenseSignal": "Apache-2.0 (LICENSE)",
-        "notes": "Default branch commit matches comparison baseline.",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       }
     },
@@ -222,8 +219,8 @@
       "contentDigest": "sha256:d5bf9493007ee27515a2e4e312035b40724043eacc8b7e5435fff2bc380080f5",
       "comparisonRevision": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -231,38 +228,54 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/mabdeltawab/Nagdy_guard-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
-        "watchedPathSignals": []
+        "latestCommitDate": "2026-06-07T11:45:52Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches comparison baseline.",
+        "watchedPathSignals": [
+          {
+            "path": "skills/clean-code-guard",
+            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
+            "date": "2026-06-07T11:45:52Z"
+          },
+          {
+            "path": "skills/test-guard",
+            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
+            "date": "2026-06-07T11:45:52Z"
+          },
+          {
+            "path": "skills/docs-guard",
+            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
+            "date": "2026-06-07T11:45:52Z"
+          }
+        ]
       }
     },
     {
       "sourceId": "matt-pocock-skills",
       "identityKey": "github:mattpocock/skills",
       "scope": "community-reference",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "9603c1cc8118d08bc1b3bf34cf714f62178dea3b"
+        "value": "ed37663cc5fbef691ddfecd080dff42f7e7e350d"
       },
-      "contentDigest": "sha256:c162fda5560dc2b6c442fdb9312b0d2094119fe40c88e78e464246c6f8ff0755",
+      "contentDigest": "sha256:ce2695944db0089f4bbbdae34802790dbb38fa9f51b5a449ba9b4389afe12470",
       "comparisonRevision": "9603c1cc8118d08bc1b3bf34cf714f62178dea3b",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/mattpocock/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-21T10:28:51Z",
+        "releaseSignal": "release v1.1.0",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       }
     },
@@ -270,27 +283,27 @@
       "sourceId": "shadcn-ui",
       "identityKey": "github:shadcn-ui/ui",
       "scope": "community-reference",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "d28738b183c5eaa69d8d540826e450f30d39ab6c"
+        "value": "20442886c5cfb440441c35030462fbdf64838655"
       },
-      "contentDigest": "sha256:c3607b2ba1e0cf1eeb8ba825498d74f1014cde7b745a25a0be2e627a17bf9c29",
+      "contentDigest": "sha256:ad99aa5932579ab82eae852ea6fbe1200028292df6c98d1ec0bfeb137db9a537",
       "comparisonRevision": "d28738b183c5eaa69d8d540826e450f30d39ab6c",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/shadcn-ui/ui",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-20T15:17:53Z",
+        "releaseSignal": "release shadcn@4.13.1",
+        "licenseSignal": "MIT (LICENSE.md)",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       }
     },
@@ -306,8 +319,8 @@
       "contentDigest": "sha256:3f1abebc85cc287a6e8e6b7460cd1c37257d3634462650c2f1cba71d49212f1b",
       "comparisonRevision": "95d6e255afe1596b557d7a8498517884438f5b3a",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -315,10 +328,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/addyosmani/web-quality-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-06-14T09:08:35Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
       }
     },
@@ -334,8 +347,8 @@
       "contentDigest": "sha256:ae333fffcb3a026bc4bf76244ba8715992ddcff50a7604a0b2f40169d907ffb0",
       "comparisonRevision": "664b3e78fd1a298ba11973822da988483256d4b4",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -343,10 +356,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/VoltAgent/awesome-design-md",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-06-16T14:21:08Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
       }
     },
@@ -354,27 +367,27 @@
       "sourceId": "impeccable",
       "identityKey": "github:pbakaus/impeccable",
       "scope": "community-reference",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "e4ab5e24bdf5321b72163d2fbcbe6fa985c848ba"
+        "value": "4d849eb75f216109ea7053ed21530a11fafcc786"
       },
-      "contentDigest": "sha256:9bdf023fc8c3738ddd194022b05c714fa2d02fb0024d81bfda923c6e30838d00",
+      "contentDigest": "sha256:5e6021a96da4435a690013f13628f62007fe36ab151eb5b14f158ee207fdee0f",
       "comparisonRevision": "e4ab5e24bdf5321b72163d2fbcbe6fa985c848ba",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/pbakaus/impeccable",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-21T01:45:13Z",
+        "releaseSignal": "release skill-v3.9.1",
+        "licenseSignal": "Apache-2.0 (LICENSE)",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       }
     },
@@ -389,9 +402,9 @@
       },
       "contentDigest": "sha256:ab4b0a4091b4fa6459c538eb96a52f5a40826766d220478703eb2a366a2984e2",
       "comparisonRevision": "e0e028058b5259debdd94b78147c6d6c77bf7da2",
-      "comparisonBasis": "LEGACY_REVIEW_METADATA",
+      "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -410,27 +423,27 @@
       "sourceId": "superpowers",
       "identityKey": "github:obra/superpowers",
       "scope": "community-reference",
-      "monitorState": "CHANGED",
+      "monitorState": "CURRENT",
       "observedRevision": {
         "kind": "git-sha",
         "value": "d884ae04edebef577e82ff7c4e143debd0bbec99"
       },
       "contentDigest": "sha256:4eb720d8d09486b14a3167420f7a54eb7bc3f2ee956373c806b4a593389a0057",
-      "comparisonRevision": "896224c4b1879920ab573417e68fd51d2ccc9072",
-      "comparisonBasis": "LEGACY_REVIEW_METADATA",
-      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "comparisonRevision": "d884ae04edebef577e82ff7c4e143debd0bbec99",
+      "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
+      "reasonCode": "DEGRADED_COMPARISON_MATCH",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "CHANGED_LOW_RISK",
+        "legacyStatus": "UNCHANGED",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/obra/superpowers",
         "digestBasis": "git-revision-identity",
         "latestCommitDate": "not checked (git ls-remote fallback)",
         "releaseSignal": "not checked (git ls-remote fallback)",
         "licenseSignal": "not checked (source record: clear)",
-        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       }
     },
@@ -441,13 +454,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "0071fa5c3c389d2b4b235a39402c891e146cdef3"
+        "value": "5deee34c93395045b985e3baf91550e5f1ab7204"
       },
-      "contentDigest": "sha256:7150078d493ab0dbcf2a07ff56d5b01bb478cfeed733c4e7500832c41e88c5e7",
-      "comparisonRevision": "34faa39bd3cd496a0aece0245f2b7e38b7923abc",
-      "comparisonBasis": "LEGACY_REVIEW_METADATA",
+      "contentDigest": "sha256:3b67e3959dd917529ab94d7a34a81f1860b180350f3485cf1db15a38f87d8afa",
+      "comparisonRevision": "0071fa5c3c389d2b4b235a39402c891e146cdef3",
+      "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -469,13 +482,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "12ede21767a6dd669df1b79392a5d27d9154f237"
+        "value": "26c35b59b40a0a95b286ccf5ac675a15edcc995f"
       },
-      "contentDigest": "sha256:4c54773d948717b4c331910d927c430d9e3d0040fcc2064cf9062985152af5b1",
-      "comparisonRevision": "9c28fe038cf49ac6db0bb4e04b6158076f03894d",
-      "comparisonBasis": "LEGACY_REVIEW_METADATA",
+      "contentDigest": "sha256:2c05acbf8aa057f106f351446c887571c1d0a361eee8313d2361f77d8448a8b0",
+      "comparisonRevision": "12ede21767a6dd669df1b79392a5d27d9154f237",
+      "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -500,7 +513,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -525,7 +538,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -550,7 +563,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -575,7 +588,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -600,7 +613,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -622,13 +635,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "667a864896615f3a159d2834064bebfb6eb7fccf"
+        "value": "a54feb42162b9041b3abeed735307fa72d5f46a1"
       },
-      "contentDigest": "sha256:f728f51fa4a86820e126fd12aa10b9f447c9e62696123ad09e33c5b1b1ab0941",
-      "comparisonRevision": "7195c2a90b1264e15a43ccc7b62a5a4ce0ac9034",
-      "comparisonBasis": "LEGACY_REVIEW_METADATA",
+      "contentDigest": "sha256:e7f65111556a2c749a0b8f51ac05dae88f878f39de19a129163f0635e847eac1",
+      "comparisonRevision": "667a864896615f3a159d2834064bebfb6eb7fccf",
+      "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -650,13 +663,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "44457c890236440bc683e9e5d84499a0a4911550"
+        "value": "bbab507f6d38f8e0a4a64c39cba4d068f31964e0"
       },
-      "contentDigest": "sha256:0efd90bf5522ab5642f6ad64a3c06418a39216991f40b644df0763a9d54076cb",
-      "comparisonRevision": "bb4ac4763faeb7fc3d31438f072a6946b5b290b9",
-      "comparisonBasis": "LEGACY_REVIEW_METADATA",
+      "contentDigest": "sha256:8eaaf9af7712039533d8b6ac5c0ce60f9713f88692e81e5fa19c3f7c71a994f9",
+      "comparisonRevision": "44457c890236440bc683e9e5d84499a0a4911550",
+      "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -681,7 +694,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -706,7 +719,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -731,7 +744,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -756,7 +769,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -781,7 +794,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -806,7 +819,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -831,7 +844,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -856,7 +869,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -881,7 +894,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -906,7 +919,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -931,7 +944,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -956,7 +969,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -981,7 +994,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1006,7 +1019,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1031,7 +1044,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1056,7 +1069,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1081,7 +1094,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1106,7 +1119,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1131,7 +1144,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1156,7 +1169,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1181,7 +1194,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1206,7 +1219,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1231,7 +1244,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1256,7 +1269,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1281,7 +1294,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1306,7 +1319,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1331,7 +1344,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1356,7 +1369,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1381,7 +1394,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1406,7 +1419,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1431,7 +1444,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1456,7 +1469,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1481,7 +1494,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1506,7 +1519,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "live-read-only",
@@ -1531,7 +1544,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -1556,7 +1569,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -1581,7 +1594,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -1606,7 +1619,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -1631,7 +1644,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -1656,7 +1669,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -1681,7 +1694,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -1706,7 +1719,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -1731,7 +1744,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -1756,7 +1769,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -1775,20 +1788,23 @@
       "sourceId": "nist-ssdf-ai",
       "identityKey": "url:https://csrc.nist.gov/pubs/sp/800/218/a/final",
       "scope": "core",
-      "monitorState": "CHECK_FAILED",
-      "observedRevision": null,
-      "contentDigest": null,
-      "comparisonRevision": null,
-      "comparisonBasis": "MISSING",
-      "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
-      "missingCurrentReview": true,
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "content-digest",
+        "value": "sha256:6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7"
+      },
+      "contentDigest": "sha256:6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7",
+      "comparisonRevision": "sha256:6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7",
+      "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
+      "reasonCode": "MANUAL_CURRENT",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "missingCurrentReview": false,
       "evidence": {
-        "observationMode": "manual-evidence-required",
+        "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
         "sourceType": "manual-reviewed-doc",
         "sourceUrl": "https://csrc.nist.gov/pubs/sp/800/218/a/final",
-        "digestBasis": null,
+        "digestBasis": "manual-review-receipt",
         "latestCommitDate": "manual review only",
         "releaseSignal": "manual reviewed-doc source; no live repository release check",
         "licenseSignal": "official-docs-terms-not-reviewed",
@@ -1800,20 +1816,23 @@
       "sourceId": "nist-ai-rmf-genai",
       "identityKey": "url:https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
       "scope": "core",
-      "monitorState": "CHECK_FAILED",
-      "observedRevision": null,
-      "contentDigest": null,
-      "comparisonRevision": null,
-      "comparisonBasis": "MISSING",
-      "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
-      "missingCurrentReview": true,
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "content-digest",
+        "value": "sha256:ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063"
+      },
+      "contentDigest": "sha256:ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063",
+      "comparisonRevision": "sha256:ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063",
+      "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
+      "reasonCode": "MANUAL_CURRENT",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "missingCurrentReview": false,
       "evidence": {
-        "observationMode": "manual-evidence-required",
+        "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
         "sourceType": "manual-reviewed-doc",
         "sourceUrl": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
-        "digestBasis": null,
+        "digestBasis": "manual-review-receipt",
         "latestCommitDate": "manual review only",
         "releaseSignal": "manual reviewed-doc source; no live repository release check",
         "licenseSignal": "official-docs-terms-not-reviewed",
@@ -1825,20 +1844,23 @@
       "sourceId": "owasp-llmsvs",
       "identityKey": "url:https://owasp.org/www-project-llm-verification-standard/llmsvs-v2.0-en.html",
       "scope": "core",
-      "monitorState": "CHECK_FAILED",
-      "observedRevision": null,
-      "contentDigest": null,
-      "comparisonRevision": null,
-      "comparisonBasis": "MISSING",
-      "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
-      "missingCurrentReview": true,
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "content-digest",
+        "value": "sha256:c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193"
+      },
+      "contentDigest": "sha256:c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193",
+      "comparisonRevision": "sha256:c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193",
+      "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
+      "reasonCode": "MANUAL_CURRENT",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "missingCurrentReview": false,
       "evidence": {
-        "observationMode": "manual-evidence-required",
+        "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
         "sourceType": "manual-reviewed-doc",
         "sourceUrl": "https://owasp.org/www-project-llm-verification-standard/LLMSVS-v2.0-en.html",
-        "digestBasis": null,
+        "digestBasis": "manual-review-receipt",
         "latestCommitDate": "manual review only",
         "releaseSignal": "manual reviewed-doc source; no live repository release check",
         "licenseSignal": "official-docs-terms-not-reviewed",
@@ -1850,20 +1872,23 @@
       "sourceId": "owasp-agentic-applications",
       "identityKey": "url:https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0",
       "scope": "core",
-      "monitorState": "CHECK_FAILED",
-      "observedRevision": null,
-      "contentDigest": null,
-      "comparisonRevision": null,
-      "comparisonBasis": "MISSING",
-      "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
-      "missingCurrentReview": true,
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "content-digest",
+        "value": "sha256:7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48"
+      },
+      "contentDigest": "sha256:7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48",
+      "comparisonRevision": "sha256:7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48",
+      "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
+      "reasonCode": "MANUAL_CURRENT",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "missingCurrentReview": false,
       "evidence": {
-        "observationMode": "manual-evidence-required",
+        "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
         "sourceType": "manual-reviewed-doc",
         "sourceUrl": "https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/",
-        "digestBasis": null,
+        "digestBasis": "manual-review-receipt",
         "latestCommitDate": "manual review only",
         "releaseSignal": "manual reviewed-doc source; no live repository release check",
         "licenseSignal": "official-docs-terms-not-reviewed",
@@ -1875,20 +1900,23 @@
       "sourceId": "slsa-v1-2",
       "identityKey": "url:https://slsa.dev/spec/v1.2",
       "scope": "core",
-      "monitorState": "CHECK_FAILED",
-      "observedRevision": null,
-      "contentDigest": null,
-      "comparisonRevision": null,
-      "comparisonBasis": "MISSING",
-      "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
-      "missingCurrentReview": true,
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "content-digest",
+        "value": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae"
+      },
+      "contentDigest": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae",
+      "comparisonRevision": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae",
+      "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
+      "reasonCode": "MANUAL_CURRENT",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "missingCurrentReview": false,
       "evidence": {
-        "observationMode": "manual-evidence-required",
+        "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
         "sourceType": "manual-reviewed-doc",
         "sourceUrl": "https://slsa.dev/spec/v1.2/",
-        "digestBasis": null,
+        "digestBasis": "manual-review-receipt",
         "latestCommitDate": "manual review only",
         "releaseSignal": "manual reviewed-doc source; no live repository release check",
         "licenseSignal": "official-docs-terms-not-reviewed",
@@ -1900,20 +1928,23 @@
       "sourceId": "openssf-ai-code-assistant-instructions",
       "identityKey": "url:https://best.openssf.org/security-focused-guide-for-ai-code-assistant-instructions",
       "scope": "core",
-      "monitorState": "CHECK_FAILED",
-      "observedRevision": null,
-      "contentDigest": null,
-      "comparisonRevision": null,
-      "comparisonBasis": "MISSING",
-      "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
-      "missingCurrentReview": true,
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "content-digest",
+        "value": "sha256:d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d"
+      },
+      "contentDigest": "sha256:d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d",
+      "comparisonRevision": "sha256:d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d",
+      "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
+      "reasonCode": "MANUAL_CURRENT",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "missingCurrentReview": false,
       "evidence": {
-        "observationMode": "manual-evidence-required",
+        "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
         "sourceType": "manual-reviewed-doc",
         "sourceUrl": "https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions",
-        "digestBasis": null,
+        "digestBasis": "manual-review-receipt",
         "latestCommitDate": "manual review only",
         "releaseSignal": "manual reviewed-doc source; no live repository release check",
         "licenseSignal": "official-docs-terms-not-reviewed",
@@ -1925,20 +1956,23 @@
       "sourceId": "nist-ssdf",
       "identityKey": "url:https://csrc.nist.gov/pubs/sp/800/218/final",
       "scope": "core",
-      "monitorState": "CHECK_FAILED",
-      "observedRevision": null,
-      "contentDigest": null,
-      "comparisonRevision": null,
-      "comparisonBasis": "MISSING",
-      "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
-      "missingCurrentReview": true,
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "content-digest",
+        "value": "sha256:6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e"
+      },
+      "contentDigest": "sha256:6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e",
+      "comparisonRevision": "sha256:6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e",
+      "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
+      "reasonCode": "MANUAL_CURRENT",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "missingCurrentReview": false,
       "evidence": {
-        "observationMode": "manual-evidence-required",
+        "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
         "sourceType": "manual-reviewed-doc",
         "sourceUrl": "https://csrc.nist.gov/pubs/sp/800/218/final",
-        "digestBasis": null,
+        "digestBasis": "manual-review-receipt",
         "latestCommitDate": "manual review only",
         "releaseSignal": "manual reviewed-doc source; no live repository release check",
         "licenseSignal": "official-docs-terms-not-reviewed",
@@ -1950,20 +1984,23 @@
       "sourceId": "owasp-asvs",
       "identityKey": "url:https://owasp.org/www-project-application-security-verification-standard",
       "scope": "core",
-      "monitorState": "CHECK_FAILED",
-      "observedRevision": null,
-      "contentDigest": null,
-      "comparisonRevision": null,
-      "comparisonBasis": "MISSING",
-      "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
-      "missingCurrentReview": true,
+      "monitorState": "CURRENT",
+      "observedRevision": {
+        "kind": "content-digest",
+        "value": "sha256:76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641"
+      },
+      "contentDigest": "sha256:76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641",
+      "comparisonRevision": "sha256:76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641",
+      "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
+      "reasonCode": "MANUAL_CURRENT",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "missingCurrentReview": false,
       "evidence": {
-        "observationMode": "manual-evidence-required",
+        "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
         "sourceType": "manual-reviewed-doc",
         "sourceUrl": "https://owasp.org/www-project-application-security-verification-standard/",
-        "digestBasis": null,
+        "digestBasis": "manual-review-receipt",
         "latestCommitDate": "manual review only",
         "releaseSignal": "manual reviewed-doc source; no live repository release check",
         "licenseSignal": "official-docs-terms-not-reviewed",
@@ -1981,7 +2018,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -2006,7 +2043,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -2031,7 +2068,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -2056,7 +2093,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",
@@ -2081,7 +2118,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-19T22:11:13.031Z",
+      "checkedAt": "2026-07-21T11:56:51.432Z",
       "missingCurrentReview": true,
       "evidence": {
         "observationMode": "manual-evidence-required",

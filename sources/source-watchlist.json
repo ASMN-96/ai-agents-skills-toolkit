@@ -63,7 +63,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "fa0fa64bdc967915dc8399e803be67759e1e62b8"
@@ -129,7 +129,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "49f948faa9258a0c61caceaf225e179651397431"
@@ -196,7 +196,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "2fbfa004a0192529bc997d103fc12f19a3804aab"
@@ -259,7 +259,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "1ad9aaeb49caafd9e95c0a91116f71890eebbc53"
@@ -325,7 +325,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af"
@@ -394,13 +394,13 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "ef3a5830f960c00018f810cebf26133b35ec2b6f"
+          "value": "a7b4d5e0e1fc36bcb2b1b2ae4ebeaddbd9473a21"
         },
-        "contentDigest": "sha256:de0a5d62cc8fb2839a59ee89299902d930d45c70da8e29a7a874f2f2eb50a241",
+        "contentDigest": "sha256:9059d3a73a265eca4650c1bc455b52f2e07617bfc434b81f8f628977d2354643",
         "failureReason": null
       },
       "review": {
@@ -468,7 +468,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "d63607391ffd6b2763a3e62cb05a8e00b891a937"
@@ -533,13 +533,13 @@
       "lifecycle": "review-input",
       "freshnessClass": "general-methods",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "9603c1cc8118d08bc1b3bf34cf714f62178dea3b"
+          "value": "ed37663cc5fbef691ddfecd080dff42f7e7e350d"
         },
-        "contentDigest": "sha256:c162fda5560dc2b6c442fdb9312b0d2094119fe40c88e78e464246c6f8ff0755",
+        "contentDigest": "sha256:ce2695944db0089f4bbbdae34802790dbb38fa9f51b5a449ba9b4389afe12470",
         "failureReason": null
       },
       "review": {
@@ -603,13 +603,13 @@
       "lifecycle": "review-input",
       "freshnessClass": "general-methods",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "d28738b183c5eaa69d8d540826e450f30d39ab6c"
+          "value": "20442886c5cfb440441c35030462fbdf64838655"
         },
-        "contentDigest": "sha256:c3607b2ba1e0cf1eeb8ba825498d74f1014cde7b745a25a0be2e627a17bf9c29",
+        "contentDigest": "sha256:ad99aa5932579ab82eae852ea6fbe1200028292df6c98d1ec0bfeb137db9a537",
         "failureReason": null
       },
       "review": {
@@ -670,7 +670,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "95d6e255afe1596b557d7a8498517884438f5b3a"
@@ -735,7 +735,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "664b3e78fd1a298ba11973822da988483256d4b4"
@@ -802,13 +802,13 @@
       "lifecycle": "review-input",
       "freshnessClass": "general-methods",
       "monitor": {
-        "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "state": "CHANGED",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "e4ab5e24bdf5321b72163d2fbcbe6fa985c848ba"
+          "value": "4d849eb75f216109ea7053ed21530a11fafcc786"
         },
-        "contentDigest": "sha256:9bdf023fc8c3738ddd194022b05c714fa2d02fb0024d81bfda923c6e30838d00",
+        "contentDigest": "sha256:5e6021a96da4435a690013f13628f62007fe36ab151eb5b14f158ee207fdee0f",
         "failureReason": null
       },
       "review": {
@@ -852,7 +852,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CURRENT",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "e0e028058b5259debdd94b78147c6d6c77bf7da2"
@@ -918,8 +918,8 @@
       "lifecycle": "review-input",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CHANGED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "state": "CURRENT",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
           "value": "d884ae04edebef577e82ff7c4e143debd0bbec99"
@@ -989,12 +989,12 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHANGED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "0071fa5c3c389d2b4b235a39402c891e146cdef3"
+          "value": "5deee34c93395045b985e3baf91550e5f1ab7204"
         },
-        "contentDigest": "sha256:7150078d493ab0dbcf2a07ff56d5b01bb478cfeed733c4e7500832c41e88c5e7",
+        "contentDigest": "sha256:3b67e3959dd917529ab94d7a34a81f1860b180350f3485cf1db15a38f87d8afa",
         "failureReason": null
       },
       "review": {
@@ -1059,12 +1059,12 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHANGED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "12ede21767a6dd669df1b79392a5d27d9154f237"
+          "value": "26c35b59b40a0a95b286ccf5ac675a15edcc995f"
         },
-        "contentDigest": "sha256:4c54773d948717b4c331910d927c430d9e3d0040fcc2064cf9062985152af5b1",
+        "contentDigest": "sha256:2c05acbf8aa057f106f351446c887571c1d0a361eee8313d2361f77d8448a8b0",
         "failureReason": null
       },
       "review": {
@@ -1117,7 +1117,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -1172,7 +1172,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -1227,7 +1227,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -1282,7 +1282,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -1337,7 +1337,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -1401,12 +1401,12 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHANGED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "667a864896615f3a159d2834064bebfb6eb7fccf"
+          "value": "a54feb42162b9041b3abeed735307fa72d5f46a1"
         },
-        "contentDigest": "sha256:f728f51fa4a86820e126fd12aa10b9f447c9e62696123ad09e33c5b1b1ab0941",
+        "contentDigest": "sha256:e7f65111556a2c749a0b8f51ac05dae88f878f39de19a129163f0635e847eac1",
         "failureReason": null
       },
       "review": {
@@ -1475,12 +1475,12 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHANGED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": {
           "kind": "git-sha",
-          "value": "44457c890236440bc683e9e5d84499a0a4911550"
+          "value": "bbab507f6d38f8e0a4a64c39cba4d068f31964e0"
         },
-        "contentDigest": "sha256:0efd90bf5522ab5642f6ad64a3c06418a39216991f40b644df0763a9d54076cb",
+        "contentDigest": "sha256:8eaaf9af7712039533d8b6ac5c0ce60f9713f88692e81e5fa19c3f7c71a994f9",
         "failureReason": null
       },
       "review": {
@@ -1527,7 +1527,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -1578,7 +1578,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -1629,7 +1629,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -1680,7 +1680,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -1731,7 +1731,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -1782,7 +1782,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -1833,7 +1833,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -1884,7 +1884,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -1935,7 +1935,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -1986,7 +1986,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2037,7 +2037,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2088,7 +2088,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2139,7 +2139,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2190,7 +2190,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2241,7 +2241,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2292,7 +2292,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2343,7 +2343,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2394,7 +2394,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2445,7 +2445,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2496,7 +2496,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2547,7 +2547,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2598,7 +2598,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2649,7 +2649,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2700,7 +2700,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2751,7 +2751,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2802,7 +2802,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2853,7 +2853,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2904,7 +2904,7 @@
       "freshnessClass": "general-methods",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -2955,7 +2955,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -3006,7 +3006,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -3057,7 +3057,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -3108,7 +3108,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -3159,7 +3159,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -3210,7 +3210,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "BASELINE_MISSING"
@@ -3269,7 +3269,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -3326,7 +3326,7 @@
       "freshnessClass": "platform-standards",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -3381,7 +3381,7 @@
       "freshnessClass": "platform-standards",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -3436,7 +3436,7 @@
       "freshnessClass": "platform-standards",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -3491,7 +3491,7 @@
       "freshnessClass": "platform-standards",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -3546,7 +3546,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -3601,7 +3601,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -3656,7 +3656,7 @@
       "freshnessClass": "platform-standards",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -3711,7 +3711,7 @@
       "freshnessClass": "platform-standards",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -3766,7 +3766,7 @@
       "freshnessClass": "platform-standards",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -3820,23 +3820,29 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
-        "observedRevision": null,
-        "contentDigest": null,
-        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
+        "state": "CURRENT",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
+        "observedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7"
+        },
+        "contentDigest": "sha256:6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7",
+        "failureReason": null
       },
       "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
+        "state": "REVIEWED_CURRENT",
+        "currentReceipt": "sources/reviews/nist-ssdf-ai/6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7.json",
         "previousReceipt": null,
-        "receiptDigest": null,
+        "receiptDigest": "sha256:3a4e368060de90e696dc02f023dfabf7322842ddceeb56fea2497d33b4bd6470",
         "previousReceiptDigest": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "disposition": null
+        "reviewedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7"
+        },
+        "reviewedDigest": "sha256:6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7",
+        "reviewedAt": "2026-07-21T11:32:55.601Z",
+        "expiresAt": "2026-08-04T11:32:55.601Z",
+        "disposition": "SYNCED_REFERENCE"
       },
       "runtimePosture": "metadata-only",
       "dependentResourceIds": [],
@@ -3875,23 +3881,29 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
-        "observedRevision": null,
-        "contentDigest": null,
-        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
+        "state": "CURRENT",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
+        "observedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063"
+        },
+        "contentDigest": "sha256:ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063",
+        "failureReason": null
       },
       "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
+        "state": "REVIEWED_CURRENT",
+        "currentReceipt": "sources/reviews/nist-ai-rmf-genai/ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063.json",
         "previousReceipt": null,
-        "receiptDigest": null,
+        "receiptDigest": "sha256:c016a164f50ba7764fe6ca329a868d74a2b9d5f7b78714a3acc632989f8645a5",
         "previousReceiptDigest": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "disposition": null
+        "reviewedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063"
+        },
+        "reviewedDigest": "sha256:ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063",
+        "reviewedAt": "2026-07-21T11:32:55.601Z",
+        "expiresAt": "2026-08-04T11:32:55.601Z",
+        "disposition": "SYNCED_REFERENCE"
       },
       "runtimePosture": "metadata-only",
       "dependentResourceIds": [],
@@ -3930,23 +3942,29 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
-        "observedRevision": null,
-        "contentDigest": null,
-        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
+        "state": "CURRENT",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
+        "observedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193"
+        },
+        "contentDigest": "sha256:c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193",
+        "failureReason": null
       },
       "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
+        "state": "REVIEWED_CURRENT",
+        "currentReceipt": "sources/reviews/owasp-llmsvs/c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193.json",
         "previousReceipt": null,
-        "receiptDigest": null,
+        "receiptDigest": "sha256:983e820ffba64844f15fb0fa2940d929c60df69645d1e520a5143ac0180e84ef",
         "previousReceiptDigest": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "disposition": null
+        "reviewedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193"
+        },
+        "reviewedDigest": "sha256:c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193",
+        "reviewedAt": "2026-07-21T11:32:55.601Z",
+        "expiresAt": "2026-08-04T11:32:55.601Z",
+        "disposition": "SYNCED_REFERENCE"
       },
       "runtimePosture": "metadata-only",
       "dependentResourceIds": [],
@@ -3985,23 +4003,29 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
-        "observedRevision": null,
-        "contentDigest": null,
-        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
+        "state": "CURRENT",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
+        "observedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48"
+        },
+        "contentDigest": "sha256:7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48",
+        "failureReason": null
       },
       "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
+        "state": "REVIEWED_CURRENT",
+        "currentReceipt": "sources/reviews/owasp-agentic-applications/7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48.json",
         "previousReceipt": null,
-        "receiptDigest": null,
+        "receiptDigest": "sha256:2c07b8a0af6aa78e27e4789c86448145d81114f66449cc67b144d0d62fdb9a59",
         "previousReceiptDigest": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "disposition": null
+        "reviewedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48"
+        },
+        "reviewedDigest": "sha256:7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48",
+        "reviewedAt": "2026-07-21T11:53:58.588Z",
+        "expiresAt": "2026-08-04T11:53:58.588Z",
+        "disposition": "SYNCED_REFERENCE"
       },
       "runtimePosture": "metadata-only",
       "dependentResourceIds": [],
@@ -4040,23 +4064,29 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
-        "observedRevision": null,
-        "contentDigest": null,
-        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
+        "state": "CURRENT",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
+        "observedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae"
+        },
+        "contentDigest": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae",
+        "failureReason": null
       },
       "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
+        "state": "REVIEWED_CURRENT",
+        "currentReceipt": "sources/reviews/slsa-v1-2/46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae.json",
         "previousReceipt": null,
-        "receiptDigest": null,
+        "receiptDigest": "sha256:cb38971650d140254bb1a18616b2fbdfce62efdb58a50ee18dda15f91cc318bc",
         "previousReceiptDigest": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "disposition": null
+        "reviewedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae"
+        },
+        "reviewedDigest": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae",
+        "reviewedAt": "2026-07-21T11:32:55.601Z",
+        "expiresAt": "2026-08-04T11:32:55.601Z",
+        "disposition": "SYNCED_REFERENCE"
       },
       "runtimePosture": "metadata-only",
       "dependentResourceIds": [],
@@ -4095,23 +4125,29 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
-        "observedRevision": null,
-        "contentDigest": null,
-        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
+        "state": "CURRENT",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
+        "observedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d"
+        },
+        "contentDigest": "sha256:d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d",
+        "failureReason": null
       },
       "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
+        "state": "REVIEWED_CURRENT",
+        "currentReceipt": "sources/reviews/openssf-ai-code-assistant-instructions/d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d.json",
         "previousReceipt": null,
-        "receiptDigest": null,
+        "receiptDigest": "sha256:77b04cc8677c960efb990bf44c7cbaed00597ea1ae398ffe32244d6177c15da6",
         "previousReceiptDigest": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "disposition": null
+        "reviewedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d"
+        },
+        "reviewedDigest": "sha256:d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d",
+        "reviewedAt": "2026-07-21T11:53:58.588Z",
+        "expiresAt": "2026-08-04T11:53:58.588Z",
+        "disposition": "SYNCED_REFERENCE"
       },
       "runtimePosture": "metadata-only",
       "dependentResourceIds": [],
@@ -4150,23 +4186,29 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
-        "observedRevision": null,
-        "contentDigest": null,
-        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
+        "state": "CURRENT",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
+        "observedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e"
+        },
+        "contentDigest": "sha256:6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e",
+        "failureReason": null
       },
       "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
+        "state": "REVIEWED_CURRENT",
+        "currentReceipt": "sources/reviews/nist-ssdf/6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e.json",
         "previousReceipt": null,
-        "receiptDigest": null,
+        "receiptDigest": "sha256:85cee2bbe520df61978df162942c4cabc5a313b462f4289065f16ea01226add1",
         "previousReceiptDigest": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "disposition": null
+        "reviewedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e"
+        },
+        "reviewedDigest": "sha256:6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e",
+        "reviewedAt": "2026-07-21T11:32:55.601Z",
+        "expiresAt": "2026-08-04T11:32:55.601Z",
+        "disposition": "SYNCED_REFERENCE"
       },
       "runtimePosture": "metadata-only",
       "dependentResourceIds": [],
@@ -4205,23 +4247,29 @@
       "reviewPriority": "High",
       "freshnessClass": "security-runtime",
       "monitor": {
-        "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
-        "observedRevision": null,
-        "contentDigest": null,
-        "failureReason": "MANUAL_EVIDENCE_REQUIRED"
+        "state": "CURRENT",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
+        "observedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641"
+        },
+        "contentDigest": "sha256:76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641",
+        "failureReason": null
       },
       "review": {
-        "state": "QUARANTINED",
-        "currentReceipt": null,
+        "state": "REVIEWED_CURRENT",
+        "currentReceipt": "sources/reviews/owasp-asvs/76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641.json",
         "previousReceipt": null,
-        "receiptDigest": null,
+        "receiptDigest": "sha256:aa98e32523e35668b5ee825f64ecef9e5b68838a9765072835ef1d2b3e3a5845",
         "previousReceiptDigest": null,
-        "reviewedRevision": null,
-        "reviewedDigest": null,
-        "reviewedAt": null,
-        "expiresAt": null,
-        "disposition": null
+        "reviewedRevision": {
+          "kind": "content-digest",
+          "value": "sha256:76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641"
+        },
+        "reviewedDigest": "sha256:76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641",
+        "reviewedAt": "2026-07-21T11:32:55.601Z",
+        "expiresAt": "2026-08-04T11:32:55.601Z",
+        "disposition": "SYNCED_REFERENCE"
       },
       "runtimePosture": "metadata-only",
       "dependentResourceIds": [],
@@ -4261,7 +4309,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -4316,7 +4364,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -4371,7 +4419,7 @@
       "freshnessClass": "platform-standards",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -4426,7 +4474,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -4481,7 +4529,7 @@
       "freshnessClass": "security-runtime",
       "monitor": {
         "state": "CHECK_FAILED",
-        "checkedAt": "2026-07-19T22:11:13.031Z",
+        "checkedAt": "2026-07-21T11:56:51.432Z",
         "observedRevision": null,
         "contentDigest": null,
         "failureReason": "MANUAL_EVIDENCE_REQUIRED"
@@ -4519,7 +4567,9 @@
     "authoritativeForCurrentReview": false
   },
   "approverPolicy": {
-    "authorizedIdentities": [],
+    "authorizedIdentities": [
+      "repository-owner:abdal"
+    ],
     "requiresExplicitOwnerRegistration": true
   }
 }
