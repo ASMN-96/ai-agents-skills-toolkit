@@ -1,7 +1,8 @@
 import { execFileSync } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
 import { readFileSync, rmSync } from "node:fs";
-import { readFile, readdir } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import {
   ManagedFilesystem,
@@ -17,6 +18,7 @@ import {
   REVIEW_STATES as CONTRACT_REVIEW_STATES,
   RUNTIME_POSTURES as CONTRACT_RUNTIME_POSTURES,
   SOURCE_CATALOG_SCHEMA_VERSION as CONTRACT_SOURCE_CATALOG_SCHEMA_VERSION,
+  validateManualSourceObservation as validateManualSourceObservationContract,
   validateSourceCatalog as validateSourceCatalogContract,
   validateSourceReviewReceipt as validateSourceReviewReceiptContract
 } from "./kernel/source-catalog-contract.mjs";
@@ -43,6 +45,7 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const SOURCE_GOVERNANCE_MUTATION_LOCK = ".source-governance-mutation.lock";
 const MUTATION_LOCK_STALE_AFTER_MS = 60 * 60 * 1000;
 const MUTATION_LOCK_HELD = Symbol("source-governance-mutation-lock-held");
+const MAX_MANUAL_OBSERVATION_BYTES = 1_048_576;
 const COMPARISON_BASES = new Set([
   "PRIOR_MONITOR_OBSERVATION",
   "REVIEWED_REVISION",
@@ -113,6 +116,49 @@ function requireIsoInstant(value, field, { nullable = false } = {}) {
 
 function requireNow(value) {
   return requireIsoInstant(value ?? new Date().toISOString(), "now");
+}
+
+function isPathWithin(root, candidate) {
+  const relative = path.relative(path.resolve(root), path.resolve(candidate));
+  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
+}
+
+function requireOptionalObservationHeader(value, field) {
+  if (value === undefined || value === null) return null;
+  requireString(value, field);
+  if (value.length > 4_096 || /[\r\n\0]/.test(value)) {
+    fail(`${field} must be a single-line header value no longer than 4096 characters`);
+  }
+  return value;
+}
+
+async function readManualObservationContent(repositoryRoot, contentFile) {
+  requireString(contentFile, "contentFile");
+  if (!path.isAbsolute(contentFile)) fail("contentFile must be an absolute temporary file path");
+  const absolute = path.resolve(contentFile);
+  if (isPathWithin(repositoryRoot, absolute)) {
+    fail("contentFile must be a temporary file outside the repository");
+  }
+  const safeContentFile = assertRegularFileWithin(
+    path.resolve(os.tmpdir()),
+    absolute,
+    "manual source content input"
+  );
+  const metadata = await stat(safeContentFile);
+  if (metadata.size > MAX_MANUAL_OBSERVATION_BYTES) {
+    fail(`contentFile exceeds the maximum size of ${MAX_MANUAL_OBSERVATION_BYTES} bytes`);
+  }
+  const bytes = await readFile(safeContentFile);
+  let content;
+  try {
+    content = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);
+  } catch {
+    fail("contentFile must contain valid UTF-8");
+  }
+  return {
+    bytes: bytes.length,
+    contentDigest: sha256Text(content.replace(/\r\n?/g, "\n"))
+  };
 }
 
 function assertSafeRelativePath(value, field, { nullable = false } = {}) {
@@ -760,7 +806,7 @@ function readMutationLockIfPresent(repositoryRoot, lockPath) {
     if (
       isRecord(candidate) &&
       candidate.schemaVersion === "1.0.0" &&
-      ["source-review", "source-freshness"].includes(candidate.operation) &&
+      ["source-review", "source-freshness", "manual-source-observation"].includes(candidate.operation) &&
       Number.isInteger(candidate.ownerPid) &&
       candidate.ownerPid > 0 &&
       typeof candidate.token === "string" &&
@@ -1096,6 +1142,138 @@ export async function applySourceFreshness(options = {}) {
       const stagedCatalog = JSON.parse(staging.readFile("source-watchlist.json", "utf8"));
       validateSourceCatalog(stagedCatalog, { now });
       validateFreshnessReport(stagedCatalog, report, { now, domainPacksRegistry });
+    }
+  });
+  return result;
+}
+
+export async function recordManualSourceObservation(options = {}) {
+  const repositoryRoot = path.resolve(requireString(options.repositoryRoot, "repositoryRoot"));
+  const mode = options.mode ?? "dry-run";
+  if (!new Set(["dry-run", "confirm-write"]).has(mode)) fail("mode must be dry-run or confirm-write");
+  const now = requireNow(options.now);
+  const observedAt = requireIsoInstant(options.observedAt, "observedAt");
+  if (Date.parse(observedAt) > Date.parse(now)) fail("observedAt must not be in the future");
+  requireOptionalObservationHeader(options.etag, "etag");
+  requireOptionalObservationHeader(options.lastModified, "lastModified");
+  if (mode === "confirm-write" && options[MUTATION_LOCK_HELD] !== true) {
+    const mutationLock = acquireMutationLock(repositoryRoot, "manual-source-observation", now);
+    try {
+      recoverManagedDirectoryTransaction({
+        repositoryRoot,
+        managedRoot: path.join(repositoryRoot, "sources")
+      });
+      return await recordManualSourceObservation({
+        ...options,
+        repositoryRoot,
+        mode,
+        now,
+        [MUTATION_LOCK_HELD]: true
+      });
+    } finally {
+      releaseMutationLock(repositoryRoot, mutationLock);
+    }
+  }
+
+  const catalogDocument = await readJsonDocumentWithin(
+    repositoryRoot,
+    "sources/source-watchlist.json",
+    "source catalog"
+  );
+  const catalog = catalogDocument.parsed;
+  validateSourceCatalog(catalog, { now });
+  const sourceId = requireString(options.sourceId, "sourceId");
+  const source = catalog.sources.find((entry) => entry.id === sourceId);
+  if (!source) fail(`manual source observation references unknown source: ${sourceId}`);
+  if (source.sourceType !== "manual-reviewed-doc") {
+    fail(`manual source observation requires a manual-reviewed-doc source: ${sourceId}`);
+  }
+  if (source.review.state !== "QUARANTINED") {
+    fail(`manual source observation requires a QUARANTINED source review: ${sourceId}`);
+  }
+  const sourceUrl = options.sourceUrl === undefined
+    ? source.sourceUrl
+    : requireString(options.sourceUrl, "sourceUrl");
+  if (sourceUrl !== source.sourceUrl) {
+    fail(`manual source observation source URL does not match the catalog source: ${sourceId}`);
+  }
+  const content = await readManualObservationContent(repositoryRoot, options.contentFile);
+  const observedRevision = { kind: "content-digest", value: content.contentDigest };
+  validateManualSourceObservationContract(source, { observedRevision, contentDigest: content.contentDigest });
+  const updated = structuredClone(catalog);
+  const updatedSource = updated.sources.find((entry) => entry.id === source.id);
+  updatedSource.monitor = {
+    state: "CHANGED",
+    checkedAt: observedAt,
+    observedRevision,
+    contentDigest: content.contentDigest,
+    failureReason: null
+  };
+  validateSourceCatalog(updated, { now });
+
+  const result = {
+    mode,
+    sourceId: source.id,
+    sourceUrl: source.sourceUrl,
+    catalogPath: "sources/source-watchlist.json",
+    observedAt,
+    monitorState: "CHANGED",
+    observedRevision,
+    contentDigest: content.contentDigest,
+    inputBytes: content.bytes,
+    contentCopied: false,
+    generatedMirrorsUpdated: false,
+    runtimePosturesChanged: false,
+    reviewsApproved: false
+  };
+  if (mode === "dry-run") return result;
+
+  if (readFileSync(catalogDocument.absolute, "utf8") !== catalogDocument.text) {
+    fail("canonical source catalog changed after manual observation validation; retry the observation");
+  }
+  runManagedDirectoryTransaction({
+    repositoryRoot,
+    managedRoot: path.join(repositoryRoot, "sources"),
+    label: "manual source observation",
+    prepare(staging) {
+      if (staging.readFile("source-watchlist.json", "utf8") !== catalogDocument.text) {
+        fail("canonical source catalog changed before manual observation staging; retry the observation");
+      }
+      staging.writeFile(
+        "source-watchlist.json",
+        canonicalJson(updated),
+        "utf8",
+        "canonical manual source monitor observation"
+      );
+    },
+    beforeBackup() {
+      if (readFileSync(catalogDocument.absolute, "utf8") !== catalogDocument.text) {
+        fail("canonical source catalog changed before manual observation backup; retry the observation");
+      }
+    },
+    validate(staging) {
+      const stagedCatalog = JSON.parse(staging.readFile("source-watchlist.json", "utf8"));
+      validateSourceCatalog(stagedCatalog, { now });
+      const stagedSource = stagedCatalog.sources.find((entry) => entry.id === source.id);
+      if (
+        stagedSource.monitor.state !== "CHANGED" ||
+        !sameRevision(stagedSource.monitor.observedRevision, observedRevision) ||
+        stagedSource.monitor.contentDigest !== content.contentDigest ||
+        stagedSource.monitor.failureReason !== null
+      ) {
+        fail("staged manual source observation does not match the verified content digest");
+      }
+      const expectedSource = structuredClone(source);
+      expectedSource.monitor = {
+        state: "CHANGED",
+        checkedAt: observedAt,
+        observedRevision,
+        contentDigest: content.contentDigest,
+        failureReason: null
+      };
+      if (JSON.stringify(stagedSource) !== JSON.stringify(expectedSource)) {
+        fail("manual source observation attempted to change canonical fields outside its monitor evidence");
+      }
     }
   });
   return result;

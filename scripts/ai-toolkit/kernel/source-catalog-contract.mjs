@@ -724,6 +724,30 @@ function validateSourceEntry(source, index, now) {
   return source;
 }
 
+export function validateManualSourceObservation(source, observation) {
+  requireRecord(source, "source");
+  if (source.sourceType !== "manual-reviewed-doc") {
+    fail("manual source observation requires a manual-reviewed-doc source");
+  }
+  const candidate = requireRecord(observation, "manual source observation");
+  rejectUnknownFields(
+    candidate,
+    new Set(["observedRevision", "contentDigest"]),
+    "manual source observation"
+  );
+  const revision = validateRevision(candidate.observedRevision, "manual source observation.observedRevision");
+  if (revision.kind !== "content-digest") {
+    fail("manual source observation requires a content-digest revision");
+  }
+  if (typeof candidate.contentDigest !== "string" || !SHA256.test(candidate.contentDigest)) {
+    fail("manual source observation contentDigest must be a sha256 digest");
+  }
+  if (revision.value !== candidate.contentDigest) {
+    fail("manual source observation revision must match the content digest");
+  }
+  return candidate;
+}
+
 function graphSourceIndex(catalog) {
   if (!isRecord(catalog) || !Array.isArray(catalog.sources)) {
     fail("scope derivation requires a catalog with sources");

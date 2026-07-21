@@ -2,6 +2,12 @@
 
 Store one SourceReviewReceipt v1 at `sources/reviews/<source-id>/<exact-revision>.json` only through `scripts/apply-source-review.mjs --confirm-write`.
 
+For a `manual-reviewed-doc`, a reviewer may record a fresh local observation before a receipt exists with:
+
+`node scripts/record-manual-source-observation.mjs --source-id <id> --content-file <temporary-downloaded-file> --observed-at <ISO> [--source-url <catalog-url>] [--etag <value>] [--last-modified <value>] [--dry-run|--confirm-write]`
+
+The command defaults to dry-run and accepts only a regular, non-linked UTF-8 file in the local temporary directory. It normalizes line endings to LF, records only the SHA-256 monitor observation as `CHANGED`, and never stores downloaded content, creates a receipt, approves review, imports source material, or changes runtime posture. `--source-url` is optional; when supplied, it must exactly match the catalog's source URL. A separately approved immutable receipt is still required to move the source to `REVIEWED_CURRENT`.
+
 - GitHub receipt filenames use the exact 40-character reviewed SHA.
 - Mutable-documentation receipt filenames use the exact SHA-256 content digest without the `sha256:` prefix.
 - Existing receipt content is immutable. A different review of the same revision must not overwrite it.
