@@ -31,7 +31,7 @@ after(() => {
 });
 
 function worktreeFixture(prefix) {
-  const fixture = mkdtempSync(path.join(ROOT, "temp", prefix));
+  const fixture = mkdtempSync(path.join(ROOT, `.${prefix}`));
   WORKTREE_FIXTURES.add(fixture);
   return fixture;
 }
