@@ -8,6 +8,7 @@ import {
   mkdtempSync,
   readFileSync,
   readdirSync,
+  renameSync,
   rmSync,
   writeFileSync
 } from "node:fs";
@@ -181,6 +182,37 @@ test("manual observation defaults to dry-run and records only normalized monitor
   }
 });
 
+test("manual observation canonicalizes a leading UTF-8 BOM before computing the LF-normalized digest", async () => {
+  const fixture = createFixture();
+  try {
+    const plainText = "Manual downloaded document\r\nwith CRLF line endings\r\n";
+    const plain = writeInput(fixture.inputRoot, "plain-document.txt", plainText);
+    const bomPrefixed = writeInput(
+      fixture.inputRoot,
+      "bom-prefixed-document.txt",
+      Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from(plainText, "utf8")])
+    );
+    const plainObservation = await recordManualSourceObservation({
+      repositoryRoot: fixture.root,
+      sourceId: fixture.manual.id,
+      contentFile: plain,
+      observedAt: OBSERVED_AT,
+      now: REVIEW_NOW
+    });
+    const bomObservation = await recordManualSourceObservation({
+      repositoryRoot: fixture.root,
+      sourceId: fixture.manual.id,
+      contentFile: bomPrefixed,
+      observedAt: OBSERVED_AT,
+      now: REVIEW_NOW
+    });
+    assert.equal(bomObservation.contentDigest, plainObservation.contentDigest);
+    assert.equal(bomObservation.contentDigest, canonicalDigest(plainText));
+  } finally {
+    cleanup(fixture);
+  }
+});
+
 test("manual observation command keeps the required CLI dry-run default and verifies an optional source URL claim", () => {
   const fixture = createFixture();
   try {
@@ -287,6 +319,38 @@ test("manual observation rejects non-manual sources, unsafe temporary inputs, in
       }),
       /must not be in the future/i
     );
+  } finally {
+    cleanup(fixture);
+  }
+});
+
+test("manual observation rejects a temporary input that is replaced after pathname validation", async () => {
+  const fixture = createFixture();
+  try {
+    const originalCatalog = readFileSync(fixture.catalogPath, "utf8");
+    const contentFile = writeInput(fixture.inputRoot, "downloaded-document.txt", "Validated document\n");
+    const replacement = writeInput(fixture.inputRoot, "replacement-document.txt", "Replacement content\n");
+    let validationHookRan = false;
+
+    await assert.rejects(
+      recordManualSourceObservation({
+        repositoryRoot: fixture.root,
+        sourceId: fixture.manual.id,
+        contentFile,
+        observedAt: OBSERVED_AT,
+        now: REVIEW_NOW,
+        testHooks: {
+          afterContentPathValidated() {
+            validationHookRan = true;
+            rmSync(contentFile);
+            renameSync(replacement, contentFile);
+          }
+        }
+      }),
+      /changed after validation/i
+    );
+    assert.equal(validationHookRan, true);
+    assert.equal(readFileSync(fixture.catalogPath, "utf8"), originalCatalog);
   } finally {
     cleanup(fixture);
   }

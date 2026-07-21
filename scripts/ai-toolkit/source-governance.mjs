@@ -1,7 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
 import { readFileSync, rmSync } from "node:fs";
-import { readFile, readdir, stat } from "node:fs/promises";
+import { open, readFile, readdir, stat } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import {
@@ -132,33 +132,97 @@ function requireOptionalObservationHeader(value, field) {
   return value;
 }
 
-async function readManualObservationContent(repositoryRoot, contentFile) {
+function requireManualObservationTestHooks(value) {
+  if (value === undefined) return null;
+  const hooks = requireRecord(value, "manual observation testHooks");
+  rejectUnknownFields(hooks, new Set(["afterContentPathValidated"]), "manual observation testHooks");
+  if (typeof hooks.afterContentPathValidated !== "function") {
+    fail("manual observation testHooks.afterContentPathValidated must be a function");
+  }
+  return hooks;
+}
+
+function fileSnapshot(metadata) {
+  return {
+    dev: metadata.dev,
+    ino: metadata.ino,
+    mode: metadata.mode,
+    size: metadata.size,
+    ctimeMs: metadata.ctimeMs,
+    mtimeMs: metadata.mtimeMs,
+    birthtimeMs: metadata.birthtimeMs
+  };
+}
+
+function sameFileSnapshot(left, right) {
+  return JSON.stringify(fileSnapshot(left)) === JSON.stringify(fileSnapshot(right));
+}
+
+async function assertManualContentUnchanged({ temporaryRoot, contentFile, validatedSnapshot, fileHandle }) {
+  const safeContentFile = assertRegularFileWithin(
+    temporaryRoot,
+    contentFile,
+    "manual source content input"
+  );
+  const [pathSnapshot, handleSnapshot] = await Promise.all([
+    stat(safeContentFile),
+    fileHandle.stat()
+  ]);
+  if (!sameFileSnapshot(validatedSnapshot, pathSnapshot) || !sameFileSnapshot(validatedSnapshot, handleSnapshot)) {
+    fail("contentFile changed after validation");
+  }
+  return pathSnapshot;
+}
+
+async function readManualObservationContent(repositoryRoot, contentFile, testHooks) {
   requireString(contentFile, "contentFile");
   if (!path.isAbsolute(contentFile)) fail("contentFile must be an absolute temporary file path");
   const absolute = path.resolve(contentFile);
   if (isPathWithin(repositoryRoot, absolute)) {
     fail("contentFile must be a temporary file outside the repository");
   }
+  const temporaryRoot = path.resolve(os.tmpdir());
   const safeContentFile = assertRegularFileWithin(
-    path.resolve(os.tmpdir()),
+    temporaryRoot,
     absolute,
     "manual source content input"
   );
-  const metadata = await stat(safeContentFile);
-  if (metadata.size > MAX_MANUAL_OBSERVATION_BYTES) {
+  const validatedSnapshot = await stat(safeContentFile);
+  if (validatedSnapshot.size > MAX_MANUAL_OBSERVATION_BYTES) {
     fail(`contentFile exceeds the maximum size of ${MAX_MANUAL_OBSERVATION_BYTES} bytes`);
   }
-  const bytes = await readFile(safeContentFile);
-  let content;
+  if (testHooks) await testHooks.afterContentPathValidated();
+  const fileHandle = await open(safeContentFile, "r");
   try {
-    content = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);
-  } catch {
-    fail("contentFile must contain valid UTF-8");
+    await assertManualContentUnchanged({
+      temporaryRoot,
+      contentFile: safeContentFile,
+      validatedSnapshot,
+      fileHandle
+    });
+    const bytes = await fileHandle.readFile();
+    if (bytes.length > MAX_MANUAL_OBSERVATION_BYTES) {
+      fail(`contentFile exceeds the maximum size of ${MAX_MANUAL_OBSERVATION_BYTES} bytes`);
+    }
+    await assertManualContentUnchanged({
+      temporaryRoot,
+      contentFile: safeContentFile,
+      validatedSnapshot,
+      fileHandle
+    });
+    let content;
+    try {
+      content = new TextDecoder("utf-8", { fatal: true, ignoreBOM: false }).decode(bytes);
+    } catch {
+      fail("contentFile must contain valid UTF-8");
+    }
+    return {
+      bytes: bytes.length,
+      contentDigest: sha256Text(content.replace(/\r\n?/g, "\n"))
+    };
+  } finally {
+    await fileHandle.close();
   }
-  return {
-    bytes: bytes.length,
-    contentDigest: sha256Text(content.replace(/\r\n?/g, "\n"))
-  };
 }
 
 function assertSafeRelativePath(value, field, { nullable = false } = {}) {
@@ -1156,6 +1220,7 @@ export async function recordManualSourceObservation(options = {}) {
   if (Date.parse(observedAt) > Date.parse(now)) fail("observedAt must not be in the future");
   requireOptionalObservationHeader(options.etag, "etag");
   requireOptionalObservationHeader(options.lastModified, "lastModified");
+  const testHooks = requireManualObservationTestHooks(options.testHooks);
   if (mode === "confirm-write" && options[MUTATION_LOCK_HELD] !== true) {
     const mutationLock = acquireMutationLock(repositoryRoot, "manual-source-observation", now);
     try {
@@ -1197,7 +1262,7 @@ export async function recordManualSourceObservation(options = {}) {
   if (sourceUrl !== source.sourceUrl) {
     fail(`manual source observation source URL does not match the catalog source: ${sourceId}`);
   }
-  const content = await readManualObservationContent(repositoryRoot, options.contentFile);
+  const content = await readManualObservationContent(repositoryRoot, options.contentFile, testHooks);
   const observedRevision = { kind: "content-digest", value: content.contentDigest };
   validateManualSourceObservationContract(source, { observedRevision, contentDigest: content.contentDigest });
   const updated = structuredClone(catalog);
