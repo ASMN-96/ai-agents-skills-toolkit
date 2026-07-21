@@ -205,6 +205,73 @@ test("Windows reparse negative-cache eligibility excludes UNC, extended UNC, and
   assert.equal(isEligible("Z:\\mapped\\managed", "C:"), false);
 });
 
+test("Windows native reparse attribute probe accepts only a completed non-reparse result", () => {
+  assert.equal(typeof safeFilesystemModule.assertWindowsNativeAttributeProbeResult, "function");
+  const assertProbe = safeFilesystemModule.assertWindowsNativeAttributeProbeResult;
+  const candidate = "C:\\managed\\candidate";
+  const label = "native probe fixture";
+  assert.doesNotThrow(() => assertProbe({ status: 0, signal: null, stdout: "16" }, candidate, label));
+  assert.throws(
+    () => assertProbe({ status: 0, signal: null, stdout: "1024" }, candidate, label),
+    /linked|junction|reparse/i
+  );
+  for (const result of [
+    { status: 0, signal: null, stdout: "not-a-number" },
+    { status: 0, signal: null, stdout: "16trailing" },
+    { status: 0, signal: null, stdout: "-3" },
+    { status: 1, signal: null, stdout: "16" },
+    { status: null, signal: "SIGTERM", stdout: "16" },
+    { status: null, signal: null, error: new Error("spawn EPERM"), stdout: "" }
+  ]) {
+    assert.throws(
+      () => assertProbe(result, candidate, label),
+      /could not verify Windows reparse-point state/i
+    );
+  }
+});
+
+test("Windows containment accepts an existing local path longer than MAX_PATH", { skip: process.platform !== "win32" }, () => {
+  const fixture = mkdtempSync(path.join(tmpdir(), "managed-fs-long-path-"));
+  const longDirectory = path.join(
+    fixture,
+    ...Array.from({ length: 8 }, (_, index) => `segment-${index}-${"x".repeat(32)}`)
+  );
+  try {
+    mkdirSync(longDirectory, { recursive: true });
+    assert.ok(longDirectory.length > 260, `fixture must exceed MAX_PATH: ${longDirectory.length}`);
+    assert.doesNotThrow(() => safeFilesystemModule.assertPathContained(
+      fixture,
+      longDirectory,
+      "long Windows containment path"
+    ));
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
+});
+
+test("Windows containment rejects a reparse point at a path longer than MAX_PATH", { skip: process.platform !== "win32" }, () => {
+  const fixture = mkdtempSync(path.join(tmpdir(), "managed-fs-long-reparse-"));
+  const target = mkdtempSync(path.join(tmpdir(), "managed-fs-long-reparse-target-"));
+  const parent = path.join(
+    fixture,
+    ...Array.from({ length: 8 }, (_, index) => `segment-${index}-${"x".repeat(32)}`)
+  );
+  const linked = path.join(parent, "linked");
+  try {
+    mkdirSync(parent, { recursive: true });
+    assert.ok(linked.length > 260, `fixture must exceed MAX_PATH: ${linked.length}`);
+    symlinkSync(target, linked, "junction");
+    assert.throws(() => safeFilesystemModule.assertPathContained(
+      fixture,
+      linked,
+      "long Windows reparse path"
+    ), /linked|junction|reparse/i);
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+    rmSync(target, { recursive: true, force: true });
+  }
+});
+
 test("managed new-file paths reject NTFS streams, device aliases, and trailing dot or space segments", () => {
   const fixture = mkdtempSync(path.join(tmpdir(), "managed-fs-portable-name-"));
   try {
