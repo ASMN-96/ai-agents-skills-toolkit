@@ -380,6 +380,10 @@ function agentQualityIssues(text) {
 }
 
 function expectedMethodRefsForAgent(agent, methods) {
+  if (Array.isArray(agent.compiledMethodRefs)) {
+    return agent.compiledMethodRefs;
+  }
+
   const methodRefs = [];
   for (const method of methods.values()) {
     const passiveConsumers = asArray(method.passiveConsumerAgents).join(" ");

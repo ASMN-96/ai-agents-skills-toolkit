@@ -138,7 +138,7 @@
     },
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "e92c56275ca468a326d08d6031534ed4140c00035dcf1b98e6ea552caf2791de"
+      "sha256": "70addd9632b67f2fcb120ee12f3fb53deef0d9f295994de669a4d6c8c317543d"
     },
     {
       "path": "scripts/validate-v0-3-release-evidence.mjs",
