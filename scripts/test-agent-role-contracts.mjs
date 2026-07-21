@@ -419,6 +419,22 @@ test("compiled fallbacks preserve adopted falsification and agent-safety control
   assert.match(security, /re-authoriz/iu);
 });
 
+test("reviewer fallback preserves independent adversarial release review boundaries", async () => {
+  const reviewer = await regularFile("compiled-agents/reviewer-agent.compiled.md");
+  for (const pattern of [
+    /adversarial/iu,
+    /security/iu,
+    /privacy/iu,
+    /branch.*release|release.*branch/isu,
+    /documentation/iu,
+    /GSD.*Superpowers|Superpowers.*GSD/isu,
+    /independent review|independent verifier/iu
+  ]) {
+    assert.match(reviewer, pattern);
+  }
+  assert.ok(words(reviewer) <= 3500, `reviewer-agent compiled fallback has ${words(reviewer)} words`);
+});
+
 test("compiled fallbacks stay below the unwaived warning budget", async () => {
   const registry = JSON.parse(await regularFile("registries/agents.registry.json"));
   const fallbackAgents = registry.agents.filter(

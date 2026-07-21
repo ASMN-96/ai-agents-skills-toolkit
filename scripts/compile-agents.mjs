@@ -260,6 +260,52 @@ function asArray(value) {
   return Array.isArray(value) ? value : [];
 }
 
+function compiledMethodRefs(agent, registries) {
+  if (Object.hasOwn(agent, "compiledMethodRefs")) {
+    if (!Array.isArray(agent.compiledMethodRefs)) {
+      throw new Error(`agent ${agent.name} compiledMethodRefs must be an array`);
+    }
+    const refs = [];
+    const seen = new Set();
+    for (const methodId of agent.compiledMethodRefs) {
+      if (typeof methodId !== "string" || methodId.trim().length === 0) {
+        throw new Error(`agent ${agent.name} has an empty compiledMethodRefs method`);
+      }
+      if (seen.has(methodId)) {
+        throw new Error(`agent ${agent.name} has a duplicate compiledMethodRefs method: ${methodId}`);
+      }
+      if (!registries.methods.has(methodId)) {
+        throw new Error(`agent ${agent.name} references an unknown compiledMethodRefs method: ${methodId}`);
+      }
+      seen.add(methodId);
+      refs.push(methodId);
+    }
+    return refs;
+  }
+
+  const refs = [];
+  for (const method of registries.methods.values()) {
+    const passiveConsumers = asArray(method.passiveConsumerAgents).join(" ");
+    const relatedScenarios = asArray(method.relatedRoutingScenarios).join(" ");
+    if (
+      passiveConsumers.includes(agent.displayName || agent.name) ||
+      passiveConsumers.includes(agent.name) ||
+      relatedScenarios.includes(agent.name)
+    ) {
+      refs.push(method.id);
+    }
+  }
+  if (refs.length === 0) {
+    for (const method of registries.methods.values()) {
+      if (asArray(method.passiveConsumerAgents).join(" ").includes("All internal agents")) {
+        refs.push(method.id);
+      }
+    }
+  }
+  if (refs.length === 0) refs.push(...registries.methods.keys());
+  return refs;
+}
+
 function blockList(items) {
   return items.length === 0 ? "[]" : `[${items.map((item) => `"${item}"`).join(", ")}]`;
 }
@@ -433,31 +479,7 @@ async function compileAgent(agent, registries, commit, inputDigest, compilerHash
       name: profile,
       sourcePath: resolveProfileSourcePath(registries.profiles.get(profile))
     }));
-  const methodRefs = [];
-
-  for (const method of registries.methods.values()) {
-    const passiveConsumers = asArray(method.passiveConsumerAgents).join(" ");
-    const relatedScenarios = asArray(method.relatedRoutingScenarios).join(" ");
-    if (
-      passiveConsumers.includes(agent.displayName || agent.name) ||
-      passiveConsumers.includes(agent.name) ||
-      relatedScenarios.includes(agent.name)
-    ) {
-      methodRefs.push(method.id);
-    }
-  }
-
-  if (methodRefs.length === 0) {
-    for (const method of registries.methods.values()) {
-      if (asArray(method.passiveConsumerAgents).join(" ").includes("All internal agents")) {
-        methodRefs.push(method.id);
-      }
-    }
-  }
-
-  if (methodRefs.length === 0) {
-    methodRefs.push(...[...registries.methods.keys()]);
-  }
+  const methodRefs = compiledMethodRefs(agent, registries);
 
   const profileSections = [];
   for (const profile of profileRefs) {
@@ -473,6 +495,9 @@ async function compileAgent(agent, registries, commit, inputDigest, compilerHash
     for (const ref of methodSourceRefs(methodText)) inheritedSourceRefs.add(ref);
     methodSections.push(`### ${methodId}\n\nSource: \`${method.methodPath}\`\n\n${summarize(methodText, METHOD_SUMMARY_LINES) || "No method body available."}`);
   }
+  const reviewerIndependentBoundary = agent.name === "reviewer-agent"
+    ? "\n## Independent Review Boundary\n\nThis fallback preserves the Reviewer Agent's independent verifier role: it provides independent review rather than implementation approval or release certification.\n"
+    : "";
 
   const output = `---
 toolkit_name: AI Agent Skills Toolkit
@@ -501,6 +526,8 @@ This compiled fallback is generated from reviewed repo-owned inputs. It does not
 Source: \`${sourceAgent}\`
 
 ${stripFrontmatter(agentText) || "No source agent body available."}
+
+${reviewerIndependentBoundary}
 
 ## Profiles
 

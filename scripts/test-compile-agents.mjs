@@ -206,6 +206,58 @@ test("confirm-write generates metadata-rich compiled agent and reports provenanc
   });
 });
 
+test("explicit compiled method references preserve registry order and provenance", async () => {
+  await withCompilerFixture(async (fixture) => {
+    for (const [id, file, body] of [
+      ["internal.first", "first.md", "First explicit method."],
+      ["internal.last", "last.md", "Last explicit method."]
+    ]) {
+      writeFileSync(path.join(fixture, "methods", "internal", file), `---\nsourceRef: ["${id}"]\n---\n\n# ${id}\n\n${body}\n`, "utf8");
+    }
+    const agentsPath = path.join(fixture, "registries", "agents.registry.json");
+    const agents = JSON.parse(readFileSync(agentsPath, "utf8"));
+    agents.agents[0].compiledMethodRefs = ["internal.last", "internal.review", "internal.first"];
+    writeFileSync(agentsPath, `${JSON.stringify(agents, null, 2)}\n`, "utf8");
+    const methodsPath = path.join(fixture, "registries", "methods.registry.json");
+    const methods = JSON.parse(readFileSync(methodsPath, "utf8"));
+    methods.methods.push(
+      { id: "internal.first", methodPath: "methods/internal/first.md" },
+      { id: "internal.last", methodPath: "methods/internal/last.md" }
+    );
+    writeFileSync(methodsPath, `${JSON.stringify(methods, null, 2)}\n`, "utf8");
+    gitCommitAll(fixture, "explicit compiled method refs");
+
+    const result = await runCompiler(fixture, ["--confirm-write"]);
+
+    assert.equal(result.code, 0, result.stderr);
+    const compiled = readFileSync(path.join(fixture, "compiled-agents", "reviewer-agent.compiled.md"), "utf8");
+    assert.match(compiled, /source_method_refs: \["internal\.last", "internal\.review", "internal\.first"\]/u);
+    assert.ok(compiled.indexOf("### internal.last") < compiled.indexOf("### internal.review"));
+    assert.ok(compiled.indexOf("### internal.review") < compiled.indexOf("### internal.first"));
+    assert.match(compiled, /Inherited sourceRef IDs: `internal\.first`, `internal\.last`, `unknown-review-required`/u);
+  });
+});
+
+test("explicit compiled method references reject unknown, duplicate, and empty values", async () => {
+  for (const [references, expected] of [
+    [["internal.unknown"], /unknown compiledMethodRefs method/i],
+    [["internal.review", "internal.review"], /duplicate compiledMethodRefs method/i],
+    [[""], /empty compiledMethodRefs method/i]
+  ]) {
+    await withCompilerFixture(async (fixture) => {
+      const agentsPath = path.join(fixture, "registries", "agents.registry.json");
+      const agents = JSON.parse(readFileSync(agentsPath, "utf8"));
+      agents.agents[0].compiledMethodRefs = references;
+      writeFileSync(agentsPath, `${JSON.stringify(agents, null, 2)}\n`, "utf8");
+
+      const result = await runCompiler(fixture, ["--dry-run"]);
+
+      assert.notEqual(result.code, 0);
+      assert.match(result.stderr, expected);
+    });
+  }
+});
+
 test("profile source paths come from registry provenance and support contained nested files", async () => {
   await withCompilerFixture(async (fixture) => {
     const nestedProfile = "profiles/project-tooling/mobile-webview.md";
