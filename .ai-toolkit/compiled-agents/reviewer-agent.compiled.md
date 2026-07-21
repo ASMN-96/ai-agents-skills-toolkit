@@ -4,15 +4,15 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: b1a5d2913677ff45a4dc904d8ccee6300ceaef03
-input_digest: sha256:f7a9762d3ab1a08ae6bf9112e6c12bdd23b11128e895fb983d3c39b5d47829c1
+source_commit: 01adecf7bade28b092d937601c56edb4b1c26e75
+input_digest: sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e
+compiler_digest: sha256:0fc7de6d001caa24535c95af8861bc465371b3cdfb9f444fb637d4e7072f9d4e
 source_agent: agents/reviewer-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/audit-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md", "profiles/security-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
-source_method_refs: ["backend.supabase-postgres-rls-gates", "backend.database-access-isolation-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.source-discovery-workflow", "internal.source-safety-scoring", "internal.tdd-verification-alignment", "internal.documentation-accuracy-guard", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.git-guardrails", "matt.grill-me", "matt.improve-architecture", "matt.tdd", "matt.triage-issue", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.performance-optimization", "osmani.security-hardening", "osmani.shipping-launch", "osmani.test-driven-development", "security.differential-security-review", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.premium-visual-quality", "uiux.webapp-testing", "uiux.commercial-dashboard-polish-rubric", "orchestration.project-context-preflight", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.project-map-staleness-check", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness", "security.application-security-readiness", "internal.decision-driven-stack-intelligence", "release.release-rollback-readiness"]
+source_method_refs: ["internal.engineering-lifecycle-gates", "internal.tdd-verification-alignment", "internal.simplicity-surgical-change-discipline", "internal.documentation-accuracy-guard", "security.differential-security-review", "release.release-rollback-readiness", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack"]
 compile_contract_version: 1.0.0
 ---
 
@@ -129,6 +129,12 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/revi
 - `docs/RUNTIME_ACTIVATION_MODEL.md`
 - `docs/REGISTRY_CONTRACT.md`
 
+
+## Independent Review Boundary
+
+This fallback preserves the Reviewer Agent's independent verifier role: it provides independent review rather than implementation approval or release certification.
+
+
 ## Profiles
 
 ### audit-profile
@@ -232,42 +238,6 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/revi
 
 ## Methods
 
-### backend.supabase-postgres-rls-gates
-
-Source: `methods/backend/supabase-postgres-rls-gates.md`
-
-# Supabase Postgres RLS Gates
-
-## Purpose
-
-Define the minimum safety gates for Supabase, Postgres, auth, RLS, query, and migration work before implementation or review claims.
-
-## When To Use
-
-Use when a task touches Supabase projects, Postgres schema or queries, RLS policies, auth/session behavior, storage access, migrations, generated database types, public payloads, or database performance.
-
-## When Not To Use
-
-Do not use for frontend-only changes, static docs changes, or backend work that does not touch data access, auth, persistence, or database behavior.
-
-### backend.database-access-isolation-gates
-
-Source: `methods/backend/database-access-isolation-gates.md`
-
-# Database Access Isolation Gates
-
-## Purpose
-
-Define portable safety gates for Postgres, ORM, auth, query, migration, and tenant-isolation work before implementation or review claims.
-
-## When To Use
-
-Use when a task touches Postgres schemas, hosted Postgres providers, SQL migrations, ORM models or queries, generated clients, auth/session ownership checks, tenant isolation, public/private payloads, or database performance. This includes stacks such as Neon Postgres, Drizzle, Prisma, Better Auth, raw SQL, and Supabase when RLS is not the only relevant boundary.
-
-## When Not To Use
-
-Do not use for frontend-only changes, static docs changes, or backend work that does not touch data access, auth, persistence, authorization, or database behavior. Use `methods/backend/supabase-postgres-rls-gates.md` when the task is specifically about Supabase project settings, Supabase Data API exposure, storage policies, or RLS policy behavior.
-
 ### internal.engineering-lifecycle-gates
 
 Source: `methods/internal/engineering-lifecycle-gates.md`
@@ -285,78 +255,6 @@ Use when compiling agents or reviewing whether a project workflow has enough gat
 ## When Not To Use
 
 Do not require every gate for tiny documentation changes with no behavior or release impact.
-
-### internal.frontend-uiux-quality-gates
-
-Source: `methods/internal/frontend-uiux-quality-gates.md`
-
-# Frontend UIUX Quality Gates
-
-## Purpose
-
-Define shared frontend and UI/UX quality checks for future compiled agents.
-
-## When To Use
-
-Use when building or reviewing user-facing UI, dashboards, responsive layouts, or design systems.
-
-## When Not To Use
-
-Do not apply visual polish rules to backend-only changes unless UI behavior is affected.
-
-### internal.simplicity-surgical-change-discipline
-
-Source: `methods/internal/simplicity-surgical-change-discipline.md`
-
-# Simplicity Surgical Change Discipline
-
-## Purpose
-
-Keep changes focused, understandable, reversible, and proportional to the user request.
-
-## When To Use
-
-Use before implementing, reviewing, or refactoring code.
-
-## When Not To Use
-
-Do not use to block necessary migrations, architecture work, or validation fixes when the requirement justifies them.
-
-### internal.source-discovery-workflow
-
-Source: `methods/internal/source-discovery-workflow.md`
-
-# Source Discovery Workflow
-
-## Purpose
-
-Help Skill Scout find candidate skills and methods without installing or activating anything.
-
-## When To Use
-
-Use when searching for new sources, comparing candidate skills, or building a source evaluation backlog.
-
-## When Not To Use
-
-Do not use to install, activate, clone, or run a candidate source.
-
-### internal.source-safety-scoring
-
-Source: `methods/internal/source-safety-scoring.md`
-
-# Source Safety Scoring
-
-## Purpose
-
-Provide a consistent scoring lens for external source review.
-
-## When To Use
-
-Use during Phase 2 source evaluation and before any Phase 3 method extraction.
-
-## When Not To Use
-
-Do not use as approval to run a source; scoring informs review only.
 
 ### internal.tdd-verification-alignment
 
@@ -376,6 +274,24 @@ Use when an agent changes behavior, fixes bugs, or claims a task is complete.
 
 Do not force executable tests for pure reference documents with no behavior.
 
+### internal.simplicity-surgical-change-discipline
+
+Source: `methods/internal/simplicity-surgical-change-discipline.md`
+
+# Simplicity Surgical Change Discipline
+
+## Purpose
+
+Keep changes focused, understandable, reversible, and proportional to the user request.
+
+## When To Use
+
+Use before implementing, reviewing, or refactoring code.
+
+## When Not To Use
+
+Do not use to block necessary migrations, architecture work, or validation fixes when the requirement justifies them.
+
 ### internal.documentation-accuracy-guard
 
 Source: `methods/internal/documentation-accuracy-guard.md`
@@ -393,294 +309,6 @@ Use when writing or reviewing READMEs, API docs, docstrings, changelogs, tutoria
 ## When Not To Use
 
 Do not use for marketing copy, visual site theming, or docs changes that make no technical claims.
-
-### karpathy.assumption-surfacing
-
-Source: `methods/karpathy/assumption-surfacing.md`
-
-# Assumption Surfacing
-
-## Purpose
-
-Make uncertainty visible early enough that the user, reviewer, or implementer can correct course before code or release evidence is affected.
-
-## When To Use
-
-Use when intent, constraints, ownership, production risk, or success criteria are not yet concrete enough for a safe implementation decision.
-
-## When Not To Use
-
-Do not ask about facts that can be discovered by reading local files, docs, registries, source records, or command output.
-
-### karpathy.goal-driven-execution
-
-Source: `methods/karpathy/goal-driven-execution.md`
-
-# Goal-Driven Execution
-
-## Purpose
-
-Keep implementation, review, and validation tied to the user-visible outcome and the evidence needed to prove it.
-
-## When To Use
-
-Use when implementing features, fixing bugs, planning releases, auditing source safety, or deciding whether work is complete.
-
-## When Not To Use
-
-Do not use as a shortcut around safety, review, source-freshness, leak, runtime, or test gates.
-
-### karpathy.simplicity-surgical-changes
-
-Source: `methods/karpathy/simplicity-surgical-changes.md`
-
-# Simplicity And Surgical Changes
-
-## Purpose
-
-Keep changes understandable, reversible, and proportionate to the request while preserving production correctness.
-
-## When To Use
-
-Use for code changes, refactors, bug fixes, reviews, source cleanup, and registry updates where scope can drift.
-
-## When Not To Use
-
-Do not use to block necessary architecture or migration work when the requirement and risk justify it.
-
-### matt.design-interface
-
-Source: `methods/matt/design-interface.md`
-
-# Design Interface
-
-## Purpose
-
-Explore interface shapes before committing to a module or API design.
-
-## When To Use
-
-Use when a module boundary, API, component interface, or developer experience is unclear.
-
-## When Not To Use
-
-Do not generate many alternatives when an established local pattern already fits.
-
-### matt.git-guardrails
-
-Source: `methods/matt/git-guardrails.md`
-
-# Git Guardrails
-
-## Purpose
-
-Keep branch, commit, and push behavior deliberate.
-
-## When To Use
-
-Use before staging, committing, pushing, or opening a PR.
-
-## When Not To Use
-
-Do not use to bypass project-specific release policy.
-
-### matt.grill-me
-
-Source: `methods/matt/grill-me.md`
-
-# Grill Me
-
-## Purpose
-
-Resolve ambiguity through focused questioning before implementation.
-
-## When To Use
-
-Use when the goal, scope, success criteria, audience, or tradeoffs are unclear.
-
-## When Not To Use
-
-Do not ask questions that local inspection can answer.
-
-### matt.improve-architecture
-
-Source: `methods/matt/improve-architecture.md`
-
-# Improve Architecture
-
-## Purpose
-
-Plan architecture improvements without drifting into rewrite enthusiasm.
-
-## When To Use
-
-Use when existing structure blocks a requested change or creates clear risk.
-
-## When Not To Use
-
-Do not refactor unrelated code just because it could be cleaner.
-
-### matt.tdd
-
-Source: `methods/matt/tdd.md`
-
-# TDD
-
-## Purpose
-
-Drive implementation through a failing test, passing implementation, and cleanup loop.
-
-## When To Use
-
-Use for behavior changes, bugs, contracts, and risky refactors.
-
-## When Not To Use
-
-Do not force a test loop where the artifact has no executable behavior.
-
-### matt.triage-issue
-
-Source: `methods/matt/triage-issue.md`
-
-# Triage Issue
-
-## Purpose
-
-Classify incoming work and decide the next responsible path.
-
-## When To Use
-
-Use when reviewing bugs, feature requests, source findings, or unclear backlog items.
-
-## When Not To Use
-
-Do not use as a substitute for fixing a clearly scoped urgent bug.
-
-### osmani.api-interface-design
-
-Source: `methods/osmani/api-interface-design.md`
-
-# API Interface Design
-
-## Purpose
-
-Create clear and stable contracts between systems.
-
-## When To Use
-
-Use when designing APIs, module boundaries, public types, or integration contracts.
-
-## When Not To Use
-
-Do not over-design internal helpers that have one local caller and no stable contract.
-
-### osmani.code-review-quality
-
-Source: `methods/osmani/code-review-quality.md`
-
-# Code Review Quality
-
-## Purpose
-
-Review changes for correctness, maintainability, risk, and test adequacy.
-
-## When To Use
-
-Use before merging code, accepting generated work, or shipping risky changes.
-
-## When Not To Use
-
-Do not use to bikeshed unrelated style when the change is otherwise clear and local conventions are met.
-
-### osmani.frontend-ui-engineering
-
-Source: `methods/osmani/frontend-ui-engineering.md`
-
-# Frontend UI Engineering
-
-## Purpose
-
-Guide production-quality frontend implementation.
-
-## When To Use
-
-Use when building or reviewing user-facing interfaces.
-
-## When Not To Use
-
-Do not use for purely backend or data-only changes unless UI contracts are affected.
-
-### osmani.performance-optimization
-
-Source: `methods/osmani/performance-optimization.md`
-
-# Performance Optimization
-
-## Purpose
-
-Improve performance through measurement and targeted changes.
-
-## When To Use
-
-Use when performance requirements exist, regressions are suspected, or user experience depends on speed.
-
-## When Not To Use
-
-Do not optimize speculative bottlenecks without measurement.
-
-### osmani.security-hardening
-
-Source: `methods/osmani/security-hardening.md`
-
-# Security Hardening
-
-## Purpose
-
-Make security review part of normal engineering work.
-
-## When To Use
-
-Use when handling auth, user input, storage, external integrations, secrets, deployment, or automation.
-
-## When Not To Use
-
-Do not block low-risk docs work with unrelated security review.
-
-### osmani.shipping-launch
-
-Source: `methods/osmani/shipping-launch.md`
-
-# Shipping And Launch
-
-## Purpose
-
-Prepare changes for controlled release.
-
-## When To Use
-
-Use when a feature, migration, or workflow is ready for production or project sync.
-
-## When Not To Use
-
-Do not use for local-only drafts that are not ready for review.
-
-### osmani.test-driven-development
-
-Source: `methods/osmani/test-driven-development.md`
-
-# Test-Driven Development
-
-## Purpose
-
-Use tests to define and protect expected behavior.
-
-## When To Use
-
-Use for bug fixes, behavior changes, business logic, contracts, and regression-prone UI flows.
-
-## When Not To Use
-
-Do not force TDD for static text-only edits where no behavior changes.
 
 ### security.differential-security-review
 
@@ -700,148 +328,21 @@ Use for PR review, dependency changes, auth/security-sensitive diffs, public API
 
 Do not use as a full audit of unrelated code when the user asked for a narrow typo, formatting, or docs-only change with no security surface. Do not use it to run external scanners or install security tooling unless separately approved.
 
-### uiux.accessibility
+### release.release-rollback-readiness
 
-Source: `methods/uiux/accessibility.md`
+Source: `methods/release/release-rollback-readiness.md`
 
-# Accessibility
-
-## Purpose
-
-Make interfaces usable by keyboard, assistive technology, and users with varied abilities.
-
-## When To Use
-
-Use for any user-facing UI change.
-
-## When Not To Use
-
-Do not treat accessibility as optional polish after visual completion.
-
-### uiux.dashboard-ux
-
-Source: `methods/uiux/dashboard-ux.md`
-
-# Dashboard UX
+# Release Rollback Readiness
 
 ## Purpose
 
-Design operational interfaces for scanning, comparison, and repeated action.
+Gate PR, merge, release-candidate, and post-merge decisions on observed evidence, rollback clarity, and honest limitations.
 
-## When To Use
+## Required Checks
 
-Use for dashboards, admin tools, CRMs, analytics surfaces, and internal operations UI.
-
-## When Not To Use
-
-Do not use marketing-page composition for dense work surfaces.
-
-### uiux.design-system
-
-Source: `methods/uiux/design-system.md`
-
-# Design System
-
-## Purpose
-
-Use consistent tokens, components, and interaction rules across UI work.
-
-## When To Use
-
-Use when creating or reviewing repeatable interface patterns.
-
-## When Not To Use
-
-Do not create a design system for a one-off page unless reuse is likely.
-
-### uiux.frontend-design
-
-Source: `methods/uiux/frontend-design.md`
-
-# Frontend Design
-
-## Purpose
-
-Create frontend experiences that are usable, coherent, and visually intentional.
-
-## When To Use
-
-Use when designing pages, components, apps, prototypes, dashboards, or visual refinements.
-
-## When Not To Use
-
-Do not use to add decorative styling that ignores product workflow needs.
-
-### uiux.premium-visual-quality
-
-Source: `methods/uiux/premium-visual-quality.md`
-
-# Premium Visual Quality
-
-## Purpose
-
-Raise visual quality without sacrificing usability or performance.
-
-## When To Use
-
-Use for branded websites, polished apps, demos, and high-visibility UI.
-
-## When Not To Use
-
-Do not prioritize aesthetics over clarity, accessibility, or product workflow.
-
-### uiux.webapp-testing
-
-Source: `methods/uiux/webapp-testing.md`
-
-# Webapp Testing
-
-## Purpose
-
-Verify web apps through rendered behavior, not just static code inspection.
-
-## When To Use
-
-Use after frontend changes, routing changes, form work, dashboards, or visual refinements.
-
-## When Not To Use
-
-Do not use full browser checks for docs-only changes with no rendered surface.
-
-### uiux.commercial-dashboard-polish-rubric
-
-Source: `methods/uiux/commercial-dashboard-polish-rubric.md`
-
-# Commercial Dashboard Polish Rubric
-
-## Purpose
-
-Evaluate whether a dashboard, admin console, CRM, analytics surface, or SaaS operations view feels commercially credible without copying marketplace examples or brand patterns.
-
-## When To Use
-
-Use during UI/UX review for customer-facing dashboards, investor-demo admin tools, monetized SaaS surfaces, and dense operational workflows.
-
-## When Not To Use
-
-Do not use as permission to imitate marketplace screenshots, commercial copy, brand assets, template layouts, or proprietary examples.
-
-### orchestration.project-context-preflight
-
-Source: `methods/orchestration/project-context-preflight.md`
-
-# Project Context Preflight
-
-Use this method at task start when repeated repo discovery would waste context, increase token cost, or make file targeting slower.
-
-## Purpose
-
-Project Context Preflight gives Codex a compact, trusted project map before broad exploration. The map is project intelligence only; Codex remains the runtime and decides what to inspect, edit, and verify.
-
-## Required Inputs
-
-- `.ai-toolkit/context/project-map.json` when present and fresh
-- task goal and risk level
+- Confirm branch, upstream, working tree, PR, checks, review status, and source freshness when relevant.
+- Confirm changed files do not include forbidden surfaces unless explicitly approved.
+- Run project-owned validation before merge or release claims.
 
 ### orchestration.changed-file-neighborhood-selection
 
@@ -875,181 +376,16 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 - selected files and reason for each
 - changed-file neighborhood summary
 
-### orchestration.project-map-staleness-check
-
-Source: `methods/orchestration/project-map-staleness-check.md`
-
-# Project Map Staleness Check
-
-Use this method when a task, audit, review, or handoff depends on `.ai-toolkit/context/project-map.json`.
-
-## Staleness Signals
-
-- map target git head differs from the current target repository head
-- map staleness hashes differ from current key file hashes
-- target branch is dirty, divergent, detached, or not verified when branch truth matters
-- source freshness reports actionable changes
-
-### orchestration.static-task-state-handoff-ledger
-
-Source: `methods/orchestration/static-task-state-handoff-ledger.md`
-
-# Static Task State Handoff Ledger
-
-## Purpose
-
-Keep complex agent work auditable with explicit task state, handoff facts, replanning triggers, and failure accounting without adopting runtime orchestration.
-
-## When To Use
-
-Use for multi-step implementation, source-safety review, PR repair, validation loops, or handoff between agent lenses when work could drift or lose state.
-
-## When Not To Use
-
-Do not use to create a daemon, memory layer, background worker, MCP server, file watcher, package script, global config, or runtime persistence.
-
-### repo.package-manager-workspace-migration
-
-Source: `methods/repo/package-manager-workspace-migration.md`
-
-# Package Manager and Workspace Migration
-
-## Purpose
-
-Control package-manager and workspace migrations as infra-only changes with explicit approval, frozen install evidence, and rollback. Do not force pnpm, Turbo, Nx, yarn, npm, or bun by preference alone, and do not assume npm when the target project has no clear package-manager signal.
-
-## When To Use
-
-Use for package manager changes, lockfile strategy, workspace layout, monorepo tooling, Corepack/packageManager pinning, nested package cleanup, or package-script migration.
-
-## When Not To Use
-
-Do not use for normal feature work unless package-manager or workspace behavior is directly in scope.
-
-### reliability.coding-time-production-readiness
-
-Source: `methods/reliability/coding-time-production-readiness.md`
-
-# Coding-Time Production Readiness
-
-## Purpose
-
-Provide coding-time governance for production-risk changes without claiming enterprise certification, Level 4, Level 5, broad runtime support, or production certification.
-
-## Required Checks
-
-- Identify user-impacting workflows, failure modes, and rollback path before editing.
-- Confirm source of truth, branch state, affected files, and owner approvals.
-- Preserve existing auth, data, privacy, package, CI, deployment, MCP/global, and product-repo boundaries.
-
-### api.api-contract-and-routing-readiness
-
-Source: `methods/api/api-contract-and-routing-readiness.md`
-
-# API Contract And Routing Readiness
-
-## Purpose
-
-Protect API, RPC, server action, route, schema, and client contract changes before implementation or release claims.
-
-## Required Checks
-
-- Identify providers, consumers, request shape, response shape, error shape, auth model, cache keys, pagination, filtering, sorting, and version behavior.
-- Classify compatibility: additive, behavioral, breaking, deprecated, or unknown.
-- Check public/private payload boundaries and server-side authorization.
-
-### performance.performance-scalability-cache-readiness
-
-Source: `methods/performance/performance-scalability-cache-readiness.md`
-
-# Performance Scalability Cache Readiness
-
-## Purpose
-
-Review performance, scalability, and cache risk during coding before broad optimization or release claims.
-
-## Required Checks
-
-- Identify the smallest user workflow, route, query, component, job, or cache path affected.
-- Separate observed bottlenecks from assumptions.
-- Check request count, query shape, indexes, cache keys, invalidation, stale data, tenant/user isolation, bundle/runtime cost, rendering cost, memory, and concurrency risk.
-
-### reliability.observability-readiness
-
-Source: `methods/reliability/observability-readiness.md`
-
-# Observability Readiness
-
-## Purpose
-
-Ensure coding-time changes leave enough evidence for debugging without leaking secrets, private data, or unsupported production claims.
-
-## Required Checks
-
-- Identify important failure points, user-visible errors, retry boundaries, background work, external calls, and state transitions.
-- Prefer clear application errors and project-owned logs over new monitoring dependencies.
-- Keep logs safe: no secrets, tokens, cookies, private payloads, tenant data, credentials, or raw PII.
-
-### security.application-security-readiness
-
-Source: `methods/security/application-security-readiness.md`
-
-# Application Security Readiness
-
-## Purpose
-
-Review application security risk at coding time across auth, authorization, tenant isolation, public/private payloads, secrets, input validation, source safety, and supply-chain boundaries.
-
-## Required Checks
-
-- Identify trust boundaries, actors, roles, permissions, data classes, and externally controlled inputs.
-- Check auth/session handling, object ownership, IDOR risk, tenant isolation, RLS/database impact, file upload/download paths, redirects, CORS/CSP-sensitive behavior, and token/cookie handling.
-- For Supabase-backed features, treat Data API exposure, SECURITY DEFINER functions, auth-helper assumptions, RLS policy behavior, and generated client/schema drift as first-class security surfaces.
-
-### internal.decision-driven-stack-intelligence
-
-Source: `methods/internal/decision-driven-stack-intelligence.md`
-
-# Decision-Driven Stack Intelligence
-
-## Purpose
-
-Resolve a concrete framework, runtime, API, provider, or standards uncertainty using version-matched evidence before it causes incorrect code or unnecessary research.
-
-## When To Use
-
-Use only when the answer can change an implementation choice, compatibility claim, security control, migration, rollback, or acceptance gate. Start from repository evidence such as manifests, lockfiles, imports, configuration, generated metadata, and observed host capabilities.
-
-## When Not To Use
-
-Do not browse by default. Skip this method when repository evidence already settles the decision, the question is not version-sensitive, or the result cannot change the scoped work. Do not use it for broad technology surveys, link collection, trend tracking, or speculative future architecture.
-
-### release.release-rollback-readiness
-
-Source: `methods/release/release-rollback-readiness.md`
-
-# Release Rollback Readiness
-
-## Purpose
-
-Gate PR, merge, release-candidate, and post-merge decisions on observed evidence, rollback clarity, and honest limitations.
-
-## Required Checks
-
-- Confirm branch, upstream, working tree, PR, checks, review status, and source freshness when relevant.
-- Confirm changed files do not include forbidden surfaces unless explicitly approved.
-- Run project-owned validation before merge or release claims.
-
 ## Provenance
 
 - Source agent path: `agents/reviewer-agent.md`
-- Canonical input digest: `sha256:f7a9762d3ab1a08ae6bf9112e6c12bdd23b11128e895fb983d3c39b5d47829c1`
-- Compiler digest: `sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e`
+- Canonical input digest: `sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822`
+- Compiler digest: `sha256:0fc7de6d001caa24535c95af8861bc465371b3cdfb9f444fb637d4e7072f9d4e`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/audit-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
-- Method IDs: `backend.supabase-postgres-rls-gates`, `backend.database-access-isolation-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.source-discovery-workflow`, `internal.source-safety-scoring`, `internal.tdd-verification-alignment`, `internal.documentation-accuracy-guard`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.git-guardrails`, `matt.grill-me`, `matt.improve-architecture`, `matt.tdd`, `matt.triage-issue`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.performance-optimization`, `osmani.security-hardening`, `osmani.shipping-launch`, `osmani.test-driven-development`, `security.differential-security-review`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.premium-visual-quality`, `uiux.webapp-testing`, `uiux.commercial-dashboard-polish-rubric`, `orchestration.project-context-preflight`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.project-map-staleness-check`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `internal.decision-driven-stack-intelligence`, `release.release-rollback-readiness`
-- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `aider-repo-map`, `anthropic-skills`, `everything-claude-code`, `impeccable`, `matt-pocock-skills`, `microsoft-playwright`, `nagdy-guard-skills`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `ruflo`, `shadcn-ui`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`
+- Method IDs: `internal.engineering-lifecycle-gates`, `internal.tdd-verification-alignment`, `internal.simplicity-surgical-change-discipline`, `internal.documentation-accuracy-guard`, `security.differential-security-review`, `release.release-rollback-readiness`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`
+- Inherited sourceRef IDs: `addy-osmani-agent-skills`, `aider-repo-map`, `matt-pocock-skills`, `nagdy-guard-skills`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
 External source records are provenance only. They do not authorize raw copying, installs, activation, extraction, runtime configuration, or product-repository changes.

@@ -90,7 +90,7 @@
     },
     {
       "path": "scripts/compile-agents.mjs",
-      "sha256": "d626fc0c1e6a99b5e5be4c4317e6aee57303e7f67b861587c9644b6280e51ee9"
+      "sha256": "3bd857e771311ffe5723212e13320e2e93bbdd358b49b3acdcab9115df2cba84"
     },
     {
       "path": "scripts/migrate-source-catalog-v2.mjs",
@@ -134,7 +134,7 @@
     },
     {
       "path": "scripts/validate-v0-3-release-evidence.mjs",
-      "sha256": "d29e054806617159e6ab720f99a54c0d04fe2947528c0c266f7e4d5845b71795"
+      "sha256": "c2ffd15ec500ab39a272b3419736b09047ed60a52cc50a7a68c37b4c4739ea1a"
     }
   ]
 }

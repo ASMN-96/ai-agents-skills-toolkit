@@ -4,10 +4,10 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: b1a5d2913677ff45a4dc904d8ccee6300ceaef03
-input_digest: sha256:f7a9762d3ab1a08ae6bf9112e6c12bdd23b11128e895fb983d3c39b5d47829c1
+source_commit: 01adecf7bade28b092d937601c56edb4b1c26e75
+input_digest: sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e
+compiler_digest: sha256:0fc7de6d001caa24535c95af8861bc465371b3cdfb9f444fb637d4e7072f9d4e
 source_agent: agents/sre-performance-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -131,6 +131,8 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/sre-
 - `sources/addyosmani-web-quality-skills.md`
 - `sources/playwright.md`
 - `sources/repomix.md`
+
+
 
 ## Profiles
 
@@ -305,8 +307,8 @@ Ensure coding-time changes leave enough evidence for debugging without leaking s
 ## Provenance
 
 - Source agent path: `agents/sre-performance-agent.md`
-- Canonical input digest: `sha256:f7a9762d3ab1a08ae6bf9112e6c12bdd23b11128e895fb983d3c39b5d47829c1`
-- Compiler digest: `sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e`
+- Canonical input digest: `sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822`
+- Compiler digest: `sha256:0fc7de6d001caa24535c95af8861bc465371b3cdfb9f444fb637d4e7072f9d4e`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/sre-profile.md`, `profiles/release-profile.md`, `profiles/implementation-profile.md`

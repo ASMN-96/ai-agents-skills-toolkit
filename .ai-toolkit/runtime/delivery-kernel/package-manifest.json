@@ -89,7 +89,7 @@
     },
     {
       "path": "registries/agents.registry.json",
-      "sha256": "324084cbd6dcf763cb65f0318d9ebac62f0f1210708fa269d09dd7adf000015c"
+      "sha256": "5b1cf7cb603bc9559e37d103e89572eeddd4126bcd0aef54b19f81ed7dabff22"
     },
     {
       "path": "registries/domain-packs.registry.json",

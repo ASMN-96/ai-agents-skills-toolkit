@@ -4,10 +4,10 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: b1a5d2913677ff45a4dc904d8ccee6300ceaef03
-input_digest: sha256:f7a9762d3ab1a08ae6bf9112e6c12bdd23b11128e895fb983d3c39b5d47829c1
+source_commit: 01adecf7bade28b092d937601c56edb4b1c26e75
+input_digest: sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e
+compiler_digest: sha256:0fc7de6d001caa24535c95af8861bc465371b3cdfb9f444fb637d4e7072f9d4e
 source_agent: agents/architect-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -89,6 +89,8 @@ Designs system architecture, module boundaries, data flow, integration contracts
 
 
 Read-only repo-local Codex project agent when `.codex/agents/architect-agent.toml` is present. Availability means the agent can be selected/recommended; it is not automatically spawned. Runtime behavior is constrained by the TOML sandbox and instruction boundaries. This agent does not authorize product repo edits, package/CI/MCP changes, global configuration edits, external installs, secret access, or release/application actions without explicit owner approval.
+
+
 
 ## Profiles
 
@@ -583,8 +585,8 @@ Do not browse by default. Skip this method when repository evidence already sett
 ## Provenance
 
 - Source agent path: `agents/architect-agent.md`
-- Canonical input digest: `sha256:f7a9762d3ab1a08ae6bf9112e6c12bdd23b11128e895fb983d3c39b5d47829c1`
-- Compiler digest: `sha256:c5db9f7df7ebb2ed959af457bf673e63c2f1ae0f5bfaaa6a3d1bdfae7d01a01e`
+- Canonical input digest: `sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822`
+- Compiler digest: `sha256:0fc7de6d001caa24535c95af8861bc465371b3cdfb9f444fb637d4e7072f9d4e`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/backend-profile.md`, `profiles/frontend-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`

@@ -991,6 +991,16 @@
         "fullstack-profile",
         "source-review-profile"
       ],
+      "compiledMethodRefs": [
+        "internal.engineering-lifecycle-gates",
+        "internal.tdd-verification-alignment",
+        "internal.simplicity-surgical-change-discipline",
+        "internal.documentation-accuracy-guard",
+        "security.differential-security-review",
+        "release.release-rollback-readiness",
+        "orchestration.changed-file-neighborhood-selection",
+        "orchestration.compact-agent-context-pack"
+      ],
       "nativeCodexAgentName": "reviewer-agent",
       "deliveryKernel": {
         "canonicalCompetencies": ["verification", "governance", "adversarial-review"],
