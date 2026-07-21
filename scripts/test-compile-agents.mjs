@@ -240,6 +240,7 @@ test("explicit compiled method references preserve registry order and provenance
 
 test("explicit compiled method references reject unknown, duplicate, and empty values", async () => {
   for (const [references, expected] of [
+    [[], /empty compiledMethodRefs method list/i],
     [["internal.unknown"], /unknown compiledMethodRefs method/i],
     [["internal.review", "internal.review"], /duplicate compiledMethodRefs method/i],
     [[""], /empty compiledMethodRefs method/i]

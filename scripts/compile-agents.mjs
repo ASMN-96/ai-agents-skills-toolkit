@@ -265,6 +265,9 @@ function compiledMethodRefs(agent, registries) {
     if (!Array.isArray(agent.compiledMethodRefs)) {
       throw new Error(`agent ${agent.name} compiledMethodRefs must be an array`);
     }
+    if (agent.compiledMethodRefs.length === 0) {
+      throw new Error(`agent ${agent.name} has an empty compiledMethodRefs method list`);
+    }
     const refs = [];
     const seen = new Set();
     for (const methodId of agent.compiledMethodRefs) {
