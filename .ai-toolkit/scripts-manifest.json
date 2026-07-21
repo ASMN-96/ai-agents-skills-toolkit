@@ -121,6 +121,10 @@
       "sha256": "867267a222b798f39b4eb0aebe093e9676cfbccd50872136b6167a98fa693e25"
     },
     {
+      "path": "scripts/validate-observed-enterprise-benchmark.mjs",
+      "sha256": "08b6dc062c7838abe4be371c3793726ccccf6d87b15563c6c6215242f2c3c138"
+    },
+    {
       "path": "scripts/validate-project-tooling-profiles.mjs",
       "sha256": "ddade892d71b79d825514fe21eec6b562257fb31484836a6bc4c9f0196198c4d"
     },
@@ -138,7 +142,7 @@
     },
     {
       "path": "scripts/validate-v0-3-release-evidence.mjs",
-      "sha256": "c2ffd15ec500ab39a272b3419736b09047ed60a52cc50a7a68c37b4c4739ea1a"
+      "sha256": "d4e503db39dfb4cde1ec170030b4140ad8baac0d8f91c45436fbba6be3a7a9ec"
     }
   ]
 }

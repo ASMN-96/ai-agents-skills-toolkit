@@ -266,6 +266,84 @@ test("runtime catalog loading validates exact immutable receipt bytes and reject
   }
 });
 
+test("runtime catalog loading retains immutable receipt evidence across a later matching monitor observation", async (context) => {
+  const receiptPath = `sources/reviews/nist-ssdf/${SHA}.json`;
+  const cases = [
+    {
+      name: "accepts a later observation with the reviewed revision and digest",
+      monitor: {
+        ...source().monitor,
+        checkedAt: "2026-07-17T23:30:00.000Z"
+      },
+      expected: "accepted"
+    },
+    {
+      name: "rejects a later observation whose digest differs from the immutable receipt",
+      monitor: {
+        ...source().monitor,
+        checkedAt: "2026-07-17T23:30:00.000Z",
+        contentDigest: `sha256:${"d".repeat(64)}`
+      },
+      expected: /reviewedDigest.*observed digest|receipt content digest does not match the observed digest/i
+    },
+    {
+      name: "rejects a later observation whose revision differs from the immutable receipt",
+      monitor: {
+        ...source().monitor,
+        checkedAt: "2026-07-17T23:30:00.000Z",
+        observedRevision: { kind: "git-sha", value: "d".repeat(40) }
+      },
+      expected: /reviewedRevision must match the observed revision/i
+    },
+    {
+      name: "rejects an unsafe changed monitor state even when evidence otherwise matches",
+      monitor: {
+        ...source().monitor,
+        state: "CHANGED",
+        checkedAt: "2026-07-17T23:30:00.000Z"
+      },
+      expected: /CHANGED sources must be QUARANTINED/i
+    }
+  ];
+
+  for (const scenario of cases) {
+    await context.test(scenario.name, async () => {
+      const root = await mkdtemp(path.join(tmpdir(), "delivery-kernel-source-monitor-freshness-"));
+      try {
+        const text = receiptText();
+        const digest = `sha256:${createHash("sha256").update(text, "utf8").digest("hex")}`;
+        const reviewedSource = source({
+          monitor: scenario.monitor,
+          review: {
+            ...source().review,
+            receiptDigest: digest
+          }
+        });
+        await mkdir(path.join(root, "sources", "reviews", "nist-ssdf"), { recursive: true });
+        await writeFile(path.join(root, ...receiptPath.split("/")), text, "utf8");
+        await writeFile(
+          path.join(root, "sources", "source-watchlist.json"),
+          `${JSON.stringify(catalog([reviewedSource]), null, 2)}\n`,
+          "utf8"
+        );
+        await writeScopeGraphRegistries(root);
+
+        if (scenario.expected === "accepted") {
+          const loaded = await loadValidatedSourceCatalog({ repositoryRoot: root, now: NOW });
+          assert.equal(loaded.validation.receiptCount, 1);
+        } else {
+          await assert.rejects(
+            () => loadValidatedSourceCatalog({ repositoryRoot: root, now: NOW }),
+            scenario.expected
+          );
+        }
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    });
+  }
+});
+
 test("runtime loading preserves graph-validated scope and reference eligibility", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "delivery-kernel-source-scope-"));
   try {
@@ -692,12 +770,10 @@ test("the materialized committed starter derives dependencies and stays blocked"
         )
     )
   );
-  assert.ok(plan.sourceDependencyAccounting.diagnosticSupportedDependencyBlockers.length > 0);
-  assert.ok(
-    plan.sourceDependencyAccounting.diagnosticSupportedDependencyBlockers.every(
-      (blocker) => !plan.domain.selectedPackIds.includes(blocker.packId)
-        || !plan.domain.resolvedGateIds.includes(blocker.gateId)
-    )
+  assert.deepEqual(
+    plan.sourceDependencyAccounting.diagnosticSupportedDependencyBlockers,
+    [],
+    "reviewed enterprise-core sources must not leave unrelated supported-pack diagnostics"
   );
   assert.ok(
     plan.sourceDependencyAccounting.selectedPreviewDependencyBlockers.some(
@@ -729,7 +805,7 @@ test("structural preparation inspection rejects a forged authoritative source sn
   plan.domain.sourceGovernance.sources[0].reason = "forged-current";
   assert.throws(
     () => inspectExecutionPlanPreparation(plan, { createdAt: NOW }),
-    /blockers do not match dependencies/
+    /source snapshot reference eligibility is inconsistent/
   );
 });
 

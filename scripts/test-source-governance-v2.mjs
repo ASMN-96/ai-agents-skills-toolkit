@@ -50,6 +50,16 @@ const AUTHORITATIVE_MANUAL_SOURCES = {
   "openai-codex-guidance": ["https://learn.chatgpt.com/docs/agent-configuration/agents-md", "security-runtime"],
   "anthropic-claude-code-subagents": ["https://code.claude.com/docs/en/sub-agents", "security-runtime"]
 };
+const REVIEWED_ENTERPRISE_CORE_MANUAL_SOURCES = new Set([
+  "nist-ssdf",
+  "nist-ssdf-ai",
+  "nist-ai-rmf-genai",
+  "owasp-asvs",
+  "owasp-llmsvs",
+  "owasp-agentic-applications",
+  "openssf-ai-code-assistant-instructions",
+  "slsa-v1-2"
+]);
 const execFileAsync = promisify(execFile);
 
 async function governance() {
@@ -335,9 +345,15 @@ test("canonical SourceCatalog v2 retains only active source identities", async (
     assert.equal(entry.sourceType, "manual-reviewed-doc");
     assert.equal(entry.freshnessClass, freshnessClass);
     assert.equal(entry.runtimePosture, "metadata-only");
-    assert.equal(entry.monitor.state, "CHECK_FAILED");
-    assert.equal(entry.review.state, "QUARANTINED");
-    assert.equal(entry.review.currentReceipt, null);
+    if (REVIEWED_ENTERPRISE_CORE_MANUAL_SOURCES.has(sourceId)) {
+      assert.equal(entry.monitor.state, "CURRENT");
+      assert.equal(entry.review.state, "REVIEWED_CURRENT");
+      assert.match(entry.review.currentReceipt ?? "", new RegExp(`^sources/reviews/${sourceId}/[a-f0-9]{64}\\.json$`));
+    } else {
+      assert.equal(entry.monitor.state, "CHECK_FAILED");
+      assert.equal(entry.review.state, "QUARANTINED");
+      assert.equal(entry.review.currentReceipt, null);
+    }
   }
 
   for (const entry of validated.sources) {
@@ -769,13 +785,13 @@ test("SourceReviewReceipt v1 binds exact revision and digest and restricts non-p
     }), reviewOptions),
     /reviewedAt.*future/i
   );
-  assert.throws(
+  assert.doesNotThrow(
     () => validateSourceReviewReceipt(receipt({
       reviewedAt: "2026-07-17T06:45:00.000Z",
       expiresAt: "2026-07-31T06:45:00.000Z",
       approver: { identity: "repository-owner:abdal", approvedAt: "2026-07-17T06:50:00.000Z" }
     }), reviewOptions),
-    /reviewedAt.*predate the monitor observation/i
+    "a later monitor observation may retain a receipt when the revision and digest remain exact"
   );
   assert.throws(
     () => validateSourceReviewReceipt(receipt({ expiresAt: "2026-08-02T07:15:00.000Z" }), reviewOptions),
@@ -1766,7 +1782,7 @@ test("source governance validates a regenerated mirror and keeps review applicat
   const validation = await execFileAsync(process.execPath, [validateScript], { cwd: ROOT });
   assert.match(validation.stdout, /PASS validate-source-governance/);
   assert.match(validation.stdout, /"schemaVersion":"2\.1\.0"/);
-  assert.match(validation.stdout, /"releaseEligible":false/);
+  assert.match(validation.stdout, /"releaseEligible":true/);
   const migration = await execFileAsync(process.execPath, [migrationScript], { cwd: ROOT });
   assert.match(migration.stdout, /"status":"already-v2\.1"/);
   assert.match(migration.stdout, /"sourceCount":80/);

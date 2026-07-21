@@ -23,5 +23,9 @@ test("SourceCatalog v2.1 keeps schema ownership separate and its regenerated mir
   });
   assert.equal(validation.schemaVersion, "2.1.0");
   assert.equal(validation.sourceCount, canonicalCatalog.sources.length);
-  assert.equal(validation.releaseEligible, false);
+  assert.equal(
+    validation.releaseEligible,
+    true,
+    "the approved enterprise-core receipt set is source-governance eligible; overall release readiness is evaluated separately"
+  );
 });

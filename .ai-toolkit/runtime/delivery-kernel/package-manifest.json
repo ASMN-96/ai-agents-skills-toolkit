@@ -181,7 +181,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-contract.mjs",
-      "sha256": "d6ca1c2589522199d19737b62e9911722df244acd0a01b3776a17dc8299cac6e"
+      "sha256": "e90d17baa63af91082672709275d9ec6904c6de7a2e317756b96a05fbd863a12"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-loader.mjs",

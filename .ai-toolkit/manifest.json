@@ -46,7 +46,7 @@
   "deliveryKernelPackage": {
     "root": ".ai-toolkit/runtime/delivery-kernel",
     "manifestPath": ".ai-toolkit/runtime/delivery-kernel/package-manifest.json",
-    "manifestSha256": "92bbcf387acbd9180e6b4d6cd67ca8e608c92460c7e7049df2e78c78194f1cec"
+    "manifestSha256": "a1c03ef0c45eeb7bb8ca60c1017dd3b6842a880ea1c3469bb9de524fdce56b01"
   },
   "mirrors": [
     {
@@ -1053,7 +1053,7 @@
     },
     {
       "path": ".ai-toolkit/runtime/delivery-kernel/package-manifest.json",
-      "sha256": "92bbcf387acbd9180e6b4d6cd67ca8e608c92460c7e7049df2e78c78194f1cec"
+      "sha256": "a1c03ef0c45eeb7bb8ca60c1017dd3b6842a880ea1c3469bb9de524fdce56b01"
     }
   ],
   "generatedBy": "scripts/ai-toolkit/build-embedded-package.mjs"

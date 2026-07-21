@@ -167,9 +167,6 @@ export function validateSourceReviewReceipt(receipt, options = {}) {
   requireIsoInstant(receipt.reviewedAt, "receipt.reviewedAt");
   requireIsoInstant(receipt.expiresAt, "receipt.expiresAt");
   if (Date.parse(receipt.reviewedAt) > Date.parse(now)) fail("receipt.reviewedAt must not be in the future");
-  if (source.monitor?.checkedAt && Date.parse(receipt.reviewedAt) < Date.parse(source.monitor.checkedAt)) {
-    fail("receipt.reviewedAt must not predate the monitor observation");
-  }
   if (Date.parse(receipt.expiresAt) <= Date.parse(receipt.reviewedAt) || Date.parse(receipt.expiresAt) <= Date.parse(now)) {
     fail("receipt.expiresAt must be after reviewedAt and current validation time");
   }

@@ -118,6 +118,21 @@ function retainFixtureFiles(fixture, directory, relativeFiles) {
   }
 }
 
+function catalogReviewReceiptPaths(fixture, catalog) {
+  const pending = catalog.sources
+    .map(({ review }) => review.currentReceipt)
+    .filter(Boolean);
+  const receiptPaths = new Set();
+  while (pending.length > 0) {
+    const receiptPath = pending.shift();
+    if (receiptPaths.has(receiptPath)) continue;
+    receiptPaths.add(receiptPath);
+    const receipt = JSON.parse(readFileSync(path.join(fixture, ...receiptPath.split("/")), "utf8"));
+    if (receipt.rollbackTarget?.previousReceipt) pending.push(receipt.rollbackTarget.previousReceipt);
+  }
+  return [...receiptPaths];
+}
+
 function minimizeBuilderFixture(fixture) {
   const embeddedDataPath = path.join(fixture, "scripts", "ai-toolkit", "embedded-data.mjs");
   const embeddedData = readFileSync(embeddedDataPath, "utf8")
@@ -153,7 +168,11 @@ function minimizeBuilderFixture(fixture) {
     "skills/governance-proof-evals.json",
     "skills/uiux-evals.json"
   ]);
-  retainFixtureFiles(fixture, "sources", ["source-watchlist.json"]);
+  const catalog = JSON.parse(readFileSync(path.join(fixture, "sources", "source-watchlist.json"), "utf8"));
+  retainFixtureFiles(fixture, "sources", [
+    "source-watchlist.json",
+    ...catalogReviewReceiptPaths(fixture, catalog).map((receiptPath) => receiptPath.replace(/^sources\//u, ""))
+  ]);
   for (const directory of [".agents", "docs", "methods", "profiles", "skills"]) {
     retainFixtureFiles(fixture, directory, []);
   }
@@ -291,6 +310,28 @@ test("source mirror generation rejects orphan catalog record targets", () => {
     assert.match(
       combinedOutput(result),
       /SourceCatalog v2 source record .*orphan-tool\.md is missing from tools registry/u
+    );
+  } finally {
+    rmSync(parent, { recursive: true, force: true });
+  }
+});
+
+test("source mirror generation rejects a missing catalog review receipt", () => {
+  const { parent, fixture } = createFixture("source-review-receipt-missing");
+  try {
+    minimizeBuilderFixture(fixture);
+    const catalog = JSON.parse(readFileSync(path.join(fixture, "sources", "source-watchlist.json"), "utf8"));
+    const [receiptPath] = catalogReviewReceiptPaths(fixture, catalog);
+    assert.ok(receiptPath, "fixture SourceCatalog v2 must reference a review receipt");
+    rmSync(path.join(fixture, ...receiptPath.split("/")));
+
+    const result = runBuilder(fixture, ["--confirm-write"]);
+
+    assert.notEqual(result.status, 0, combinedOutput(result));
+    assert.match(
+      combinedOutput(result),
+      /canonical input sources\/reviews\/.+\.json does not exist/u,
+      "missing catalog review receipt must fail before package generation"
     );
   } finally {
     rmSync(parent, { recursive: true, force: true });
