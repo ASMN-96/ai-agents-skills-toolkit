@@ -484,6 +484,105 @@ test("missing native environments block platform verification while satisfied en
   assert.equal(satisfied.releaseReadiness, false);
 });
 
+test("native preview platforms require their target capabilities without downgrading enterprise core", async () => {
+  const registry = await loadDomainRegistry();
+  const cases = [
+    {
+      platform: "ios",
+      capabilities: ["macos", "xcode", "simulator-or-device"],
+      gateIds: [
+        "ios-native-quality-accessibility",
+        "ios-simulator-device-behavior",
+        "ios-accessibility-audit",
+        "ios-privacy-performance-release",
+        "ios-performance-profile",
+        "ios-packaging-install-rollback"
+      ]
+    },
+    {
+      platform: "android",
+      capabilities: ["android-sdk", "emulator-or-device"],
+      gateIds: [
+        "android-native-quality-accessibility",
+        "android-emulator-device-behavior",
+        "android-accessibility-audit",
+        "android-security-performance-release",
+        "android-performance-profile",
+        "android-packaging-install-rollback"
+      ]
+    },
+    {
+      platform: "windows-desktop",
+      capabilities: ["windows", "native-packaging"],
+      gateIds: [
+        "windows-native-quality-accessibility",
+        "windows-accessibility-audit",
+        "windows-security-packaging-rollback",
+        "windows-performance-profile",
+        "windows-packaging-install-rollback"
+      ]
+    },
+    {
+      platform: "macos-desktop",
+      capabilities: ["macos", "xcode"],
+      gateIds: [
+        "macos-native-quality-accessibility",
+        "macos-accessibility-audit",
+        "macos-privacy-performance-release",
+        "macos-performance-profile",
+        "macos-packaging-install-rollback"
+      ]
+    }
+  ];
+
+  for (const { platform, capabilities, gateIds } of cases) {
+    const task = {
+      scenario: "large-governed-implementation",
+      risk: "high",
+      targets: { platforms: [platform], frameworkOverlays: [] }
+    };
+    const blocked = resolveDomainSelection({ registry, task, environmentCapabilities: [] });
+    const core = blocked.packMaturities.find((entry) => entry.packId === "enterprise-core");
+    const native = blocked.packMaturities.find((entry) => entry.packId === platform);
+    const blocker = blocked.blockers.find((entry) => entry.packId === platform);
+
+    assert.equal(blocked.status, "blocked");
+    assert.deepEqual([...blocked.missingEnvironmentCapabilities].sort(), [...capabilities].sort());
+    assert.deepEqual(blocked.blockers.map(({ packId }) => packId), [platform]);
+    assert.deepEqual(blocked.blockedGateIds, gateIds);
+    assert.deepEqual(blocker?.gateIds, gateIds);
+    assert.deepEqual(
+      blocked.gates
+        .filter((gate) => gate.applicability.platformIds.includes(platform))
+        .map((gate) => gate.id),
+      gateIds
+    );
+    assert.deepEqual(core, {
+      packId: "enterprise-core",
+      declaredMaturity: "supported",
+      effectiveMaturity: "supported"
+    });
+    assert.deepEqual(native, {
+      packId: platform,
+      declaredMaturity: "preview",
+      effectiveMaturity: "unavailable"
+    });
+    assert.equal(blocker?.code, "native-environment-unavailable");
+    assert.deepEqual([...(blocker?.missingCapabilities ?? [])].sort(), [...capabilities].sort());
+    assert.equal(blocked.platformVerification, false);
+    assert.equal(blocked.releaseReadiness, false);
+
+    const planned = resolveDomainSelection({ registry, task, environmentCapabilities: capabilities });
+    assert.equal(planned.status, "planned");
+    assert.equal(planned.effectiveMaturity, "preview");
+    assert.deepEqual(planned.missingEnvironmentCapabilities, []);
+    assert.equal(planned.packMaturities.find((entry) => entry.packId === "enterprise-core")?.effectiveMaturity, "supported");
+    assert.equal(planned.packMaturities.find((entry) => entry.packId === platform)?.effectiveMaturity, "preview");
+    assert.equal(planned.platformVerification, false);
+    assert.equal(planned.releaseReadiness, false);
+  }
+});
+
 test("web environment blockers are not mislabeled as native environment failures", async () => {
   const registry = await loadDomainRegistry();
   const result = resolveDomainSelection({
