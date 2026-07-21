@@ -1,7 +1,7 @@
 # Changelog
 
 <!-- v0.3-release-evidence:start -->
-> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 66.0% median input-token reduction). Sources: 80 actionable globally, 8 release-blocking for enterprise-core, 72 release-nonblocking, 0 approved receipts. Runtime: 5 skills, 15 native agents, 15 compiled fallbacks; host bridge absent.
+> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 66.0% median input-token reduction). Sources: 80 actionable globally, 8 release-blocking for enterprise-core, 72 release-nonblocking, 0 approved receipts. Runtime: 5 skills, 15 native agents, 15 compiled fallbacks; host bridge preview-contract, trusted readiness ceiling blocked. Advisories: Optional-source limitations remain advisory and do not change the enterprise-core release scope. Preview platform packs lack native evidence and remain preview; they cannot make a supported-runtime claim. The v0.3 fail-closed bridge contract cannot yield trusted readiness or turn standalone JSON into execution proof.
 <!-- v0.3-release-evidence:end -->
 
 All notable changes to AI Agent Skills Toolkit are documented here. This repository is not a Node package; versions describe controlled toolkit evidence states, not package publication.
@@ -15,6 +15,7 @@ Release cadence: controlled toolkit releases are cut when governance, runtime-bo
 - Added supported enterprise-core and preview web/SaaS, iOS, Android, Windows desktop, macOS desktop, Expo/React Native, Electron, and Tauri quality-gate packs.
 - Added bounded preview mobile and desktop platform agents so every preview pack has explicit expert competency coverage without inflating every generalist role.
 - Added a deterministic 12-task, three-run-per-variant static benchmark with honest `notMeasured` runtime/human/pilot dimensions.
+- Added the v0.3 fail-closed bridge contract and explicit publication-versus-trusted-readiness boundary; standalone JSON cannot mint trusted readiness, platform packs remain preview, and no production-proven or enterprise-impact claim is made.
 - Hardened project sync with traversal and junction containment plus atomic rollback, and added deterministic compiler input and compiler provenance digests.
 - Added executable kernel evaluations, a JSON CLI, request template, release documentation, and regenerated embedded artifacts.
 - Draft notes: `docs/V0_3_0_RELEASE_NOTES.md`. No v0.3 tag or release exists yet.

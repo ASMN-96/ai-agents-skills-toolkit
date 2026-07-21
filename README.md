@@ -1,7 +1,7 @@
 # AI Vibe Coding Toolkit
 
 <!-- v0.3-release-evidence:start -->
-> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 66.0% median input-token reduction). Sources: 80 actionable globally, 8 release-blocking for enterprise-core, 72 release-nonblocking, 0 approved receipts. Runtime: 5 skills, 15 native agents, 15 compiled fallbacks; host bridge absent.
+> Release evidence: candidate `0.3.0` is **BLOCKED**; controlled release remains `0.2.5`. Static benchmark: **PASS** (100.0% competency, 100.0% gates, 100.0% golden routing, 66.0% median input-token reduction). Sources: 80 actionable globally, 8 release-blocking for enterprise-core, 72 release-nonblocking, 0 approved receipts. Runtime: 5 skills, 15 native agents, 15 compiled fallbacks; host bridge preview-contract, trusted readiness ceiling blocked. Advisories: Optional-source limitations remain advisory and do not change the enterprise-core release scope. Preview platform packs lack native evidence and remain preview; they cannot make a supported-runtime claim. The v0.3 fail-closed bridge contract cannot yield trusted readiness or turn standalone JSON into execution proof.
 <!-- v0.3-release-evidence:end -->
 
 AI Vibe Coding Toolkit is a documentation-first governance repository for AI coding-agent workflows. It standardizes reviewed methods, source provenance, validated agents, activation boundaries, and controlled sync artifacts so teams can scale high-quality AI-assisted engineering without copying raw external runtime behavior.
@@ -12,6 +12,7 @@ AI Vibe Coding Toolkit is a documentation-first governance repository for AI cod
 - The machine-readable evidence record is authoritative; prose summaries intentionally do not duplicate its mutable blocker list.
 - Public package validation is **not** whole-repo publication readiness.
 - `v0.2.5` is the current controlled release. The untagged v0.3 candidate adds an executable enterprise delivery kernel for bounded resource routing, team design, context and memory governance, domain quality gates, and truthful evidence accounting.
+- v0.3 ships a fail-closed bridge contract, not a trusted host runtime: standalone JSON cannot mint trusted readiness, platform packs remain preview, and there is no production-proven or enterprise-impact claim.
 - Public-facing release status is based on observed validation evidence; external submissions and publication channels are separate approval-gated decisions.
 - See `STATUS.md` for the current boundary snapshot and `MIGRATION.md` for version migration notes.
 - This repository intentionally has no root `package.json`; run direct `node scripts/...` commands from the repository root.
@@ -94,6 +95,7 @@ There is no dependency install step for the toolkit itself. Do not run `npm inst
 Public-facing status:
 
 - The v0.3 candidate runtime is **5 skills and 15 native agent definitions**, with **15 compiled fallbacks** and three preview specialists.
+- The v0.3 fail-closed bridge contract cannot turn standalone JSON into trusted readiness; platform packs remain preview and no production-proven or enterprise-impact claim is made.
 - Public package validation can pass while still not proving whole-repo publication readiness.
 - `v0.2.5` remains the controlled toolkit release until a reviewed v0.3 commit passes the release profile and receives explicit tag/release authorization.
 - External submissions, marketplace listings, package publication, and broader runtime support remain separate approval-gated actions.

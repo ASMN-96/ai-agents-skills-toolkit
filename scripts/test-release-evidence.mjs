@@ -158,8 +158,17 @@ test("structured release blockers are exactly derived and retain the ordered com
       releaseBlockingSourceCount: 0,
       releaseBlockingSourceIds: []
     },
-    runtime: { hostExecutionBridge: "available" },
-    benchmark: { staticGatePassed: true, notMeasured: { nativePilots: { status: "measured" } } },
+    runtime: { hostExecutionBridge: "available", trustedReadinessCeiling: "trusted" },
+    benchmark: {
+      staticGatePassed: true,
+      observedEnterpriseCore: {
+        status: "observed",
+        evidencePath: "docs/observed-enterprise-core-evidence.md"
+      },
+      notMeasured: { nativePilots: { status: "measured" } }
+    },
+    platformPacks: [],
+    warnings: [],
     approvals: {
       sourceApproverIdentityRecorded: true,
       reviewedMainCommitApproved: true,
@@ -175,7 +184,14 @@ test("structured release blockers are exactly derived and retain the ordered com
   blocked.sourceFreshness.releaseBlockingSourceIds = ["a-source", "z-source"];
   blocked.runtime.hostExecutionBridge = "absent";
   blocked.benchmark.staticGatePassed = false;
-  blocked.benchmark.notMeasured.nativePilots.status = "notMeasured";
+  blocked.benchmark.observedEnterpriseCore = { status: "notMeasured", evidencePath: null };
+  blocked.platformPacks = [{
+    id: "supported-platform",
+    lifecycle: "supported",
+    nativeEvidenceStatus: "absent",
+    releaseBlocking: true
+  }];
+  blocked.warnings = ["release-warning"];
   blocked.repository.reviewedMainCommit = null;
   blocked.artifacts.embeddedManifest = { state: "regeneration-pending", sha256: null };
   blocked.approvals = {
@@ -191,10 +207,12 @@ test("structured release blockers are exactly derived and retain the ordered com
     "source-review-approver-unregistered",
     "runtime-host-bridge-unavailable",
     "static-benchmark-thresholds-failed",
-    "human-and-native-pilot-evidence-not-measured",
+    "enterprise-core-observed-evidence-not-measured",
+    "supported-platform-native-evidence-missing",
     "reviewed-clean-main-commit-unavailable",
     "generated-artifact-drift",
-    "tag-and-release-authorization-absent"
+    "tag-and-release-authorization-absent",
+    "unwaived-release-warnings"
   ]);
   assert.deepEqual(accounting[0].dependencyIds, ["a-source", "z-source"]);
   assert.deepEqual(
@@ -230,6 +248,158 @@ test("structured release blockers are exactly derived and retain the ordered com
     }, { generatedArtifactDrift: false }),
     /blocked-state-has-no-blockers/u
   );
+});
+
+function releaseReadyEvidence() {
+  return {
+    candidateVersion: "0.3.0",
+    controlledRelease: "0.2.5",
+    releaseState: "ready",
+    repository: { reviewedMainCommit: "a".repeat(40), worktreeState: "clean" },
+    artifacts: { embeddedManifest: { state: "generated-current", sha256: "b".repeat(64) } },
+    sourceFreshness: {
+      supportedPackIds: ["enterprise-core"],
+      actionableSources: 0,
+      releaseBlockingSourceCount: 0,
+      releaseBlockingSourceIds: [],
+      releaseNonblockingActionableCount: 0,
+      approvedReceiptCount: 0
+    },
+    runtime: {
+      canonicalSkills: 0,
+      nativeAgentDefinitions: 0,
+      compiledFallbacks: 0,
+      hostExecutionBridge: "available",
+      trustedReadinessCeiling: "trusted"
+    },
+    benchmark: {
+      staticGatePassed: true,
+      observedEnterpriseCore: {
+        status: "observed",
+        evidencePath: "docs/observed-enterprise-core-evidence.md"
+      },
+      notMeasured: { nativePilots: { status: "measured" } },
+      measured: {
+        mandatoryCompetencyCoverage: 1,
+        domainGateCoverage: 1,
+        exactGoldenRouting: 1,
+        medianInputTokenReduction: 0.5
+      }
+    },
+    platformPacks: [],
+    warnings: [],
+    advisories: {
+      optionalSources: "Optional-source limitations remain outside the enterprise-core release scope.",
+      previewPacks: "Preview platform packs lack native evidence and remain preview.",
+      hostExecutionBridge: "The fail-closed bridge contract cannot yield trusted readiness."
+    },
+    approvals: {
+      sourceApproverIdentityRecorded: true,
+      reviewedMainCommitApproved: true,
+      tagAuthorized: true,
+      releaseAuthorized: true
+    }
+  };
+}
+
+test("preview bridge contracts are publication-compatible but cap trusted readiness", () => {
+  const {
+    deriveReleaseBlockerAccounting,
+    validateReleaseBlockerAccounting,
+    validateRuntimeTrustBoundary
+  } = releaseEvidenceModule;
+  assert.equal(typeof validateRuntimeTrustBoundary, "function");
+  const previewContract = releaseReadyEvidence();
+  previewContract.runtime = {
+    hostExecutionBridge: "preview-contract",
+    trustedReadinessCeiling: "blocked"
+  };
+
+  assert.doesNotThrow(() => validateRuntimeTrustBoundary(previewContract.runtime));
+  const accounting = deriveReleaseBlockerAccounting(
+    previewContract,
+    { generatedArtifactDrift: false }
+  );
+  assert.equal(accounting.some((entry) => entry.id === "runtime-host-bridge-unavailable"), false);
+  assert.doesNotThrow(() => validateReleaseBlockerAccounting({
+    ...previewContract,
+    releaseBlockerAccounting: accounting,
+    releaseBlockers: accounting.map((entry) => entry.id)
+  }, { generatedArtifactDrift: false }));
+  assert.throws(
+    () => validateRuntimeTrustBoundary({
+      hostExecutionBridge: "preview-contract",
+      trustedReadinessCeiling: "trusted"
+    }),
+    /preview-contract-trusted-readiness-ceiling/u
+  );
+});
+
+test("native evidence blocks supported platform packs but remains advisory for preview packs", () => {
+  const { deriveReleaseBlockerAccounting } = releaseEvidenceModule;
+  const preview = releaseReadyEvidence();
+  preview.platformPacks = [{
+    id: "ios",
+    lifecycle: "preview",
+    nativeEvidenceStatus: "absent",
+    releaseBlocking: false
+  }];
+  assert.equal(
+    deriveReleaseBlockerAccounting(preview, { generatedArtifactDrift: false })
+      .some((entry) => entry.id === "supported-platform-native-evidence-missing"),
+    false
+  );
+
+  const supported = structuredClone(preview);
+  supported.platformPacks = [{
+    id: "enterprise-web",
+    lifecycle: "supported",
+    nativeEvidenceStatus: "absent",
+    releaseBlocking: true
+  }];
+  assert.equal(
+    deriveReleaseBlockerAccounting(supported, { generatedArtifactDrift: false })
+      .some((entry) => entry.id === "supported-platform-native-evidence-missing"),
+    true
+  );
+});
+
+test("missing observed enterprise-core evidence blocks the v0.3 candidate", () => {
+  const { deriveReleaseBlockerAccounting } = releaseEvidenceModule;
+  const evidence = releaseReadyEvidence();
+  evidence.benchmark.observedEnterpriseCore = { status: "notMeasured", evidencePath: null };
+  assert.equal(
+    deriveReleaseBlockerAccounting(evidence, { generatedArtifactDrift: false })
+      .some((entry) => entry.id === "enterprise-core-observed-evidence-not-measured"),
+    true
+  );
+});
+
+test("release readiness is prohibited while release warnings remain unwaived", () => {
+  const { validateReleaseBlockerAccounting } = releaseEvidenceModule;
+  const evidence = releaseReadyEvidence();
+  evidence.warnings = ["release-warning"];
+  const accounting = releaseEvidenceModule.deriveReleaseBlockerAccounting(
+    evidence,
+    { generatedArtifactDrift: false }
+  );
+  assert.ok(accounting.some((entry) => entry.id === "unwaived-release-warnings"));
+  assert.throws(
+    () => validateReleaseBlockerAccounting({
+      ...evidence,
+      releaseBlockerAccounting: accounting,
+      releaseBlockers: accounting.map((entry) => entry.id)
+    }, { generatedArtifactDrift: false }),
+    /ready-state-has-blockers|unwaived-release-warnings/u
+  );
+});
+
+test("release summaries keep optional-source, preview-pack, and bridge limitations visible as advisories", () => {
+  const summary = renderReleaseEvidenceSummaryBlock(releaseReadyEvidence());
+  assert.match(summary, /Advisories:/u);
+  assert.match(summary, /Optional-source limitations/u);
+  assert.match(summary, /Preview platform packs/u);
+  assert.match(summary, /fail-closed bridge contract/u);
 });
 
 test("generated artifact drift is recomputed from canonical mirror and manifest bytes", () => {

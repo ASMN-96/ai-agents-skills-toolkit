@@ -1,6 +1,6 @@
 # v0.3 Agent Portfolio Assessment
 
-Status: static design assessment for the untagged v0.3 candidate. This is not production-performance evidence.
+Status: static design assessment for the untagged v0.3 candidate. v0.3 ships a fail-closed bridge contract, but standalone JSON cannot mint trusted readiness; platform packs remain preview, and this is not a production-proven or enterprise-impact claim.
 
 ## Decision
 
@@ -78,7 +78,7 @@ Portfolio averages, computed from the 15 displayed rows and rounded to one decim
 
 ## What prevents a higher rating
 
-- No host-owned execution bridge currently turns Codex or Claude invocations into trusted events and receipts.
+- The v0.3 fail-closed bridge contract does not yet provide an available host-owned execution bridge that turns Codex or Claude invocations into trusted events and receipts.
 - Retry/flaky attempt sequences are not yet modeled as trusted receipts. The current conservative contract allows one observation per selected executable tool and keeps host evidence untrusted.
 - Database/RLS review is strong, but generic local migration-file authorship remains intentionally blocked until a separate scoped, non-live, independently reviewed writer contract is proven.
 - No role has repeated observed outcomes, failure-recovery evidence, human usefulness scores, or production-repository pilot results.

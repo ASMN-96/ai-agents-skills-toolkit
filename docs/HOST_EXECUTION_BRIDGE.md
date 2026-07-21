@@ -6,6 +6,7 @@ files as proof that Codex, Claude Code, a tool, or a human approver actually ran
 
 ## Current v0.3 boundary
 
+- v0.3 ships a fail-closed bridge contract for plan, event, and receipt-shape validation. It is a `preview-contract`, not an available trusted host runtime: standalone JSON cannot mint trusted readiness.
 - `plan` re-derives gates, resources, waves, ownership, and verifier policy from
   the canonical registries.
 - `ingest-events` re-runs that planning policy before accepting a serialized
@@ -24,8 +25,9 @@ files as proof that Codex, Claude Code, a tool, or a human approver actually ran
   eligible, planning blocks before assignments instead of deferring the writer
   failure to execution.
 
-This fail-closed behavior is intentional until a runtime-owned bridge is
-integrated and independently tested.
+This fail-closed contract is intentional until an available runtime-owned bridge
+is integrated and independently tested. It does not establish a production-proven
+or enterprise-impact claim.
 
 ## Required bridge behavior
 

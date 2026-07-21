@@ -43,6 +43,15 @@ const REQUIRED_ARTIFACT_PATHS = Object.freeze({
   benchmarkFixture: "evals/routing/enterprise-delivery-benchmark.json",
   embeddedManifest: ".ai-toolkit/manifest.json"
 });
+const HOST_EXECUTION_BRIDGE_STATES = new Set(["absent", "preview-contract", "available"]);
+const TRUSTED_READINESS_CEILINGS = new Set(["blocked", "trusted"]);
+const PLATFORM_PACK_LIFECYCLES = new Set(["supported", "preview"]);
+const NATIVE_EVIDENCE_STATUSES = new Set(["observed", "absent"]);
+const REQUIRED_ADVISORY_KEYS = Object.freeze([
+  "optionalSources",
+  "previewPacks",
+  "hostExecutionBridge"
+]);
 
 function fail(message) {
   throw new Error(`release-evidence-inconsistent:${message}`);
@@ -162,6 +171,113 @@ function blocker(id, reasonCode, evidencePaths, dependencyIds) {
   return { id, reasonCode, evidencePaths, dependencyIds };
 }
 
+export function validateRuntimeTrustBoundary(runtime) {
+  if (!isPlainRecord(runtime)) fail("runtime");
+  if (!HOST_EXECUTION_BRIDGE_STATES.has(runtime.hostExecutionBridge)) {
+    fail("runtime-host-execution-bridge");
+  }
+  if (!TRUSTED_READINESS_CEILINGS.has(runtime.trustedReadinessCeiling)) {
+    fail("runtime-trusted-readiness-ceiling");
+  }
+  if (
+    runtime.hostExecutionBridge === "preview-contract"
+    && runtime.trustedReadinessCeiling !== "blocked"
+  ) {
+    fail("preview-contract-trusted-readiness-ceiling");
+  }
+  if (
+    runtime.hostExecutionBridge === "absent"
+    && runtime.trustedReadinessCeiling !== "blocked"
+  ) {
+    fail("absent-bridge-trusted-readiness-ceiling");
+  }
+  if (
+    runtime.trustedReadinessCeiling === "trusted"
+    && runtime.hostExecutionBridge !== "available"
+  ) {
+    fail("trusted-readiness-requires-available-bridge");
+  }
+}
+
+function validateObservedEnterpriseCoreEvidence(benchmark) {
+  const observed = benchmark?.observedEnterpriseCore;
+  if (
+    !isPlainRecord(observed)
+    || JSON.stringify(Object.keys(observed)) !== JSON.stringify(["status", "evidencePath"])
+    || !new Set(["observed", "notMeasured"]).has(observed.status)
+  ) {
+    fail("benchmark-observed-enterprise-core");
+  }
+  if (observed.status === "observed") {
+    if (typeof observed.evidencePath !== "string" || observed.evidencePath === "") {
+      fail("benchmark-observed-enterprise-core-evidence-path");
+    }
+  } else if (observed.evidencePath !== null) {
+    fail("benchmark-observed-enterprise-core-not-measured-evidence-path");
+  }
+}
+
+function hasObservedEnterpriseCoreEvidence(benchmark) {
+  return benchmark?.observedEnterpriseCore?.status === "observed"
+    && typeof benchmark.observedEnterpriseCore.evidencePath === "string"
+    && benchmark.observedEnterpriseCore.evidencePath !== "";
+}
+
+export function validatePlatformPackEvidence(platformPacks) {
+  if (!Array.isArray(platformPacks)) fail("platform-packs");
+  const ids = new Set();
+  for (const [index, platformPack] of platformPacks.entries()) {
+    if (
+      !isPlainRecord(platformPack)
+      || JSON.stringify(Object.keys(platformPack)) !== JSON.stringify([
+        "id", "lifecycle", "nativeEvidenceStatus", "releaseBlocking"
+      ])
+    ) {
+      fail(`platform-pack-${index}-fields`);
+    }
+    if (typeof platformPack.id !== "string" || platformPack.id === "" || ids.has(platformPack.id)) {
+      fail(`platform-pack-${index}-id`);
+    }
+    ids.add(platformPack.id);
+    if (!PLATFORM_PACK_LIFECYCLES.has(platformPack.lifecycle)) {
+      fail(`platform-pack-${index}-lifecycle`);
+    }
+    if (!NATIVE_EVIDENCE_STATUSES.has(platformPack.nativeEvidenceStatus)) {
+      fail(`platform-pack-${index}-native-evidence-status`);
+    }
+    const expectedReleaseBlocking = (
+      platformPack.lifecycle === "supported"
+      && platformPack.nativeEvidenceStatus === "absent"
+    );
+    if (platformPack.releaseBlocking !== expectedReleaseBlocking) {
+      fail(`platform-pack-${index}-release-blocking`);
+    }
+  }
+}
+
+function validateAdvisories(advisories) {
+  if (
+    !isPlainRecord(advisories)
+    || JSON.stringify(Object.keys(advisories)) !== JSON.stringify(REQUIRED_ADVISORY_KEYS)
+  ) {
+    fail("advisories");
+  }
+  for (const key of REQUIRED_ADVISORY_KEYS) {
+    if (typeof advisories[key] !== "string" || advisories[key] === "") {
+      fail(`advisory-${key}`);
+    }
+  }
+}
+
+function validateReleaseWarnings(warnings) {
+  if (!Array.isArray(warnings) || new Set(warnings).size !== warnings.length) {
+    fail("release-warnings");
+  }
+  if (warnings.some((warning) => typeof warning !== "string" || warning === "")) {
+    fail("release-warning-values");
+  }
+}
+
 export function inspectGeneratedArtifactState(root) {
   const canonicalPath = path.join(root, "sources", "source-watchlist.json");
   const mirrorPath = path.join(root, ".ai-toolkit", "sources", "watchlist.json");
@@ -212,7 +328,13 @@ export function deriveReleaseBlockerAccounting(evidence, actualState = {}) {
       [...(sourceFreshness.supportedPackIds ?? [])]
     ));
   }
-  if (evidence.runtime?.hostExecutionBridge !== "available") {
+  if (
+    evidence.runtime?.hostExecutionBridge !== "available"
+    && !(
+      evidence.runtime?.hostExecutionBridge === "preview-contract"
+      && evidence.runtime?.trustedReadinessCeiling === "blocked"
+    )
+  ) {
     blockers.push(blocker(
       "runtime-host-bridge-unavailable",
       "RUNTIME_HOST_BRIDGE_UNAVAILABLE",
@@ -228,12 +350,27 @@ export function deriveReleaseBlockerAccounting(evidence, actualState = {}) {
       ["enterprise-delivery-benchmark"]
     ));
   }
-  if (evidence.benchmark?.notMeasured?.nativePilots?.status === "notMeasured") {
+  if (!hasObservedEnterpriseCoreEvidence(evidence.benchmark)) {
     blockers.push(blocker(
-      "human-and-native-pilot-evidence-not-measured",
-      "HUMAN_AND_NATIVE_PILOT_EVIDENCE_NOT_MEASURED",
+      "enterprise-core-observed-evidence-not-measured",
+      "ENTERPRISE_CORE_OBSERVED_EVIDENCE_NOT_MEASURED",
       ["docs/V0_3_0_RELEASE_EVIDENCE.json"],
-      ["human-measurements", "native-pilots"]
+      ["enterprise-core-observed-evidence"]
+    ));
+  }
+  const supportedPacksMissingNativeEvidence = (evidence.platformPacks ?? [])
+    .filter((platformPack) => (
+      platformPack?.lifecycle === "supported"
+      && platformPack.nativeEvidenceStatus === "absent"
+      && platformPack.releaseBlocking === true
+    ))
+    .map((platformPack) => platformPack.id);
+  if (supportedPacksMissingNativeEvidence.length > 0) {
+    blockers.push(blocker(
+      "supported-platform-native-evidence-missing",
+      "SUPPORTED_PLATFORM_NATIVE_EVIDENCE_MISSING",
+      ["docs/V0_3_0_RELEASE_EVIDENCE.json"],
+      supportedPacksMissingNativeEvidence
     ));
   }
   if (
@@ -268,6 +405,14 @@ export function deriveReleaseBlockerAccounting(evidence, actualState = {}) {
       "TAG_OR_RELEASE_AUTHORIZATION_ABSENT",
       ["docs/V0_3_0_RELEASE_EVIDENCE.json"],
       missing
+    ));
+  }
+  if ((evidence.warnings ?? []).length > 0) {
+    blockers.push(blocker(
+      "unwaived-release-warnings",
+      "UNWAIVED_RELEASE_WARNINGS",
+      ["docs/V0_3_0_RELEASE_EVIDENCE.json"],
+      [...evidence.warnings]
     ));
   }
   return blockers;
@@ -311,9 +456,10 @@ export function validateReleaseBlockerAccounting(evidence, actualState = {}) {
 
 export function renderReleaseEvidenceSummaryBlock(evidence) {
   const measured = evidence.benchmark.measured;
+  const advisories = evidence.advisories;
   return [
     START_MARKER,
-    `> Release evidence: candidate \`${evidence.candidateVersion}\` is **${evidence.releaseState.toUpperCase()}**; controlled release remains \`${evidence.controlledRelease}\`. Static benchmark: **${evidence.benchmark.staticGatePassed ? "PASS" : "FAIL"}** (${percent(measured.mandatoryCompetencyCoverage)} competency, ${percent(measured.domainGateCoverage)} gates, ${percent(measured.exactGoldenRouting)} golden routing, ${percent(measured.medianInputTokenReduction)} median input-token reduction). Sources: ${evidence.sourceFreshness.actionableSources} actionable globally, ${evidence.sourceFreshness.releaseBlockingSourceCount} release-blocking for ${evidence.sourceFreshness.supportedPackIds.join(", ")}, ${evidence.sourceFreshness.releaseNonblockingActionableCount} release-nonblocking, ${evidence.sourceFreshness.approvedReceiptCount} approved receipts. Runtime: ${evidence.runtime.canonicalSkills} skills, ${evidence.runtime.nativeAgentDefinitions} native agents, ${evidence.runtime.compiledFallbacks} compiled fallbacks; host bridge ${evidence.runtime.hostExecutionBridge}.`,
+    `> Release evidence: candidate \`${evidence.candidateVersion}\` is **${evidence.releaseState.toUpperCase()}**; controlled release remains \`${evidence.controlledRelease}\`. Static benchmark: **${evidence.benchmark.staticGatePassed ? "PASS" : "FAIL"}** (${percent(measured.mandatoryCompetencyCoverage)} competency, ${percent(measured.domainGateCoverage)} gates, ${percent(measured.exactGoldenRouting)} golden routing, ${percent(measured.medianInputTokenReduction)} median input-token reduction). Sources: ${evidence.sourceFreshness.actionableSources} actionable globally, ${evidence.sourceFreshness.releaseBlockingSourceCount} release-blocking for ${evidence.sourceFreshness.supportedPackIds.join(", ")}, ${evidence.sourceFreshness.releaseNonblockingActionableCount} release-nonblocking, ${evidence.sourceFreshness.approvedReceiptCount} approved receipts. Runtime: ${evidence.runtime.canonicalSkills} skills, ${evidence.runtime.nativeAgentDefinitions} native agents, ${evidence.runtime.compiledFallbacks} compiled fallbacks; host bridge ${evidence.runtime.hostExecutionBridge}, trusted readiness ceiling ${evidence.runtime.trustedReadinessCeiling}. Advisories: ${advisories.optionalSources} ${advisories.previewPacks} ${advisories.hostExecutionBridge}`,
     END_MARKER
   ].join("\n");
 }
@@ -336,10 +482,15 @@ export function renderStatusRuntimeBoundaryLines(evidence) {
 }
 
 function validateEvidenceEnvelope(evidence) {
-  if (!isPlainRecord(evidence) || evidence.schemaVersion !== "1.1.0") fail("schema-version");
+  if (!isPlainRecord(evidence) || evidence.schemaVersion !== "1.2.0") fail("schema-version");
   if (evidence.candidateVersion !== "0.3.0") fail("candidate-version");
   if (evidence.controlledRelease !== "0.2.5") fail("controlled-release");
   if (!new Set(["blocked", "ready"]).has(evidence.releaseState)) fail("release-state");
+  validateRuntimeTrustBoundary(evidence.runtime);
+  validateObservedEnterpriseCoreEvidence(evidence.benchmark);
+  validatePlatformPackEvidence(evidence.platformPacks);
+  validateReleaseWarnings(evidence.warnings);
+  validateAdvisories(evidence.advisories);
 }
 
 export function validateArtifactDigests(root, artifactDigestMode, artifacts, releaseState = "blocked") {
@@ -523,6 +674,7 @@ function validateRuntimeState(root, evidence) {
     [...evidence.runtime.agentsWithoutCompiledFallbacks].sort(),
     "runtime-agents-without-compiled-fallbacks"
   );
+  validateRuntimeTrustBoundary(evidence.runtime);
 }
 
 async function validateBenchmarkState(root, evidence) {
@@ -533,6 +685,15 @@ async function validateBenchmarkState(root, evidence) {
   assertEqual(result.runsPerVariant, evidence.benchmark.runsPerVariant, "benchmark-runs-per-variant");
   assertEqual(result.staticGatePassed, evidence.benchmark.staticGatePassed, "benchmark-static-gate");
   assertEqual(result.measured, evidence.benchmark.measured, "benchmark-measured");
+  validateObservedEnterpriseCoreEvidence(evidence.benchmark);
+  if (evidence.benchmark.observedEnterpriseCore.status === "observed") {
+    const evidencePath = assertRepositoryPath(
+      root,
+      evidence.benchmark.observedEnterpriseCore.evidencePath,
+      "benchmark-observed-enterprise-core"
+    );
+    assertRegularFileWithin(root, evidencePath, "benchmark-observed-enterprise-core");
+  }
 }
 
 function validateDocumentSummaries(root, evidence) {
@@ -590,7 +751,7 @@ export async function validateReleaseEvidence({
   validateDocumentSummaries(canonicalRoot, evidence);
   validateStatusRuntimeBoundary(canonicalRoot, evidence);
   return {
-    schemaVersion: "1.1.0",
+    schemaVersion: "1.2.0",
     consistent: true,
     candidateVersion: evidence.candidateVersion,
     controlledRelease: evidence.controlledRelease,

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.1.0",
+  "schemaVersion": "1.2.0",
   "candidateVersion": "0.3.0",
   "controlledRelease": "0.2.5",
   "releaseState": "blocked",
@@ -78,7 +78,8 @@
       "mobile-platform-agent"
     ],
     "agentsWithoutCompiledFallbacks": [],
-    "hostExecutionBridge": "absent"
+    "hostExecutionBridge": "preview-contract",
+    "trustedReadinessCeiling": "blocked"
   },
   "benchmark": {
     "fixtureDigest": "c40bd2cc43fcd22c09b698bc4c763e333d62260c061c01c047eca043b716bc26",
@@ -86,6 +87,10 @@
     "taskCount": 12,
     "runsPerVariant": 3,
     "staticGatePassed": true,
+    "observedEnterpriseCore": {
+      "status": "notMeasured",
+      "evidencePath": null
+    },
     "measured": {
       "mandatoryCompetencyCoverage": 1,
       "domainGateCoverage": 1,
@@ -158,13 +163,66 @@
       }
     }
   },
+  "platformPacks": [
+    {
+      "id": "web-saas",
+      "lifecycle": "preview",
+      "nativeEvidenceStatus": "absent",
+      "releaseBlocking": false
+    },
+    {
+      "id": "ios",
+      "lifecycle": "preview",
+      "nativeEvidenceStatus": "absent",
+      "releaseBlocking": false
+    },
+    {
+      "id": "android",
+      "lifecycle": "preview",
+      "nativeEvidenceStatus": "absent",
+      "releaseBlocking": false
+    },
+    {
+      "id": "windows-desktop",
+      "lifecycle": "preview",
+      "nativeEvidenceStatus": "absent",
+      "releaseBlocking": false
+    },
+    {
+      "id": "macos-desktop",
+      "lifecycle": "preview",
+      "nativeEvidenceStatus": "absent",
+      "releaseBlocking": false
+    },
+    {
+      "id": "expo-react-native",
+      "lifecycle": "preview",
+      "nativeEvidenceStatus": "absent",
+      "releaseBlocking": false
+    },
+    {
+      "id": "electron",
+      "lifecycle": "preview",
+      "nativeEvidenceStatus": "absent",
+      "releaseBlocking": false
+    },
+    {
+      "id": "tauri",
+      "lifecycle": "preview",
+      "nativeEvidenceStatus": "absent",
+      "releaseBlocking": false
+    }
+  ],
+  "advisories": {
+    "optionalSources": "Optional-source limitations remain advisory and do not change the enterprise-core release scope.",
+    "previewPacks": "Preview platform packs lack native evidence and remain preview; they cannot make a supported-runtime claim.",
+    "hostExecutionBridge": "The v0.3 fail-closed bridge contract cannot yield trusted readiness or turn standalone JSON into execution proof."
+  },
   "warnings": [
     "All 80 governed sources remain actionable and quarantined; 8 block the supported enterprise-core release scope.",
     "The live monitor recorded 13 CURRENT, 5 CHANGED, and 62 CHECK_FAILED observations; 17 GitHub API 403 observations were resolved through read-only git ls-remote fallback.",
     "No source review receipt has an authorized approver identity.",
-    "The runtime-owned Codex or Claude execution bridge is not implemented.",
-    "Three agents remain preview despite having inline compiled fallbacks; fallback availability is not native execution, runtime support, or pilot evidence.",
-    "Human, timing, defect-escape, and native-pilot thresholds are not measured."
+    "Observed enterprise-core execution evidence is not measured; the static benchmark cannot prove runtime, human, timing, defect, or enterprise-impact outcomes."
   ],
   "approvals": {
     "sourceApproverIdentityRecorded": false,
@@ -202,25 +260,13 @@
       ]
     },
     {
-      "id": "runtime-host-bridge-unavailable",
-      "reasonCode": "RUNTIME_HOST_BRIDGE_UNAVAILABLE",
-      "evidencePaths": [
-        "docs/HOST_EXECUTION_BRIDGE.md",
-        "docs/V0_3_0_RELEASE_EVIDENCE.json"
-      ],
-      "dependencyIds": [
-        "runtime-host-bridge"
-      ]
-    },
-    {
-      "id": "human-and-native-pilot-evidence-not-measured",
-      "reasonCode": "HUMAN_AND_NATIVE_PILOT_EVIDENCE_NOT_MEASURED",
+      "id": "enterprise-core-observed-evidence-not-measured",
+      "reasonCode": "ENTERPRISE_CORE_OBSERVED_EVIDENCE_NOT_MEASURED",
       "evidencePaths": [
         "docs/V0_3_0_RELEASE_EVIDENCE.json"
       ],
       "dependencyIds": [
-        "human-measurements",
-        "native-pilots"
+        "enterprise-core-observed-evidence"
       ]
     },
     {
@@ -243,14 +289,27 @@
         "tag-authorization",
         "release-authorization"
       ]
+    },
+    {
+      "id": "unwaived-release-warnings",
+      "reasonCode": "UNWAIVED_RELEASE_WARNINGS",
+      "evidencePaths": [
+        "docs/V0_3_0_RELEASE_EVIDENCE.json"
+      ],
+      "dependencyIds": [
+        "All 80 governed sources remain actionable and quarantined; 8 block the supported enterprise-core release scope.",
+        "The live monitor recorded 13 CURRENT, 5 CHANGED, and 62 CHECK_FAILED observations; 17 GitHub API 403 observations were resolved through read-only git ls-remote fallback.",
+        "No source review receipt has an authorized approver identity.",
+        "Observed enterprise-core execution evidence is not measured; the static benchmark cannot prove runtime, human, timing, defect, or enterprise-impact outcomes."
+      ]
     }
   ],
   "releaseBlockers": [
     "source-governance-actionable",
     "source-review-approver-unregistered",
-    "runtime-host-bridge-unavailable",
-    "human-and-native-pilot-evidence-not-measured",
+    "enterprise-core-observed-evidence-not-measured",
     "reviewed-clean-main-commit-unavailable",
-    "tag-and-release-authorization-absent"
+    "tag-and-release-authorization-absent",
+    "unwaived-release-warnings"
   ]
 }
