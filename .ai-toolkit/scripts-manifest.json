@@ -142,7 +142,7 @@
     },
     {
       "path": "scripts/validate-v0-3-release-evidence.mjs",
-      "sha256": "d4e503db39dfb4cde1ec170030b4140ad8baac0d8f91c45436fbba6be3a7a9ec"
+      "sha256": "bd112b4a565b29ece5818f111dbf2b133fd0df4bcaf3d5af79ebf9f9e3290a67"
     }
   ]
 }

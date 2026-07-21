@@ -511,6 +511,8 @@ test("release readiness is prohibited while release warnings remain unwaived", (
 test("release summaries keep optional-source, preview-pack, and bridge limitations visible as advisories", () => {
   const summary = renderReleaseEvidenceSummaryBlock(releaseReadyEvidence());
   assert.match(summary, /Advisories:/u);
+  assert.match(summary, /native agent definitions \(native visibility unobserved\)/u);
+  assert.doesNotMatch(summary, /native agents, \d+ compiled fallbacks/u);
   assert.match(summary, /Optional-source limitations/u);
   assert.match(summary, /Preview platform packs/u);
   assert.match(summary, /fail-closed bridge contract/u);
