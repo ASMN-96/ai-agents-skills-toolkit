@@ -79,11 +79,7 @@ function commandsFor(profile, testFiles) {
       ...prCommands(testFiles),
       nodeCommand("release-scoped-source-freshness", [
         "scripts/check-source-freshness.mjs",
-        "--fail-on-release-blocker",
-        "--output",
-        "docs/SOURCE_FRESHNESS_REPORT.md",
-        "--json-output",
-        "docs/SOURCE_FRESHNESS_REPORT.json"
+        "--fail-on-release-blocker"
       ]),
       nodeCommand("live-source-governance", [
         "scripts/validate-source-governance.mjs",
@@ -134,12 +130,15 @@ function execute(profile, testFiles, commands) {
   console.log(`release-gate profile: ${profile}`);
   console.log(`discovered tests: ${testFiles.length}`);
   for (const command of commands) {
-    console.log(`RUN ${command.id}`);
+    const startedAt = new Date().toISOString();
+    const startedAtMs = Date.now();
+    console.log(`RUN ${command.id} startedAt=${startedAt}`);
     execFileSync(command.executable, [...command.args], {
       cwd: ROOT,
       stdio: "inherit",
       windowsHide: true
     });
+    console.log(`PASS ${command.id} durationMs=${Date.now() - startedAtMs}`);
   }
   console.log(`PASS release-gate ${profile}`);
 }

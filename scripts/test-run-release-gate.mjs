@@ -69,8 +69,38 @@ test("discovery follows the selected repository rather than the orchestrator sou
     assert.ok(releaseFreshness.args.includes("--fail-on-release-blocker"));
     assert.equal(releaseFreshness.args.includes("--fail-on-change"), false);
     assert.ok(listed.commands.some((command) => command.id === "deterministic-mock-source-freshness"));
-    assert.ok(releaseFreshness.args.includes("--output"));
-    assert.ok(releaseFreshness.args.includes("--json-output"));
+    assert.equal(releaseFreshness.args.includes("--output"), false);
+    assert.equal(releaseFreshness.args.includes("--json-output"), false);
+    assert.equal(releaseFreshness.args.includes("docs/SOURCE_FRESHNESS_REPORT.md"), false);
+    assert.equal(releaseFreshness.args.includes("docs/SOURCE_FRESHNESS_REPORT.json"), false);
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
+});
+
+test("execution emits observable lifecycle lines for every check", async () => {
+  const fixture = mkdtempSync(path.join(os.tmpdir(), "release-gate-lifecycle-"));
+  try {
+    for (const relativeScript of [
+      "scripts/ai-toolkit/validate-version-consistency.mjs",
+      "scripts/validate-public-package.mjs",
+      "scripts/validate-toolkit.mjs"
+    ]) {
+      const file = path.join(fixture, relativeScript);
+      mkdirSync(path.dirname(file), { recursive: true });
+      writeFileSync(file, "// successful check fixture\\n", "utf8");
+    }
+
+    const result = await runGate(["post-tag"], fixture);
+    assert.equal(result.code, 0, result.stderr);
+
+    for (const checkId of ["version-consistency", "public-package", "toolkit-policy"]) {
+      assert.match(
+        result.stdout,
+        new RegExp(`^RUN ${checkId} startedAt=\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$`, "m")
+      );
+      assert.match(result.stdout, new RegExp(`^PASS ${checkId} durationMs=\\d+$`, "m"));
+    }
   } finally {
     rmSync(fixture, { recursive: true, force: true });
   }
