@@ -699,9 +699,21 @@ test("preview maturity and compiled-fallback availability are independent runtim
 test("managed release summaries distinguish global actionable and release-blocking sources", () => {
   const evidence = JSON.parse(readFileSync(path.join(ROOT, "docs", "V0_3_0_RELEASE_EVIDENCE.json"), "utf8"));
   const summary = renderReleaseEvidenceSummaryBlock(evidence);
-  assert.match(summary, /80 actionable globally/u);
-  assert.match(summary, /8 release-blocking/u);
+  assert.match(summary, /72 actionable globally/u);
+  assert.match(summary, /0 release-blocking/u);
   assert.match(summary, /enterprise-core/u);
+});
+
+test("release-boundary prose keeps nonblocking source limitations visible without treating them as release-scoped blockers", () => {
+  for (const relativePath of ["STATUS.md", "docs/V0_3_0_RELEASE_NOTES.md"]) {
+    const contents = readFileSync(path.join(ROOT, relativePath), "utf8");
+    assert.match(contents, /72 nonblocking advisory sources/u);
+    assert.match(contents, /missing observed enterprise-core evidence/u);
+    assert.match(contents, /reviewed-main evidence/u);
+    assert.match(contents, /tag\/release authorization/u);
+    assert.doesNotMatch(contents, /actionable source freshness\/review state/u);
+    assert.doesNotMatch(contents, /unresolved source review\/freshness state/u);
+  }
 });
 
 test("release evidence accepts source and compiler commits that are ancestors of generated HEAD", () => {
