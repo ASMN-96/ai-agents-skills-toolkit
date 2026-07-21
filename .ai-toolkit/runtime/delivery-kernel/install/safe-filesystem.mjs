@@ -23,6 +23,24 @@ const TRANSACTION_PHASES = new Set(["prepared", "backup-created", "promoted", "v
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const PROCESS_OWNER_ID = randomUUID();
 const WINDOWS_REPARSE_CACHE_LIMIT = 4096;
+const WINDOWS_MAX_PATH = 260;
+const WINDOWS_REPARSE_POINT_ATTRIBUTE = 0x400;
+const WINDOWS_NATIVE_ATTRIBUTE_PROBE = `
+$signature = @'
+using System;
+using System.Runtime.InteropServices;
+public static class SafeFilesystemNativeAttributes {
+  [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+  private static extern uint GetFileAttributesW(string path);
+  public static int Read(string path) {
+    var attributes = GetFileAttributesW(path);
+    return attributes == 0xffffffff ? -Marshal.GetLastWin32Error() : unchecked((int)attributes);
+  }
+}
+'@
+Add-Type -TypeDefinition $signature
+[Console]::Write([SafeFilesystemNativeAttributes]::Read($env:AI_TOOLKIT_REPARSE_PROBE_PATH))
+`;
 const windowsNonReparseCache = new Map();
 
 function normalizeForComparison(candidate) {
@@ -82,6 +100,49 @@ export function isWindowsNonReparseCacheEligible(candidate, systemDrive) {
   );
 }
 
+function toWindowsExtendedPath(candidate) {
+  const resolved = path.resolve(candidate);
+  if (resolved.startsWith("\\\\?\\")) return resolved;
+  if (resolved.startsWith("\\\\")) return `\\\\?\\UNC\\${resolved.slice(2)}`;
+  return `\\\\?\\${resolved}`;
+}
+
+export function assertWindowsNativeAttributeProbeResult(result, candidate, label) {
+  if (result.error) {
+    throw new Error(`${label} could not verify Windows reparse-point state for ${candidate}: ${result.error.message}`);
+  }
+  if (result.signal || result.status === null || result.status !== 0) {
+    throw new Error(`${label} could not verify Windows reparse-point state for ${candidate}: native attribute probe did not complete`);
+  }
+  const output = String(result.stdout ?? "").trim();
+  if (!/^\d+$/.test(output)) {
+    throw new Error(`${label} could not verify Windows reparse-point state for ${candidate}: native attribute probe returned an invalid result`);
+  }
+  const attributes = Number.parseInt(output, 10);
+  if (!Number.isSafeInteger(attributes)) {
+    throw new Error(`${label} could not verify Windows reparse-point state for ${candidate}: native attribute probe returned an invalid result`);
+  }
+  if ((attributes & WINDOWS_REPARSE_POINT_ATTRIBUTE) !== 0) {
+    throw linkedPathError(label, candidate);
+  }
+}
+
+function assertLongWindowsPathIsNotReparsePoint(candidate, label) {
+  const systemRoot = process.env.SystemRoot || "C:\\Windows";
+  const powershell = path.join(systemRoot, "System32", "WindowsPowerShell", "v1.0", "powershell.exe");
+  const result = spawnSync(powershell, ["-NoLogo", "-NoProfile", "-NonInteractive", "-Command", WINDOWS_NATIVE_ATTRIBUTE_PROBE], {
+    encoding: "utf8",
+    shell: false,
+    windowsHide: true,
+    timeout: 10_000,
+    env: {
+      ...process.env,
+      AI_TOOLKIT_REPARSE_PROBE_PATH: toWindowsExtendedPath(candidate)
+    }
+  });
+  assertWindowsNativeAttributeProbeResult(result, candidate, label);
+}
+
 function assertNotWindowsReparsePoint(candidate, stats, label) {
   if (process.platform !== "win32") return false;
 
@@ -110,6 +171,11 @@ function assertNotWindowsReparsePoint(candidate, stats, label) {
   }
   const output = `${result.stdout ?? ""}\n${result.stderr ?? ""}`;
   if (result.status === 1 && /(?:Error\s+4390|not a reparse point)/i.test(output)) {
+    if (cacheEligible) cacheWindowsNonReparse(candidate, fingerprint);
+    return false;
+  }
+  if (result.status === 1 && candidate.length >= WINDOWS_MAX_PATH) {
+    assertLongWindowsPathIsNotReparsePoint(candidate, label);
     if (cacheEligible) cacheWindowsNonReparse(candidate, fingerprint);
     return false;
   }
@@ -422,7 +488,7 @@ function artifactPrefix(managedRoot) {
   return name.startsWith(".") ? name : `.${name}`;
 }
 
-function transactionCoordinates(repositoryRoot, managedRoot, id = null) {
+function transactionCoordinates(repositoryRoot, managedRoot, id = null, { legacyArtifacts = false } = {}) {
   const resolvedRepository = path.resolve(repositoryRoot);
   const resolvedManaged = path.resolve(managedRoot);
   if (!isWithin(resolvedRepository, resolvedManaged) || normalizeForComparison(resolvedManaged) === normalizeForComparison(resolvedRepository)) {
@@ -430,14 +496,15 @@ function transactionCoordinates(repositoryRoot, managedRoot, id = null) {
   }
   const parent = path.dirname(resolvedManaged);
   const prefix = artifactPrefix(resolvedManaged);
+  const transactionArtifactId = id?.replaceAll("-", "").slice(0, 12);
   return {
     repositoryRoot: resolvedRepository,
     managedRoot: resolvedManaged,
     parent,
     lockPath: path.join(parent, `${prefix}.transaction.lock`),
     journalPath: path.join(parent, `${prefix}.transaction.json`),
-    stagingRoot: id ? path.join(parent, `${prefix}.staging-${id}`) : null,
-    backupRoot: id ? path.join(parent, `${prefix}.backup-${id}`) : null
+    stagingRoot: id ? path.join(parent, legacyArtifacts ? `${prefix}.staging-${id}` : `.s-${transactionArtifactId}`) : null,
+    backupRoot: id ? path.join(parent, legacyArtifacts ? `${prefix}.backup-${id}` : `.b-${transactionArtifactId}`) : null
   };
 }
 
@@ -542,7 +609,7 @@ function acquireTransactionLock(coordinates, transactionId, label) {
     throw new Error(`${label} transaction lock is held by a live or unverifiable owner`);
   }
   const interruptedJournal = readJournal(coordinates);
-  if (interruptedJournal && interruptedJournal.id !== existing.document.transactionId) {
+  if (interruptedJournal && interruptedJournal.journal.id !== existing.document.transactionId) {
     throw new Error("stale lock transaction does not match the managed transaction journal");
   }
   assertPathComponents(coordinates.repositoryRoot, coordinates.lockPath, `${label} stale transaction lock`, {
@@ -754,18 +821,19 @@ function readJournal(coordinates) {
   if (!journal.hadManagedRoot && journal.backupSnapshot.length !== 0) {
     throw new Error(`invalid managed transaction journal backupSnapshot in ${coordinates.journalPath}`);
   }
-  const expected = transactionCoordinates(coordinates.repositoryRoot, coordinates.managedRoot, journal.id);
-  for (const [field, value] of [
-    ["managedRoot", expected.managedRoot],
-    ["stagingRoot", expected.stagingRoot],
-    ["backupRoot", expected.backupRoot]
-  ]) {
-    if (typeof journal[field] !== "string" || journal[field] !== value) {
-      throw new Error(`managed transaction journal has an invalid ${field}`);
-    }
+  const expectedCoordinates = [
+    transactionCoordinates(coordinates.repositoryRoot, coordinates.managedRoot, journal.id),
+    transactionCoordinates(coordinates.repositoryRoot, coordinates.managedRoot, journal.id, { legacyArtifacts: true })
+  ].find((candidate) => [
+    ["managedRoot", candidate.managedRoot],
+    ["stagingRoot", candidate.stagingRoot],
+    ["backupRoot", candidate.backupRoot]
+  ].every(([field, value]) => typeof journal[field] === "string" && journal[field] === value));
+  if (!expectedCoordinates) {
+    throw new Error("managed transaction journal has invalid transaction paths");
   }
-  assertJournalPhaseState(journal, coordinates);
-  return journal;
+  assertJournalPhaseState(journal, expectedCoordinates);
+  return { journal, coordinates: expectedCoordinates };
 }
 
 function renameDirectory(repositoryRoot, source, destination, label) {
@@ -799,8 +867,10 @@ function rollbackJournal(coordinates, journal, ownership) {
 
 function recoverManagedDirectoryTransactionLocked({ coordinates, ownership, log }) {
   assertTransactionLockOwned(coordinates, ownership);
-  const journal = readJournal(coordinates);
-  if (!journal) return { recovered: false, phase: null };
+  const journalRecord = readJournal(coordinates);
+  if (!journalRecord) return { recovered: false, phase: null };
+  const { journal } = journalRecord;
+  coordinates = journalRecord.coordinates;
   if (ownership.staleLock && ownership.staleLock.transactionId !== journal.id) {
     throw new Error("stale lock transaction does not match the managed transaction journal");
   }

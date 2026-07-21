@@ -4,7 +4,7 @@
 - Dependent resource ID: github-gh
 - Canonical catalog: sources/source-watchlist.json
 - Canonical source record: .ai-toolkit/sources/records/github-gh.md
-- Catalog evidence instant: 2026-07-19T22:11:13.031Z
+- Catalog evidence instant: 2026-07-21T11:56:51.432Z
 - Monitor state: CHECK_FAILED
 - Observed revision: none
 - Content digest: none

@@ -4,10 +4,10 @@
 - Dependent resource ID: playwright
 - Canonical catalog: sources/source-watchlist.json
 - Canonical source record: sources/playwright.md
-- Catalog evidence instant: 2026-07-19T22:11:13.031Z
-- Monitor state: CURRENT
-- Observed revision: git-sha:ef3a5830f960c00018f810cebf26133b35ec2b6f
-- Content digest: sha256:de0a5d62cc8fb2839a59ee89299902d930d45c70da8e29a7a874f2f2eb50a241
+- Catalog evidence instant: 2026-07-21T11:56:51.432Z
+- Monitor state: CHANGED
+- Observed revision: git-sha:a7b4d5e0e1fc36bcb2b1b2ae4ebeaddbd9473a21
+- Content digest: sha256:9059d3a73a265eca4650c1bc455b52f2e07617bfc434b81f8f628977d2354643
 - Review state: QUARANTINED
 - Reviewed revision: none
 - Reviewed digest: none
@@ -18,7 +18,7 @@
 - Reference eligibility: BLOCKED
 - Dependent-resource source state: BLOCKED
 - Runtime eligibility: false
-- Eligibility reason: review-quarantined
+- Eligibility reason: monitor-changed
 - neverAutoImport: true
 
 ## Boundary

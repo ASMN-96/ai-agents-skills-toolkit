@@ -4,10 +4,10 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 44bd4e6965eaa1250f5fda577358b74c1cbe97ee
+source_commit: 7def4f75fc6d2740052a60fd3cdedb2d362602d0
 input_digest: sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:cffb8276a3d42b019a8d20d30f17ac46d1b0eb8328e71de06863025b1d38412b
+compiler_digest: sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62
 source_agent: agents/architect-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
@@ -586,7 +586,7 @@ Do not browse by default. Skip this method when repository evidence already sett
 
 - Source agent path: `agents/architect-agent.md`
 - Canonical input digest: `sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822`
-- Compiler digest: `sha256:cffb8276a3d42b019a8d20d30f17ac46d1b0eb8328e71de06863025b1d38412b`
+- Compiler digest: `sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/backend-profile.md`, `profiles/frontend-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`

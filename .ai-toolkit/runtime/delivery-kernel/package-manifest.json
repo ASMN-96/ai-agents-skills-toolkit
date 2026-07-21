@@ -81,7 +81,7 @@
     },
     {
       "path": "install/safe-filesystem.mjs",
-      "sha256": "c1e31fec10d58dcdc8f0910d9a2e6b649f878372d7fb0e2e7b89ce931781a04b"
+      "sha256": "253a73250188938797bd1f2b4b68f59bdd5db5521ab49c41548b21df6099a7c9"
     },
     {
       "path": "README.md",
@@ -181,7 +181,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-contract.mjs",
-      "sha256": "fdbd726f6f911825440de3b1f134c9ef0f031bbdced4e01e15f8ee5a10783b62"
+      "sha256": "d6ca1c2589522199d19737b62e9911722df244acd0a01b3776a17dc8299cac6e"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-loader.mjs",
@@ -228,8 +228,40 @@
       "sha256": "fcacf0eab4107fbf5543a09d1cf1878413471343fed3352d87803f5acb7a61df"
     },
     {
+      "path": "sources/reviews/nist-ai-rmf-genai/ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063.json",
+      "sha256": "c016a164f50ba7764fe6ca329a868d74a2b9d5f7b78714a3acc632989f8645a5"
+    },
+    {
+      "path": "sources/reviews/nist-ssdf-ai/6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7.json",
+      "sha256": "3a4e368060de90e696dc02f023dfabf7322842ddceeb56fea2497d33b4bd6470"
+    },
+    {
+      "path": "sources/reviews/nist-ssdf/6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e.json",
+      "sha256": "85cee2bbe520df61978df162942c4cabc5a313b462f4289065f16ea01226add1"
+    },
+    {
+      "path": "sources/reviews/openssf-ai-code-assistant-instructions/d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d.json",
+      "sha256": "77b04cc8677c960efb990bf44c7cbaed00597ea1ae398ffe32244d6177c15da6"
+    },
+    {
+      "path": "sources/reviews/owasp-agentic-applications/7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48.json",
+      "sha256": "2c07b8a0af6aa78e27e4789c86448145d81114f66449cc67b144d0d62fdb9a59"
+    },
+    {
+      "path": "sources/reviews/owasp-asvs/76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641.json",
+      "sha256": "aa98e32523e35668b5ee825f64ecef9e5b68838a9765072835ef1d2b3e3a5845"
+    },
+    {
+      "path": "sources/reviews/owasp-llmsvs/c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193.json",
+      "sha256": "983e820ffba64844f15fb0fa2940d929c60df69645d1e520a5143ac0180e84ef"
+    },
+    {
+      "path": "sources/reviews/slsa-v1-2/46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae.json",
+      "sha256": "cb38971650d140254bb1a18616b2fbdfce62efdb58a50ee18dda15f91cc318bc"
+    },
+    {
       "path": "sources/source-watchlist.json",
-      "sha256": "616f37583ca640e55ac9424e2aa0dc42ac3e4762a37cce1ceb23263532000cc7"
+      "sha256": "eb625fb41c0174201e6f2badae187e31b1ce7f9dba5bc64a3172c27e965772d5"
     },
     {
       "path": "templates/delivery-kernel.request.example.json",

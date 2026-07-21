@@ -50,7 +50,7 @@
     },
     {
       "path": "scripts/ai-toolkit/source-governance.mjs",
-      "sha256": "9ce5a3e24e9c8c79055ac9c46bc6e0ad528198b67d6820472cc3e4378170950a"
+      "sha256": "837a62956897de5e4f767e71d8b985784feb6718185be237ebd59f3325e3421d"
     },
     {
       "path": "scripts/ai-toolkit/subvalidator-policy.mjs",
@@ -97,12 +97,16 @@
       "sha256": "4550545521357b302da79f90a522cd7891b52f6fc80fe2ec32d5be8381a58f59"
     },
     {
+      "path": "scripts/record-manual-source-observation.mjs",
+      "sha256": "51253cf0c7d712f0528856c63641ae928f2b52ef2438880b59c2e66eef234111"
+    },
+    {
       "path": "scripts/report-registry-generation-readiness.mjs",
       "sha256": "b2e9e93a6931f161e1aea0cf43c4c157aad6e97e2a802af6d4b438d91f927851"
     },
     {
       "path": "scripts/run-release-gate.mjs",
-      "sha256": "074def4ebbdcd5f5697987e24253ee1e9c7f12740c44b466b6d85f633c602cef"
+      "sha256": "97fde155e324358d63945df551ef17a28830134f8392438133686c28b98f1a15"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
