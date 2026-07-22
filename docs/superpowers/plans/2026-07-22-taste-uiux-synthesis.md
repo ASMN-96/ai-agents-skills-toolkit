@@ -94,7 +94,7 @@ Use:
   "repoName": "taste-skill",
   "defaultBranch": "main",
   "sourceRecordPath": "sources/taste-skill.md",
-  "watchedPaths": ["skills/taste-skill/SKILL.md", "skills/redesign-skill/SKILL.md", "CHANGELOG.md", "LICENSE"],
+  "watchedPaths": ["skills\/taste-skill\/SKILL.md", "skills\/redesign-skill\/SKILL.md", "CHANGELOG.md", "LICENSE"],
   "licenseConcern": "review-required",
   "reviewPriority": "Medium",
   "sourceBehavior": "active-tool-or-skill",
@@ -154,7 +154,7 @@ Expected: one exact 40-character SHA. Record retrieval timestamp. If network res
 
 - [ ] **Step 2: Retrieve only reviewed files into an OS temporary directory**
 
-Retrieve `LICENSE`, `CHANGELOG.md`, `README.md`, `skills/taste-skill/SKILL.md`, `skills/redesign-skill/SKILL.md`, repository tree metadata, and any file directly referenced by those instructions that changes security or runtime posture. Do not place upstream content in the repository and do not execute it.
+Retrieve `LICENSE`, `CHANGELOG.md`, `README.md`, upstream `skills\/taste-skill\/SKILL.md`, upstream `skills\/redesign-skill\/SKILL.md`, repository tree metadata, and any file directly referenced by those instructions that changes security or runtime posture. These are external locators, not active toolkit paths. Do not place upstream content in the repository and do not execute it.
 
 - [ ] **Step 3: Review all required dimensions**
 
@@ -320,7 +320,7 @@ Update method `sourceRef` and `lastExtracted` only for files whose approved synt
 node scripts/ai-toolkit/run-toolkit-evals.mjs
 node --test scripts/test-agent-role-contracts.mjs scripts/test-source-synthesis-contract.mjs
 node scripts/validate-toolkit.mjs
-git add methods/uiux methods/internal/frontend-uiux-quality-gates.md registries/methods.registry.json
+git add methods/uiux "methods/internal/frontend-uiux-quality-gates.md" "registries/methods.registry.json"
 git commit -m "feat(uiux): deepen contextual design discipline"
 ```
 

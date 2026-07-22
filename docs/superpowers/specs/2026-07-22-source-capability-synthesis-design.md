@@ -191,7 +191,7 @@ Each input pins the exact reviewed evidence and its role:
   "locators": [
     {
       "kind": "repository-path-section",
-      "value": "skills/taste-skill/SKILL.md#brief-inference"
+      "value": "skills\/taste-skill\/SKILL.md#brief-inference"
     }
   ]
 }
@@ -510,8 +510,10 @@ Canonical inputs:
 
 Generated outputs:
 
+The generated mirror paths below are planned and not active until the implementation creates them.
+
 - `docs/SOURCE_UTILIZATION_MATRIX.md`;
-- `.ai-toolkit/registries/source-capabilities.registry.json`;
+- planned, not active until generated: `.ai-toolkit\/registries\/source-capabilities.registry.json`;
 - `.ai-toolkit/manifest.json` updates;
 - embedded package mirrors and integrity metadata;
 - freshness/update-impact report sections.

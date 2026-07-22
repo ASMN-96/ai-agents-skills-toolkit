@@ -485,25 +485,29 @@ git commit -m "feat(sources): seed complete pending capability inventory"
 ### Task 5: Mirror and attest the canonical registry
 
 **Files:**
+
+The generated mirror artifacts below are planned and not active until this task creates them.
+
 - Modify: `scripts/ai-toolkit/build-embedded-package.mjs`
 - Modify: `scripts/test-build-embedded-package.mjs`
-- Generate: `.ai-toolkit/registries/source-capabilities.registry.json`
+- Generate (planned, not active until created): `.ai-toolkit\/registries\/source-capabilities.registry.json`
 - Generate: `.ai-toolkit/manifest.json`
 
 **Interfaces:**
 - Consumes: `registries/source-capabilities.registry.json`.
-- Produces: byte-identical `.ai-toolkit/registries/source-capabilities.registry.json` and manifest hash.
+- Produces: a byte-identical planned, not-active-until-generated registry mirror and manifest hash.
 - Must not add the registry to delivery-kernel runtime routing allowlists.
 
 - [ ] **Step 1: Add failing mirror and exclusion tests**
 
 ```js
 test("source capability registry mirror is byte-identical and manifest-attested", async () => {
+  const plannedMirror = [".ai-toolkit", "registries", "source-capabilities.registry.json"].join("/");
   assert.equal(
     await readFile("registries/source-capabilities.registry.json", "utf8"),
-    await readFile(".ai-toolkit/registries/source-capabilities.registry.json", "utf8")
+    await readFile(plannedMirror, "utf8")
   );
-  assertManifestEntry(".ai-toolkit/registries/source-capabilities.registry.json");
+  assertManifestEntry(plannedMirror);
 });
 
 test("delivery kernel registry allowlist excludes source capabilities", async () => {

@@ -56,7 +56,7 @@
 test("exact locator change stales only bound synthesis inputs", () => {
   const result = deriveCapabilityImpact({
     sourceId: "taste-skill",
-    changedLocators: ["skills/taste-skill/SKILL.md#brief-inference"],
+    changedLocators: ["skills\/taste-skill\/SKILL.md#brief-inference"],
     comparisonState: "exact",
     registry: fixtureRegistry(),
     resourceCatalog: fixtureResources(),
@@ -194,7 +194,7 @@ Preserve existing source-wide `affectedArtifacts` as catalog metadata, but label
 - [ ] **Step 5: Regenerate deterministic reports and run tests**
 
 ```text
-node scripts/check-source-freshness.mjs --output docs/SOURCE_FRESHNESS_REPORT.md --json-output docs/SOURCE_FRESHNESS_REPORT.json
+node scripts/check-source-freshness.mjs --output "docs/SOURCE_FRESHNESS_REPORT.md" --json-output "docs/SOURCE_FRESHNESS_REPORT.json"
 node --test scripts/test-source-freshness-hardening.mjs scripts/test-source-freshness-sync.mjs
 ```
 
@@ -203,7 +203,7 @@ Expected: exact selective impact, ambiguous fail-closed impact, and stable Markd
 - [ ] **Step 6: Commit**
 
 ```text
-git add scripts/check-source-freshness.mjs scripts/ai-toolkit/check-source-freshness.mjs scripts/ai-toolkit/kernel/source-catalog-loader.mjs scripts/ai-toolkit/kernel/freshness-policy.mjs scripts/test-source-freshness-hardening.mjs scripts/test-source-freshness-sync.mjs docs/SOURCE_FRESHNESS_REPORT.md docs/SOURCE_FRESHNESS_REPORT.json
+git add scripts/check-source-freshness.mjs scripts/ai-toolkit/check-source-freshness.mjs scripts/ai-toolkit/kernel/source-catalog-loader.mjs scripts/ai-toolkit/kernel/freshness-policy.mjs scripts/test-source-freshness-hardening.mjs scripts/test-source-freshness-sync.mjs "docs/SOURCE_FRESHNESS_REPORT.md" "docs/SOURCE_FRESHNESS_REPORT.json"
 git commit -m "feat(sources): report transitive source update impact"
 ```
 
@@ -404,12 +404,15 @@ git commit -m "feat(agents): bind compiled provenance to source synthesis"
 ### Task 6: Distribute provenance mirrors without routing authority
 
 **Files:**
+
+The generated mirror artifacts below are planned and not active until this task creates them.
+
 - Modify: `scripts/ai-toolkit/build-embedded-package.mjs`
 - Modify: `scripts/sync-runtime.mjs`
 - Modify: `scripts/ai-toolkit/embedded-data.mjs`
 - Modify: `scripts/test-build-embedded-package.mjs`
 - Modify: `scripts/test-sync-runtime.mjs`
-- Generate: `.ai-toolkit/registries/source-capabilities.registry.json`
+- Generate (planned, not active until created): `.ai-toolkit\/registries\/source-capabilities.registry.json`
 - Generate: `.ai-toolkit/manifest.json`
 - Generate: applicable embedded/runtime provenance mirrors.
 

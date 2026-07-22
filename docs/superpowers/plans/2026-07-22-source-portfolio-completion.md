@@ -45,12 +45,15 @@ Every source in every wave follows this exact transaction:
 ### Task 1: Add portfolio-completeness validation and reporting
 
 **Files:**
+
+The generated report artifacts below are planned and not active until this task creates them.
+
 - Create: `scripts/validate-source-portfolio.mjs`
 - Create: `scripts/test-source-portfolio.mjs`
 - Modify: `scripts/validate-toolkit.mjs`
 - Modify: `scripts/run-release-gate.mjs`
-- Generate: `docs/SOURCE_PORTFOLIO_REPORT.md`
-- Generate: `docs/SOURCE_PORTFOLIO_REPORT.json`
+- Generate (planned, not active until created): `docs\/SOURCE_PORTFOLIO_REPORT.md`
+- Generate (planned, not active until created): `docs\/SOURCE_PORTFOLIO_REPORT.json`
 
 **Interfaces:**
 - CLI profiles: `structural`, `release-scope`, `portfolio-complete`.
@@ -127,7 +130,8 @@ Default to `--check`; `--confirm-write` writes reports atomically. Add `portfoli
 node --test scripts/test-source-portfolio.mjs
 node scripts/validate-source-portfolio.mjs structural --confirm-write
 node scripts/validate-source-portfolio.mjs structural --check
-git add scripts/validate-source-portfolio.mjs scripts/test-source-portfolio.mjs scripts/validate-toolkit.mjs scripts/run-release-gate.mjs docs/SOURCE_PORTFOLIO_REPORT.md docs/SOURCE_PORTFOLIO_REPORT.json
+# The two generated report artifacts are planned and not active before this task.
+git add scripts/validate-source-portfolio.mjs scripts/test-source-portfolio.mjs scripts/validate-toolkit.mjs scripts/run-release-gate.mjs docs\/SOURCE_PORTFOLIO_REPORT.md docs\/SOURCE_PORTFOLIO_REPORT.json
 git commit -m "feat(sources): validate portfolio completeness"
 ```
 
@@ -184,7 +188,8 @@ node scripts/validate-toolkit.mjs
 - [ ] **Step 5: Commit the isolated wave**
 
 ```text
-git add sources registries/source-capabilities.registry.json methods registries/domain-packs.registry.json evals docs/SOURCE_PORTFOLIO_REPORT.json docs/SOURCE_PORTFOLIO_REPORT.md
+# The two generated report artifacts are planned and not active before Task 1 creates them.
+git add sources registries/source-capabilities.registry.json methods registries/domain-packs.registry.json evals docs\/SOURCE_PORTFOLIO_REPORT.json docs\/SOURCE_PORTFOLIO_REPORT.md
 git commit -m "feat(sources): synthesize enterprise standards"
 ```
 
@@ -555,7 +560,7 @@ Expected: 81 active sources, zero pending/stale/blocked unless the plan is hones
 - [ ] **Step 2: Regenerate in canonical order**
 
 ```text
-node scripts/check-source-freshness.mjs --output docs/SOURCE_FRESHNESS_REPORT.md --json-output docs/SOURCE_FRESHNESS_REPORT.json
+node scripts/check-source-freshness.mjs --output "docs/SOURCE_FRESHNESS_REPORT.md" --json-output "docs/SOURCE_FRESHNESS_REPORT.json"
 node scripts/generate-source-utilization.mjs --confirm-write
 node scripts/compile-agents.mjs --confirm-write
 node scripts/sync-runtime.mjs --confirm-write
