@@ -2,6 +2,10 @@ function array(value) {
   return Array.isArray(value) ? value : [];
 }
 
+function hasOwn(record, field) {
+  return plainRecord(record) && Object.prototype.hasOwnProperty.call(record, field);
+}
+
 function plainRecord(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value)
     && (Object.getPrototypeOf(value) === Object.prototype || Object.getPrototypeOf(value) === null);
@@ -14,6 +18,13 @@ function stableStrings(values) {
 
 function referenceId(reference) {
   if (typeof reference === "string") return reference;
+  if (plainRecord(reference) && typeof reference.kind === "string" && typeof reference.id === "string") {
+    return `${reference.kind}:${reference.id}`;
+  }
+  return null;
+}
+
+function consumerReferenceId(reference) {
   if (plainRecord(reference) && typeof reference.kind === "string" && typeof reference.id === "string") {
     return `${reference.kind}:${reference.id}`;
   }
@@ -74,16 +85,29 @@ function activeSynthesis(synthesis, capabilities) {
     && (!capability.activeSynthesisId || capability.activeSynthesisId === synthesis.id);
 }
 
-function selectedInputs({ sourceId, changedLocators, comparisonState, registry }) {
+function edgeArray(record, field, reason, reasons, { required = false } = {}) {
+  if (!hasOwn(record, field)) {
+    if (required) reasons.push(`missing-${reason}:${recordId(record) ?? "unknown"}`);
+    return [];
+  }
+  if (!Array.isArray(record[field])) {
+    reasons.push(`invalid-${reason}:${recordId(record) ?? "unknown"}`);
+    return [];
+  }
+  return record[field];
+}
+
+function selectedInputs({ sourceId, changedLocators, comparisonState, registry, reasons }) {
   const capabilities = indexById(array(registry?.capabilities));
   const inputs = array(registry?.syntheses)
     .filter((synthesis) => activeSynthesis(synthesis, capabilities))
-    .flatMap((synthesis) => array(synthesis.inputs)
+    .flatMap((synthesis) => edgeArray(synthesis, "inputs", "inputs", reasons)
       .filter((input) => input?.sourceId === sourceId && typeof input.id === "string")
       .map((input) => ({ synthesis, input })));
   const changed = new Set(array(changedLocators).filter((locator) => typeof locator === "string"));
   const stale = comparisonState === "exact"
-    ? inputs.filter(({ input }) => array(input.locators).some((locator) => changed.has(locator?.value)))
+    ? inputs.filter(({ input }) => edgeArray(input, "locators", "locators", reasons)
+      .some((locator) => changed.has(locator?.value)))
     : inputs;
   return { capabilities, stale };
 }
@@ -158,9 +182,8 @@ function edgeId(value) {
 
 function edges(record, fields, invalidReason, reasons) {
   const values = [];
-  for (const field of fields) {
-    if (record?.[field] === undefined) continue;
-    for (const reference of array(record[field])) {
+  for (const [field, containerReason] of fields) {
+    for (const reference of edgeArray(record, field, containerReason, reasons)) {
       const id = edgeId(reference);
       if (id) values.push(id);
       else reasons.push(invalidReason);
@@ -184,7 +207,7 @@ export function deriveCapabilityImpact({
   releasePolicy
 } = {}) {
   const reasons = [];
-  const { capabilities, stale } = selectedInputs({ sourceId, changedLocators, comparisonState, registry });
+  const { capabilities, stale } = selectedInputs({ sourceId, changedLocators, comparisonState, registry, reasons });
   const resources = indexById(catalogResources(resourceCatalog));
   const policy = validateReleasePolicy(releasePolicy, resources, reasons);
   const staleInputIds = stableStrings(stale.map(({ input }) => input.id));
@@ -201,21 +224,30 @@ export function deriveCapabilityImpact({
     const capability = resolve(capabilities, synthesis.capabilityId, "capability", reasons);
     if (!capability) continue;
     capabilityIds.push(capability.id);
-    const artifacts = indexById(array(synthesis.artifactRefs));
-    const evaluations = indexById(array(synthesis.evaluationRefs));
-    const decisions = array(synthesis.decisions)
-      .filter((decision) => typeof decision?.id === "string" && array(decision.inputRefs).includes(input.id));
+    const artifactEntries = edgeArray(synthesis, "artifactRefs", "artifact-definitions", reasons);
+    const evaluationEntries = edgeArray(synthesis, "evaluationRefs", "evaluation-definitions", reasons);
+    for (const artifact of artifactEntries) edgeArray(artifact, "decisionRefs", "artifact-decision-refs", reasons);
+    for (const evaluation of evaluationEntries) edgeArray(evaluation, "decisionRefs", "evaluation-decision-refs", reasons);
+    const artifacts = indexById(artifactEntries);
+    const evaluations = indexById(evaluationEntries);
+    const decisions = edgeArray(synthesis, "decisions", "decisions", reasons)
+      .filter((decision) => typeof decision?.id === "string" && edgeArray(decision, "inputRefs", "input-refs", reasons, { required: true }).includes(input.id));
     if (decisions.length === 0) {
       reasons.push(`stale-input-without-decision:${input.id}`);
       continue;
     }
     for (const decision of decisions) {
       synthesisDecisionIds.push(decision.id);
-      if (isActionableDecision(decision)) portfolioActionable = true;
-      for (const artifactId of array(decision.artifactRefs)) {
+      const actionable = isActionableDecision(decision);
+      if (actionable) portfolioActionable = true;
+      else reasons.push(`non-actionable-decision:${decision.outcome ?? "unknown"}:${decision.id}`);
+      const decisionArtifacts = edgeArray(decision, "artifactRefs", "artifact-refs", reasons, { required: actionable });
+      const decisionEvaluations = edgeArray(decision, "evaluationRefs", "evaluation-refs", reasons, { required: actionable });
+      for (const artifactId of decisionArtifacts) {
         const artifact = resolve(artifacts, artifactId, "artifact", reasons);
         if (!artifact) continue;
         artifactRefs.push(artifact.id);
+        if (!actionable) continue;
         if (typeof artifact.resourceId !== "string" || artifact.resourceId.length === 0) {
           reasons.push(`missing-resource:${artifact.id}`);
           continue;
@@ -225,7 +257,7 @@ export function deriveCapabilityImpact({
         affectedResourceIds.add(resource.id);
         reachableCapabilityIds.add(capability.id);
       }
-      for (const evaluationId of array(decision.evaluationRefs)) {
+      for (const evaluationId of decisionEvaluations) {
         const evaluation = resolve(evaluations, evaluationId, "evaluation", reasons);
         if (evaluation) evaluationRefs.push(evaluation.id);
       }
@@ -234,9 +266,15 @@ export function deriveCapabilityImpact({
 
   for (const capabilityId of stableStrings([...reachableCapabilityIds])) {
     const capability = capabilities.unique.get(capabilityId);
-    const refs = stableStrings(array(capability?.consumerRefs).map(referenceId));
-    if (refs.length === 0) reasons.push(`missing-consumer:${capabilityId}`);
-    for (const ref of refs) consumerRefs.add(ref);
+    const refs = [];
+    for (const [index, reference] of edgeArray(capability, "consumerRefs", "consumer-refs", reasons).entries()) {
+      const consumer = consumerReferenceId(reference);
+      if (consumer) refs.push(consumer);
+      else reasons.push(`invalid-consumer-ref:${capabilityId}:${index}`);
+    }
+    const stableRefs = stableStrings(refs);
+    if (stableRefs.length === 0) reasons.push(`missing-consumer:${capabilityId}`);
+    for (const ref of stableRefs) consumerRefs.add(ref);
   }
 
   const outputs = indexById(compilerOutputs(compilerInventory));
@@ -250,7 +288,12 @@ export function deriveCapabilityImpact({
   const enqueueMirror = (id) => queue.push({ type: "mirror", id });
 
   for (const [id, candidates] of outputs.entries) {
-    const matchesConsumer = candidates.some((output) => stableStrings(array(output.consumerRefs ?? output.consumers).map(referenceId))
+    const matchesConsumer = candidates.some((output) => stableStrings(edgeArray(
+      output,
+      hasOwn(output, "consumerRefs") ? "consumerRefs" : "consumers",
+      "consumer-refs",
+      reasons
+    ).map(referenceId))
       .some((consumer) => consumerRefs.has(consumer)));
     if (matchesConsumer) enqueueOutput(id);
   }
@@ -262,8 +305,8 @@ export function deriveCapabilityImpact({
       const output = resolve(outputs, node.id, "compiled-output", reasons);
       if (!output) continue;
       compiledOutputs.add(output.id);
-      for (const id of edges(output, ["compiledOutputRefs", "outputRefs"], "invalid-compiled-output", reasons)) enqueueOutput(id);
-      for (const id of edges(output, ["mirrorOutputRefs", "mirrorOutputs", "mirrors"], "invalid-mirror-output", reasons)) enqueueMirror(id);
+      for (const id of edges(output, [["compiledOutputRefs", "compiled-output-refs"], ["outputRefs", "compiled-output-refs"]], "invalid-compiled-output", reasons)) enqueueOutput(id);
+      for (const id of edges(output, [["mirrorOutputRefs", "mirror-output-refs"], ["mirrorOutputs", "mirror-output-refs"], ["mirrors", "mirror-output-refs"]], "invalid-mirror-output", reasons)) enqueueMirror(id);
       continue;
     }
     if (visitedMirrors.has(node.id)) continue;
@@ -271,8 +314,8 @@ export function deriveCapabilityImpact({
     const mirror = resolve(mirrors, node.id, "mirror-output", reasons);
     if (!mirror) continue;
     mirrorOutputs.add(mirror.id);
-    for (const id of edges(mirror, ["compiledOutputRefs", "outputRefs"], "invalid-compiled-output", reasons)) enqueueOutput(id);
-    for (const id of edges(mirror, ["mirrorOutputRefs", "mirrorOutputs", "mirrors"], "invalid-mirror-output", reasons)) enqueueMirror(id);
+    for (const id of edges(mirror, [["compiledOutputRefs", "compiled-output-refs"], ["outputRefs", "compiled-output-refs"]], "invalid-compiled-output", reasons)) enqueueOutput(id);
+    for (const id of edges(mirror, [["mirrorOutputRefs", "mirror-output-refs"], ["mirrorOutputs", "mirror-output-refs"], ["mirrors", "mirror-output-refs"]], "invalid-mirror-output", reasons)) enqueueMirror(id);
   }
 
   const blockingResourceIds = [];

@@ -381,3 +381,79 @@ test("duplicate graph identifiers fail closed independently of input order", () 
     assert.deepEqual(reversed.reasons, normal.reasons, reason);
   }
 });
+
+test("present edge containers and partial consumers fail closed without hiding valid siblings", () => {
+  const absent = fixtureRegistry();
+  const absentDecision = absent.syntheses.find((entry) => entry.id === "uiux.visual-direction@1").decisions[0];
+  delete absentDecision.artifactRefs;
+  delete absentDecision.evaluationRefs;
+  const absentResult = impact({ registry: absent });
+  assert.equal(absentResult.portfolioActionable, true);
+  assert.equal(absentResult.releaseBlocking, false);
+  assert.deepEqual(absentResult.reasons, [
+    "missing-artifact-refs:taste-visual-direction",
+    "missing-evaluation-refs:taste-visual-direction"
+  ]);
+
+  const invalid = fixtureRegistry();
+  const invalidDecision = invalid.syntheses.find((entry) => entry.id === "uiux.visual-direction@1").decisions[0];
+  invalidDecision.artifactRefs = "method:uiux.premium-visual-quality";
+  invalidDecision.evaluationRefs = { id: "eval:uiux-contextual-design-controls" };
+  const invalidResult = impact({ registry: invalid });
+  assert.equal(invalidResult.releaseBlocking, false);
+  assert.deepEqual(invalidResult.reasons, [
+    "invalid-artifact-refs:taste-visual-direction",
+    "invalid-evaluation-refs:taste-visual-direction"
+  ]);
+
+  const mixedConsumers = fixtureRegistry();
+  mixedConsumers.capabilities.find((entry) => entry.id === "uiux.visual-direction").consumerRefs = [
+    { kind: "agent", id: "uiux-agent" },
+    { kind: "skill" },
+    "skill:uiux",
+    null
+  ];
+  const mixedResult = impact({ registry: mixedConsumers });
+  assert.deepEqual(mixedResult.consumerRefs, ["agent:uiux-agent"]);
+  assert.deepEqual(mixedResult.reasons, [
+    "invalid-consumer-ref:uiux.visual-direction:1",
+    "invalid-consumer-ref:uiux.visual-direction:2",
+    "invalid-consumer-ref:uiux.visual-direction:3"
+  ]);
+  assert.deepEqual(mixedResult.compiledOutputs, ["compiled/uiux-agent.md", "compiled/uiux-child.md"]);
+
+  const invalidInventory = fixtureCompilerInventory();
+  invalidInventory.compiledOutputs[0].compiledOutputRefs = "compiled/uiux-child.md";
+  invalidInventory.compiledOutputs[0].mirrorOutputRefs = { id: "mirror/uiux-embedded.md" };
+  const invalidInventoryResult = impact({ compilerInventory: invalidInventory });
+  assert.deepEqual(invalidInventoryResult.reasons, [
+    "invalid-compiled-output-refs:compiled/uiux-agent.md",
+    "invalid-mirror-output-refs:compiled/uiux-agent.md"
+  ]);
+});
+
+test("non-actionable decisions remain visible but never create affected blocking resources", () => {
+  for (const outcome of ["reference-only", "rejected", "superseded"]) {
+    const registry = fixtureRegistry();
+    const current = registry.syntheses.find((entry) => entry.id === "uiux.visual-direction@1").decisions[0];
+    current.outcome = outcome;
+    const result = impact({ registry });
+    assert.deepEqual(result.synthesisDecisionIds, ["taste-visual-direction"], outcome);
+    assert.deepEqual(result.artifactRefs, ["method:uiux.premium-visual-quality"], outcome);
+    assert.equal(result.portfolioActionable, false, outcome);
+    assert.equal(result.releaseBlocking, false, outcome);
+    assert.deepEqual(result.blockingResourceIds, [], outcome);
+    assert.deepEqual(result.reasons, [`non-actionable-decision:${outcome}:taste-visual-direction`], outcome);
+  }
+
+  const malformed = fixtureRegistry();
+  const current = malformed.syntheses.find((entry) => entry.id === "uiux.visual-direction@1").decisions[0];
+  current.outcome = "reference-only";
+  current.artifactRefs = { forged: true };
+  const malformedResult = impact({ registry: malformed });
+  assert.equal(malformedResult.releaseBlocking, false);
+  assert.deepEqual(malformedResult.reasons, [
+    "invalid-artifact-refs:taste-visual-direction",
+    "non-actionable-decision:reference-only:taste-visual-direction"
+  ]);
+});
