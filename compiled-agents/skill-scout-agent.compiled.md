@@ -4,10 +4,10 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 3a353a1fc4feb3fbb3e60d626322b921d73b9a2f
+source_commit: dc5865ae5f98f91f9f89aacba59b03722e4417df
 input_digest: sha256:46cb818bed62e48688f974bff87ff9caf4f8c76ad875fbb1c71859fb11f4b02a
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:a7e52a404616f11822ba471a3ffc4296de9d77a58613c813377a3f20b40a605f
+compiler_digest: sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575
 capabilityIds: []
 decisionRefs: []
 source_agent: agents/skill-scout-agent.md
@@ -378,7 +378,7 @@ Do not browse by default. Skip this method when repository evidence already sett
 
 - Source agent path: `agents/skill-scout-agent.md`
 - Canonical input digest: `sha256:46cb818bed62e48688f974bff87ff9caf4f8c76ad875fbb1c71859fb11f4b02a`
-- Compiler digest: `sha256:a7e52a404616f11822ba471a3ffc4296de9d77a58613c813377a3f20b40a605f`
+- Compiler digest: `sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/audit-profile.md`, `profiles/security-profile.md`, `profiles/source-review-profile.md`

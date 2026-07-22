@@ -4,10 +4,10 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 3a353a1fc4feb3fbb3e60d626322b921d73b9a2f
+source_commit: dc5865ae5f98f91f9f89aacba59b03722e4417df
 input_digest: sha256:9d091d11df8d3fb071cb869e84e8cdef87a0137a99d7a10c8d5e6da4b74b9fbb
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:a7e52a404616f11822ba471a3ffc4296de9d77a58613c813377a3f20b40a605f
+compiler_digest: sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575
 capabilityIds: []
 decisionRefs: []
 source_agent: agents/backend-implementation-agent.md
@@ -250,7 +250,7 @@ Good fits:
 
 - Source agent path: `agents/backend-implementation-agent.md`
 - Canonical input digest: `sha256:9d091d11df8d3fb071cb869e84e8cdef87a0137a99d7a10c8d5e6da4b74b9fbb`
-- Compiler digest: `sha256:a7e52a404616f11822ba471a3ffc4296de9d77a58613c813377a3f20b40a605f`
+- Compiler digest: `sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/backend-profile.md`, `profiles/implementation-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`
