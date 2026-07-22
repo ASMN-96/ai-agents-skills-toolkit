@@ -4,7 +4,7 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 8ce514dc6d210249fd95f8b2a5f4862874f64441
+source_commit: 3a353a1fc4feb3fbb3e60d626322b921d73b9a2f
 input_digest: sha256:24997574b096419e15f18f17281db930d18aa1ed8f4cd88acd90479b0df886c9
 input_digest_scope: canonical-agent-inputs-v1
 compiler_digest: sha256:a7e52a404616f11822ba471a3ffc4296de9d77a58613c813377a3f20b40a605f
