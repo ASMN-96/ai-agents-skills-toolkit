@@ -324,6 +324,18 @@ test("tool-shared sources retain distinct pending review rows", async () => {
   }
 });
 
+test("exact watched source inventory rejects a well-formed extra row", () => {
+  const markdown = utilizationReport({
+    watchedRows: [validWatchedRow("catalog-source"), validWatchedRow("extra-source")]
+  });
+  const watchedRows = parseMarkdownTableSection(markdown, "Watched Sources", UTILIZATION_HEADERS);
+
+  assert.throws(
+    () => assert.deepEqual(watchedRows.map((row) => row.ID).sort(), ["catalog-source"]),
+    assert.AssertionError
+  );
+});
+
 test("source utilization report classifies every watched source and registered tool", async () => {
   const report = await readText(SOURCE_UTILIZATION_REPORT);
   const watchlist = await readJson("sources/source-watchlist.json");
@@ -343,6 +355,10 @@ test("source utilization report classifies every watched source and registered t
     toolIds: tools.tools.map((tool) => tool.id),
     repositoryRoot: ROOT
   });
+  assert.deepEqual(
+    [...utilization.watchedById.keys()].sort(),
+    watchlist.sources.map((source) => source.id).sort()
+  );
 
   assert.equal(
     utilization.watchedById.has("ui-ux-pro-max-audit"),

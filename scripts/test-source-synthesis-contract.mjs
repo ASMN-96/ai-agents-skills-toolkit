@@ -184,6 +184,7 @@ function validRegistry(overrides = {}) {
 test("canonical seed covers every source exactly once and claims no adoption", async () => {
   const catalog = await readJson("sources/source-watchlist.json");
   const registry = await readJson("registries/source-capabilities.registry.json");
+  assert.doesNotThrow(() => validateSourceCapabilityRegistry(registry, { catalog }));
   assert.deepEqual(
     registry.sourceAssessments.map((entry) => entry.sourceId),
     catalog.sources.map((entry) => entry.id).sort()
@@ -191,6 +192,13 @@ test("canonical seed covers every source exactly once and claims no adoption", a
   assert.equal(registry.sourceAssessments.every((entry) => entry.state === "pending-review"), true);
   assert.deepEqual(registry.capabilities, []);
   assert.deepEqual(registry.syntheses, []);
+
+  const prohibitedEvidenceClaim = structuredClone(registry);
+  prohibitedEvidenceClaim.sourceAssessments[0].receiptPath = "sources/reviews/unreviewed.json";
+  assert.throws(
+    () => validateSourceCapabilityRegistry(prohibitedEvidenceClaim, { catalog }),
+    /unexpected sourceAssessments\[0\] field: receiptPath/
+  );
 });
 
 function sha256Text(value) {
