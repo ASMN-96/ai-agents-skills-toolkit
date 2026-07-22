@@ -211,6 +211,7 @@ function emptyCapabilityImpact(sourceId) {
     portfolioActionable: false,
     releaseBlocking: false,
     blockingResourceIds: [],
+    scopedImpacts: [],
     reasons: []
   };
 }
@@ -228,7 +229,13 @@ function normalizeFreshnessReport(catalog, report) {
           ...entry,
           catalogAffectedArtifacts: entry?.catalogAffectedArtifacts
             ?? (source ? [...source.affectedArtifacts].sort((left, right) => left.localeCompare(right)) : []),
-          capabilityImpact: entry?.capabilityImpact ?? emptyCapabilityImpact(entry?.sourceId)
+          capabilityImpact: entry?.capabilityImpact === undefined
+            ? emptyCapabilityImpact(entry?.sourceId)
+            : {
+                ...entry.capabilityImpact,
+                scopedImpacts: entry.capabilityImpact.scopedImpacts
+                  ?? (entry.capabilityImpact.capabilityIds?.length === 0 ? [] : undefined)
+              }
         };
       })
       : report.sources
@@ -256,7 +263,13 @@ function validateCapabilityImpact(impact, sourceId, field) {
   requireRecord(impact, field);
   rejectUnknownFields(
     impact,
-    new Set(["sourceId", ...CAPABILITY_IMPACT_ARRAY_FIELDS, "portfolioActionable", "releaseBlocking"]),
+    new Set([
+      "sourceId",
+      ...CAPABILITY_IMPACT_ARRAY_FIELDS,
+      "portfolioActionable",
+      "releaseBlocking",
+      "scopedImpacts"
+    ]),
     field
   );
   if (impact.sourceId !== sourceId) fail(`${field}.sourceId must match the freshness source`);
@@ -265,6 +278,60 @@ function validateCapabilityImpact(impact, sourceId, field) {
   if (typeof impact.releaseBlocking !== "boolean") fail(`${field}.releaseBlocking must be boolean`);
   if (impact.releaseBlocking !== (impact.blockingResourceIds.length > 0)) {
     fail(`${field}.releaseBlocking must match blockingResourceIds`);
+  }
+  if (!Array.isArray(impact.scopedImpacts)) fail(`${field}.scopedImpacts must be an array`);
+  const scopedCapabilityIds = new Set();
+  let previousKey = null;
+  for (const [index, scopedImpact] of impact.scopedImpacts.entries()) {
+    const scopedField = `${field}.scopedImpacts[${index}]`;
+    requireRecord(scopedImpact, scopedField);
+    rejectUnknownFields(scopedImpact, new Set([
+      "sourceId",
+      "capabilityIds",
+      "contributionOutcome",
+      "synthesisState",
+      "hardSecurityBlocker",
+      "affectedGateIds",
+      "affectedResourceIds",
+      "portfolioActionable"
+    ]), scopedField);
+    if (scopedImpact.sourceId !== sourceId) fail(`${scopedField}.sourceId must match the freshness source`);
+    requireStableStringArray(scopedImpact.capabilityIds, `${scopedField}.capabilityIds`);
+    if (scopedImpact.capabilityIds.length === 0) fail(`${scopedField}.capabilityIds must not be empty`);
+    if (!new Set([
+      "reference-only",
+      "delegated",
+      "authoritative-baseline",
+      "adopted",
+      "adapted",
+      "historical"
+    ]).has(scopedImpact.contributionOutcome)) {
+      fail(`${scopedField}.contributionOutcome is unsupported`);
+    }
+    if (!new Set(["current", "stale"]).has(scopedImpact.synthesisState)) {
+      fail(`${scopedField}.synthesisState is unsupported`);
+    }
+    if (typeof scopedImpact.hardSecurityBlocker !== "boolean"
+      || typeof scopedImpact.portfolioActionable !== "boolean") {
+      fail(`${scopedField} boolean fields must be boolean`);
+    }
+    requireStableStringArray(scopedImpact.affectedGateIds, `${scopedField}.affectedGateIds`);
+    requireStableStringArray(scopedImpact.affectedResourceIds, `${scopedField}.affectedResourceIds`);
+    const key = [
+      scopedImpact.sourceId,
+      scopedImpact.capabilityIds.join("\0"),
+      scopedImpact.contributionOutcome,
+      scopedImpact.affectedGateIds.join("\0"),
+      scopedImpact.affectedResourceIds.join("\0")
+    ].join("\0");
+    if (previousKey !== null && previousKey.localeCompare(key) > 0) {
+      fail(`${field}.scopedImpacts must be sorted`);
+    }
+    previousKey = key;
+    for (const capabilityId of scopedImpact.capabilityIds) scopedCapabilityIds.add(capabilityId);
+  }
+  if (JSON.stringify([...scopedCapabilityIds].sort()) !== JSON.stringify(impact.capabilityIds)) {
+    fail(`${field}.scopedImpacts are incomplete for capabilityIds`);
   }
   return impact;
 }

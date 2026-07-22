@@ -23,6 +23,7 @@ import {
   formatReleaseEvidenceSummary,
   renderStatusRuntimeBoundaryLines,
   renderReleaseEvidenceSummaryBlock,
+  deriveReleaseSourceCapabilityImpact,
   validateArtifactDigests,
   validateRepositoryState,
   validateReleaseEvidence
@@ -718,7 +719,10 @@ test("release evidence validation wording exposes capability-scoped blockers and
       blockingResourceIds: ["impeccable-cli"],
       blockingGateIds: ["enterprise-security-privacy"],
       portfolioActionableCount: 2,
-      advisories: ["uiux.clean-room-method: pinned reviewed basis remains usable"]
+      advisories: [
+        "uiux.clean-room-method: pinned reviewed basis remains usable",
+        "uiux.reference: reference-only capability impact is advisory"
+      ]
     }
   });
 
@@ -728,6 +732,69 @@ test("release evidence validation wording exposes capability-scoped blockers and
   assert.match(summary, /blocking-gates=enterprise-security-privacy/u);
   assert.match(summary, /portfolio-actionable=2/u);
   assert.match(summary, /pinned-basis-advisories=1/u);
+});
+
+test("release validation consumes canonical scoped impacts for exact gates and pinned-basis advisories", () => {
+  const catalog = {
+    sources: [{
+      id: "baseline-source",
+      scope: "core",
+      monitor: { state: "CURRENT" },
+      review: { state: "REVIEWED_CURRENT" }
+    }]
+  };
+  const domainPacksRegistry = {
+    registryType: "domain-packs",
+    packs: [{
+      id: "enterprise-core",
+      lifecycle: "active",
+      maturity: "supported",
+      gates: [{
+        id: "enterprise-security-privacy",
+        authoritativeSourceRefs: [{ sourceId: "baseline-source" }]
+      }]
+    }]
+  };
+  const report = {
+    sources: [{
+      sourceId: "baseline-source",
+      capabilityImpact: {
+        capabilityIds: ["security.authoritative-baseline", "uiux.clean-room-method"],
+        scopedImpacts: [{
+          sourceId: "baseline-source",
+          capabilityIds: ["security.authoritative-baseline"],
+          contributionOutcome: "authoritative-baseline",
+          synthesisState: "stale",
+          hardSecurityBlocker: false,
+          affectedGateIds: ["enterprise-security-privacy"],
+          affectedResourceIds: [],
+          portfolioActionable: true
+        }, {
+          sourceId: "baseline-source",
+          capabilityIds: ["uiux.clean-room-method"],
+          contributionOutcome: "adapted",
+          synthesisState: "stale",
+          hardSecurityBlocker: false,
+          affectedGateIds: [],
+          affectedResourceIds: [],
+          portfolioActionable: true
+        }]
+      }
+    }]
+  };
+
+  const result = deriveReleaseSourceCapabilityImpact({ catalog, report, domainPacksRegistry });
+  assert.deepEqual(result.blockingCapabilityIds, ["security.authoritative-baseline"]);
+  assert.deepEqual(result.blockingGateIds, ["enterprise-security-privacy"]);
+  assert.deepEqual(result.blockingResourceIds, []);
+  assert.match(result.advisories.join("\n"), /pinned reviewed basis/u);
+
+  const malformed = structuredClone(report);
+  delete malformed.sources[0].capabilityImpact.scopedImpacts;
+  assert.throws(
+    () => deriveReleaseSourceCapabilityImpact({ catalog, report: malformed, domainPacksRegistry }),
+    /capability impact.*incomplete/i
+  );
 });
 
 test("release-boundary prose keeps nonblocking source limitations visible without treating them as release-scoped blockers", () => {

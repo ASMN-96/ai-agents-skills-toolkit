@@ -21,3 +21,26 @@ Release-evidence validation now carries the derived capability-impact summary an
 - `node scripts/validate-v0-3-release-evidence.mjs --check` remains blocked before capability accounting by the existing source-catalog artifact digest mismatch: expected `eb625fb41c0174201e6f2badae187e31b1ce7f9dba5bc64a3172c27e965772d5`, actual `0887f8904b215cc2a74d0ef7fc52802985de0509802fb19e402a88a83d77a7ca`. This task deliberately did not edit release evidence, generated artifacts, or source catalog records.
 - The full `scripts/test-release-evidence.mjs` likewise has two blocked candidate-consistency tests for that same digest mismatch; all other 24 cases pass.
 - No external-source activation, runtime routing change, generated-artifact update, release-evidence record update, product-repository action, browser QA, PR, or CI run occurred.
+
+## Review Correction
+
+### RED
+
+Review found that the first implementation expected semantic capability-impact records that the canonical producer never emitted. The new producer assertion failed because `scopedImpacts` was absent. The release-validation test also failed because no canonical release-accounting entry point existed. The advisory wording test exposed that a `pinned-basis-advisories` label counted unrelated reference-only advisories.
+
+### GREEN
+
+- `source-capability-impact.mjs` now emits deterministic `scopedImpacts` records with exact source/capability IDs, contribution outcome, stale state, hard-security flag, exact gate/resource IDs, and portfolio-actionable state.
+- Freshness validation accepts the required field, preserves legacy empty impact safely, and rejects malformed or incomplete non-empty capability impact.
+- Release validation derives its selected supported gate IDs from the canonical domain-packs registry, consumes the canonical scoped records, and fails closed on missing scoped records for non-empty capability IDs.
+- The new end-to-end release-validation test proves exact `security.authoritative-baseline` and `enterprise-security-privacy` blockers plus an adapted pinned-basis advisory. It also proves incomplete canonical impact is rejected.
+- `pinned-basis-advisories` now counts only advisories containing `pinned reviewed basis`; reference-only advisories no longer inflate that metric.
+
+### Correction checks
+
+- `node --test scripts/test-source-capability-impact.mjs`: 16 passed.
+- `node --test scripts/test-source-freshness-hardening.mjs`: 25 passed.
+- `node --test scripts/test-delivery-kernel-source-governance.mjs`: 26 passed.
+- `node --test scripts/test-release-evidence.mjs`: 25 passed; 2 candidate-consistency checks remain blocked by the unchanged source-catalog digest mismatch.
+- `node scripts/validate-v0-3-release-evidence.mjs --check`: same unchanged digest mismatch; no evidence or generated artifact was edited.
+- `git diff --check`: passed, with the existing unrelated long-filename diagnostic during Git traversal.

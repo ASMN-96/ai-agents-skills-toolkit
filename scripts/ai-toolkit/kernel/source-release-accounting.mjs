@@ -69,43 +69,45 @@ function observationIndex(freshnessReport, sourcesById) {
   return byId;
 }
 
-function reportedCapabilityImpact(freshnessReport) {
-  if (freshnessReport === undefined || freshnessReport === null) {
-    return {
-      capabilityIds: [],
-      blockingCapabilityIds: [],
-      blockingSourceIds: [],
-      blockingResourceIds: [],
-      blockingGateIds: [],
-      portfolioActionableCount: 0,
-      releaseBlocking: false,
-      advisories: []
-    };
-  }
-  const capabilityIds = [];
-  const blockingResourceIds = [];
-  const blockingSourceIds = [];
-  let portfolioActionableCount = 0;
-  for (const observation of freshnessReport.sources) {
+function capabilityImpactsFromFreshnessReport(freshnessReport) {
+  if (freshnessReport === undefined || freshnessReport === null) return [];
+  const observations = requireArray(
+    freshnessReport.sources,
+    "source release accounting freshnessReport.sources"
+  );
+  const scopedImpacts = [];
+  for (const observation of observations) {
     const impact = observation?.capabilityImpact;
-    if (impact === null || typeof impact !== "object" || Array.isArray(impact)) continue;
-    if (Array.isArray(impact.capabilityIds)) capabilityIds.push(...impact.capabilityIds);
-    if (impact.portfolioActionable === true) portfolioActionableCount += 1;
-    if (impact.releaseBlocking === true && Array.isArray(impact.blockingResourceIds)) {
-      blockingSourceIds.push(observation.sourceId);
-      blockingResourceIds.push(...impact.blockingResourceIds);
+    if (impact === undefined) continue;
+    if (impact === null || typeof impact !== "object" || Array.isArray(impact)) {
+      throw new Error("source release accounting capability impact is malformed");
+    }
+    const capabilityIds = impact.capabilityIds;
+    if (!Array.isArray(capabilityIds) || capabilityIds.some((id) => typeof id !== "string" || id === "")) {
+      throw new Error("source release accounting capability impact capabilityIds are malformed");
+    }
+    if (capabilityIds.length === 0) {
+      if (impact.scopedImpacts !== undefined && (!Array.isArray(impact.scopedImpacts) || impact.scopedImpacts.length > 0)) {
+        throw new Error("source release accounting capability impact is incomplete");
+      }
+      continue;
+    }
+    if (!Array.isArray(impact.scopedImpacts) || impact.scopedImpacts.length === 0) {
+      throw new Error("source release accounting capability impact is incomplete");
+    }
+    const scopedCapabilityIds = new Set();
+    for (const scopedImpact of impact.scopedImpacts) {
+      if (scopedImpact?.sourceId !== observation.sourceId) {
+        throw new Error("source release accounting scoped capability impact sourceId is invalid");
+      }
+      for (const capabilityId of scopedImpact.capabilityIds ?? []) scopedCapabilityIds.add(capabilityId);
+      scopedImpacts.push(scopedImpact);
+    }
+    if (!sameJson(stableStrings(scopedCapabilityIds), stableStrings(capabilityIds))) {
+      throw new Error("source release accounting capability impact is incomplete");
     }
   }
-  return {
-    capabilityIds: stableStrings(capabilityIds),
-    blockingCapabilityIds: [],
-    blockingSourceIds: stableStrings(blockingSourceIds),
-    blockingResourceIds: stableStrings(blockingResourceIds),
-    blockingGateIds: [],
-    portfolioActionableCount,
-    releaseBlocking: blockingResourceIds.length > 0,
-    advisories: []
-  };
+  return scopedImpacts;
 }
 
 function domainDependencies(domainPacksRegistry, sourcesById) {
@@ -161,7 +163,7 @@ export function deriveSourceReleaseAccounting({
   catalog,
   domainPacksRegistry = null,
   freshnessReport = null,
-  capabilityImpacts = [],
+  capabilityImpacts = null,
   selectedResourceIds = [],
   selectedGateIds = [],
   supportedGateIds = []
@@ -214,15 +216,15 @@ export function deriveSourceReleaseAccounting({
   const releaseBlockingSourceIds = stableStrings(
     supportedDependencyBlockers.map((entry) => entry.sourceId)
   );
-  const scopedCapabilityImpact = deriveCapabilityScopedBlocking({
-    capabilityImpacts,
+  const canonicalCapabilityImpacts = capabilityImpacts === null
+    ? capabilityImpactsFromFreshnessReport(freshnessReport)
+    : requireArray(capabilityImpacts, "source release accounting capabilityImpacts");
+  const capabilityImpact = deriveCapabilityScopedBlocking({
+    capabilityImpacts: canonicalCapabilityImpacts,
     selectedResourceIds,
     selectedGateIds,
     supportedGateIds
   });
-  const capabilityImpact = capabilityImpacts.length > 0
-    ? scopedCapabilityImpact
-    : reportedCapabilityImpact(freshnessReport);
   const dependencyUniverseDigest = canonicalDigest({
     supportedDependencyBlockers,
     previewDependencyBlockers,

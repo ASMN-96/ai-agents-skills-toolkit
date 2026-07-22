@@ -403,6 +403,16 @@ test("CLI loads canonical active synthesis provenance through method, consumer, 
     assert.deepEqual(impact.compiledOutputs, ["compiled-agents/uiux-agent.compiled.md"]);
     assert.deepEqual(impact.mirrorOutputs, [".ai-toolkit/compiled-agents/uiux-agent.compiled.md"]);
     assert.deepEqual(impact.evaluationRefs, ["eval:design-system-consistency"]);
+    assert.deepEqual(impact.scopedImpacts, [{
+      sourceId: "openai-skills",
+      capabilityIds: ["uiux.visual-direction"],
+      contributionOutcome: "adapted",
+      synthesisState: "stale",
+      hardSecurityBlocker: false,
+      affectedGateIds: ["enterprise-low-risk-scope-review"],
+      affectedResourceIds: ["uiux.premium-visual-quality"],
+      portfolioActionable: true
+    }]);
     assert.equal(impact.portfolioActionable, true);
     assert.equal(impact.releaseBlocking, false);
     const markdown = await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_REPORT.md"), "utf8");

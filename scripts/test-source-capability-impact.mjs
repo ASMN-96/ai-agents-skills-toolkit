@@ -201,6 +201,16 @@ test("exact locator change stales only bound synthesis inputs", () => {
   assert.deepEqual(result.compiledOutputs, ["compiled/uiux-agent.md", "compiled/uiux-child.md"]);
   assert.deepEqual(result.mirrorOutputs, ["mirror/uiux-embedded.md", "mirror/uiux-runtime.md"]);
   assert.deepEqual(result.evaluationRefs, ["eval:uiux-contextual-design-controls"]);
+  assert.deepEqual(result.scopedImpacts, [{
+    sourceId: "taste-skill",
+    capabilityIds: ["uiux.visual-direction"],
+    contributionOutcome: "adapted",
+    synthesisState: "stale",
+    hardSecurityBlocker: false,
+    affectedGateIds: [],
+    affectedResourceIds: ["uiux.premium-visual-quality"],
+    portfolioActionable: true
+  }]);
 });
 
 test("ambiguous source comparison stales every active input from that source", () => {

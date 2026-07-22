@@ -675,6 +675,29 @@ export function validateRepositoryState(root, evidence) {
   if (evidence.repository.worktreeState === "clean" && status !== "") fail("worktree-expected-clean");
 }
 
+function supportedReleaseGateIds(domainPacksRegistry) {
+  if (!isPlainRecord(domainPacksRegistry) || !Array.isArray(domainPacksRegistry.packs)) {
+    fail("source-capability-domain-packs");
+  }
+  return [...new Set(domainPacksRegistry.packs.flatMap((pack) => (
+    pack?.lifecycle === "active" && pack?.maturity === "supported" && Array.isArray(pack.gates)
+      ? pack.gates.map((gate) => gate?.id).filter((id) => typeof id === "string" && id !== "")
+      : []
+  )))].sort((left, right) => left.localeCompare(right));
+}
+
+export function deriveReleaseSourceCapabilityImpact({ catalog, report, domainPacksRegistry }) {
+  const supportedGateIds = supportedReleaseGateIds(domainPacksRegistry);
+  return deriveSourceReleaseAccounting({
+    catalog,
+    domainPacksRegistry,
+    freshnessReport: report,
+    selectedResourceIds: [],
+    selectedGateIds: supportedGateIds,
+    supportedGateIds
+  });
+}
+
 function validateSourceState(root, evidence) {
   const catalog = readJson(root, path.join(root, "sources/source-watchlist.json"), "source-catalog");
   const report = readJson(root, path.join(root, "docs/SOURCE_FRESHNESS_REPORT.json"), "source-freshness-report");
@@ -688,11 +711,7 @@ function validateSourceState(root, evidence) {
     now: new Date(Math.max(Date.now(), Date.parse(report.checkedAt))).toISOString(),
     domainPacksRegistry
   });
-  const accounting = deriveSourceReleaseAccounting({
-    catalog,
-    domainPacksRegistry,
-    freshnessReport: report
-  });
+  const accounting = deriveReleaseSourceCapabilityImpact({ catalog, report, domainPacksRegistry });
   const receipts = (catalog.sources ?? []).filter((source) => source.review?.currentReceipt).length;
   assertEqual(report.checkedAt, evidence.sourceFreshness.checkedAt, "source-checked-at");
   assertEqual(accounting.sourceCount, evidence.sourceFreshness.sourceCount, "source-count");
@@ -876,7 +895,10 @@ export function formatReleaseEvidenceSummary(result) {
     portfolioActionableCount: 0,
     advisories: []
   };
-  return `PASS v0.3-release-evidence candidate=${result.candidateVersion} controlled=${result.controlledRelease} warnings=${result.warningCount} release=${result.releaseState.toUpperCase()} capabilities=${impact.capabilityIds.join(",") || "none"} blocking-capabilities=${impact.blockingCapabilityIds.join(",") || "none"} blocking-resources=${impact.blockingResourceIds.join(",") || "none"} blocking-gates=${impact.blockingGateIds.join(",") || "none"} portfolio-actionable=${impact.portfolioActionableCount} pinned-basis-advisories=${impact.advisories.length}`;
+  const pinnedBasisAdvisoryCount = impact.advisories.filter(
+    (advisory) => advisory.includes("pinned reviewed basis")
+  ).length;
+  return `PASS v0.3-release-evidence candidate=${result.candidateVersion} controlled=${result.controlledRelease} warnings=${result.warningCount} release=${result.releaseState.toUpperCase()} capabilities=${impact.capabilityIds.join(",") || "none"} blocking-capabilities=${impact.blockingCapabilityIds.join(",") || "none"} blocking-resources=${impact.blockingResourceIds.join(",") || "none"} blocking-gates=${impact.blockingGateIds.join(",") || "none"} portfolio-actionable=${impact.portfolioActionableCount} pinned-basis-advisories=${pinnedBasisAdvisoryCount}`;
 }
 
 function parseArgs(argv) {

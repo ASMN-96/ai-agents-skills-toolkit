@@ -169,7 +169,28 @@ function selectedInputs({ sourceId, changedLocators, comparisonState, registry, 
 }
 
 function isActionableDecision(decision) {
-  return ["adopted", "adapted", "delegated"].includes(decision?.outcome);
+  return ["adopted", "adapted", "delegated", "authoritative-baseline"].includes(decision?.outcome);
+}
+
+function isScopedContributionOutcome(outcome) {
+  return [
+    "reference-only",
+    "delegated",
+    "authoritative-baseline",
+    "adopted",
+    "adapted",
+    "historical"
+  ].includes(outcome);
+}
+
+function stableScopedImpacts(values) {
+  return [...values].sort((left, right) => (
+    left.sourceId.localeCompare(right.sourceId)
+    || left.capabilityIds.join("\0").localeCompare(right.capabilityIds.join("\0"))
+    || left.contributionOutcome.localeCompare(right.contributionOutcome)
+    || left.affectedGateIds.join("\0").localeCompare(right.affectedGateIds.join("\0"))
+    || left.affectedResourceIds.join("\0").localeCompare(right.affectedResourceIds.join("\0"))
+  ));
 }
 
 function validatePolicyIds(policy, field, resourceIndex, reasons) {
@@ -271,8 +292,12 @@ export function deriveCapabilityImpact({
   registry,
   resourceCatalog,
   compilerInventory,
-  releasePolicy
+  releasePolicy,
+  hardSecurityBlocker = false
 } = {}) {
+  if (typeof hardSecurityBlocker !== "boolean") {
+    throw new Error("capability impact hardSecurityBlocker must be boolean");
+  }
   const reasons = [];
   const { capabilities, stale } = selectedInputs({ sourceId, changedLocators, comparisonState, registry, reasons });
   const resources = indexById(catalogResources(resourceCatalog));
@@ -285,6 +310,7 @@ export function deriveCapabilityImpact({
   const consumerRefs = new Set();
   const affectedResourceIds = new Set();
   const reachableCapabilityIds = new Set();
+  const scopedImpacts = new Map();
   let portfolioActionable = false;
 
   for (const { synthesis, input } of stale) {
@@ -321,10 +347,19 @@ export function deriveCapabilityImpact({
         && decision.evaluationRefs.length > 0;
       if (actionable) portfolioActionable = true;
       else if (!declaredActionable) reasons.push(`non-actionable-decision:${decision.outcome ?? "unknown"}:${decision.id}`);
+      const scopedGateIds = new Set();
+      const scopedResourceIds = new Set();
       for (const artifactId of decisionArtifacts) {
         const artifact = resolve(artifacts, artifactId, "artifact", reasons);
         if (!artifact) continue;
         artifactRefs.push(artifact.id);
+        if (typeof artifact.resourceId === "string" && artifact.resourceId.length > 0) {
+          if (artifact.kind === "domain-gate" || artifact.id.startsWith("domain-gate:")) {
+            scopedGateIds.add(artifact.resourceId);
+          } else {
+            scopedResourceIds.add(artifact.resourceId);
+          }
+        }
         if (!actionable) continue;
         if (typeof artifact.resourceId !== "string" || artifact.resourceId.length === 0) {
           reasons.push(`missing-resource:${artifact.id}`);
@@ -338,6 +373,30 @@ export function deriveCapabilityImpact({
       for (const evaluationId of decisionEvaluations) {
         const evaluation = resolve(evaluations, evaluationId, "evaluation", reasons);
         if (evaluation) evaluationRefs.push(evaluation.id);
+      }
+      if (isScopedContributionOutcome(decision.outcome)) {
+        const scopedImpact = {
+          sourceId,
+          capabilityIds: [capability.id],
+          contributionOutcome: decision.outcome,
+          synthesisState: "stale",
+          hardSecurityBlocker,
+          affectedGateIds: stableStrings([...scopedGateIds]),
+          affectedResourceIds: stableStrings([...scopedResourceIds]),
+          portfolioActionable: actionable
+        };
+        const key = `${sourceId}\0${capability.id}\0${decision.id}`;
+        const existing = scopedImpacts.get(key);
+        if (existing) {
+          existing.affectedGateIds = stableStrings([...existing.affectedGateIds, ...scopedImpact.affectedGateIds]);
+          existing.affectedResourceIds = stableStrings([
+            ...existing.affectedResourceIds,
+            ...scopedImpact.affectedResourceIds
+          ]);
+          existing.portfolioActionable ||= scopedImpact.portfolioActionable;
+        } else {
+          scopedImpacts.set(key, scopedImpact);
+        }
       }
     }
   }
@@ -416,6 +475,7 @@ export function deriveCapabilityImpact({
     portfolioActionable,
     releaseBlocking: sortedBlockingResourceIds.length > 0,
     blockingResourceIds: sortedBlockingResourceIds,
+    scopedImpacts: stableScopedImpacts(scopedImpacts.values()),
     reasons: stableStrings(reasons)
   };
 }
