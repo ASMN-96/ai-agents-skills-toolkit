@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { assertRegularFileWithin } from "../../../install/safe-filesystem.mjs";
@@ -46,18 +46,99 @@ async function methodCapabilityContext(repositoryRoot, methodsRegistry) {
   return methods;
 }
 
-function sourceCapabilityContext({ methods, toolsRegistry, domainPacksRegistry }) {
+function provenancePath(entry, preferredPrefix, fallbackPath) {
+  const match = (entry?.sourceProvenance ?? []).find((record) => (
+    typeof record?.path === "string" && record.path.startsWith(preferredPrefix)
+  ));
+  return match?.path ?? fallbackPath;
+}
+
+function domainGateCapabilityContext(domainPacksRegistry) {
+  return (domainPacksRegistry?.packs ?? []).flatMap((pack) => (pack.gates ?? []).map((gate) => ({
+    id: gate.id,
+    path: "registries/domain-packs.registry.json"
+  }))).sort((left, right) => left.id.localeCompare(right.id));
+}
+
+async function evaluationCapabilityContext(repositoryRoot) {
+  const evaluations = [];
+  async function visit(relativeDirectory) {
+    const absoluteDirectory = path.resolve(repositoryRoot, ...relativeDirectory.split("/"));
+    let entries = [];
+    try {
+      entries = await readdir(absoluteDirectory, { withFileTypes: true });
+    } catch (error) {
+      if (error?.code === "ENOENT") return;
+      throw error;
+    }
+    for (const entry of entries.sort((left, right) => left.name.localeCompare(right.name))) {
+      const relativePath = `${relativeDirectory}/${entry.name}`;
+      if (entry.isDirectory()) {
+        await visit(relativePath);
+      } else if (entry.isFile() && entry.name.endsWith(".json")) {
+        const trustedPath = assertRegularFileWithin(repositoryRoot, path.resolve(repositoryRoot, ...relativePath.split("/")), `evaluation provenance ${relativePath}`);
+        const text = await readFile(trustedPath, "utf8");
+        assertRegularFileWithin(repositoryRoot, trustedPath, `evaluation provenance ${relativePath} recheck`);
+        let parsed;
+        try {
+          parsed = JSON.parse(text);
+        } catch {
+          continue;
+        }
+        for (const evaluation of parsed?.cases ?? []) {
+          if (typeof evaluation?.id === "string" && evaluation.id.length > 0) {
+            evaluations.push({ id: evaluation.id, path: relativePath, caseIds: [evaluation.id] });
+          }
+        }
+      }
+    }
+  }
+  await visit("evals");
+  return evaluations.sort((left, right) => left.id.localeCompare(right.id));
+}
+
+function policyCapabilityContext(registry) {
+  return (registry?.syntheses ?? [])
+    .flatMap((synthesis) => synthesis.artifactRefs ?? [])
+    .filter((artifact) => artifact?.kind === "policy")
+    .map((artifact) => ({ id: artifact.resourceId, path: artifact.path }))
+    .sort((left, right) => left.id.localeCompare(right.id));
+}
+
+function sourceCapabilityContext({ methods, toolsRegistry, skillsRegistry, agentsRegistry, domainPacksRegistry, evals, policies }) {
   return {
     methods,
     tools: (toolsRegistry?.tools ?? []).map((tool) => ({
       id: tool.id,
       path: tool.sourceRecordPath ?? "registries/tools.registry.json"
     })),
-    domainPacks: (domainPacksRegistry?.packs ?? []).map((pack) => ({
-      id: pack.id,
-      path: "registries/domain-packs.registry.json"
-    }))
+    skills: (skillsRegistry?.skills ?? []).map((skill) => ({
+      id: skill.name,
+      path: skill.skillPath
+    })),
+    agents: (agentsRegistry?.agents ?? []).map((agent) => ({
+      id: agent.name,
+      path: provenancePath(agent, "agents/", agent.compiledFallbackPath)
+    })),
+    domainPacks: domainGateCapabilityContext(domainPacksRegistry),
+    policies,
+    evals
   };
+}
+
+function provenanceResourceCatalog(resourceCatalog, registry) {
+  const resources = [...resourceCatalog];
+  const known = new Set(resources.map((resource) => resource.id));
+  for (const artifact of (registry?.syntheses ?? []).flatMap((synthesis) => synthesis.artifactRefs ?? [])) {
+    if (typeof artifact?.resourceId !== "string" || known.has(artifact.resourceId)) continue;
+    resources.push({
+      id: artifact.resourceId,
+      provenanceOnly: true,
+      runtimePosture: { supported: false }
+    });
+    known.add(artifact.resourceId);
+  }
+  return resources.sort((left, right) => left.id.localeCompare(right.id));
 }
 
 function compilerInventory(agentsRegistry, embeddedManifest) {
@@ -335,10 +416,16 @@ export async function loadValidatedSourceCatalog({
       "canonical SourceCapabilityRegistry v1"
     );
     const methods = await methodCapabilityContext(root, methodsRegistry.parsed);
+    const evals = await evaluationCapabilityContext(root);
+    const policies = policyCapabilityContext(capabilityDocument.parsed);
     const context = sourceCapabilityContext({
       methods,
       toolsRegistry: toolsRegistry.parsed,
-      domainPacksRegistry: domainPacksRegistry.parsed
+      skillsRegistry: skillsRegistry.parsed,
+      agentsRegistry: agentsRegistry.parsed,
+      domainPacksRegistry: domainPacksRegistry.parsed,
+      evals,
+      policies
     });
     const registry = validateSourceCapabilityRegistry(capabilityDocument.parsed, { catalog, ...context });
     const repositoryValidation = await validateSourceCapabilityRepository({
@@ -349,12 +436,12 @@ export async function loadValidatedSourceCatalog({
     });
     capabilityRegistry = {
       registry,
-      resourceCatalog: buildResourceCatalog({
+      resourceCatalog: provenanceResourceCatalog(buildResourceCatalog({
         repositoryRoot: root,
         agentsRegistry: agentsRegistry.parsed,
         skillsRegistry: skillsRegistry.parsed,
         toolsRegistry: toolsRegistry.parsed
-      }),
+      }), registry),
       compilerInventory: compilerInventory(agentsRegistry.parsed, embeddedManifest.parsed),
       warnings: [
         ...deriveSourceCapabilityWarnings(registry, { catalog, ...context }),

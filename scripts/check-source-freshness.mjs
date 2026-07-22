@@ -1346,7 +1346,12 @@ function renderReport(results, useMock, checkedAt, jsonReport) {
   const impactBySourceId = new Map(jsonReport.sources.map((source) => [source.sourceId, source.capabilityImpact]));
   const directCount = jsonReport.sources.filter((source) => ["COMPARISON_MATCH", "UPSTREAM_CHANGED"].includes(source.reasonCode)).length;
   const degradedCount = jsonReport.sources.filter((source) => source.reasonCode.startsWith("DEGRADED_")).length;
-  const manualCount = jsonReport.sources.filter((source) => source.evidence.observationMode.startsWith("manual-")).length;
+  const manualReceiptCount = jsonReport.sources.filter((source) => source.evidence.observationMode === "manual-receipt-only").length;
+  const manualEvidenceRequiredCount = jsonReport.sources.filter((source) => source.evidence.observationMode === "manual-evidence-required").length;
+  const otherManualCount = jsonReport.sources.filter((source) => (
+    source.evidence.observationMode.startsWith("manual-")
+    && !["manual-receipt-only", "manual-evidence-required"].includes(source.evidence.observationMode)
+  )).length;
   const counts = new Map();
   for (const status of STATUSES) {
     counts.set(status, 0);
@@ -1360,7 +1365,7 @@ function renderReport(results, useMock, checkedAt, jsonReport) {
     "",
     useMock
       ? "Generated report / sample report from mock data."
-      : `Generated from read-only observations: ${directCount} direct GitHub comparisons, ${degradedCount} degraded fallback comparisons, and ${manualCount} manual-receipt observations.`,
+      : `Generated from read-only observations: ${directCount} direct GitHub comparisons, ${degradedCount} degraded fallback comparisons, ${manualReceiptCount} manual-receipt-only observations, and ${manualEvidenceRequiredCount} manual-evidence-required observations${otherManualCount > 0 ? `; ${otherManualCount} other manual observations` : ""}.`,
     "",
     `Generated at: ${generatedAt}`,
     "",
@@ -1378,9 +1383,7 @@ function renderReport(results, useMock, checkedAt, jsonReport) {
     `Release-blocking actionable sources: ${jsonReport.releaseScope.releaseBlockingSourceCount} (${jsonReport.releaseScope.releaseBlockingSourceIds.join(", ") || "none"}).`,
     `Release-nonblocking actionable sources: ${jsonReport.releaseScope.releaseNonblockingActionableCount}.`,
     `Supported release packs: ${jsonReport.releaseScope.supportedPackIds.join(", ") || "none"}.`,
-    `Capability-impact warnings: ${jsonReport.capabilityImpactWarnings.length}.`,
-    "",
-    "## Sources"
+    `Capability-impact warnings: ${jsonReport.capabilityImpactWarnings.length}.`
   ];
 
   if (jsonReport.capabilityImpactWarnings.length > 0) {
@@ -1390,11 +1393,13 @@ function renderReport(results, useMock, checkedAt, jsonReport) {
       "",
       "These are provenance assessment warnings, not source approval or runtime evidence.",
       "",
-      "| Source | Warning |",
-      "| --- | --- |",
-      ...jsonReport.capabilityImpactWarnings.map((warning) => `| ${escapeCell(warning.sourceId)} | ${escapeCell(warning.code)} |`)
+      "| Source | Warning | Method | Artifact / Consumer |",
+      "| --- | --- | --- | --- |",
+      ...jsonReport.capabilityImpactWarnings.map((warning) => `| ${escapeCell(warning.sourceId)} | ${escapeCell(warning.code)} | ${escapeCell(warning.methodId || "") } | ${escapeCell(warning.artifactId || warning.consumerRef || "")} |`)
     );
   }
+
+  lines.push("", "## Sources");
 
   for (const status of STATUSES) {
     const group = results.filter((result) => result.status === status);

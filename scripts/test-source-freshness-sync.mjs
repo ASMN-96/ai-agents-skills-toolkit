@@ -115,6 +115,49 @@ function liveReport(catalog, checkedAt = NOW) {
   return refreshReportAccounting(report, catalog);
 }
 
+function legacyReport(catalog, checkedAt = NOW) {
+  const report = liveReport(catalog, checkedAt);
+  delete report.capabilityImpactWarnings;
+  for (const source of report.sources) {
+    delete source.catalogAffectedArtifacts;
+    delete source.capabilityImpact;
+  }
+  return report;
+}
+
+test("freshness sync accepts legacy 2.1 reports by normalizing provenance-only defaults", async () => {
+  const root = createFixture();
+  try {
+    const catalog = JSON.parse(readFileSync(path.join(root, "sources", "source-watchlist.json"), "utf8"));
+    writeFileSync(path.join(root, "legacy-freshness.json"), `${JSON.stringify(legacyReport(catalog), null, 2)}\n`, "utf8");
+    const result = await applySourceFreshness({
+      repositoryRoot: root,
+      freshnessReport: "legacy-freshness.json",
+      now: NOW
+    });
+    assert.equal(result.mode, "dry-run");
+    assert.equal(result.sourceCount, catalog.sources.length);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("freshness sync keeps current 2.1 provenance fields strict", async () => {
+  const root = createFixture();
+  try {
+    const catalog = JSON.parse(readFileSync(path.join(root, "sources", "source-watchlist.json"), "utf8"));
+    const report = liveReport(catalog);
+    report.sources[0].capabilityImpact.unexpected = true;
+    writeFileSync(path.join(root, "invalid-freshness.json"), `${JSON.stringify(report, null, 2)}\n`, "utf8");
+    await assert.rejects(
+      applySourceFreshness({ repositoryRoot: root, freshnessReport: "invalid-freshness.json", now: NOW }),
+      /unexpected.*capabilityImpact/i
+    );
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test("freshness sync is dry-run by default and confirm-write updates only monitor evidence", async () => {
   const root = createFixture();
   try {

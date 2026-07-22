@@ -197,10 +197,48 @@ const CAPABILITY_IMPACT_ARRAY_FIELDS = Object.freeze([
   "reasons"
 ]);
 
+function emptyCapabilityImpact(sourceId) {
+  return {
+    sourceId,
+    staleInputIds: [],
+    synthesisDecisionIds: [],
+    capabilityIds: [],
+    artifactRefs: [],
+    consumerRefs: [],
+    compiledOutputs: [],
+    mirrorOutputs: [],
+    evaluationRefs: [],
+    portfolioActionable: false,
+    releaseBlocking: false,
+    blockingResourceIds: [],
+    reasons: []
+  };
+}
+
+function normalizeFreshnessReport(catalog, report) {
+  if (report === null || typeof report !== "object" || Array.isArray(report)) return report;
+  const catalogById = new Map((catalog?.sources ?? []).map((source) => [source.id, source]));
+  return {
+    ...report,
+    capabilityImpactWarnings: report.capabilityImpactWarnings ?? [],
+    sources: Array.isArray(report.sources)
+      ? report.sources.map((entry) => {
+        const source = catalogById.get(entry?.sourceId);
+        return {
+          ...entry,
+          catalogAffectedArtifacts: entry?.catalogAffectedArtifacts
+            ?? (source ? [...source.affectedArtifacts].sort((left, right) => left.localeCompare(right)) : []),
+          capabilityImpact: entry?.capabilityImpact ?? emptyCapabilityImpact(entry?.sourceId)
+        };
+      })
+      : report.sources
+  };
+}
+
 function validateCapabilityImpactWarning(entry, catalogById, index) {
   const field = `freshnessReport.capabilityImpactWarnings[${index}]`;
   requireRecord(entry, field);
-  rejectUnknownFields(entry, new Set(["code", "sourceId", "methodId"]), field);
+  rejectUnknownFields(entry, new Set(["code", "sourceId", "methodId", "artifactId", "consumerRef"]), field);
   requireString(entry.code, `${field}.code`);
   requireString(entry.sourceId, `${field}.sourceId`);
   if (!catalogById.has(entry.sourceId)) fail(`${field}.sourceId does not resolve to the catalog`);
@@ -209,6 +247,8 @@ function validateCapabilityImpactWarning(entry, catalogById, index) {
   } else if (entry.methodId !== undefined) {
     fail(`${field}.methodId is only allowed for pending-method-source-assessment`);
   }
+  if (entry.artifactId !== undefined) requireString(entry.artifactId, `${field}.artifactId`);
+  if (entry.consumerRef !== undefined) requireString(entry.consumerRef, `${field}.consumerRef`);
   return entry;
 }
 
@@ -528,6 +568,7 @@ export function validateSourceReviewReceipt(receipt, options = {}) {
 }
 export function validateFreshnessReport(catalog, report, options = {}) {
   validateSourceCatalog(catalog, options);
+  report = normalizeFreshnessReport(catalog, report);
   requireRecord(report, "freshnessReport");
   rejectUnknownFields(
     report,
@@ -1265,13 +1306,13 @@ export async function applySourceFreshness(options = {}) {
   const catalog = catalogForReviewTransition(catalogDocument.parsed, now);
   validateSourceCatalog(catalog, { now });
   const reportPath = assertSafeRelativePath(options.freshnessReport, "freshnessReport");
-  const report = await readJsonWithin(repositoryRoot, reportPath, "source freshness report");
+  const parsedReport = await readJsonWithin(repositoryRoot, reportPath, "source freshness report");
   const domainPacksRegistry = await readJsonWithin(
     repositoryRoot,
     "registries/domain-packs.registry.json",
     "domain packs registry"
   );
-  validateFreshnessReport(catalog, report, {
+  const report = validateFreshnessReport(catalog, parsedReport, {
     now,
     requireCatalogAgreement: false,
     domainPacksRegistry

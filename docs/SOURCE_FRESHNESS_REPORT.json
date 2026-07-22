@@ -5,7 +5,7 @@
     "catalogId": "enterprise-source-catalog",
     "sourceCount": 80
   },
-  "checkedAt": "2026-07-22T17:44:18.527Z",
+  "checkedAt": "2026-07-22T18:01:39.820Z",
   "mode": "live",
   "readOnly": true,
   "disclaimer": "Changed upstream source is not approved for import. This report does not authorize copying, installing, activating, extracting methods, updating source records, or changing runtime configuration.",
@@ -698,7 +698,7 @@
       "comparisonRevision": "fa0fa64bdc967915dc8399e803be67759e1e62b8",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/anthropic-skills.md"
@@ -744,7 +744,7 @@
       "comparisonRevision": "49f948faa9258a0c61caceaf225e179651397431",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/openai-skills.md"
@@ -790,7 +790,7 @@
       "comparisonRevision": "2fbfa004a0192529bc997d103fc12f19a3804aab",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/addy-osmani-agent-skills.md"
@@ -836,7 +836,7 @@
       "comparisonRevision": "1ad9aaeb49caafd9e95c0a91116f71890eebbc53",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/supabase-agent-skills.md"
@@ -882,7 +882,7 @@
       "comparisonRevision": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/trailofbits-skills.md"
@@ -928,7 +928,7 @@
       "comparisonRevision": "a7b4d5e0e1fc36bcb2b1b2ae4ebeaddbd9473a21",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/playwright.md",
@@ -976,7 +976,7 @@
       "comparisonRevision": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/nagdy-guard-skills.md"
@@ -1022,7 +1022,7 @@
       "comparisonRevision": "ed37663cc5fbef691ddfecd080dff42f7e7e350d",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/matt-pocock-skills.md"
@@ -1062,13 +1062,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "37f364e293331b1bc55d7e8f627cc373cd45da86"
+        "value": "91f21dfe1328585670275781b4525fff2507f917"
       },
-      "contentDigest": "sha256:ed237adef2bf9dd9b10e9568dd28bd65a88d526e6f0a99135a7617f37ea1f15e",
+      "contentDigest": "sha256:d51dd07021c14a78c427579ada6fbc1aa2c8f860b30404975ddb8c28246d2412",
       "comparisonRevision": "20442886c5cfb440441c35030462fbdf64838655",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/shadcn-ui.md"
@@ -1114,7 +1114,7 @@
       "comparisonRevision": "95d6e255afe1596b557d7a8498517884438f5b3a",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/addyosmani-web-quality-skills.md"
@@ -1160,7 +1160,7 @@
       "comparisonRevision": "664b3e78fd1a298ba11973822da988483256d4b4",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/voltagent-awesome-design-md.md"
@@ -1206,7 +1206,7 @@
       "comparisonRevision": "4d849eb75f216109ea7053ed21530a11fafcc786",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/impeccable.md"
@@ -1252,7 +1252,7 @@
       "comparisonRevision": "e0e028058b5259debdd94b78147c6d6c77bf7da2",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/uncodixfy.md"
@@ -1298,7 +1298,7 @@
       "comparisonRevision": "d884ae04edebef577e82ff7c4e143debd0bbec99",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/superpowers.md"
@@ -1344,7 +1344,7 @@
       "comparisonRevision": "5deee34c93395045b985e3baf91550e5f1ab7204",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/everything-claude-code.md"
@@ -1390,7 +1390,7 @@
       "comparisonRevision": "26c35b59b40a0a95b286ccf5ac675a15edcc995f",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/ruflo.md"
@@ -1433,7 +1433,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/gitlab-agent-skills.md"
@@ -1476,7 +1476,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/gitlab-agentic-tool-development.md"
@@ -1519,7 +1519,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/aider-repo-map.md"
@@ -1562,7 +1562,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/openai-prompt-caching.md"
@@ -1605,7 +1605,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/openai-codex-behavior-boundaries.md"
@@ -1645,13 +1645,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "f654c24a3ece29bb4265fe9e3d770a92a08cc5d3"
+        "value": "28f79e6e228a11f3857216dd022f1a971d7983d6"
       },
-      "contentDigest": "sha256:82294f6fb3f88ad66cac77a005e879318a24d030fc2795742903103c8da97a32",
+      "contentDigest": "sha256:92de70763217b26864ba642a411aaa719682e21bbf6d424d4d1c5acca1dcac46",
       "comparisonRevision": "a54feb42162b9041b3abeed735307fa72d5f46a1",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/gsd-core.md",
@@ -1699,7 +1699,7 @@
       "comparisonRevision": "bbab507f6d38f8e0a4a64c39cba4d068f31964e0",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/repomix.md",
@@ -1744,7 +1744,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/typescript.md",
@@ -1788,7 +1788,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/typescript-eslint.md",
@@ -1832,7 +1832,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/eslint-plugin-react-hooks.md",
@@ -1876,7 +1876,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/biome.md",
@@ -1920,7 +1920,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/oxlint.md",
@@ -1964,7 +1964,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/knip.md",
@@ -2008,7 +2008,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/react-doctor.md",
@@ -2052,7 +2052,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/vitest.md",
@@ -2096,7 +2096,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/testing-library.md",
@@ -2140,7 +2140,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/axe-playwright.md",
@@ -2184,7 +2184,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/lighthouse-ci.md",
@@ -2228,7 +2228,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/codeql.md",
@@ -2272,7 +2272,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/semgrep.md",
@@ -2316,7 +2316,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/gitleaks.md",
@@ -2360,7 +2360,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/trufflehog.md",
@@ -2404,7 +2404,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/osv-scanner.md",
@@ -2448,7 +2448,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/dependabot.md",
@@ -2492,7 +2492,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/renovate.md",
@@ -2536,7 +2536,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/socket.md",
@@ -2580,7 +2580,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/trivy.md",
@@ -2624,7 +2624,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/checkov.md",
@@ -2668,7 +2668,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/owasp-zap-baseline.md",
@@ -2712,7 +2712,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/actionlint.md",
@@ -2756,7 +2756,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/zizmor.md",
@@ -2800,7 +2800,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/harden-runner.md",
@@ -2844,7 +2844,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/reviewdog.md",
@@ -2888,7 +2888,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/github-gh.md",
@@ -2932,7 +2932,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/open-design.md",
@@ -2976,7 +2976,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/openssf-scorecard.md",
@@ -3020,7 +3020,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/dependency-cruiser.md",
@@ -3064,7 +3064,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/eslint-plugin-boundaries.md",
@@ -3108,7 +3108,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/madge.md",
@@ -3152,7 +3152,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/jscpd.md",
@@ -3196,7 +3196,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/eslint.md",
@@ -3240,7 +3240,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/integrations/coderabbit.md",
@@ -3284,7 +3284,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3328,7 +3328,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3372,7 +3372,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3416,7 +3416,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3460,7 +3460,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3504,7 +3504,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3548,7 +3548,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3592,7 +3592,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3636,7 +3636,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3683,7 +3683,7 @@
       "comparisonRevision": "sha256:6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3730,7 +3730,7 @@
       "comparisonRevision": "sha256:ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3777,7 +3777,7 @@
       "comparisonRevision": "sha256:c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3824,7 +3824,7 @@
       "comparisonRevision": "sha256:7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3871,7 +3871,7 @@
       "comparisonRevision": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3918,7 +3918,7 @@
       "comparisonRevision": "sha256:d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3965,7 +3965,7 @@
       "comparisonRevision": "sha256:6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -4012,7 +4012,7 @@
       "comparisonRevision": "sha256:76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -4056,7 +4056,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -4100,7 +4100,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -4144,7 +4144,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -4188,7 +4188,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "scripts/ai-toolkit/kernel/codex-adapter.mjs",
@@ -4232,7 +4232,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:44:18.527Z",
+      "checkedAt": "2026-07-22T18:01:39.820Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "scripts/ai-toolkit/kernel/claude-adapter.mjs",
