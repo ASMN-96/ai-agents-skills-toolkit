@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -14,6 +15,10 @@ import {
 const SHA = "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const REVISION = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const RECEIPT_PATH = `sources/reviews/impeccable/${REVISION}.json`;
+
+async function readJson(relativePath) {
+  return JSON.parse(await readFile(new URL(`../${relativePath}`, import.meta.url), "utf8"));
+}
 
 function source(id, overrides = {}) {
   return {
@@ -175,6 +180,18 @@ function validRegistry(overrides = {}) {
     ...overrides
   };
 }
+
+test("canonical seed covers every source exactly once and claims no adoption", async () => {
+  const catalog = await readJson("sources/source-watchlist.json");
+  const registry = await readJson("registries/source-capabilities.registry.json");
+  assert.deepEqual(
+    registry.sourceAssessments.map((entry) => entry.sourceId),
+    catalog.sources.map((entry) => entry.id).sort()
+  );
+  assert.equal(registry.sourceAssessments.every((entry) => entry.state === "pending-review"), true);
+  assert.deepEqual(registry.capabilities, []);
+  assert.deepEqual(registry.syntheses, []);
+});
 
 function sha256Text(value) {
   return `sha256:${createHash("sha256").update(value, "utf8").digest("hex")}`;

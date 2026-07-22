@@ -32,6 +32,14 @@ const RETIRED_PORTFOLIO_SOURCE_IDS = [
   "voltagent-awesome-agent-skills",
   "skills-sh"
 ];
+const TOOL_SHARED_SOURCE_IDS = [
+  "typescript", "typescript-eslint", "eslint-plugin-react-hooks", "biome", "oxlint", "knip",
+  "react-doctor", "vitest", "testing-library", "axe-playwright", "lighthouse-ci", "codeql",
+  "semgrep", "gitleaks", "trufflehog", "osv-scanner", "dependabot", "renovate", "socket",
+  "trivy", "checkov", "owasp-zap-baseline", "actionlint", "zizmor", "harden-runner",
+  "reviewdog", "github-gh", "open-design", "openssf-scorecard", "dependency-cruiser",
+  "eslint-plugin-boundaries", "madge", "jscpd", "eslint", "coderabbit"
+];
 
 async function readJson(relativePath) {
   return JSON.parse(await readFile(path.resolve(ROOT, relativePath), "utf8"));
@@ -304,6 +312,18 @@ test("required tool classifications resolve from Registered Tools for shared IDs
   );
 });
 
+test("tool-shared sources retain distinct pending review rows", async () => {
+  const report = await readText(SOURCE_UTILIZATION_REPORT);
+  const watchedRows = parseMarkdownTableSection(report, "Watched Sources", UTILIZATION_HEADERS);
+  const watchedById = new Map(watchedRows.map((row) => [row.ID, row]));
+
+  for (const sourceId of TOOL_SHARED_SOURCE_IDS) {
+    const row = watchedById.get(sourceId);
+    assert.ok(row, `missing watched source row: ${sourceId}`);
+    assert.match(row["Next extraction"], /pending.*(?:review|extract)|(?:review|extract).*pending/i);
+  }
+});
+
 test("source utilization report classifies every watched source and registered tool", async () => {
   const report = await readText(SOURCE_UTILIZATION_REPORT);
   const watchlist = await readJson("sources/source-watchlist.json");
@@ -326,9 +346,11 @@ test("source utilization report classifies every watched source and registered t
 
   assert.equal(
     utilization.watchedById.has("ui-ux-pro-max-audit"),
-    true,
-    "missing UI UX Pro Max internal audit artifact classification"
+    false,
+    "internal audit artifact must not be misclassified as a watched source"
   );
+  assert.match(report, /^## Internal Audit Artifacts$/m);
+  assert.match(report, /^\| ui-ux-pro-max-audit \|/m);
   assert.match(report, /docs\/UI_UX_PRO_MAX_AUDIT\.md/);
   assert.equal(utilization.watchedById.get("matt-pocock-skills")?.Classification, "active-method");
   assert.equal(utilization.watchedById.get("matt-pocock-skills")?.Recommendation, "Do later");
