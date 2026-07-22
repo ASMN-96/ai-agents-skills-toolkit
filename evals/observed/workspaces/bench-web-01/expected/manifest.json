@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "BENCH-WEB-01",
+  "sourceFiles": [
+    { "candidatePath": "src/delivery.mjs", "expectedPath": "src/delivery.mjs" }
+  ],
+  "focusedTest": { "path": "tests/delivery.test.mjs", "command": ["node", "tests/delivery.test.mjs"] }
+}
