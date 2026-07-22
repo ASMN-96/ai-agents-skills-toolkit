@@ -13,12 +13,24 @@
       "sha256": "81e11ff2634370845e0689df004603e09f70fe0a5372d01b334aa86bf35af460"
     },
     {
+      "path": "scripts/ai-toolkit/collect-observed-benchmark-workspace.mjs",
+      "sha256": "b1ec7e262c2daf9736d7da817aa9b059b0d8c092138a0cbc714f40193074187f"
+    },
+    {
       "path": "scripts/ai-toolkit/compiler-provenance.mjs",
       "sha256": "9b6b8697c9c9ba7224bcc1ba8288153bd12c0705f8826374940cb1e970551ebd"
     },
     {
       "path": "scripts/ai-toolkit/embedded-data.mjs",
       "sha256": "fc95d3c7b5e90dc075de13e24d95c8ff46e119a6f13b0063c0871803b776959f"
+    },
+    {
+      "path": "scripts/ai-toolkit/prepare-observed-benchmark-run-packet.mjs",
+      "sha256": "ed509d8c8440f1411f007ff95dc739e836a307758159a552f5c442ed4a143611"
+    },
+    {
+      "path": "scripts/ai-toolkit/prepare-observed-benchmark-workspace.mjs",
+      "sha256": "e3f78a51a43561bd525516e1199988cc4cb5b6d8068534a1c12d6abd291ed155"
     },
     {
       "path": "scripts/ai-toolkit/reference-closure.mjs",
@@ -63,6 +75,10 @@
     {
       "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",
       "sha256": "d18b52ed71e2507700f4ae2951ea974cf6f7bb9d3eb93fafce1b4533082659a6"
+    },
+    {
+      "path": "scripts/ai-toolkit/validate-observed-benchmark-workspace.mjs",
+      "sha256": "f97cb5e6e178a5bba106e5e8244c70057bde6c3847997e78dd7e2e1d953aa7b3"
     },
     {
       "path": "scripts/ai-toolkit/validate-reference-closure.mjs",
