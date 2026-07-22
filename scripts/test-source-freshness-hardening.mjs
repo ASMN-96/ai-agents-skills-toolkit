@@ -8,9 +8,80 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
+import { deriveFreshnessCapabilityImpact } from "./ai-toolkit/kernel/freshness-policy.mjs";
+
 const execFileAsync = promisify(execFile);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SCRIPT = path.join(ROOT, "scripts", "check-source-freshness.mjs");
+const EMBEDDED_SCRIPT = path.join(ROOT, "scripts", "ai-toolkit", "check-source-freshness.mjs");
+
+function impactFixture({ twoInputs = false } = {}) {
+  const inputs = [
+    {
+      id: "source-brief",
+      sourceId: "openai-skills",
+      locators: [{ kind: "repository-path-section", value: "skills/openai/SKILL.md#brief" }]
+    }
+  ];
+  if (twoInputs) {
+    inputs.push({
+      id: "source-audit",
+      sourceId: "openai-skills",
+      locators: [{ kind: "repository-path-section", value: "skills/openai/SKILL.md#audit" }]
+    });
+  }
+  const decisions = [{
+    id: "openai-uiux-decision",
+    inputRefs: ["source-brief"],
+    artifactRefs: ["method:uiux.quality"],
+    evaluationRefs: ["eval:uiux-quality"],
+    outcome: "adapted"
+  }];
+  if (twoInputs) {
+    decisions.push({
+      id: "openai-uiux-audit-decision",
+      inputRefs: ["source-audit"],
+      artifactRefs: ["method:uiux.audit"],
+      evaluationRefs: ["eval:uiux-audit"],
+      outcome: "adapted"
+    });
+  }
+  return {
+    registry: {
+      capabilities: [{
+        id: "uiux.quality",
+        lifecycle: "active",
+        activeSynthesisId: "uiux.quality@1",
+        consumerRefs: [{ kind: "agent", id: "uiux-agent" }]
+      }],
+      syntheses: [{
+        id: "uiux.quality@1",
+        capabilityId: "uiux.quality",
+        state: "approved",
+        inputs,
+        decisions,
+        artifactRefs: [
+          { id: "method:uiux.quality", resourceId: "uiux-quality", decisionRefs: ["openai-uiux-decision"] },
+          ...(twoInputs ? [{ id: "method:uiux.audit", resourceId: "uiux-audit", decisionRefs: ["openai-uiux-audit-decision"] }] : [])
+        ],
+        evaluationRefs: [
+          { id: "eval:uiux-quality", decisionRefs: ["openai-uiux-decision"] },
+          ...(twoInputs ? [{ id: "eval:uiux-audit", decisionRefs: ["openai-uiux-audit-decision"] }] : [])
+        ]
+      }]
+    },
+    resourceCatalog: {
+      resources: [
+        { id: "uiux-quality", runtimePosture: { supported: true } },
+        { id: "uiux-audit", runtimePosture: { supported: false } }
+      ]
+    },
+    compilerInventory: {
+      compiledOutputs: [{ id: "compiled/uiux.md", consumerRefs: [{ kind: "agent", id: "uiux-agent" }] }],
+      mirrorOutputs: []
+    }
+  };
+}
 
 function source(overrides = {}) {
   return {
@@ -58,6 +129,74 @@ async function runFreshness(cwd, args) {
     };
   }
 }
+
+test("freshness capability projection narrows exact locator impact", () => {
+  const fixture = impactFixture({ twoInputs: true });
+  const impact = deriveFreshnessCapabilityImpact({
+    sourceId: "openai-skills",
+    comparison: {
+      state: "exact",
+      changedLocators: ["skills/openai/SKILL.md#brief"]
+    },
+    ...fixture
+  });
+
+  assert.deepEqual(impact.staleInputIds, ["source-brief"]);
+  assert.deepEqual(impact.artifactRefs, ["method:uiux.quality"]);
+  assert.deepEqual(impact.evaluationRefs, ["eval:uiux-quality"]);
+});
+
+test("freshness capability projection fails closed for ambiguous or malformed comparisons", () => {
+  const fixture = impactFixture({ twoInputs: true });
+  for (const comparison of [
+    { state: "ambiguous", changedLocators: [] },
+    { state: "exact", changedLocators: ["https://unsafe.example/?token=secret"] }
+  ]) {
+    const impact = deriveFreshnessCapabilityImpact({
+      sourceId: "openai-skills",
+      comparison,
+      ...fixture
+    });
+    assert.deepEqual(impact.staleInputIds, ["source-audit", "source-brief"]);
+  }
+});
+
+test("freshness capability projection distinguishes portfolio action from release blocking", () => {
+  const fixture = impactFixture();
+  const impact = deriveFreshnessCapabilityImpact({
+    sourceId: "openai-skills",
+    comparison: { state: "ambiguous", changedLocators: [] },
+    ...fixture
+  });
+
+  assert.equal(impact.portfolioActionable, true);
+  assert.equal(impact.releaseBlocking, false);
+  assert.deepEqual(impact.blockingResourceIds, []);
+});
+
+test("freshness capability projection reports no contribution without inferring source-wide catalog artifacts", () => {
+  const fixture = impactFixture();
+  const impact = deriveFreshnessCapabilityImpact({
+    sourceId: "unrelated-source",
+    comparison: { state: "ambiguous", changedLocators: [] },
+    ...fixture
+  });
+
+  assert.deepEqual(impact.staleInputIds, []);
+  assert.deepEqual(impact.artifactRefs, []);
+  assert.equal(impact.portfolioActionable, false);
+});
+
+test("embedded freshness checker remains mock-only and does not claim live remote evidence", async () => {
+  const result = await execFileAsync(process.execPath, [EMBEDDED_SCRIPT, "--mock"], { cwd: ROOT });
+
+  assert.match(result.stdout, /mock-only data/i);
+  assert.match(result.stdout, /mock-only/i);
+  await assert.rejects(
+    execFileAsync(process.execPath, [EMBEDDED_SCRIPT], { cwd: ROOT }),
+    /mock-only/i
+  );
+});
 
 test("rejects non-HTTPS GitHub source URLs before inspection", async () => {
   await withWatchlist([source({ sourceUrl: "ssh://git@github.com/openai/skills" })], async (cwd) => {
@@ -229,7 +368,7 @@ test("--json-output emits deterministic SourceCatalog v2 monitor evidence", asyn
     assert.equal(releaseScoped.code, 1);
     assert.match(
       releaseScoped.stderr,
-      /--fail-on-release-blocker requires SourceCatalog 2\.1 scopes and a valid canonical domain-packs registry/
+      /--fail-on-release-blocker requires SourceCatalog 2\.2 scopes and a valid canonical domain-packs registry/
     );
     await mkdir(path.join(cwd, "registries"), { recursive: true });
     await writeFile(

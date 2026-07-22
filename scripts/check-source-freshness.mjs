@@ -8,6 +8,8 @@ import { promisify } from "node:util";
 import { deriveSourceReleaseAccounting } from "./ai-toolkit/kernel/source-release-accounting.mjs";
 import { assertDomainRegistry } from "./ai-toolkit/kernel/domain-packs.mjs";
 import { validateSourceCatalogGraph } from "./ai-toolkit/kernel/source-catalog-contract.mjs";
+import { loadValidatedSourceCatalog } from "./ai-toolkit/kernel/source-catalog-loader.mjs";
+import { deriveFreshnessCapabilityImpact } from "./ai-toolkit/kernel/freshness-policy.mjs";
 
 const WATCHLIST_PATH = "sources/source-watchlist.json";
 const METHODS_REGISTRY_PATH = "registries/methods.registry.json";
@@ -67,6 +69,8 @@ const COMPARISON_BASES = new Set([
   "MISSING",
   "NOT_APPLICABLE"
 ]);
+const EMPTY_CAPABILITY_REGISTRY = Object.freeze({ capabilities: [], syntheses: [] });
+const EMPTY_COMPILER_INVENTORY = Object.freeze({ compiledOutputs: [], mirrorOutputs: [] });
 const REASON_CODES = new Set([
   "COMPARISON_MATCH",
   "UPSTREAM_CHANGED",
@@ -992,6 +996,9 @@ function monitorEvidence(result, useMock) {
     reasonCode,
     checkedAt: result.lastCheckedDate,
     missingCurrentReview,
+    catalogAffectedArtifacts: Array.isArray(result.affectedArtifacts)
+      ? [...result.affectedArtifacts].sort((left, right) => left.localeCompare(right))
+      : [],
     evidence: {
       observationMode: useMock
         ? "deterministic-mock"
@@ -1034,24 +1041,77 @@ function fallbackAccounting(watchlist, sources) {
   };
 }
 
+function capabilityComparison(observation) {
+  if (observation.reasonCode === "IDENTITY_DRIFT_DETECTED") {
+    return { state: "renamed", changedLocators: [] };
+  }
+  if (observation.monitorState === "CURRENT") {
+    return { state: "exact", changedLocators: [] };
+  }
+  if (observation.monitorState === "CHANGED" || observation.monitorState === "MANUAL_DUE") {
+    return { state: "ambiguous", changedLocators: [] };
+  }
+  return { state: "unavailable", changedLocators: [] };
+}
+
+async function loadCapabilityProjectionContext(watchlist, checkedAt) {
+  if (watchlist.schemaVersion !== "2.2.0") {
+    return {
+      registry: EMPTY_CAPABILITY_REGISTRY,
+      resourceCatalog: [],
+      compilerInventory: EMPTY_COMPILER_INVENTORY,
+      warnings: []
+    };
+  }
+  const loaded = await loadValidatedSourceCatalog({
+    repositoryRoot: process.cwd(),
+    now: new Date().toISOString(),
+    includeCapabilityRegistry: true
+  });
+  return {
+    registry: loaded.capabilityRegistry.registry,
+    resourceCatalog: [],
+    compilerInventory: EMPTY_COMPILER_INVENTORY,
+    warnings: loaded.capabilityRegistry.warnings
+  };
+}
+
 function buildJsonReport(
   results,
   useMock,
   checkedAt,
   watchlist,
   domainPacksRegistry,
-  requireReleaseScope = false
+  requireReleaseScope = false,
+  capabilityProjectionContext = {
+    registry: EMPTY_CAPABILITY_REGISTRY,
+    resourceCatalog: [],
+    compilerInventory: EMPTY_COMPILER_INVENTORY,
+    warnings: []
+  }
 ) {
-  const sources = results.map((result) => monitorEvidence(result, useMock));
+  const sources = results.map((result) => {
+    const observation = monitorEvidence(result, useMock);
+    return {
+      ...observation,
+      capabilityImpact: deriveFreshnessCapabilityImpact({
+        sourceId: observation.sourceId,
+        comparison: capabilityComparison(observation),
+        registry: capabilityProjectionContext.registry,
+        resourceCatalog: capabilityProjectionContext.resourceCatalog,
+        compilerInventory: capabilityProjectionContext.compilerInventory
+      })
+    };
+  });
   const reportView = { sources };
   const canDeriveReleaseScope = (
-    watchlist.schemaVersion === "2.1.0"
+    watchlist.schemaVersion === "2.2.0"
     && watchlist.sources.every((source) => typeof source.scope === "string")
     && domainPacksRegistry?.registryType === "domain-packs"
   );
   if (requireReleaseScope && !canDeriveReleaseScope) {
     throw new Error(
-      "--fail-on-release-blocker requires SourceCatalog 2.1 scopes and a valid canonical domain-packs registry"
+      "--fail-on-release-blocker requires SourceCatalog 2.2 scopes and a valid canonical domain-packs registry"
     );
   }
   let accounting;
@@ -1090,6 +1150,7 @@ function buildJsonReport(
       releaseBlockingSourceIds: accounting.releaseBlockingSourceIds,
       releaseNonblockingActionableCount: accounting.releaseNonblockingActionableCount
     },
+    capabilityImpactWarnings: capabilityProjectionContext.warnings,
     sources
   };
 }
@@ -1180,20 +1241,20 @@ function renderIssueBody(result) {
 
 function sourceTableHeader() {
   return [
-    "| Source | Repo | Status | Comparison baseline | Checked | Latest | Reviewed date | Latest date | License signal | v0.2.3 outcome | Hold classification | Hold decision | Affected methods | Next step | Notes |",
-    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+    "| Source | Repo | Status | Comparison baseline | Checked | Latest | Reviewed date | Latest date | License signal | v0.2.3 outcome | Hold classification | Hold decision | Catalog artifacts (metadata) | Derived capability/artifact/eval impact | Affected methods | Next step | Notes |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
   ];
 }
 
-function sourceTableRows(result) {
+function sourceTableRows(result, capabilityImpact) {
   const rows = [
-    `| ${escapeCell(result.name)} | ${escapeCell(sourceLocation(result))} | ${result.status} | ${shortSha(sourceComparisonCommit(result).revision)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | ${escapeCell(result.reviewedHold?.classification || "n/a")} | ${escapeCell(result.reviewedHold?.decision || "n/a")} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
+    `| ${escapeCell(result.name)} | ${escapeCell(sourceLocation(result))} | ${result.status} | ${shortSha(sourceComparisonCommit(result).revision)} | ${escapeCell(result.lastCheckedDate || "n/a")} | ${shortSha(result.latestCommit)} | ${escapeCell(result.lastReviewedDate || "n/a")} | ${escapeCell(result.latestCommitDate || "n/a")} | ${escapeCell(result.licenseSignal)} | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | ${escapeCell(result.reviewedHold?.classification || "n/a")} | ${escapeCell(result.reviewedHold?.decision || "n/a")} | ${escapeCell(formatCatalogArtifacts(result.affectedArtifacts))} | ${escapeCell(formatCapabilityImpact(capabilityImpact))} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | ${escapeCell(result.notes)} |`
   ];
 
   if (result.watchedPathSignals.length > 0) {
     for (const signal of result.watchedPathSignals) {
       rows.push(
-        `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | n/a | ${escapeCell(signal.date || "n/a")} | path commit signal only | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | n/a | n/a | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | watched-path signal only |`
+        `| ${escapeCell(`${result.name} watched path`)} | ${escapeCell(signal.path)} | signal | n/a | n/a | ${shortSha(signal.sha)} | n/a | ${escapeCell(signal.date || "n/a")} | path commit signal only | ${escapeCell(result.reviewDecision?.outcome || "n/a")} | n/a | n/a | ${escapeCell(formatCatalogArtifacts(result.affectedArtifacts))} | ${escapeCell(formatCapabilityImpact(capabilityImpact))} | ${escapeCell(result.affectedMethods)} | ${escapeCell(result.nextStep)} | watched-path signal only |`
       );
     }
   }
@@ -1257,8 +1318,26 @@ function formatAffectedMethods(methods) {
   return methods.sort().join("; ");
 }
 
+function formatCatalogArtifacts(artifacts) {
+  if (!Array.isArray(artifacts) || artifacts.length === 0) return "none recorded";
+  return [...artifacts].sort((left, right) => left.localeCompare(right)).join("; ");
+}
+
+function formatCapabilityImpact(impact) {
+  if (!impact) return "unavailable";
+  const details = [
+    ["capabilities", impact.capabilityIds],
+    ["artifacts", impact.artifactRefs],
+    ["evals", impact.evaluationRefs]
+  ]
+    .filter(([, values]) => Array.isArray(values) && values.length > 0)
+    .map(([label, values]) => `${label}: ${values.join(", ")}`);
+  return details.length > 0 ? details.join("; ") : "no active contribution";
+}
+
 function renderReport(results, useMock, checkedAt, jsonReport) {
   const generatedAt = checkedAt || new Date().toISOString();
+  const impactBySourceId = new Map(jsonReport.sources.map((source) => [source.sourceId, source.capabilityImpact]));
   const counts = new Map();
   for (const status of STATUSES) {
     counts.set(status, 0);
@@ -1299,7 +1378,7 @@ function renderReport(results, useMock, checkedAt, jsonReport) {
     }
     lines.push("", `### ${status}`, "", ...sourceTableHeader());
     for (const result of group) {
-      lines.push(...sourceTableRows(result));
+      lines.push(...sourceTableRows(result, impactBySourceId.get(result.id)));
     }
   }
 
@@ -1327,6 +1406,8 @@ function renderReport(results, useMock, checkedAt, jsonReport) {
     "- GitHub API 403/429 fallback is limited to `git ls-remote` default-branch commit checks.",
     "- Canonical repository relocation checks require GitHub API metadata and are not claimed from `git ls-remote` fallback.",
     "- Manual reviewed-doc sources intentionally do not use GitHub API or `git ls-remote` and must not be reported as live freshness proof.",
+    "- Catalog artifacts are source-wide catalog metadata and are not derived contribution impact.",
+    "- Derived capability/artifact/eval impact comes only from validated synthesis provenance; empty impact does not approve a source or contribution.",
     "- Affected methods are derived from method `sourceRef` frontmatter and are review-routing hints only.",
     "- `--create-issues` generates local dry-run issue drafts with dedupe keys and labels; it does not call GitHub or create issues.",
     "- This monitor never clones repositories, runs external scripts, copies raw files, installs skills, activates plugins, or updates source records."
@@ -1368,9 +1449,9 @@ async function main() {
     const domainPacksRegistry = await readJsonIfPresent(DOMAIN_PACKS_REGISTRY_PATH);
     if (args.failOnReleaseBlocker) {
       try {
-        if (watchlist.schemaVersion !== "2.1.0"
+        if (watchlist.schemaVersion !== "2.2.0"
           || !watchlist.sources.every((source) => typeof source.scope === "string")) {
-          throw new Error("SourceCatalog schemaVersion and scopes are not canonical 2.1 inputs");
+          throw new Error("SourceCatalog schemaVersion and scopes are not canonical 2.2 inputs");
         }
         const toolsRegistry = await readJsonIfPresent(TOOLS_REGISTRY_PATH);
         assertDomainRegistry(domainPacksRegistry);
@@ -1381,19 +1462,21 @@ async function main() {
         });
       } catch (error) {
         throw new Error(
-          `--fail-on-release-blocker requires SourceCatalog 2.1 scopes and a valid canonical domain-packs registry: ${error.message}`
+          `--fail-on-release-blocker requires SourceCatalog 2.2 scopes and a valid canonical domain-packs registry: ${error.message}`
         );
       }
     }
     const methodImpactIndex = await buildMethodImpactIndex();
     const results = await buildResults(watchlist, args.mock, checkedAt, methodImpactIndex);
+    const capabilityProjectionContext = await loadCapabilityProjectionContext(watchlist, checkedAt);
     const jsonReport = buildJsonReport(
       results,
       args.mock,
       checkedAt,
       watchlist,
       domainPacksRegistry,
-      args.failOnReleaseBlocker
+      args.failOnReleaseBlocker,
+      capabilityProjectionContext
     );
     const report = renderReport(results, args.mock, checkedAt, jsonReport);
 

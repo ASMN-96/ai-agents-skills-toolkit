@@ -9,8 +9,31 @@ import {
   validateSourceCatalogGraph,
   validateSourceReviewReceipt
 } from "./source-catalog-contract.mjs";
+import {
+  deriveSourceCapabilityWarnings,
+  validateSourceCapabilityRegistry,
+  validateSourceCapabilityRepository
+} from "./source-synthesis-contract.mjs";
 
 const CATALOG_PATH = "sources/source-watchlist.json";
+const CAPABILITY_REGISTRY_PATH = "registries/source-capabilities.registry.json";
+
+function sourceCapabilityContext({ methodsRegistry, toolsRegistry, domainPacksRegistry }) {
+  return {
+    methods: (methodsRegistry?.methods ?? []).map((method) => ({
+      id: method.id,
+      path: method.methodPath
+    })),
+    tools: (toolsRegistry?.tools ?? []).map((tool) => ({
+      id: tool.id,
+      path: tool.sourceRecordPath ?? "registries/tools.registry.json"
+    })),
+    domainPacks: (domainPacksRegistry?.packs ?? []).map((pack) => ({
+      id: pack.id,
+      path: "registries/domain-packs.registry.json"
+    }))
+  };
+}
 
 function sha256Text(value) {
   return `sha256:${createHash("sha256").update(value, "utf8").digest("hex")}`;
@@ -204,7 +227,11 @@ async function validateReceiptChain({
   return count;
 }
 
-export async function loadValidatedSourceCatalog({ repositoryRoot, now } = {}) {
+export async function loadValidatedSourceCatalog({
+  repositoryRoot,
+  now,
+  includeCapabilityRegistry = false
+} = {}) {
   const root = path.resolve(repositoryRoot);
   const before = await readDocument(root, CATALOG_PATH, "canonical SourceCatalog v2");
   const domainPacksRegistry = await readDocument(
@@ -217,6 +244,9 @@ export async function loadValidatedSourceCatalog({ repositoryRoot, now } = {}) {
     "registries/tools.registry.json",
     "canonical tools registry for source scope validation"
   );
+  const methodsRegistry = includeCapabilityRegistry
+    ? await readDocument(root, "registries/methods.registry.json", "canonical methods registry for source capability validation")
+    : null;
   const catalog = validateSourceCatalogGraph(before.parsed, {
     now,
     domainPacksRegistry: domainPacksRegistry.parsed,
@@ -243,8 +273,36 @@ export async function loadValidatedSourceCatalog({ repositoryRoot, now } = {}) {
     domainPacksRegistry: domainPacksRegistry.parsed,
     toolsRegistry: toolsRegistry.parsed
   });
+  let capabilityRegistry = null;
+  if (includeCapabilityRegistry) {
+    const capabilityDocument = await readDocument(
+      root,
+      CAPABILITY_REGISTRY_PATH,
+      "canonical SourceCapabilityRegistry v1"
+    );
+    const context = sourceCapabilityContext({
+      methodsRegistry: methodsRegistry.parsed,
+      toolsRegistry: toolsRegistry.parsed,
+      domainPacksRegistry: domainPacksRegistry.parsed
+    });
+    const registry = validateSourceCapabilityRegistry(capabilityDocument.parsed, { catalog, ...context });
+    const repositoryValidation = await validateSourceCapabilityRepository({
+      repositoryRoot: root,
+      catalog,
+      registry,
+      context
+    });
+    capabilityRegistry = {
+      registry,
+      warnings: [
+        ...deriveSourceCapabilityWarnings(registry, { catalog, ...context }),
+        ...repositoryValidation.warnings
+      ]
+    };
+  }
   return {
     catalog,
+    capabilityRegistry,
     validation: {
       schemaVersion: SOURCE_CATALOG_SCHEMA_VERSION,
       sourceCount: catalog.sources.length,

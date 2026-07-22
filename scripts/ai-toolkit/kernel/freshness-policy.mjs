@@ -1,3 +1,5 @@
+import { deriveCapabilityImpact } from "./source-capability-impact.mjs";
+
 const MAX_AGE_DAYS = {
   "security-runtime": 14,
   "platform-standard": 30,
@@ -48,4 +50,44 @@ export function approvePromotion({ candidate, reviews, approvedBy, rollbackTarge
     rollbackTarget,
     reviews: { ...reviews }
   };
+}
+
+const GLOBAL_FRESHNESS_RELEASE_POLICY = Object.freeze({
+  selectedResourceIds: [],
+  blockingResourceIds: []
+});
+
+function normalizedComparison(comparison) {
+  if (comparison === null || typeof comparison !== "object" || Array.isArray(comparison)) {
+    return { state: "unavailable", changedLocators: [] };
+  }
+  return {
+    state: typeof comparison.state === "string" ? comparison.state : "unavailable",
+    changedLocators: Array.isArray(comparison.changedLocators) ? comparison.changedLocators : comparison.changedLocators
+  };
+}
+
+/**
+ * Projects an observed freshness comparison through reviewed synthesis provenance.
+ * The default policy is deliberately closed and empty: portfolio impact is visible,
+ * but only an explicit caller-provided release scope can mark a resource blocking.
+ */
+export function deriveFreshnessCapabilityImpact({
+  sourceId,
+  comparison,
+  registry,
+  resourceCatalog,
+  compilerInventory,
+  releasePolicy = GLOBAL_FRESHNESS_RELEASE_POLICY
+} = {}) {
+  const normalized = normalizedComparison(comparison);
+  return deriveCapabilityImpact({
+    sourceId,
+    comparisonState: normalized.state,
+    changedLocators: normalized.changedLocators,
+    registry,
+    resourceCatalog,
+    compilerInventory,
+    releasePolicy
+  });
 }

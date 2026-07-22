@@ -1,18 +1,18 @@
 {
   "schemaVersion": "2.1.0",
   "catalogIdentity": {
-    "schemaVersion": "2.1.0",
+    "schemaVersion": "2.2.0",
     "catalogId": "enterprise-source-catalog",
     "sourceCount": 80
   },
-  "checkedAt": "2026-07-21T11:56:51.432Z",
+  "checkedAt": "2026-07-22T17:12:14.101Z",
   "mode": "live",
   "readOnly": true,
   "disclaimer": "Changed upstream source is not approved for import. This report does not authorize copying, installing, activating, extracting methods, updating source records, or changing runtime configuration.",
   "sourceCount": 80,
   "monitorCounts": {
-    "CURRENT": 18,
-    "CHANGED": 8,
+    "CURRENT": 19,
+    "CHANGED": 7,
     "CHECK_FAILED": 54,
     "MANUAL_DUE": 0
   },
@@ -32,6 +32,328 @@
     "releaseBlockingSourceIds": [],
     "releaseNonblockingActionableCount": 72
   },
+  "capabilityImpactWarnings": [
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "actionlint"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "addyosmani-web-quality-skills"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "aider-repo-map"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "android-accessibility"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "android-core-app-quality"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "anthropic-claude-code-subagents"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "anthropic-skills"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "apple-accessibility"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "apple-human-interface-guidelines"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "apple-privacy-manifests"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "axe-playwright"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "biome"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "checkov"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "codeql"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "coderabbit"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "dependabot"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "dependency-cruiser"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "electron-security-guidance"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "eslint"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "eslint-plugin-boundaries"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "eslint-plugin-react-hooks"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "everything-claude-code"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "expo-documentation"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "github-gh"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "gitlab-agent-skills"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "gitlab-agentic-tool-development"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "gitleaks"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "gsd-core"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "harden-runner"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "impeccable"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "jscpd"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "knip"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "lighthouse-ci"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "madge"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "matt-pocock-skills"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "microsoft-playwright"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "microsoft-windows-accessibility"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "microsoft-windows-app-guidance"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "nagdy-guard-skills"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "nist-ai-rmf-genai"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "nist-ssdf"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "nist-ssdf-ai"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "open-design"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "openai-codex-behavior-boundaries"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "openai-codex-guidance"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "openai-prompt-caching"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "openai-skills"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "openssf-ai-code-assistant-instructions"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "openssf-scorecard"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "osv-scanner"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "owasp-agentic-applications"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "owasp-asvs"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "owasp-llmsvs"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "owasp-masvs"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "owasp-zap-baseline"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "oxlint"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "react-doctor"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "renovate"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "repomix"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "reviewdog"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "ruflo"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "semgrep"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "shadcn-ui"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "slsa-v1-2"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "socket"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "supabase-agent-skills"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "superpowers"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "tauri-security-guidance"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "testing-library"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "trailofbits-skills"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "trivy"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "trufflehog"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "typescript"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "typescript-eslint"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "uncodixfy"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "vitest"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "voltagent-awesome-design-md"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "w3c-wcag-22"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "zizmor"
+    }
+  ],
   "sources": [
     {
       "sourceId": "anthropic-skills",
@@ -46,8 +368,11 @@
       "comparisonRevision": "fa0fa64bdc967915dc8399e803be67759e1e62b8",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/anthropic-skills.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "UNCHANGED",
@@ -65,6 +390,21 @@
             "date": "2026-04-20T21:38:16Z"
           }
         ]
+      },
+      "capabilityImpact": {
+        "sourceId": "anthropic-skills",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -80,8 +420,11 @@
       "comparisonRevision": "49f948faa9258a0c61caceaf225e179651397431",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/openai-skills.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "UNCHANGED",
@@ -93,34 +436,67 @@
         "licenseSignal": "not found",
         "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "openai-skills",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
       "sourceId": "addy-osmani-agent-skills",
       "identityKey": "github:addyosmani/agent-skills",
       "scope": "community-reference",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "2fbfa004a0192529bc997d103fc12f19a3804aab"
+        "value": "fefc4075ddfd8363d3b2aa8b26e6440f1ce204c0"
       },
-      "contentDigest": "sha256:9f4cd96aa644fadbba6864b461c3cd9b1adc74ae901f69025913019d9cb94ae3",
+      "contentDigest": "sha256:2524ae8cef4e01ca2cbdcf403fdd672ec024733a033207d3d5cdf8e55835170f",
       "comparisonRevision": "2fbfa004a0192529bc997d103fc12f19a3804aab",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/addy-osmani-agent-skills.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/addyosmani/agent-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-18T13:19:55Z",
+        "latestCommitDate": "2026-07-22T03:50:27Z",
         "releaseSignal": "release 0.6.4",
         "licenseSignal": "MIT (LICENSE)",
-        "notes": "Default branch commit matches comparison baseline.",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "addy-osmani-agent-skills",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -136,8 +512,11 @@
       "comparisonRevision": "1ad9aaeb49caafd9e95c0a91116f71890eebbc53",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/supabase-agent-skills.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "UNCHANGED",
@@ -149,6 +528,21 @@
         "licenseSignal": "MIT (LICENSE)",
         "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "supabase-agent-skills",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -164,8 +558,11 @@
       "comparisonRevision": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/trailofbits-skills.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "UNCHANGED",
@@ -177,6 +574,21 @@
         "licenseSignal": "CC-BY-SA-4.0 (LICENSE)",
         "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "trailofbits-skills",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -186,25 +598,45 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "a7b4d5e0e1fc36bcb2b1b2ae4ebeaddbd9473a21"
+        "value": "ac877bc190ec28604e7bd9cbccaf8044a1f0c39f"
       },
-      "contentDigest": "sha256:9059d3a73a265eca4650c1bc455b52f2e07617bfc434b81f8f628977d2354643",
-      "comparisonRevision": "ef3a5830f960c00018f810cebf26133b35ec2b6f",
+      "contentDigest": "sha256:70a063f98420952c75123fb345081672724aa72ccecfa8aa8203774e6f754aa6",
+      "comparisonRevision": "a7b4d5e0e1fc36bcb2b1b2ae4ebeaddbd9473a21",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/playwright.md",
+        "registries/tools.registry.json",
+        "sources/playwright.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/microsoft/playwright",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-21T10:27:10Z",
+        "latestCommitDate": "2026-07-22T17:03:45Z",
         "releaseSignal": "release v1.61.1",
         "licenseSignal": "Apache-2.0 (LICENSE)",
         "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "microsoft-playwright",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -220,8 +652,11 @@
       "comparisonRevision": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/nagdy-guard-skills.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "UNCHANGED",
@@ -249,34 +684,67 @@
             "date": "2026-06-07T11:45:52Z"
           }
         ]
+      },
+      "capabilityImpact": {
+        "sourceId": "nagdy-guard-skills",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
       "sourceId": "matt-pocock-skills",
       "identityKey": "github:mattpocock/skills",
       "scope": "community-reference",
-      "monitorState": "CHANGED",
+      "monitorState": "CURRENT",
       "observedRevision": {
         "kind": "git-sha",
         "value": "ed37663cc5fbef691ddfecd080dff42f7e7e350d"
       },
       "contentDigest": "sha256:ce2695944db0089f4bbbdae34802790dbb38fa9f51b5a449ba9b4389afe12470",
-      "comparisonRevision": "9603c1cc8118d08bc1b3bf34cf714f62178dea3b",
+      "comparisonRevision": "ed37663cc5fbef691ddfecd080dff42f7e7e350d",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/matt-pocock-skills.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "CHANGED_LOW_RISK",
+        "legacyStatus": "UNCHANGED",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/mattpocock/skills",
         "digestBasis": "git-revision-identity",
         "latestCommitDate": "2026-07-21T10:28:51Z",
         "releaseSignal": "release v1.1.0",
         "licenseSignal": "MIT (LICENSE)",
-        "notes": "Upstream default branch changed relative to the comparison baseline.",
+        "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "matt-pocock-skills",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -286,25 +754,43 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "20442886c5cfb440441c35030462fbdf64838655"
+        "value": "3f47b9113a173bac4a72cefda4d4c3f2d89b8ab6"
       },
-      "contentDigest": "sha256:ad99aa5932579ab82eae852ea6fbe1200028292df6c98d1ec0bfeb137db9a537",
-      "comparisonRevision": "d28738b183c5eaa69d8d540826e450f30d39ab6c",
+      "contentDigest": "sha256:ec8ca65be3b8903ee57ecc10c4c0901497be7991723554595a2619a1a34f0d5e",
+      "comparisonRevision": "20442886c5cfb440441c35030462fbdf64838655",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/shadcn-ui.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/shadcn-ui/ui",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-20T15:17:53Z",
-        "releaseSignal": "release shadcn@4.13.1",
+        "latestCommitDate": "2026-07-22T11:05:55Z",
+        "releaseSignal": "release shadcn@4.14.0",
         "licenseSignal": "MIT (LICENSE.md)",
         "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "shadcn-ui",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -320,8 +806,11 @@
       "comparisonRevision": "95d6e255afe1596b557d7a8498517884438f5b3a",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/addyosmani-web-quality-skills.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "UNCHANGED",
@@ -333,6 +822,21 @@
         "licenseSignal": "MIT (LICENSE)",
         "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "addyosmani-web-quality-skills",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -348,8 +852,11 @@
       "comparisonRevision": "664b3e78fd1a298ba11973822da988483256d4b4",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/voltagent-awesome-design-md.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "UNCHANGED",
@@ -361,6 +868,21 @@
         "licenseSignal": "MIT (LICENSE)",
         "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "voltagent-awesome-design-md",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -370,25 +892,43 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "4d849eb75f216109ea7053ed21530a11fafcc786"
+        "value": "386f9883cfe1f0d6a87f3e346070374598d61e09"
       },
-      "contentDigest": "sha256:5e6021a96da4435a690013f13628f62007fe36ab151eb5b14f158ee207fdee0f",
-      "comparisonRevision": "e4ab5e24bdf5321b72163d2fbcbe6fa985c848ba",
+      "contentDigest": "sha256:f8670440f3724e6e13631b443345aa1c45f1dc49f61eec66464aa296092f801f",
+      "comparisonRevision": "4d849eb75f216109ea7053ed21530a11fafcc786",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/impeccable.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/pbakaus/impeccable",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-21T01:45:13Z",
-        "releaseSignal": "release skill-v3.9.1",
+        "latestCommitDate": "2026-07-22T07:44:15Z",
+        "releaseSignal": "release cli-v3.3.0",
         "licenseSignal": "Apache-2.0 (LICENSE)",
         "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "impeccable",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -404,8 +944,11 @@
       "comparisonRevision": "e0e028058b5259debdd94b78147c6d6c77bf7da2",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/uncodixfy.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "UNCHANGED",
@@ -417,6 +960,21 @@
         "licenseSignal": "not checked (source record: clear)",
         "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "uncodixfy",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -432,8 +990,11 @@
       "comparisonRevision": "d884ae04edebef577e82ff7c4e143debd0bbec99",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/superpowers.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "UNCHANGED",
@@ -445,6 +1006,21 @@
         "licenseSignal": "not checked (source record: clear)",
         "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "superpowers",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -454,14 +1030,17 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "5deee34c93395045b985e3baf91550e5f1ab7204"
+        "value": "8348fb5387303060c1c2cfec37daf27e20a11df6"
       },
-      "contentDigest": "sha256:3b67e3959dd917529ab94d7a34a81f1860b180350f3485cf1db15a38f87d8afa",
-      "comparisonRevision": "0071fa5c3c389d2b4b235a39402c891e146cdef3",
+      "contentDigest": "sha256:075cea65d911c87f9e0cc8e46342b57b0e2c657e9d7f9fc011f534601b57dfc4",
+      "comparisonRevision": "5deee34c93395045b985e3baf91550e5f1ab7204",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/everything-claude-code.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "CHANGED_LOW_RISK",
@@ -473,34 +1052,67 @@
         "licenseSignal": "not checked (source record: clear)",
         "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "everything-claude-code",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
       "sourceId": "ruflo",
       "identityKey": "github:ruvnet/ruflo",
       "scope": "community-reference",
-      "monitorState": "CHANGED",
+      "monitorState": "CURRENT",
       "observedRevision": {
         "kind": "git-sha",
         "value": "26c35b59b40a0a95b286ccf5ac675a15edcc995f"
       },
       "contentDigest": "sha256:2c05acbf8aa057f106f351446c887571c1d0a361eee8313d2361f77d8448a8b0",
-      "comparisonRevision": "12ede21767a6dd669df1b79392a5d27d9154f237",
+      "comparisonRevision": "26c35b59b40a0a95b286ccf5ac675a15edcc995f",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "reasonCode": "DEGRADED_COMPARISON_MATCH",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/ruflo.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "CHANGED_LOW_RISK",
+        "legacyStatus": "UNCHANGED",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/ruvnet/ruflo",
         "digestBasis": "git-revision-identity",
         "latestCommitDate": "not checked (git ls-remote fallback)",
         "releaseSignal": "not checked (git ls-remote fallback)",
         "licenseSignal": "not checked (source record: clear)",
-        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "ruflo",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -513,8 +1125,11 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/gitlab-agent-skills.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -526,6 +1141,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (periodic owner review of the official docs URL and source-record notes) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "gitlab-agent-skills",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -538,8 +1168,11 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/gitlab-agentic-tool-development.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -551,6 +1184,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (periodic owner review of the official docs URL and source-record notes) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "gitlab-agentic-tool-development",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -563,8 +1211,11 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/aider-repo-map.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -576,6 +1227,21 @@
         "licenseSignal": "official-doc-reference",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "aider-repo-map",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -588,8 +1254,11 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/openai-prompt-caching.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -601,6 +1270,21 @@
         "licenseSignal": "official-doc-reference",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "openai-prompt-caching",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -613,8 +1297,11 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "sources/openai-codex-behavior-boundaries.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -626,6 +1313,21 @@
         "licenseSignal": "official-doc-reference",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (quarterly or before method changes) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "openai-codex-behavior-boundaries",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -635,14 +1337,19 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "a54feb42162b9041b3abeed735307fa72d5f46a1"
+        "value": "f654c24a3ece29bb4265fe9e3d770a92a08cc5d3"
       },
-      "contentDigest": "sha256:e7f65111556a2c749a0b8f51ac05dae88f878f39de19a129163f0635e847eac1",
-      "comparisonRevision": "667a864896615f3a159d2834064bebfb6eb7fccf",
+      "contentDigest": "sha256:82294f6fb3f88ad66cac77a005e879318a24d030fc2795742903103c8da97a32",
+      "comparisonRevision": "a54feb42162b9041b3abeed735307fa72d5f46a1",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/gsd-core.md",
+        "registries/tools.registry.json",
+        "sources/gsd-core.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "CHANGED_REVIEW_REQUIRED",
@@ -654,6 +1361,21 @@
         "licenseSignal": "not checked (source record: clear)",
         "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "gsd-core",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -663,14 +1385,19 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "bbab507f6d38f8e0a4a64c39cba4d068f31964e0"
+        "value": "e2ca68c87b54edc178bc4643e71719a7ab987f8a"
       },
-      "contentDigest": "sha256:8eaaf9af7712039533d8b6ac5c0ce60f9713f88692e81e5fa19c3f7c71a994f9",
-      "comparisonRevision": "44457c890236440bc683e9e5d84499a0a4911550",
+      "contentDigest": "sha256:3c7c06b58dc26378c68320c55a402a187376d5bb068dea0cf7688718369014fc",
+      "comparisonRevision": "bbab507f6d38f8e0a4a64c39cba4d068f31964e0",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/repomix.md",
+        "registries/tools.registry.json",
+        "sources/repomix.md"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "CHANGED_REVIEW_REQUIRED",
@@ -682,6 +1409,21 @@
         "licenseSignal": "not checked (source record: clear)",
         "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "repomix",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -694,8 +1436,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/typescript.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -707,6 +1453,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "typescript",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -719,8 +1480,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/typescript-eslint.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -732,6 +1497,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "typescript-eslint",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -744,8 +1524,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/eslint-plugin-react-hooks.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -757,6 +1541,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "eslint-plugin-react-hooks",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -769,8 +1568,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/biome.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -782,6 +1585,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "biome",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -794,8 +1612,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/oxlint.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -807,6 +1629,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "oxlint",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -819,8 +1656,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/knip.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -832,6 +1673,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "knip",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -844,8 +1700,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/react-doctor.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -857,6 +1717,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "react-doctor",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -869,8 +1744,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/vitest.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -882,6 +1761,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "vitest",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -894,8 +1788,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/testing-library.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -907,6 +1805,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "testing-library",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -919,8 +1832,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/axe-playwright.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -932,6 +1849,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "axe-playwright",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -944,8 +1876,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/lighthouse-ci.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -957,6 +1893,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "lighthouse-ci",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -969,8 +1920,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/codeql.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -982,6 +1937,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "codeql",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -994,8 +1964,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/semgrep.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1007,6 +1981,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "semgrep",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1019,8 +2008,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/gitleaks.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1032,6 +2025,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "gitleaks",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1044,8 +2052,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/trufflehog.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1057,6 +2069,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "trufflehog",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1069,8 +2096,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/osv-scanner.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1082,6 +2113,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "osv-scanner",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1094,8 +2140,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/dependabot.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1107,6 +2157,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "dependabot",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1119,8 +2184,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/renovate.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1132,6 +2201,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "renovate",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1144,8 +2228,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/socket.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1157,6 +2245,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "socket",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1169,8 +2272,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/trivy.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1182,6 +2289,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "trivy",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1194,8 +2316,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/checkov.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1207,6 +2333,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "checkov",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1219,8 +2360,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/owasp-zap-baseline.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1232,6 +2377,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "owasp-zap-baseline",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1244,8 +2404,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/actionlint.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1257,6 +2421,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "actionlint",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1269,8 +2448,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/zizmor.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1282,6 +2465,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "zizmor",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1294,8 +2492,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/harden-runner.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1307,6 +2509,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "harden-runner",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1319,8 +2536,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/reviewdog.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1332,6 +2553,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "reviewdog",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1344,8 +2580,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/github-gh.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1357,6 +2597,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "github-gh",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1369,8 +2624,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/open-design.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1382,6 +2641,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "open-design",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1394,8 +2668,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/openssf-scorecard.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1407,6 +2685,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "openssf-scorecard",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1419,8 +2712,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/dependency-cruiser.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1432,6 +2729,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "dependency-cruiser",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1444,8 +2756,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/eslint-plugin-boundaries.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1457,6 +2773,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "eslint-plugin-boundaries",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1469,8 +2800,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/madge.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1482,6 +2817,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "madge",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1494,8 +2844,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/jscpd.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1507,6 +2861,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "jscpd",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1519,8 +2888,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/sources/records/eslint.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "live-read-only",
         "legacyStatus": "REVIEW_METADATA_MISSING",
@@ -1532,6 +2905,21 @@
         "licenseSignal": "not checked",
         "notes": "Add a reviewed commit before monitoring this source.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "eslint",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1544,8 +2932,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        ".ai-toolkit/integrations/coderabbit.md",
+        "registries/tools.registry.json"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1557,6 +2949,21 @@
         "licenseSignal": "unknown-review-required",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "coderabbit",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1569,8 +2976,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/android-accessibility.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1582,6 +2993,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "android-accessibility",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1594,8 +3020,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/android-core-app-quality.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1607,6 +3037,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "android-core-app-quality",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1619,8 +3064,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/apple-accessibility.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1632,6 +3081,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "apple-accessibility",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1644,8 +3108,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/apple-human-interface-guidelines.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1657,6 +3125,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "apple-human-interface-guidelines",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1669,8 +3152,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/apple-privacy-manifests.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1682,6 +3169,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "apple-privacy-manifests",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1694,8 +3196,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/electron-security-guidance.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1707,6 +3213,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "electron-security-guidance",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1719,8 +3240,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/expo-documentation.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1732,6 +3257,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "expo-documentation",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1744,8 +3284,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/microsoft-windows-accessibility.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1757,6 +3301,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "microsoft-windows-accessibility",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1769,8 +3328,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/microsoft-windows-app-guidance.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1782,6 +3345,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "microsoft-windows-app-guidance",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1797,8 +3375,12 @@
       "comparisonRevision": "sha256:6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": false,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/nist-ssdf-ai.md"
+      ],
       "evidence": {
         "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1810,6 +3392,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "nist-ssdf-ai",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1825,8 +3422,12 @@
       "comparisonRevision": "sha256:ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": false,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/nist-ai-rmf-genai.md"
+      ],
       "evidence": {
         "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1838,6 +3439,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "nist-ai-rmf-genai",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1853,8 +3469,12 @@
       "comparisonRevision": "sha256:c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": false,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/owasp-llmsvs.md"
+      ],
       "evidence": {
         "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1866,6 +3486,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "owasp-llmsvs",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1881,8 +3516,12 @@
       "comparisonRevision": "sha256:7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": false,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/owasp-agentic-applications.md"
+      ],
       "evidence": {
         "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1894,6 +3533,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "owasp-agentic-applications",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1909,8 +3563,12 @@
       "comparisonRevision": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": false,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/slsa-v1-2.md"
+      ],
       "evidence": {
         "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1922,6 +3580,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "slsa-v1-2",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1937,8 +3610,12 @@
       "comparisonRevision": "sha256:d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": false,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/openssf-ai-code-assistant-instructions.md"
+      ],
       "evidence": {
         "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1950,6 +3627,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "openssf-ai-code-assistant-instructions",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1965,8 +3657,12 @@
       "comparisonRevision": "sha256:6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": false,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/nist-ssdf.md"
+      ],
       "evidence": {
         "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -1978,6 +3674,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "nist-ssdf",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -1993,8 +3704,12 @@
       "comparisonRevision": "sha256:76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": false,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/owasp-asvs.md"
+      ],
       "evidence": {
         "observationMode": "manual-receipt-only",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -2006,6 +3721,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "owasp-asvs",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -2018,8 +3748,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/owasp-masvs.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -2031,6 +3765,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "owasp-masvs",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -2043,8 +3792,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/tauri-security-guidance.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -2056,6 +3809,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "tauri-security-guidance",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -2068,8 +3836,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "registries/domain-packs.registry.json",
+        "sources/w3c-wcag-22.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -2081,6 +3853,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (30 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "w3c-wcag-22",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -2093,8 +3880,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "scripts/ai-toolkit/kernel/codex-adapter.mjs",
+        "sources/openai-codex-guidance.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -2106,6 +3897,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "openai-codex-guidance",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     },
     {
@@ -2118,8 +3924,12 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-21T11:56:51.432Z",
+      "checkedAt": "2026-07-22T17:12:14.101Z",
       "missingCurrentReview": true,
+      "catalogAffectedArtifacts": [
+        "scripts/ai-toolkit/kernel/claude-adapter.mjs",
+        "sources/anthropic-claude-code-subagents.md"
+      ],
       "evidence": {
         "observationMode": "manual-evidence-required",
         "legacyStatus": "MANUAL_REVIEW_TRACKED",
@@ -2131,6 +3941,21 @@
         "licenseSignal": "official-docs-terms-not-reviewed",
         "notes": "Manual reviewed-doc source tracked by watchlist; review URL on cadence (14 days) without import, install, activation, extraction, or runtime changes.",
         "watchedPathSignals": []
+      },
+      "capabilityImpact": {
+        "sourceId": "anthropic-claude-code-subagents",
+        "staleInputIds": [],
+        "synthesisDecisionIds": [],
+        "capabilityIds": [],
+        "artifactRefs": [],
+        "consumerRefs": [],
+        "compiledOutputs": [],
+        "mirrorOutputs": [],
+        "evaluationRefs": [],
+        "portfolioActionable": false,
+        "releaseBlocking": false,
+        "blockingResourceIds": [],
+        "reasons": []
       }
     }
   ]

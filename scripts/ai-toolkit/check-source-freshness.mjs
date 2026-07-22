@@ -211,11 +211,12 @@ function render(sources, mock, methodImpactIndex) {
   const lines = [
     "# Embedded Source Freshness Report",
     "",
-    mock ? "Generated from mock data." : "Live mode is intentionally not implemented in this embedded pass.",
+    mock ? "Generated from mock-only data; no live remote comparison was performed." : "Live mode is intentionally not implemented in this embedded pass.",
     "",
     `Generated at: ${generatedAt}`,
     "",
     "Read-only freshness signal only. No import, install, activation, extraction, CI wiring, MCP setup, or global config approval is granted.",
+    "Capability impact is unavailable in this embedded mock-only report and cannot be used as live freshness or release evidence.",
     "",
     "| Source | Repo | Status | Reviewed commit | Reviewed date | Affected methods | Next step |",
     "| --- | --- | --- | --- | --- | --- | --- |"
