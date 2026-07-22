@@ -1065,13 +1065,13 @@ async function loadCapabilityProjectionContext(watchlist, checkedAt) {
   }
   const loaded = await loadValidatedSourceCatalog({
     repositoryRoot: process.cwd(),
-    now: new Date().toISOString(),
+    now: checkedAt,
     includeCapabilityRegistry: true
   });
   return {
     registry: loaded.capabilityRegistry.registry,
-    resourceCatalog: [],
-    compilerInventory: EMPTY_COMPILER_INVENTORY,
+    resourceCatalog: loaded.capabilityRegistry.resourceCatalog,
+    compilerInventory: loaded.capabilityRegistry.compilerInventory,
     warnings: loaded.capabilityRegistry.warnings
   };
 }
@@ -1150,7 +1150,13 @@ function buildJsonReport(
       releaseBlockingSourceIds: accounting.releaseBlockingSourceIds,
       releaseNonblockingActionableCount: accounting.releaseNonblockingActionableCount
     },
-    capabilityImpactWarnings: capabilityProjectionContext.warnings,
+    capabilityImpactWarnings: [...capabilityProjectionContext.warnings].sort((left, right) => {
+      if (left.sourceId !== right.sourceId) return left.sourceId < right.sourceId ? -1 : 1;
+      if (left.code !== right.code) return left.code < right.code ? -1 : 1;
+      const leftMethodId = left.methodId || "";
+      const rightMethodId = right.methodId || "";
+      return leftMethodId === rightMethodId ? 0 : (leftMethodId < rightMethodId ? -1 : 1);
+    }),
     sources
   };
 }
@@ -1338,6 +1344,9 @@ function formatCapabilityImpact(impact) {
 function renderReport(results, useMock, checkedAt, jsonReport) {
   const generatedAt = checkedAt || new Date().toISOString();
   const impactBySourceId = new Map(jsonReport.sources.map((source) => [source.sourceId, source.capabilityImpact]));
+  const directCount = jsonReport.sources.filter((source) => ["COMPARISON_MATCH", "UPSTREAM_CHANGED"].includes(source.reasonCode)).length;
+  const degradedCount = jsonReport.sources.filter((source) => source.reasonCode.startsWith("DEGRADED_")).length;
+  const manualCount = jsonReport.sources.filter((source) => source.evidence.observationMode.startsWith("manual-")).length;
   const counts = new Map();
   for (const status of STATUSES) {
     counts.set(status, 0);
@@ -1349,7 +1358,9 @@ function renderReport(results, useMock, checkedAt, jsonReport) {
   const lines = [
     "# Source Freshness Report",
     "",
-    useMock ? "Generated report / sample report from mock data." : "Generated report from live GitHub metadata.",
+    useMock
+      ? "Generated report / sample report from mock data."
+      : `Generated from read-only observations: ${directCount} direct GitHub comparisons, ${degradedCount} degraded fallback comparisons, and ${manualCount} manual-receipt observations.`,
     "",
     `Generated at: ${generatedAt}`,
     "",
@@ -1367,9 +1378,23 @@ function renderReport(results, useMock, checkedAt, jsonReport) {
     `Release-blocking actionable sources: ${jsonReport.releaseScope.releaseBlockingSourceCount} (${jsonReport.releaseScope.releaseBlockingSourceIds.join(", ") || "none"}).`,
     `Release-nonblocking actionable sources: ${jsonReport.releaseScope.releaseNonblockingActionableCount}.`,
     `Supported release packs: ${jsonReport.releaseScope.supportedPackIds.join(", ") || "none"}.`,
+    `Capability-impact warnings: ${jsonReport.capabilityImpactWarnings.length}.`,
     "",
     "## Sources"
   ];
+
+  if (jsonReport.capabilityImpactWarnings.length > 0) {
+    lines.push(
+      "",
+      "## Capability Impact Warnings",
+      "",
+      "These are provenance assessment warnings, not source approval or runtime evidence.",
+      "",
+      "| Source | Warning |",
+      "| --- | --- |",
+      ...jsonReport.capabilityImpactWarnings.map((warning) => `| ${escapeCell(warning.sourceId)} | ${escapeCell(warning.code)} |`)
+    );
+  }
 
   for (const status of STATUSES) {
     const group = results.filter((result) => result.status === status);

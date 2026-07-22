@@ -170,6 +170,65 @@ function requireOptionalObservationHeader(value, field) {
   return value;
 }
 
+function requireStableStringArray(value, field) {
+  if (!Array.isArray(value)) fail(`${field} must be an array`);
+  const seen = new Set();
+  let previous = null;
+  for (const [index, entry] of value.entries()) {
+    requireString(entry, `${field}[${index}]`);
+    if (seen.has(entry)) fail(`${field} must not contain duplicates`);
+    if (previous !== null && previous.localeCompare(entry) > 0) fail(`${field} must be sorted`);
+    seen.add(entry);
+    previous = entry;
+  }
+  return value;
+}
+
+const CAPABILITY_IMPACT_ARRAY_FIELDS = Object.freeze([
+  "staleInputIds",
+  "synthesisDecisionIds",
+  "capabilityIds",
+  "artifactRefs",
+  "consumerRefs",
+  "compiledOutputs",
+  "mirrorOutputs",
+  "evaluationRefs",
+  "blockingResourceIds",
+  "reasons"
+]);
+
+function validateCapabilityImpactWarning(entry, catalogById, index) {
+  const field = `freshnessReport.capabilityImpactWarnings[${index}]`;
+  requireRecord(entry, field);
+  rejectUnknownFields(entry, new Set(["code", "sourceId", "methodId"]), field);
+  requireString(entry.code, `${field}.code`);
+  requireString(entry.sourceId, `${field}.sourceId`);
+  if (!catalogById.has(entry.sourceId)) fail(`${field}.sourceId does not resolve to the catalog`);
+  if (entry.code === "pending-method-source-assessment") {
+    requireString(entry.methodId, `${field}.methodId`);
+  } else if (entry.methodId !== undefined) {
+    fail(`${field}.methodId is only allowed for pending-method-source-assessment`);
+  }
+  return entry;
+}
+
+function validateCapabilityImpact(impact, sourceId, field) {
+  requireRecord(impact, field);
+  rejectUnknownFields(
+    impact,
+    new Set(["sourceId", ...CAPABILITY_IMPACT_ARRAY_FIELDS, "portfolioActionable", "releaseBlocking"]),
+    field
+  );
+  if (impact.sourceId !== sourceId) fail(`${field}.sourceId must match the freshness source`);
+  for (const name of CAPABILITY_IMPACT_ARRAY_FIELDS) requireStableStringArray(impact[name], `${field}.${name}`);
+  if (typeof impact.portfolioActionable !== "boolean") fail(`${field}.portfolioActionable must be boolean`);
+  if (typeof impact.releaseBlocking !== "boolean") fail(`${field}.releaseBlocking must be boolean`);
+  if (impact.releaseBlocking !== (impact.blockingResourceIds.length > 0)) {
+    fail(`${field}.releaseBlocking must match blockingResourceIds`);
+  }
+  return impact;
+}
+
 function requireManualObservationTestHooks(value) {
   if (value === undefined) return null;
   const hooks = requireRecord(value, "manual observation testHooks");
@@ -484,6 +543,7 @@ export function validateFreshnessReport(catalog, report, options = {}) {
       "actionableCount",
       "actionableCountsByScope",
       "releaseScope",
+      "capabilityImpactWarnings",
       "sources"
     ]),
     "freshnessReport"
@@ -517,6 +577,24 @@ export function validateFreshnessReport(catalog, report, options = {}) {
   if (!Array.isArray(report.sources)) fail("freshnessReport.sources must be an array");
   if (report.sources.length !== catalog.sources.length) fail("freshness report must include every catalog source exactly once");
   const catalogById = new Map(catalog.sources.map((entry) => [entry.id, entry]));
+  if (!Array.isArray(report.capabilityImpactWarnings)) {
+    fail("freshnessReport.capabilityImpactWarnings must be an array");
+  }
+  let previousWarning = null;
+  const warningKeys = new Set();
+  for (const [index, warning] of report.capabilityImpactWarnings.entries()) {
+    validateCapabilityImpactWarning(warning, catalogById, index);
+    const key = `${warning.sourceId}\0${warning.code}\0${warning.methodId || ""}`;
+    if (warningKeys.has(key)) fail("freshnessReport.capabilityImpactWarnings must not contain duplicates");
+  if (previousWarning !== null && (
+    previousWarning.sourceId > warning.sourceId
+    || (previousWarning.sourceId === warning.sourceId && previousWarning.code > warning.code)
+  )) {
+      fail("freshnessReport.capabilityImpactWarnings must be sorted by sourceId and code");
+    }
+    warningKeys.add(key);
+    previousWarning = warning;
+  }
   const requireCatalogAgreement = options.requireCatalogAgreement !== false;
   const seen = new Set();
   let actionableCount = 0;
@@ -536,6 +614,8 @@ export function validateFreshnessReport(catalog, report, options = {}) {
         "reasonCode",
         "checkedAt",
         "missingCurrentReview",
+        "catalogAffectedArtifacts",
+        "capabilityImpact",
         "evidence"
       ]),
       "freshnessReport source"
@@ -547,6 +627,16 @@ export function validateFreshnessReport(catalog, report, options = {}) {
     if (entry.identityKey !== source.identityKey || entry.scope !== source.scope) {
       fail(`freshness source identity or scope does not match catalog for ${entry.sourceId}`);
     }
+    requireStableStringArray(entry.catalogAffectedArtifacts, `freshnessReport.sources[${index}].catalogAffectedArtifacts`);
+    const expectedCatalogArtifacts = [...source.affectedArtifacts].sort((left, right) => left.localeCompare(right));
+    if (JSON.stringify(entry.catalogAffectedArtifacts) !== JSON.stringify(expectedCatalogArtifacts)) {
+      fail(`freshness catalogAffectedArtifacts does not match catalog for ${entry.sourceId}`);
+    }
+    validateCapabilityImpact(
+      entry.capabilityImpact,
+      entry.sourceId,
+      `freshnessReport.sources[${index}].capabilityImpact`
+    );
     if (requireCatalogAgreement && entry.monitorState !== source.monitor.state) {
       fail(`freshness monitor state does not match catalog for ${entry.sourceId}`);
     }

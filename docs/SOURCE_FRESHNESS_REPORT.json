@@ -5,7 +5,7 @@
     "catalogId": "enterprise-source-catalog",
     "sourceCount": 80
   },
-  "checkedAt": "2026-07-22T17:12:14.101Z",
+  "checkedAt": "2026-07-22T17:44:18.527Z",
   "mode": "live",
   "readOnly": true,
   "disclaimer": "Changed upstream source is not approved for import. This report does not authorize copying, installing, activating, extracting methods, updating source records, or changing runtime configuration.",
@@ -38,12 +38,117 @@
       "sourceId": "actionlint"
     },
     {
-      "code": "pending-source-assessment",
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.engineering-lifecycle-gates",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.frontend-uiux-quality-gates",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.tdd-verification-alignment",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "osmani.api-interface-design",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "osmani.code-review-quality",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "osmani.engineering-lifecycle-gates",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "osmani.frontend-ui-engineering",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "osmani.incremental-implementation",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "osmani.performance-optimization",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "osmani.security-hardening",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "osmani.shipping-launch",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "osmani.spec-driven-development",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "osmani.test-driven-development",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.accessibility",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.frontend-design",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.webapp-testing",
       "sourceId": "addy-osmani-agent-skills"
     },
     {
       "code": "pending-source-assessment",
+      "sourceId": "addy-osmani-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.webapp-testing",
       "sourceId": "addyosmani-web-quality-skills"
+    },
+    {
+      "code": "pending-source-assessment",
+      "sourceId": "addyosmani-web-quality-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.changed-file-neighborhood-selection",
+      "sourceId": "aider-repo-map"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.compact-agent-context-pack",
+      "sourceId": "aider-repo-map"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.project-context-preflight",
+      "sourceId": "aider-repo-map"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.project-map-staleness-check",
+      "sourceId": "aider-repo-map"
     },
     {
       "code": "pending-source-assessment",
@@ -60,6 +165,56 @@
     {
       "code": "pending-source-assessment",
       "sourceId": "anthropic-claude-code-subagents"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.frontend-uiux-quality-gates",
+      "sourceId": "anthropic-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.skill-anatomy",
+      "sourceId": "anthropic-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.source-discovery-workflow",
+      "sourceId": "anthropic-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.accessibility",
+      "sourceId": "anthropic-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.dashboard-ux",
+      "sourceId": "anthropic-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.design-system",
+      "sourceId": "anthropic-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.frontend-design",
+      "sourceId": "anthropic-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.interaction-motion",
+      "sourceId": "anthropic-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.premium-visual-quality",
+      "sourceId": "anthropic-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.responsive-layout",
+      "sourceId": "anthropic-skills"
     },
     {
       "code": "pending-source-assessment",
@@ -122,6 +277,11 @@
       "sourceId": "eslint-plugin-react-hooks"
     },
     {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.source-safety-scoring",
+      "sourceId": "everything-claude-code"
+    },
+    {
       "code": "pending-source-assessment",
       "sourceId": "everything-claude-code"
     },
@@ -132,6 +292,11 @@
     {
       "code": "pending-source-assessment",
       "sourceId": "github-gh"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.skill-anatomy",
+      "sourceId": "gitlab-agent-skills"
     },
     {
       "code": "pending-source-assessment",
@@ -154,6 +319,11 @@
       "sourceId": "harden-runner"
     },
     {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.premium-visual-quality",
+      "sourceId": "impeccable"
+    },
+    {
       "code": "pending-source-assessment",
       "sourceId": "impeccable"
     },
@@ -174,8 +344,63 @@
       "sourceId": "madge"
     },
     {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.simplicity-surgical-change-discipline",
+      "sourceId": "matt-pocock-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.tdd-verification-alignment",
+      "sourceId": "matt-pocock-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "matt.design-interface",
+      "sourceId": "matt-pocock-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "matt.git-guardrails",
+      "sourceId": "matt-pocock-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "matt.grill-me",
+      "sourceId": "matt-pocock-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "matt.improve-architecture",
+      "sourceId": "matt-pocock-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "matt.tdd",
+      "sourceId": "matt-pocock-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "matt.to-issues",
+      "sourceId": "matt-pocock-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "matt.to-prd",
+      "sourceId": "matt-pocock-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "matt.triage-issue",
+      "sourceId": "matt-pocock-skills"
+    },
+    {
       "code": "pending-source-assessment",
       "sourceId": "matt-pocock-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.webapp-testing",
+      "sourceId": "microsoft-playwright"
     },
     {
       "code": "pending-source-assessment",
@@ -188,6 +413,21 @@
     {
       "code": "pending-source-assessment",
       "sourceId": "microsoft-windows-app-guidance"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.documentation-accuracy-guard",
+      "sourceId": "nagdy-guard-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.simplicity-surgical-change-discipline",
+      "sourceId": "nagdy-guard-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.tdd-verification-alignment",
+      "sourceId": "nagdy-guard-skills"
     },
     {
       "code": "pending-source-assessment",
@@ -210,12 +450,52 @@
       "sourceId": "open-design"
     },
     {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.changed-file-neighborhood-selection",
+      "sourceId": "openai-codex-behavior-boundaries"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.compact-agent-context-pack",
+      "sourceId": "openai-codex-behavior-boundaries"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.project-context-preflight",
+      "sourceId": "openai-codex-behavior-boundaries"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.project-map-staleness-check",
+      "sourceId": "openai-codex-behavior-boundaries"
+    },
+    {
       "code": "pending-source-assessment",
       "sourceId": "openai-codex-behavior-boundaries"
     },
     {
       "code": "pending-source-assessment",
       "sourceId": "openai-codex-guidance"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.changed-file-neighborhood-selection",
+      "sourceId": "openai-prompt-caching"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.compact-agent-context-pack",
+      "sourceId": "openai-prompt-caching"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.project-context-preflight",
+      "sourceId": "openai-prompt-caching"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.project-map-staleness-check",
+      "sourceId": "openai-prompt-caching"
     },
     {
       "code": "pending-source-assessment",
@@ -270,6 +550,11 @@
       "sourceId": "renovate"
     },
     {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.compact-agent-context-pack",
+      "sourceId": "repomix"
+    },
+    {
       "code": "pending-source-assessment",
       "sourceId": "repomix"
     },
@@ -278,12 +563,22 @@
       "sourceId": "reviewdog"
     },
     {
+      "code": "pending-method-source-assessment",
+      "methodId": "orchestration.static-task-state-handoff-ledger",
+      "sourceId": "ruflo"
+    },
+    {
       "code": "pending-source-assessment",
       "sourceId": "ruflo"
     },
     {
       "code": "pending-source-assessment",
       "sourceId": "semgrep"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "uiux.design-system",
+      "sourceId": "shadcn-ui"
     },
     {
       "code": "pending-source-assessment",
@@ -298,8 +593,38 @@
       "sourceId": "socket"
     },
     {
+      "code": "pending-method-source-assessment",
+      "methodId": "api.api-contract-and-routing-readiness",
+      "sourceId": "supabase-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "backend.supabase-postgres-rls-gates",
+      "sourceId": "supabase-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "release.release-rollback-readiness",
+      "sourceId": "supabase-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "security.application-security-readiness",
+      "sourceId": "supabase-agent-skills"
+    },
+    {
       "code": "pending-source-assessment",
       "sourceId": "supabase-agent-skills"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.source-safety-scoring",
+      "sourceId": "superpowers"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "internal.tdd-verification-alignment",
+      "sourceId": "superpowers"
     },
     {
       "code": "pending-source-assessment",
@@ -312,6 +637,11 @@
     {
       "code": "pending-source-assessment",
       "sourceId": "testing-library"
+    },
+    {
+      "code": "pending-method-source-assessment",
+      "methodId": "security.differential-security-review",
+      "sourceId": "trailofbits-skills"
     },
     {
       "code": "pending-source-assessment",
@@ -367,8 +697,8 @@
       "contentDigest": "sha256:0d9683641353f633dce3eaf81f4e4e623f582dca382dc3657ab47cea1bbd1205",
       "comparisonRevision": "fa0fa64bdc967915dc8399e803be67759e1e62b8",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_COMPARISON_MATCH",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/anthropic-skills.md"
@@ -379,17 +709,11 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/anthropics/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-17T02:47:37Z",
-        "releaseSignal": "none found",
-        "licenseSignal": "not found",
-        "notes": "Default branch commit matches comparison baseline.",
-        "watchedPathSignals": [
-          {
-            "path": "skills/skill-creator",
-            "sha": "b9e19e6f44773509fbdd7001d77ff41a49a486c1",
-            "date": "2026-04-20T21:38:16Z"
-          }
-        ]
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: mixed-license)",
+        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
       },
       "capabilityImpact": {
         "sourceId": "anthropic-skills",
@@ -419,8 +743,8 @@
       "contentDigest": "sha256:011fb1b92f68e9ac8dec2c7549243e29c7598f0cdb3858e2191b9a711b7acd42",
       "comparisonRevision": "49f948faa9258a0c61caceaf225e179651397431",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_COMPARISON_MATCH",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/openai-skills.md"
@@ -431,10 +755,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/openai/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-06-24T02:36:12Z",
-        "releaseSignal": "none found",
-        "licenseSignal": "not found",
-        "notes": "Default branch commit matches comparison baseline.",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: mixed-license)",
+        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -465,8 +789,8 @@
       "contentDigest": "sha256:2524ae8cef4e01ca2cbdcf403fdd672ec024733a033207d3d5cdf8e55835170f",
       "comparisonRevision": "2fbfa004a0192529bc997d103fc12f19a3804aab",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/addy-osmani-agent-skills.md"
@@ -477,10 +801,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/addyosmani/agent-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-22T03:50:27Z",
-        "releaseSignal": "release 0.6.4",
-        "licenseSignal": "MIT (LICENSE)",
-        "notes": "Upstream default branch changed relative to the comparison baseline.",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -511,8 +835,8 @@
       "contentDigest": "sha256:9e455e4d2320510ba82fa789ae4bdd26b062e6c4c3b96d03ed1519ceada05794",
       "comparisonRevision": "1ad9aaeb49caafd9e95c0a91116f71890eebbc53",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_COMPARISON_MATCH",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/supabase-agent-skills.md"
@@ -523,10 +847,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/supabase/agent-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-10T15:50:32Z",
-        "releaseSignal": "release v0.1.6",
-        "licenseSignal": "MIT (LICENSE)",
-        "notes": "Default branch commit matches comparison baseline.",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -557,8 +881,8 @@
       "contentDigest": "sha256:005afb4b80ab79f5b8e45682a83c9682e29f4e5fad35b8be6e98a8571e8f1458",
       "comparisonRevision": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_COMPARISON_MATCH",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/trailofbits-skills.md"
@@ -569,10 +893,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/trailofbits/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-06-30T15:14:46Z",
-        "releaseSignal": "none found",
-        "licenseSignal": "CC-BY-SA-4.0 (LICENSE)",
-        "notes": "Default branch commit matches comparison baseline.",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: cc-by-sa)",
+        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -603,8 +927,8 @@
       "contentDigest": "sha256:70a063f98420952c75123fb345081672724aa72ccecfa8aa8203774e6f754aa6",
       "comparisonRevision": "a7b4d5e0e1fc36bcb2b1b2ae4ebeaddbd9473a21",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/playwright.md",
@@ -617,10 +941,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/microsoft/playwright",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-22T17:03:45Z",
-        "releaseSignal": "release v1.61.1",
-        "licenseSignal": "Apache-2.0 (LICENSE)",
-        "notes": "Upstream default branch changed relative to the comparison baseline.",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -651,8 +975,8 @@
       "contentDigest": "sha256:d5bf9493007ee27515a2e4e312035b40724043eacc8b7e5435fff2bc380080f5",
       "comparisonRevision": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_COMPARISON_MATCH",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/nagdy-guard-skills.md"
@@ -663,27 +987,11 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/mabdeltawab/Nagdy_guard-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-06-07T11:45:52Z",
-        "releaseSignal": "none found",
-        "licenseSignal": "MIT (LICENSE)",
-        "notes": "Default branch commit matches comparison baseline.",
-        "watchedPathSignals": [
-          {
-            "path": "skills/clean-code-guard",
-            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
-            "date": "2026-06-07T11:45:52Z"
-          },
-          {
-            "path": "skills/test-guard",
-            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
-            "date": "2026-06-07T11:45:52Z"
-          },
-          {
-            "path": "skills/docs-guard",
-            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
-            "date": "2026-06-07T11:45:52Z"
-          }
-        ]
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "watchedPathSignals": []
       },
       "capabilityImpact": {
         "sourceId": "nagdy-guard-skills",
@@ -713,8 +1021,8 @@
       "contentDigest": "sha256:ce2695944db0089f4bbbdae34802790dbb38fa9f51b5a449ba9b4389afe12470",
       "comparisonRevision": "ed37663cc5fbef691ddfecd080dff42f7e7e350d",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_COMPARISON_MATCH",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/matt-pocock-skills.md"
@@ -725,10 +1033,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/mattpocock/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-21T10:28:51Z",
-        "releaseSignal": "release v1.1.0",
-        "licenseSignal": "MIT (LICENSE)",
-        "notes": "Default branch commit matches comparison baseline.",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -754,13 +1062,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "3f47b9113a173bac4a72cefda4d4c3f2d89b8ab6"
+        "value": "37f364e293331b1bc55d7e8f627cc373cd45da86"
       },
-      "contentDigest": "sha256:ec8ca65be3b8903ee57ecc10c4c0901497be7991723554595a2619a1a34f0d5e",
+      "contentDigest": "sha256:ed237adef2bf9dd9b10e9568dd28bd65a88d526e6f0a99135a7617f37ea1f15e",
       "comparisonRevision": "20442886c5cfb440441c35030462fbdf64838655",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/shadcn-ui.md"
@@ -771,10 +1079,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/shadcn-ui/ui",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-22T11:05:55Z",
-        "releaseSignal": "release shadcn@4.14.0",
-        "licenseSignal": "MIT (LICENSE.md)",
-        "notes": "Upstream default branch changed relative to the comparison baseline.",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -805,8 +1113,8 @@
       "contentDigest": "sha256:3f1abebc85cc287a6e8e6b7460cd1c37257d3634462650c2f1cba71d49212f1b",
       "comparisonRevision": "95d6e255afe1596b557d7a8498517884438f5b3a",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_COMPARISON_MATCH",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/addyosmani-web-quality-skills.md"
@@ -817,10 +1125,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/addyosmani/web-quality-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-06-14T09:08:35Z",
-        "releaseSignal": "none found",
-        "licenseSignal": "MIT (LICENSE)",
-        "notes": "Default branch commit matches comparison baseline.",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -851,8 +1159,8 @@
       "contentDigest": "sha256:ae333fffcb3a026bc4bf76244ba8715992ddcff50a7604a0b2f40169d907ffb0",
       "comparisonRevision": "664b3e78fd1a298ba11973822da988483256d4b4",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_COMPARISON_MATCH",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/voltagent-awesome-design-md.md"
@@ -863,10 +1171,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/VoltAgent/awesome-design-md",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-06-16T14:21:08Z",
-        "releaseSignal": "none found",
-        "licenseSignal": "MIT (LICENSE)",
-        "notes": "Default branch commit matches comparison baseline.",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -897,8 +1205,8 @@
       "contentDigest": "sha256:f8670440f3724e6e13631b443345aa1c45f1dc49f61eec66464aa296092f801f",
       "comparisonRevision": "4d849eb75f216109ea7053ed21530a11fafcc786",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/impeccable.md"
@@ -909,10 +1217,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/pbakaus/impeccable",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "2026-07-22T07:44:15Z",
-        "releaseSignal": "release cli-v3.3.0",
-        "licenseSignal": "Apache-2.0 (LICENSE)",
-        "notes": "Upstream default branch changed relative to the comparison baseline.",
+        "latestCommitDate": "not checked (git ls-remote fallback)",
+        "releaseSignal": "not checked (git ls-remote fallback)",
+        "licenseSignal": "not checked (source record: clear)",
+        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -944,7 +1252,7 @@
       "comparisonRevision": "e0e028058b5259debdd94b78147c6d6c77bf7da2",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/uncodixfy.md"
@@ -990,7 +1298,7 @@
       "comparisonRevision": "d884ae04edebef577e82ff7c4e143debd0bbec99",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/superpowers.md"
@@ -1030,13 +1338,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "8348fb5387303060c1c2cfec37daf27e20a11df6"
+        "value": "b6652335d32d2f2a664e12a09af646bf644b6c86"
       },
-      "contentDigest": "sha256:075cea65d911c87f9e0cc8e46342b57b0e2c657e9d7f9fc011f534601b57dfc4",
+      "contentDigest": "sha256:7bbcf0af0f9d7b40d2d319c72b1ca11ecb0f6e2fff2cb30c2709707e80091b6e",
       "comparisonRevision": "5deee34c93395045b985e3baf91550e5f1ab7204",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/everything-claude-code.md"
@@ -1082,7 +1390,7 @@
       "comparisonRevision": "26c35b59b40a0a95b286ccf5ac675a15edcc995f",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/ruflo.md"
@@ -1125,7 +1433,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/gitlab-agent-skills.md"
@@ -1168,7 +1476,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/gitlab-agentic-tool-development.md"
@@ -1211,7 +1519,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/aider-repo-map.md"
@@ -1254,7 +1562,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/openai-prompt-caching.md"
@@ -1297,7 +1605,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/openai-codex-behavior-boundaries.md"
@@ -1343,7 +1651,7 @@
       "comparisonRevision": "a54feb42162b9041b3abeed735307fa72d5f46a1",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/gsd-core.md",
@@ -1391,7 +1699,7 @@
       "comparisonRevision": "bbab507f6d38f8e0a4a64c39cba4d068f31964e0",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/repomix.md",
@@ -1436,7 +1744,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/typescript.md",
@@ -1480,7 +1788,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/typescript-eslint.md",
@@ -1524,7 +1832,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/eslint-plugin-react-hooks.md",
@@ -1568,7 +1876,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/biome.md",
@@ -1612,7 +1920,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/oxlint.md",
@@ -1656,7 +1964,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/knip.md",
@@ -1700,7 +2008,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/react-doctor.md",
@@ -1744,7 +2052,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/vitest.md",
@@ -1788,7 +2096,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/testing-library.md",
@@ -1832,7 +2140,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/axe-playwright.md",
@@ -1876,7 +2184,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/lighthouse-ci.md",
@@ -1920,7 +2228,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/codeql.md",
@@ -1964,7 +2272,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/semgrep.md",
@@ -2008,7 +2316,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/gitleaks.md",
@@ -2052,7 +2360,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/trufflehog.md",
@@ -2096,7 +2404,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/osv-scanner.md",
@@ -2140,7 +2448,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/dependabot.md",
@@ -2184,7 +2492,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/renovate.md",
@@ -2228,7 +2536,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/socket.md",
@@ -2272,7 +2580,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/trivy.md",
@@ -2316,7 +2624,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/checkov.md",
@@ -2360,7 +2668,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/owasp-zap-baseline.md",
@@ -2404,7 +2712,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/actionlint.md",
@@ -2448,7 +2756,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/zizmor.md",
@@ -2492,7 +2800,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/harden-runner.md",
@@ -2536,7 +2844,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/reviewdog.md",
@@ -2580,7 +2888,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/github-gh.md",
@@ -2624,7 +2932,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/open-design.md",
@@ -2668,7 +2976,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/openssf-scorecard.md",
@@ -2712,7 +3020,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/dependency-cruiser.md",
@@ -2756,7 +3064,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/eslint-plugin-boundaries.md",
@@ -2800,7 +3108,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/madge.md",
@@ -2844,7 +3152,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/jscpd.md",
@@ -2888,7 +3196,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/eslint.md",
@@ -2932,7 +3240,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/integrations/coderabbit.md",
@@ -2976,7 +3284,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3020,7 +3328,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3064,7 +3372,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3108,7 +3416,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3152,7 +3460,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3196,7 +3504,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3240,7 +3548,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3284,7 +3592,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3328,7 +3636,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3375,7 +3683,7 @@
       "comparisonRevision": "sha256:6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3422,7 +3730,7 @@
       "comparisonRevision": "sha256:ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3469,7 +3777,7 @@
       "comparisonRevision": "sha256:c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3516,7 +3824,7 @@
       "comparisonRevision": "sha256:7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3563,7 +3871,7 @@
       "comparisonRevision": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3610,7 +3918,7 @@
       "comparisonRevision": "sha256:d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3657,7 +3965,7 @@
       "comparisonRevision": "sha256:6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3704,7 +4012,7 @@
       "comparisonRevision": "sha256:76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3748,7 +4056,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3792,7 +4100,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3836,7 +4144,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3880,7 +4188,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "scripts/ai-toolkit/kernel/codex-adapter.mjs",
@@ -3924,7 +4232,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T17:12:14.101Z",
+      "checkedAt": "2026-07-22T17:44:18.527Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "scripts/ai-toolkit/kernel/claude-adapter.mjs",

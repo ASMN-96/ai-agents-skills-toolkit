@@ -45,6 +45,24 @@ function refreshReportAccounting(report, catalog) {
   return report;
 }
 
+function emptyCapabilityImpact(sourceId) {
+  return {
+    sourceId,
+    staleInputIds: [],
+    synthesisDecisionIds: [],
+    capabilityIds: [],
+    artifactRefs: [],
+    consumerRefs: [],
+    compiledOutputs: [],
+    mirrorOutputs: [],
+    evaluationRefs: [],
+    portfolioActionable: false,
+    releaseBlocking: false,
+    blockingResourceIds: [],
+    reasons: []
+  };
+}
+
 function liveReport(catalog, checkedAt = NOW) {
   let changedAssigned = false;
   const sources = catalog.sources.map((source) => {
@@ -64,6 +82,8 @@ function liveReport(catalog, checkedAt = NOW) {
       contentDigest: changed ? DIGEST : null,
       checkedAt,
       missingCurrentReview: true,
+      catalogAffectedArtifacts: [...source.affectedArtifacts].sort(),
+      capabilityImpact: emptyCapabilityImpact(source.id),
       evidence: {
         observationMode: "live-read-only",
         legacyStatus: changed ? "CHANGED_HIGH_RISK" : "REVIEW_METADATA_MISSING",
@@ -89,6 +109,7 @@ function liveReport(catalog, checkedAt = NOW) {
     mode: "live",
     readOnly: true,
     disclaimer: "Observation only; no review, activation, install, or upstream execution.",
+    capabilityImpactWarnings: [],
     sources
   };
   return refreshReportAccounting(report, catalog);

@@ -14,16 +14,41 @@ import {
   validateSourceCapabilityRegistry,
   validateSourceCapabilityRepository
 } from "./source-synthesis-contract.mjs";
+import { buildResourceCatalog } from "./resource-catalog.mjs";
 
 const CATALOG_PATH = "sources/source-watchlist.json";
 const CAPABILITY_REGISTRY_PATH = "registries/source-capabilities.registry.json";
 
-function sourceCapabilityContext({ methodsRegistry, toolsRegistry, domainPacksRegistry }) {
+function parseMethodSourceRefs(text, methodPath) {
+  const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(text)?.[1];
+  const raw = /^sourceRef:\s*(.+)$/m.exec(frontmatter ?? "")?.[1]?.trim();
+  if (!raw) return [];
+  try {
+    const parsed = raw.startsWith("[") ? JSON.parse(raw) : raw.split(",").map((entry) => entry.trim());
+    if (!Array.isArray(parsed) || parsed.some((entry) => typeof entry !== "string" || entry.length === 0)) {
+      throw new Error("must contain source IDs");
+    }
+    return parsed;
+  } catch (error) {
+    throw new Error(`Source governance: method ${methodPath} has invalid sourceRef: ${error.message}`);
+  }
+}
+
+async function methodCapabilityContext(repositoryRoot, methodsRegistry) {
+  const methods = [];
+  for (const method of methodsRegistry?.methods ?? []) {
+    const candidate = path.resolve(repositoryRoot, ...method.methodPath.split("/"));
+    const trustedPath = assertRegularFileWithin(repositoryRoot, candidate, `method provenance ${method.id}`);
+    const text = await readFile(trustedPath, "utf8");
+    assertRegularFileWithin(repositoryRoot, trustedPath, `method provenance ${method.id} recheck`);
+    methods.push({ id: method.id, path: method.methodPath, sourceRef: parseMethodSourceRefs(text, method.methodPath) });
+  }
+  return methods;
+}
+
+function sourceCapabilityContext({ methods, toolsRegistry, domainPacksRegistry }) {
   return {
-    methods: (methodsRegistry?.methods ?? []).map((method) => ({
-      id: method.id,
-      path: method.methodPath
-    })),
+    methods,
     tools: (toolsRegistry?.tools ?? []).map((tool) => ({
       id: tool.id,
       path: tool.sourceRecordPath ?? "registries/tools.registry.json"
@@ -33,6 +58,26 @@ function sourceCapabilityContext({ methodsRegistry, toolsRegistry, domainPacksRe
       path: "registries/domain-packs.registry.json"
     }))
   };
+}
+
+function compilerInventory(agentsRegistry, embeddedManifest) {
+  const mirrorsBySource = new Map();
+  for (const mirror of embeddedManifest?.mirrors ?? []) {
+    const targets = mirrorsBySource.get(mirror.source) ?? [];
+    targets.push(mirror.target);
+    mirrorsBySource.set(mirror.source, targets);
+  }
+  const compiledOutputs = (agentsRegistry?.agents ?? [])
+    .filter((agent) => typeof agent.compiledFallbackPath === "string")
+    .map((agent) => ({
+      id: agent.compiledFallbackPath,
+      consumerRefs: [{ kind: "agent", id: agent.name }],
+      mirrorOutputRefs: [...new Set(mirrorsBySource.get(agent.compiledFallbackPath) ?? [])].sort()
+    }));
+  const mirrorOutputs = [...new Set((embeddedManifest?.mirrors ?? []).map((mirror) => mirror.target))]
+    .sort()
+    .map((id) => ({ id }));
+  return { compiledOutputs, mirrorOutputs };
 }
 
 function sha256Text(value) {
@@ -247,6 +292,15 @@ export async function loadValidatedSourceCatalog({
   const methodsRegistry = includeCapabilityRegistry
     ? await readDocument(root, "registries/methods.registry.json", "canonical methods registry for source capability validation")
     : null;
+  const agentsRegistry = includeCapabilityRegistry
+    ? await readDocument(root, "registries/agents.registry.json", "canonical agents registry for source capability validation")
+    : null;
+  const skillsRegistry = includeCapabilityRegistry
+    ? await readDocument(root, "registries/skills.registry.json", "canonical skills registry for source capability validation")
+    : null;
+  const embeddedManifest = includeCapabilityRegistry
+    ? await readDocument(root, ".ai-toolkit/manifest.json", "canonical embedded manifest for compiler impact inventory")
+    : null;
   const catalog = validateSourceCatalogGraph(before.parsed, {
     now,
     domainPacksRegistry: domainPacksRegistry.parsed,
@@ -280,8 +334,9 @@ export async function loadValidatedSourceCatalog({
       CAPABILITY_REGISTRY_PATH,
       "canonical SourceCapabilityRegistry v1"
     );
+    const methods = await methodCapabilityContext(root, methodsRegistry.parsed);
     const context = sourceCapabilityContext({
-      methodsRegistry: methodsRegistry.parsed,
+      methods,
       toolsRegistry: toolsRegistry.parsed,
       domainPacksRegistry: domainPacksRegistry.parsed
     });
@@ -294,6 +349,13 @@ export async function loadValidatedSourceCatalog({
     });
     capabilityRegistry = {
       registry,
+      resourceCatalog: buildResourceCatalog({
+        repositoryRoot: root,
+        agentsRegistry: agentsRegistry.parsed,
+        skillsRegistry: skillsRegistry.parsed,
+        toolsRegistry: toolsRegistry.parsed
+      }),
+      compilerInventory: compilerInventory(agentsRegistry.parsed, embeddedManifest.parsed),
       warnings: [
         ...deriveSourceCapabilityWarnings(registry, { catalog, ...context }),
         ...repositoryValidation.warnings
