@@ -97,6 +97,56 @@ test("compiler provenance rejects a synthesis with missing state", () => {
   );
 });
 
+test("compiler provenance rejects unsupported synthesis states", () => {
+  const registry = fixtureRegistry();
+  registry.syntheses[0].state = "forged-approved";
+  assert.throws(
+    () => deriveCompilerProvenance(fixtureAgent(), registry),
+    /unsupported synthesis state/i
+  );
+});
+
+test("compiler provenance validates dangling decision artifacts even when unconsumed", () => {
+  const registry = fixtureRegistry();
+  registry.syntheses[0].decisions[0].artifactRefs.push("method:missing");
+  assert.throws(
+    () => deriveCompilerProvenance(fixtureAgent(), registry),
+    /dangling decision artifact/i
+  );
+});
+
+test("compiler provenance rejects consumed artifacts that are not approved", () => {
+  const registry = fixtureRegistry();
+  registry.syntheses[1].state = "draft";
+  assert.throws(
+    () => deriveCompilerProvenance(fixtureAgent(), registry),
+    /unapproved consumed provenance/i
+  );
+});
+
+test("compiler provenance rejects duplicate decision and artifact IDs across syntheses", () => {
+  const duplicateDecision = fixtureRegistry();
+  duplicateDecision.syntheses[0].decisions[0].id = "uiux-method-decision";
+  duplicateDecision.syntheses[0].artifactRefs[0].decisionRefs = ["uiux-method-decision"];
+  assert.throws(
+    () => deriveCompilerProvenance(fixtureAgent(), duplicateDecision),
+    /duplicate decision id/i
+  );
+
+  const duplicateArtifact = fixtureRegistry();
+  duplicateArtifact.syntheses[0].artifactRefs[0] = {
+    id: "method:uiux.visual-direction",
+    kind: "method",
+    resourceId: "uiux.visual-direction",
+    decisionRefs: ["security-decision"]
+  };
+  duplicateArtifact.syntheses[0].decisions[0].artifactRefs = ["method:uiux.visual-direction"];
+  assert.throws(
+    () => deriveCompilerProvenance(fixtureAgent(), duplicateArtifact),
+    /duplicate artifact id/i
+  );
+});
+
 test("compiler preview and shared provenance policy produce the same compiler digest", async () => {
   const inputs = await Promise.all(COMPILER_DIGEST_PATHS.map(async (relativePath) => ({
     relativePath,

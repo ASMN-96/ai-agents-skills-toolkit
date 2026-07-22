@@ -5,6 +5,7 @@ export const COMPILER_DIGEST_PATHS = Object.freeze([
   "scripts/ai-toolkit/compiler-provenance.mjs",
   "install/safe-filesystem.mjs"
 ]);
+const SYNTHESIS_STATES = new Set(["draft", "approved", "superseded"]);
 
 export function resolveProfileSourcePath(profile) {
   const profileName = typeof profile?.name === "string" && profile.name.trim()
@@ -81,8 +82,9 @@ export function deriveCompilerProvenance(agent, registry) {
     decisionRefs: new Set()
   };
   const synthesisIds = new Set();
-  const availableArtifactKeys = new Set();
-  let hasApprovedSynthesis = false;
+  const decisionIds = new Set();
+  const artifactIds = new Set();
+  const consumedArtifacts = new Map();
 
   for (const synthesis of registry.syntheses) {
     if (synthesis === null || typeof synthesis !== "object" || Array.isArray(synthesis)) {
@@ -96,13 +98,15 @@ export function deriveCompilerProvenance(agent, registry) {
     if (typeof synthesis.capabilityId !== "string" || synthesis.capabilityId.length === 0) {
       throw new Error(`compiler provenance synthesis ${synthesis.id} has no capabilityId`);
     }
-    if (typeof synthesis.state !== "string" || synthesis.state.length === 0) {
-      throw new Error(`compiler provenance synthesis ${synthesis.id} has no synthesis state`);
+    if (!SYNTHESIS_STATES.has(synthesis.state)) {
+      if (typeof synthesis.state !== "string" || synthesis.state.length === 0) {
+        throw new Error(`compiler provenance synthesis ${synthesis.id} has no synthesis state`);
+      }
+      throw new Error(`compiler provenance synthesis ${synthesis.id} has unsupported synthesis state: ${synthesis.state}`);
     }
     if (!Array.isArray(synthesis.artifactRefs) || !Array.isArray(synthesis.decisions)) {
       throw new Error(`compiler provenance synthesis ${synthesis.id} is missing artifact or decision provenance`);
     }
-    if (synthesis.state === "approved") hasApprovedSynthesis = true;
 
     const decisions = new Map();
     for (const decision of synthesis.decisions) {
@@ -110,10 +114,13 @@ export function deriveCompilerProvenance(agent, registry) {
         throw new Error(`compiler provenance synthesis ${synthesis.id} has an invalid decision`);
       }
       if (decisions.has(decision.id)) throw new Error(`duplicate decision id in synthesis ${synthesis.id}: ${decision.id}`);
+      if (decisionIds.has(decision.id)) throw new Error(`duplicate decision id: ${decision.id}`);
+      decisionIds.add(decision.id);
       decisions.set(decision.id, new Set(requireStringArray(decision.artifactRefs, `decision ${decision.id} artifactRefs`)));
     }
 
-    const artifactIds = new Set();
+    const synthesisArtifactIds = new Set();
+    const artifactDecisionRefs = new Map();
     for (const artifact of synthesis.artifactRefs) {
       if (artifact === null || typeof artifact !== "object" || Array.isArray(artifact)
         || typeof artifact.id !== "string" || artifact.id.length === 0
@@ -122,10 +129,12 @@ export function deriveCompilerProvenance(agent, registry) {
       }
       const key = `${artifact.kind}:${artifact.resourceId}`;
       if (artifact.id !== key) throw new Error(`compiler provenance artifact id does not bind kind and resourceId: ${artifact.id}`);
-      if (artifactIds.has(artifact.id)) throw new Error(`duplicate artifact id in synthesis ${synthesis.id}: ${artifact.id}`);
+      if (synthesisArtifactIds.has(artifact.id)) throw new Error(`duplicate artifact id in synthesis ${synthesis.id}: ${artifact.id}`);
+      if (artifactIds.has(artifact.id)) throw new Error(`duplicate artifact id: ${artifact.id}`);
+      synthesisArtifactIds.add(artifact.id);
       artifactIds.add(artifact.id);
-      availableArtifactKeys.add(key);
       const decisionRefs = requireStringArray(artifact.decisionRefs, `artifact ${artifact.id} decisionRefs`);
+      artifactDecisionRefs.set(artifact.id, new Set(decisionRefs));
       for (const decisionRef of decisionRefs) {
         const decisionArtifacts = decisions.get(decisionRef);
         if (!decisionArtifacts) throw new Error(`dangling decision provenance ${decisionRef} for artifact ${artifact.id}`);
@@ -133,17 +142,39 @@ export function deriveCompilerProvenance(agent, registry) {
           throw new Error(`unreciprocated decision provenance ${decisionRef} for artifact ${artifact.id}`);
         }
       }
-      if (synthesis.state !== "approved" || !consumedArtifactKeys.has(key)) continue;
-      selected.capabilityIds.add(synthesis.capabilityId);
-      selected.synthesisIds.add(synthesis.id);
-      for (const decisionRef of decisionRefs) selected.decisionRefs.add(decisionRef);
+      if (consumedArtifactKeys.has(key)) {
+        const matches = consumedArtifacts.get(key) ?? [];
+        matches.push({ synthesis, decisionRefs });
+        consumedArtifacts.set(key, matches);
+      }
+    }
+
+    for (const [decisionId, decisionArtifactIds] of decisions) {
+      for (const artifactId of decisionArtifactIds) {
+        if (!synthesisArtifactIds.has(artifactId)) {
+          throw new Error(`dangling decision artifact ${artifactId} for decision ${decisionId}`);
+        }
+        if (!artifactDecisionRefs.get(artifactId).has(decisionId)) {
+          throw new Error(`unreciprocated decision artifact ${artifactId} for decision ${decisionId}`);
+        }
+      }
     }
   }
 
   for (const key of consumedArtifactKeys) {
-    if (hasApprovedSynthesis && !availableArtifactKeys.has(key)) {
+    const matches = consumedArtifacts.get(key) ?? [];
+    if (matches.length === 0 && synthesisIds.size > 0) {
       const [kind] = key.split(":", 1);
       throw new Error(`dangling consumed ${kind} provenance: ${key}`);
+    }
+    const approved = matches.filter(({ synthesis }) => synthesis.state === "approved");
+    if (matches.length > 0 && approved.length === 0) {
+      throw new Error(`unapproved consumed provenance: ${key}`);
+    }
+    for (const { synthesis, decisionRefs } of approved) {
+      selected.capabilityIds.add(synthesis.capabilityId);
+      selected.synthesisIds.add(synthesis.id);
+      for (const decisionRef of decisionRefs) selected.decisionRefs.add(decisionRef);
     }
   }
 
