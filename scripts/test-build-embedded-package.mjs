@@ -550,6 +550,25 @@ test("build promotes a schema-v2 package without rewriting canonical registries 
       "canonical digest normalization must not rewrite a byte-identical mirror"
     );
 
+    const sourceCapabilitySource = "registries/source-capabilities.registry.json";
+    const sourceCapabilityTarget = ".ai-toolkit/registries/source-capabilities.registry.json";
+    const sourceCapabilitySourceBytes = readFileSync(path.join(fixture, ...sourceCapabilitySource.split("/")));
+    const sourceCapabilityTargetBytes = readFileSync(path.join(fixture, ...sourceCapabilityTarget.split("/")));
+    assert.deepEqual(
+      sourceCapabilityTargetBytes,
+      sourceCapabilitySourceBytes,
+      "fresh generation must preserve the source-capabilities registry bytes"
+    );
+    const sourceCapabilityMirror = manifest.mirrors.find((entry) => (
+      entry.source === sourceCapabilitySource && entry.target === sourceCapabilityTarget
+    ));
+    assert.deepEqual(sourceCapabilityMirror, {
+      source: sourceCapabilitySource,
+      target: sourceCapabilityTarget,
+      mode: "byte-identical",
+      sha256: canonicalTextSha256(sourceCapabilityTargetBytes)
+    });
+
     const packageRoot = path.join(embeddedRoot, "runtime", "delivery-kernel");
     const packageManifestPath = path.join(packageRoot, "package-manifest.json");
     const packageManifest = JSON.parse(readFileSync(packageManifestPath, "utf8"));
@@ -584,6 +603,12 @@ test("build promotes a schema-v2 package without rewriting canonical registries 
       "templates/delivery-kernel.request.example.json"
     ];
     const attestedFiles = new Map(packageManifest.files.map((entry) => [entry.path, entry.sha256]));
+    assert.equal(existsSync(path.join(packageRoot, "registries", "source-capabilities.registry.json")), false);
+    assert.equal(attestedFiles.has("registries/source-capabilities.registry.json"), false);
+    assert.equal(
+      packageManifest.registries.includes("registries/source-capabilities.registry.json"),
+      false
+    );
     for (const relativePath of requiredFiles) {
       const fullPath = path.join(packageRoot, ...relativePath.split("/"));
       assert.equal(existsSync(fullPath), true, `missing self-contained package file ${relativePath}`);
