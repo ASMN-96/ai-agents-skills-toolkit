@@ -1334,6 +1334,9 @@ function formatCapabilityImpact(impact) {
   const details = [
     ["capabilities", impact.capabilityIds],
     ["artifacts", impact.artifactRefs],
+    ["consumerRefs", impact.consumerRefs],
+    ["compiledOutputs", impact.compiledOutputs],
+    ["mirrorOutputs", impact.mirrorOutputs],
     ["evals", impact.evaluationRefs]
   ]
     .filter(([, values]) => Array.isArray(values) && values.length > 0)

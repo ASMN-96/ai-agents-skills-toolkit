@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { cp, mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -130,6 +131,203 @@ async function runFreshness(cwd, args) {
   }
 }
 
+function sha256(value) {
+  return `sha256:${createHash("sha256").update(value).digest("hex")}`;
+}
+
+async function writeJson(filePath, value) {
+  await mkdir(path.dirname(filePath), { recursive: true });
+  await writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+}
+
+async function temporaryCanonicalProjectionRoot() {
+  const root = await mkdtemp(path.join(os.tmpdir(), "source-freshness-cli-projection-"));
+  await mkdir(path.join(root, "docs"), { recursive: true });
+  const copy = async (relativePath) => cp(path.join(ROOT, relativePath), path.join(root, relativePath), { recursive: true });
+  await copy("sources");
+  await copy("registries");
+  await copy(".ai-toolkit/manifest.json");
+  await copy("agents/uiux-agent.md");
+  await copy("compiled-agents/uiux-agent.compiled.md");
+  await copy(".codex/agents/uiux-agent.toml");
+  await copy("evals/skills/uiux-evals.json");
+
+  const catalog = JSON.parse(await readFile(path.join(root, "sources", "source-watchlist.json"), "utf8"));
+  const source = structuredClone(catalog.sources.find((entry) => entry.id === "openai-skills"));
+  const firstSource = structuredClone(catalog.sources.find((entry) => entry.id === "superpowers"));
+  const receiptFor = (entry) => {
+    const reviewedRevision = { kind: "git-sha", value: entry.lastReviewedCommit };
+    const contentDigest = `sha256:${entry.id === source.id ? "b".repeat(64) : "a".repeat(64)}`;
+    return {
+      schemaVersion: "1.0.0",
+      receiptId: `${entry.id}:${reviewedRevision.value}`,
+      sourceId: entry.id,
+      reviewedRevision,
+      contentDigest,
+      reviewedAt: "2026-07-10T00:00:00.000Z",
+      expiresAt: "2026-07-24T00:00:00.000Z",
+      licenseReview: { classification: "unknown", evidence: [entry.sourceUrl], notes: "Temporary fixture review." },
+      securityReview: { status: "restricted", evidence: ["No source operation was executed."], dangerousOperations: ["None executed."], networkBehavior: ["No source network behavior was followed."], secretAccess: ["No credentials were supplied."] },
+      promptInjectionReview: { status: "restricted", evidence: ["Source instructions were untrusted."], rejectedInstructions: ["No source instruction was executed."] },
+      adoption: { disposition: "SYNCED_REFERENCE", summary: "Temporary metadata-only reference.", cleanRoomOnly: true, runtimePosture: "metadata-only" },
+      affectedArtifacts: entry.affectedArtifacts,
+      artifactEvidence: { mode: "reference-only-no-copy", noCopy: true, reason: "No upstream content was copied." },
+      approver: { identity: "repository-owner:abdal", approvedAt: "2026-07-10T00:00:01.000Z" },
+      rollbackTarget: { previousReceipt: null, previousReceiptDigest: null, artifactRevision: "a".repeat(40) }
+    };
+  };
+  const makeReviewed = async (entry, scope) => {
+    const receipt = receiptFor(entry);
+    const receiptPath = `sources/reviews/${entry.id}/${receipt.reviewedRevision.value}.json`;
+    const receiptText = `${JSON.stringify(receipt, null, 2)}\n`;
+    await mkdir(path.dirname(path.join(root, ...receiptPath.split("/"))), { recursive: true });
+    await writeFile(path.join(root, ...receiptPath.split("/")), receiptText, "utf8");
+    entry.scope = scope;
+    entry.runtimePosture = "metadata-only";
+    entry.monitor = { state: "CURRENT", checkedAt: "2026-07-10T00:00:00.000Z", observedRevision: receipt.reviewedRevision, contentDigest: receipt.contentDigest, failureReason: null };
+    entry.review = { state: "REVIEWED_CURRENT", currentReceipt: receiptPath, previousReceipt: null, receiptDigest: sha256(receiptText), previousReceiptDigest: null, reviewedRevision: receipt.reviewedRevision, reviewedDigest: receipt.contentDigest, reviewedAt: receipt.reviewedAt, expiresAt: receipt.expiresAt, disposition: "SYNCED_REFERENCE" };
+    return entry;
+  };
+  await makeReviewed(firstSource, "community-reference");
+  await makeReviewed(source, "core");
+  catalog.sources = [firstSource, source];
+  await writeJson(path.join(root, "sources", "source-watchlist.json"), catalog);
+
+  const domainPacks = JSON.parse(await readFile(path.join(root, "registries", "domain-packs.registry.json"), "utf8"));
+  const enterpriseCore = domainPacks.packs.find((pack) => pack.id === "enterprise-core");
+  domainPacks.packs = [{
+    ...enterpriseCore,
+    gates: enterpriseCore.gates.filter((gate) => gate.id === "enterprise-low-risk-scope-review").map((gate) => ({
+      ...gate,
+      authoritativeSourceRefs: [{ sourceId: source.id, locator: "temporary governed context" }]
+    }))
+  }];
+  await writeJson(path.join(root, "registries", "domain-packs.registry.json"), domainPacks);
+
+  const methods = JSON.parse(await readFile(path.join(root, "registries", "methods.registry.json"), "utf8"));
+  methods.methods = [{
+    ...methods.methods.find((entry) => entry.id === "uiux.premium-visual-quality"),
+    methodPath: "methods/uiux/premium-visual-quality.md"
+  }];
+  await writeJson(path.join(root, "registries", "methods.registry.json"), methods);
+  await mkdir(path.join(root, "methods", "uiux"), { recursive: true });
+  await writeFile(
+    path.join(root, "methods", "uiux", "premium-visual-quality.md"),
+    "---\nsourceRef: openai-skills\n---\n\nTemporary canonical projection method.\n",
+    "utf8"
+  );
+
+  const agents = JSON.parse(await readFile(path.join(root, "registries", "agents.registry.json"), "utf8"));
+  agents.agents = [agents.agents.find((entry) => entry.name === "uiux-agent")];
+  await writeJson(path.join(root, "registries", "agents.registry.json"), agents);
+  const skills = JSON.parse(await readFile(path.join(root, "registries", "skills.registry.json"), "utf8"));
+  skills.skills = [];
+  await writeJson(path.join(root, "registries", "skills.registry.json"), skills);
+  const tools = JSON.parse(await readFile(path.join(root, "registries", "tools.registry.json"), "utf8"));
+  tools.tools = [];
+  await writeJson(path.join(root, "registries", "tools.registry.json"), tools);
+
+  const methodPath = "methods/uiux/premium-visual-quality.md";
+  const domainPath = "registries/domain-packs.registry.json";
+  const evaluationPath = "evals/skills/uiux-evals.json";
+  const [methodText, domainText, evaluationText] = await Promise.all([
+    readFile(path.join(root, methodPath)),
+    readFile(path.join(root, domainPath)),
+    readFile(path.join(root, evaluationPath))
+  ]);
+  const sourceAssessment = {
+    sourceId: source.id,
+    state: "assessed-current",
+    assessmentRevision: source.review.reviewedRevision,
+    contentDigest: source.review.reviewedDigest,
+    receiptPath: source.review.currentReceipt,
+    receiptDigest: source.review.receiptDigest,
+    valueStatement: "Temporary approved source assessment for projection coverage.",
+    nicheIds: ["uiux.visual-quality"],
+    contributionRefs: ["uiux.visual-direction:context"],
+    overlapSourceIds: [],
+    rejectedSummary: "No raw source content is adopted.",
+    nextReviewTriggers: ["source-revision-changed"]
+  };
+  const capabilityRegistry = {
+    schemaVersion: "1.0.0",
+    registryType: "source-capabilities",
+    sourceCatalog: "sources/source-watchlist.json",
+    sourceAssessments: [sourceAssessment, {
+      sourceId: firstSource.id,
+      state: "pending-review",
+      evidenceGaps: ["Temporary fixture does not assess the gate reference source."],
+      plannedNicheIds: [],
+      nextReviewTriggers: ["source-revision-changed"]
+    }].sort((left, right) => left.sourceId.localeCompare(right.sourceId)),
+    capabilities: [{
+      id: "uiux.visual-direction",
+      displayName: "Visual Direction",
+      niche: "uiux.visual-quality",
+      purpose: "Temporary provenance-only projection coverage.",
+      lifecycle: "active",
+      ownerRef: { kind: "method", id: "uiux.premium-visual-quality", path: methodPath },
+      activeSynthesisId: "uiux.visual-direction@1",
+      consumerRefs: [{ kind: "agent", id: "uiux-agent", path: "agents/uiux-agent.md" }]
+    }],
+    syntheses: [{
+      id: "uiux.visual-direction@1",
+      capabilityId: "uiux.visual-direction",
+      version: 1,
+      state: "approved",
+      strategy: "best-of-breed",
+      inputs: [{
+        id: "nist-context",
+        sourceId: source.id,
+        role: "primary",
+        receiptPath: source.review.currentReceipt,
+        receiptDigest: source.review.receiptDigest,
+        reviewedRevision: source.review.reviewedRevision,
+        contentDigest: source.review.reviewedDigest,
+        locators: [{ kind: "document-section", value: "governed-context" }]
+      }],
+      decisions: [{
+        id: "adapt-context",
+        outcome: "adapted",
+        inputRefs: ["nist-context"],
+        contributionKinds: ["workflow"],
+        summary: "Adapted clean-room workflow.",
+        adaptationMethod: "clean-room-paraphrase-and-harden",
+        rationale: "Preserves safety and compatibility.",
+        artifactRefs: ["domain-gate:enterprise-low-risk-scope-review", "method:uiux.premium-visual-quality"],
+        evaluationRefs: ["eval:design-system-consistency"],
+        restrictions: ["no-upstream-prompt-copy"]
+      }],
+      artifactRefs: [{
+        id: "domain-gate:enterprise-low-risk-scope-review",
+        kind: "domain-gate",
+        resourceId: "enterprise-low-risk-scope-review",
+        path: domainPath,
+        contentDigest: sha256(domainText),
+        decisionRefs: ["adapt-context"]
+      }, {
+        id: "method:uiux.premium-visual-quality",
+        kind: "method",
+        resourceId: "uiux.premium-visual-quality",
+        path: methodPath,
+        contentDigest: sha256(methodText),
+        decisionRefs: ["adapt-context"]
+      }],
+      evaluationRefs: [{
+        id: "eval:design-system-consistency",
+        path: evaluationPath,
+        caseIds: ["design-system-consistency"],
+        evidenceKind: "static-eval",
+        contentDigest: sha256(evaluationText),
+        decisionRefs: ["adapt-context"]
+      }],
+      updatePolicy: { onSourceChange: "re-review-dependent-decisions" }
+    }]
+  };
+  await writeJson(path.join(root, "registries", "source-capabilities.registry.json"), capabilityRegistry);
+  return root;
+}
+
 test("freshness capability projection narrows exact locator impact", () => {
   const fixture = impactFixture({ twoInputs: true });
   const impact = deriveFreshnessCapabilityImpact({
@@ -185,6 +383,38 @@ test("freshness capability projection reports no contribution without inferring 
   assert.deepEqual(impact.staleInputIds, []);
   assert.deepEqual(impact.artifactRefs, []);
   assert.equal(impact.portfolioActionable, false);
+});
+
+test("CLI loads canonical active synthesis provenance through method, consumer, compiler, mirror, eval, and domain-gate artifacts", async () => {
+  const cwd = await temporaryCanonicalProjectionRoot();
+  try {
+    const result = await runFreshness(cwd, [
+      "--output", "docs/SOURCE_FRESHNESS_REPORT.md",
+      "--json-output", "docs/SOURCE_FRESHNESS_REPORT.json"
+    ]);
+    assert.equal(result.code, 0, result.stderr);
+    const report = JSON.parse(await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_REPORT.json"), "utf8"));
+    const impact = report.sources.find((entry) => entry.sourceId === "openai-skills").capabilityImpact;
+    assert.deepEqual(impact.artifactRefs, [
+      "domain-gate:enterprise-low-risk-scope-review",
+      "method:uiux.premium-visual-quality"
+    ]);
+    assert.deepEqual(impact.consumerRefs, ["agent:uiux-agent"]);
+    assert.deepEqual(impact.compiledOutputs, ["compiled-agents/uiux-agent.compiled.md"]);
+    assert.deepEqual(impact.mirrorOutputs, [".ai-toolkit/compiled-agents/uiux-agent.compiled.md"]);
+    assert.deepEqual(impact.evaluationRefs, ["eval:design-system-consistency"]);
+    assert.equal(impact.portfolioActionable, true);
+    assert.equal(impact.releaseBlocking, false);
+    const markdown = await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_REPORT.md"), "utf8");
+    assert.match(markdown, /method:uiux\.premium-visual-quality/);
+    assert.match(markdown, /domain-gate:enterprise-low-risk-scope-review/);
+    assert.match(markdown, /consumerRefs: agent:uiux-agent/);
+    assert.match(markdown, /compiledOutputs: compiled-agents\/uiux-agent\.compiled\.md/);
+    assert.match(markdown, /mirrorOutputs: \.ai-toolkit\/compiled-agents\/uiux-agent\.compiled\.md/);
+    assert.match(markdown, /evals: eval:design-system-consistency/);
+  } finally {
+    await rm(cwd, { recursive: true, force: true });
+  }
 });
 
 test("embedded freshness checker remains mock-only and does not claim live remote evidence", async () => {
