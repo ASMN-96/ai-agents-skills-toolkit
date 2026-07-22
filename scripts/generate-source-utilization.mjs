@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-import { readFileSync } from "node:fs";
+import { randomUUID } from "node:crypto";
+import { readFileSync, renameSync, rmSync } from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
-import { assertRegularFileWithin, runManagedDirectoryTransaction } from "../install/safe-filesystem.mjs";
+import { assertRegularFileWithin, writeManagedNewFile } from "../install/safe-filesystem.mjs";
 import {
   buildSourceUtilizationModel,
   loadSourceUtilizationInputs,
@@ -29,11 +30,12 @@ function currentReport(root) {
   }
 }
 
-export async function generateSourceUtilization({ repositoryRoot = process.cwd(), mode = "dry-run" } = {}) {
+export async function generateSourceUtilization({ repositoryRoot = process.cwd(), mode = "dry-run", beforeReplace, validateCanonical = true } = {}) {
   const root = path.resolve(repositoryRoot);
   if (!new Set(["dry-run", "check", "confirm-write"]).has(mode)) throw new Error(`unsupported mode: ${mode}`);
-  const inputs = await loadSourceUtilizationInputs(root);
-  const expected = Buffer.from(renderSourceUtilizationMatrix(buildSourceUtilizationModel(inputs)), "utf8");
+  if (beforeReplace !== undefined && typeof beforeReplace !== "function") throw new Error("beforeReplace must be a function when supplied");
+  const inputs = await loadSourceUtilizationInputs(root, { validateCanonical });
+  const expected = Buffer.from(renderSourceUtilizationMatrix(buildSourceUtilizationModel({ ...inputs, validateCanonical })), "utf8");
   const actual = currentReport(root);
   const matched = actual !== null && Buffer.compare(actual, expected) === 0;
   const result = { mode, reportPath: REPORT_PATH, bytes: expected.length, matched, written: false };
@@ -44,26 +46,27 @@ export async function generateSourceUtilization({ repositoryRoot = process.cwd()
   }
   if (matched) return result;
 
-  const observed = actual;
-  runManagedDirectoryTransaction({
-    repositoryRoot: root,
-    managedRoot: path.join(root, "docs"),
-    label: "source utilization report generation",
-    prepare(staging) {
-      staging.writeFile("SOURCE_UTILIZATION_MATRIX.md", expected, undefined, "generated source utilization report");
-    },
-    beforeBackup() {
-      const latest = currentReport(root);
-      if ((latest === null) !== (observed === null) || (latest && observed && Buffer.compare(latest, observed) !== 0)) {
-        throw new Error("source utilization report changed during generation; retry");
-      }
-    },
-    validate(staging) {
-      if (!Buffer.from(staging.readFile("SOURCE_UTILIZATION_MATRIX.md")).equals(expected)) {
-        throw new Error("staged source utilization report does not match canonical rendering");
-      }
-    }
+  if (actual === null) throw new Error("source utilization report is missing; refusing unmanaged target creation");
+  const reportPath = path.join(root, REPORT_PATH);
+  const temporaryPath = writeManagedNewFile({
+    root: path.join(root, "docs"),
+    candidate: path.join(root, "docs", `.SOURCE_UTILIZATION_MATRIX.${randomUUID()}.tmp`),
+    contents: expected,
+    label: "source utilization report temporary file"
   });
+  try {
+    await beforeReplace?.();
+    const latest = currentReport(root);
+    if (latest === null || Buffer.compare(latest, actual) !== 0) {
+      throw new Error("source utilization report changed before atomic replacement; retry");
+    }
+    assertRegularFileWithin(root, reportPath, "source utilization report before atomic replacement");
+    renameSync(temporaryPath, reportPath);
+    const replaced = readFileSync(assertRegularFileWithin(root, reportPath, "source utilization report after atomic replacement"));
+    if (!replaced.equals(expected)) throw new Error("source utilization report atomic replacement did not preserve canonical bytes");
+  } finally {
+    rmSync(temporaryPath, { force: true });
+  }
   return { ...result, matched: true, written: true };
 }
 

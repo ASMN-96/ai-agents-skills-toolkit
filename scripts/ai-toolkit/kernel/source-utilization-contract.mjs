@@ -52,8 +52,60 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function cells(line) {
-  return line.trim().slice(1, -1).split("|").map((cell) => cell.trim());
+export function encodeMarkdownTableCell(value) {
+  return String(value ?? "")
+    .replaceAll("\\", "\\\\")
+    .replaceAll("|", "\\|")
+    .replaceAll("\r\n", "\n")
+    .replaceAll("\r", "\n")
+    .replaceAll("\n", "\\n");
+}
+
+function decodeMarkdownTableCell(value) {
+  let decoded = "";
+  for (let index = 0; index < value.length; index += 1) {
+    const current = value[index];
+    if (current !== "\\") {
+      decoded += current;
+      continue;
+    }
+    const escaped = value[index + 1];
+    if (escaped === undefined) throw new Error("malformed escaped table cell");
+    if (escaped === "n") decoded += "\n";
+    else if (escaped === "\\" || escaped === "|") decoded += escaped;
+    else throw new Error("malformed escaped table cell");
+    index += 1;
+  }
+  return decoded.trim();
+}
+
+export function splitMarkdownTableRow(line) {
+  const trimmed = line.trim();
+  if (!trimmed.startsWith("|") || !trimmed.endsWith("|")) throw new Error("malformed markdown table row");
+  const values = [];
+  let current = "";
+  let escaped = false;
+  for (let index = 1; index < trimmed.length - 1; index += 1) {
+    const character = trimmed[index];
+    if (escaped) {
+      current += `\\${character}`;
+      escaped = false;
+      continue;
+    }
+    if (character === "\\") {
+      escaped = true;
+      continue;
+    }
+    if (character === "|") {
+      values.push(decodeMarkdownTableCell(current));
+      current = "";
+      continue;
+    }
+    current += character;
+  }
+  if (escaped) throw new Error("malformed escaped table cell");
+  values.push(decodeMarkdownTableCell(current));
+  return values;
 }
 
 function sectionKindLabel(kind) {
@@ -92,12 +144,12 @@ export function parseMarkdownTableSection(markdown, heading, expectedHeaders) {
   const tableLines = section.split(/\r?\n/).filter((line) => /^\|.*\|$/.test(line.trim()));
   if (tableLines.length < 2) throw new Error(`missing table in governed section: ${heading}`);
 
-  const headers = cells(tableLines[0]);
+  const headers = splitMarkdownTableRow(tableLines[0]);
   if (JSON.stringify(headers) !== JSON.stringify(expectedHeaders)) {
     throw new Error(`unexpected headers in governed section: ${heading}`);
   }
 
-  const rows = tableLines.slice(2).map(cells);
+  const rows = tableLines.slice(2).map(splitMarkdownTableRow);
   if (rows.some((row) => row.length !== headers.length)) {
     throw new Error(`malformed row in governed section: ${heading}`);
   }

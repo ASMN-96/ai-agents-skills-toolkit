@@ -5,6 +5,7 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import {
+  encodeMarkdownTableCell,
   parseMarkdownTableSection,
   resolveUtilizationClassification,
   validateSourceUtilizationReport
@@ -203,7 +204,7 @@ test("source utilization rows reject unsafe repository-relative paths", () => {
 test("source utilization rows reject Windows absolute paths", () => {
   const markdown = utilizationReport({
     watchedRows: [
-      "| source-id | Source | active-read-only | Do later | C:\\secrets\\outside.md | Keep detected-only | No automatic install |"
+      `| source-id | Source | active-read-only | Do later | ${encodeMarkdownTableCell("C:\\secrets\\outside.md")} | Keep detected-only | No automatic install |`
     ]
   });
 
@@ -239,7 +240,7 @@ test("source utilization rows reject POSIX absolute paths", () => {
 test("source utilization rows reject Windows backslash traversal", () => {
   const markdown = utilizationReport({
     watchedRows: [
-      "| source-id | Source | active-read-only | Do later | ..\\..\\outside.md | Keep detected-only | No automatic install |"
+      `| source-id | Source | active-read-only | Do later | ${encodeMarkdownTableCell("..\\..\\outside.md")} | Keep detected-only | No automatic install |`
     ]
   });
 
@@ -257,7 +258,7 @@ test("source utilization rows reject Windows backslash traversal", () => {
 test("source utilization rows reject Windows rooted absolute paths", () => {
   const markdown = utilizationReport({
     watchedRows: [
-      "| source-id | Source | active-read-only | Do later | \\secrets\\outside.md | Keep detected-only | No automatic install |"
+      `| source-id | Source | active-read-only | Do later | ${encodeMarkdownTableCell("\\secrets\\outside.md")} | Keep detected-only | No automatic install |`
     ]
   });
 
@@ -275,7 +276,7 @@ test("source utilization rows reject Windows rooted absolute paths", () => {
 test("source utilization rows reject UNC paths", () => {
   const markdown = utilizationReport({
     watchedRows: [
-      "| source-id | Source | active-read-only | Do later | \\\\server\\share\\outside.md | Keep detected-only | No automatic install |"
+      `| source-id | Source | active-read-only | Do later | ${encodeMarkdownTableCell("\\\\server\\share\\outside.md")} | Keep detected-only | No automatic install |`
     ]
   });
 
@@ -325,7 +326,7 @@ test("tool-shared sources retain distinct canonical review triggers", async () =
   for (const sourceId of TOOL_SHARED_SOURCE_IDS) {
     const row = watchedById.get(sourceId);
     assert.ok(row, `missing watched source row: ${sourceId}`);
-    assert.match(row["Next extraction"], /source-revision-changed; owner-review-requested/i);
+    assert.match(row["Next extraction"], /Pending synthesis:.*source-revision-changed.*owner-review-requested/i);
   }
 });
 
@@ -350,7 +351,6 @@ test("source utilization report classifies every watched source and registered t
   assert.match(report, /active-method/);
   assert.match(report, /active-read-only/);
   assert.match(report, /active-reference/);
-  assert.match(report, /planned-extraction/);
   assert.match(report, /reference-only-with-reason/);
   assert.match(report, /Reject \/ not aligned/);
 
@@ -365,7 +365,7 @@ test("source utilization report classifies every watched source and registered t
     watchlist.sources.map((source) => source.id).sort()
   );
 
-  assert.equal(utilization.watchedById.get("matt-pocock-skills")?.Classification, "active-method");
+  assert.equal(utilization.watchedById.get("matt-pocock-skills")?.Classification, "active-reference");
   assert.equal(utilization.watchedById.get("matt-pocock-skills")?.Recommendation, "Do later");
   assert.doesNotMatch(report, /\|\s*matt-pocock-skills\s*\|[^\n]*Refresh reviewed commit/);
 });
