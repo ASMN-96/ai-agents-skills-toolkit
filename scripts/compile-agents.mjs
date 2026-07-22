@@ -15,6 +15,7 @@ import {
 import {
   COMPILER_DIGEST_PATHS,
   createCompilerPromotionValidator,
+  deriveCompilerProvenance,
   digestCanonicalCompilerInputs,
   resolveProfileSourcePath
 } from "./ai-toolkit/compiler-provenance.mjs";
@@ -33,12 +34,17 @@ const CANONICAL_DIRECTORY_ROOTS = ["agents", "profiles", "methods"];
 const CANONICAL_REGISTRY_FILES = [
   "registries/agents.registry.json",
   "registries/profiles.registry.json",
-  "registries/methods.registry.json"
+  "registries/methods.registry.json",
+  "registries/source-capabilities.registry.json"
 ];
 const CANONICAL_SOURCE_PATHS = Object.freeze([
   ...CANONICAL_DIRECTORY_ROOTS,
-  ...CANONICAL_REGISTRY_FILES,
+  ...CANONICAL_REGISTRY_FILES.filter((relativePath) => relativePath !== "registries/source-capabilities.registry.json"),
   ...COMPILER_DIGEST_PATHS
+]);
+const CANONICAL_CLEAN_INPUT_PATHS = Object.freeze([
+  ...CANONICAL_SOURCE_PATHS,
+  "registries/source-capabilities.registry.json"
 ]);
 const COMPILER_PATH_BINDINGS = new Map([
   ["scripts/compile-agents.mjs", COMPILER_PATH],
@@ -53,6 +59,8 @@ const GENERATED_PROVENANCE_KEYS = new Set([
   "compiled_status",
   "compiler",
   "compiler_digest",
+  "capabilityIds",
+  "decisionRefs",
   "input_digest",
   "input_digest_scope",
   "last_compiled_against",
@@ -60,6 +68,7 @@ const GENERATED_PROVENANCE_KEYS = new Set([
   "source_commit",
   "source_method_refs",
   "source_profile_refs",
+  "synthesisIds",
   "toolkit_name",
   "toolkit_pin",
   "toolkit_version"
@@ -167,6 +176,15 @@ async function readJson(relativePath) {
   }
 }
 
+function readSourceCapabilitiesForPromotion() {
+  const relativePath = "registries/source-capabilities.registry.json";
+  try {
+    return JSON.parse(readFileSync(assertCanonicalInput(relativePath), "utf8"));
+  } catch (error) {
+    throw new Error(`could not re-read canonical JSON ${relativePath}: ${error.message}`);
+  }
+}
+
 async function readText(relativePath) {
   try {
     return readFileSync(assertCanonicalInput(relativePath), "utf8");
@@ -205,7 +223,7 @@ async function assertCleanCanonicalInputs() {
       "--porcelain",
       "--untracked-files=all",
       "--",
-      ...CANONICAL_SOURCE_PATHS
+      ...CANONICAL_CLEAN_INPUT_PATHS
     ], {
       cwd: ROOT,
       timeout: 10_000,
@@ -226,7 +244,7 @@ function canonicalInputFiles(relativeDirectory) {
     .map((entry) => `${relativeDirectory}/${entry.path}`);
 }
 
-function canonicalInputDigest() {
+function canonicalInputDigest(agentName, provenance) {
   const files = [
     "agents",
     "profiles",
@@ -238,15 +256,28 @@ function canonicalInputDigest() {
     "registries/methods.registry.json"
   );
   files.sort();
-  const hash = createHash("sha256");
-  for (const file of files) {
-    const normalizedText = readFileSync(assertCanonicalInput(file), "utf8").replace(/\r\n/g, "\n");
-    hash.update(file);
-    hash.update("\0");
-    hash.update(normalizedText);
-    hash.update("\0");
+  const inputs = files.map((file) => ({
+    relativePath: file,
+    text: readFileSync(assertCanonicalInput(file), "utf8")
+  }));
+  if (typeof agentName !== "string" || agentName.length === 0 || provenance === null || typeof provenance !== "object") {
+    throw new Error("canonical compiler input digest requires an agent and derived provenance");
   }
-  return `sha256:${hash.digest("hex")}`;
+  inputs.push({
+    relativePath: `compiler-provenance/${agentName}.json`,
+    text: JSON.stringify({
+      capabilityIds: provenance.capabilityIds,
+      synthesisIds: provenance.synthesisIds,
+      decisionRefs: provenance.decisionRefs
+    })
+  });
+  return digestCanonicalCompilerInputs(inputs);
+}
+
+function promotionInputDigest(outputs) {
+  return digestCanonicalCompilerInputs(outputs
+    .map((output) => ({ relativePath: output.target, text: output.inputDigest }))
+    .sort((left, right) => left.relativePath.localeCompare(right.relativePath)));
 }
 
 function compilerDigest() {
@@ -462,7 +493,7 @@ function compiledSizeStatus(words) {
   return "target-size";
 }
 
-async function compileAgent(agent, registries, commit, inputDigest, compilerHash) {
+async function compileAgent(agent, registries, commit, compilerHash) {
   const sourceAgent = `agents/${agent.name}.md`;
   const agentText = await readText(sourceAgent);
   const generatedSourceKeys = generatedProvenanceKeysInSource(agentText);
@@ -483,6 +514,9 @@ async function compileAgent(agent, registries, commit, inputDigest, compilerHash
       sourcePath: resolveProfileSourcePath(registries.profiles.get(profile))
     }));
   const methodRefs = compiledMethodRefs(agent, registries);
+  const provenanceAgent = { ...agent, compiledMethodRefs: methodRefs };
+  const provenance = deriveCompilerProvenance(provenanceAgent, registries.sourceCapabilities);
+  const inputDigest = canonicalInputDigest(agent.name, provenance);
 
   const profileSections = [];
   for (const profile of profileRefs) {
@@ -512,11 +546,14 @@ source_commit: ${commit}
 input_digest: ${inputDigest}
 input_digest_scope: canonical-agent-inputs-v1
 compiler_digest: ${compilerHash}
+capabilityIds: ${blockList(provenance.capabilityIds)}
+decisionRefs: ${blockList(provenance.decisionRefs)}
 source_agent: ${sourceAgent}
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ${blockList(profileRefs.map((profile) => profile.sourcePath))}
 source_method_refs: ${blockList(methodRefs)}
+synthesisIds: ${blockList(provenance.synthesisIds)}
 compile_contract_version: ${COMPILE_CONTRACT_VERSION}
 ---
 
@@ -549,6 +586,9 @@ ${methodSections.length > 0 ? methodSections.join("\n\n") : "No passive method r
 - Agent registry input: \`registries/agents.registry.json\`
 - Profile paths: ${profileRefs.length > 0 ? profileRefs.map((profile) => `\`${profile.sourcePath}\``).join(", ") : "none"}
 - Method IDs: ${methodRefs.length > 0 ? methodRefs.map((method) => `\`${method}\``).join(", ") : "none"}
+- Capability IDs: ${provenance.capabilityIds.length > 0 ? provenance.capabilityIds.map((id) => `\`${id}\``).join(", ") : "none"}
+- Synthesis IDs: ${provenance.synthesisIds.length > 0 ? provenance.synthesisIds.map((id) => `\`${id}\``).join(", ") : "none"}
+- Decision references: ${provenance.decisionRefs.length > 0 ? provenance.decisionRefs.map((id) => `\`${id}\``).join(", ") : "none"}
 - Inherited sourceRef IDs: ${inheritedSourceRefs.size > 0 ? [...inheritedSourceRefs].sort().map((ref) => `\`${ref}\``).join(", ") : "`unknown-review-required`"}
 - Registry files: \`registries/agents.registry.json\`, \`registries/profiles.registry.json\`, \`registries/methods.registry.json\`
 
@@ -559,7 +599,9 @@ External source records are provenance only. They do not authorize raw copying, 
     agent: agent.name,
     target: agent.compiledFallbackPath || `compiled-agents/${agent.name}.compiled.md`,
     text: normalizeMarkdownHeadingSpacing(output),
-    words: output.trim().split(/\s+/).filter(Boolean).length
+    words: output.trim().split(/\s+/).filter(Boolean).length,
+    inputDigest,
+    provenanceAgent
   };
 }
 
@@ -575,12 +617,13 @@ async function main() {
   const agentsRegistry = await readJson("registries/agents.registry.json");
   const profilesRegistry = await readJson("registries/profiles.registry.json");
   const methodsRegistry = await readJson("registries/methods.registry.json");
+  const sourceCapabilitiesRegistry = await readJson("registries/source-capabilities.registry.json");
   const registries = {
     profiles: new Map(asArray(profilesRegistry.profiles).map((profile) => [profile.name, profile])),
-    methods: new Map(asArray(methodsRegistry.methods).map((method) => [method.id, method]))
+    methods: new Map(asArray(methodsRegistry.methods).map((method) => [method.id, method])),
+    sourceCapabilities: sourceCapabilitiesRegistry
   };
   const commit = await sourceCommit();
-  const inputDigest = await canonicalInputDigest();
   const compilerHash = await compilerDigest();
   const outputs = [];
 
@@ -594,7 +637,7 @@ async function main() {
 
   for (const agent of selectedAgents) {
     if (!agent?.name || !agent?.compiledFallbackPath) continue;
-    outputs.push(await compileAgent(agent, registries, commit, inputDigest, compilerHash));
+    outputs.push(await compileAgent(agent, registries, commit, compilerHash));
   }
   if (outputs.length === 0) {
     throw new Error("compilation produced zero outputs because no registered agent had a valid name and compiled fallback path");
@@ -604,7 +647,7 @@ async function main() {
   console.log(`compile-agents mode: ${mode}`);
   console.log(`agents: ${outputs.length}`);
   console.log(`source commit: ${commit}`);
-  console.log(`input digest: ${inputDigest}`);
+  console.log(`input digests: ${outputs.map((output) => `${output.agent}=${output.inputDigest}`).join(", ")}`);
   console.log(`compiler digest: ${compilerHash}`);
   const validatedOutputs = new Map();
   for (const output of outputs) {
@@ -635,9 +678,17 @@ async function main() {
   }
 
   if (args.confirmWrite) {
-    const recheckedInputDigest = await canonicalInputDigest();
+    const expectedPromotionInputDigest = promotionInputDigest(outputs);
+    const recheckedSourceCapabilities = await readJson("registries/source-capabilities.registry.json");
+    const recheckedInputDigest = promotionInputDigest(outputs.map((output) => ({
+      ...output,
+      inputDigest: canonicalInputDigest(
+        output.agent,
+        deriveCompilerProvenance(output.provenanceAgent, recheckedSourceCapabilities)
+      )
+    })));
     const recheckedCompilerHash = await compilerDigest();
-    if (recheckedInputDigest !== inputDigest || recheckedCompilerHash !== compilerHash) {
+    if (recheckedInputDigest !== expectedPromotionInputDigest || recheckedCompilerHash !== compilerHash) {
       throw new Error("canonical compiler inputs changed after digest validation; refusing output promotion");
     }
     const outputRoot = rootPath(GENERATED_ROOT);
@@ -653,10 +704,16 @@ async function main() {
         }
       },
       beforePromote: createCompilerPromotionValidator({
-        expectedInputDigest: inputDigest,
+        expectedInputDigest: expectedPromotionInputDigest,
         expectedCompilerDigest: compilerHash,
         readCurrentDigests: () => ({
-          inputDigest: canonicalInputDigest(),
+          inputDigest: promotionInputDigest(outputs.map((output) => ({
+            ...output,
+            inputDigest: canonicalInputDigest(
+              output.agent,
+              deriveCompilerProvenance(output.provenanceAgent, readSourceCapabilitiesForPromotion())
+            )
+          }))),
           compilerDigest: compilerDigest()
         })
       }),

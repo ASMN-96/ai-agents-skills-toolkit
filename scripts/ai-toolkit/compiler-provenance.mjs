@@ -34,6 +34,126 @@ export function resolveProfileSourcePath(profile) {
   return sourcePath;
 }
 
+function requireStringArray(value, field) {
+  if (!Array.isArray(value)) throw new Error(`${field} must be an array`);
+  const seen = new Set();
+  const values = [];
+  for (const entry of value) {
+    if (typeof entry !== "string" || entry.trim().length === 0) {
+      throw new Error(`${field} must contain non-empty strings`);
+    }
+    if (seen.has(entry)) throw new Error(`${field} contains a duplicate value: ${entry}`);
+    seen.add(entry);
+    values.push(entry);
+  }
+  return values;
+}
+
+function selectedArtifactKeys(agent) {
+  const methods = agent.compiledMethodRefs === undefined
+    ? []
+    : requireStringArray(agent.compiledMethodRefs, `agent ${agent.name} compiledMethodRefs`);
+  const ownedSkills = agent.ownedSkills === undefined
+    ? []
+    : requireStringArray(agent.ownedSkills, `agent ${agent.name} ownedSkills`);
+  const secondarySkills = agent.secondarySkills === undefined
+    ? []
+    : requireStringArray(agent.secondarySkills, `agent ${agent.name} secondarySkills`);
+  return new Set([
+    ...methods.map((resourceId) => `method:${resourceId}`),
+    ...ownedSkills.map((resourceId) => `skill:${resourceId}`),
+    ...secondarySkills.map((resourceId) => `skill:${resourceId}`)
+  ]);
+}
+
+export function deriveCompilerProvenance(agent, registry) {
+  if (agent === null || typeof agent !== "object" || Array.isArray(agent) || typeof agent.name !== "string" || agent.name.length === 0) {
+    throw new Error("compiler provenance requires a named agent record");
+  }
+  if (registry === null || typeof registry !== "object" || !Array.isArray(registry.syntheses)) {
+    throw new Error("compiler provenance registry must contain a syntheses array");
+  }
+
+  const consumedArtifactKeys = selectedArtifactKeys(agent);
+  const selected = {
+    capabilityIds: new Set(),
+    synthesisIds: new Set(),
+    decisionRefs: new Set()
+  };
+  const synthesisIds = new Set();
+  const availableArtifactKeys = new Set();
+  let hasApprovedSynthesis = false;
+
+  for (const synthesis of registry.syntheses) {
+    if (synthesis === null || typeof synthesis !== "object" || Array.isArray(synthesis)) {
+      throw new Error("compiler provenance synthesis must be an object");
+    }
+    if (typeof synthesis.id !== "string" || synthesis.id.length === 0) {
+      throw new Error("compiler provenance synthesis id must be a non-empty string");
+    }
+    if (synthesisIds.has(synthesis.id)) throw new Error(`duplicate synthesis id: ${synthesis.id}`);
+    synthesisIds.add(synthesis.id);
+    if (typeof synthesis.capabilityId !== "string" || synthesis.capabilityId.length === 0) {
+      throw new Error(`compiler provenance synthesis ${synthesis.id} has no capabilityId`);
+    }
+    if (typeof synthesis.state !== "string" || synthesis.state.length === 0) {
+      throw new Error(`compiler provenance synthesis ${synthesis.id} has no synthesis state`);
+    }
+    if (!Array.isArray(synthesis.artifactRefs) || !Array.isArray(synthesis.decisions)) {
+      throw new Error(`compiler provenance synthesis ${synthesis.id} is missing artifact or decision provenance`);
+    }
+    if (synthesis.state === "approved") hasApprovedSynthesis = true;
+
+    const decisions = new Map();
+    for (const decision of synthesis.decisions) {
+      if (decision === null || typeof decision !== "object" || Array.isArray(decision) || typeof decision.id !== "string" || decision.id.length === 0) {
+        throw new Error(`compiler provenance synthesis ${synthesis.id} has an invalid decision`);
+      }
+      if (decisions.has(decision.id)) throw new Error(`duplicate decision id in synthesis ${synthesis.id}: ${decision.id}`);
+      decisions.set(decision.id, new Set(requireStringArray(decision.artifactRefs, `decision ${decision.id} artifactRefs`)));
+    }
+
+    const artifactIds = new Set();
+    for (const artifact of synthesis.artifactRefs) {
+      if (artifact === null || typeof artifact !== "object" || Array.isArray(artifact)
+        || typeof artifact.id !== "string" || artifact.id.length === 0
+        || typeof artifact.kind !== "string" || typeof artifact.resourceId !== "string") {
+        throw new Error(`compiler provenance synthesis ${synthesis.id} has an invalid artifact`);
+      }
+      const key = `${artifact.kind}:${artifact.resourceId}`;
+      if (artifact.id !== key) throw new Error(`compiler provenance artifact id does not bind kind and resourceId: ${artifact.id}`);
+      if (artifactIds.has(artifact.id)) throw new Error(`duplicate artifact id in synthesis ${synthesis.id}: ${artifact.id}`);
+      artifactIds.add(artifact.id);
+      availableArtifactKeys.add(key);
+      const decisionRefs = requireStringArray(artifact.decisionRefs, `artifact ${artifact.id} decisionRefs`);
+      for (const decisionRef of decisionRefs) {
+        const decisionArtifacts = decisions.get(decisionRef);
+        if (!decisionArtifacts) throw new Error(`dangling decision provenance ${decisionRef} for artifact ${artifact.id}`);
+        if (!decisionArtifacts.has(artifact.id)) {
+          throw new Error(`unreciprocated decision provenance ${decisionRef} for artifact ${artifact.id}`);
+        }
+      }
+      if (synthesis.state !== "approved" || !consumedArtifactKeys.has(key)) continue;
+      selected.capabilityIds.add(synthesis.capabilityId);
+      selected.synthesisIds.add(synthesis.id);
+      for (const decisionRef of decisionRefs) selected.decisionRefs.add(decisionRef);
+    }
+  }
+
+  for (const key of consumedArtifactKeys) {
+    if (hasApprovedSynthesis && !availableArtifactKeys.has(key)) {
+      const [kind] = key.split(":", 1);
+      throw new Error(`dangling consumed ${kind} provenance: ${key}`);
+    }
+  }
+
+  return Object.freeze({
+    capabilityIds: Object.freeze([...selected.capabilityIds].sort()),
+    synthesisIds: Object.freeze([...selected.synthesisIds].sort()),
+    decisionRefs: Object.freeze([...selected.decisionRefs].sort())
+  });
+}
+
 export function digestCanonicalCompilerInputs(inputs) {
   if (!Array.isArray(inputs) || inputs.length === 0) {
     throw new TypeError("canonical compiler digest inputs must be a non-empty array");

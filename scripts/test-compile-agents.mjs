@@ -156,6 +156,7 @@ Return findings first, then assumptions, verification status, residual risk, and
         methodPath: "methods/internal/review.md"
       }]
     }, null, 2)}\n`, "utf8");
+    writeFileSync(path.join(fixture, "registries", "source-capabilities.registry.json"), "{\"syntheses\":[]}\n", "utf8");
 
     execFileSync("git", ["init"], { cwd: fixture, stdio: "ignore" });
     execFileSync("git", ["config", "user.email", "toolkit-test@example.invalid"], { cwd: fixture });
@@ -203,6 +204,65 @@ test("confirm-write generates metadata-rich compiled agent and reports provenanc
     assert.match(compiled, /## Provenance/);
     assert.match(compiled, /internal\.review/);
     assert.equal(compiledSourceCommit(fixture), latestCanonicalSourceCommit(fixture));
+  });
+});
+
+test("unrelated approved synthesis changes do not perturb an unaffected compiled agent", async () => {
+  await withCompilerFixture(async (fixture) => {
+    const agentsPath = path.join(fixture, "registries", "agents.registry.json");
+    const agents = JSON.parse(readFileSync(agentsPath, "utf8"));
+    agents.agents[0].compiledMethodRefs = ["internal.review"];
+    writeFileSync(agentsPath, `${JSON.stringify(agents, null, 2)}\n`, "utf8");
+    const sourceCapabilitiesPath = path.join(fixture, "registries", "source-capabilities.registry.json");
+    const sourceCapabilities = {
+      syntheses: [
+        {
+          id: "security.supply-chain@1",
+          capabilityId: "security.supply-chain",
+          state: "approved",
+          artifactRefs: [{
+            id: "method:security.supply-chain",
+            kind: "method",
+            resourceId: "security.supply-chain",
+            decisionRefs: ["security-decision"]
+          }],
+          decisions: [{ id: "security-decision", artifactRefs: ["method:security.supply-chain"] }]
+        },
+        {
+          id: "uiux.visual-direction@1",
+          capabilityId: "uiux.visual-direction",
+          state: "approved",
+          artifactRefs: [{
+            id: "method:internal.review",
+            kind: "method",
+            resourceId: "internal.review",
+            decisionRefs: ["uiux-decision"]
+          }],
+          decisions: [{ id: "uiux-decision", artifactRefs: ["method:internal.review"] }]
+        }
+      ]
+    };
+    writeFileSync(sourceCapabilitiesPath, `${JSON.stringify(sourceCapabilities, null, 2)}\n`, "utf8");
+    gitCommitAll(fixture, "add isolated synthesis provenance");
+
+    const generated = await runCompiler(fixture, ["--confirm-write"]);
+    assert.equal(generated.code, 0, generated.stderr);
+    const outputPath = path.join(fixture, "compiled-agents", "reviewer-agent.compiled.md");
+    const before = readFileSync(outputPath, "utf8");
+    assert.match(before, /capabilityIds: \["uiux\.visual-direction"\]/u);
+    assert.match(before, /synthesisIds: \["uiux\.visual-direction@1"\]/u);
+    assert.match(before, /decisionRefs: \["uiux-decision"\]/u);
+    assert.doesNotMatch(before, /security\.supply-chain/u);
+
+    sourceCapabilities.syntheses[0].decisions[0].id = "security-decision-v2";
+    sourceCapabilities.syntheses[0].artifactRefs[0].decisionRefs = ["security-decision-v2"];
+    sourceCapabilities.syntheses[0].decisions[0].artifactRefs = ["method:security.supply-chain"];
+    writeFileSync(sourceCapabilitiesPath, `${JSON.stringify(sourceCapabilities, null, 2)}\n`, "utf8");
+    gitCommitAll(fixture, "change unrelated security synthesis");
+
+    const checked = await runCompiler(fixture, ["--check"]);
+    assert.equal(checked.code, 0, checked.stderr);
+    assert.equal(readFileSync(outputPath, "utf8"), before);
   });
 });
 
@@ -529,7 +589,7 @@ test("canonical registry parents must be repository-contained non-link directori
   await withCompilerFixture(async (fixture) => {
     const linkedRegistries = path.join(fixture, "linked-registries");
     mkdirSync(linkedRegistries, { recursive: true });
-    for (const file of ["agents.registry.json", "profiles.registry.json", "methods.registry.json"]) {
+    for (const file of ["agents.registry.json", "profiles.registry.json", "methods.registry.json", "source-capabilities.registry.json"]) {
       copyFileSync(path.join(fixture, "registries", file), path.join(linkedRegistries, file));
     }
     rmSync(path.join(fixture, "registries"), { recursive: true, force: true });

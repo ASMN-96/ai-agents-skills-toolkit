@@ -4,15 +4,18 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 7def4f75fc6d2740052a60fd3cdedb2d362602d0
-input_digest: sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822
+source_commit: 8ce514dc6d210249fd95f8b2a5f4862874f64441
+input_digest: sha256:098d862be5c6925b90b2e55e092b939d6e8bd77679055df7910fe1250bdf9ba2
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62
+compiler_digest: sha256:a7e52a404616f11822ba471a3ffc4296de9d77a58613c813377a3f20b40a605f
+capabilityIds: []
+decisionRefs: []
 source_agent: agents/sre-performance-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/sre-profile.md", "profiles/release-profile.md", "profiles/implementation-profile.md"]
 source_method_refs: ["osmani.performance-optimization", "osmani.shipping-launch", "orchestration.compact-agent-context-pack", "mobile.native-mobile-app-quality", "reliability.coding-time-production-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness"]
+synthesisIds: []
 compile_contract_version: 1.0.0
 ---
 
@@ -307,12 +310,15 @@ Ensure coding-time changes leave enough evidence for debugging without leaking s
 ## Provenance
 
 - Source agent path: `agents/sre-performance-agent.md`
-- Canonical input digest: `sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822`
-- Compiler digest: `sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62`
+- Canonical input digest: `sha256:098d862be5c6925b90b2e55e092b939d6e8bd77679055df7910fe1250bdf9ba2`
+- Compiler digest: `sha256:a7e52a404616f11822ba471a3ffc4296de9d77a58613c813377a3f20b40a605f`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/sre-profile.md`, `profiles/release-profile.md`, `profiles/implementation-profile.md`
 - Method IDs: `osmani.performance-optimization`, `osmani.shipping-launch`, `orchestration.compact-agent-context-pack`, `mobile.native-mobile-app-quality`, `reliability.coding-time-production-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`
+- Capability IDs: none
+- Synthesis IDs: none
+- Decision references: none
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `aider-repo-map`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `toolkit-authored`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
