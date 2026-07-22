@@ -85,7 +85,7 @@ function activeSynthesis(synthesis, capabilities) {
     && (!capability.activeSynthesisId || capability.activeSynthesisId === synthesis.id);
 }
 
-function edgeArray(record, field, reason, reasons, { required = false } = {}) {
+function edgeArray(record, field, reason, reasons, { required = false, nonEmpty = false } = {}) {
   if (!hasOwn(record, field)) {
     if (required) reasons.push(`missing-${reason}:${recordId(record) ?? "unknown"}`);
     return [];
@@ -94,7 +94,39 @@ function edgeArray(record, field, reason, reasons, { required = false } = {}) {
     reasons.push(`invalid-${reason}:${recordId(record) ?? "unknown"}`);
     return [];
   }
+  if (nonEmpty && record[field].length === 0) {
+    reasons.push(`empty-${reason}:${recordId(record) ?? "unknown"}`);
+  }
   return record[field];
+}
+
+function hasTrustworthyExactLocators(input, reasons) {
+  if (!hasOwn(input, "locators")) {
+    reasons.push(`missing-locators:${input.id}`);
+    return false;
+  }
+  if (!Array.isArray(input.locators)) {
+    reasons.push(`invalid-locators:${input.id}`);
+    return false;
+  }
+  if (input.locators.length === 0) {
+    reasons.push(`empty-locators:${input.id}`);
+    return false;
+  }
+  let trustworthy = true;
+  for (const [index, locator] of input.locators.entries()) {
+    if (
+      !plainRecord(locator)
+      || typeof locator.kind !== "string"
+      || locator.kind.length === 0
+      || typeof locator.value !== "string"
+      || locator.value.length === 0
+    ) {
+      reasons.push(`invalid-locator:${input.id}:${index}`);
+      trustworthy = false;
+    }
+  }
+  return trustworthy;
 }
 
 function selectedInputs({ sourceId, changedLocators, comparisonState, registry, reasons }) {
@@ -105,9 +137,16 @@ function selectedInputs({ sourceId, changedLocators, comparisonState, registry, 
       .filter((input) => input?.sourceId === sourceId && typeof input.id === "string")
       .map((input) => ({ synthesis, input })));
   const changed = new Set(array(changedLocators).filter((locator) => typeof locator === "string"));
+  let exactTrustworthy = true;
+  if (comparisonState === "exact") {
+    for (const { input } of inputs) {
+      if (!hasTrustworthyExactLocators(input, reasons)) exactTrustworthy = false;
+    }
+  }
   const stale = comparisonState === "exact"
-    ? inputs.filter(({ input }) => edgeArray(input, "locators", "locators", reasons)
-      .some((locator) => changed.has(locator?.value)))
+    ? exactTrustworthy
+      ? inputs.filter(({ input }) => input.locators.some((locator) => changed.has(locator.value)))
+      : inputs
     : inputs;
   return { capabilities, stale };
 }
@@ -238,11 +277,22 @@ export function deriveCapabilityImpact({
     }
     for (const decision of decisions) {
       synthesisDecisionIds.push(decision.id);
-      const actionable = isActionableDecision(decision);
+      const declaredActionable = isActionableDecision(decision);
+      const decisionArtifacts = edgeArray(decision, "artifactRefs", "artifact-refs", reasons, {
+        required: declaredActionable,
+        nonEmpty: declaredActionable
+      });
+      const decisionEvaluations = edgeArray(decision, "evaluationRefs", "evaluation-refs", reasons, {
+        required: declaredActionable,
+        nonEmpty: declaredActionable
+      });
+      const actionable = declaredActionable
+        && Array.isArray(decision.artifactRefs)
+        && decision.artifactRefs.length > 0
+        && Array.isArray(decision.evaluationRefs)
+        && decision.evaluationRefs.length > 0;
       if (actionable) portfolioActionable = true;
-      else reasons.push(`non-actionable-decision:${decision.outcome ?? "unknown"}:${decision.id}`);
-      const decisionArtifacts = edgeArray(decision, "artifactRefs", "artifact-refs", reasons, { required: actionable });
-      const decisionEvaluations = edgeArray(decision, "evaluationRefs", "evaluation-refs", reasons, { required: actionable });
+      else if (!declaredActionable) reasons.push(`non-actionable-decision:${decision.outcome ?? "unknown"}:${decision.id}`);
       for (const artifactId of decisionArtifacts) {
         const artifact = resolve(artifacts, artifactId, "artifact", reasons);
         if (!artifact) continue;

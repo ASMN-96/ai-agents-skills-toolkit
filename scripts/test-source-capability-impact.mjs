@@ -388,7 +388,7 @@ test("present edge containers and partial consumers fail closed without hiding v
   delete absentDecision.artifactRefs;
   delete absentDecision.evaluationRefs;
   const absentResult = impact({ registry: absent });
-  assert.equal(absentResult.portfolioActionable, true);
+  assert.equal(absentResult.portfolioActionable, false);
   assert.equal(absentResult.releaseBlocking, false);
   assert.deepEqual(absentResult.reasons, [
     "missing-artifact-refs:taste-visual-direction",
@@ -456,4 +456,37 @@ test("non-actionable decisions remain visible but never create affected blocking
     "invalid-artifact-refs:taste-visual-direction",
     "non-actionable-decision:reference-only:taste-visual-direction"
   ]);
+});
+
+test("empty actionable artifact and evaluation edges fail closed", () => {
+  const registry = fixtureRegistry();
+  const current = registry.syntheses.find((entry) => entry.id === "uiux.visual-direction@1").decisions[0];
+  current.artifactRefs = [];
+  current.evaluationRefs = [];
+  const result = impact({ registry });
+  assert.deepEqual(result.synthesisDecisionIds, ["taste-visual-direction"]);
+  assert.equal(result.portfolioActionable, false);
+  assert.equal(result.releaseBlocking, false);
+  assert.deepEqual(result.blockingResourceIds, []);
+  assert.deepEqual(result.reasons, [
+    "empty-artifact-refs:taste-visual-direction",
+    "empty-evaluation-refs:taste-visual-direction"
+  ]);
+});
+
+test("untrustworthy exact locator bindings conservatively stale every active source input", () => {
+  const mutateLocator = [
+    ["missing", (entry) => { delete entry.locators; }, ["missing-locators:taste-design-read"]],
+    ["empty", (entry) => { entry.locators = []; }, ["empty-locators:taste-design-read"]],
+    ["non-array", (entry) => { entry.locators = "skills/taste-skill/SKILL.md#brief-inference"; }, ["invalid-locators:taste-design-read"]],
+    ["malformed", (entry) => { entry.locators = [{ kind: "repository-path-section" }, "not-a-locator"]; }, ["invalid-locator:taste-design-read:0", "invalid-locator:taste-design-read:1"]]
+  ];
+  for (const [name, mutate, reasons] of mutateLocator) {
+    const registry = fixtureRegistry({ twoTasteInputs: true });
+    const synthesis = registry.syntheses.find((entry) => entry.id === "uiux.visual-direction@1");
+    mutate(synthesis.inputs.find((entry) => entry.id === "taste-design-read"));
+    const result = impact({ registry });
+    assert.deepEqual(result.staleInputIds, ["taste-design-read", "taste-redesign-audit"], name);
+    for (const reason of reasons) assert.equal(result.reasons.includes(reason), true, `${name}: ${reason}`);
+  }
 });
