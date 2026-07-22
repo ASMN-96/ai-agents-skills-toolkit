@@ -181,7 +181,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-contract.mjs",
-      "sha256": "e90d17baa63af91082672709275d9ec6904c6de7a2e317756b96a05fbd863a12"
+      "sha256": "b55884bbd01cd75eb53ef475d05fb16b9d45561e083d4507c3b14934518c88b7"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-loader.mjs",
@@ -194,6 +194,10 @@
     {
       "path": "scripts/ai-toolkit/kernel/source-release-accounting.mjs",
       "sha256": "f95bdc2b7e30f1f871e7b59abe5a6d96e8b4de36acf3fcaebc368b6ab16fb62e"
+    },
+    {
+      "path": "scripts/ai-toolkit/kernel/source-utilization-contract.mjs",
+      "sha256": "fd4e669048a79a86026a9b7464abba2a6930e9b13d53d778f6d6851e2e05dbd5"
     },
     {
       "path": "scripts/ai-toolkit/kernel/team-planner.mjs",
@@ -261,7 +265,7 @@
     },
     {
       "path": "sources/source-watchlist.json",
-      "sha256": "eb625fb41c0174201e6f2badae187e31b1ce7f9dba5bc64a3172c27e965772d5"
+      "sha256": "0887f8904b215cc2a74d0ef7fc52802985de0509802fb19e402a88a83d77a7ca"
     },
     {
       "path": "templates/delivery-kernel.request.example.json",

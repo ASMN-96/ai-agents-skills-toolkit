@@ -22,7 +22,23 @@ export const FINAL_DISPOSITIONS = Object.freeze([
   "ARCHIVED_HARD_BLOCKER",
   "REMOVED_REDUNDANT"
 ]);
-export const SOURCE_CATALOG_SCHEMA_VERSION = "2.1.0";
+export const SOURCE_CATALOG_SCHEMA_VERSION = "2.2.0";
+export const SOURCE_BEHAVIORS = Object.freeze([
+  "versioned-standard",
+  "living-official-guidance",
+  "security-runtime-source",
+  "active-tool-or-skill",
+  "general-method-reference",
+  "historical"
+]);
+export const SOURCE_BEHAVIOR_CADENCE = Object.freeze({
+  "versioned-standard": Object.freeze({ monitor: 90, deep: 180 }),
+  "living-official-guidance": Object.freeze({ monitor: 30, deep: 90 }),
+  "security-runtime-source": Object.freeze({ monitor: 14, deep: 30 }),
+  "active-tool-or-skill": Object.freeze({ monitor: 30, deep: 90 }),
+  "general-method-reference": Object.freeze({ monitor: 90, deep: 180 }),
+  historical: Object.freeze({ monitor: null, deep: null })
+});
 export const SOURCE_SCOPES = Object.freeze([
   "core",
   "platform-preview",
@@ -36,6 +52,7 @@ const REVIEW_STATE_SET = new Set(REVIEW_STATES);
 const RUNTIME_POSTURE_SET = new Set(RUNTIME_POSTURES);
 const FINAL_DISPOSITION_SET = new Set(FINAL_DISPOSITIONS);
 const SOURCE_SCOPE_SET = new Set(SOURCE_SCOPES);
+const SOURCE_BEHAVIOR_SET = new Set(SOURCE_BEHAVIORS);
 const AUTHORITIES = new Set(["official", "community", "aggregator", "historical", "vendor-service"]);
 const LIFECYCLES = new Set(["review-input", "historical-reference", "service-integration"]);
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
@@ -65,6 +82,10 @@ const SOURCE_FIELDS = new Set([
   "licenseConcern",
   "reviewPriority",
   "freshnessClass",
+  "sourceBehavior",
+  "monitorIntervalDays",
+  "deepReviewIntervalDays",
+  "eventTriggers",
   "monitor",
   "review",
   "runtimePosture",
@@ -97,6 +118,33 @@ function isRecord(value) {
 }
 function validateEvidenceArray(value, field) {
   return requireStringArray(value, field, { allowEmpty: false });
+}
+
+export function validateSourceCadence(source) {
+  requireRecord(source, "source");
+  if (!SOURCE_BEHAVIOR_SET.has(source.sourceBehavior)) {
+    fail("sourceBehavior is unsupported");
+  }
+  const policy = SOURCE_BEHAVIOR_CADENCE[source.sourceBehavior];
+  if (source.sourceBehavior === "historical") {
+    if (source.monitorIntervalDays !== null || source.deepReviewIntervalDays !== null) {
+      fail("historical sources require monitorIntervalDays and deepReviewIntervalDays to be null");
+    }
+  } else {
+    for (const [field, maximum] of [
+      ["monitorIntervalDays", policy.monitor],
+      ["deepReviewIntervalDays", policy.deep]
+    ]) {
+      if (!Number.isInteger(source[field]) || source[field] < 1) {
+        fail(`${field} must be a positive integer`);
+      }
+      if (source[field] > maximum) {
+        fail(`${field} exceeds policy maximum ${maximum}`);
+      }
+    }
+  }
+  requireStringArray(source.eventTriggers, "eventTriggers", { allowEmpty: false });
+  return source;
 }
 
 export function validateSourceReviewReceipt(receipt, options = {}) {
@@ -572,6 +620,11 @@ function validateSourceEntry(source, index, now) {
   requireString(source.reviewPriority, `${field}.reviewPriority`);
   if (!(source.freshnessClass in FRESHNESS_WINDOWS_DAYS)) {
     fail(`${field}.freshnessClass is unsupported`);
+  }
+  try {
+    validateSourceCadence(source);
+  } catch (error) {
+    fail(`${field}.${error.message.replace(/^Source governance: /, "")}`);
   }
   if (source.neverAutoImport !== true) fail(`${field}.neverAutoImport must be true`);
   if (!RUNTIME_POSTURE_SET.has(source.runtimePosture)) fail(`${field}.runtimePosture is unsupported`);

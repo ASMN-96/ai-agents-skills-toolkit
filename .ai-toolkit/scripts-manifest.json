@@ -109,6 +109,10 @@
       "sha256": "0fd0f392c690f105839694e74f3a249b01c683616be64327ca432150f1f8eaa1"
     },
     {
+      "path": "scripts/migrate-source-cadence-v2-2.mjs",
+      "sha256": "7f32a246b10e83f049d2a76a25d767e24aae4aec4acf69e87d1f51d2f1940571"
+    },
+    {
       "path": "scripts/migrate-source-catalog-v2.mjs",
       "sha256": "4550545521357b302da79f90a522cd7891b52f6fc80fe2ec32d5be8381a58f59"
     },
@@ -154,7 +158,7 @@
     },
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "70addd9632b67f2fcb120ee12f3fb53deef0d9f295994de669a4d6c8c317543d"
+      "sha256": "ac71fa26ede9d939c569ecb5f5794d86a08483a7f83c5301d7060b719b9c2a12"
     },
     {
       "path": "scripts/validate-v0-3-release-evidence.mjs",

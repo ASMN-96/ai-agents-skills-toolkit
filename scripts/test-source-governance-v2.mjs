@@ -12,6 +12,9 @@ import { promisify } from "node:util";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MODULE_URL = pathToFileURL(path.join(ROOT, "scripts", "ai-toolkit", "source-governance.mjs")).href;
+const SOURCE_CATALOG_CONTRACT_URL = pathToFileURL(
+  path.join(ROOT, "scripts", "ai-toolkit", "kernel", "source-catalog-contract.mjs")
+).href;
 const NOW = "2026-07-17T23:59:59.999Z";
 const canonicalCatalog = JSON.parse(readFileSync(path.join(ROOT, "sources", "source-watchlist.json"), "utf8"));
 const latestCanonicalCheck = Math.max(...canonicalCatalog.sources.map((source) => Date.parse(source.monitor.checkedAt)));
@@ -66,6 +69,10 @@ async function governance() {
   return import(MODULE_URL);
 }
 
+async function sourceCatalogContract() {
+  return import(SOURCE_CATALOG_CONTRACT_URL);
+}
+
 function contentDigest(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
@@ -89,6 +96,10 @@ function source(overrides = {}) {
     licenseConcern: "clear",
     reviewPriority: "High",
     freshnessClass: "security-runtime",
+    sourceBehavior: "active-tool-or-skill",
+    monitorIntervalDays: 30,
+    deepReviewIntervalDays: 90,
+    eventTriggers: ["major-release", "dependent-gate-change", "dependent-eval-failed"],
     monitor: {
       state: "CURRENT",
       checkedAt: "2026-07-17T07:00:00.000Z",
@@ -118,7 +129,7 @@ function source(overrides = {}) {
 
 function catalog(sources = [source()]) {
   return {
-    schemaVersion: "2.1.0",
+    schemaVersion: "2.2.0",
     catalogId: "enterprise-source-catalog",
     policy: {
       readOnlySupplyChainInputs: true,
@@ -309,6 +320,85 @@ function chainedReceipt({
   });
 }
 
+test("source behavior cadence enforces policy maxima and permits narrower intervals", async () => {
+  const { SOURCE_BEHAVIORS, SOURCE_BEHAVIOR_CADENCE, validateSourceCadence } = await sourceCatalogContract();
+  assert.deepEqual(SOURCE_BEHAVIORS, [
+    "versioned-standard",
+    "living-official-guidance",
+    "security-runtime-source",
+    "active-tool-or-skill",
+    "general-method-reference",
+    "historical"
+  ]);
+  assert.deepEqual(SOURCE_BEHAVIOR_CADENCE["versioned-standard"], { monitor: 90, deep: 180 });
+  assert.deepEqual(SOURCE_BEHAVIOR_CADENCE.historical, { monitor: null, deep: null });
+
+  const candidate = source({
+    sourceBehavior: "security-runtime-source",
+    monitorIntervalDays: 7,
+    deepReviewIntervalDays: 14,
+    eventTriggers: ["security-advisory", "deprecation"]
+  });
+  assert.equal(validateSourceCadence(candidate), candidate);
+  assert.throws(
+    () => validateSourceCadence({
+      ...candidate,
+      sourceBehavior: "versioned-standard",
+      monitorIntervalDays: 91,
+      deepReviewIntervalDays: 180,
+      eventTriggers: ["new-edition"]
+    }),
+    /monitorIntervalDays exceeds policy maximum 90/
+  );
+  assert.throws(
+    () => validateSourceCadence({
+      ...candidate,
+      sourceBehavior: "active-tool-or-skill",
+      monitorIntervalDays: 30,
+      deepReviewIntervalDays: 91,
+      eventTriggers: ["major-release"]
+    }),
+    /deepReviewIntervalDays exceeds policy maximum 90/
+  );
+});
+
+test("source behavior cadence requires unique event triggers and historical null intervals", async () => {
+  const { validateSourceCadence } = await sourceCatalogContract();
+  const candidate = source({
+    sourceBehavior: "historical",
+    monitorIntervalDays: null,
+    deepReviewIntervalDays: null,
+    eventTriggers: ["withdrawal"]
+  });
+  assert.equal(validateSourceCadence(candidate), candidate);
+  assert.throws(
+    () => validateSourceCadence({ ...candidate, monitorIntervalDays: 90 }),
+    /historical sources require monitorIntervalDays and deepReviewIntervalDays to be null/
+  );
+  assert.throws(
+    () => validateSourceCadence({
+      ...candidate,
+      sourceBehavior: "general-method-reference",
+      monitorIntervalDays: 90,
+      deepReviewIntervalDays: 180,
+      eventTriggers: ["new-edition", "new-edition"]
+    }),
+    /eventTriggers must not contain duplicates/
+  );
+});
+
+test("source behavior never changes runtime posture", async () => {
+  const { validateSourceCadence } = await sourceCatalogContract();
+  const candidate = source({
+    sourceBehavior: "active-tool-or-skill",
+    monitorIntervalDays: 30,
+    deepReviewIntervalDays: 90,
+    eventTriggers: ["major-release"],
+    runtimePosture: "metadata-only"
+  });
+  assert.equal(validateSourceCadence(candidate).runtimePosture, "metadata-only");
+});
+
 test("canonical SourceCatalog v2 retains only active source identities", async () => {
   const { validateSourceCatalog } = await governance();
   const canonicalText = await readFile(path.join(ROOT, "sources", "source-watchlist.json"), "utf8");
@@ -322,7 +412,7 @@ test("canonical SourceCatalog v2 retains only active source identities", async (
     authoritativeForCurrentReview: false
   });
   assert.equal(validated.sources.some((entry) => "legacySnapshot" in entry.review), false);
-  assert.ok(Buffer.byteLength(canonicalText, "utf8") < 175_000, "canonical source catalog is needlessly context-heavy");
+  assert.ok(Buffer.byteLength(canonicalText, "utf8") < 200_000, "canonical source catalog is needlessly context-heavy");
   const playwright = validated.sources.find((entry) => entry.id === "microsoft-playwright");
   assert.ok(playwright);
   assert.deepEqual(playwright.aliases, ["playwright"]);
@@ -1427,7 +1517,7 @@ test("freshness report and catalog must agree on exact observed revision, digest
   const report = {
     schemaVersion: "2.1.0",
     catalogIdentity: {
-      schemaVersion: "2.1.0",
+      schemaVersion: "2.2.0",
       catalogId: "enterprise-source-catalog",
       sourceCount: 1
     },
@@ -1699,7 +1789,7 @@ test("manual receipt-backed freshness is validated against the catalog receipt a
   const manualReport = {
     schemaVersion: "2.1.0",
     catalogIdentity: {
-      schemaVersion: "2.1.0",
+      schemaVersion: "2.2.0",
       catalogId: "enterprise-source-catalog",
       sourceCount: 1
     },
@@ -1778,22 +1868,23 @@ test("manual receipt-backed freshness is validated against the catalog receipt a
 test("source governance validates a regenerated mirror and keeps review application dry-run unless confirmed", async () => {
   const validateScript = path.join(ROOT, "scripts", "validate-source-governance.mjs");
   const applyScript = path.join(ROOT, "scripts", "apply-source-review.mjs");
-  const migrationScript = path.join(ROOT, "scripts", "migrate-source-catalog-v2.mjs");
+  const migrationScript = path.join(ROOT, "scripts", "migrate-source-cadence-v2-2.mjs");
   const validation = await execFileAsync(process.execPath, [validateScript], { cwd: ROOT });
   assert.match(validation.stdout, /PASS validate-source-governance/);
   assert.match(validation.stdout, /"schemaVersion":"2\.1\.0"/);
   assert.match(validation.stdout, /"releaseEligible":true/);
   const migration = await execFileAsync(process.execPath, [migrationScript], { cwd: ROOT });
-  assert.match(migration.stdout, /"status":"already-v2\.1"/);
+  assert.match(migration.stdout, /"status":"already-v2\.2"/);
   assert.match(migration.stdout, /"sourceCount":80/);
+  assert.match(migration.stdout, /"classifications":\[/);
   const migrationSource = await readFile(migrationScript, "utf8");
   assert.match(
     migrationSource,
-    /filter\(\(source\) => !RETIRED_PORTFOLIO_SOURCE_IDS\.has\(source\.id\)\)/,
-    "legacy migration must exclude the retired portfolio before catalog construction"
+    /const VERSIONED_STANDARD_IDS = new Set\(/,
+    "cadence migration must use the reviewed versioned-standard ID set"
   );
   for (const retiredId of RETIRED_PORTFOLIO_SOURCE_IDS) {
-    assert.doesNotMatch(migrationSource, new RegExp(`id: "${retiredId}"`), `migration can restore retired source: ${retiredId}`);
+    assert.doesNotMatch(migrationSource, new RegExp(`"${retiredId}"`), `cadence migration must not restore retired source: ${retiredId}`);
   }
 
   const root = await mkdtemp(path.join(os.tmpdir(), "source-governance-cli-"));
