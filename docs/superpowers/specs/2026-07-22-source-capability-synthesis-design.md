@@ -276,6 +276,36 @@ Allowed evidence kinds are `static-eval`, `deterministic-runtime`, `observed-mod
 
 Freshness remains authoritative in SourceCatalog. The synthesis registry adds capability-scoped impact.
 
+### 8.1 Monitoring cadence is not runtime activation
+
+Every external source remains a passive supply-chain input unless its independent runtime posture, project detection, authorization, and execution evidence permit use. The word `active` must not be used to mean merely "checked frequently."
+
+The source policy separates lightweight change detection from deep content review:
+
+| Source behaviour | Examples | Lightweight change check | Deep review | Event-driven triggers |
+| --- | --- | ---: | ---: | --- |
+| `versioned-standard` | WCAG editions, NIST publications, OWASP verification standards, SLSA specifications | every 90 days | every 180 days or when the reviewed edition changes | new edition, errata, withdrawal, security advisory, dependent-gate change |
+| `living-official-guidance` | Apple HIG, Android quality guidance, OpenAI and Anthropic runtime documentation | every 30 days | every 90 days or on material content change | platform/runtime release, deprecation, policy or security change |
+| `security-runtime-source` | agent runtimes, security tools, execution frameworks, high-risk skills | every 14 days | every 30 days or on material revision | vulnerability, compromised release, maintainer or license change, dangerous-command change |
+| `active-tool-or-skill` | maintained coding tools, UI skills, test frameworks, optional integrations | every 30 days | every 90 days or before adoption/update | major release, dependency/installer/runtime change, selected consumer use |
+| `general-method-reference` | stable engineering methods, research-backed practices, low-risk community guidance | every 90 days | every 180 days or before new extraction | material revision, contradictory evidence, dependent-eval failure |
+| `historical` | archived discovery or superseded sources | no periodic check | owner-triggered only | evidence of unique missing value or provenance investigation |
+
+These are maximum default intervals, not promises to wait. A trusted release feed, security advisory, platform announcement, dependency alert, selected consumer use, or observed regression can trigger immediate review.
+
+Versioned standards are not "used once and forgotten." The toolkit continuously uses the pinned reviewed edition as its authoritative basis. The remote source is checked less frequently because its normative version is relatively stable. Deep review occurs when the edition, errata, interpretation, dependent gate, or legal/security context changes, and at the maximum confirmation interval even when no change is detected.
+
+Some sources that look like standards are living websites. They must be classified by actual publication behaviour, not by reputation or title. For example, a versioned PDF may qualify as `versioned-standard`, while the publisher's implementation guidance or platform policy page may require `living-official-guidance` cadence.
+
+SourceCatalog must therefore represent both:
+
+- `sourceBehavior`: one of the six classes above;
+- `monitorIntervalDays`: the lightweight change-detection interval;
+- `deepReviewIntervalDays`: the maximum content-review interval;
+- `eventTriggers`: explicit reasons for early review.
+
+The validator derives allowed intervals from policy defaults and rejects a source that silently extends them. A narrower interval is allowed for higher-risk or unusually volatile sources. Runtime posture remains an independent field and is never derived from source behaviour or freshness.
+
 When a source revision changes:
 
 1. Compare the observed source revision/digest with each synthesis input.
