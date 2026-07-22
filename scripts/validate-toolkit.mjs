@@ -749,17 +749,41 @@ async function validateSourceCapabilitySynthesis(parsed, watchlist, registryStat
   for (const [relativePath, document] of parsed) {
     if (!relativePath.startsWith("evals/")) continue;
     for (const entry of asArray(document?.cases)) {
-      if (typeof entry?.id === "string") evals.set(entry.id, { id: entry.id, path: relativePath });
+      if (typeof entry?.id === "string") {
+        evals.set(entry.id, { id: entry.id, path: relativePath, caseIds: [entry.id] });
+      }
     }
   }
-  const methods = new Map([...registryState.methods].map(([id, entry]) => [id, { ...entry, path: entry.methodPath }]));
+  const methods = new Map();
+  for (const [id, entry] of registryState.methods) {
+    let sourceRef = [];
+    try {
+      const frontmatter = parseMethodFrontmatter(await readFile(rootPath(entry.methodPath), "utf8"));
+      sourceRef = parseSourceRefs(frontmatter?.sourceRef, entry.methodPath);
+    } catch (error) {
+      fail("source capability synthesis", entry.methodPath, `could not load method sourceRef: ${error.message}`);
+    }
+    methods.set(id, { ...entry, path: entry.methodPath, sourceRef });
+  }
   const skills = new Map([...registryState.skills].map(([id, entry]) => [id, { ...entry, path: entry.skillPath }]));
   const agents = new Map([...registryState.agents].map(([id, entry]) => [id, { ...entry, path: entry.sourcePath }]));
+  const domainPacks = new Map();
+  for (const pack of asArray(parsed.get("registries/domain-packs.registry.json")?.packs)) {
+    for (const gate of asArray(pack.gates)) {
+      if (typeof gate?.id === "string") {
+        domainPacks.set(gate.id, {
+          ...gate,
+          id: gate.id,
+          path: "registries/domain-packs.registry.json"
+        });
+      }
+    }
+  }
   try {
     const result = await loadValidatedSourceCapabilityRegistry({
       repositoryRoot: ROOT,
       catalog: watchlist,
-      context: { methods, tools: registryState.tools, skills, agents, evals }
+      context: { methods, tools: registryState.tools, skills, agents, domainPacks, evals }
     });
     for (const warning of result.warnings) {
       warnings.push({

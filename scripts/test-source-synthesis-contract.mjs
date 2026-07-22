@@ -1,9 +1,14 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import test from "node:test";
 
 import {
   deriveSourceCapabilityWarnings,
-  validateSourceCapabilityRegistry
+  validateSourceCapabilityRegistry,
+  validateSourceCapabilityRepository
 } from "./ai-toolkit/kernel/source-synthesis-contract.mjs";
 
 const SHA = "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -35,9 +40,13 @@ function validContext(overrides = {}) {
     tools: new Map([["visual-tool", { id: "visual-tool", path: "tools/visual-tool.md" }]]),
     skills: new Map([["uiux", { id: "uiux", path: "skills/uiux/SKILL.md" }]]),
     agents: new Map([["ui-reviewer", { id: "ui-reviewer", path: "agents/ui-reviewer.md" }]]),
-    domainPacks: new Map([["uiux-gate", { id: "uiux-gate", path: "domain-packs/uiux-gate.json" }]]),
+    domainPacks: new Map([["uiux-gate", { id: "uiux-gate", path: "registries/domain-packs.registry.json" }]]),
     policies: new Map([["uiux-policy", { id: "uiux-policy", path: "docs/uiux-policy.md" }]]),
-    evals: new Map([["uiux-contextual-design-controls", { id: "uiux-contextual-design-controls", path: "evals/skills/uiux-evals.json" }]]),
+    evals: new Map([["uiux-contextual-design-controls", {
+      id: "uiux-contextual-design-controls",
+      path: "evals/skills/uiux-evals.json",
+      caseIds: ["uiux-contextual-design-controls"]
+    }]]),
     ...overrides
   };
 }
@@ -167,6 +176,71 @@ function validRegistry(overrides = {}) {
   };
 }
 
+function sha256Text(value) {
+  return `sha256:${createHash("sha256").update(value, "utf8").digest("hex")}`;
+}
+
+function createRepositoryFixture(context, options = {}) {
+  const root = mkdtempSync(path.join(tmpdir(), "source-synthesis-contract-"));
+  const receiptPath = `sources/reviews/impeccable/${REVISION}.json`;
+  const artifactPath = options.artifactPath ?? "artifacts/evidence.md";
+  const evaluationPath = "evals/fixture.json";
+  const receiptText = "{\"receipt\":\"fixture\"}\n";
+  const artifactText = "artifact evidence\n";
+  const evaluationText = JSON.stringify({
+    cases: [{ id: "uiux-contextual-design-controls" }],
+    metadata: { nested: { id: "nested-fake-case" } }
+  });
+  mkdirSync(path.join(root, "sources", "reviews", "impeccable"), { recursive: true });
+  mkdirSync(path.join(root, "artifacts"), { recursive: true });
+  mkdirSync(path.join(root, "evals"), { recursive: true });
+  writeFileSync(path.join(root, ...receiptPath.split("/")), receiptText, "utf8");
+  if (!options.deferArtifactWrite) writeFileSync(path.join(root, ...artifactPath.split("/")), artifactText, "utf8");
+  writeFileSync(path.join(root, ...evaluationPath.split("/")), evaluationText, "utf8");
+  const receiptDigest = sha256Text(receiptText);
+  const artifactDigest = sha256Text(artifactText);
+  const evaluationDigest = sha256Text(evaluationText);
+  const catalog = {
+    sources: [source("impeccable", {
+      monitor: { state: "CURRENT", observedRevision: { kind: "git-sha", value: REVISION }, contentDigest: SHA },
+      review: {
+        state: "REVIEWED_CURRENT",
+        currentReceipt: receiptPath,
+        receiptDigest,
+        reviewedRevision: { kind: "git-sha", value: REVISION },
+        reviewedDigest: SHA,
+        disposition: "SYNCED_ADOPTED"
+      }
+    }), source("taste-skill")]
+  };
+  const repositoryContext = validContext({
+    ...context,
+    catalog,
+    methods: new Map([...validContext().methods].map(([id, entry]) => [id, {
+      ...entry,
+      path: artifactPath,
+      sourceRef: options.methodSourceRefs ?? ["impeccable"]
+    }])),
+    evals: new Map([["uiux-contextual-design-controls", {
+      id: "uiux-contextual-design-controls",
+      path: evaluationPath,
+      caseIds: ["uiux-contextual-design-controls"]
+    }]])
+  });
+  const registry = validRegistry({
+    sourceAssessments: [assessment("impeccable", { receiptPath, receiptDigest }), pendingAssessment()],
+    capabilities: [capability(undefined, undefined, {
+      ownerRef: { kind: "method", id: "uiux.premium-visual-quality", path: artifactPath }
+    })],
+    syntheses: [synthesis(undefined, undefined, {
+      inputs: [input(undefined, undefined, { receiptPath, receiptDigest })],
+      artifactRefs: [artifact({ path: artifactPath, contentDigest: artifactDigest })],
+      evaluationRefs: [evaluation({ path: evaluationPath, contentDigest: evaluationDigest })]
+    })]
+  });
+  return { root, registry, context: repositoryContext, catalog, artifactText };
+}
+
 test("multiple sources may contribute to one synthesis", () => {
   const registry = validRegistry({
     sourceAssessments: [assessment(), assessment("taste-skill", { contributionRefs: [], nicheIds: [], valueStatement: "Useful reviewed secondary evidence." })],
@@ -200,14 +274,37 @@ test("rejects source receipt revision and digest mismatch", () => {
   assert.throws(() => validateSourceCapabilityRegistry(validRegistry({ syntheses: [synthesis(undefined, [input(undefined, undefined, { contentDigest: "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" })])] }), validContext()), /contentDigest/);
 });
 
-test("rejects traversal and linked repository evidence", async () => {
+test("rejects traversal and actual linked repository evidence", async (context) => {
   assert.throws(() => validateSourceCapabilityRegistry(validRegistry({ syntheses: [synthesis(undefined, undefined, { artifactRefs: [artifact({ path: "../outside.md" })] })] }), validContext()), /safe repository-relative POSIX path/);
-  await assert.rejects(() => import("./ai-toolkit/kernel/source-synthesis-contract.mjs").then(({ validateSourceCapabilityRepository }) => validateSourceCapabilityRepository({
-    repositoryRoot: process.cwd(),
-    catalog: validContext().catalog,
-    registry: validRegistry({ syntheses: [synthesis(undefined, undefined, { artifactRefs: [artifact({ path: "scripts/test-source-synthesis-contract.mjs" })] })] }),
-    context: validContext()
-  })), /content digest|linked|artifact/);
+  const fixture = createRepositoryFixture(context, { artifactPath: "artifacts/linked.md", deferArtifactWrite: true });
+  const outside = path.join(fixture.root, "outside.md");
+  const linked = path.join(fixture.root, "artifacts", "linked.md");
+  try {
+    writeFileSync(outside, fixture.artifactText, "utf8");
+    try {
+      symlinkSync(outside, linked, process.platform === "win32" ? "file" : "file");
+    } catch (error) {
+      if (["EACCES", "EPERM", "UNKNOWN"].includes(error?.code)) {
+        context.skip(`host does not permit creating a file link: ${error.code}`);
+        return;
+      }
+      throw error;
+    }
+    try {
+      await assert.rejects(
+        validateSourceCapabilityRepository({ repositoryRoot: fixture.root, catalog: fixture.catalog, registry: fixture.registry, context: fixture.context }),
+        /linked|symbolic link|junction|reparse|regular file/i
+      );
+    } catch (error) {
+      if (/fsutil\.exe EPERM/i.test(error?.message)) {
+        context.skip(`host cannot inspect linked-file reparse state: ${error.message}`);
+        return;
+      }
+      throw error;
+    }
+  } finally {
+    rmSync(fixture.root, { recursive: true, force: true });
+  }
 });
 
 test("allows only one active owner and approved active synthesis per capability", () => {
@@ -219,6 +316,87 @@ test("enforces state-dependent evidence and decision requirements", () => {
   assert.throws(() => validateSourceCapabilityRegistry(validRegistry({ sourceAssessments: [assessment("impeccable", { state: "stale", staleReason: "source-revision-changed" }), pendingAssessment("taste-skill")] }), validContext()), /stale assessment cannot support an approved synthesis/);
   assert.throws(() => validateSourceCapabilityRegistry(validRegistry({ syntheses: [synthesis(undefined, undefined, { decisions: [decision("adapt-context", { evaluationRefs: [] })] })] }), validContext()), /requires artifact and evaluation references/);
   assert.throws(() => validateSourceCapabilityRegistry(validRegistry({ syntheses: [synthesis(undefined, undefined, { decisions: [decision("adapt-context", { outcome: "rejected", adaptationMethod: null, artifactRefs: ["method:uiux.premium-visual-quality"] })] })] }), validContext()), /cannot claim active artifacts/);
+  assert.throws(() => validateSourceCapabilityRegistry(validRegistry({ syntheses: [synthesis(undefined, undefined, {
+    decisions: [decision("reference-context", { outcome: "reference-only", adaptationMethod: null, artifactRefs: ["method:uiux.premium-visual-quality"], evaluationRefs: [] })],
+    artifactRefs: [artifact({ decisionRefs: ["reference-context"] })],
+    evaluationRefs: [evaluation({ decisionRefs: ["reference-context"] })]
+  })] }), validContext()), /cannot claim active artifacts/);
+  assert.throws(() => validateSourceCapabilityRegistry(validRegistry({ syntheses: [synthesis(undefined, undefined, {
+    decisions: [decision("reference-context", { outcome: "reference-only", adaptationMethod: null, artifactRefs: [], evaluationRefs: [] })],
+    artifactRefs: [artifact({ decisionRefs: ["reference-context"] })],
+    evaluationRefs: [evaluation({ decisionRefs: ["reference-context"] })]
+  })] }), validContext()), /unreciprocated|cannot claim active artifacts/);
+});
+
+test("binds evaluation references to canonical eval IDs and exact top-level cases", () => {
+  assert.throws(() => validateSourceCapabilityRegistry(validRegistry({ syntheses: [synthesis(undefined, undefined, {
+    evaluationRefs: [evaluation({ id: "eval:unknown-eval", caseIds: ["unknown-eval"] })],
+    decisions: [decision("adapt-context", { evaluationRefs: ["eval:unknown-eval"] })]
+  })] }), validContext()), /canonical eval/);
+  assert.throws(() => validateSourceCapabilityRegistry(validRegistry({ syntheses: [synthesis(undefined, undefined, {
+    evaluationRefs: [evaluation({ caseIds: ["nested-fake-case"] })]
+  })] }), validContext()), /case ID does not resolve/);
+});
+
+test("domain-gate references must resolve through the canonical domain-pack collection", () => {
+  const known = validRegistry({ capabilities: [capability(undefined, undefined, {
+    ownerRef: { kind: "domain-gate", id: "uiux-gate", path: "registries/domain-packs.registry.json" }
+  })] });
+  assert.doesNotThrow(() => validateSourceCapabilityRegistry(known, validContext()));
+  const unknown = validRegistry({ capabilities: [capability(undefined, undefined, {
+    ownerRef: { kind: "domain-gate", id: "missing-gate", path: "registries/domain-packs.registry.json" }
+  })] });
+  assert.throws(() => validateSourceCapabilityRegistry(unknown, validContext()), /canonical domain-gate/);
+});
+
+test("method source provenance accepts only approved inputs or explicit pending assessments", async (context) => {
+  const unknown = createRepositoryFixture(context, { methodSourceRefs: ["unknown-source"] });
+  try {
+    await assert.rejects(
+      validateSourceCapabilityRepository({ repositoryRoot: unknown.root, catalog: unknown.catalog, registry: unknown.registry, context: unknown.context }),
+      /unknown method sourceRef/
+    );
+  } finally {
+    rmSync(unknown.root, { recursive: true, force: true });
+  }
+  for (const state of ["draft", "superseded"]) {
+    const fixture = createRepositoryFixture(context, { methodSourceRefs: ["taste-skill"] });
+    try {
+      fixture.registry.sourceAssessments = [
+        assessment("impeccable", { receiptPath: fixture.catalog.sources[0].review.currentReceipt, receiptDigest: fixture.catalog.sources[0].review.receiptDigest }),
+        assessment("taste-skill", { contributionRefs: [], nicheIds: [], valueStatement: "Current secondary evidence." })
+      ];
+      fixture.registry.syntheses.push(synthesis("uiux.visual-direction@2", [input("taste-input", "taste-skill")], {
+        version: 2,
+        state,
+        decisions: [],
+        artifactRefs: [],
+        evaluationRefs: []
+      }));
+      await assert.rejects(
+        validateSourceCapabilityRepository({ repositoryRoot: fixture.root, catalog: fixture.catalog, registry: fixture.registry, context: fixture.context }),
+        /approved synthesis input/
+      );
+    } finally {
+      rmSync(fixture.root, { recursive: true, force: true });
+    }
+  }
+  const pending = createRepositoryFixture(context, { methodSourceRefs: ["taste-skill"] });
+  try {
+    let result;
+    try {
+      result = await validateSourceCapabilityRepository({ repositoryRoot: pending.root, catalog: pending.catalog, registry: pending.registry, context: pending.context });
+    } catch (error) {
+      if (/fsutil\.exe EPERM/i.test(error?.message)) {
+        context.skip(`host cannot inspect method provenance fixture: ${error.message}`);
+        return;
+      }
+      throw error;
+    }
+    assert.deepEqual(result.warnings, [{ code: "pending-method-source-assessment", methodId: "uiux.premium-visual-quality", sourceId: "taste-skill" }]);
+  } finally {
+    rmSync(pending.root, { recursive: true, force: true });
+  }
 });
 
 test("rejects historical sources from active capabilities and exposes honest warnings", () => {

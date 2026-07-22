@@ -55,6 +55,7 @@ const EVIDENCE_KINDS = new Set([
 ]);
 const LOCATOR_KINDS = new Set(["repository-path-section", "document-section", "code-symbol", "url-fragment"]);
 const ACTIVE_DECISION_OUTCOMES = new Set(["adopted", "adapted", "delegated"]);
+const NON_EXTERNAL_METHOD_SOURCE_REFS = new Set(["toolkit-authored", "unknown-review-required"]);
 const ACTIVE_SOURCE_BEHAVIORS = new Set([
   "versioned-standard",
   "living-official-guidance",
@@ -340,6 +341,16 @@ function validateEvaluation(entry, field, decisionIds, collections) {
   requireDigest(evaluation.contentDigest, `${field}.contentDigest`);
   const refs = requireStringArray(evaluation.decisionRefs, `${field}.decisionRefs`, { allowEmpty: false });
   for (const ref of refs) if (!decisionIds.has(ref)) fail(`${field}.decisionRefs contains unknown decision: ${ref}`);
+  const canonicalId = evaluation.id.slice("eval:".length);
+  const canonical = collections.evals.get(canonicalId);
+  if (!canonical && collections.catalog) fail(`${field}.id does not resolve to a canonical eval`);
+  if (canonical) {
+    if (canonical.path && canonical.path !== evaluation.path) fail(`${field}.path does not match canonical eval`);
+    if (!Array.isArray(canonical.caseIds)) fail(`canonical eval must declare exact case IDs: ${canonicalId}`);
+    for (const caseId of evaluation.caseIds) {
+      if (!canonical.caseIds.includes(caseId)) fail(`${field}.case ID does not resolve to canonical eval: ${caseId}`);
+    }
+  }
   return evaluation;
 }
 
@@ -369,7 +380,7 @@ function validateDecision(entry, field, inputIds, artifactIds, evaluationIds) {
   if (ACTIVE_DECISION_OUTCOMES.has(decision.outcome) && (artifactRefs.length === 0 || evaluationRefs.length === 0)) {
     fail(`${field} requires artifact and evaluation references for ${decision.outcome}`);
   }
-  if (["rejected", "superseded"].includes(decision.outcome) && artifactRefs.length > 0) {
+  if (["reference-only", "rejected", "superseded"].includes(decision.outcome) && artifactRefs.length > 0) {
     fail(`${field} cannot claim active artifacts for ${decision.outcome}`);
   }
   return decision;
@@ -478,10 +489,23 @@ export function validateSourceCapabilityRegistry(registry, context = {}) {
     for (const [artifactIndex, artifact] of artifacts.entries()) artifactById.set(artifact.id, validateArtifact(artifact, `${field}.artifactRefs[${artifactIndex}]`, decisionIds, collections));
     const evaluationById = new Map();
     for (const [evaluationIndex, evaluation] of evaluations.entries()) evaluationById.set(evaluation.id, validateEvaluation(evaluation, `${field}.evaluationRefs[${evaluationIndex}]`, decisionIds, collections));
+    const decisionById = new Map();
     for (const [decisionIndex, decision] of decisions.entries()) {
       const validated = validateDecision(decision, `${field}.decisions[${decisionIndex}]`, new Set(inputById.keys()), artifactIds, evaluationIds);
+      decisionById.set(validated.id, validated);
       for (const artifactId of validated.artifactRefs) if (!artifactById.get(artifactId).decisionRefs.includes(validated.id)) fail(`${field}.artifactRefs ${artifactId} must reference decision ${validated.id}`);
       for (const evaluationId of validated.evaluationRefs) if (!evaluationById.get(evaluationId).decisionRefs.includes(validated.id)) fail(`${field}.evaluationRefs ${evaluationId} must reference decision ${validated.id}`);
+    }
+    for (const artifact of artifactById.values()) {
+      for (const decisionId of artifact.decisionRefs) {
+        const linkedDecision = decisionById.get(decisionId);
+        if (!linkedDecision.artifactRefs.includes(artifact.id)) {
+          fail(`${field}.artifactRefs ${artifact.id} cannot claim an unreciprocated decision artifact link`);
+        }
+        if (["reference-only", "rejected", "superseded"].includes(linkedDecision.outcome)) {
+          fail(`${field}.artifactRefs ${artifact.id} cannot claim active artifacts for ${linkedDecision.outcome}`);
+        }
+      }
     }
     if (entry.state === "approved") {
       if (entry.strategy === "retired-redundant") fail(`${field}.state approved is incompatible with retired-redundant strategy`);
@@ -524,19 +548,30 @@ async function readVerifiedText(repositoryRoot, relativePath, label) {
   return { text, digest: sha256Text(text) };
 }
 
-function collectCaseIds(value, ids = new Set()) {
-  if (Array.isArray(value)) {
-    for (const entry of value) collectCaseIds(entry, ids);
-  } else if (isRecord(value)) {
-    if (typeof value.id === "string") ids.add(value.id);
-    for (const entry of Object.values(value)) collectCaseIds(entry, ids);
-  }
-  return ids;
-}
-
 export async function validateSourceCapabilityRepository({ repositoryRoot, catalog, registry, context = {} } = {}) {
   const root = path.resolve(requireString(repositoryRoot, "repositoryRoot"));
   const validated = validateSourceCapabilityRegistry(registry, { ...context, catalog });
+  const inputsBySource = new Set(validated.syntheses
+    .filter((synthesis) => synthesis.state === "approved")
+    .flatMap((synthesis) => synthesis.inputs.map((input) => input.sourceId)));
+  const assessments = new Map(validated.sourceAssessments.map((assessment) => [assessment.sourceId, assessment]));
+  const warnings = [];
+  for (const [methodId, method] of normalizeRegistryEntries(context.methods)) {
+    const sourceRefs = Array.isArray(method.sourceRef) ? method.sourceRef : [];
+    for (const sourceId of sourceRefs) {
+      if (NON_EXTERNAL_METHOD_SOURCE_REFS.has(sourceId)) continue;
+      if (!catalog?.sources?.some((source) => source.id === sourceId)) {
+        fail(`unknown method sourceRef ${sourceId}: ${methodId}`);
+      }
+      if (inputsBySource.has(sourceId)) continue;
+      const assessment = assessments.get(sourceId);
+      if (assessment?.state === "pending-review") {
+        warnings.push({ code: "pending-method-source-assessment", methodId, sourceId });
+      } else {
+        fail(`method sourceRef ${sourceId} does not resolve to an approved synthesis input or pending assessment: ${methodId}`);
+      }
+    }
+  }
   const evidence = new Map();
   for (const synthesis of validated.syntheses) {
     for (const input of synthesis.inputs) {
@@ -558,7 +593,9 @@ export async function validateSourceCapabilityRepository({ repositoryRoot, catal
       } catch {
         fail(`evaluation reference must be JSON: ${evaluation.path}`);
       }
-      const caseIds = collectCaseIds(parsed.cases ?? []);
+      const caseIds = new Set(Array.isArray(parsed.cases)
+        ? parsed.cases.map((entry) => entry?.id).filter((id) => typeof id === "string")
+        : []);
       for (const caseId of evaluation.caseIds) if (!caseIds.has(caseId)) fail(`evaluation case ID does not resolve: ${caseId}`);
       evidence.set(evaluation.path, observed.digest);
     }
@@ -566,21 +603,6 @@ export async function validateSourceCapabilityRepository({ repositoryRoot, catal
   for (const [relativePath, digest] of evidence) {
     const observed = await readVerifiedText(root, relativePath, `synthesis evidence recheck ${relativePath}`);
     if (observed.digest !== digest) fail(`repository evidence changed during validation: ${relativePath}`);
-  }
-  const inputsBySource = new Set(validated.syntheses.flatMap((synthesis) => synthesis.inputs.map((input) => input.sourceId)));
-  const assessments = new Map(validated.sourceAssessments.map((assessment) => [assessment.sourceId, assessment]));
-  const warnings = [];
-  for (const [methodId, method] of normalizeRegistryEntries(context.methods)) {
-    const sourceRefs = Array.isArray(method.sourceRef) ? method.sourceRef : [];
-    for (const sourceId of sourceRefs) {
-      if (!catalog?.sources?.some((source) => source.id === sourceId) || inputsBySource.has(sourceId)) continue;
-      const assessment = assessments.get(sourceId);
-      if (assessment?.state === "pending-review") {
-        warnings.push({ code: "pending-method-source-assessment", methodId, sourceId });
-      } else {
-        fail(`method sourceRef ${sourceId} does not resolve to a synthesis input or pending assessment: ${methodId}`);
-      }
-    }
   }
   return { registry: validated, warnings };
 }
