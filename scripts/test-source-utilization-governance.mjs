@@ -9,6 +9,11 @@ import {
   resolveUtilizationClassification,
   validateSourceUtilizationReport
 } from "./ai-toolkit/kernel/source-utilization-contract.mjs";
+import {
+  buildSourceUtilizationModel,
+  loadSourceUtilizationInputs,
+  renderSourceUtilizationMatrix
+} from "./ai-toolkit/generate-source-utilization.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SOURCE_UTILIZATION_REPORT = "docs/SOURCE_UTILIZATION_MATRIX.md";
@@ -312,7 +317,7 @@ test("required tool classifications resolve from Registered Tools for shared IDs
   );
 });
 
-test("tool-shared sources retain distinct pending review rows", async () => {
+test("tool-shared sources retain distinct canonical review triggers", async () => {
   const report = await readText(SOURCE_UTILIZATION_REPORT);
   const watchedRows = parseMarkdownTableSection(report, "Watched Sources", UTILIZATION_HEADERS);
   const watchedById = new Map(watchedRows.map((row) => [row.ID, row]));
@@ -320,7 +325,7 @@ test("tool-shared sources retain distinct pending review rows", async () => {
   for (const sourceId of TOOL_SHARED_SOURCE_IDS) {
     const row = watchedById.get(sourceId);
     assert.ok(row, `missing watched source row: ${sourceId}`);
-    assert.match(row["Next extraction"], /pending.*(?:review|extract)|(?:review|extract).*pending/i);
+    assert.match(row["Next extraction"], /source-revision-changed; owner-review-requested/i);
   }
 });
 
@@ -360,17 +365,16 @@ test("source utilization report classifies every watched source and registered t
     watchlist.sources.map((source) => source.id).sort()
   );
 
-  assert.equal(
-    utilization.watchedById.has("ui-ux-pro-max-audit"),
-    false,
-    "internal audit artifact must not be misclassified as a watched source"
-  );
-  assert.match(report, /^## Internal Audit Artifacts$/m);
-  assert.match(report, /^\| ui-ux-pro-max-audit \|/m);
-  assert.match(report, /docs\/UI_UX_PRO_MAX_AUDIT\.md/);
   assert.equal(utilization.watchedById.get("matt-pocock-skills")?.Classification, "active-method");
   assert.equal(utilization.watchedById.get("matt-pocock-skills")?.Recommendation, "Do later");
   assert.doesNotMatch(report, /\|\s*matt-pocock-skills\s*\|[^\n]*Refresh reviewed commit/);
+});
+
+test("source utilization report is byte-identical canonical synthesis", async () => {
+  const report = await readText(SOURCE_UTILIZATION_REPORT);
+  const inputs = await loadSourceUtilizationInputs(ROOT);
+
+  assert.equal(report, renderSourceUtilizationMatrix(buildSourceUtilizationModel(inputs)));
 });
 
 test("retired portfolio sources appear only in the archived portfolio section", async () => {
@@ -383,7 +387,7 @@ test("retired portfolio sources appear only in the archived portfolio section", 
     assert.equal(tableHasId(activePortfolio, sourceId), false, `retired source remains watched: ${sourceId}`);
     assert.equal(tableHasId(archivedPortfolio, sourceId), true, `missing archived source: ${sourceId}`);
   }
-  assert.match(archivedPortfolio, /not review receipts, approvals, freshness proof, or runtime authority/i);
+  assert.match(archivedPortfolio, /no active provenance, install, extraction, activation, or runtime use/i);
 });
 
 test("project context preflight methods are registered and backed by method files", async () => {

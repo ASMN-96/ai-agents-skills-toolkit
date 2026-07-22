@@ -11,10 +11,12 @@ import {
   digestCanonicalCompilerInputs,
   resolveProfileSourcePath
 } from "./ai-toolkit/compiler-provenance.mjs";
+import { validateSourceUtilizationReport } from "./ai-toolkit/kernel/source-utilization-contract.mjs";
 import {
-  resolveUtilizationClassification,
-  validateSourceUtilizationReport
-} from "./ai-toolkit/kernel/source-utilization-contract.mjs";
+  buildSourceUtilizationModel,
+  loadSourceUtilizationInputs,
+  renderSourceUtilizationMatrix
+} from "./ai-toolkit/generate-source-utilization.mjs";
 import { loadValidatedSourceCapabilityRegistry } from "./ai-toolkit/source-governance.mjs";
 import { embeddedValidatorPolicies } from "./ai-toolkit/subvalidator-policy.mjs";
 import { assertRegularFileWithin } from "../install/safe-filesystem.mjs";
@@ -992,7 +994,13 @@ async function validateSourceUtilizationClassification(watchlist, registryState)
   }
 
   let utilization;
+  let model;
   try {
+    const inputs = await loadSourceUtilizationInputs(ROOT);
+    model = buildSourceUtilizationModel(inputs);
+    if (text !== renderSourceUtilizationMatrix(model)) {
+      fail("source utilization classification", SOURCE_UTILIZATION_REPORT, "generated report drift detected; run node scripts/generate-source-utilization.mjs --confirm-write");
+    }
     utilization = validateSourceUtilizationReport({
       markdown: text,
       sourceIds: asArray(watchlist?.sources).map((source) => source.id),
@@ -1011,19 +1019,10 @@ async function validateSourceUtilizationClassification(watchlist, registryState)
     ["ruflo", "source", "active-method"],
     ["open-design", "tool", "active-reference"]
   ];
+  const sourcesById = new Map(model.sources.map((row) => [row.id, row]));
+  const toolsById = new Map(model.tools.map((row) => [row.id, row]));
   for (const [id, kind, expected] of requiredRows) {
-    let actual;
-    try {
-      actual = resolveUtilizationClassification({
-        id,
-        kind,
-        watchedById: utilization.watchedById,
-        toolsById: utilization.toolsById
-      });
-    } catch (error) {
-      fail("source utilization classification", `${SOURCE_UTILIZATION_REPORT}:${id}`, error.message);
-      continue;
-    }
+    const actual = (kind === "source" ? sourcesById : toolsById).get(id)?.classification;
     if (actual !== expected) {
       fail("source utilization classification", `${SOURCE_UTILIZATION_REPORT}:${id}`, `expected ${expected}, got ${actual || "missing"}`);
     }
