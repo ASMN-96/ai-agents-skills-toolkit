@@ -30,12 +30,12 @@ function currentReport(root) {
   }
 }
 
-export async function generateSourceUtilization({ repositoryRoot = process.cwd(), mode = "dry-run", beforeReplace, validateCanonical = true } = {}) {
+export async function generateSourceUtilization({ repositoryRoot = process.cwd(), mode = "dry-run", beforeReplace } = {}) {
   const root = path.resolve(repositoryRoot);
   if (!new Set(["dry-run", "check", "confirm-write"]).has(mode)) throw new Error(`unsupported mode: ${mode}`);
   if (beforeReplace !== undefined && typeof beforeReplace !== "function") throw new Error("beforeReplace must be a function when supplied");
-  const inputs = await loadSourceUtilizationInputs(root, { validateCanonical });
-  const expected = Buffer.from(renderSourceUtilizationMatrix(buildSourceUtilizationModel({ ...inputs, validateCanonical })), "utf8");
+  const inputs = await loadSourceUtilizationInputs(root);
+  const expected = Buffer.from(renderSourceUtilizationMatrix(buildSourceUtilizationModel(inputs)), "utf8");
   const actual = currentReport(root);
   const matched = actual !== null && Buffer.compare(actual, expected) === 0;
   const result = { mode, reportPath: REPORT_PATH, bytes: expected.length, matched, written: false };

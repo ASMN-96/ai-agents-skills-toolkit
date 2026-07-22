@@ -4,10 +4,11 @@ import path from "node:path";
 import { assertRegularFileWithin } from "../../install/safe-filesystem.mjs";
 import { validateSourceCapabilityRegistry, validateSourceCatalog } from "./source-governance.mjs";
 import { encodeMarkdownTableCell, splitMarkdownTableRow } from "./kernel/source-utilization-contract.mjs";
+import { validateCanonicalToolsRegistry } from "./kernel/tool-registry-contract.mjs";
 
 const SOURCE_HEADERS = ["ID", "Source", "Classification", "Recommendation", "Current value path", "Next extraction", "Forbidden boundary"];
 const TOOL_HEADERS = ["ID", "Tool", "Classification", "Recommendation", "Current value path", "Next extraction", "Forbidden boundary"];
-const ARCHIVE_HEADERS = ["ID", "Source", "Archive reason", "Archive provenance", "Boundary"];
+const ARCHIVE_HEADERS = ["ID", "Source", "Archive reason", "Prior record provenance", "Archived record provenance", "Archive index", "Boundary"];
 
 function requireText(value, label) {
   if (typeof value !== "string" || value.trim() === "") throw new Error(`${label} must be a non-empty string`);
@@ -35,15 +36,13 @@ function assertUniqueRecords(records, label, { name = false } = {}) {
   return [...records].sort((left, right) => left.id.localeCompare(right.id));
 }
 
-function assertCanonicalInputSets({ catalog, tools, registry, validateCanonical }) {
+function assertCanonicalInputSets({ catalog, tools, registry }) {
   const sources = assertUniqueRecords(catalog?.sources, "catalog source", { name: true });
   const toolRows = assertUniqueRecords(tools?.tools, "tool", { name: true });
-  if (validateCanonical) {
-    if (tools.registryType !== "tools") throw new Error("canonical tools registryType must be tools");
-    validateSourceCatalog(catalog, { now: new Date().toISOString() });
-    const { archiveIndex, ...sourceCapabilityRegistry } = registry;
-    validateSourceCapabilityRegistry(sourceCapabilityRegistry, { catalog });
-  }
+  validateCanonicalToolsRegistry(tools);
+  validateSourceCatalog(catalog, { now: new Date().toISOString() });
+  const { archiveIndex, ...sourceCapabilityRegistry } = registry;
+  validateSourceCapabilityRegistry(sourceCapabilityRegistry, { catalog });
   if (!Array.isArray(registry?.sourceAssessments)) throw new Error("source assessments must be an array");
   const assessmentIds = new Set();
   for (const assessment of registry.sourceAssessments) {
@@ -72,6 +71,7 @@ function sourceRecommendation(assessment) {
 }
 
 function toolClassification(tool) {
+  if (tool.status === "source-only") return "reference-only-with-reason";
   if (tool.projectInstallClass === "active-reference") return "active-reference";
   if (tool.projectInstallClass === "approval-required") return "reference-only-with-reason";
   return "active-profile-route";
@@ -99,7 +99,23 @@ function sourceBoundary(source) {
     : "No automatic import, installation, activation, or runtime use.";
 }
 
-export function parseArchiveIndex(markdown) {
+function archivePath(value, label, { repositoryRoot, requireExisting = false } = {}) {
+  const raw = requireText(value, label);
+  const candidate = raw.startsWith("`") && raw.endsWith("`") ? raw.slice(1, -1) : raw;
+  if (candidate === "" || candidate.includes("\\") || path.win32.isAbsolute(candidate) || path.posix.isAbsolute(candidate)) {
+    throw new Error(`archive ${label} must be a safe repository-relative path`);
+  }
+  const normalized = path.posix.normalize(candidate);
+  if (normalized !== candidate || !candidate.startsWith("sources/")) {
+    throw new Error(`archive ${label} must be a safe repository-relative path`);
+  }
+  if (requireExisting && repositoryRoot) {
+    assertRegularFileWithin(repositoryRoot, path.resolve(repositoryRoot, candidate), `archive ${label}`);
+  }
+  return candidate;
+}
+
+export function parseArchiveIndex(markdown, { repositoryRoot } = {}) {
   const lines = markdown.split(/\r?\n/);
   const headerIndex = lines.findIndex((line) => line.trim() === "| ID | Prior record path | Archived record path | Prior identity / URL | Last stored monitor revision / digest / state | Removal reason |");
   if (headerIndex < 0 || lines[headerIndex + 1]?.trim() !== "| --- | --- | --- | --- | --- | --- |") {
@@ -110,14 +126,22 @@ export function parseArchiveIndex(markdown) {
     const row = splitMarkdownTableRow(lines[index]);
     if (row.length !== 6) throw new Error("archive index contains a malformed retirement row");
     const [id, priorRecordPath, archivedRecordPath, identity, monitor, archiveReason] = row;
-    for (const [value, label] of [[id, "ID"], [priorRecordPath, "prior record path"], [archivedRecordPath, "archived record path"], [identity, "identity"], [monitor, "monitor"], [archiveReason, "removal reason"]]) requireText(value, `archive ${label}`);
-    archives.push({ id, source: id, archiveReason, archiveProvenance: "sources/archive/INDEX.md", boundary: "No active provenance, install, extraction, activation, or runtime use." });
+    for (const [value, label] of [[id, "ID"], [identity, "identity"], [monitor, "monitor"], [archiveReason, "removal reason"]]) requireText(value, `archive ${label}`);
+    archives.push({
+      id,
+      source: id,
+      archiveReason,
+      priorRecordPath: archivePath(priorRecordPath, "prior record path", { repositoryRoot }),
+      archivedRecordPath: archivePath(archivedRecordPath, "archived record path", { repositoryRoot, requireExisting: true }),
+      archiveProvenance: "sources/archive/INDEX.md",
+      boundary: "No active provenance, install, extraction, activation, or runtime use."
+    });
   }
   return assertUniqueRecords(archives, "archived source", { name: false });
 }
 
-export function buildSourceUtilizationModel({ catalog, tools, registry, validateCanonical = true } = {}) {
-  const validated = assertCanonicalInputSets({ catalog, tools, registry, validateCanonical });
+export function buildSourceUtilizationModel({ catalog, tools, registry } = {}) {
+  const validated = assertCanonicalInputSets({ catalog, tools, registry });
   const assessments = new Map(registry.sourceAssessments.map((assessment) => [assessment.sourceId, assessment]));
   const activeIds = new Set(validated.sources.map((source) => source.id));
   const archivedSources = assertUniqueRecords(registry?.archiveIndex || [], "archived source").map((archive) => {
@@ -127,7 +151,9 @@ export function buildSourceUtilizationModel({ catalog, tools, registry, validate
       id,
       source: requireText(archive.source, `archived source ${id} source`),
       archiveReason: requireText(archive.archiveReason, `archived source ${id} reason`),
-      archiveProvenance: requireText(archive.archiveProvenance || "sources/archive/INDEX.md", `archived source ${id} provenance`),
+      priorRecordPath: archivePath(archive.priorRecordPath, `source ${id} prior record path`),
+      archivedRecordPath: archivePath(archive.archivedRecordPath, `source ${id} archived record path`),
+      archiveProvenance: requireText(archive.archiveProvenance, `archived source ${id} provenance`),
       boundary: requireText(archive.boundary, `archived source ${id} boundary`)
     };
   });
@@ -162,12 +188,12 @@ function table(heading, headers, rows) {
 export function renderSourceUtilizationMatrix(model) {
   const watchedRows = model.sources.map((source) => [source.id, source.name, source.classification, source.recommendation, source.currentValuePath, source.nextExtraction, source.forbiddenBoundary]);
   const toolRows = model.tools.map((tool) => [tool.id, tool.name, tool.classification, tool.recommendation, tool.currentValuePath, tool.nextExtraction, tool.forbiddenBoundary]);
-  const archiveRows = model.archivedSources.map((source) => [source.id, source.source, source.archiveReason, source.archiveProvenance, source.boundary]);
+  const archiveRows = model.archivedSources.map((source) => [source.id, source.source, source.archiveReason, source.priorRecordPath, source.archivedRecordPath, source.archiveProvenance, source.boundary]);
   return [
     "# Source Utilization Matrix", "",
     "This generated report is canonical synthesis of the SourceCatalog, SourceCapabilityRegistry, tools registry, and retired-source archive index. It does not approve source activation, installation, extraction, or runtime use.", "",
     "## Classification Contract", "",
-    "Classifications are generated from canonical source scope, behavior, review disposition, and registered-tool install class: `active-method`, `active-profile-route`, `active-reference`, `active-read-only`, and `reference-only-with-reason`. Sources without an approved current-scope disposition remain reference-only pending synthesis. Recommendations remain `Must do next`, `Do later`, `Needs owner decision`, or `Reject / not aligned`.", "",
+    "Classifications are generated from canonical source scope, behavior, review disposition, and registered-tool install class: `active-method`, `active-profile-route`, `active-reference`, `active-read-only`, and `reference-only-with-reason`. For a `pending-review` synthesis assessment, classification records the pinned historical/current toolkit disposition only; it is not current upstream approval, activation, or authorization. The row's current value and next extraction remain `Pending synthesis` until that new assessment is recorded. Recommendations remain `Must do next`, `Do later`, `Needs owner decision`, or `Reject / not aligned`.", "",
     table("Watched Sources", SOURCE_HEADERS, watchedRows), "",
     table("Archived portfolio", ARCHIVE_HEADERS, archiveRows), "",
     "## Internal Audit Artifacts", "", "Toolkit-owned audit artifacts remain governed by their canonical documents and owner workflows; they are not watched-source authority.", "", "- UI/UX audit ownership: `docs/UI_UX_PRO_MAX_AUDIT.md`.", "",
@@ -182,7 +208,7 @@ async function readJson(root, relativePath, label) {
   return JSON.parse(await readFile(target, "utf8"));
 }
 
-export async function loadSourceUtilizationInputs(repositoryRoot, { validateCanonical = true } = {}) {
+export async function loadSourceUtilizationInputs(repositoryRoot) {
   const root = path.resolve(repositoryRoot);
   const [catalog, tools, registry, archiveText] = await Promise.all([
     readJson(root, "sources/source-watchlist.json", "canonical source catalog"),
@@ -190,7 +216,7 @@ export async function loadSourceUtilizationInputs(repositoryRoot, { validateCano
     readJson(root, "registries/source-capabilities.registry.json", "canonical source-capability registry"),
     readFile(assertRegularFileWithin(root, path.resolve(root, "sources/archive/INDEX.md"), "canonical archive index"), "utf8")
   ]);
-  const inputs = { catalog, tools, registry: { ...registry, archiveIndex: parseArchiveIndex(archiveText) } };
-  buildSourceUtilizationModel({ ...inputs, validateCanonical });
+  const inputs = { catalog, tools, registry: { ...registry, archiveIndex: parseArchiveIndex(archiveText, { repositoryRoot: root }) } };
+  buildSourceUtilizationModel(inputs);
   return inputs;
 }
