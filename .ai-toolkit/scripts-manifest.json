@@ -110,7 +110,7 @@
     },
     {
       "path": "scripts/migrate-source-cadence-v2-2.mjs",
-      "sha256": "7f32a246b10e83f049d2a76a25d767e24aae4aec4acf69e87d1f51d2f1940571"
+      "sha256": "b2b510ad868229e6df8025018210a430b3dc807be49cb73dee8e4d0c6a748b60"
     },
     {
       "path": "scripts/migrate-source-catalog-v2.mjs",

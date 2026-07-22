@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-import { readFileSync } from "node:fs";
+import { randomUUID } from "node:crypto";
+import { readFileSync, renameSync, rmSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
-import { runManagedDirectoryTransaction } from "../install/safe-filesystem.mjs";
+import { assertRegularFileWithin, writeManagedNewFile } from "../install/safe-filesystem.mjs";
 import {
   SOURCE_BEHAVIOR_CADENCE,
   validateSourceCatalog
@@ -91,15 +92,14 @@ function statusFor(catalog, changed) {
   return "migrated-v2.2";
 }
 
-async function main() {
-  const args = parseArgs(process.argv.slice(2));
-  if (args.mode === "help") {
-    console.log("Usage: node scripts/migrate-source-cadence-v2-2.mjs [--check|--confirm-write]");
-    console.log("Default is --check; the migration reads only the canonical watchlist and never changes runtime posture.");
-    return;
+export async function runCadenceMigration(options = {}) {
+  const root = path.resolve(options.repositoryRoot ?? ROOT);
+  const mode = options.mode ?? "check";
+  if (!["check", "confirm-write"].includes(mode)) fail("mode must be check or confirm-write");
+  if (options.beforeReplace !== undefined && typeof options.beforeReplace !== "function") {
+    fail("beforeReplace must be a function when supplied");
   }
-
-  const catalogPath = path.join(ROOT, CATALOG_PATH);
+  const catalogPath = path.join(root, CATALOG_PATH);
   const originalText = await readFile(catalogPath, "utf8");
   const catalog = JSON.parse(originalText);
   const migrated = migrateCatalog(catalog);
@@ -107,41 +107,51 @@ async function main() {
   const changed = originalText !== migratedText;
   validateSourceCatalog(migrated, { now: new Date().toISOString() });
 
-  if (args.mode === "confirm-write" && changed) {
-    runManagedDirectoryTransaction({
-      repositoryRoot: ROOT,
-      managedRoot: path.join(ROOT, "sources"),
-      label: "source cadence migration",
-      prepare(staging) {
-        if (staging.readFile("source-watchlist.json", "utf8") !== originalText) {
-          fail("canonical watchlist changed before transaction staging; retry the migration");
-        }
-        staging.writeFile("source-watchlist.json", migratedText, "utf8", "canonical source cadence migration");
-      },
-      beforeBackup() {
-        if (readFileSync(catalogPath, "utf8") !== originalText) {
-          fail("canonical watchlist changed before atomic backup; retry the migration");
-        }
-      },
-      validate(staging) {
-        validateSourceCatalog(JSON.parse(staging.readFile("source-watchlist.json", "utf8")), {
-          now: new Date().toISOString()
-        });
-      }
+  if (mode === "confirm-write" && changed) {
+    const sourcesRoot = path.join(root, "sources");
+    const temporaryName = `.source-watchlist.cadence-${randomUUID()}.json`;
+    const temporaryPath = writeManagedNewFile({
+      root: sourcesRoot,
+      candidate: path.join(sourcesRoot, temporaryName),
+      contents: migratedText,
+      label: "source cadence migration temporary catalog"
     });
+    try {
+      await options.beforeReplace?.();
+      if (readFileSync(catalogPath, "utf8") !== originalText) {
+        fail("canonical watchlist changed before atomic replacement; retry the migration");
+      }
+      assertRegularFileWithin(root, catalogPath, "canonical source watchlist before atomic replacement");
+      renameSync(temporaryPath, catalogPath);
+      validateSourceCatalog(JSON.parse(readFileSync(catalogPath, "utf8")), { now: new Date().toISOString() });
+    } finally {
+      rmSync(temporaryPath, { force: true });
+    }
   }
 
-  console.log(JSON.stringify({
-    mode: args.mode,
+  return {
+    mode,
     status: statusFor(catalog, changed),
     changed,
     sourceCount: migrated.sources.length,
     schemaVersion: migrated.schemaVersion,
     classifications: migrated.sources.map((source) => ({
       id: source.id,
-      sourceBehavior: source.sourceBehavior
+      sourceBehavior: source.sourceBehavior,
+      monitorIntervalDays: source.monitorIntervalDays,
+      deepReviewIntervalDays: source.deepReviewIntervalDays
     }))
-  }));
+  };
+}
+
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+  if (args.mode === "help") {
+    console.log("Usage: node scripts/migrate-source-cadence-v2-2.mjs [--check|--confirm-write]");
+    console.log("Default is --check; the migration reads only the canonical watchlist and never changes runtime posture.");
+    return;
+  }
+  console.log(JSON.stringify(await runCadenceMigration({ repositoryRoot: ROOT, mode: args.mode })));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {

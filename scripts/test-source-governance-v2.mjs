@@ -15,6 +15,9 @@ const MODULE_URL = pathToFileURL(path.join(ROOT, "scripts", "ai-toolkit", "sourc
 const SOURCE_CATALOG_CONTRACT_URL = pathToFileURL(
   path.join(ROOT, "scripts", "ai-toolkit", "kernel", "source-catalog-contract.mjs")
 ).href;
+const SOURCE_CADENCE_MIGRATION_URL = pathToFileURL(
+  path.join(ROOT, "scripts", "migrate-source-cadence-v2-2.mjs")
+).href;
 const NOW = "2026-07-17T23:59:59.999Z";
 const canonicalCatalog = JSON.parse(readFileSync(path.join(ROOT, "sources", "source-watchlist.json"), "utf8"));
 const latestCanonicalCheck = Math.max(...canonicalCatalog.sources.map((source) => Date.parse(source.monitor.checkedAt)));
@@ -71,6 +74,10 @@ async function governance() {
 
 async function sourceCatalogContract() {
   return import(SOURCE_CATALOG_CONTRACT_URL);
+}
+
+async function sourceCadenceMigration() {
+  return import(SOURCE_CADENCE_MIGRATION_URL);
 }
 
 function contentDigest(value) {
@@ -384,6 +391,16 @@ test("source behavior cadence requires unique event triggers and historical null
       eventTriggers: ["new-edition", "new-edition"]
     }),
     /eventTriggers must not contain duplicates/
+  );
+  assert.throws(
+    () => validateSourceCadence({
+      ...candidate,
+      sourceBehavior: "general-method-reference",
+      monitorIntervalDays: 90,
+      deepReviewIntervalDays: 180,
+      eventTriggers: []
+    }),
+    /eventTriggers must be a non-empty string array/
   );
 });
 
@@ -1865,6 +1882,82 @@ test("manual receipt-backed freshness is validated against the catalog receipt a
   );
 });
 
+test("cadence migration preserves concurrent source files and emits complete structural classifications", async () => {
+  const { runCadenceMigration } = await sourceCadenceMigration();
+  const root = await mkdtemp(path.join(os.tmpdir(), "source-cadence-migration-"));
+  await mkdir(path.join(root, "sources"), { recursive: true });
+  const legacyCatalog = structuredClone(canonicalCatalog);
+  legacyCatalog.schemaVersion = "2.1.0";
+  for (const entry of legacyCatalog.sources) {
+    delete entry.sourceBehavior;
+    delete entry.monitorIntervalDays;
+    delete entry.deepReviewIntervalDays;
+    delete entry.eventTriggers;
+  }
+  await writeFile(
+    path.join(root, "sources", "source-watchlist.json"),
+    `${JSON.stringify(legacyCatalog, null, 2)}\n`,
+    "utf8"
+  );
+
+  const result = await runCadenceMigration({
+    repositoryRoot: root,
+    mode: "confirm-write",
+    beforeReplace() {
+      return writeFile(path.join(root, "sources", "concurrent-source-record.md"), "preserve this update\n", "utf8");
+    }
+  });
+  assert.equal(await readFile(path.join(root, "sources", "concurrent-source-record.md"), "utf8"), "preserve this update\n");
+  assert.equal(result.sourceCount, 80);
+  assert.equal(new Set(result.classifications.map((entry) => entry.id)).size, 80);
+  assert.equal(result.classifications.length, 80);
+  const byId = new Map(result.classifications.map((entry) => [entry.id, entry]));
+  for (const sourceEntry of canonicalCatalog.sources) {
+    const expectedBehavior = sourceEntry.lifecycle === "historical-reference"
+      ? "historical"
+      : ["nist-ssdf", "nist-ssdf-ai", "nist-ai-rmf-genai", "owasp-asvs", "owasp-llmsvs", "owasp-masvs", "slsa-v1-2", "w3c-wcag-22"].includes(sourceEntry.id)
+        ? "versioned-standard"
+        : sourceEntry.sourceType === "manual-reviewed-doc"
+          ? "living-official-guidance"
+          : sourceEntry.dependentResourceIds.length > 0
+            ? "active-tool-or-skill"
+            : sourceEntry.freshnessClass === "security-runtime"
+              ? "security-runtime-source"
+              : "general-method-reference";
+    assert.deepEqual(byId.get(sourceEntry.id), {
+      id: sourceEntry.id,
+      sourceBehavior: expectedBehavior,
+      monitorIntervalDays: expectedBehavior === "historical" ? null : {
+        "versioned-standard": 90,
+        "living-official-guidance": 30,
+        "security-runtime-source": 14,
+        "active-tool-or-skill": 30,
+        "general-method-reference": 90
+      }[expectedBehavior],
+      deepReviewIntervalDays: expectedBehavior === "historical" ? null : {
+        "versioned-standard": 180,
+        "living-official-guidance": 90,
+        "security-runtime-source": 30,
+        "active-tool-or-skill": 90,
+        "general-method-reference": 180
+      }[expectedBehavior]
+    });
+  }
+});
+
+test("legacy catalog migration continues to exclude retired portfolio sources", async () => {
+  const legacyMigrationScript = path.join(ROOT, "scripts", "migrate-source-catalog-v2.mjs");
+  const migrationSource = await readFile(legacyMigrationScript, "utf8");
+  assert.match(
+    migrationSource,
+    /filter\(\(source\) => !RETIRED_PORTFOLIO_SOURCE_IDS\.has\(source\.id\)\)/,
+    "legacy migration must exclude the retired portfolio before catalog construction"
+  );
+  for (const retiredId of RETIRED_PORTFOLIO_SOURCE_IDS) {
+    assert.doesNotMatch(migrationSource, new RegExp(`id: "${retiredId}"`), `legacy migration can restore retired source: ${retiredId}`);
+  }
+});
+
 test("source governance validates a regenerated mirror and keeps review application dry-run unless confirmed", async () => {
   const validateScript = path.join(ROOT, "scripts", "validate-source-governance.mjs");
   const applyScript = path.join(ROOT, "scripts", "apply-source-review.mjs");
@@ -1874,18 +1967,26 @@ test("source governance validates a regenerated mirror and keeps review applicat
   assert.match(validation.stdout, /"schemaVersion":"2\.1\.0"/);
   assert.match(validation.stdout, /"releaseEligible":true/);
   const migration = await execFileAsync(process.execPath, [migrationScript], { cwd: ROOT });
-  assert.match(migration.stdout, /"status":"already-v2\.2"/);
-  assert.match(migration.stdout, /"sourceCount":80/);
-  assert.match(migration.stdout, /"classifications":\[/);
+  const migrationResult = JSON.parse(migration.stdout);
+  assert.equal(migrationResult.status, "already-v2.2");
+  assert.equal(migrationResult.sourceCount, 80);
+  assert.equal(migrationResult.classifications.length, 80);
+  assert.equal(new Set(migrationResult.classifications.map((entry) => entry.id)).size, 80);
+  assert.deepEqual(
+    migrationResult.classifications,
+    canonicalCatalog.sources.map((sourceEntry) => ({
+      id: sourceEntry.id,
+      sourceBehavior: sourceEntry.sourceBehavior,
+      monitorIntervalDays: sourceEntry.monitorIntervalDays,
+      deepReviewIntervalDays: sourceEntry.deepReviewIntervalDays
+    }))
+  );
   const migrationSource = await readFile(migrationScript, "utf8");
   assert.match(
     migrationSource,
     /const VERSIONED_STANDARD_IDS = new Set\(/,
     "cadence migration must use the reviewed versioned-standard ID set"
   );
-  for (const retiredId of RETIRED_PORTFOLIO_SOURCE_IDS) {
-    assert.doesNotMatch(migrationSource, new RegExp(`"${retiredId}"`), `cadence migration must not restore retired source: ${retiredId}`);
-  }
 
   const root = await mkdtemp(path.join(os.tmpdir(), "source-governance-cli-"));
   await writeRepository(root);
