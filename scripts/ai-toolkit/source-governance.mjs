@@ -22,6 +22,12 @@ import {
   validateSourceCatalog as validateSourceCatalogContract,
   validateSourceReviewReceipt as validateSourceReviewReceiptContract
 } from "./kernel/source-catalog-contract.mjs";
+import { readCanonicalJsonDocumentWithin } from "./kernel/canonical-json.mjs";
+import {
+  deriveSourceCapabilityWarnings as deriveSourceCapabilityWarningsContract,
+  validateSourceCapabilityRegistry as validateSourceCapabilityRegistryContract,
+  validateSourceCapabilityRepository as validateSourceCapabilityRepositoryContract
+} from "./kernel/source-synthesis-contract.mjs";
 import { deriveSourceReleaseAccounting } from "./kernel/source-release-accounting.mjs";
 export {
   assertPlanSourceDependencyAccounting,
@@ -35,6 +41,38 @@ export const REVIEW_STATES = CONTRACT_REVIEW_STATES;
 export const RUNTIME_POSTURES = CONTRACT_RUNTIME_POSTURES;
 export const FINAL_DISPOSITIONS = CONTRACT_FINAL_DISPOSITIONS;
 export const SOURCE_CATALOG_SCHEMA_VERSION = CONTRACT_SOURCE_CATALOG_SCHEMA_VERSION;
+
+export function validateSourceCapabilityRegistry(registry, context = {}) {
+  return validateSourceCapabilityRegistryContract(registry, context);
+}
+
+export function deriveSourceCapabilityWarnings(registry, context = {}) {
+  return deriveSourceCapabilityWarningsContract(registry, context);
+}
+
+export async function loadValidatedSourceCapabilityRegistry({ repositoryRoot, catalog, context = {} } = {}) {
+  const root = path.resolve(requireString(repositoryRoot, "repositoryRoot"));
+  const document = await readCanonicalJsonDocumentWithin(
+    root,
+    path.resolve(root, "registries", "source-capabilities.registry.json"),
+    "canonical SourceCapabilityRegistry v1"
+  );
+  const validationContext = { ...context, catalog };
+  const registry = validateSourceCapabilityRegistryContract(document.parsed, validationContext);
+  const repositoryValidation = await validateSourceCapabilityRepositoryContract({
+    repositoryRoot: root,
+    catalog,
+    registry,
+    context
+  });
+  return {
+    registry,
+    warnings: [
+      ...deriveSourceCapabilityWarningsContract(registry, validationContext),
+      ...repositoryValidation.warnings
+    ]
+  };
+}
 
 const MONITOR_STATE_SET = new Set(MONITOR_STATES);
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;

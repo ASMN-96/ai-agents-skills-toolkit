@@ -15,6 +15,7 @@ import {
   resolveUtilizationClassification,
   validateSourceUtilizationReport
 } from "./ai-toolkit/kernel/source-utilization-contract.mjs";
+import { loadValidatedSourceCapabilityRegistry } from "./ai-toolkit/source-governance.mjs";
 import { embeddedValidatorPolicies } from "./ai-toolkit/subvalidator-policy.mjs";
 import { assertRegularFileWithin } from "../install/safe-filesystem.mjs";
 
@@ -742,6 +743,36 @@ async function validateRegistries(parsed, sourceRecords, watchlist) {
   return { skills, agents, profiles, profileSourcePaths, methods, tools, routingMatrix };
 }
 
+async function validateSourceCapabilitySynthesis(parsed, watchlist, registryState) {
+  note("Source capability synthesis");
+  const evals = new Map();
+  for (const [relativePath, document] of parsed) {
+    if (!relativePath.startsWith("evals/")) continue;
+    for (const entry of asArray(document?.cases)) {
+      if (typeof entry?.id === "string") evals.set(entry.id, { id: entry.id, path: relativePath });
+    }
+  }
+  const methods = new Map([...registryState.methods].map(([id, entry]) => [id, { ...entry, path: entry.methodPath }]));
+  const skills = new Map([...registryState.skills].map(([id, entry]) => [id, { ...entry, path: entry.skillPath }]));
+  const agents = new Map([...registryState.agents].map(([id, entry]) => [id, { ...entry, path: entry.sourcePath }]));
+  try {
+    const result = await loadValidatedSourceCapabilityRegistry({
+      repositoryRoot: ROOT,
+      catalog: watchlist,
+      context: { methods, tools: registryState.tools, skills, agents, evals }
+    });
+    for (const warning of result.warnings) {
+      warnings.push({
+        check: "source capability synthesis",
+        location: warning.sourceId ?? "registries/source-capabilities.registry.json",
+        message: warning.code
+      });
+    }
+  } catch (error) {
+    fail("source capability synthesis", "registries/source-capabilities.registry.json", error.message);
+  }
+}
+
 async function validateAgentsAndCompiledFallbacks(registryState) {
   note("Approved agent and compiled fallback parity");
   const expectedInputDigest = await canonicalAgentInputDigest();
@@ -1317,6 +1348,7 @@ async function main() {
   const watchlist = parsed.get("sources/source-watchlist.json");
   const registryState = await validateRegistries(parsed, sourceRecords, watchlist);
 
+  await validateSourceCapabilitySynthesis(parsed, watchlist, registryState);
   await validateSkills(registryState);
   await validateGovernanceBoundaries(registryState);
   await validateSourcePolicy(watchlist, registryState);
