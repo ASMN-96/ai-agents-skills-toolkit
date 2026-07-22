@@ -42,8 +42,11 @@ const TOOL_HEADERS = [
   "Forbidden boundary"
 ];
 
-const REPOSITORY_PATH_TOKEN = /(?:^|[\s`(])((?:\.\.?\/|(?:agents|checklists|compiled-agents|docs|evals|examples|install|methods|profiles|registries|scripts|skills|sources|templates)\/)[A-Za-z0-9_./*-]+)/g;
-const ABSOLUTE_PATH_TOKEN = /(?:^|[\s`(])([A-Za-z]:[\\/][^\s`|,;()]+|\/[^\s`|,;()]+)/g;
+const REPOSITORY_PATH_ROOTS = "agents|checklists|compiled-agents|docs|evals|examples|install|methods|profiles|registries|scripts|skills|sources|templates";
+const PATH_TOKEN = new RegExp(
+  "(?:^|[\\s`(])((?:[A-Za-z]:[\\\\/]|[\\\\/]|\\.{1,2}[\\\\/]|(?:" + REPOSITORY_PATH_ROOTS + ")[\\\\/])[^\\s`|,;()]+)",
+  "g"
+);
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -60,12 +63,21 @@ function sectionKindLabel(kind) {
 }
 
 function repositoryPathTokens(value) {
-  return [...value.matchAll(REPOSITORY_PATH_TOKEN)]
-    .map((match) => match[1].replace(/\/(?:\*)?$/, ""));
+  return [...value.matchAll(PATH_TOKEN)]
+    .map((match) => match[1].replace(/[\\/](?:\*)?$/, ""));
 }
 
-function absolutePathTokens(value) {
-  return [...value.matchAll(ABSOLUTE_PATH_TOKEN)].map((match) => match[1]);
+function validateRepositoryPathToken(token, repositoryRoot, label) {
+  const portableToken = token.replace(/\\/g, "/");
+  if (path.win32.isAbsolute(token) || path.posix.isAbsolute(portableToken)) {
+    throw new Error(`unsafe absolute path: ${token}`);
+  }
+
+  try {
+    assertPathContained(repositoryRoot, path.resolve(repositoryRoot, portableToken), `${label} repository-relative path`);
+  } catch {
+    throw new Error(`unsafe repository-relative path: ${token}`);
+  }
 }
 
 export function parseMarkdownTableSection(markdown, heading, expectedHeaders) {
@@ -114,15 +126,8 @@ export function validateUtilizationRow(row, { kind, repositoryRoot }) {
   for (const field of ["Current value path", "Next extraction", "Forbidden boundary"]) {
     const value = row[field];
     if (!value) throw new Error(`missing ${label} ${field.toLowerCase()}`);
-    for (const token of absolutePathTokens(value)) {
-      throw new Error(`unsafe absolute path: ${token}`);
-    }
     for (const token of repositoryPathTokens(value)) {
-      try {
-        assertPathContained(repositoryRoot, path.resolve(repositoryRoot, token), `${label} repository-relative path`);
-      } catch {
-        throw new Error(`unsafe repository-relative path: ${token}`);
-      }
+      validateRepositoryPathToken(token, repositoryRoot, label);
     }
   }
 }

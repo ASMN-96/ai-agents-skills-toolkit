@@ -223,6 +223,60 @@ test("source utilization rows reject POSIX absolute paths", () => {
   );
 });
 
+test("source utilization rows reject Windows backslash traversal", () => {
+  const markdown = utilizationReport({
+    watchedRows: [
+      "| source-id | Source | active-read-only | Do later | ..\\..\\outside.md | Keep detected-only | No automatic install |"
+    ]
+  });
+
+  assert.throws(
+    () => validateSourceUtilizationReport({
+      markdown,
+      sourceIds: ["source-id"],
+      toolIds: [],
+      repositoryRoot: ROOT
+    }),
+    /unsafe repository-relative path/
+  );
+});
+
+test("source utilization rows reject Windows rooted absolute paths", () => {
+  const markdown = utilizationReport({
+    watchedRows: [
+      "| source-id | Source | active-read-only | Do later | \\secrets\\outside.md | Keep detected-only | No automatic install |"
+    ]
+  });
+
+  assert.throws(
+    () => validateSourceUtilizationReport({
+      markdown,
+      sourceIds: ["source-id"],
+      toolIds: [],
+      repositoryRoot: ROOT
+    }),
+    /unsafe absolute path/
+  );
+});
+
+test("source utilization rows reject UNC paths", () => {
+  const markdown = utilizationReport({
+    watchedRows: [
+      "| source-id | Source | active-read-only | Do later | \\\\server\\share\\outside.md | Keep detected-only | No automatic install |"
+    ]
+  });
+
+  assert.throws(
+    () => validateSourceUtilizationReport({
+      markdown,
+      sourceIds: ["source-id"],
+      toolIds: [],
+      repositoryRoot: ROOT
+    }),
+    /unsafe absolute path/
+  );
+});
+
 test("required tool classifications resolve from Registered Tools for shared IDs", () => {
   const markdown = utilizationReport({
     watchedRows: [
