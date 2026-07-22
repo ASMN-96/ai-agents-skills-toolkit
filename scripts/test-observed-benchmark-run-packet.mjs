@@ -26,32 +26,34 @@ const MAINTENANCE_GATES = [
 test("preparation packets are valid and preserve canonical policy bindings for every observed task and variant", async () => {
   for (const taskId of EXPECTED_OBSERVED_TASK_IDS) {
     for (const variant of ["baseline", "kernel-routed"]) {
-      const packet = await buildObservedBenchmarkRunPacket({ root: ROOT, taskId, variant, run: 1 });
-      assert.equal(packet.schemaVersion, "1.0.0");
-      assert.equal(packet.preparationStatus, "model-not-invoked");
-      assert.equal(packet.evidenceStatus, "preparation-only");
-      assert.equal(packet.observedRecord.status, "not-measured");
-      assert.equal(Object.hasOwn(packet, "modelTelemetry"), false);
-      assert.equal(Object.hasOwn(packet, "humanReview"), false);
-      assert.equal(Object.hasOwn(packet, "benchmarkOutcome"), false);
-      assert.equal(packet.canonicalTask.id, taskId);
-      assert.equal(packet.fixture.id, taskId);
-      assert.match(packet.fixture.digest, /^sha256:[0-9a-f]{64}$/u);
-      assert.equal(packet.run.variant, variant);
-      assert.equal(packet.run.number, 1);
-      assert.ok(packet.selectedResources.ids.length > 0);
-      assert.ok(packet.selectedResources.toolkitControlledInputTokenEstimate > 0);
-      assert.deepEqual(packet.deliveryRequest.task.gates, packet.resolvedPolicy.requiredGateIds);
-      assert.deepEqual(
-        packet.deliveryRequest.task.acceptanceCriteria.flatMap(({ requiredGateIds }) => requiredGateIds),
-        packet.resolvedPolicy.requiredGateIds
-      );
-      assert.doesNotThrow(() => assertDeliveryRequest(packet.deliveryRequest, {
-        registeredScenarios: [packet.canonicalTask.scenario],
-        policyGateIds: packet.resolvedPolicy.requiredGateIds
-      }));
-      if (variant === "kernel-routed") {
-        assert.deepEqual(packet.selectedResources.ids, packet.canonicalTask.goldenSelectedResourceIds);
+      for (const run of [1, 2, 3]) {
+        const packet = await buildObservedBenchmarkRunPacket({ root: ROOT, taskId, variant, run });
+        assert.equal(packet.schemaVersion, "1.0.0");
+        assert.equal(packet.preparationStatus, "model-not-invoked");
+        assert.equal(packet.evidenceStatus, "preparation-only");
+        assert.equal(packet.observedRecord.status, "not-measured");
+        assert.equal(Object.hasOwn(packet, "modelTelemetry"), false);
+        assert.equal(Object.hasOwn(packet, "humanReview"), false);
+        assert.equal(Object.hasOwn(packet, "benchmarkOutcome"), false);
+        assert.equal(packet.canonicalTask.id, taskId);
+        assert.equal(packet.fixture.id, taskId);
+        assert.match(packet.fixture.digest, /^sha256:[0-9a-f]{64}$/u);
+        assert.equal(packet.run.variant, variant);
+        assert.equal(packet.run.number, run);
+        assert.ok(packet.selectedResources.ids.length > 0);
+        assert.ok(packet.selectedResources.toolkitControlledInputTokenEstimate > 0);
+        assert.deepEqual(packet.deliveryRequest.task.gates, packet.resolvedPolicy.requiredGateIds);
+        assert.deepEqual(
+          packet.deliveryRequest.task.acceptanceCriteria.flatMap(({ requiredGateIds }) => requiredGateIds),
+          packet.resolvedPolicy.requiredGateIds
+        );
+        assert.doesNotThrow(() => assertDeliveryRequest(packet.deliveryRequest, {
+          registeredScenarios: [packet.canonicalTask.scenario],
+          policyGateIds: packet.resolvedPolicy.requiredGateIds
+        }));
+        if (variant === "kernel-routed") {
+          assert.deepEqual(packet.selectedResources.ids, packet.canonicalTask.goldenSelectedResourceIds);
+        }
       }
     }
   }
