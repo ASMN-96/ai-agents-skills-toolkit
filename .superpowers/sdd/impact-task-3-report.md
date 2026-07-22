@@ -44,3 +44,21 @@ Review found that the first implementation expected semantic capability-impact r
 - `node --test scripts/test-release-evidence.mjs`: 25 passed; 2 candidate-consistency checks remain blocked by the unchanged source-catalog digest mismatch.
 - `node scripts/validate-v0-3-release-evidence.mjs --check`: same unchanged digest mismatch; no evidence or generated artifact was edited.
 - `git diff --check`: passed, with the existing unrelated long-filename diagnostic during Git traversal.
+
+## Re-review Correction
+
+### RED
+
+The new release-validation regression supplied a stale delegated capability that named `tool.selected` in its scoped impact. With `tool.selected` selected by canonical release scope, the live release projection still returned `releaseBlocking: false` because it hardcoded an empty selected-resource list. The focused test failed at that assertion before implementation.
+
+### GREEN
+
+- Release validation now accepts selection only from the release-evidence-owned `releaseScope.selectedResourceIds` record; it does not use a source report's aggregate `releaseBlocking` or `blockingResourceIds` claims.
+- Every selected ID is independently checked against the canonical resource set assembled from the current agents, skills, and tools registries. Missing scope, malformed/duplicate IDs, or unknown IDs fail closed.
+- The regression covers a selected delegated integration that blocks, an unselected delegated integration that remains advisory, an empty optional selection, forged aggregate source claims, and absent/unknown release-scope evidence.
+- The current release-evidence artifact deliberately remains untouched. Because it has no `releaseScope` record, validation will fail closed on that missing policy evidence once the pre-existing digest drift is separately reconciled.
+
+### Correction checks
+
+- `node --test scripts/test-release-evidence.mjs`: 26 passed. The two candidate-consistency tests remain blocked only by the unchanged source-catalog digest mismatch.
+- `git diff --check`: passed, with the existing unrelated long-filename diagnostic during Git traversal.

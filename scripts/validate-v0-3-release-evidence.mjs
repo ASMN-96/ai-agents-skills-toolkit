@@ -25,6 +25,7 @@ import {
   deriveSourceReleaseAccounting,
   validateFreshnessReport
 } from "./ai-toolkit/source-governance.mjs";
+import { buildResourceCatalog } from "./ai-toolkit/kernel/resource-catalog.mjs";
 
 const MODULE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const EVIDENCE_RELATIVE_PATH = "docs/V0_3_0_RELEASE_EVIDENCE.json";
@@ -686,13 +687,62 @@ function supportedReleaseGateIds(domainPacksRegistry) {
   )))].sort((left, right) => left.localeCompare(right));
 }
 
-export function deriveReleaseSourceCapabilityImpact({ catalog, report, domainPacksRegistry }) {
+function selectedReleaseResourceIds(releaseScope, canonicalResourceIds) {
+  if (
+    !isPlainRecord(releaseScope)
+    || JSON.stringify(Object.keys(releaseScope)) !== JSON.stringify(["selectedResourceIds"])
+    || !Array.isArray(releaseScope.selectedResourceIds)
+  ) {
+    fail("source-capability-release-scope-selected-resource-ids");
+  }
+  if (!Array.isArray(canonicalResourceIds)) {
+    fail("source-capability-release-scope-canonical-resources");
+  }
+  const canonical = new Set();
+  for (const resourceId of canonicalResourceIds) {
+    if (typeof resourceId !== "string" || resourceId === "" || canonical.has(resourceId)) {
+      fail("source-capability-release-scope-canonical-resources");
+    }
+    canonical.add(resourceId);
+  }
+  const selected = new Set();
+  for (const resourceId of releaseScope.selectedResourceIds) {
+    if (typeof resourceId !== "string" || resourceId === "" || selected.has(resourceId)) {
+      fail("source-capability-release-scope-selected-resource-ids");
+    }
+    if (!canonical.has(resourceId)) {
+      fail("source-capability-release-scope-unknown-selected-resource");
+    }
+    selected.add(resourceId);
+  }
+  return [...selected].sort((left, right) => left.localeCompare(right));
+}
+
+function canonicalReleaseResourceIds(root) {
+  const agentsRegistry = readJson(root, path.join(root, "registries/agents.registry.json"), "agent-registry");
+  const skillsRegistry = readJson(root, path.join(root, "registries/skills.registry.json"), "skill-registry");
+  const toolsRegistry = readJson(root, path.join(root, "registries/tools.registry.json"), "tool-registry");
+  return buildResourceCatalog({
+    repositoryRoot: root,
+    agentsRegistry,
+    skillsRegistry,
+    toolsRegistry
+  }).map((resource) => resource.id).sort((left, right) => left.localeCompare(right));
+}
+
+export function deriveReleaseSourceCapabilityImpact({
+  catalog,
+  report,
+  domainPacksRegistry,
+  releaseScope,
+  canonicalResourceIds
+}) {
   const supportedGateIds = supportedReleaseGateIds(domainPacksRegistry);
   return deriveSourceReleaseAccounting({
     catalog,
     domainPacksRegistry,
     freshnessReport: report,
-    selectedResourceIds: [],
+    selectedResourceIds: selectedReleaseResourceIds(releaseScope, canonicalResourceIds),
     selectedGateIds: supportedGateIds,
     supportedGateIds
   });
@@ -711,7 +761,13 @@ function validateSourceState(root, evidence) {
     now: new Date(Math.max(Date.now(), Date.parse(report.checkedAt))).toISOString(),
     domainPacksRegistry
   });
-  const accounting = deriveReleaseSourceCapabilityImpact({ catalog, report, domainPacksRegistry });
+  const accounting = deriveReleaseSourceCapabilityImpact({
+    catalog,
+    report,
+    domainPacksRegistry,
+    releaseScope: evidence.releaseScope,
+    canonicalResourceIds: canonicalReleaseResourceIds(root)
+  });
   const receipts = (catalog.sources ?? []).filter((source) => source.review?.currentReceipt).length;
   assertEqual(report.checkedAt, evidence.sourceFreshness.checkedAt, "source-checked-at");
   assertEqual(accounting.sourceCount, evidence.sourceFreshness.sourceCount, "source-count");

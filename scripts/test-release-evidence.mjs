@@ -783,7 +783,13 @@ test("release validation consumes canonical scoped impacts for exact gates and p
     }]
   };
 
-  const result = deriveReleaseSourceCapabilityImpact({ catalog, report, domainPacksRegistry });
+  const result = deriveReleaseSourceCapabilityImpact({
+    catalog,
+    report,
+    domainPacksRegistry,
+    releaseScope: { selectedResourceIds: [] },
+    canonicalResourceIds: []
+  });
   assert.deepEqual(result.blockingCapabilityIds, ["security.authoritative-baseline"]);
   assert.deepEqual(result.blockingGateIds, ["enterprise-security-privacy"]);
   assert.deepEqual(result.blockingResourceIds, []);
@@ -792,8 +798,109 @@ test("release validation consumes canonical scoped impacts for exact gates and p
   const malformed = structuredClone(report);
   delete malformed.sources[0].capabilityImpact.scopedImpacts;
   assert.throws(
-    () => deriveReleaseSourceCapabilityImpact({ catalog, report: malformed, domainPacksRegistry }),
+    () => deriveReleaseSourceCapabilityImpact({
+      catalog,
+      report: malformed,
+      domainPacksRegistry,
+      releaseScope: { selectedResourceIds: [] },
+      canonicalResourceIds: []
+    }),
     /capability impact.*incomplete/i
+  );
+});
+
+test("release validation derives delegated blockers from canonical release scope rather than source claims", () => {
+  const catalog = {
+    sources: [{
+      id: "delegated-source",
+      scope: "optional-tool",
+      monitor: { state: "CURRENT" },
+      review: { state: "REVIEWED_CURRENT" }
+    }]
+  };
+  const domainPacksRegistry = {
+    registryType: "domain-packs",
+    packs: [{
+      id: "enterprise-core",
+      lifecycle: "active",
+      maturity: "supported",
+      gates: []
+    }]
+  };
+  const report = {
+    sources: [{
+      sourceId: "delegated-source",
+      capabilityImpact: {
+        capabilityIds: ["uiux.selected-delegated-integration"],
+        // Aggregate source fields are not release-selection authority.
+        releaseBlocking: true,
+        blockingResourceIds: ["tool.selected"],
+        scopedImpacts: [{
+          sourceId: "delegated-source",
+          capabilityIds: ["uiux.selected-delegated-integration"],
+          contributionOutcome: "delegated",
+          synthesisState: "stale",
+          hardSecurityBlocker: false,
+          affectedGateIds: [],
+          affectedResourceIds: ["tool.selected"],
+          portfolioActionable: true
+        }]
+      }
+    }]
+  };
+  const canonicalResourceIds = ["tool.selected", "tool.unselected"];
+
+  const selected = deriveReleaseSourceCapabilityImpact({
+    catalog,
+    report,
+    domainPacksRegistry,
+    releaseScope: { selectedResourceIds: ["tool.selected"] },
+    canonicalResourceIds
+  });
+  assert.equal(selected.releaseBlocking, true);
+  assert.deepEqual(selected.blockingResourceIds, ["tool.selected"]);
+  assert.deepEqual(selected.blockingCapabilityIds, ["uiux.selected-delegated-integration"]);
+
+  const unselected = deriveReleaseSourceCapabilityImpact({
+    catalog,
+    report: structuredClone(report),
+    domainPacksRegistry,
+    releaseScope: { selectedResourceIds: ["tool.unselected"] },
+    canonicalResourceIds
+  });
+  assert.equal(unselected.releaseBlocking, false);
+  assert.deepEqual(unselected.blockingResourceIds, []);
+  assert.match(unselected.advisories.join("\n"), /not in release scope/u);
+
+  const optional = deriveReleaseSourceCapabilityImpact({
+    catalog,
+    report: structuredClone(report),
+    domainPacksRegistry,
+    releaseScope: { selectedResourceIds: [] },
+    canonicalResourceIds
+  });
+  assert.equal(optional.releaseBlocking, false);
+  assert.deepEqual(optional.blockingResourceIds, []);
+  assert.match(optional.advisories.join("\n"), /not in release scope/u);
+
+  assert.throws(
+    () => deriveReleaseSourceCapabilityImpact({
+      catalog,
+      report,
+      domainPacksRegistry,
+      canonicalResourceIds
+    }),
+    /release[- ]scope.*selected[- ]resource/i
+  );
+  assert.throws(
+    () => deriveReleaseSourceCapabilityImpact({
+      catalog,
+      report,
+      domainPacksRegistry,
+      releaseScope: { selectedResourceIds: ["tool.forged"] },
+      canonicalResourceIds
+    }),
+    /release[- ]scope.*unknown[- ]selected[- ]resource/i
   );
 });
 
