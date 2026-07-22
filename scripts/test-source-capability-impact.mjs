@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { assertResourceContract } from "./ai-toolkit/kernel/contracts.mjs";
 import { deriveCapabilityImpact } from "./ai-toolkit/kernel/source-capability-impact.mjs";
+
+const DIGEST = "a".repeat(64);
 
 function input(id, sourceId, locator) {
   return {
@@ -74,36 +77,103 @@ function fixtureRegistry({ twoTasteInputs = false, historical = false, missing =
   };
 }
 
-function fixtureResources({ missing = {}, selected = true, supported = true } = {}) {
+function resource(id, { supported = true, forgedFlags = {} } = {}) {
+  return {
+    schemaVersion: "1.0.0",
+    id,
+    type: "skill",
+    canonicalCompetencies: ["source-governance"],
+    eligibleRoles: ["support"],
+    measuredContextCost: 1,
+    contextCostUnit: "tokens",
+    contextMeasurement: {
+      method: "conservative-token-estimate",
+      utf8Bytes: 3,
+      evidencePath: "scripts/test-source-capability-impact.mjs",
+      contentDigest: DIGEST
+    },
+    authority: "internal-reviewed",
+    lifecycle: "active",
+    runtimePosture: {
+      registryPresent: true,
+      available: supported,
+      supported,
+      executionProof: false,
+      sandboxMode: "not-applicable",
+      scopedLocalWrite: false
+    },
+    environmentRestrictions: { allowed: ["codex-project-runtime"], forbidden: [] },
+    detectionEvidence: {
+      state: "observed",
+      evidencePath: "scripts/test-source-capability-impact.mjs",
+      contentDigest: DIGEST
+    },
+    freshness: {
+      state: supported ? "current" : "stale",
+      evidencePath: "scripts/test-source-capability-impact.mjs",
+      contentDigest: DIGEST
+    },
+    nativeAdapter: { kind: "codex-skill", id },
+    commandReference: null,
+    eligibility: { eligible: supported, reasons: supported ? [] : ["fixture-unsupported"] },
+    ...forgedFlags
+  };
+}
+
+function fixtureResources({ missing = {}, supported = true, forgedFlags = {} } = {}) {
   return {
     resources: [
-      {
-        id: "uiux.premium-visual-quality",
-        selected,
-        supported,
-        sourceChangeBlocksRelease: true,
-        consumerRefs: missing.consumer ? [] : [{ kind: "agent", id: "uiux-agent" }, { kind: "skill", id: "uiux" }]
-      },
-      { id: "uiux.redesign", selected: false, supported: false, sourceChangeBlocksRelease: true, consumerRefs: [{ kind: "agent", id: "uiux-agent" }] },
-      { id: "security.review", selected: true, supported: true, sourceChangeBlocksRelease: true, consumerRefs: [{ kind: "agent", id: "security-agent" }] }
+      resource("uiux.premium-visual-quality", { supported, forgedFlags }),
+      resource("uiux.redesign", { supported: false }),
+      resource("security.review")
     ].filter((resource) => !(missing.resource && resource.id === "uiux.premium-visual-quality"))
   };
 }
 
-function fixtureCompilerInventory({ cycle = false } = {}) {
+function fixtureReleasePolicy(overrides = {}) {
+  return {
+    selectedResourceIds: ["uiux.premium-visual-quality"],
+    blockingResourceIds: ["uiux.premium-visual-quality"],
+    ...overrides
+  };
+}
+
+function fixtureCompilerInventory({ cycle = false, missingCompiledOutput = false, missingMirror = false } = {}) {
+  const rootRefs = ["compiled/uiux-child.md"];
+  if (missingCompiledOutput) rootRefs.push("compiled/missing.md");
+  const rootMirrors = ["mirror/uiux-embedded.md"];
+  if (missingMirror) rootMirrors.push("mirror/missing.md");
   return {
     compiledOutputs: [
       {
         id: "compiled/uiux-agent.md",
         consumerRefs: ["agent:uiux-agent"],
-        mirrorOutputs: [".ai-toolkit/compiled-agents/uiux-agent.md", "runtime/compiled/uiux-agent.md"],
-        ...(cycle ? { compiledOutputRefs: ["compiled/uiux-agent.md"] } : {})
+        compiledOutputRefs: rootRefs,
+        mirrorOutputRefs: rootMirrors
+      },
+      {
+        id: "compiled/uiux-child.md",
+        compiledOutputRefs: cycle ? ["compiled/uiux-agent.md"] : [],
+        mirrorOutputRefs: ["mirror/uiux-runtime.md"]
       },
       {
         id: "compiled/security-agent.md",
         consumerRefs: ["agent:security-agent"],
-        mirrorOutputs: [".ai-toolkit/compiled-agents/security-agent.md"]
+        mirrorOutputRefs: ["mirror/security-agent.md"]
       }
+    ],
+    mirrorOutputs: [
+      {
+        id: "mirror/uiux-embedded.md",
+        mirrorOutputRefs: ["mirror/uiux-runtime.md"],
+        compiledOutputRefs: ["compiled/uiux-child.md"]
+      },
+      {
+        id: "mirror/uiux-runtime.md",
+        mirrorOutputRefs: cycle ? ["mirror/uiux-embedded.md"] : [],
+        compiledOutputRefs: cycle ? ["compiled/uiux-agent.md"] : []
+      },
+      { id: "mirror/security-agent.md", mirrorOutputRefs: [], compiledOutputRefs: [] }
     ]
   };
 }
@@ -116,6 +186,7 @@ function impact(overrides = {}) {
     registry: fixtureRegistry(),
     resourceCatalog: fixtureResources(),
     compilerInventory: fixtureCompilerInventory(),
+    releasePolicy: fixtureReleasePolicy(),
     ...overrides
   });
 }
@@ -127,8 +198,8 @@ test("exact locator change stales only bound synthesis inputs", () => {
   assert.deepEqual(result.capabilityIds, ["uiux.visual-direction"]);
   assert.deepEqual(result.artifactRefs, ["method:uiux.premium-visual-quality"]);
   assert.deepEqual(result.consumerRefs, ["agent:uiux-agent", "skill:uiux"]);
-  assert.deepEqual(result.compiledOutputs, ["compiled/uiux-agent.md"]);
-  assert.deepEqual(result.mirrorOutputs, [".ai-toolkit/compiled-agents/uiux-agent.md", "runtime/compiled/uiux-agent.md"]);
+  assert.deepEqual(result.compiledOutputs, ["compiled/uiux-agent.md", "compiled/uiux-child.md"]);
+  assert.deepEqual(result.mirrorOutputs, ["mirror/uiux-embedded.md", "mirror/uiux-runtime.md"]);
   assert.deepEqual(result.evaluationRefs, ["eval:uiux-contextual-design-controls"]);
 });
 
@@ -165,21 +236,34 @@ test("missing graph nodes are reported without inventing downstream impact", () 
   assert.deepEqual(result.evaluationRefs, []);
   assert.deepEqual(result.reasons, [
     "missing-artifact:method:uiux.premium-visual-quality",
-    "missing-evaluation:eval:uiux-contextual-design-controls"
+    "missing-evaluation:eval:uiux-contextual-design-controls",
+    "unknown-blocking-resource-id:uiux.premium-visual-quality",
+    "unknown-selected-resource-id:uiux.premium-visual-quality"
   ]);
 
   const missingResource = impact({ resourceCatalog: fixtureResources({ missing: { resource: true } }) });
   assert.deepEqual(missingResource.artifactRefs, ["method:uiux.premium-visual-quality"]);
   assert.deepEqual(missingResource.consumerRefs, []);
-  assert.deepEqual(missingResource.reasons, ["missing-resource:uiux.premium-visual-quality"]);
+  assert.deepEqual(missingResource.reasons, [
+    "missing-resource:uiux.premium-visual-quality",
+    "unknown-blocking-resource-id:uiux.premium-visual-quality",
+    "unknown-selected-resource-id:uiux.premium-visual-quality"
+  ]);
 
   const missingConsumer = impact({ registry: fixtureRegistry({ missing: { consumer: true } }) });
   assert.deepEqual(missingConsumer.consumerRefs, []);
   assert.deepEqual(missingConsumer.compiledOutputs, []);
   assert.deepEqual(missingConsumer.reasons, ["missing-consumer:uiux.visual-direction"]);
+
+  const missingCapability = fixtureRegistry();
+  missingCapability.capabilities = missingCapability.capabilities
+    .filter((entry) => entry.id !== "uiux.visual-direction");
+  const missingCapabilityImpact = impact({ registry: missingCapability });
+  assert.deepEqual(missingCapabilityImpact.staleInputIds, ["taste-design-read"]);
+  assert.deepEqual(missingCapabilityImpact.reasons, ["missing-capability:uiux.visual-direction"]);
 });
 
-test("cycles, duplicates, and input ordering do not change deterministic impact", () => {
+test("real compiled and mirror cycles terminate while traversing every reachable downstream node", () => {
   const result = impact({
     registry: fixtureRegistry({ twoTasteInputs: true }),
     compilerInventory: fixtureCompilerInventory({ cycle: true }),
@@ -187,8 +271,8 @@ test("cycles, duplicates, and input ordering do not change deterministic impact"
     changedLocators: []
   });
   assert.deepEqual(result.consumerRefs, ["agent:uiux-agent", "skill:uiux"]);
-  assert.deepEqual(result.compiledOutputs, ["compiled/uiux-agent.md"]);
-  assert.deepEqual(result.mirrorOutputs, [".ai-toolkit/compiled-agents/uiux-agent.md", "runtime/compiled/uiux-agent.md"]);
+  assert.deepEqual(result.compiledOutputs, ["compiled/uiux-agent.md", "compiled/uiux-child.md"]);
+  assert.deepEqual(result.mirrorOutputs, ["mirror/uiux-embedded.md", "mirror/uiux-runtime.md"]);
 });
 
 test("unrelated, historical, and non-contributing sources produce no release authority", () => {
@@ -205,14 +289,95 @@ test("unrelated, historical, and non-contributing sources produce no release aut
   assert.deepEqual(historical.blockingResourceIds, []);
 });
 
-test("only affected selected supported resources can block release", () => {
-  const selected = impact();
+test("release policy is the only selection and blocking authority over canonical resources", () => {
+  const canonical = fixtureResources();
+  for (const entry of canonical.resources) assert.doesNotThrow(() => assertResourceContract(entry));
+
+  const selected = impact({ resourceCatalog: canonical, releasePolicy: fixtureReleasePolicy() });
   assert.equal(selected.portfolioActionable, true);
   assert.equal(selected.releaseBlocking, true);
   assert.deepEqual(selected.blockingResourceIds, ["uiux.premium-visual-quality"]);
 
-  const optional = impact({ resourceCatalog: fixtureResources({ selected: false, supported: false }) });
-  assert.equal(optional.portfolioActionable, true);
-  assert.equal(optional.releaseBlocking, false);
-  assert.deepEqual(optional.blockingResourceIds, []);
+  const forged = impact({
+    resourceCatalog: fixtureResources({
+      forgedFlags: { selected: true, supported: true, sourceChangeBlocksRelease: true, releaseBlocking: true }
+    }),
+    releasePolicy: undefined
+  });
+  assert.equal(forged.releaseBlocking, false);
+  assert.deepEqual(forged.blockingResourceIds, []);
+
+  const unsupported = impact({
+    resourceCatalog: fixtureResources({ supported: false }),
+    releasePolicy: fixtureReleasePolicy()
+  });
+  assert.equal(unsupported.releaseBlocking, false);
+  assert.deepEqual(unsupported.blockingResourceIds, []);
+});
+
+test("invalid release policy IDs and duplicates fail closed with stable reasons", () => {
+  const policy = fixtureReleasePolicy({
+    selectedResourceIds: ["unknown-resource", "uiux.premium-visual-quality", "uiux.premium-visual-quality"],
+    blockingResourceIds: ["uiux.premium-visual-quality", "unknown-resource", "unknown-resource"]
+  });
+  const result = impact({ releasePolicy: policy });
+  assert.equal(result.releaseBlocking, false);
+  assert.deepEqual(result.blockingResourceIds, []);
+  assert.deepEqual(result.reasons, [
+    "duplicate-blocking-resource-id:unknown-resource",
+    "duplicate-selected-resource-id:uiux.premium-visual-quality",
+    "unknown-blocking-resource-id:unknown-resource",
+    "unknown-selected-resource-id:unknown-resource"
+  ]);
+});
+
+test("stale inputs without decisions and broken downstream references are visible", () => {
+  const withoutDecision = fixtureRegistry();
+  withoutDecision.syntheses.find((entry) => entry.id === "uiux.visual-direction@1").decisions = [];
+  assert.deepEqual(impact({ registry: withoutDecision }).reasons, ["stale-input-without-decision:taste-design-read"]);
+
+  const missing = impact({ compilerInventory: fixtureCompilerInventory({ missingCompiledOutput: true, missingMirror: true }) });
+  assert.deepEqual(missing.reasons, [
+    "missing-compiled-output:compiled/missing.md",
+    "missing-mirror-output:mirror/missing.md"
+  ]);
+
+  const invalidInventory = fixtureCompilerInventory();
+  invalidInventory.compiledOutputs[0].mirrorOutputRefs.push({ malformed: true });
+  assert.deepEqual(impact({ compilerInventory: invalidInventory }).reasons, ["invalid-mirror-output"]);
+});
+
+test("duplicate graph identifiers fail closed independently of input order", () => {
+  const duplicateCapability = fixtureRegistry();
+  duplicateCapability.capabilities.push(structuredClone(duplicateCapability.capabilities[1]));
+  const duplicateArtifactAndEval = fixtureRegistry();
+  const synthesis = duplicateArtifactAndEval.syntheses.find((entry) => entry.id === "uiux.visual-direction@1");
+  synthesis.artifactRefs.push(structuredClone(synthesis.artifactRefs[0]));
+  synthesis.evaluationRefs.push(structuredClone(synthesis.evaluationRefs[0]));
+  const duplicateResources = fixtureResources();
+  duplicateResources.resources.push(structuredClone(duplicateResources.resources[0]));
+  const duplicateOutputs = fixtureCompilerInventory();
+  duplicateOutputs.compiledOutputs.push(structuredClone(duplicateOutputs.compiledOutputs[0]));
+
+  const cases = [
+    [duplicateCapability, fixtureResources(), fixtureCompilerInventory(), "duplicate-capability:uiux.visual-direction"],
+    [duplicateArtifactAndEval, fixtureResources(), fixtureCompilerInventory(), "duplicate-artifact:method:uiux.premium-visual-quality"],
+    [duplicateArtifactAndEval, fixtureResources(), fixtureCompilerInventory(), "duplicate-evaluation:eval:uiux-contextual-design-controls"],
+    [fixtureRegistry(), duplicateResources, fixtureCompilerInventory(), "duplicate-resource:uiux.premium-visual-quality"],
+    [fixtureRegistry(), fixtureResources(), duplicateOutputs, "duplicate-compiled-output:compiled/uiux-agent.md"]
+  ];
+  for (const [registry, resourceCatalog, compilerInventory, reason] of cases) {
+    const normal = impact({ registry, resourceCatalog, compilerInventory });
+    const reversed = impact({
+      registry: { ...registry, capabilities: [...registry.capabilities].reverse(), syntheses: [...registry.syntheses].reverse() },
+      resourceCatalog: { resources: [...resourceCatalog.resources].reverse() },
+      compilerInventory: {
+        ...compilerInventory,
+        compiledOutputs: [...compilerInventory.compiledOutputs].reverse(),
+        mirrorOutputs: [...compilerInventory.mirrorOutputs].reverse()
+      }
+    });
+    assert.equal(normal.reasons.includes(reason), true, reason);
+    assert.deepEqual(reversed.reasons, normal.reasons, reason);
+  }
 });
