@@ -6,6 +6,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import {
   parseMarkdownTableSection,
+  resolveUtilizationClassification,
   validateSourceUtilizationReport
 } from "./ai-toolkit/kernel/source-utilization-contract.mjs";
 
@@ -183,6 +184,69 @@ test("source utilization rows reject unsafe repository-relative paths", () => {
       repositoryRoot: ROOT
     }),
     /unsafe repository-relative path: \.\.\/\.\.\/outside\.md/
+  );
+});
+
+test("source utilization rows reject Windows absolute paths", () => {
+  const markdown = utilizationReport({
+    watchedRows: [
+      "| source-id | Source | active-read-only | Do later | C:\\secrets\\outside.md | Keep detected-only | No automatic install |"
+    ]
+  });
+
+  assert.throws(
+    () => validateSourceUtilizationReport({
+      markdown,
+      sourceIds: ["source-id"],
+      toolIds: [],
+      repositoryRoot: ROOT
+    }),
+    /unsafe absolute path: C:\\secrets\\outside\.md/
+  );
+});
+
+test("source utilization rows reject POSIX absolute paths", () => {
+  const markdown = utilizationReport({
+    watchedRows: [
+      "| source-id | Source | active-read-only | Do later | /secrets/outside.md | Keep detected-only | No automatic install |"
+    ]
+  });
+
+  assert.throws(
+    () => validateSourceUtilizationReport({
+      markdown,
+      sourceIds: ["source-id"],
+      toolIds: [],
+      repositoryRoot: ROOT
+    }),
+    /unsafe absolute path: \/secrets\/outside\.md/
+  );
+});
+
+test("required tool classifications resolve from Registered Tools for shared IDs", () => {
+  const markdown = utilizationReport({
+    watchedRows: [
+      "| gsd-core | GSD Core | active-reference | Do later | docs/SOURCE_UTILIZATION_MATRIX.md | Keep detected-only | No automatic install |"
+    ],
+    toolRows: [
+      "| gsd-core | GSD Core | active-profile-route | Do later | registries/tools.registry.json | Keep detected-only | No automatic install |"
+    ]
+  });
+  const utilization = validateSourceUtilizationReport({
+    markdown,
+    sourceIds: ["gsd-core"],
+    toolIds: ["gsd-core"],
+    repositoryRoot: ROOT
+  });
+
+  assert.equal(
+    resolveUtilizationClassification({
+      id: "gsd-core",
+      kind: "tool",
+      watchedById: utilization.watchedById,
+      toolsById: utilization.toolsById
+    }),
+    "active-profile-route"
   );
 });
 

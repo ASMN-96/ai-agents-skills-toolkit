@@ -43,6 +43,7 @@ const TOOL_HEADERS = [
 ];
 
 const REPOSITORY_PATH_TOKEN = /(?:^|[\s`(])((?:\.\.?\/|(?:agents|checklists|compiled-agents|docs|evals|examples|install|methods|profiles|registries|scripts|skills|sources|templates)\/)[A-Za-z0-9_./*-]+)/g;
+const ABSOLUTE_PATH_TOKEN = /(?:^|[\s`(])([A-Za-z]:[\\/][^\s`|,;()]+|\/[^\s`|,;()]+)/g;
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -61,6 +62,10 @@ function sectionKindLabel(kind) {
 function repositoryPathTokens(value) {
   return [...value.matchAll(REPOSITORY_PATH_TOKEN)]
     .map((match) => match[1].replace(/\/(?:\*)?$/, ""));
+}
+
+function absolutePathTokens(value) {
+  return [...value.matchAll(ABSOLUTE_PATH_TOKEN)].map((match) => match[1]);
 }
 
 export function parseMarkdownTableSection(markdown, heading, expectedHeaders) {
@@ -109,6 +114,9 @@ export function validateUtilizationRow(row, { kind, repositoryRoot }) {
   for (const field of ["Current value path", "Next extraction", "Forbidden boundary"]) {
     const value = row[field];
     if (!value) throw new Error(`missing ${label} ${field.toLowerCase()}`);
+    for (const token of absolutePathTokens(value)) {
+      throw new Error(`unsafe absolute path: ${token}`);
+    }
     for (const token of repositoryPathTokens(value)) {
       try {
         assertPathContained(repositoryRoot, path.resolve(repositoryRoot, token), `${label} repository-relative path`);
@@ -117,6 +125,14 @@ export function validateUtilizationRow(row, { kind, repositoryRoot }) {
       }
     }
   }
+}
+
+export function resolveUtilizationClassification({ id, kind, watchedById, toolsById }) {
+  const label = sectionKindLabel(kind);
+  const rows = kind === "source" ? watchedById : toolsById;
+  const row = rows.get(id);
+  if (!row) throw new Error(`missing ${label} row: ${id}`);
+  return row.Classification;
 }
 
 export function validateSourceUtilizationReport({ markdown, sourceIds, toolIds, repositoryRoot }) {

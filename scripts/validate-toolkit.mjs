@@ -11,7 +11,10 @@ import {
   digestCanonicalCompilerInputs,
   resolveProfileSourcePath
 } from "./ai-toolkit/compiler-provenance.mjs";
-import { validateSourceUtilizationReport } from "./ai-toolkit/kernel/source-utilization-contract.mjs";
+import {
+  resolveUtilizationClassification,
+  validateSourceUtilizationReport
+} from "./ai-toolkit/kernel/source-utilization-contract.mjs";
 import { embeddedValidatorPolicies } from "./ai-toolkit/subvalidator-policy.mjs";
 import { assertRegularFileWithin } from "../install/safe-filesystem.mjs";
 
@@ -946,15 +949,26 @@ async function validateSourceUtilizationClassification(watchlist, registryState)
     return;
   }
 
-  const requiredRows = new Map([
-    ["gsd-core", "active-profile-route"],
-    ["repomix", "active-profile-route"],
-    ["shadcn-ui", "active-reference"],
-    ["ruflo", "active-method"],
-    ["open-design", "active-reference"]
-  ]);
-  for (const [id, expected] of requiredRows) {
-    const actual = utilization.watchedById.get(id)?.Classification || utilization.toolsById.get(id)?.Classification;
+  const requiredRows = [
+    ["gsd-core", "tool", "active-profile-route"],
+    ["repomix", "tool", "active-profile-route"],
+    ["shadcn-ui", "source", "active-reference"],
+    ["ruflo", "source", "active-method"],
+    ["open-design", "tool", "active-reference"]
+  ];
+  for (const [id, kind, expected] of requiredRows) {
+    let actual;
+    try {
+      actual = resolveUtilizationClassification({
+        id,
+        kind,
+        watchedById: utilization.watchedById,
+        toolsById: utilization.toolsById
+      });
+    } catch (error) {
+      fail("source utilization classification", `${SOURCE_UTILIZATION_REPORT}:${id}`, error.message);
+      continue;
+    }
     if (actual !== expected) {
       fail("source utilization classification", `${SOURCE_UTILIZATION_REPORT}:${id}`, `expected ${expected}, got ${actual || "missing"}`);
     }
