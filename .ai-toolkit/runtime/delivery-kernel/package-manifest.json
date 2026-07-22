@@ -196,6 +196,10 @@
       "sha256": "f95bdc2b7e30f1f871e7b59abe5a6d96e8b4de36acf3fcaebc368b6ab16fb62e"
     },
     {
+      "path": "scripts/ai-toolkit/kernel/source-synthesis-contract.mjs",
+      "sha256": "89f1d9ca3c8ff962f8f78f5e6fd499ab953cee14af06188350b6b8cde6f8ac78"
+    },
+    {
       "path": "scripts/ai-toolkit/kernel/source-utilization-contract.mjs",
       "sha256": "fd4e669048a79a86026a9b7464abba2a6930e9b13d53d778f6d6851e2e05dbd5"
     },

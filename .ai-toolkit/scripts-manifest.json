@@ -6,7 +6,7 @@
   "scripts": [
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "6e02a198b37e9cdd8b4a5723a0b52e76b53404cb83c88f329115feb629e8c76f"
+      "sha256": "8a29020dbbaee477f6e15c04381bc88f94a39dd2071f8bfbaac35f51462846a8"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",
@@ -62,7 +62,7 @@
     },
     {
       "path": "scripts/ai-toolkit/source-governance.mjs",
-      "sha256": "837a62956897de5e4f767e71d8b985784feb6718185be237ebd59f3325e3421d"
+      "sha256": "184ab7da5fed0e6b3ffe99b5f167017b5769a2af5c969a044feb91dc5897c7f8"
     },
     {
       "path": "scripts/ai-toolkit/subvalidator-policy.mjs",
@@ -158,7 +158,7 @@
     },
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "ac71fa26ede9d939c569ecb5f5794d86a08483a7f83c5301d7060b719b9c2a12"
+      "sha256": "8dd64b8ef9e67cf88214fe5bee4bd995472d2ef1d54d3f4c59db0e118ea17472"
     },
     {
       "path": "scripts/validate-v0-3-release-evidence.mjs",

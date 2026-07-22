@@ -157,8 +157,11 @@ function minimizeBuilderFixture(fixture) {
   retainFixtureFiles(fixture, "registries", [
     "agents.registry.json",
     "domain-packs.registry.json",
+    "methods.registry.json",
+    "profiles.registry.json",
     "routing-matrix.json",
     "skills.registry.json",
+    "source-capabilities.registry.json",
     "tools.registry.json"
   ]);
   retainFixtureFiles(fixture, "templates", ["delivery-kernel.request.example.json"]);
@@ -758,6 +761,37 @@ test("build promotes a schema-v2 package without rewriting canonical registries 
   } finally {
     rmSync(parent, { recursive: true, force: true });
   }
+});
+
+test("source capability registry mirror is byte-identical and manifest-attested", () => {
+  const plannedMirror = [".ai-toolkit", "registries", "source-capabilities.registry.json"].join("/");
+  assert.equal(
+    readFileSync(path.join(ROOT, "registries", "source-capabilities.registry.json"), "utf8"),
+    readFileSync(path.join(ROOT, ...plannedMirror.split("/")), "utf8")
+  );
+  const manifest = JSON.parse(readFileSync(path.join(ROOT, ".ai-toolkit", "manifest.json"), "utf8"));
+  const mirror = manifest.mirrors.find((entry) => entry.source === "registries/source-capabilities.registry.json");
+  assert.deepEqual(mirror, {
+    source: "registries/source-capabilities.registry.json",
+    target: plannedMirror,
+    mode: "byte-identical",
+    sha256: canonicalTextSha256(readFileSync(path.join(ROOT, ...plannedMirror.split("/"))))
+  });
+});
+
+test("delivery kernel registry allowlist excludes source capabilities", () => {
+  const manifest = JSON.parse(readFileSync(
+    path.join(ROOT, ".ai-toolkit", "runtime", "delivery-kernel", "package-manifest.json"),
+    "utf8"
+  ));
+  assert.equal(
+    manifest.files.some((entry) => entry.path.includes("source-capabilities.registry.json")),
+    false
+  );
+  assert.equal(
+    manifest.registries.some((entry) => entry.includes("source-capabilities.registry.json")),
+    false
+  );
 });
 
 test("interrupted backup and promotion phases recover the previous package before new generation", () => {

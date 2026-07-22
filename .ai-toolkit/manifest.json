@@ -46,7 +46,7 @@
   "deliveryKernelPackage": {
     "root": ".ai-toolkit/runtime/delivery-kernel",
     "manifestPath": ".ai-toolkit/runtime/delivery-kernel/package-manifest.json",
-    "manifestSha256": "42a24e111f05b0440342c56668535df7ccf550a9260ecae6cac37034ea2e074f"
+    "manifestSha256": "5671ef10ff9e0ef41cda2459c122df83e1f8f905cfb90dc5989136e15367999a"
   },
   "mirrors": [
     {
@@ -299,7 +299,7 @@
       "source": "docs/SOURCE_UTILIZATION_MATRIX.md",
       "target": ".ai-toolkit/docs/SOURCE_UTILIZATION_MATRIX.md",
       "mode": "packaged-support-asset",
-      "sha256": "c843d07ca9b518833fb2113c1ec9e679372661e9a0e92054c940cb2dcf355392"
+      "sha256": "003f7a4056897ce4d9eabc22b5e68d663ad61bad389c06aee9331e6bc8c78b44"
     },
     {
       "source": "docs/UI_UX_PRO_MAX_AUDIT.md",
@@ -710,6 +710,12 @@
       "sha256": "28a864403edb93a9100eee75a504765ad3e738cffbd44c19914bcc5435fe2b7b"
     },
     {
+      "source": "registries/source-capabilities.registry.json",
+      "target": ".ai-toolkit/registries/source-capabilities.registry.json",
+      "mode": "byte-identical",
+      "sha256": "cce3359bc0f9696f2249d4aafaa24f4551b5a11885d28eac0e923ce98e4d7376"
+    },
+    {
       "source": "registries/tools.registry.json",
       "target": ".ai-toolkit/registries/tools.registry.json",
       "mode": "byte-identical",
@@ -1053,7 +1059,7 @@
     },
     {
       "path": ".ai-toolkit/runtime/delivery-kernel/package-manifest.json",
-      "sha256": "42a24e111f05b0440342c56668535df7ccf550a9260ecae6cac37034ea2e074f"
+      "sha256": "5671ef10ff9e0ef41cda2459c122df83e1f8f905cfb90dc5989136e15367999a"
     }
   ],
   "generatedBy": "scripts/ai-toolkit/build-embedded-package.mjs"

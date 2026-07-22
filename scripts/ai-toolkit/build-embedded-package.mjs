@@ -34,6 +34,16 @@ const DELIVERY_KERNEL_REGISTRIES = [
   "skills.registry.json",
   "tools.registry.json"
 ];
+const ROOT_PROVENANCE_REGISTRIES = [
+  "agents.registry.json",
+  "domain-packs.registry.json",
+  "methods.registry.json",
+  "profiles.registry.json",
+  "routing-matrix.json",
+  "skills.registry.json",
+  "source-capabilities.registry.json",
+  "tools.registry.json"
+];
 const SCRIPT_PROVENANCE_DIRECTORIES = ["scripts", "scripts/ai-toolkit"];
 let outputManager = null;
 let canonicalInputDigests = new Map();
@@ -960,11 +970,8 @@ async function copyMirrors() {
     await copyFileTracked(file, `${AI_ROOT}/${file}`, mirrors);
   }
 
-  for (const entry of await readCanonicalDirectory("registries")) {
-    const file = entry.name;
-    if (file.endsWith(".json")) {
-      await copyFileTracked(`registries/${file}`, `${AI_ROOT}/registries/${file}`, mirrors);
-    }
+  for (const file of ROOT_PROVENANCE_REGISTRIES) {
+    await copyFileTracked(`registries/${file}`, `${AI_ROOT}/registries/${file}`, mirrors);
   }
 
   for (const agent of canonicalProjectAgents.filter((entry) => entry.compiledFallbackPath)) {
@@ -976,9 +983,7 @@ async function copyMirrors() {
     );
   }
 
-  const registryFiles = (await readCanonicalDirectory("registries"))
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".json"))
-    .map((entry) => `registries/${entry.name}`);
+  const registryFiles = ROOT_PROVENANCE_REGISTRIES.map((file) => `registries/${file}`);
   const supportSeeds = [
     ...ACTIVE_SKILLS.map((skill) => `skills/${skill}/SKILL.md`),
     ...canonicalProjectAgents.map((agent) => agent.sourcePath),
