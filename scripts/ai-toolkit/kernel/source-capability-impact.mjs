@@ -2,6 +2,10 @@ function array(value) {
   return Array.isArray(value) ? value : [];
 }
 
+const LOCATOR_KINDS = new Set(["repository-path-section", "document-section", "code-symbol", "url-fragment"]);
+const LOCATOR_FIELDS = new Set(["kind", "value"]);
+const UNSAFE_LOCATOR_VALUE = /[\r\n\0]|:\/\/|(?:token|password|cookie|authorization)=/iu;
+
 function hasOwn(record, field) {
   return plainRecord(record) && Object.prototype.hasOwnProperty.call(record, field);
 }
@@ -14,14 +18,6 @@ function plainRecord(value) {
 function stableStrings(values) {
   return [...new Set(values.filter((value) => typeof value === "string" && value.length > 0))]
     .sort((left, right) => left.localeCompare(right));
-}
-
-function referenceId(reference) {
-  if (typeof reference === "string") return reference;
-  if (plainRecord(reference) && typeof reference.kind === "string" && typeof reference.id === "string") {
-    return `${reference.kind}:${reference.id}`;
-  }
-  return null;
 }
 
 function consumerReferenceId(reference) {
@@ -117,12 +113,32 @@ function hasTrustworthyExactLocators(input, reasons) {
   for (const [index, locator] of input.locators.entries()) {
     if (
       !plainRecord(locator)
-      || typeof locator.kind !== "string"
-      || locator.kind.length === 0
+      || Object.keys(locator).some((field) => !LOCATOR_FIELDS.has(field))
+      || !LOCATOR_KINDS.has(locator.kind)
       || typeof locator.value !== "string"
-      || locator.value.length === 0
+      || locator.value.trim() === ""
+      || UNSAFE_LOCATOR_VALUE.test(locator.value)
     ) {
       reasons.push(`invalid-locator:${input.id}:${index}`);
+      trustworthy = false;
+    }
+  }
+  return trustworthy;
+}
+
+function hasTrustworthyChangedLocators(changedLocators, reasons) {
+  if (!Array.isArray(changedLocators)) {
+    reasons.push("invalid-changed-locators");
+    return false;
+  }
+  let trustworthy = true;
+  for (const [index, locator] of changedLocators.entries()) {
+    if (
+      typeof locator !== "string"
+      || locator.trim() === ""
+      || UNSAFE_LOCATOR_VALUE.test(locator)
+    ) {
+      reasons.push(`invalid-changed-locator:${index}`);
       trustworthy = false;
     }
   }
@@ -136,9 +152,10 @@ function selectedInputs({ sourceId, changedLocators, comparisonState, registry, 
     .flatMap((synthesis) => edgeArray(synthesis, "inputs", "inputs", reasons)
       .filter((input) => input?.sourceId === sourceId && typeof input.id === "string")
       .map((input) => ({ synthesis, input })));
-  const changed = new Set(array(changedLocators).filter((locator) => typeof locator === "string"));
+  const changed = new Set(Array.isArray(changedLocators) ? changedLocators : []);
   let exactTrustworthy = true;
   if (comparisonState === "exact") {
+    if (!hasTrustworthyChangedLocators(changedLocators, reasons)) exactTrustworthy = false;
     for (const { input } of inputs) {
       if (!hasTrustworthyExactLocators(input, reasons)) exactTrustworthy = false;
     }
@@ -229,6 +246,17 @@ function edges(record, fields, invalidReason, reasons) {
     }
   }
   return stableStrings(values);
+}
+
+function compilerConsumerRefs(output, reasons) {
+  const field = hasOwn(output, "consumerRefs") ? "consumerRefs" : "consumers";
+  const refs = [];
+  for (const [index, reference] of edgeArray(output, field, "consumer-refs", reasons).entries()) {
+    const consumer = consumerReferenceId(reference);
+    if (consumer) refs.push(consumer);
+    else reasons.push(`invalid-compiled-consumer-ref:${recordId(output) ?? "unknown"}:${index}`);
+  }
+  return stableStrings(refs);
 }
 
 /**
@@ -338,12 +366,7 @@ export function deriveCapabilityImpact({
   const enqueueMirror = (id) => queue.push({ type: "mirror", id });
 
   for (const [id, candidates] of outputs.entries) {
-    const matchesConsumer = candidates.some((output) => stableStrings(edgeArray(
-      output,
-      hasOwn(output, "consumerRefs") ? "consumerRefs" : "consumers",
-      "consumer-refs",
-      reasons
-    ).map(referenceId))
+    const matchesConsumer = candidates.some((output) => compilerConsumerRefs(output, reasons)
       .some((consumer) => consumerRefs.has(consumer)));
     if (matchesConsumer) enqueueOutput(id);
   }

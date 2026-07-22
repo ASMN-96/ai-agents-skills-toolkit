@@ -147,7 +147,7 @@ function fixtureCompilerInventory({ cycle = false, missingCompiledOutput = false
     compiledOutputs: [
       {
         id: "compiled/uiux-agent.md",
-        consumerRefs: ["agent:uiux-agent"],
+        consumerRefs: [{ kind: "agent", id: "uiux-agent" }],
         compiledOutputRefs: rootRefs,
         mirrorOutputRefs: rootMirrors
       },
@@ -158,7 +158,7 @@ function fixtureCompilerInventory({ cycle = false, missingCompiledOutput = false
       },
       {
         id: "compiled/security-agent.md",
-        consumerRefs: ["agent:security-agent"],
+        consumerRefs: [{ kind: "agent", id: "security-agent" }],
         mirrorOutputRefs: ["mirror/security-agent.md"]
       }
     ],
@@ -489,4 +489,63 @@ test("untrustworthy exact locator bindings conservatively stale every active sou
     assert.deepEqual(result.staleInputIds, ["taste-design-read", "taste-redesign-audit"], name);
     for (const reason of reasons) assert.equal(result.reasons.includes(reason), true, `${name}: ${reason}`);
   }
+});
+
+test("exact locator comparison mirrors canonical locator and changed-value validation", () => {
+  const boundLocatorMutations = [
+    ["unsupported-kind", (entry) => { entry.locators = [{ kind: "unknown", value: "skills/taste-skill/SKILL.md#brief-inference" }]; }],
+    ["unexpected-field", (entry) => { entry.locators = [{ kind: "repository-path-section", value: "skills/taste-skill/SKILL.md#brief-inference", extra: true }]; }],
+    ["whitespace", (entry) => { entry.locators = [{ kind: "repository-path-section", value: "  " }]; }],
+    ["unsafe", (entry) => { entry.locators = [{ kind: "url-fragment", value: "https://example.test/path?token=secret" }]; }]
+  ];
+  for (const [name, mutate] of boundLocatorMutations) {
+    const registry = fixtureRegistry({ twoTasteInputs: true });
+    const synthesis = registry.syntheses.find((entry) => entry.id === "uiux.visual-direction@1");
+    mutate(synthesis.inputs.find((entry) => entry.id === "taste-design-read"));
+    const result = impact({ registry });
+    assert.deepEqual(result.staleInputIds, ["taste-design-read", "taste-redesign-audit"], name);
+    assert.equal(result.reasons.includes("invalid-locator:taste-design-read:0"), true, name);
+  }
+
+  const nonArrayChanged = impact({
+    registry: fixtureRegistry({ twoTasteInputs: true }),
+    changedLocators: "skills/taste-skill/SKILL.md#brief-inference"
+  });
+  assert.deepEqual(nonArrayChanged.staleInputIds, ["taste-design-read", "taste-redesign-audit"]);
+  assert.equal(nonArrayChanged.reasons.includes("invalid-changed-locators"), true);
+
+  const malformedChanged = impact({
+    registry: fixtureRegistry({ twoTasteInputs: true }),
+    changedLocators: ["skills/taste-skill/SKILL.md#brief-inference", "  ", { value: "forged" }]
+  });
+  assert.deepEqual(malformedChanged.staleInputIds, ["taste-design-read", "taste-redesign-audit"]);
+  assert.equal(malformedChanged.reasons.includes("invalid-changed-locator:1"), true);
+  assert.equal(malformedChanged.reasons.includes("invalid-changed-locator:2"), true);
+});
+
+test("compiler consumer references retain valid siblings and report every malformed member", () => {
+  const mixed = fixtureCompilerInventory();
+  mixed.compiledOutputs[0].consumerRefs = [
+    { kind: "agent", id: "uiux-agent" },
+    { kind: "skill" },
+    "agent:uiux-agent",
+    null
+  ];
+  const mixedResult = impact({ compilerInventory: mixed });
+  assert.deepEqual(mixedResult.compiledOutputs, ["compiled/uiux-agent.md", "compiled/uiux-child.md"]);
+  assert.deepEqual(mixedResult.reasons, [
+    "invalid-compiled-consumer-ref:compiled/uiux-agent.md:1",
+    "invalid-compiled-consumer-ref:compiled/uiux-agent.md:2",
+    "invalid-compiled-consumer-ref:compiled/uiux-agent.md:3"
+  ]);
+
+  const malformed = fixtureCompilerInventory();
+  malformed.compiledOutputs[0].consumerRefs = [{ kind: "agent" }, "agent:uiux-agent"];
+  const malformedResult = impact({ compilerInventory: malformed });
+  assert.deepEqual(malformedResult.compiledOutputs, []);
+  assert.deepEqual(malformedResult.mirrorOutputs, []);
+  assert.deepEqual(malformedResult.reasons, [
+    "invalid-compiled-consumer-ref:compiled/uiux-agent.md:0",
+    "invalid-compiled-consumer-ref:compiled/uiux-agent.md:1"
+  ]);
 });
