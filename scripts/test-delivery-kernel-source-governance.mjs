@@ -10,6 +10,7 @@ import { fileURLToPath } from "node:url";
 import * as sourcePolicy from "./ai-toolkit/kernel/source-policy.mjs";
 import * as resourceCatalog from "./ai-toolkit/kernel/resource-catalog.mjs";
 import { canonicalDigest } from "./ai-toolkit/kernel/canonical-digest.mjs";
+import { deriveSourceReleaseAccounting } from "./ai-toolkit/kernel/source-release-accounting.mjs";
 import { planDeliveryRun } from "./ai-toolkit/kernel/delivery-kernel.mjs";
 import { inspectExecutionPlanPreparation } from "./ai-toolkit/kernel/execution-lifecycle.mjs";
 import { loadValidatedSourceCatalog } from "./ai-toolkit/kernel/source-catalog-loader.mjs";
@@ -36,6 +37,10 @@ function source(overrides = {}) {
     authority: "official",
     lifecycle: "review-input",
     sourceType: "github-repo",
+    sourceBehavior: "security-runtime-source",
+    monitorIntervalDays: 14,
+    deepReviewIntervalDays: 30,
+    eventTriggers: ["security-advisory", "deprecation", "withdrawal"],
     sourceUrl: "https://github.com/example/source",
     repoOwner: "example",
     repoName: "source",
@@ -74,7 +79,7 @@ function source(overrides = {}) {
 
 function catalog(sources = [source()]) {
   return {
-    schemaVersion: "2.1.0",
+    schemaVersion: "2.2.0",
     catalogId: "enterprise-source-catalog",
     policy: {
       readOnlySupplyChainInputs: true,
@@ -131,6 +136,31 @@ function gate(sourceId = "nist-ssdf") {
     id: "enterprise-security-privacy",
     authoritativeSourceRefs: [{ sourceId, locator: "SP 800-218" }]
   };
+}
+
+function capabilityImpact(overrides = {}) {
+  return {
+    sourceId: "nist-ssdf",
+    capabilityIds: ["security.source-governance"],
+    contributionOutcome: "authoritative-baseline",
+    synthesisState: "stale",
+    hardSecurityBlocker: false,
+    affectedGateIds: ["enterprise-security-privacy"],
+    affectedResourceIds: [],
+    portfolioActionable: true,
+    ...overrides
+  };
+}
+
+function capabilityScopedAccounting(capabilityImpacts) {
+  return deriveSourceReleaseAccounting({
+    catalog: catalog(),
+    domainPacksRegistry: { registryType: "domain-packs", packs: [] },
+    capabilityImpacts,
+    selectedGateIds: ["enterprise-security-privacy", "preview-ui-gate"],
+    supportedGateIds: ["enterprise-security-privacy"],
+    selectedResourceIds: ["impeccable-cli", "enterprise-core-tool"]
+  });
 }
 
 function receiptDocument(overrides = {}) {
@@ -520,6 +550,60 @@ test("reviewed-current metadata-only sources can satisfy authoritative reference
   }, snapshot);
   assert.equal(plannedDomain.status, "planned");
   assert.deepEqual(plannedDomain.blockedGateIds, []);
+});
+
+test("stale clean-room method remains pinned and actionable without global blocking", () => {
+  const result = capabilityScopedAccounting([
+    capabilityImpact({
+      capabilityIds: ["uiux.clean-room-method"],
+      contributionOutcome: "adapted",
+      affectedGateIds: ["enterprise-security-privacy"],
+      portfolioActionable: true
+    })
+  ]);
+
+  assert.equal(result.portfolioActionable, true);
+  assert.equal(result.releaseBlocking, false);
+  assert.equal(result.globalReleaseBlocked, false);
+  assert.deepEqual(result.blockingResourceIds, []);
+  assert.match(result.advisories.join("\n"), /pinned reviewed basis/u);
+});
+
+test("stale delegated tool blocks only that selected integration", () => {
+  const result = capabilityScopedAccounting([
+    capabilityImpact({
+      capabilityIds: ["uiux.impeccable-integration"],
+      contributionOutcome: "delegated",
+      affectedGateIds: ["enterprise-security-privacy"],
+      affectedResourceIds: ["impeccable-cli", "unselected-tool"]
+    })
+  ]);
+
+  assert.deepEqual(result.blockingCapabilityIds, ["uiux.impeccable-integration"]);
+  assert.deepEqual(result.blockingResourceIds, ["impeccable-cli"]);
+  assert.deepEqual(result.blockingGateIds, []);
+  assert.equal(result.releaseBlocking, true);
+  assert.equal(result.globalReleaseBlocked, false);
+});
+
+test("authoritative baseline blocks selected supported gates without letting preview or historical impact block enterprise core", () => {
+  const result = capabilityScopedAccounting([
+    capabilityImpact({
+      capabilityIds: ["security.authoritative-baseline"],
+      affectedGateIds: ["enterprise-security-privacy", "preview-ui-gate"]
+    }),
+    capabilityImpact({
+      capabilityIds: ["uiux.historical-reference"],
+      contributionOutcome: "historical",
+      affectedGateIds: ["enterprise-security-privacy"],
+      affectedResourceIds: ["enterprise-core-tool"]
+    })
+  ]);
+
+  assert.deepEqual(result.blockingCapabilityIds, ["security.authoritative-baseline"]);
+  assert.deepEqual(result.blockingGateIds, ["enterprise-security-privacy"]);
+  assert.deepEqual(result.blockingResourceIds, []);
+  assert.match(result.advisories.join("\n"), /historical capability never blocks/u);
 });
 
 test("current dependent source evidence never activates an otherwise ineligible resource", async () => {

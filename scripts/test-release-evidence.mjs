@@ -706,6 +706,30 @@ test("managed release summaries distinguish global actionable and release-blocki
   assert.match(summary, /enterprise-core/u);
 });
 
+test("release evidence validation wording exposes capability-scoped blockers and pinned-basis advisories", () => {
+  const summary = formatReleaseEvidenceSummary({
+    candidateVersion: "0.3.0",
+    controlledRelease: "0.2.5",
+    warningCount: 4,
+    releaseState: "blocked",
+    sourceCapabilityImpact: {
+      capabilityIds: ["security.authoritative-baseline", "uiux.clean-room-method"],
+      blockingCapabilityIds: ["security.authoritative-baseline"],
+      blockingResourceIds: ["impeccable-cli"],
+      blockingGateIds: ["enterprise-security-privacy"],
+      portfolioActionableCount: 2,
+      advisories: ["uiux.clean-room-method: pinned reviewed basis remains usable"]
+    }
+  });
+
+  assert.match(summary, /capabilities=security\.authoritative-baseline,uiux\.clean-room-method/u);
+  assert.match(summary, /blocking-capabilities=security\.authoritative-baseline/u);
+  assert.match(summary, /blocking-resources=impeccable-cli/u);
+  assert.match(summary, /blocking-gates=enterprise-security-privacy/u);
+  assert.match(summary, /portfolio-actionable=2/u);
+  assert.match(summary, /pinned-basis-advisories=1/u);
+});
+
 test("release-boundary prose keeps nonblocking source limitations visible without treating them as release-scoped blockers", () => {
   for (const relativePath of ["STATUS.md", "docs/V0_3_0_RELEASE_NOTES.md"]) {
     const contents = readFileSync(path.join(ROOT, relativePath), "utf8");

@@ -1,4 +1,5 @@
 import { canonicalDigest } from "./canonical-digest.mjs";
+import { deriveCapabilityScopedBlocking } from "./source-policy.mjs";
 
 const MONITOR_STATES = Object.freeze(["CURRENT", "CHANGED", "CHECK_FAILED", "MANUAL_DUE"]);
 const SOURCE_SCOPES = Object.freeze([
@@ -68,6 +69,45 @@ function observationIndex(freshnessReport, sourcesById) {
   return byId;
 }
 
+function reportedCapabilityImpact(freshnessReport) {
+  if (freshnessReport === undefined || freshnessReport === null) {
+    return {
+      capabilityIds: [],
+      blockingCapabilityIds: [],
+      blockingSourceIds: [],
+      blockingResourceIds: [],
+      blockingGateIds: [],
+      portfolioActionableCount: 0,
+      releaseBlocking: false,
+      advisories: []
+    };
+  }
+  const capabilityIds = [];
+  const blockingResourceIds = [];
+  const blockingSourceIds = [];
+  let portfolioActionableCount = 0;
+  for (const observation of freshnessReport.sources) {
+    const impact = observation?.capabilityImpact;
+    if (impact === null || typeof impact !== "object" || Array.isArray(impact)) continue;
+    if (Array.isArray(impact.capabilityIds)) capabilityIds.push(...impact.capabilityIds);
+    if (impact.portfolioActionable === true) portfolioActionableCount += 1;
+    if (impact.releaseBlocking === true && Array.isArray(impact.blockingResourceIds)) {
+      blockingSourceIds.push(observation.sourceId);
+      blockingResourceIds.push(...impact.blockingResourceIds);
+    }
+  }
+  return {
+    capabilityIds: stableStrings(capabilityIds),
+    blockingCapabilityIds: [],
+    blockingSourceIds: stableStrings(blockingSourceIds),
+    blockingResourceIds: stableStrings(blockingResourceIds),
+    blockingGateIds: [],
+    portfolioActionableCount,
+    releaseBlocking: blockingResourceIds.length > 0,
+    advisories: []
+  };
+}
+
 function domainDependencies(domainPacksRegistry, sourcesById) {
   if (domainPacksRegistry === undefined || domainPacksRegistry === null) {
     throw new Error("source release accounting requires the canonical domain-packs registry");
@@ -120,7 +160,11 @@ function domainDependencies(domainPacksRegistry, sourcesById) {
 export function deriveSourceReleaseAccounting({
   catalog,
   domainPacksRegistry = null,
-  freshnessReport = null
+  freshnessReport = null,
+  capabilityImpacts = [],
+  selectedResourceIds = [],
+  selectedGateIds = [],
+  supportedGateIds = []
 } = {}) {
   const sourcesById = sourceIndex(catalog);
   const observationsById = observationIndex(freshnessReport, sourcesById);
@@ -170,6 +214,15 @@ export function deriveSourceReleaseAccounting({
   const releaseBlockingSourceIds = stableStrings(
     supportedDependencyBlockers.map((entry) => entry.sourceId)
   );
+  const scopedCapabilityImpact = deriveCapabilityScopedBlocking({
+    capabilityImpacts,
+    selectedResourceIds,
+    selectedGateIds,
+    supportedGateIds
+  });
+  const capabilityImpact = capabilityImpacts.length > 0
+    ? scopedCapabilityImpact
+    : reportedCapabilityImpact(freshnessReport);
   const dependencyUniverseDigest = canonicalDigest({
     supportedDependencyBlockers,
     previewDependencyBlockers,
@@ -189,7 +242,16 @@ export function deriveSourceReleaseAccounting({
     releaseNonblockingActionableCount: actionableSourceIds.length - releaseBlockingSourceIds.length,
     supportedDependencyBlockers,
     previewDependencyBlockers,
-    resourceDependencyBlockers
+    resourceDependencyBlockers,
+    capabilityImpact,
+    capabilityIds: capabilityImpact.capabilityIds,
+    blockingCapabilityIds: capabilityImpact.blockingCapabilityIds,
+    blockingResourceIds: capabilityImpact.blockingResourceIds,
+    blockingGateIds: capabilityImpact.blockingGateIds,
+    portfolioActionable: capabilityImpact.portfolioActionableCount > 0,
+    releaseBlocking: capabilityImpact.releaseBlocking,
+    globalReleaseBlocked: false,
+    advisories: capabilityImpact.advisories
   };
 }
 

@@ -688,7 +688,11 @@ function validateSourceState(root, evidence) {
     now: new Date(Math.max(Date.now(), Date.parse(report.checkedAt))).toISOString(),
     domainPacksRegistry
   });
-  const accounting = deriveSourceReleaseAccounting({ catalog, domainPacksRegistry });
+  const accounting = deriveSourceReleaseAccounting({
+    catalog,
+    domainPacksRegistry,
+    freshnessReport: report
+  });
   const receipts = (catalog.sources ?? []).filter((source) => source.review?.currentReceipt).length;
   assertEqual(report.checkedAt, evidence.sourceFreshness.checkedAt, "source-checked-at");
   assertEqual(accounting.sourceCount, evidence.sourceFreshness.sourceCount, "source-count");
@@ -843,7 +847,7 @@ export async function validateReleaseEvidence({
     evidence.releaseState
   );
   validateRepositoryState(canonicalRoot, evidence);
-  validateSourceState(canonicalRoot, evidence);
+  const sourceAccounting = validateSourceState(canonicalRoot, evidence);
   validateRuntimeState(canonicalRoot, evidence);
   await validateBenchmarkState(canonicalRoot, evidence);
   validateReleaseBlockerAccounting(evidence, generatedArtifactState);
@@ -857,13 +861,22 @@ export async function validateReleaseEvidence({
     releaseState: evidence.releaseState,
     releaseBlockers: [...evidence.releaseBlockers],
     releaseBlockerAccounting: structuredClone(evidence.releaseBlockerAccounting),
+    sourceCapabilityImpact: structuredClone(sourceAccounting.capabilityImpact),
     warningCount: evidence.warnings.length,
     evidencePath: EVIDENCE_RELATIVE_PATH
   };
 }
 
 export function formatReleaseEvidenceSummary(result) {
-  return `PASS v0.3-release-evidence candidate=${result.candidateVersion} controlled=${result.controlledRelease} warnings=${result.warningCount} release=${result.releaseState.toUpperCase()}`;
+  const impact = result.sourceCapabilityImpact ?? {
+    capabilityIds: [],
+    blockingCapabilityIds: [],
+    blockingResourceIds: [],
+    blockingGateIds: [],
+    portfolioActionableCount: 0,
+    advisories: []
+  };
+  return `PASS v0.3-release-evidence candidate=${result.candidateVersion} controlled=${result.controlledRelease} warnings=${result.warningCount} release=${result.releaseState.toUpperCase()} capabilities=${impact.capabilityIds.join(",") || "none"} blocking-capabilities=${impact.blockingCapabilityIds.join(",") || "none"} blocking-resources=${impact.blockingResourceIds.join(",") || "none"} blocking-gates=${impact.blockingGateIds.join(",") || "none"} portfolio-actionable=${impact.portfolioActionableCount} pinned-basis-advisories=${impact.advisories.length}`;
 }
 
 function parseArgs(argv) {
