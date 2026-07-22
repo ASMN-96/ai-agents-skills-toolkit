@@ -4,6 +4,10 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import {
+  parseMarkdownTableSection,
+  validateSourceUtilizationReport
+} from "./ai-toolkit/kernel/source-utilization-contract.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SOURCE_UTILIZATION_REPORT = "docs/SOURCE_UTILIZATION_MATRIX.md";
@@ -41,6 +45,147 @@ function tableHasId(text, id) {
   return new RegExp(`\\|\\s*${escaped}\\s*\\|`, "m").test(text);
 }
 
+const UTILIZATION_HEADERS = [
+  "ID",
+  "Source",
+  "Classification",
+  "Recommendation",
+  "Current value path",
+  "Next extraction",
+  "Forbidden boundary"
+];
+
+function utilizationReport({ watchedRows = [], toolRows = [] } = {}) {
+  const table = (rows, label, headers) => [
+    `## ${label}`,
+    "",
+    `| ${headers.join(" | ")} |`,
+    "| --- | --- | --- | --- | --- | --- | --- |",
+    ...rows
+  ].join("\n");
+
+  return [
+    "# Source Utilization Matrix",
+    "",
+    table(watchedRows, "Watched Sources", UTILIZATION_HEADERS),
+    "",
+    table(toolRows, "Registered Tools", [
+      "ID",
+      "Tool",
+      ...UTILIZATION_HEADERS.slice(2)
+    ])
+  ].join("\n");
+}
+
+const validWatchedRow = (id) =>
+  `| ${id} | Source | active-read-only | Do later | docs/SOURCE_UTILIZATION_MATRIX.md | Keep detected-only | No automatic install |`;
+const validToolRow = (id) =>
+  `| ${id} | Tool | active-read-only | Do later | registries/tools.registry.json | Keep detected-only | No automatic install |`;
+
+test("watched source rows cannot be satisfied by Registered Tools rows", () => {
+  const markdown = utilizationReport({ toolRows: [validToolRow("shared-id")] });
+
+  assert.throws(
+    () => validateSourceUtilizationReport({
+      markdown,
+      sourceIds: ["shared-id"],
+      toolIds: ["shared-id"],
+      repositoryRoot: ROOT
+    }),
+    /missing watched source row: shared-id/
+  );
+});
+
+test("registered tool rows cannot be satisfied by Watched Sources rows", () => {
+  const markdown = utilizationReport({ watchedRows: [validWatchedRow("shared-id")] });
+
+  assert.throws(
+    () => validateSourceUtilizationReport({
+      markdown,
+      sourceIds: ["shared-id"],
+      toolIds: ["shared-id"],
+      repositoryRoot: ROOT
+    }),
+    /missing registered tool row: shared-id/
+  );
+});
+
+test("governed utilization sections reject duplicate IDs", () => {
+  const markdown = utilizationReport({
+    watchedRows: [validWatchedRow("duplicate-id"), validWatchedRow("duplicate-id")]
+  });
+
+  assert.throws(
+    () => parseMarkdownTableSection(markdown, "Watched Sources", UTILIZATION_HEADERS),
+    /duplicate ID in governed section: Watched Sources: duplicate-id/
+  );
+});
+
+test("governed utilization sections reject malformed rows", () => {
+  const markdown = utilizationReport({
+    watchedRows: ["| malformed | Source | active-read-only | Do later | docs/SOURCE_UTILIZATION_MATRIX.md | Keep detected-only |"]
+  });
+
+  assert.throws(
+    () => parseMarkdownTableSection(markdown, "Watched Sources", UTILIZATION_HEADERS),
+    /malformed row in governed section: Watched Sources/
+  );
+});
+
+test("source utilization rows reject invalid classifications", () => {
+  const markdown = utilizationReport({
+    watchedRows: [
+      "| source-id | Source | ungoverned | Do later | docs/SOURCE_UTILIZATION_MATRIX.md | Keep detected-only | No automatic install |"
+    ]
+  });
+
+  assert.throws(
+    () => validateSourceUtilizationReport({
+      markdown,
+      sourceIds: ["source-id"],
+      toolIds: [],
+      repositoryRoot: ROOT
+    }),
+    /invalid watched source classification: ungoverned/
+  );
+});
+
+test("source utilization validates every governed row", () => {
+  const markdown = utilizationReport({
+    watchedRows: [
+      "| unregistered-source | Source | ungoverned | Do later | docs/SOURCE_UTILIZATION_MATRIX.md | Keep detected-only | No automatic install |"
+    ]
+  });
+
+  assert.throws(
+    () => validateSourceUtilizationReport({
+      markdown,
+      sourceIds: [],
+      toolIds: [],
+      repositoryRoot: ROOT
+    }),
+    /invalid watched source classification: ungoverned/
+  );
+});
+
+test("source utilization rows reject unsafe repository-relative paths", () => {
+  const markdown = utilizationReport({
+    watchedRows: [
+      "| source-id | Source | active-read-only | Do later | ../../outside.md | Keep detected-only | No automatic install |"
+    ]
+  });
+
+  assert.throws(
+    () => validateSourceUtilizationReport({
+      markdown,
+      sourceIds: ["source-id"],
+      toolIds: [],
+      repositoryRoot: ROOT
+    }),
+    /unsafe repository-relative path: \.\.\/\.\.\/outside\.md/
+  );
+});
+
 test("source utilization report classifies every watched source and registered tool", async () => {
   const report = await readText(SOURCE_UTILIZATION_REPORT);
   const watchlist = await readJson("sources/source-watchlist.json");
@@ -54,21 +199,21 @@ test("source utilization report classifies every watched source and registered t
   assert.match(report, /reference-only-with-reason/);
   assert.match(report, /Reject \/ not aligned/);
 
-  for (const source of watchlist.sources) {
-    assert.equal(tableHasId(report, source.id), true, `missing watched source classification: ${source.id}`);
-  }
-
-  for (const tool of tools.tools) {
-    assert.equal(tableHasId(report, tool.id), true, `missing tool classification: ${tool.id}`);
-  }
+  const utilization = validateSourceUtilizationReport({
+    markdown: report,
+    sourceIds: watchlist.sources.map((source) => source.id),
+    toolIds: tools.tools.map((tool) => tool.id),
+    repositoryRoot: ROOT
+  });
 
   assert.equal(
-    tableHasId(report, "ui-ux-pro-max-audit"),
+    utilization.watchedById.has("ui-ux-pro-max-audit"),
     true,
     "missing UI UX Pro Max internal audit artifact classification"
   );
   assert.match(report, /docs\/UI_UX_PRO_MAX_AUDIT\.md/);
-  assert.match(report, /\|\s*matt-pocock-skills\s*\|\s*Matt Pocock Skills\s*\|\s*active-method\s*\|\s*Do later\s*\|/);
+  assert.equal(utilization.watchedById.get("matt-pocock-skills")?.Classification, "active-method");
+  assert.equal(utilization.watchedById.get("matt-pocock-skills")?.Recommendation, "Do later");
   assert.doesNotMatch(report, /\|\s*matt-pocock-skills\s*\|[^\n]*Refresh reviewed commit/);
 });
 

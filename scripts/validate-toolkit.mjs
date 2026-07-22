@@ -11,6 +11,7 @@ import {
   digestCanonicalCompilerInputs,
   resolveProfileSourcePath
 } from "./ai-toolkit/compiler-provenance.mjs";
+import { validateSourceUtilizationReport } from "./ai-toolkit/kernel/source-utilization-contract.mjs";
 import { embeddedValidatorPolicies } from "./ai-toolkit/subvalidator-policy.mjs";
 import { assertRegularFileWithin } from "../install/safe-filesystem.mjs";
 
@@ -133,26 +134,6 @@ const TOOL_POSTURE_VALUES = new Set([
 ]);
 
 const SOURCE_UTILIZATION_REPORT = "docs/SOURCE_UTILIZATION_MATRIX.md";
-
-const SOURCE_UTILIZATION_CLASSIFICATIONS = new Set([
-  "active-method",
-  "active-skill-rule",
-  "active-profile-route",
-  "active-reference",
-  "active-read-only",
-  "planned-extraction",
-  "reference-only-with-reason",
-  "archive-candidate",
-  "remove-candidate",
-  "reject"
-]);
-
-const SOURCE_UTILIZATION_RECOMMENDATIONS = new Set([
-  "Must do next",
-  "Do later",
-  "Needs owner decision",
-  "Reject / not aligned"
-]);
 
 const RESOLVED_REVIEW_OUTCOMES = new Set([
   "SYNCED_ADOPTED",
@@ -942,26 +923,6 @@ async function validateEnterpriseToolMetadata(registryState) {
   }
 }
 
-function parseMarkdownTableRows(text) {
-  const rows = new Map();
-  for (const rawLine of text.split(/\r?\n/)) {
-    const line = rawLine.trim();
-    if (!line.startsWith("|") || !line.endsWith("|")) {
-      continue;
-    }
-    const cells = line.slice(1, -1).split("|").map((cell) => cell.trim());
-    if (cells.length < 4 || cells[0] === "ID" || /^-+$/.test(cells[0])) {
-      continue;
-    }
-    rows.set(cells[0], {
-      classification: cells[2],
-      recommendation: cells[3],
-      rawLine
-    });
-  }
-  return rows;
-}
-
 async function validateSourceUtilizationClassification(watchlist, registryState) {
   note("Source utilization classification");
   let text;
@@ -972,35 +933,17 @@ async function validateSourceUtilizationClassification(watchlist, registryState)
     return;
   }
 
-  const rows = parseMarkdownTableRows(text);
-  for (const source of asArray(watchlist?.sources)) {
-    const row = rows.get(source.id);
-    const location = `${SOURCE_UTILIZATION_REPORT}:${source.id}`;
-    if (!row) {
-      fail("source utilization classification", location, "missing watched source classification row");
-      continue;
-    }
-    if (!SOURCE_UTILIZATION_CLASSIFICATIONS.has(row.classification)) {
-      fail("source utilization classification", location, `invalid classification: ${row.classification}`);
-    }
-    if (!SOURCE_UTILIZATION_RECOMMENDATIONS.has(row.recommendation)) {
-      fail("source utilization classification", location, `invalid recommendation: ${row.recommendation}`);
-    }
-  }
-
-  for (const tool of registryState.tools.values()) {
-    const row = rows.get(tool.id);
-    const location = `${SOURCE_UTILIZATION_REPORT}:${tool.id}`;
-    if (!row) {
-      fail("source utilization classification", location, "missing registered tool classification row");
-      continue;
-    }
-    if (!SOURCE_UTILIZATION_CLASSIFICATIONS.has(row.classification)) {
-      fail("source utilization classification", location, `invalid classification: ${row.classification}`);
-    }
-    if (!SOURCE_UTILIZATION_RECOMMENDATIONS.has(row.recommendation)) {
-      fail("source utilization classification", location, `invalid recommendation: ${row.recommendation}`);
-    }
+  let utilization;
+  try {
+    utilization = validateSourceUtilizationReport({
+      markdown: text,
+      sourceIds: asArray(watchlist?.sources).map((source) => source.id),
+      toolIds: [...registryState.tools.keys()],
+      repositoryRoot: ROOT
+    });
+  } catch (error) {
+    fail("source utilization classification", SOURCE_UTILIZATION_REPORT, error.message);
+    return;
   }
 
   const requiredRows = new Map([
@@ -1011,7 +954,7 @@ async function validateSourceUtilizationClassification(watchlist, registryState)
     ["open-design", "active-reference"]
   ]);
   for (const [id, expected] of requiredRows) {
-    const actual = rows.get(id)?.classification;
+    const actual = utilization.watchedById.get(id)?.Classification || utilization.toolsById.get(id)?.Classification;
     if (actual !== expected) {
       fail("source utilization classification", `${SOURCE_UTILIZATION_REPORT}:${id}`, `expected ${expected}, got ${actual || "missing"}`);
     }
