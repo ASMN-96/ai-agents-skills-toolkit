@@ -18,6 +18,7 @@ const TOOLS_REGISTRY_PATH = "registries/tools.registry.json";
 const ALLOWED_OUTPUT = "docs/SOURCE_FRESHNESS_REPORT.md";
 const ALLOWED_JSON_OUTPUT = "docs/SOURCE_FRESHNESS_REPORT.json";
 const ALLOWED_ISSUES_OUTPUT = "docs/SOURCE_FRESHNESS_ISSUES_DRY_RUN.md";
+const MOCK_CHECKED_AT_BASELINE = "2026-07-17T00:00:00.000Z";
 const execFileAsync = promisify(execFile);
 const DISCLAIMER =
   "Changed upstream source is not approved for import. This report does not authorize copying, installing, activating, extracting methods, updating source records, or changing runtime configuration.";
@@ -1463,6 +1464,24 @@ function sourceLocation(source) {
   return `${source.repoOwner}/${source.repoName}`;
 }
 
+function isCanonicalIsoInstant(value) {
+  return typeof value === "string"
+    && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(value)
+    && !Number.isNaN(Date.parse(value))
+    && new Date(value).toISOString() === value;
+}
+
+function deriveMockCheckedAt(watchlist) {
+  let checkedAt = MOCK_CHECKED_AT_BASELINE;
+  for (const source of watchlist.sources) {
+    const candidate = source.monitor?.checkedAt;
+    if (isCanonicalIsoInstant(candidate) && Date.parse(candidate) > Date.parse(checkedAt)) {
+      checkedAt = candidate;
+    }
+  }
+  return checkedAt;
+}
+
 async function main() {
   try {
     const args = parseArgs(process.argv.slice(2));
@@ -1478,8 +1497,8 @@ async function main() {
     const outputPath = resolveOutputPath(args.output);
     const jsonOutputPath = resolveJsonOutputPath(args.jsonOutput);
     const issuesOutputPath = resolveIssuesOutputPath(args.issuesOutput);
-    const checkedAt = args.mock ? "2026-07-17T00:00:00.000Z" : new Date().toISOString();
     const watchlist = await readWatchlist();
+    const checkedAt = args.mock ? deriveMockCheckedAt(watchlist) : new Date().toISOString();
     const domainPacksRegistry = await readJsonIfPresent(DOMAIN_PACKS_REGISTRY_PATH);
     if (args.failOnReleaseBlocker) {
       try {

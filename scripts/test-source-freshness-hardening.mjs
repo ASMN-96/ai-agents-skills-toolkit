@@ -431,6 +431,30 @@ test("CLI loads canonical active synthesis provenance through method, consumer, 
   }
 });
 
+test("mock freshness derives checkedAt from later canonical monitor evidence", async () => {
+  const cwd = await temporaryCanonicalProjectionRoot();
+  try {
+    const catalogPath = path.join(cwd, "sources", "source-watchlist.json");
+    const catalog = JSON.parse(await readFile(catalogPath, "utf8"));
+    const laterCheckedAt = new Date(Date.now() + 60_000).toISOString();
+    for (const entry of catalog.sources) {
+      entry.monitor.checkedAt = laterCheckedAt;
+    }
+    await writeJson(catalogPath, catalog);
+
+    const result = await runFreshness(cwd, [
+      "--mock",
+      "--json-output", "docs/SOURCE_FRESHNESS_REPORT.json"
+    ]);
+
+    assert.equal(result.code, 0, result.stderr);
+    const report = JSON.parse(await readFile(path.join(cwd, "docs", "SOURCE_FRESHNESS_REPORT.json"), "utf8"));
+    assert.equal(report.checkedAt, laterCheckedAt);
+  } finally {
+    await rm(cwd, { recursive: true, force: true });
+  }
+});
+
 test("embedded freshness checker remains mock-only and does not claim live remote evidence", async () => {
   const result = await execFileAsync(process.execPath, [EMBEDDED_SCRIPT, "--mock"], { cwd: ROOT });
 
