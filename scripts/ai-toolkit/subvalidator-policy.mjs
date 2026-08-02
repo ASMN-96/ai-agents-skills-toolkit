@@ -1,7 +1,11 @@
 const MEBIBYTE = 1024 * 1024;
 const DEFAULT_TIMEOUT_MS = 60_000;
-const FOCUSED_TEST_TIMEOUT_MS = 300_000;
+const HEAVY_VALIDATOR_TIMEOUT_MS = 300_000;
 const MAX_BUFFER_BYTES = 10 * MEBIBYTE;
+const HEAVY_VALIDATOR_PATHS = new Set([
+  "scripts/ai-toolkit/validate-ai-toolkit.mjs",
+  "scripts/ai-toolkit/run-delivery-kernel-evals.mjs"
+]);
 
 const VALIDATORS = [
   "scripts/validate-project-tooling-profiles.mjs",
@@ -16,8 +20,8 @@ const VALIDATORS = [
 export const embeddedValidatorPolicies = Object.freeze(
   VALIDATORS.map((validatorPath) => Object.freeze({
     path: validatorPath,
-    timeoutMs: validatorPath.endsWith("run-delivery-kernel-evals.mjs")
-      ? FOCUSED_TEST_TIMEOUT_MS
+    timeoutMs: HEAVY_VALIDATOR_PATHS.has(validatorPath)
+      ? HEAVY_VALIDATOR_TIMEOUT_MS
       : DEFAULT_TIMEOUT_MS,
     maxBufferBytes: MAX_BUFFER_BYTES
   }))

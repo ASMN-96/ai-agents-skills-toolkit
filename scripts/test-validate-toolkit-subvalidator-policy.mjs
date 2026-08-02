@@ -7,11 +7,14 @@ import {
   validatorPolicyFor
 } from "./ai-toolkit/subvalidator-policy.mjs";
 
-test("embedded validator policy gives the delivery-kernel suite a focused-test budget", () => {
+test("embedded validator policy gives heavy validators a focused-test budget", () => {
   const kernelPolicy = validatorPolicyFor("scripts/ai-toolkit/run-delivery-kernel-evals.mjs");
+  const aiToolkitPolicy = validatorPolicyFor("scripts/ai-toolkit/validate-ai-toolkit.mjs");
 
   assert.equal(kernelPolicy.timeoutMs, 300_000);
+  assert.equal(aiToolkitPolicy.timeoutMs, 300_000);
   assert.equal(kernelPolicy.maxBufferBytes, 10 * 1024 * 1024);
+  assert.equal(aiToolkitPolicy.maxBufferBytes, 10 * 1024 * 1024);
 });
 
 test("embedded validator policy keeps lightweight checks bounded and rejects unknown validators", () => {
@@ -26,7 +29,7 @@ test("embedded validator policy keeps lightweight checks bounded and rejects unk
   }
 
   assert.equal(
-    validatorPolicyFor("scripts/ai-toolkit/validate-ai-toolkit.mjs").timeoutMs,
+    validatorPolicyFor("scripts/ai-toolkit/validate-reference-closure.mjs").timeoutMs,
     60_000
   );
   assert.throws(

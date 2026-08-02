@@ -70,7 +70,7 @@
     },
     {
       "path": "scripts/ai-toolkit/subvalidator-policy.mjs",
-      "sha256": "2b858be73ee4d284f8a0d8aad71857a8247c11cdf0c1fcca0aa7d3e34c4eae66"
+      "sha256": "8e17bc2f614b6b8a1b5437048a03069e6b5b1504e45ec42f6420d9ae9271f09b"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
@@ -118,11 +118,11 @@
     },
     {
       "path": "scripts/migrate-source-cadence-v2-2.mjs",
-      "sha256": "b2b510ad868229e6df8025018210a430b3dc807be49cb73dee8e4d0c6a748b60"
+      "sha256": "98c6db25a609cfcfdd5cde2ba311c01885c1714c42884566b150bb3998b50c15"
     },
     {
       "path": "scripts/migrate-source-catalog-v2.mjs",
-      "sha256": "4550545521357b302da79f90a522cd7891b52f6fc80fe2ec32d5be8381a58f59"
+      "sha256": "d995e65cb61f3aa946cbc59c3e10c296484a24ba1e0684445776ab0f055e85ba"
     },
     {
       "path": "scripts/record-manual-source-observation.mjs",
