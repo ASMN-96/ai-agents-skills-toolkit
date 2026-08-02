@@ -33,7 +33,7 @@
     },
     "embeddedManifest": {
       "path": ".ai-toolkit/manifest.json",
-      "sha256": "d47919beeda236e3acbd71c2da3a64c859f9c5775f2195ca4474f43c3445385a",
+      "sha256": "52d198fe5b981e32f6585f2f14518a1b9a351f392b1f193fed9e96b644792385",
       "state": "generated-current"
     }
   },
