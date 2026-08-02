@@ -219,6 +219,17 @@ function combinedOutput(result) {
   ].join("");
 }
 
+function windowsShortPathAlias(candidate) {
+  const result = spawnSync(process.env.ComSpec || "cmd.exe", [
+    "/d",
+    "/c",
+    `for %I in ("${candidate}") do @echo %~sI`
+  ], { encoding: "utf8", windowsHide: true, windowsVerbatimArguments: true, timeout: 10_000 });
+  if (result.error || result.status !== 0) return null;
+  const alias = String(result.stdout ?? "").trim().replace(/^"|"$/gu, "");
+  return alias && alias.toLowerCase() !== candidate.toLowerCase() ? alias : null;
+}
+
 function immediateProductionScripts(repositoryRoot) {
   return ["scripts", "scripts/ai-toolkit"]
     .flatMap((directory) => readdirSync(path.join(repositoryRoot, directory), { withFileTypes: true })
@@ -371,6 +382,56 @@ test("script provenance rejects a listed path that is not a verified regular fil
 
     assert.notEqual(result.status, 0, combinedOutput(result));
     assert.match(combinedOutput(result), /script provenance.*regular file|canonical script.*regular file/i);
+    assert.deepEqual(snapshotTree(path.join(fixture, ".ai-toolkit")), before);
+  } finally {
+    rmSync(parent, { recursive: true, force: true });
+  }
+});
+
+test("bootstrap permits a verified Windows 8.3 ancestor alias", { skip: process.platform !== "win32" }, (context) => {
+  const { parent, fixture } = createFixture("bootstrap-8dot3-alias");
+  try {
+    minimizeBuilderFixture(fixture);
+    const aliasParent = windowsShortPathAlias(parent);
+    if (!aliasParent) {
+      context.skip("the test volume does not expose a distinct Windows 8.3 path alias");
+      return;
+    }
+
+    const result = runBuilder(path.join(aliasParent, "repo"), ["--confirm-write"]);
+
+    assert.equal(result.status, 0, combinedOutput(result));
+  } finally {
+    rmSync(parent, { recursive: true, force: true });
+  }
+});
+
+test("bootstrap fails closed when an 8.3 alias cannot verify native reparse state", { skip: process.platform !== "win32" }, (context) => {
+  const { parent, fixture } = createFixture("bootstrap-8dot3-native-probe-failure");
+  try {
+    minimizeBuilderFixture(fixture);
+    const aliasParent = windowsShortPathAlias(parent);
+    if (!aliasParent) {
+      context.skip("the test volume does not expose a distinct Windows 8.3 path alias");
+      return;
+    }
+    const before = snapshotTree(path.join(fixture, ".ai-toolkit"));
+    const builderPath = path.join(fixture, "scripts", "ai-toolkit", "build-embedded-package.mjs");
+    const builderSource = readFileSync(builderPath, "utf8");
+    assert.match(builderSource, /const systemRoot = process\.env\.SystemRoot \|\| "C:\\\\Windows";/u);
+    writeFileSync(
+      builderPath,
+      builderSource.replace(
+        "const systemRoot = process.env.SystemRoot || \"C:\\\\Windows\";",
+        `const systemRoot = ${JSON.stringify(path.join(parent, "missing-system-root"))};`
+      ),
+      "utf8"
+    );
+
+    const result = runBuilder(path.join(aliasParent, "repo"), ["--confirm-write"]);
+
+    assert.notEqual(result.status, 0, combinedOutput(result));
+    assert.match(combinedOutput(result), /could not verify Windows reparse-point state/i);
     assert.deepEqual(snapshotTree(path.join(fixture, ".ai-toolkit")), before);
   } finally {
     rmSync(parent, { recursive: true, force: true });

@@ -6,7 +6,7 @@
   "scripts": [
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "b648ca8cf64ca9771b3f8d474590561c02d8b34d4ef8e202041f55318d09232a"
+      "sha256": "b37e521b693e3706f38d1047a559660ef965b4eb0a6de8e347b788d77a77bd7b"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",

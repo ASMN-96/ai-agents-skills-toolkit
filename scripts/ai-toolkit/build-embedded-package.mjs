@@ -9,9 +9,11 @@ import {
   realpathSync,
   readdirSync,
   rmdirSync,
-  rmSync
+  rmSync,
+  statSync
 } from "node:fs";
 import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
 import { isUtf8 } from "node:buffer";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -45,6 +47,24 @@ const ROOT_PROVENANCE_REGISTRIES = [
   "tools.registry.json"
 ];
 const SCRIPT_PROVENANCE_DIRECTORIES = ["scripts", "scripts/ai-toolkit"];
+const WINDOWS_REPARSE_POINT_ATTRIBUTE = 0x400;
+const WINDOWS_NATIVE_ATTRIBUTE_PROBE = `
+$signature = @'
+using System;
+using System.Runtime.InteropServices;
+public static class EmbeddedBuilderNativeAttributes {
+  [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+  private static extern uint GetFileAttributesW(string path);
+  public static int Read(string path) {
+    var attributes = GetFileAttributesW(path);
+    return attributes == 0xffffffff ? -Marshal.GetLastWin32Error() : unchecked((int)attributes);
+  }
+}
+'@
+Add-Type -TypeDefinition $signature
+[Console]::Write([EmbeddedBuilderNativeAttributes]::Read($env:AI_TOOLKIT_REPARSE_PROBE_PATH))
+`;
+const bootstrapWindowsNonReparseCache = new Map();
 let outputManager = null;
 let canonicalInputDigests = new Map();
 let canonicalDirectoryEntries = new Map();
@@ -116,10 +136,95 @@ function comparisonPath(filePath) {
   return process.platform === "win32" ? resolved.toLowerCase() : resolved;
 }
 
+function bootstrapWindowsStatFingerprint(stats) {
+  return [
+    stats.dev,
+    stats.ino,
+    stats.mode,
+    stats.nlink,
+    stats.size,
+    stats.ctimeMs,
+    stats.mtimeMs,
+    stats.birthtimeMs
+  ].map(String).join(":");
+}
+
+function toWindowsExtendedPath(candidate) {
+  const resolved = path.resolve(candidate);
+  if (resolved.startsWith("\\\\?\\")) return resolved;
+  if (resolved.startsWith("\\\\")) return `\\\\?\\UNC\\${resolved.slice(2)}`;
+  return `\\\\?\\${resolved}`;
+}
+
+function assertBootstrapWindowsNonReparsePoint(candidate, stats, label) {
+  const cacheKey = comparisonPath(candidate);
+  const fingerprint = bootstrapWindowsStatFingerprint(stats);
+  if (bootstrapWindowsNonReparseCache.get(cacheKey) === fingerprint) return;
+  const systemRoot = process.env.SystemRoot || "C:\\Windows";
+  const powershell = path.join(systemRoot, "System32", "WindowsPowerShell", "v1.0", "powershell.exe");
+  const result = spawnSync(powershell, ["-NoLogo", "-NoProfile", "-NonInteractive", "-Command", WINDOWS_NATIVE_ATTRIBUTE_PROBE], {
+    encoding: "utf8",
+    shell: false,
+    windowsHide: true,
+    timeout: 10_000,
+    env: {
+      ...process.env,
+      AI_TOOLKIT_REPARSE_PROBE_PATH: toWindowsExtendedPath(candidate)
+    }
+  });
+  if (result.error) {
+    throw new Error(`${label} could not verify Windows reparse-point state for ${candidate}: ${result.error.message}`);
+  }
+  if (result.signal || result.status === null || result.status !== 0) {
+    throw new Error(`${label} could not verify Windows reparse-point state for ${candidate}: native attribute probe did not complete`);
+  }
+  const output = String(result.stdout ?? "").trim();
+  if (!/^\d+$/.test(output)) {
+    throw new Error(`${label} could not verify Windows reparse-point state for ${candidate}: native attribute probe returned an invalid result`);
+  }
+  const attributes = Number.parseInt(output, 10);
+  if (!Number.isSafeInteger(attributes)) {
+    throw new Error(`${label} could not verify Windows reparse-point state for ${candidate}: native attribute probe returned an invalid result`);
+  }
+  if ((attributes & WINDOWS_REPARSE_POINT_ATTRIBUTE) !== 0) {
+    throw new Error(`${label} must not traverse a junction or reparse point: ${candidate}`);
+  }
+  bootstrapWindowsNonReparseCache.set(cacheKey, fingerprint);
+}
+
+function assertBootstrapWindowsOriginalPathAncestorsAreNonReparse(candidate, label) {
+  const resolved = path.resolve(candidate);
+  if (resolved.startsWith("\\\\") || !/^[a-z]:\\/i.test(resolved)) {
+    throw new Error(`${label} must not traverse a junction, reparse point, or path alias: ${candidate}`);
+  }
+  const driveRoot = resolved.slice(0, 3);
+  let current = driveRoot;
+  const relative = path.relative(driveRoot, resolved);
+  for (const segment of relative.split(path.sep).filter(Boolean)) {
+    current = path.join(current, segment);
+    const stats = lstatSync(current);
+    if (stats.isSymbolicLink()) {
+      throw new Error(`${label} must not traverse a junction, reparse point, or path alias: ${current}`);
+    }
+    assertBootstrapWindowsNonReparsePoint(current, stats, label);
+    const followedStats = statSync(current);
+    if (stats.isFile() !== followedStats.isFile() || stats.isDirectory() !== followedStats.isDirectory()) {
+      throw new Error(`${label} must not traverse a junction, reparse point, or path alias: ${current}`);
+    }
+  }
+}
+
 function assertBootstrapPathIdentity(filePath, label, relativePath) {
   const resolved = path.resolve(filePath);
   const real = realpathSync.native(resolved);
   if (comparisonPath(real) !== comparisonPath(resolved)) {
+    // Windows realpath canonicalizes legitimate 8.3 ancestors. Before any
+    // bootstrap module bytes are executed, verify the original spelling with
+    // the same native reparse-point evidence used by safe-filesystem.
+    if (process.platform === "win32") {
+      assertBootstrapWindowsOriginalPathAncestorsAreNonReparse(resolved, label);
+      return;
+    }
     throw new Error(
       `${label} must not traverse a junction, reparse point, or path alias: ${relativePath}`
     );
