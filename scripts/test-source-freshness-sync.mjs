@@ -309,7 +309,7 @@ test("freshness sync accepts receipt-backed manual CURRENT evidence without chan
       reviewedRevision: revision,
       reviewedDigest: DIGEST,
       reviewedAt: NOW,
-      expiresAt: "2026-07-31T07:00:00.000Z",
+      expiresAt: new Date(Date.parse(NOW) + 24 * 60 * 60 * 1000).toISOString(),
       disposition: "SYNCED_REFERENCE"
     };
     writeFileSync(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`, "utf8");
