@@ -102,7 +102,7 @@
     },
     {
       "path": "scripts/check-source-freshness.mjs",
-      "sha256": "a24a5aaa327899e37babe0682295cb645f4f847d31af1a7e1373deb25a627008"
+      "sha256": "92effa3589f3f0f5d5a011d8dd1f7f444edfdf5d91816feda3171acd3201e451"
     },
     {
       "path": "scripts/classify-stale-unverified-data.mjs",
