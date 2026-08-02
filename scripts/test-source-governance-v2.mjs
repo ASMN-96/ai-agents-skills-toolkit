@@ -975,6 +975,60 @@ test("apply review is dry-run by default, writes immutable evidence only with co
   );
 });
 
+test("refresh-input validation admits only an expired otherwise-valid monitor observation", async () => {
+  const { validateSourceCatalog, validateSourceCatalogForFreshnessRefreshInput } = await governance();
+  const expiredCurrent = catalog([source({
+    monitor: {
+      ...source().monitor,
+      checkedAt: "2026-06-01T00:00:00.000Z"
+    },
+    review: {
+      ...source().review,
+      state: "QUARANTINED"
+    }
+  })]);
+
+  assert.throws(
+    () => validateSourceCatalog(expiredCurrent, { now: NOW }),
+    /freshness window/i
+  );
+  assert.doesNotThrow(
+    () => validateSourceCatalogForFreshnessRefreshInput(expiredCurrent, { now: NOW })
+  );
+
+  assert.throws(
+    () => validateSourceCatalogForFreshnessRefreshInput(catalog([source({
+      monitor: { ...source().monitor, checkedAt: "2026-07-18T00:00:00.000Z" }
+    })]), { now: NOW }),
+    /future/i
+  );
+  assert.throws(
+    () => validateSourceCatalogForFreshnessRefreshInput(catalog([source({
+      monitor: { ...source().monitor, checkedAt: "not-an-instant" }
+    })]), { now: NOW }),
+    /ISO/i
+  );
+  assert.throws(
+    () => validateSourceCatalogForFreshnessRefreshInput(catalog([source({
+      monitor: { ...source().monitor, state: "UNKNOWN" }
+    })]), { now: NOW }),
+    /monitor\.state/i
+  );
+  assert.throws(
+    () => validateSourceCatalogForFreshnessRefreshInput(catalog([source({
+      sourceRecordPath: "../outside.md"
+    })]), { now: NOW }),
+    /safe repository-relative/i
+  );
+  assert.throws(
+    () => validateSourceCatalogForFreshnessRefreshInput(catalog([source({
+      monitor: { ...source().monitor, state: "MANUAL_DUE" },
+      review: { ...source().review, state: "REVIEWED_CURRENT" }
+    })]), { now: NOW }),
+    /MANUAL_DUE.*QUARANTINED/i
+  );
+});
+
 test("review application promotes a long source identifier without an overlong Windows staging path", { skip: process.platform !== "win32" }, async () => {
   const { applySourceReview } = await governance();
   const fixtureRoot = await mkdtemp(path.join(os.tmpdir(), "source-governance-long-staging-"));

@@ -1066,7 +1066,8 @@ async function loadCapabilityProjectionContext(watchlist, checkedAt) {
   const loaded = await loadValidatedSourceCatalog({
     repositoryRoot: process.cwd(),
     now: checkedAt,
-    includeCapabilityRegistry: true
+    includeCapabilityRegistry: true,
+    freshnessRefreshInput: true
   });
   return {
     registry: loaded.capabilityRegistry.registry,

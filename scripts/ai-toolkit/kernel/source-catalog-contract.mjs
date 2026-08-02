@@ -575,7 +575,7 @@ function validateManualDocumentIdentity(source, field) {
   if (source.identityKey !== expectedIdentity) fail(`${field}.identityKey must be ${expectedIdentity}`);
 }
 
-function validateSourceEntry(source, index, now) {
+function validateSourceEntry(source, index, now, { allowExpiredMonitorObservation = false } = {}) {
   const field = `sources[${index}]`;
   requireRecord(source, field);
   rejectUnknownFields(source, SOURCE_FIELDS, "source");
@@ -706,7 +706,10 @@ function validateSourceEntry(source, index, now) {
     const checkedAt = Date.parse(monitor.checkedAt);
     const nowTime = Date.parse(now);
     if (checkedAt > nowTime) fail(`${field}.monitor.checkedAt must not be in the future`);
-    if (nowTime - checkedAt > FRESHNESS_WINDOWS_DAYS[source.freshnessClass] * DAY_MS) {
+    if (
+      !allowExpiredMonitorObservation
+      && nowTime - checkedAt > FRESHNESS_WINDOWS_DAYS[source.freshnessClass] * DAY_MS
+    ) {
       fail(`${field}.monitor.checkedAt exceeds the ${source.freshnessClass} freshness window`);
     }
   } else if (monitor.state === "CHECK_FAILED") {
@@ -913,8 +916,8 @@ export function deriveSourceScopes({ catalog, domainPacksRegistry, toolsRegistry
   return scopes;
 }
 
-export function validateSourceCatalogGraph(catalog, options = {}) {
-  const validated = validateSourceCatalog(catalog, { now: options.now });
+function validateSourceCatalogGraphWithValidator(catalog, options, validateCatalog) {
+  const validated = validateCatalog(catalog, { now: options.now });
   const scopes = deriveSourceScopes({
     catalog: validated,
     domainPacksRegistry: options.domainPacksRegistry,
@@ -930,7 +933,15 @@ export function validateSourceCatalogGraph(catalog, options = {}) {
   return validated;
 }
 
-export function validateSourceCatalog(catalog, options = {}) {
+export function validateSourceCatalogGraph(catalog, options = {}) {
+  return validateSourceCatalogGraphWithValidator(catalog, options, validateSourceCatalog);
+}
+
+export function validateSourceCatalogGraphForFreshnessRefreshInput(catalog, options = {}) {
+  return validateSourceCatalogGraphWithValidator(catalog, options, validateSourceCatalogForFreshnessRefreshInput);
+}
+
+function validateSourceCatalogWithMonitorPolicy(catalog, options = {}, monitorPolicy = {}) {
   requireRecord(catalog, "catalog");
   rejectUnknownFields(
     catalog,
@@ -970,7 +981,7 @@ export function validateSourceCatalog(catalog, options = {}) {
   const identities = new Set();
   const canonicalIdentities = new Set();
   catalog.sources.forEach((source, index) => {
-    validateSourceEntry(source, index, now);
+    validateSourceEntry(source, index, now, monitorPolicy);
     if (canonicalIdentities.has(source.identityKey)) fail(`duplicate source identity: ${source.identityKey}`);
     canonicalIdentities.add(source.identityKey);
     for (const identity of [source.id, ...source.aliases]) {
@@ -979,4 +990,12 @@ export function validateSourceCatalog(catalog, options = {}) {
     }
   });
   return catalog;
+}
+
+export function validateSourceCatalog(catalog, options = {}) {
+  return validateSourceCatalogWithMonitorPolicy(catalog, options);
+}
+
+export function validateSourceCatalogForFreshnessRefreshInput(catalog, options = {}) {
+  return validateSourceCatalogWithMonitorPolicy(catalog, options, { allowExpiredMonitorObservation: true });
 }

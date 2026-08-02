@@ -296,6 +296,44 @@ test("runtime catalog loading validates exact immutable receipt bytes and reject
   }
 });
 
+test("runtime catalog loading remains strict for expired monitor evidence", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "delivery-kernel-expired-source-"));
+  try {
+    const expired = source({
+      monitor: {
+        ...source().monitor,
+        checkedAt: "2026-06-01T00:00:00.000Z"
+      },
+      review: {
+        state: "QUARANTINED",
+        currentReceipt: null,
+        previousReceipt: null,
+        receiptDigest: null,
+        previousReceiptDigest: null,
+        reviewedRevision: null,
+        reviewedDigest: null,
+        reviewedAt: null,
+        expiresAt: null,
+        disposition: null
+      }
+    });
+    await mkdir(path.join(root, "sources"), { recursive: true });
+    await writeFile(
+      path.join(root, "sources", "source-watchlist.json"),
+      `${JSON.stringify(catalog([expired]), null, 2)}\n`,
+      "utf8"
+    );
+    await writeScopeGraphRegistries(root);
+
+    await assert.rejects(
+      () => loadValidatedSourceCatalog({ repositoryRoot: root, now: NOW }),
+      /freshness window/i
+    );
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
 test("runtime catalog loading retains immutable receipt evidence across a later matching monitor observation", async (context) => {
   const receiptPath = `sources/reviews/nist-ssdf/${SHA}.json`;
   const cases = [

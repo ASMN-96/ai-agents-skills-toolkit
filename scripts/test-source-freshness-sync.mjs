@@ -6,7 +6,11 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { applySourceFreshness, deriveSourceReleaseAccounting } from "./ai-toolkit/source-governance.mjs";
+import {
+  applySourceFreshness,
+  deriveSourceReleaseAccounting,
+  validateSourceCatalog
+} from "./ai-toolkit/source-governance.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIGEST = `sha256:${"a".repeat(64)}`;
@@ -198,6 +202,54 @@ test("freshness sync is dry-run by default and confirm-write updates only monito
       original.sources.map((source) => [source.id, source.runtimePosture])
     );
     assert.equal(updated.sources.some((source) => source.review.state === "REVIEWED_CURRENT"), false);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("freshness sync refreshes expired input without weakening strict post-apply validation", async () => {
+  const root = createFixture();
+  try {
+    const catalogPath = path.join(root, "sources", "source-watchlist.json");
+    const original = JSON.parse(readFileSync(catalogPath, "utf8"));
+    const expired = original.sources.find((source) => source.freshnessClass === "security-runtime");
+    assert.ok(expired, "fixture requires a security-runtime source");
+    expired.monitor = {
+      ...expired.monitor,
+      state: "CURRENT",
+      checkedAt: "2026-06-01T00:00:00.000Z",
+      observedRevision: { kind: "git-sha", value: "e".repeat(40) },
+      contentDigest: DIGEST,
+      failureReason: null
+    };
+    expired.review.state = "QUARANTINED";
+    writeFileSync(catalogPath, `${JSON.stringify(original, null, 2)}\n`, "utf8");
+
+    assert.throws(() => validateSourceCatalog(original, { now: NOW }), /freshness window/i);
+    const report = liveReport(original);
+    const unsafeEvidence = structuredClone(report);
+    unsafeEvidence.sources[0].evidence.sourceUrl = "https://example.invalid/untrusted";
+    writeFileSync(path.join(root, "unsafe-freshness.json"), `${JSON.stringify(unsafeEvidence, null, 2)}\n`, "utf8");
+    await assert.rejects(
+      applySourceFreshness({ repositoryRoot: root, freshnessReport: "unsafe-freshness.json", now: NOW }),
+      /source identity/i
+    );
+
+    writeFileSync(path.join(root, "freshness.json"), `${JSON.stringify(report, null, 2)}\n`, "utf8");
+    await applySourceFreshness({
+      repositoryRoot: root,
+      freshnessReport: "freshness.json",
+      mode: "confirm-write",
+      now: NOW
+    });
+
+    const updated = JSON.parse(readFileSync(catalogPath, "utf8"));
+    assert.doesNotThrow(() => validateSourceCatalog(updated, { now: NOW }));
+    assert.equal(updated.sources.some((source) => source.review.state === "REVIEWED_CURRENT"), false);
+    assert.deepEqual(
+      updated.sources.map((source) => [source.id, source.runtimePosture]),
+      original.sources.map((source) => [source.id, source.runtimePosture])
+    );
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

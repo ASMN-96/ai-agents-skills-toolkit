@@ -20,6 +20,7 @@ import {
   SOURCE_CATALOG_SCHEMA_VERSION as CONTRACT_SOURCE_CATALOG_SCHEMA_VERSION,
   validateManualSourceObservation as validateManualSourceObservationContract,
   validateSourceCatalog as validateSourceCatalogContract,
+  validateSourceCatalogForFreshnessRefreshInput as validateSourceCatalogForFreshnessRefreshInputContract,
   validateSourceReviewReceipt as validateSourceReviewReceiptContract
 } from "./kernel/source-catalog-contract.mjs";
 import { readCanonicalJsonDocumentWithin } from "./kernel/canonical-json.mjs";
@@ -595,6 +596,10 @@ export function validateSourceCatalog(catalog, options = {}) {
   return validateSourceCatalogContract(catalog, options);
 }
 
+export function validateSourceCatalogForFreshnessRefreshInput(catalog, options = {}) {
+  return validateSourceCatalogForFreshnessRefreshInputContract(catalog, options);
+}
+
 function catalogForReviewTransition(parsedCatalog, now) {
   const catalog = structuredClone(parsedCatalog);
   const nowTime = Date.parse(now);
@@ -633,8 +638,8 @@ export function evaluateDependentResourceEligibility(source, options = {}) {
 export function validateSourceReviewReceipt(receipt, options = {}) {
   return validateSourceReviewReceiptContract(receipt, options);
 }
-export function validateFreshnessReport(catalog, report, options = {}) {
-  validateSourceCatalog(catalog, options);
+function validateFreshnessReportWithCatalogValidator(catalog, report, options, validateCatalog) {
+  validateCatalog(catalog, options);
   report = normalizeFreshnessReport(catalog, report);
   requireRecord(report, "freshnessReport");
   rejectUnknownFields(
@@ -855,6 +860,19 @@ export function validateFreshnessReport(catalog, report, options = {}) {
     fail("freshnessReport.releaseScope does not match dependency-scoped source evidence");
   }
   return report;
+}
+
+export function validateFreshnessReport(catalog, report, options = {}) {
+  return validateFreshnessReportWithCatalogValidator(catalog, report, options, validateSourceCatalog);
+}
+
+function validateFreshnessReportForRefreshInput(catalog, report, options = {}) {
+  return validateFreshnessReportWithCatalogValidator(
+    catalog,
+    report,
+    options,
+    validateSourceCatalogForFreshnessRefreshInput
+  );
 }
 
 async function readJsonDocumentWithin(repositoryRoot, relativePath, label) {
@@ -1371,7 +1389,7 @@ export async function applySourceFreshness(options = {}) {
     "source catalog"
   );
   const catalog = catalogForReviewTransition(catalogDocument.parsed, now);
-  validateSourceCatalog(catalog, { now });
+  validateSourceCatalogForFreshnessRefreshInput(catalog, { now });
   const reportPath = assertSafeRelativePath(options.freshnessReport, "freshnessReport");
   const parsedReport = await readJsonWithin(repositoryRoot, reportPath, "source freshness report");
   const domainPacksRegistry = await readJsonWithin(
@@ -1379,7 +1397,7 @@ export async function applySourceFreshness(options = {}) {
     "registries/domain-packs.registry.json",
     "domain packs registry"
   );
-  const report = validateFreshnessReport(catalog, parsedReport, {
+  const report = validateFreshnessReportForRefreshInput(catalog, parsedReport, {
     now,
     requireCatalogAgreement: false,
     domainPacksRegistry
