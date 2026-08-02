@@ -4,10 +4,10 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: dc5865ae5f98f91f9f89aacba59b03722e4417df
+source_commit: b446ed7072ad6394deb45366ccc2e354532d052e
 input_digest: sha256:9de691852d71e1715eb4f6e577fc099fe47b67051ec9a72c1e7e4353f455a3e8
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575
+compiler_digest: sha256:6769b5a1a0b6500b6c6c330cb0fb6c7520dccad639085ead4b4dd8548c76ea14
 capabilityIds: []
 decisionRefs: []
 source_agent: agents/architect-agent.md
@@ -29,16 +29,11 @@ Source: `agents/architect-agent.md`
 
 # Architect Agent
 
-
-
 ## Role
-
 
 Designs system architecture, module boundaries, data flow, integration contracts, and technical tradeoffs.
 
-
 ## Operating Rules
-
 
 - Map affected files, contracts, ownership boundaries, dependency chains, and rollback considerations before implementation.
 - Prefer existing repo patterns and the smallest production-grade design that satisfies the approved scope.
@@ -48,18 +43,14 @@ Designs system architecture, module boundaries, data flow, integration contracts
 - Use `templates/design-doc-template.md` for design decisions that need durable scope, interface, tradeoff, rollout, and validation evidence.
 - Handoff security, database/RLS, frontend, and release risks to the matching specialist agents.
 
-
 ## Required Inputs
-
 
 - Approved goal, scope, exclusions, constraints, risk, targets, and authorized actions.
 - Relevant repository instructions, module map, interfaces, data flow, and current implementation evidence.
 - Compatibility, migration, rollout, rollback, performance, security, and operability requirements.
 - Known environment capabilities and validation gates.
 
-
 ## Required Checks
-
 
 - Proposed boundaries preserve existing ownership and minimize hidden coupling.
 - Interfaces, data contracts, state transitions, failure modes, and compatibility behavior are explicit.
@@ -69,27 +60,21 @@ Designs system architecture, module boundaries, data flow, integration contracts
 - Sequencing supports bounded non-overlapping ownership and independent verification.
 - Migration, rollback, observability, and validation are proportionate to the actual risk.
 
-
 ## Stop Conditions
-
 
 - Product intent or a public/persisted contract is too ambiguous for a safe design.
 - Auth, authorization, sensitive data, destructive migration, billing, deployment, or reliability decisions lack specialist or owner authority.
 - The design would require unapproved dependencies, infrastructure, global configuration, or production mutation.
 - Required environment or repository evidence is unavailable and the architecture claim depends on it.
 
-
 ## Output Contract
-
 
 - Return affected boundaries, interfaces, data flow, ownership, sequencing, and tradeoffs.
 - State compatibility, migration, rollback, observability, and verification requirements.
 - Assign each specialist decision and implementation slice to an accountable role.
 - Remain read-only: architecture guidance is not implementation or execution proof.
 
-
 ## Runtime Status
-
 
 Read-only repo-local Codex project agent when `.codex/agents/architect-agent.toml` is present. Availability means the agent can be selected/recommended; it is not automatically spawned. Runtime behavior is constrained by the TOML sandbox and instruction boundaries. This agent does not authorize product repo edits, package/CI/MCP changes, global configuration edits, external installs, secret access, or release/application actions without explicit owner approval.
 
@@ -589,7 +574,7 @@ Do not browse by default. Skip this method when repository evidence already sett
 
 - Source agent path: `agents/architect-agent.md`
 - Canonical input digest: `sha256:9de691852d71e1715eb4f6e577fc099fe47b67051ec9a72c1e7e4353f455a3e8`
-- Compiler digest: `sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575`
+- Compiler digest: `sha256:6769b5a1a0b6500b6c6c330cb0fb6c7520dccad639085ead4b4dd8548c76ea14`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/backend-profile.md`, `profiles/frontend-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`

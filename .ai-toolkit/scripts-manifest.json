@@ -6,7 +6,7 @@
   "scripts": [
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "8a29020dbbaee477f6e15c04381bc88f94a39dd2071f8bfbaac35f51462846a8"
+      "sha256": "b648ca8cf64ca9771b3f8d474590561c02d8b34d4ef8e202041f55318d09232a"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",
@@ -110,7 +110,7 @@
     },
     {
       "path": "scripts/compile-agents.mjs",
-      "sha256": "5a3fb27b08f751d51bb8a2e4c2375b690aa567540c66ba95310c76088241fe44"
+      "sha256": "be7fbe8159bad15fe5111b1e268b9aa52eec1c0b527662265e952abd47c51a0b"
     },
     {
       "path": "scripts/generate-source-utilization.mjs",

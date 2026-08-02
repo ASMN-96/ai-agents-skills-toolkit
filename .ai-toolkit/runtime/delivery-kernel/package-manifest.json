@@ -81,7 +81,7 @@
     },
     {
       "path": "install/safe-filesystem.mjs",
-      "sha256": "253a73250188938797bd1f2b4b68f59bdd5db5521ab49c41548b21df6099a7c9"
+      "sha256": "ee2a62bf21fcf59a1a2e229d3a9185b22f0d6b30775c8f2aaaa0939aacf440fe"
     },
     {
       "path": "README.md",
