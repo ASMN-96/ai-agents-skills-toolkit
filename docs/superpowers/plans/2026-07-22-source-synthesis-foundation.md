@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Work only in `C:\Users\Abdal\OneDrive\Documents\ai-agents-skills-toolkit\temp\worktrees\v03-source-governance-closure`.
+- Work only in the isolated `v03-source-governance-closure` worktree on branch `codex/v0.3-source-governance-closure`.
 - Expected starting commit: `6a00cd468f4781a6ef375f1d4859c54aee201f6a` or a descendant containing only approved plan/spec commits.
 - Preserve `main` at `4654861f6a1887826e6a888b894869e1ec52bb01`.
 - Use TDD: every behavioural change begins with a focused failing test and observed expected failure.
