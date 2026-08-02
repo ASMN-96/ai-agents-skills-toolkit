@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -63,6 +63,17 @@ function spawnTransactionChild(source) {
     stdio: ["ignore", "pipe", "pipe"],
     windowsHide: true
   });
+}
+
+function windowsShortPathAlias(candidate) {
+  const result = spawnSync(process.env.ComSpec || "cmd.exe", [
+    "/d",
+    "/c",
+    `for %I in ("${candidate}") do @echo %~sI`
+  ], { encoding: "utf8", windowsHide: true, windowsVerbatimArguments: true, timeout: 10_000 });
+  if (result.error || result.status !== 0) return null;
+  const alias = String(result.stdout ?? "").trim().replace(/^"|"$/gu, "");
+  return alias && alias.toLowerCase() !== candidate.toLowerCase() ? alias : null;
 }
 
 test("a live per-root transaction lock rejects a concurrent writer", async () => {
@@ -203,6 +214,62 @@ test("Windows reparse negative-cache eligibility excludes UNC, extended UNC, and
   assert.equal(isEligible("\\\\server\\share\\managed", "C:"), false);
   assert.equal(isEligible("\\\\?\\UNC\\server\\share\\managed", "C:"), false);
   assert.equal(isEligible("Z:\\mapped\\managed", "C:"), false);
+});
+
+test("Windows containment permits a verified local 8.3 spelling alias", { skip: process.platform !== "win32" }, (context) => {
+  const fixture = mkdtempSync(path.join(tmpdir(), "managed-fs-8dot3-alias-"));
+  const originalRoot = path.join(fixture, "long-parent-component-for-alias", "managed-root");
+  try {
+    mkdirSync(originalRoot, { recursive: true });
+    const aliasRoot = windowsShortPathAlias(originalRoot);
+    if (!aliasRoot) {
+      context.skip("the test volume does not expose a distinct Windows 8.3 path alias");
+      return;
+    }
+    assert.doesNotThrow(() => safeFilesystemModule.assertPathContained(
+      aliasRoot,
+      path.join(aliasRoot, "child"),
+      "Windows 8.3 alias containment"
+    ));
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
+});
+
+test("Windows containment rejects a root beneath a parent junction", { skip: process.platform !== "win32" }, () => {
+  const fixture = mkdtempSync(path.join(tmpdir(), "managed-fs-parent-junction-"));
+  const target = mkdtempSync(path.join(tmpdir(), "managed-fs-parent-junction-target-"));
+  const junction = path.join(fixture, "redirecting-parent");
+  try {
+    mkdirSync(path.join(target, "managed-root"), { recursive: true });
+    symlinkSync(target, junction, "junction");
+    assert.throws(() => safeFilesystemModule.assertPathContained(
+      fixture,
+      path.join(junction, "managed-root"),
+      "root beneath a parent junction"
+    ), /linked|junction|reparse/i);
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+    rmSync(target, { recursive: true, force: true });
+  }
+});
+
+test("POSIX containment rejects a root beneath a symlinked ancestor", { skip: process.platform === "win32" }, () => {
+  const fixture = mkdtempSync(path.join(tmpdir(), "managed-fs-parent-symlink-"));
+  const target = mkdtempSync(path.join(tmpdir(), "managed-fs-parent-symlink-target-"));
+  const linkedParent = path.join(fixture, "redirecting-parent");
+  try {
+    mkdirSync(path.join(target, "managed-root"), { recursive: true });
+    symlinkSync(target, linkedParent, "dir");
+    assert.throws(() => safeFilesystemModule.assertPathContained(
+      fixture,
+      path.join(linkedParent, "managed-root"),
+      "root beneath a POSIX symlink ancestor"
+    ), /linked|symlink|reparse/i);
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+    rmSync(target, { recursive: true, force: true });
+  }
 });
 
 test("Windows native reparse attribute probe accepts only a completed non-reparse result", () => {

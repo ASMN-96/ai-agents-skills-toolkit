@@ -184,6 +184,32 @@ function assertNotWindowsReparsePoint(candidate, stats, label) {
   );
 }
 
+function assertWindowsOriginalPathAncestorsAreNonReparse(candidate, label) {
+  if (process.platform !== "win32") return;
+  const resolved = path.resolve(candidate);
+  if (resolved.startsWith("\\\\") || !/^[a-z]:\\/i.test(resolved)) {
+    throw linkedPathError(label, candidate);
+  }
+
+  const driveRoot = resolved.slice(0, 3);
+  let current = driveRoot;
+  const relative = path.relative(driveRoot, resolved);
+  for (const segment of relative.split(path.sep).filter(Boolean)) {
+    current = path.join(current, segment);
+    const stats = lstatIfPresent(current);
+    if (!stats) {
+      throw new Error(`${label} could not verify every original Windows path ancestor: ${current}`);
+    }
+    if (stats.isSymbolicLink()) throw linkedPathError(label, current);
+    assertNotWindowsReparsePoint(current, stats, label);
+
+    const followedStats = statSync(current);
+    if (stats.isFile() !== followedStats.isFile() || stats.isDirectory() !== followedStats.isDirectory()) {
+      throw linkedPathError(label, current);
+    }
+  }
+}
+
 function assertSafeExistingComponent(candidate, label, { rejectHardLinks = true } = {}) {
   const stats = lstatIfPresent(candidate);
   if (!stats) return null;
@@ -197,7 +223,8 @@ function assertSafeExistingComponent(candidate, label, { rejectHardLinks = true 
 
   const realCandidate = realpathSync.native(candidate);
   if (normalizeForComparison(realCandidate) !== normalizeForComparison(candidate)) {
-    throw linkedPathError(label, candidate);
+    if (process.platform !== "win32") throw linkedPathError(label, candidate);
+    assertWindowsOriginalPathAncestorsAreNonReparse(candidate, label);
   }
   if (rejectHardLinks && stats.isFile() && stats.nlink > 1) {
     throw new Error(`${label} contains a hard-linked file: ${candidate}`);

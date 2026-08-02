@@ -483,6 +483,11 @@ test("build promotes a schema-v2 package without rewriting canonical registries 
     assert.equal(manifestBytes.includes(Buffer.from("\r\n")), true);
     assert.equal(manifestBytes.toString("utf8").replaceAll("\r\n", "").includes("\n"), false);
     assert.equal(manifest.generationMode, "clean-staging-transactional-promotion");
+    assert.equal(
+      readFileSync(path.join(embeddedRoot, ".gitattributes"), "utf8"),
+      "* text=auto eol=lf\n",
+      "the embedded package must generate its own deterministic text attributes"
+    );
     const expectedScripts = immediateProductionScripts(fixture);
     assert.deepEqual(
       scriptsManifest.scripts.map((entry) => entry.path),

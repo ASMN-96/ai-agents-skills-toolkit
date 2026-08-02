@@ -207,6 +207,33 @@ test("confirm-write generates metadata-rich compiled agent and reports provenanc
   });
 });
 
+test("CRLF and LF compiler inputs render identically without extra blank headings", async () => {
+  await withCompilerFixture(async (fixture) => {
+    const lfResult = await runCompiler(fixture, ["--confirm-write"]);
+    assert.equal(lfResult.code, 0, lfResult.stderr);
+    const lfOutput = readFileSync(path.join(fixture, "compiled-agents", "reviewer-agent.compiled.md"), "utf8");
+
+    for (const relativePath of [
+      "agents/reviewer-agent.md",
+      "profiles/audit-profile.md",
+      "methods/internal/review.md"
+    ]) {
+      const sourcePath = path.join(fixture, ...relativePath.split("/"));
+      writeFileSync(sourcePath, readFileSync(sourcePath, "utf8").replaceAll("\n", "\r\n"), "utf8");
+    }
+    gitCommitAll(fixture, "use CRLF compiler fixture inputs");
+
+    const crlfResult = await runCompiler(fixture, ["--confirm-write"]);
+    assert.equal(crlfResult.code, 0, crlfResult.stderr);
+    const crlfOutput = readFileSync(path.join(fixture, "compiled-agents", "reviewer-agent.compiled.md"), "utf8");
+
+    const withoutSourceCommit = (text) => text.replace(/^source_commit: [0-9a-f]{40}$/m, "source_commit: <commit>");
+    assert.equal(withoutSourceCommit(crlfOutput), withoutSourceCommit(lfOutput));
+    assert.doesNotMatch(crlfOutput, /\r/u);
+    assert.doesNotMatch(crlfOutput, /# Reviewer Agent\n\n\n+## Role/u);
+  });
+});
+
 test("unrelated approved synthesis changes do not perturb an unaffected compiled agent", async () => {
   await withCompilerFixture(async (fixture) => {
     const agentsPath = path.join(fixture, "registries", "agents.registry.json");

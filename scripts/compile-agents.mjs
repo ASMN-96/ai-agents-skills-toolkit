@@ -413,7 +413,7 @@ function agentQualityIssues(agentText) {
 }
 
 function normalizeMarkdownHeadingSpacing(text) {
-  const lines = text.split("\n");
+  const lines = text.replace(/\r\n?/gu, "\n").split("\n");
   const output = [];
   let inFence = false;
 

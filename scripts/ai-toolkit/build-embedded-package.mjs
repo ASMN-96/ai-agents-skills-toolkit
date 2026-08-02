@@ -749,6 +749,7 @@ async function writePackageDocs() {
     ...SOURCE_OF_TRUTH_MAP.map((entry) => `| ${entry.domain} | \`${entry.canonicalSource}\` | ${entry.runtimeCopy} | ${entry.distributionCopy} | ${entry.historicalArchive} | ${entry.driftControl} |`)
   ].join("\n");
 
+  await writeText(`${AI_ROOT}/.gitattributes`, "* text=auto eol=lf\n");
   await writeText(`${AI_ROOT}/VERSION`, TOOLKIT_VERSION);
   await writeText(`${AI_ROOT}/README.md`, `# Embedded AI Toolkit Distribution Package
 
