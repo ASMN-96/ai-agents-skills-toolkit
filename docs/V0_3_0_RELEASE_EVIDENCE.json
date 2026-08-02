@@ -13,11 +13,11 @@
   "artifacts": {
     "sourceCatalog": {
       "path": "sources/source-watchlist.json",
-      "sha256": "eb625fb41c0174201e6f2badae187e31b1ce7f9dba5bc64a3172c27e965772d5"
+      "sha256": "0887f8904b215cc2a74d0ef7fc52802985de0509802fb19e402a88a83d77a7ca"
     },
     "freshnessReport": {
       "path": "docs/SOURCE_FRESHNESS_REPORT.json",
-      "sha256": "4ab55741f6e90c4bb29b64d21604e54f6d20893fa9fa6e442dd8d6759fabee8a"
+      "sha256": "e0bef37b0584fefada44249a96183bb4becee1def184a25aa415badb307cf0db"
     },
     "agentRegistry": {
       "path": "registries/agents.registry.json",
@@ -33,7 +33,7 @@
     },
     "embeddedManifest": {
       "path": ".ai-toolkit/manifest.json",
-      "sha256": "aba3183ba97f90e00648b4a2bd60aa41f0040e8e645a7385923bafed27250663",
+      "sha256": "6f94d3cc55d3625aa7174eb9ff81fcac83abcefc84a57e76eda34dea095d45db",
       "state": "generated-current"
     }
   },
@@ -62,6 +62,9 @@
     "releaseNonblockingActionableCount": 72,
     "approvedReceiptCount": 8,
     "releaseEligible": true
+  },
+  "releaseScope": {
+    "selectedResourceIds": []
   },
   "runtime": {
     "canonicalSkills": 5,

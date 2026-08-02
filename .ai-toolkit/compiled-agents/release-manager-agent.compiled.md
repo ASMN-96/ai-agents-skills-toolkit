@@ -4,15 +4,18 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 7def4f75fc6d2740052a60fd3cdedb2d362602d0
-input_digest: sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822
+source_commit: dc5865ae5f98f91f9f89aacba59b03722e4417df
+input_digest: sha256:24997574b096419e15f18f17281db930d18aa1ed8f4cd88acd90479b0df886c9
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62
+compiler_digest: sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575
+capabilityIds: []
+decisionRefs: []
 source_agent: agents/release-manager-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/release-profile.md", "profiles/implementation-profile.md"]
 source_method_refs: ["internal.engineering-lifecycle-gates", "internal.skill-anatomy", "karpathy.goal-driven-execution", "matt.git-guardrails", "matt.to-issues", "matt.to-prd", "matt.triage-issue", "osmani.shipping-launch", "security.differential-security-review", "orchestration.project-context-preflight", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.project-map-staleness-check", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "release.release-rollback-readiness"]
+synthesisIds: []
 compile_contract_version: 1.0.0
 ---
 
@@ -466,12 +469,15 @@ Gate PR, merge, release-candidate, and post-merge decisions on observed evidence
 ## Provenance
 
 - Source agent path: `agents/release-manager-agent.md`
-- Canonical input digest: `sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822`
-- Compiler digest: `sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62`
+- Canonical input digest: `sha256:24997574b096419e15f18f17281db930d18aa1ed8f4cd88acd90479b0df886c9`
+- Compiler digest: `sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/release-profile.md`, `profiles/implementation-profile.md`
 - Method IDs: `internal.engineering-lifecycle-gates`, `internal.skill-anatomy`, `karpathy.goal-driven-execution`, `matt.git-guardrails`, `matt.to-issues`, `matt.to-prd`, `matt.triage-issue`, `osmani.shipping-launch`, `security.differential-security-review`, `orchestration.project-context-preflight`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.project-map-staleness-check`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `release.release-rollback-readiness`
+- Capability IDs: none
+- Synthesis IDs: none
+- Decision references: none
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `aider-repo-map`, `anthropic-skills`, `gitlab-agent-skills`, `matt-pocock-skills`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `ruflo`, `supabase-agent-skills`, `toolkit-authored`, `trailofbits-skills`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 

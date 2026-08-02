@@ -157,7 +157,7 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/freshness-policy.mjs",
-      "sha256": "ffefc44b75d6975b1b841d04d44b29d79e8fc8a339cee162d0d2ac6b4e85611c"
+      "sha256": "a0213a2b9ea864dd3dc560869b96420b763eadde17b1234b0f21758a819a198c"
     },
     {
       "path": "scripts/ai-toolkit/kernel/project-inspector.mjs",
@@ -180,20 +180,24 @@
       "sha256": "f0081ae3effcb190a58c5fce3160452698775aa7f96bc4b7e8c64cbbd96a5f7d"
     },
     {
+      "path": "scripts/ai-toolkit/kernel/source-capability-impact.mjs",
+      "sha256": "7f0a5a281c898582fa9146219c600c1bd02e159b30c5b512ff67195fdf8f462b"
+    },
+    {
       "path": "scripts/ai-toolkit/kernel/source-catalog-contract.mjs",
       "sha256": "b55884bbd01cd75eb53ef475d05fb16b9d45561e083d4507c3b14934518c88b7"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-loader.mjs",
-      "sha256": "53e668a1faa48ecdebc397c57e78cbead54646440de1144b3994a71b61dbe49e"
+      "sha256": "35d8eaddfc946efa629edbc2ca10d552d2166202806a77a6907492ea020559d7"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-policy.mjs",
-      "sha256": "df6750d6d67d230d800797df570845f7d21c62a7cdd0cfb747164c15e5818fa5"
+      "sha256": "5027b3605a05999a544a4d27cc4f5833a9fe5f9eb4fd6c7250d100b077a1ef1b"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-release-accounting.mjs",
-      "sha256": "f95bdc2b7e30f1f871e7b59abe5a6d96e8b4de36acf3fcaebc368b6ab16fb62e"
+      "sha256": "be45e94a6210fc8baace76c2957fdc04a21a42e50ef4491c8a09b760a639ee0e"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-synthesis-contract.mjs",
@@ -201,11 +205,15 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-utilization-contract.mjs",
-      "sha256": "fd4e669048a79a86026a9b7464abba2a6930e9b13d53d778f6d6851e2e05dbd5"
+      "sha256": "dc4a926c903e5d7e9bc85c41fe91ed81b7bfb253fa71628d5a4fcc3ad94d1994"
     },
     {
       "path": "scripts/ai-toolkit/kernel/team-planner.mjs",
       "sha256": "b21564441b1f63e86ac5c519b261660d6e9652a63a713d743af09d6e6a66d7df"
+    },
+    {
+      "path": "scripts/ai-toolkit/kernel/tool-registry-contract.mjs",
+      "sha256": "a7e84b032374d60b2f3939f44000fc8b71d45edeeb5114b1c58f2ad3cb1ac7d5"
     },
     {
       "path": "scripts/ai-toolkit/kernel/validation-policy.mjs",

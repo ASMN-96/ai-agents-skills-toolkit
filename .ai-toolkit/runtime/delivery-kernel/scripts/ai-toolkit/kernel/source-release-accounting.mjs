@@ -1,4 +1,5 @@
 import { canonicalDigest } from "./canonical-digest.mjs";
+import { deriveCapabilityScopedBlocking } from "./source-policy.mjs";
 
 const MONITOR_STATES = Object.freeze(["CURRENT", "CHANGED", "CHECK_FAILED", "MANUAL_DUE"]);
 const SOURCE_SCOPES = Object.freeze([
@@ -68,6 +69,47 @@ function observationIndex(freshnessReport, sourcesById) {
   return byId;
 }
 
+function capabilityImpactsFromFreshnessReport(freshnessReport) {
+  if (freshnessReport === undefined || freshnessReport === null) return [];
+  const observations = requireArray(
+    freshnessReport.sources,
+    "source release accounting freshnessReport.sources"
+  );
+  const scopedImpacts = [];
+  for (const observation of observations) {
+    const impact = observation?.capabilityImpact;
+    if (impact === undefined) continue;
+    if (impact === null || typeof impact !== "object" || Array.isArray(impact)) {
+      throw new Error("source release accounting capability impact is malformed");
+    }
+    const capabilityIds = impact.capabilityIds;
+    if (!Array.isArray(capabilityIds) || capabilityIds.some((id) => typeof id !== "string" || id === "")) {
+      throw new Error("source release accounting capability impact capabilityIds are malformed");
+    }
+    if (capabilityIds.length === 0) {
+      if (impact.scopedImpacts !== undefined && (!Array.isArray(impact.scopedImpacts) || impact.scopedImpacts.length > 0)) {
+        throw new Error("source release accounting capability impact is incomplete");
+      }
+      continue;
+    }
+    if (!Array.isArray(impact.scopedImpacts) || impact.scopedImpacts.length === 0) {
+      throw new Error("source release accounting capability impact is incomplete");
+    }
+    const scopedCapabilityIds = new Set();
+    for (const scopedImpact of impact.scopedImpacts) {
+      if (scopedImpact?.sourceId !== observation.sourceId) {
+        throw new Error("source release accounting scoped capability impact sourceId is invalid");
+      }
+      for (const capabilityId of scopedImpact.capabilityIds ?? []) scopedCapabilityIds.add(capabilityId);
+      scopedImpacts.push(scopedImpact);
+    }
+    if (!sameJson(stableStrings(scopedCapabilityIds), stableStrings(capabilityIds))) {
+      throw new Error("source release accounting capability impact is incomplete");
+    }
+  }
+  return scopedImpacts;
+}
+
 function domainDependencies(domainPacksRegistry, sourcesById) {
   if (domainPacksRegistry === undefined || domainPacksRegistry === null) {
     throw new Error("source release accounting requires the canonical domain-packs registry");
@@ -120,7 +162,11 @@ function domainDependencies(domainPacksRegistry, sourcesById) {
 export function deriveSourceReleaseAccounting({
   catalog,
   domainPacksRegistry = null,
-  freshnessReport = null
+  freshnessReport = null,
+  capabilityImpacts = null,
+  selectedResourceIds = [],
+  selectedGateIds = [],
+  supportedGateIds = []
 } = {}) {
   const sourcesById = sourceIndex(catalog);
   const observationsById = observationIndex(freshnessReport, sourcesById);
@@ -170,6 +216,15 @@ export function deriveSourceReleaseAccounting({
   const releaseBlockingSourceIds = stableStrings(
     supportedDependencyBlockers.map((entry) => entry.sourceId)
   );
+  const canonicalCapabilityImpacts = capabilityImpacts === null
+    ? capabilityImpactsFromFreshnessReport(freshnessReport)
+    : requireArray(capabilityImpacts, "source release accounting capabilityImpacts");
+  const capabilityImpact = deriveCapabilityScopedBlocking({
+    capabilityImpacts: canonicalCapabilityImpacts,
+    selectedResourceIds,
+    selectedGateIds,
+    supportedGateIds
+  });
   const dependencyUniverseDigest = canonicalDigest({
     supportedDependencyBlockers,
     previewDependencyBlockers,
@@ -189,7 +244,16 @@ export function deriveSourceReleaseAccounting({
     releaseNonblockingActionableCount: actionableSourceIds.length - releaseBlockingSourceIds.length,
     supportedDependencyBlockers,
     previewDependencyBlockers,
-    resourceDependencyBlockers
+    resourceDependencyBlockers,
+    capabilityImpact,
+    capabilityIds: capabilityImpact.capabilityIds,
+    blockingCapabilityIds: capabilityImpact.blockingCapabilityIds,
+    blockingResourceIds: capabilityImpact.blockingResourceIds,
+    blockingGateIds: capabilityImpact.blockingGateIds,
+    portfolioActionable: capabilityImpact.portfolioActionableCount > 0,
+    releaseBlocking: capabilityImpact.releaseBlocking,
+    globalReleaseBlocked: false,
+    advisories: capabilityImpact.advisories
   };
 }
 

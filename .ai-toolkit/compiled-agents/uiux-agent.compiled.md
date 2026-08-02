@@ -4,15 +4,18 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 7def4f75fc6d2740052a60fd3cdedb2d362602d0
-input_digest: sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822
+source_commit: dc5865ae5f98f91f9f89aacba59b03722e4417df
+input_digest: sha256:5f4f0d5bc229b7c5122ae931b85f3522270051d57cd575917c8579354dfd0d4a
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62
+compiler_digest: sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575
+capabilityIds: []
+decisionRefs: []
 source_agent: agents/uiux-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/uiux-profile.md", "profiles/frontend-profile.md", "profiles/fullstack-profile.md"]
 source_method_refs: ["internal.frontend-uiux-quality-gates", "matt.grill-me", "osmani.frontend-ui-engineering", "uiux.accessibility", "uiux.dashboard-ux", "uiux.design-system", "uiux.frontend-design", "uiux.interaction-motion", "uiux.premium-visual-quality", "uiux.responsive-layout", "uiux.webapp-testing", "uiux.commercial-dashboard-polish-rubric", "mobile.native-mobile-app-quality"]
+synthesisIds: []
 compile_contract_version: 1.0.0
 ---
 
@@ -377,12 +380,15 @@ Run `methods/governance/task-intake-routing-gate.md` first for normal-language m
 ## Provenance
 
 - Source agent path: `agents/uiux-agent.md`
-- Canonical input digest: `sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822`
-- Compiler digest: `sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62`
+- Canonical input digest: `sha256:5f4f0d5bc229b7c5122ae931b85f3522270051d57cd575917c8579354dfd0d4a`
+- Compiler digest: `sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/uiux-profile.md`, `profiles/frontend-profile.md`, `profiles/fullstack-profile.md`
 - Method IDs: `internal.frontend-uiux-quality-gates`, `matt.grill-me`, `osmani.frontend-ui-engineering`, `uiux.accessibility`, `uiux.dashboard-ux`, `uiux.design-system`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.premium-visual-quality`, `uiux.responsive-layout`, `uiux.webapp-testing`, `uiux.commercial-dashboard-polish-rubric`, `mobile.native-mobile-app-quality`
+- Capability IDs: none
+- Synthesis IDs: none
+- Decision references: none
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `anthropic-skills`, `impeccable`, `matt-pocock-skills`, `microsoft-playwright`, `shadcn-ui`, `toolkit-authored`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 

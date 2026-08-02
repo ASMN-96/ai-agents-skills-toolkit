@@ -7,6 +7,15 @@ const REFERENCE_DISPOSITIONS = new Set([
   "SYNCED_REFERENCE",
   "SYNCED_PLUGIN_DELEGATED"
 ]);
+const CAPABILITY_CONTRIBUTION_OUTCOMES = new Set([
+  "reference-only",
+  "delegated",
+  "authoritative-baseline",
+  "adopted",
+  "adapted",
+  "historical"
+]);
+const CAPABILITY_SYNTHESIS_STATES = new Set(["current", "stale"]);
 const HASH = /^[a-f0-9]{64}$/;
 const DAY_MS = 86_400_000;
 
@@ -25,6 +34,136 @@ function deepFreeze(value) {
 
 function stableUnique(values) {
   return [...new Set(values)].sort();
+}
+
+function scopedIds(values, label) {
+  if (!Array.isArray(values) || values.some((value) => typeof value !== "string" || value === "")) {
+    throw new Error(`${label} must be an array of non-empty strings`);
+  }
+  return stableUnique(values);
+}
+
+function normalizedCapabilityImpact(entry, index) {
+  requireExactFields(entry, [
+    "sourceId",
+    "capabilityIds",
+    "contributionOutcome",
+    "synthesisState",
+    "hardSecurityBlocker",
+    "affectedGateIds",
+    "affectedResourceIds",
+    "portfolioActionable"
+  ], `capability impact ${index}`);
+  if (typeof entry.sourceId !== "string" || entry.sourceId === "") {
+    throw new Error(`capability impact ${index} sourceId must be a non-empty string`);
+  }
+  if (!CAPABILITY_CONTRIBUTION_OUTCOMES.has(entry.contributionOutcome)) {
+    throw new Error(`capability impact ${index} contributionOutcome is unsupported`);
+  }
+  if (!CAPABILITY_SYNTHESIS_STATES.has(entry.synthesisState)) {
+    throw new Error(`capability impact ${index} synthesisState is unsupported`);
+  }
+  if (typeof entry.hardSecurityBlocker !== "boolean" || typeof entry.portfolioActionable !== "boolean") {
+    throw new Error(`capability impact ${index} boolean fields are invalid`);
+  }
+  return {
+    sourceId: entry.sourceId,
+    capabilityIds: scopedIds(entry.capabilityIds, `capability impact ${index} capabilityIds`),
+    contributionOutcome: entry.contributionOutcome,
+    synthesisState: entry.synthesisState,
+    hardSecurityBlocker: entry.hardSecurityBlocker,
+    affectedGateIds: scopedIds(entry.affectedGateIds, `capability impact ${index} affectedGateIds`),
+    affectedResourceIds: scopedIds(
+      entry.affectedResourceIds,
+      `capability impact ${index} affectedResourceIds`
+    ),
+    portfolioActionable: entry.portfolioActionable
+  };
+}
+
+/**
+ * Converts reviewed, source-specific impact into release scope without treating
+ * monitor state, source disposition, or a portfolio-wide stale count as authority.
+ */
+export function deriveCapabilityScopedBlocking({
+  capabilityImpacts = [],
+  selectedResourceIds = [],
+  selectedGateIds = [],
+  supportedGateIds = []
+} = {}) {
+  if (!Array.isArray(capabilityImpacts)) {
+    throw new Error("capability impacts must be an array");
+  }
+  const selectedResources = new Set(scopedIds(selectedResourceIds, "selected resource IDs"));
+  const selectedGates = new Set(scopedIds(selectedGateIds, "selected gate IDs"));
+  const supportedGates = new Set(scopedIds(supportedGateIds, "supported gate IDs"));
+  const capabilityIds = new Set();
+  const blockingCapabilityIds = new Set();
+  const blockingSourceIds = new Set();
+  const blockingResourceIds = new Set();
+  const blockingGateIds = new Set();
+  const advisories = new Set();
+  let portfolioActionableCount = 0;
+
+  for (const [index, rawImpact] of capabilityImpacts.entries()) {
+    const impact = normalizedCapabilityImpact(rawImpact, index);
+    if (impact.portfolioActionable) portfolioActionableCount += 1;
+    for (const capabilityId of impact.capabilityIds) capabilityIds.add(capabilityId);
+    const reviewRequired = impact.synthesisState === "stale" || impact.hardSecurityBlocker;
+    if (!reviewRequired) continue;
+    if (impact.contributionOutcome === "historical") {
+      for (const capabilityId of impact.capabilityIds) {
+        advisories.add(`${capabilityId}: historical capability never blocks release scope`);
+      }
+      continue;
+    }
+    if (impact.contributionOutcome === "reference-only") {
+      for (const capabilityId of impact.capabilityIds) {
+        advisories.add(`${capabilityId}: reference-only capability impact is advisory`);
+      }
+      continue;
+    }
+    if (["adopted", "adapted"].includes(impact.contributionOutcome) && !impact.hardSecurityBlocker) {
+      for (const capabilityId of impact.capabilityIds) {
+        advisories.add(`${capabilityId}: pinned reviewed basis remains usable pending re-review`);
+      }
+      continue;
+    }
+
+    const selectedAffectedResources = impact.affectedResourceIds.filter((id) => selectedResources.has(id));
+    const selectedSupportedGates = impact.affectedGateIds.filter(
+      (id) => selectedGates.has(id) && supportedGates.has(id)
+    );
+    const isDelegated = impact.contributionOutcome === "delegated";
+    const resourceBlocks = isDelegated || impact.hardSecurityBlocker
+      ? selectedAffectedResources
+      : [];
+    const gateBlocks = impact.contributionOutcome === "authoritative-baseline" || impact.hardSecurityBlocker
+      ? selectedSupportedGates
+      : [];
+    if (resourceBlocks.length === 0 && gateBlocks.length === 0) {
+      const scope = isDelegated ? "selected integration" : "selected supported gate";
+      for (const capabilityId of impact.capabilityIds) {
+        advisories.add(`${capabilityId}: impacted ${scope} is not in release scope`);
+      }
+      continue;
+    }
+    for (const capabilityId of impact.capabilityIds) blockingCapabilityIds.add(capabilityId);
+    blockingSourceIds.add(impact.sourceId);
+    for (const resourceId of resourceBlocks) blockingResourceIds.add(resourceId);
+    for (const gateId of gateBlocks) blockingGateIds.add(gateId);
+  }
+
+  return deepFreeze({
+    capabilityIds: stableUnique(capabilityIds),
+    blockingCapabilityIds: stableUnique(blockingCapabilityIds),
+    blockingSourceIds: stableUnique(blockingSourceIds),
+    blockingResourceIds: stableUnique(blockingResourceIds),
+    blockingGateIds: stableUnique(blockingGateIds),
+    portfolioActionableCount,
+    releaseBlocking: blockingResourceIds.size > 0 || blockingGateIds.size > 0,
+    advisories: stableUnique(advisories)
+  });
 }
 
 function exactIso(value, label) {

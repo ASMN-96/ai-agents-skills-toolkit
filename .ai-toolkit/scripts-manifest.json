@@ -10,7 +10,7 @@
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",
-      "sha256": "81e11ff2634370845e0689df004603e09f70fe0a5372d01b334aa86bf35af460"
+      "sha256": "5d1ffeb0b9d7752ea7b852f68a97b9788fbc6551e8ee358c3484888aece4627c"
     },
     {
       "path": "scripts/ai-toolkit/collect-observed-benchmark-workspace.mjs",
@@ -18,11 +18,15 @@
     },
     {
       "path": "scripts/ai-toolkit/compiler-provenance.mjs",
-      "sha256": "9b6b8697c9c9ba7224bcc1ba8288153bd12c0705f8826374940cb1e970551ebd"
+      "sha256": "609d6984670e8dac3c4fb5264a75ad242e398bfee9bece6c0e356a9af2119dc5"
     },
     {
       "path": "scripts/ai-toolkit/embedded-data.mjs",
       "sha256": "fc95d3c7b5e90dc075de13e24d95c8ff46e119a6f13b0063c0871803b776959f"
+    },
+    {
+      "path": "scripts/ai-toolkit/generate-source-utilization.mjs",
+      "sha256": "210af85f0095b704f38af95f126ee564220bc13a6020c4969e94529c246cb2a3"
     },
     {
       "path": "scripts/ai-toolkit/prepare-observed-benchmark-run-packet.mjs",
@@ -62,7 +66,7 @@
     },
     {
       "path": "scripts/ai-toolkit/source-governance.mjs",
-      "sha256": "184ab7da5fed0e6b3ffe99b5f167017b5769a2af5c969a044feb91dc5897c7f8"
+      "sha256": "0320ded1a186886a30e5c3821840b4de8ac8cc55c3b928146c40c7b50e06d3e9"
     },
     {
       "path": "scripts/ai-toolkit/subvalidator-policy.mjs",
@@ -98,7 +102,7 @@
     },
     {
       "path": "scripts/check-source-freshness.mjs",
-      "sha256": "2d6f8f200ab4315dcb195461bb21da01c2cfe2dd0eea282bdefc862563a709bd"
+      "sha256": "93ffc46f6f88abf256d41fb3543297a2b494f299d2ebc20aa3fb6ab8bf3a30fb"
     },
     {
       "path": "scripts/classify-stale-unverified-data.mjs",
@@ -106,7 +110,11 @@
     },
     {
       "path": "scripts/compile-agents.mjs",
-      "sha256": "0fd0f392c690f105839694e74f3a249b01c683616be64327ca432150f1f8eaa1"
+      "sha256": "5a3fb27b08f751d51bb8a2e4c2375b690aa567540c66ba95310c76088241fe44"
+    },
+    {
+      "path": "scripts/generate-source-utilization.mjs",
+      "sha256": "f5e020d7a78c9a9df90e5a8175e186feb4634655ec50e1b39d93309bee834843"
     },
     {
       "path": "scripts/migrate-source-cadence-v2-2.mjs",
@@ -158,11 +166,11 @@
     },
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "8dd64b8ef9e67cf88214fe5bee4bd995472d2ef1d54d3f4c59db0e118ea17472"
+      "sha256": "c2fde13b1c1dec5e53cbf48c53e9aa18418bb7afd806157dfbd37a6604fb65dc"
     },
     {
       "path": "scripts/validate-v0-3-release-evidence.mjs",
-      "sha256": "bd112b4a565b29ece5818f111dbf2b133fd0df4bcaf3d5af79ebf9f9e3290a67"
+      "sha256": "db53dd9e16da427000ea297a4b9ef53dd9c3d3debfa9633ad9f5e4506cfcf80b"
     }
   ]
 }

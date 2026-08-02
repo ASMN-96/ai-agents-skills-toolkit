@@ -4,15 +4,18 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 7def4f75fc6d2740052a60fd3cdedb2d362602d0
-input_digest: sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822
+source_commit: dc5865ae5f98f91f9f89aacba59b03722e4417df
+input_digest: sha256:bfe4d2984cf2a5984e95b366b7590c779c31974c5ffca1d62173c897d7afa460
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62
+compiler_digest: sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575
+capabilityIds: []
+decisionRefs: []
 source_agent: agents/qa-test-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/audit-profile.md", "profiles/frontend-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md", "profiles/fullstack-profile.md"]
 source_method_refs: ["backend.supabase-postgres-rls-gates", "backend.database-access-isolation-gates", "internal.engineering-lifecycle-gates", "internal.frontend-uiux-quality-gates", "internal.simplicity-surgical-change-discipline", "internal.tdd-verification-alignment", "internal.documentation-accuracy-guard", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.git-guardrails", "matt.tdd", "matt.to-issues", "matt.triage-issue", "osmani.code-review-quality", "osmani.frontend-ui-engineering", "osmani.incremental-implementation", "osmani.shipping-launch", "osmani.test-driven-development", "uiux.accessibility", "uiux.frontend-design", "uiux.interaction-motion", "uiux.responsive-layout", "uiux.webapp-testing", "orchestration.changed-file-neighborhood-selection", "orchestration.static-task-state-handoff-ledger", "mobile.native-mobile-app-quality", "security.webview-boundary-review", "architecture.cross-surface-client-contracts", "reliability.coding-time-production-readiness", "api.api-contract-and-routing-readiness", "performance.performance-scalability-cache-readiness", "reliability.observability-readiness", "security.application-security-readiness", "release.release-rollback-readiness"]
+synthesisIds: []
 compile_contract_version: 1.0.0
 ---
 
@@ -811,12 +814,15 @@ Gate PR, merge, release-candidate, and post-merge decisions on observed evidence
 ## Provenance
 
 - Source agent path: `agents/qa-test-agent.md`
-- Canonical input digest: `sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822`
-- Compiler digest: `sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62`
+- Canonical input digest: `sha256:bfe4d2984cf2a5984e95b366b7590c779c31974c5ffca1d62173c897d7afa460`
+- Compiler digest: `sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/audit-profile.md`, `profiles/frontend-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/fullstack-profile.md`
 - Method IDs: `backend.supabase-postgres-rls-gates`, `backend.database-access-isolation-gates`, `internal.engineering-lifecycle-gates`, `internal.frontend-uiux-quality-gates`, `internal.simplicity-surgical-change-discipline`, `internal.tdd-verification-alignment`, `internal.documentation-accuracy-guard`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.git-guardrails`, `matt.tdd`, `matt.to-issues`, `matt.triage-issue`, `osmani.code-review-quality`, `osmani.frontend-ui-engineering`, `osmani.incremental-implementation`, `osmani.shipping-launch`, `osmani.test-driven-development`, `uiux.accessibility`, `uiux.frontend-design`, `uiux.interaction-motion`, `uiux.responsive-layout`, `uiux.webapp-testing`, `orchestration.changed-file-neighborhood-selection`, `orchestration.static-task-state-handoff-ledger`, `mobile.native-mobile-app-quality`, `security.webview-boundary-review`, `architecture.cross-surface-client-contracts`, `reliability.coding-time-production-readiness`, `api.api-contract-and-routing-readiness`, `performance.performance-scalability-cache-readiness`, `reliability.observability-readiness`, `security.application-security-readiness`, `release.release-rollback-readiness`
+- Capability IDs: none
+- Synthesis IDs: none
+- Decision references: none
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `addyosmani-web-quality-skills`, `aider-repo-map`, `anthropic-skills`, `matt-pocock-skills`, `microsoft-playwright`, `nagdy-guard-skills`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `ruflo`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 

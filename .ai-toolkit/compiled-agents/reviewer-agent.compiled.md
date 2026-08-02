@@ -4,15 +4,18 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 7def4f75fc6d2740052a60fd3cdedb2d362602d0
-input_digest: sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822
+source_commit: dc5865ae5f98f91f9f89aacba59b03722e4417df
+input_digest: sha256:945093dadbc5a2d86e7ce2f7a3a8879b8a1ca30d7f2244683cc8e24056d91379
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62
+compiler_digest: sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575
+capabilityIds: []
+decisionRefs: []
 source_agent: agents/reviewer-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/audit-profile.md", "profiles/implementation-profile.md", "profiles/release-profile.md", "profiles/security-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
 source_method_refs: ["internal.engineering-lifecycle-gates", "internal.tdd-verification-alignment", "internal.simplicity-surgical-change-discipline", "internal.documentation-accuracy-guard", "security.differential-security-review", "release.release-rollback-readiness", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack"]
+synthesisIds: []
 compile_contract_version: 1.0.0
 ---
 
@@ -379,12 +382,15 @@ Use this method when handing work between inline agent lenses, profiles, reviewe
 ## Provenance
 
 - Source agent path: `agents/reviewer-agent.md`
-- Canonical input digest: `sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822`
-- Compiler digest: `sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62`
+- Canonical input digest: `sha256:945093dadbc5a2d86e7ce2f7a3a8879b8a1ca30d7f2244683cc8e24056d91379`
+- Compiler digest: `sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/audit-profile.md`, `profiles/implementation-profile.md`, `profiles/release-profile.md`, `profiles/security-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
 - Method IDs: `internal.engineering-lifecycle-gates`, `internal.tdd-verification-alignment`, `internal.simplicity-surgical-change-discipline`, `internal.documentation-accuracy-guard`, `security.differential-security-review`, `release.release-rollback-readiness`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`
+- Capability IDs: none
+- Synthesis IDs: none
+- Decision references: none
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `aider-repo-map`, `matt-pocock-skills`, `nagdy-guard-skills`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `supabase-agent-skills`, `superpowers`, `toolkit-authored`, `trailofbits-skills`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 

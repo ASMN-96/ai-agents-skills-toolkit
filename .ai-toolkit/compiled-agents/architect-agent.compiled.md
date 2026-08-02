@@ -4,15 +4,18 @@ toolkit_version: 0.3.0
 toolkit_pin: ai-agents-skills-toolkit@0.3.0
 compiled_status: approved
 compiled_at: deterministic-not-recorded
-source_commit: 7def4f75fc6d2740052a60fd3cdedb2d362602d0
-input_digest: sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822
+source_commit: dc5865ae5f98f91f9f89aacba59b03722e4417df
+input_digest: sha256:9de691852d71e1715eb4f6e577fc099fe47b67051ec9a72c1e7e4353f455a3e8
 input_digest_scope: canonical-agent-inputs-v1
-compiler_digest: sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62
+compiler_digest: sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575
+capabilityIds: []
+decisionRefs: []
 source_agent: agents/architect-agent.md
 compiler: scripts/compile-agents.mjs
 registry_input: registries/agents.registry.json
 source_profile_refs: ["profiles/implementation-profile.md", "profiles/backend-profile.md", "profiles/frontend-profile.md", "profiles/planning-profile.md", "profiles/fullstack-profile.md", "profiles/source-review-profile.md"]
 source_method_refs: ["internal.engineering-lifecycle-gates", "internal.simplicity-surgical-change-discipline", "internal.skill-anatomy", "karpathy.assumption-surfacing", "karpathy.goal-driven-execution", "karpathy.simplicity-surgical-changes", "matt.design-interface", "matt.grill-me", "matt.improve-architecture", "matt.to-issues", "matt.to-prd", "osmani.api-interface-design", "osmani.code-review-quality", "osmani.spec-driven-development", "orchestration.project-context-preflight", "orchestration.changed-file-neighborhood-selection", "orchestration.compact-agent-context-pack", "orchestration.project-map-staleness-check", "orchestration.static-task-state-handoff-ledger", "repo.package-manager-workspace-migration", "reliability.coding-time-production-readiness", "internal.decision-driven-stack-intelligence"]
+synthesisIds: []
 compile_contract_version: 1.0.0
 ---
 
@@ -585,12 +588,15 @@ Do not browse by default. Skip this method when repository evidence already sett
 ## Provenance
 
 - Source agent path: `agents/architect-agent.md`
-- Canonical input digest: `sha256:205ec8f1579bbd11ca82763f8bb0b0980d721643d46602542e9564eb8bb3e822`
-- Compiler digest: `sha256:5ea56a1eea6108ace0d38593964474d1652014650423c0f6081d31a65cfe0e62`
+- Canonical input digest: `sha256:9de691852d71e1715eb4f6e577fc099fe47b67051ec9a72c1e7e4353f455a3e8`
+- Compiler digest: `sha256:671b349792a04fa8621ad0d82647e54c00f29a83118c11b6f89f318f29361575`
 - Compiler: `scripts/compile-agents.mjs`
 - Agent registry input: `registries/agents.registry.json`
 - Profile paths: `profiles/implementation-profile.md`, `profiles/backend-profile.md`, `profiles/frontend-profile.md`, `profiles/planning-profile.md`, `profiles/fullstack-profile.md`, `profiles/source-review-profile.md`
 - Method IDs: `internal.engineering-lifecycle-gates`, `internal.simplicity-surgical-change-discipline`, `internal.skill-anatomy`, `karpathy.assumption-surfacing`, `karpathy.goal-driven-execution`, `karpathy.simplicity-surgical-changes`, `matt.design-interface`, `matt.grill-me`, `matt.improve-architecture`, `matt.to-issues`, `matt.to-prd`, `osmani.api-interface-design`, `osmani.code-review-quality`, `osmani.spec-driven-development`, `orchestration.project-context-preflight`, `orchestration.changed-file-neighborhood-selection`, `orchestration.compact-agent-context-pack`, `orchestration.project-map-staleness-check`, `orchestration.static-task-state-handoff-ledger`, `repo.package-manager-workspace-migration`, `reliability.coding-time-production-readiness`, `internal.decision-driven-stack-intelligence`
+- Capability IDs: none
+- Synthesis IDs: none
+- Decision references: none
 - Inherited sourceRef IDs: `addy-osmani-agent-skills`, `aider-repo-map`, `anthropic-skills`, `gitlab-agent-skills`, `matt-pocock-skills`, `nagdy-guard-skills`, `openai-codex-behavior-boundaries`, `openai-prompt-caching`, `repomix`, `ruflo`, `toolkit-authored`, `unknown-review-required`
 - Registry files: `registries/agents.registry.json`, `registries/profiles.registry.json`, `registries/methods.registry.json`
 
