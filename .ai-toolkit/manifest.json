@@ -46,7 +46,7 @@
   "deliveryKernelPackage": {
     "root": ".ai-toolkit/runtime/delivery-kernel",
     "manifestPath": ".ai-toolkit/runtime/delivery-kernel/package-manifest.json",
-    "manifestSha256": "dfa7f1a959ac2f6b67f807996d47910cf24f72ae72bb65e093ed1e63c01d2e7b"
+    "manifestSha256": "187f7c6de1a2936e6cc662ea00bff0b1f48893b5b5000d2e87d9a090c99c7ce7"
   },
   "mirrors": [
     {
@@ -845,9 +845,9 @@
       "source": "sources/source-watchlist.json",
       "target": ".ai-toolkit/sources/watchlist.json",
       "mode": "byte-identical",
-      "sha256": "0887f8904b215cc2a74d0ef7fc52802985de0509802fb19e402a88a83d77a7ca",
-      "sourceSha256": "0887f8904b215cc2a74d0ef7fc52802985de0509802fb19e402a88a83d77a7ca",
-      "targetSha256": "0887f8904b215cc2a74d0ef7fc52802985de0509802fb19e402a88a83d77a7ca"
+      "sha256": "96c7457cec95f493b55e8ac0fc3b5813e4bc379ecc4b731e40488d1779c44d9b",
+      "sourceSha256": "96c7457cec95f493b55e8ac0fc3b5813e4bc379ecc4b731e40488d1779c44d9b",
+      "targetSha256": "96c7457cec95f493b55e8ac0fc3b5813e4bc379ecc4b731e40488d1779c44d9b"
     },
     {
       "source": "templates/.ai-toolkit.config.example.json",
@@ -1055,11 +1055,11 @@
     },
     {
       "path": ".ai-toolkit/sources/watchlist.json",
-      "sha256": "0887f8904b215cc2a74d0ef7fc52802985de0509802fb19e402a88a83d77a7ca"
+      "sha256": "96c7457cec95f493b55e8ac0fc3b5813e4bc379ecc4b731e40488d1779c44d9b"
     },
     {
       "path": ".ai-toolkit/runtime/delivery-kernel/package-manifest.json",
-      "sha256": "dfa7f1a959ac2f6b67f807996d47910cf24f72ae72bb65e093ed1e63c01d2e7b"
+      "sha256": "187f7c6de1a2936e6cc662ea00bff0b1f48893b5b5000d2e87d9a090c99c7ce7"
     }
   ],
   "generatedBy": "scripts/ai-toolkit/build-embedded-package.mjs"

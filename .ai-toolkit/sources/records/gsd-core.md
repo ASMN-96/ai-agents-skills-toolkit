@@ -4,10 +4,10 @@
 - Dependent resource ID: gsd-core
 - Canonical catalog: sources/source-watchlist.json
 - Canonical source record: sources/gsd-core.md
-- Catalog evidence instant: 2026-07-21T11:56:51.432Z
+- Catalog evidence instant: 2026-08-02T06:57:05.785Z
 - Monitor state: CHANGED
-- Observed revision: git-sha:a54feb42162b9041b3abeed735307fa72d5f46a1
-- Content digest: sha256:e7f65111556a2c749a0b8f51ac05dae88f878f39de19a129163f0635e847eac1
+- Observed revision: git-sha:33985c11a9f0a27443f8b8fb114b2122d653cd78
+- Content digest: sha256:656dbc300c7af410d44a03917f46fab918d8f0f90880c1797090f660036f2663
 - Review state: QUARANTINED
 - Reviewed revision: none
 - Reviewed digest: none

@@ -5,14 +5,14 @@
     "catalogId": "enterprise-source-catalog",
     "sourceCount": 80
   },
-  "checkedAt": "2026-07-22T18:01:39.820Z",
+  "checkedAt": "2026-08-02T06:57:05.785Z",
   "mode": "live",
   "readOnly": true,
   "disclaimer": "Changed upstream source is not approved for import. This report does not authorize copying, installing, activating, extracting methods, updating source records, or changing runtime configuration.",
   "sourceCount": 80,
   "monitorCounts": {
-    "CURRENT": 19,
-    "CHANGED": 7,
+    "CURRENT": 12,
+    "CHANGED": 14,
     "CHECK_FAILED": 54,
     "MANUAL_DUE": 0
   },
@@ -689,31 +689,37 @@
       "sourceId": "anthropic-skills",
       "identityKey": "github:anthropics/skills",
       "scope": "community-reference",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "fa0fa64bdc967915dc8399e803be67759e1e62b8"
+        "value": "b29e7cf65e5cb78a5ac33d582270551bc74a14eb"
       },
-      "contentDigest": "sha256:0d9683641353f633dce3eaf81f4e4e623f582dca382dc3657ab47cea1bbd1205",
+      "contentDigest": "sha256:814dd21237f671c1d6b2178929c626be838db5d4f2a0007f896c2e676454b550",
       "comparisonRevision": "fa0fa64bdc967915dc8399e803be67759e1e62b8",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/anthropic-skills.md"
       ],
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_HIGH_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/anthropics/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: mixed-license)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
-        "watchedPathSignals": []
+        "latestCommitDate": "2026-07-24T20:12:34Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "not found",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
+        "watchedPathSignals": [
+          {
+            "path": "skills/skill-creator",
+            "sha": "b9e19e6f44773509fbdd7001d77ff41a49a486c1",
+            "date": "2026-04-20T21:38:16Z"
+          }
+        ]
       },
       "capabilityImpact": {
         "sourceId": "anthropic-skills",
@@ -728,6 +734,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -743,8 +750,8 @@
       "contentDigest": "sha256:011fb1b92f68e9ac8dec2c7549243e29c7598f0cdb3858e2191b9a711b7acd42",
       "comparisonRevision": "49f948faa9258a0c61caceaf225e179651397431",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/openai-skills.md"
@@ -755,10 +762,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/openai/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: mixed-license)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-06-24T02:36:12Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "not found",
+        "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -774,6 +781,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -784,13 +792,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "fefc4075ddfd8363d3b2aa8b26e6440f1ce204c0"
+        "value": "7829ffd90d973b6325f5f12f1b1226dcace74443"
       },
-      "contentDigest": "sha256:2524ae8cef4e01ca2cbdcf403fdd672ec024733a033207d3d5cdf8e55835170f",
+      "contentDigest": "sha256:6d864b818c91a606e82f5c6dd967fa04f1e3c128ac1d633925a42d56bddaeea0",
       "comparisonRevision": "2fbfa004a0192529bc997d103fc12f19a3804aab",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/addy-osmani-agent-skills.md"
@@ -801,10 +809,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/addyosmani/agent-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-26T12:51:12Z",
+        "releaseSignal": "release 0.6.5",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -820,6 +828,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -827,30 +836,30 @@
       "sourceId": "supabase-agent-skills",
       "identityKey": "github:supabase/agent-skills",
       "scope": "community-reference",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "1ad9aaeb49caafd9e95c0a91116f71890eebbc53"
+        "value": "1207767388a0ffb55f21fb4e6988fee96942431d"
       },
-      "contentDigest": "sha256:9e455e4d2320510ba82fa789ae4bdd26b062e6c4c3b96d03ed1519ceada05794",
+      "contentDigest": "sha256:672906591728d4e10238d9dff39bbe1f696bef30b4341ecda027518447319563",
       "comparisonRevision": "1ad9aaeb49caafd9e95c0a91116f71890eebbc53",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/supabase-agent-skills.md"
       ],
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_REVIEW_REQUIRED",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/supabase/agent-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-30T11:52:48Z",
+        "releaseSignal": "release v0.1.7",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -866,6 +875,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -873,30 +883,30 @@
       "sourceId": "trailofbits-skills",
       "identityKey": "github:trailofbits/skills",
       "scope": "community-reference",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af"
+        "value": "1256982d4d925a0acfe11e26c2253c32052c6247"
       },
-      "contentDigest": "sha256:005afb4b80ab79f5b8e45682a83c9682e29f4e5fad35b8be6e98a8571e8f1458",
+      "contentDigest": "sha256:247499a518f042df17fba2b64bef93184d0dce465f82a27f58c232e513c9fe82",
       "comparisonRevision": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/trailofbits-skills.md"
       ],
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_HIGH_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/trailofbits/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: cc-by-sa)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-31T16:41:07Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "CC-BY-SA-4.0 (LICENSE)",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -912,6 +922,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -922,13 +933,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "ac877bc190ec28604e7bd9cbccaf8044a1f0c39f"
+        "value": "15b1aec478d90f0293dae7b7b6dafd494d9f0154"
       },
-      "contentDigest": "sha256:70a063f98420952c75123fb345081672724aa72ccecfa8aa8203774e6f754aa6",
+      "contentDigest": "sha256:9b5f7a0d974d055eff00f7f71f14619ffb616ea570df0a1f79560e485c72536d",
       "comparisonRevision": "a7b4d5e0e1fc36bcb2b1b2ae4ebeaddbd9473a21",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/playwright.md",
@@ -941,10 +952,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/microsoft/playwright",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-31T21:39:29Z",
+        "releaseSignal": "release v1.62.1",
+        "licenseSignal": "Apache-2.0 (LICENSE)",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -960,6 +971,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -975,8 +987,8 @@
       "contentDigest": "sha256:d5bf9493007ee27515a2e4e312035b40724043eacc8b7e5435fff2bc380080f5",
       "comparisonRevision": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/nagdy-guard-skills.md"
@@ -987,11 +999,27 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/mabdeltawab/Nagdy_guard-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
-        "watchedPathSignals": []
+        "latestCommitDate": "2026-06-07T11:45:52Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches comparison baseline.",
+        "watchedPathSignals": [
+          {
+            "path": "skills/clean-code-guard",
+            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
+            "date": "2026-06-07T11:45:52Z"
+          },
+          {
+            "path": "skills/test-guard",
+            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
+            "date": "2026-06-07T11:45:52Z"
+          },
+          {
+            "path": "skills/docs-guard",
+            "sha": "d63607391ffd6b2763a3e62cb05a8e00b891a937",
+            "date": "2026-06-07T11:45:52Z"
+          }
+        ]
       },
       "capabilityImpact": {
         "sourceId": "nagdy-guard-skills",
@@ -1006,6 +1034,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1013,30 +1042,30 @@
       "sourceId": "matt-pocock-skills",
       "identityKey": "github:mattpocock/skills",
       "scope": "community-reference",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "ed37663cc5fbef691ddfecd080dff42f7e7e350d"
+        "value": "2ab958093e83e0ec752e6c1c5932da465bf23e0c"
       },
-      "contentDigest": "sha256:ce2695944db0089f4bbbdae34802790dbb38fa9f51b5a449ba9b4389afe12470",
+      "contentDigest": "sha256:146ce46389d55a9346c4ded4f3332040c9b005dca24ed55ac009e8b2113637a7",
       "comparisonRevision": "ed37663cc5fbef691ddfecd080dff42f7e7e350d",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/matt-pocock-skills.md"
       ],
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/mattpocock/skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-28T09:18:17Z",
+        "releaseSignal": "release v1.1.0",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -1052,6 +1081,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1062,13 +1092,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "91f21dfe1328585670275781b4525fff2507f917"
+        "value": "cb2bcd88d93b2f9bddb030e9136f1f8773e7eac4"
       },
-      "contentDigest": "sha256:d51dd07021c14a78c427579ada6fbc1aa2c8f860b30404975ddb8c28246d2412",
+      "contentDigest": "sha256:0b40b5e7089c501e0806b51e275aae5539468d011e57880626baf207131b2d56",
       "comparisonRevision": "20442886c5cfb440441c35030462fbdf64838655",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/shadcn-ui.md"
@@ -1079,10 +1109,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/shadcn-ui/ui",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-31T13:57:34Z",
+        "releaseSignal": "release shadcn@4.16.1",
+        "licenseSignal": "MIT (LICENSE.md)",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -1098,6 +1128,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1113,8 +1144,8 @@
       "contentDigest": "sha256:3f1abebc85cc287a6e8e6b7460cd1c37257d3634462650c2f1cba71d49212f1b",
       "comparisonRevision": "95d6e255afe1596b557d7a8498517884438f5b3a",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "COMPARISON_MATCH",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/addyosmani-web-quality-skills.md"
@@ -1125,10 +1156,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/addyosmani/web-quality-skills",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-06-14T09:08:35Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Default branch commit matches comparison baseline.",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -1144,6 +1175,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1151,30 +1183,30 @@
       "sourceId": "voltagent-awesome-design-md",
       "identityKey": "github:voltagent/awesome-design-md",
       "scope": "community-reference",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "664b3e78fd1a298ba11973822da988483256d4b4"
+        "value": "8147538b4226ae41e2487a9179e3bcc1f68e8554"
       },
-      "contentDigest": "sha256:ae333fffcb3a026bc4bf76244ba8715992ddcff50a7604a0b2f40169d907ffb0",
+      "contentDigest": "sha256:95a633f42d82a071d35c626729df8adbfd75c596c35bf25c9d534605f5647c9a",
       "comparisonRevision": "664b3e78fd1a298ba11973822da988483256d4b4",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/voltagent-awesome-design-md.md"
       ],
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/VoltAgent/awesome-design-md",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-07-31T12:32:38Z",
+        "releaseSignal": "none found",
+        "licenseSignal": "MIT (LICENSE)",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -1190,6 +1222,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1200,13 +1233,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "386f9883cfe1f0d6a87f3e346070374598d61e09"
+        "value": "c5e1ddd054dc093ef2546c36b82eddf2c4e84bb9"
       },
-      "contentDigest": "sha256:f8670440f3724e6e13631b443345aa1c45f1dc49f61eec66464aa296092f801f",
+      "contentDigest": "sha256:adce3cc0797b91f9ff4e61ba30bb6ce6975499173dd8499510d4d73187a07238",
       "comparisonRevision": "4d849eb75f216109ea7053ed21530a11fafcc786",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "UPSTREAM_CHANGED",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/impeccable.md"
@@ -1217,10 +1250,10 @@
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/pbakaus/impeccable",
         "digestBasis": "git-revision-identity",
-        "latestCommitDate": "not checked (git ls-remote fallback)",
-        "releaseSignal": "not checked (git ls-remote fallback)",
-        "licenseSignal": "not checked (source record: clear)",
-        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "latestCommitDate": "2026-08-01T01:24:42Z",
+        "releaseSignal": "release ext-v1.3.1",
+        "licenseSignal": "Apache-2.0 (LICENSE)",
+        "notes": "Upstream default branch changed relative to the comparison baseline.",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -1236,6 +1269,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1252,7 +1286,7 @@
       "comparisonRevision": "e0e028058b5259debdd94b78147c6d6c77bf7da2",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/uncodixfy.md"
@@ -1282,6 +1316,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1289,30 +1324,30 @@
       "sourceId": "superpowers",
       "identityKey": "github:obra/superpowers",
       "scope": "community-reference",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "d884ae04edebef577e82ff7c4e143debd0bbec99"
+        "value": "44c9b2d6e889982ac18c27d05a19fefe335194e1"
       },
-      "contentDigest": "sha256:4eb720d8d09486b14a3167420f7a54eb7bc3f2ee956373c806b4a593389a0057",
+      "contentDigest": "sha256:dd376066349f8f8b26b7b6c5dcea726ecbb26f691140f7292b4b20e97acb4319",
       "comparisonRevision": "d884ae04edebef577e82ff7c4e143debd0bbec99",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/superpowers.md"
       ],
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/obra/superpowers",
         "digestBasis": "git-revision-identity",
         "latestCommitDate": "not checked (git ls-remote fallback)",
         "releaseSignal": "not checked (git ls-remote fallback)",
         "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -1328,6 +1363,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1338,13 +1374,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "b6652335d32d2f2a664e12a09af646bf644b6c86"
+        "value": "e4e4163101f162881e628f300a9ca4e6a940bcea"
       },
-      "contentDigest": "sha256:7bbcf0af0f9d7b40d2d319c72b1ca11ecb0f6e2fff2cb30c2709707e80091b6e",
+      "contentDigest": "sha256:e3da9cecc73f8fe5ccae7e4f4be268f9249b0b813b9ab2436dbe8c4071d4dd8a",
       "comparisonRevision": "5deee34c93395045b985e3baf91550e5f1ab7204",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/everything-claude-code.md"
@@ -1374,6 +1410,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1381,30 +1418,30 @@
       "sourceId": "ruflo",
       "identityKey": "github:ruvnet/ruflo",
       "scope": "community-reference",
-      "monitorState": "CURRENT",
+      "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "26c35b59b40a0a95b286ccf5ac675a15edcc995f"
+        "value": "913f9eaedee92627950544424e50339feaf98271"
       },
-      "contentDigest": "sha256:2c05acbf8aa057f106f351446c887571c1d0a361eee8313d2361f77d8448a8b0",
+      "contentDigest": "sha256:907b532b4e4e14de8fdb01c0101e77957626c61be9b314efc8ebf81641dced85",
       "comparisonRevision": "26c35b59b40a0a95b286ccf5ac675a15edcc995f",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
-      "reasonCode": "DEGRADED_COMPARISON_MATCH",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/ruflo.md"
       ],
       "evidence": {
         "observationMode": "live-read-only",
-        "legacyStatus": "UNCHANGED",
+        "legacyStatus": "CHANGED_LOW_RISK",
         "sourceType": "github-repo",
         "sourceUrl": "https://github.com/ruvnet/ruflo",
         "digestBasis": "git-revision-identity",
         "latestCommitDate": "not checked (git ls-remote fallback)",
         "releaseSignal": "not checked (git ls-remote fallback)",
         "licenseSignal": "not checked (source record: clear)",
-        "notes": "Default branch commit matches comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
+        "notes": "Upstream default branch changed relative to the comparison baseline. GitHub API fallback used after: GitHub API rate limit or access failure (403)",
         "watchedPathSignals": []
       },
       "capabilityImpact": {
@@ -1420,6 +1457,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1433,7 +1471,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/gitlab-agent-skills.md"
@@ -1463,6 +1501,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1476,7 +1515,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/gitlab-agentic-tool-development.md"
@@ -1506,6 +1545,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1519,7 +1559,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/aider-repo-map.md"
@@ -1549,6 +1589,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1562,7 +1603,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/openai-prompt-caching.md"
@@ -1592,6 +1633,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1605,7 +1647,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "sources/openai-codex-behavior-boundaries.md"
@@ -1635,6 +1677,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1645,13 +1688,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "28f79e6e228a11f3857216dd022f1a971d7983d6"
+        "value": "33985c11a9f0a27443f8b8fb114b2122d653cd78"
       },
-      "contentDigest": "sha256:92de70763217b26864ba642a411aaa719682e21bbf6d424d4d1c5acca1dcac46",
+      "contentDigest": "sha256:656dbc300c7af410d44a03917f46fab918d8f0f90880c1797090f660036f2663",
       "comparisonRevision": "a54feb42162b9041b3abeed735307fa72d5f46a1",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/gsd-core.md",
@@ -1683,6 +1726,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1693,13 +1737,13 @@
       "monitorState": "CHANGED",
       "observedRevision": {
         "kind": "git-sha",
-        "value": "e2ca68c87b54edc178bc4643e71719a7ab987f8a"
+        "value": "44437378d809084a5f264234f588d6b301457858"
       },
-      "contentDigest": "sha256:3c7c06b58dc26378c68320c55a402a187376d5bb068dea0cf7688718369014fc",
+      "contentDigest": "sha256:697d887c556c8adea803991217165dcfab4c1e13462ad5aa53e5273e8d43d0f0",
       "comparisonRevision": "bbab507f6d38f8e0a4a64c39cba4d068f31964e0",
       "comparisonBasis": "PRIOR_MONITOR_OBSERVATION",
       "reasonCode": "DEGRADED_UPSTREAM_CHANGED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/repomix.md",
@@ -1731,6 +1775,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1744,7 +1789,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/typescript.md",
@@ -1775,6 +1820,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1788,7 +1834,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/typescript-eslint.md",
@@ -1819,6 +1865,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1832,7 +1879,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/eslint-plugin-react-hooks.md",
@@ -1863,6 +1910,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1876,7 +1924,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/biome.md",
@@ -1907,6 +1955,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1920,7 +1969,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/oxlint.md",
@@ -1951,6 +2000,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -1964,7 +2014,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/knip.md",
@@ -1995,6 +2045,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2008,7 +2059,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/react-doctor.md",
@@ -2039,6 +2090,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2052,7 +2104,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/vitest.md",
@@ -2083,6 +2135,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2096,7 +2149,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/testing-library.md",
@@ -2127,6 +2180,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2140,7 +2194,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/axe-playwright.md",
@@ -2171,6 +2225,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2184,7 +2239,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/lighthouse-ci.md",
@@ -2215,6 +2270,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2228,7 +2284,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/codeql.md",
@@ -2259,6 +2315,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2272,7 +2329,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/semgrep.md",
@@ -2303,6 +2360,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2316,7 +2374,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/gitleaks.md",
@@ -2347,6 +2405,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2360,7 +2419,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/trufflehog.md",
@@ -2391,6 +2450,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2404,7 +2464,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/osv-scanner.md",
@@ -2435,6 +2495,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2448,7 +2509,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/dependabot.md",
@@ -2479,6 +2540,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2492,7 +2554,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/renovate.md",
@@ -2523,6 +2585,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2536,7 +2599,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/socket.md",
@@ -2567,6 +2630,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2580,7 +2644,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/trivy.md",
@@ -2611,6 +2675,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2624,7 +2689,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/checkov.md",
@@ -2655,6 +2720,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2668,7 +2734,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/owasp-zap-baseline.md",
@@ -2699,6 +2765,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2712,7 +2779,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/actionlint.md",
@@ -2743,6 +2810,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2756,7 +2824,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/zizmor.md",
@@ -2787,6 +2855,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2800,7 +2869,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/harden-runner.md",
@@ -2831,6 +2900,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2844,7 +2914,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/reviewdog.md",
@@ -2875,6 +2945,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2888,7 +2959,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/github-gh.md",
@@ -2919,6 +2990,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2932,7 +3004,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/open-design.md",
@@ -2963,6 +3035,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -2976,7 +3049,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/openssf-scorecard.md",
@@ -3007,6 +3080,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3020,7 +3094,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/dependency-cruiser.md",
@@ -3051,6 +3125,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3064,7 +3139,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/eslint-plugin-boundaries.md",
@@ -3095,6 +3170,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3108,7 +3184,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/madge.md",
@@ -3139,6 +3215,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3152,7 +3229,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/jscpd.md",
@@ -3183,6 +3260,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3196,7 +3274,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "BASELINE_MISSING",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/sources/records/eslint.md",
@@ -3227,6 +3305,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3240,7 +3319,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         ".ai-toolkit/integrations/coderabbit.md",
@@ -3271,6 +3350,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3284,7 +3364,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3315,6 +3395,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3328,7 +3409,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3359,6 +3440,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3372,7 +3454,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3403,6 +3485,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3416,7 +3499,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3447,6 +3530,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3460,7 +3544,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3491,6 +3575,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3504,7 +3589,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3535,6 +3620,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3548,7 +3634,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3579,6 +3665,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3592,7 +3679,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3623,6 +3710,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3636,7 +3724,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3667,6 +3755,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3683,7 +3772,7 @@
       "comparisonRevision": "sha256:6931f108ee333780b5fac9a4d87777009b9a997668f02c3c6441ae6ee793ecd7",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3714,6 +3803,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3730,7 +3820,7 @@
       "comparisonRevision": "sha256:ede5c7be062163021559c26a0769e2b4a19280880a27cc0fb3cf0efc54ae8063",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3761,6 +3851,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3777,7 +3868,7 @@
       "comparisonRevision": "sha256:c40e91695354d7b3dbd3675b97381f94e829f025772fbb0c202b967e8cae5193",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3808,6 +3899,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3824,7 +3916,7 @@
       "comparisonRevision": "sha256:7421f0ac239118fc36958ed3e636ddd34397a01bea626b68f137723d744bab48",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3855,6 +3947,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3871,7 +3964,7 @@
       "comparisonRevision": "sha256:46edf628a901c268261cf8b72a1b478926ae9b2db050fa21194c914e7417e3ae",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3902,6 +3995,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3918,7 +4012,7 @@
       "comparisonRevision": "sha256:d2152d99ebef23026d9813692c81f96d626ab16c1aa49d53f6a8bb82874a453d",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3949,6 +4043,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -3965,7 +4060,7 @@
       "comparisonRevision": "sha256:6acd83aab545d0f0c513c81ecf7f88d79a5450b96d278521a9bab0a47cfe6f2e",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -3996,6 +4091,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -4012,7 +4108,7 @@
       "comparisonRevision": "sha256:76620076667fd1184f336d9075f980b6f63c818ed360070143a82b27ccab1641",
       "comparisonBasis": "MANUAL_REVIEW_RECEIPT",
       "reasonCode": "MANUAL_CURRENT",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": false,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -4043,6 +4139,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -4056,7 +4153,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -4087,6 +4184,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -4100,7 +4198,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -4131,6 +4229,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -4144,7 +4243,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "registries/domain-packs.registry.json",
@@ -4175,6 +4274,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -4188,7 +4288,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "scripts/ai-toolkit/kernel/codex-adapter.mjs",
@@ -4219,6 +4319,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     },
@@ -4232,7 +4333,7 @@
       "comparisonRevision": null,
       "comparisonBasis": "MISSING",
       "reasonCode": "MANUAL_EVIDENCE_REQUIRED",
-      "checkedAt": "2026-07-22T18:01:39.820Z",
+      "checkedAt": "2026-08-02T06:57:05.785Z",
       "missingCurrentReview": true,
       "catalogAffectedArtifacts": [
         "scripts/ai-toolkit/kernel/claude-adapter.mjs",
@@ -4263,6 +4364,7 @@
         "portfolioActionable": false,
         "releaseBlocking": false,
         "blockingResourceIds": [],
+        "scopedImpacts": [],
         "reasons": []
       }
     }

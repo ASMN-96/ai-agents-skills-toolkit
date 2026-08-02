@@ -185,11 +185,11 @@
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-contract.mjs",
-      "sha256": "b55884bbd01cd75eb53ef475d05fb16b9d45561e083d4507c3b14934518c88b7"
+      "sha256": "c6c8708bd361fd6cf8c2fe82845e4284cbc78059da3b9d3983c9053c3b651d20"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-catalog-loader.mjs",
-      "sha256": "35d8eaddfc946efa629edbc2ca10d552d2166202806a77a6907492ea020559d7"
+      "sha256": "68b86ee3ab049a9b5c85efb4102efe2a9c968442bcf057b2fb08d88990ca76b8"
     },
     {
       "path": "scripts/ai-toolkit/kernel/source-policy.mjs",
@@ -277,7 +277,7 @@
     },
     {
       "path": "sources/source-watchlist.json",
-      "sha256": "0887f8904b215cc2a74d0ef7fc52802985de0509802fb19e402a88a83d77a7ca"
+      "sha256": "96c7457cec95f493b55e8ac0fc3b5813e4bc379ecc4b731e40488d1779c44d9b"
     },
     {
       "path": "templates/delivery-kernel.request.example.json",

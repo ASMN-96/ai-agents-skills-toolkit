@@ -13,11 +13,11 @@
   "artifacts": {
     "sourceCatalog": {
       "path": "sources/source-watchlist.json",
-      "sha256": "0887f8904b215cc2a74d0ef7fc52802985de0509802fb19e402a88a83d77a7ca"
+      "sha256": "96c7457cec95f493b55e8ac0fc3b5813e4bc379ecc4b731e40488d1779c44d9b"
     },
     "freshnessReport": {
       "path": "docs/SOURCE_FRESHNESS_REPORT.json",
-      "sha256": "e0bef37b0584fefada44249a96183bb4becee1def184a25aa415badb307cf0db"
+      "sha256": "b0a1dbb4b34adee47e53755911b1ba06096a1ad19fafcfb64456ecd96119b3cb"
     },
     "agentRegistry": {
       "path": "registries/agents.registry.json",
@@ -33,16 +33,16 @@
     },
     "embeddedManifest": {
       "path": ".ai-toolkit/manifest.json",
-      "sha256": "6f94d3cc55d3625aa7174eb9ff81fcac83abcefc84a57e76eda34dea095d45db",
+      "sha256": "d47919beeda236e3acbd71c2da3a64c859f9c5775f2195ca4474f43c3445385a",
       "state": "generated-current"
     }
   },
   "sourceFreshness": {
-    "checkedAt": "2026-07-21T11:56:51.432Z",
+    "checkedAt": "2026-08-02T06:57:05.785Z",
     "sourceCount": 80,
     "monitorCounts": {
-      "CURRENT": 18,
-      "CHANGED": 8,
+      "CURRENT": 12,
+      "CHANGED": 14,
       "CHECK_FAILED": 54,
       "MANUAL_DUE": 0
     },
@@ -220,7 +220,7 @@
     "hostExecutionBridge": "The v0.3 fail-closed bridge contract cannot yield trusted readiness or turn standalone JSON into execution proof."
   },
   "warnings": [
-    "The 2026-07-21 live monitor recorded 18 CURRENT, 8 CHANGED, and 54 CHECK_FAILED observations; 72 optional, preview, or community sources remain actionable and quarantined but do not block enterprise-core.",
+    "The 2026-08-02 live monitor recorded 12 CURRENT, 14 CHANGED, and 54 CHECK_FAILED observations; 72 optional, preview, or community sources remain actionable and quarantined but do not block enterprise-core.",
     "Observed enterprise-core execution evidence is not measured; the static benchmark cannot prove runtime, human, timing, defect, or enterprise-impact outcomes."
   ],
   "approvals": {
@@ -268,7 +268,7 @@
         "docs/V0_3_0_RELEASE_EVIDENCE.json"
       ],
       "dependencyIds": [
-        "The 2026-07-21 live monitor recorded 18 CURRENT, 8 CHANGED, and 54 CHECK_FAILED observations; 72 optional, preview, or community sources remain actionable and quarantined but do not block enterprise-core.",
+        "The 2026-08-02 live monitor recorded 12 CURRENT, 14 CHANGED, and 54 CHECK_FAILED observations; 72 optional, preview, or community sources remain actionable and quarantined but do not block enterprise-core.",
         "Observed enterprise-core execution evidence is not measured; the static benchmark cannot prove runtime, human, timing, defect, or enterprise-impact outcomes."
       ]
     }

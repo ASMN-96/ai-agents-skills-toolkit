@@ -7,6 +7,7 @@ import { readCanonicalJsonDocumentWithin } from "./canonical-json.mjs";
 import {
   SOURCE_CATALOG_SCHEMA_VERSION,
   validateSourceCatalogGraph,
+  validateSourceCatalogGraphForFreshnessRefreshInput,
   validateSourceReviewReceipt
 } from "./source-catalog-contract.mjs";
 import {
@@ -356,7 +357,8 @@ async function validateReceiptChain({
 export async function loadValidatedSourceCatalog({
   repositoryRoot,
   now,
-  includeCapabilityRegistry = false
+  includeCapabilityRegistry = false,
+  freshnessRefreshInput = false
 } = {}) {
   const root = path.resolve(repositoryRoot);
   const before = await readDocument(root, CATALOG_PATH, "canonical SourceCatalog v2");
@@ -382,7 +384,10 @@ export async function loadValidatedSourceCatalog({
   const embeddedManifest = includeCapabilityRegistry
     ? await readDocument(root, ".ai-toolkit/manifest.json", "canonical embedded manifest for compiler impact inventory")
     : null;
-  const catalog = validateSourceCatalogGraph(before.parsed, {
+  const validateCatalogGraph = freshnessRefreshInput
+    ? validateSourceCatalogGraphForFreshnessRefreshInput
+    : validateSourceCatalogGraph;
+  const catalog = validateCatalogGraph(before.parsed, {
     now,
     domainPacksRegistry: domainPacksRegistry.parsed,
     toolsRegistry: toolsRegistry.parsed
@@ -403,7 +408,7 @@ export async function loadValidatedSourceCatalog({
   if (sha256Text(before.text) !== sha256Text(after.text)) {
     throw new Error("Source governance: SourceCatalog changed during trusted runtime inspection");
   }
-  validateSourceCatalogGraph(after.parsed, {
+  validateCatalogGraph(after.parsed, {
     now,
     domainPacksRegistry: domainPacksRegistry.parsed,
     toolsRegistry: toolsRegistry.parsed

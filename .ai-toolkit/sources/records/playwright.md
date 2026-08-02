@@ -4,10 +4,10 @@
 - Dependent resource ID: playwright
 - Canonical catalog: sources/source-watchlist.json
 - Canonical source record: sources/playwright.md
-- Catalog evidence instant: 2026-07-21T11:56:51.432Z
+- Catalog evidence instant: 2026-08-02T06:57:05.785Z
 - Monitor state: CHANGED
-- Observed revision: git-sha:a7b4d5e0e1fc36bcb2b1b2ae4ebeaddbd9473a21
-- Content digest: sha256:9059d3a73a265eca4650c1bc455b52f2e07617bfc434b81f8f628977d2354643
+- Observed revision: git-sha:15b1aec478d90f0293dae7b7b6dafd494d9f0154
+- Content digest: sha256:9b5f7a0d974d055eff00f7f71f14619ffb616ea570df0a1f79560e485c72536d
 - Review state: QUARANTINED
 - Reviewed revision: none
 - Reviewed digest: none

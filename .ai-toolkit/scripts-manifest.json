@@ -66,7 +66,7 @@
     },
     {
       "path": "scripts/ai-toolkit/source-governance.mjs",
-      "sha256": "0320ded1a186886a30e5c3821840b4de8ac8cc55c3b928146c40c7b50e06d3e9"
+      "sha256": "7b719f79db3a615a2b1cd5a48f6a7048db231e8a337c39819dcc4e1fe710044c"
     },
     {
       "path": "scripts/ai-toolkit/subvalidator-policy.mjs",
@@ -102,7 +102,7 @@
     },
     {
       "path": "scripts/check-source-freshness.mjs",
-      "sha256": "93ffc46f6f88abf256d41fb3543297a2b494f299d2ebc20aa3fb6ab8bf3a30fb"
+      "sha256": "a24a5aaa327899e37babe0682295cb645f4f847d31af1a7e1373deb25a627008"
     },
     {
       "path": "scripts/classify-stale-unverified-data.mjs",

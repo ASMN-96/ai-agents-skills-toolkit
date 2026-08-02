@@ -4,10 +4,10 @@
 - Dependent resource ID: repomix
 - Canonical catalog: sources/source-watchlist.json
 - Canonical source record: sources/repomix.md
-- Catalog evidence instant: 2026-07-21T11:56:51.432Z
+- Catalog evidence instant: 2026-08-02T06:57:05.785Z
 - Monitor state: CHANGED
-- Observed revision: git-sha:bbab507f6d38f8e0a4a64c39cba4d068f31964e0
-- Content digest: sha256:8eaaf9af7712039533d8b6ac5c0ce60f9713f88692e81e5fa19c3f7c71a994f9
+- Observed revision: git-sha:44437378d809084a5f264234f588d6b301457858
+- Content digest: sha256:697d887c556c8adea803991217165dcfab4c1e13462ad5aa53e5273e8d43d0f0
 - Review state: QUARANTINED
 - Reviewed revision: none
 - Reviewed digest: none
