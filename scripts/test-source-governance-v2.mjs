@@ -207,6 +207,19 @@ function receipt(overrides = {}) {
   };
 }
 
+function currentCliReviewFixtureTimeline(now = Date.now()) {
+  const monitorCheckedAt = new Date(now - 30 * 60 * 1000);
+  const reviewedAt = new Date(monitorCheckedAt.valueOf() + 15 * 60 * 1000);
+  const approvedAt = new Date(reviewedAt.valueOf() + 15 * 60 * 1000);
+  const expiresAt = new Date(reviewedAt.valueOf() + 14 * 24 * 60 * 60 * 1000);
+  return {
+    monitorCheckedAt: monitorCheckedAt.toISOString(),
+    reviewedAt: reviewedAt.toISOString(),
+    approvedAt: approvedAt.toISOString(),
+    expiresAt: expiresAt.toISOString()
+  };
+}
+
 async function writeRepository(root, sourceEntry = source({
   monitor: {
     state: "CHANGED",
@@ -279,6 +292,21 @@ async function writeRepository(root, sourceEntry = source({
     "utf8"
   );
   return { artifactRevision };
+}
+
+async function refreshCliReviewFixtureTimestamps(root) {
+  const timeline = currentCliReviewFixtureTimeline();
+  const catalogPath = path.join(root, "sources", "source-watchlist.json");
+  const catalogFixture = JSON.parse(await readFile(catalogPath, "utf8"));
+  catalogFixture.sources[0].monitor.checkedAt = timeline.monitorCheckedAt;
+  await writeFile(catalogPath, `${JSON.stringify(catalogFixture, null, 2)}\n`, "utf8");
+
+  const receiptPath = path.join(root, "sources", "pending", "receipt.json");
+  const receiptFixture = JSON.parse(await readFile(receiptPath, "utf8"));
+  receiptFixture.reviewedAt = timeline.reviewedAt;
+  receiptFixture.expiresAt = timeline.expiresAt;
+  receiptFixture.approver.approvedAt = timeline.approvedAt;
+  await writeFile(receiptPath, `${JSON.stringify(receiptFixture, null, 2)}\n`, "utf8");
 }
 
 async function writePendingReceipt(root, value) {
@@ -2044,6 +2072,7 @@ test("source governance validates a regenerated mirror and keeps review applicat
 
   const root = await mkdtemp(path.join(os.tmpdir(), "source-governance-cli-"));
   await writeRepository(root);
+  await refreshCliReviewFixtureTimestamps(root);
   const dryRun = await execFileAsync(process.execPath, [
     applyScript,
     "--receipt",
