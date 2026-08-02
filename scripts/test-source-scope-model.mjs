@@ -125,7 +125,7 @@ test("generic and graph-aware validation fail closed for scope and dependency dr
   );
 });
 
-test("v2.0 migration upgrades state without restoring retired source identities", async () => {
+test("v2.0 migration upgrades state to the current schema without restoring retired source identities", async () => {
   const { upgradeSourceCatalogToV21 } = await import(migrationUrl);
   const legacy = migratedCatalog();
   legacy.schemaVersion = "2.0.0";
@@ -140,9 +140,44 @@ test("v2.0 migration upgrades state without restoring retired source identities"
     methodSourceIds: []
   });
 
-  assert.equal(upgraded.schemaVersion, "2.1.0");
+  assert.equal(upgraded instanceof Promise, false);
+  assert.equal(upgraded.schemaVersion, "2.2.0");
   assert.deepEqual(upgraded.sources.find((source) => source.id === "actionlint").review, review);
   assert.deepEqual(upgraded.sources.find((source) => source.id === "actionlint").monitor, monitor);
   assert.equal(upgraded.sources.some((source) => source.id === "skills-sh"), false);
   assert.equal(new Set(upgraded.sources.map((source) => source.scope)).size > 1, true);
+});
+
+test("v2.1 migration synchronously upgrades to the current schema without changing governed source state", async () => {
+  const { upgradeSourceCatalogV21ToV22 } = await import(migrationUrl);
+  const { validateSourceCatalogGraph } = await import(contractUrl);
+  const predecessor = migratedCatalog();
+  predecessor.schemaVersion = "2.1.0";
+  const retained = predecessor.sources.find((source) => source.id === "actionlint");
+  const review = structuredClone(retained.review);
+  const monitor = structuredClone(retained.monitor);
+  const identityKey = retained.identityKey;
+  const runtimePosture = retained.runtimePosture;
+  const currentNow = new Date(Math.max(...predecessor.sources.map((source) => Date.parse(source.monitor.checkedAt))) + 1_000).toISOString();
+
+  const upgraded = upgradeSourceCatalogV21ToV22(predecessor, {
+    domainPacksRegistry: domainPacks,
+    toolsRegistry: tools,
+    methodSourceIds: [],
+    now: currentNow
+  });
+
+  assert.equal(upgraded instanceof Promise, false);
+  assert.equal(upgraded.schemaVersion, "2.2.0");
+  const upgradedRetained = upgraded.sources.find((source) => source.id === "actionlint");
+  assert.deepEqual(upgradedRetained.review, review);
+  assert.deepEqual(upgradedRetained.monitor, monitor);
+  assert.equal(upgradedRetained.identityKey, identityKey);
+  assert.equal(upgradedRetained.runtimePosture, runtimePosture);
+  assert.doesNotThrow(() => validateSourceCatalogGraph(upgraded, {
+    domainPacksRegistry: domainPacks,
+    toolsRegistry: tools,
+    methodSourceIds: [],
+    now: currentNow
+  }));
 });

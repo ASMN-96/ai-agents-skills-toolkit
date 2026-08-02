@@ -66,7 +66,7 @@ function withCadence(source) {
   };
 }
 
-function migrateCatalog(catalog) {
+export function upgradeSourceCatalogToV22(catalog) {
   if (!Array.isArray(catalog.sources)) fail("canonical watchlist sources must be an array");
   const sources = catalog.sources.map(withCadence);
   if (sources.length !== 80) fail(`expected 80 canonical sources, received ${sources.length}`);
@@ -102,7 +102,7 @@ export async function runCadenceMigration(options = {}) {
   const catalogPath = path.join(root, CATALOG_PATH);
   const originalText = await readFile(catalogPath, "utf8");
   const catalog = JSON.parse(originalText);
-  const migrated = migrateCatalog(catalog);
+  const migrated = upgradeSourceCatalogToV22(catalog);
   const migratedText = `${JSON.stringify(migrated, null, 2)}\n`;
   const changed = originalText !== migratedText;
   validateSourceCatalog(migrated, { now: new Date().toISOString() });

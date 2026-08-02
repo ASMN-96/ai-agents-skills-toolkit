@@ -10,6 +10,7 @@ import {
   deriveSourceScopes,
   validateSourceCatalogGraph
 } from "./ai-toolkit/kernel/source-catalog-contract.mjs";
+import { upgradeSourceCatalogToV22 } from "./migrate-source-cadence-v2-2.mjs";
 
 const ROOT = process.cwd();
 const CATALOG_PATH = "sources/source-watchlist.json";
@@ -337,13 +338,33 @@ export function upgradeSourceCatalogToV21(catalog, {
     methodSourceIds
   });
   for (const source of upgraded.sources) source.scope = scopes.get(source.id);
-  validateSourceCatalogGraph(upgraded, {
+  const current = upgradeSourceCatalogToV22(upgraded);
+  validateSourceCatalogGraph(current, {
     domainPacksRegistry,
     toolsRegistry,
     methodSourceIds,
     now
   });
-  return upgraded;
+  return current;
+}
+
+export function upgradeSourceCatalogV21ToV22(catalog, {
+  domainPacksRegistry,
+  toolsRegistry,
+  methodSourceIds = [],
+  now
+} = {}) {
+  if (!catalog || catalog.schemaVersion !== "2.1.0" || !Array.isArray(catalog.sources)) {
+    fail("input must be a valid SourceCatalog 2.1 catalog");
+  }
+  const current = upgradeSourceCatalogToV22(catalog);
+  validateSourceCatalogGraph(current, {
+    domainPacksRegistry,
+    toolsRegistry,
+    methodSourceIds,
+    now
+  });
+  return current;
 }
 
 export function buildSourceCatalogV2(legacy) {
@@ -443,7 +464,7 @@ async function main() {
   const legacy = JSON.parse(await readFile(path.join(ROOT, CATALOG_PATH), "utf8"));
   const domainPacksRegistry = JSON.parse(await readFile(path.join(ROOT, "registries", "domain-packs.registry.json"), "utf8"));
   const toolsRegistry = JSON.parse(await readFile(path.join(ROOT, "registries", "tools.registry.json"), "utf8"));
-  if (legacy.schemaVersion === "2.1.0") {
+  if (legacy.schemaVersion === "2.2.0") {
     validateSourceCatalogGraph(legacy, {
       domainPacksRegistry,
       toolsRegistry,
@@ -451,19 +472,24 @@ async function main() {
     });
     console.log(JSON.stringify({
       mode: args.mode,
-      status: "already-v2.1",
+      status: "already-v2.2",
       normalized: false,
       sourceCount: legacy.sources.length,
       schemaVersion: legacy.schemaVersion
     }));
     return;
   }
-  const v20Catalog = legacy.schemaVersion === "2.0.0" ? legacy : buildSourceCatalogV2(legacy);
-  const upgraded = upgradeSourceCatalogToV21(v20Catalog, {
+  const migrationOptions = {
     domainPacksRegistry,
     toolsRegistry,
     now: new Date().toISOString()
-  });
+  };
+  const upgraded = legacy.schemaVersion === "2.1.0"
+    ? upgradeSourceCatalogV21ToV22(legacy, migrationOptions)
+    : upgradeSourceCatalogToV21(
+      legacy.schemaVersion === "2.0.0" ? legacy : buildSourceCatalogV2(legacy),
+      migrationOptions
+    );
   const changed = JSON.stringify(upgraded) !== JSON.stringify(legacy);
   if (args.mode === "confirm-write" && changed) {
     const sourceRoot = new ManagedFilesystem({
@@ -475,7 +501,11 @@ async function main() {
   }
   console.log(JSON.stringify({
     mode: args.mode,
-    status: legacy.schemaVersion === "2.0.0" ? "migrated-v2.1" : "migrated-v1-to-v2.1",
+    status: legacy.schemaVersion === "2.1.0"
+      ? "migrated-v2.1-to-v2.2"
+      : legacy.schemaVersion === "2.0.0"
+        ? "migrated-v2.2"
+        : "migrated-v1-to-v2.2",
     normalized: changed,
     sourceCount: upgraded.sources.length,
     schemaVersion: upgraded.schemaVersion
