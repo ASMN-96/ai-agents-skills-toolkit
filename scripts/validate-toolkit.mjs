@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 import { execFile } from "node:child_process";
-import { createHash } from "node:crypto";
 import { access, readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
 import {
   COMPILER_DIGEST_PATHS,
+  deriveCompilerProvenance,
   digestCanonicalCompilerInputs,
   resolveProfileSourcePath
 } from "./ai-toolkit/compiler-provenance.mjs";
@@ -44,21 +45,38 @@ async function canonicalAgentInputFiles(relativeDirectory) {
   return files;
 }
 
-async function canonicalAgentInputDigest() {
+export async function assertCompiledFallbackInputDigest({
+  agent,
+  sourceCapabilityRegistry,
+  inputDigest
+}) {
   const files = (await Promise.all(["agents", "profiles", "methods"].map(canonicalAgentInputFiles))).flat();
   files.push(
     "registries/agents.registry.json",
     "registries/profiles.registry.json",
     "registries/methods.registry.json"
   );
-  const hash = createHash("sha256");
+  const provenance = deriveCompilerProvenance(agent, sourceCapabilityRegistry);
+  const inputs = [];
   for (const file of files.sort()) {
-    hash.update(file);
-    hash.update("\0");
-    hash.update((await readFile(rootPath(file), "utf8")).replace(/\r\n/g, "\n"));
-    hash.update("\0");
+    inputs.push({
+      relativePath: file,
+      text: await readFile(rootPath(file), "utf8")
+    });
   }
-  return `sha256:${hash.digest("hex")}`;
+  inputs.push({
+    relativePath: `compiler-provenance/${agent.name}.json`,
+    text: JSON.stringify({
+      capabilityIds: provenance.capabilityIds,
+      synthesisIds: provenance.synthesisIds,
+      decisionRefs: provenance.decisionRefs
+    })
+  });
+  const expectedInputDigest = digestCanonicalCompilerInputs(inputs);
+  if (inputDigest !== expectedInputDigest) {
+    throw new Error(`input_digest drift; expected ${expectedInputDigest}, got ${inputDigest || "<missing>"}`);
+  }
+  return expectedInputDigest;
 }
 
 async function compilerDigest() {
@@ -799,9 +817,8 @@ async function validateSourceCapabilitySynthesis(parsed, watchlist, registryStat
   }
 }
 
-async function validateAgentsAndCompiledFallbacks(registryState) {
+async function validateAgentsAndCompiledFallbacks(registryState, sourceCapabilityRegistry) {
   note("Approved agent and compiled fallback parity");
-  const expectedInputDigest = await canonicalAgentInputDigest();
   const expectedCompilerDigest = await compilerDigest();
 
   const expectedCompiledPaths = new Set(
@@ -871,8 +888,14 @@ async function validateAgentsAndCompiledFallbacks(registryState) {
     if (!COMMIT_SHA_PATTERN.test(frontmatter.source_commit || "")) {
       fail("compiled agent parity", compiledPath, "source_commit must be a 40-character Git commit SHA");
     }
-    if (frontmatter.input_digest !== expectedInputDigest) {
-      fail("compiled agent parity", compiledPath, `input_digest drift; expected ${expectedInputDigest}, got ${frontmatter.input_digest || "<missing>"}`);
+    try {
+      await assertCompiledFallbackInputDigest({
+        agent,
+        sourceCapabilityRegistry,
+        inputDigest: frontmatter.input_digest
+      });
+    } catch (error) {
+      fail("compiled agent parity", compiledPath, error.message);
     }
     if (frontmatter.input_digest_scope !== "canonical-agent-inputs-v1") {
       fail("compiled agent parity", compiledPath, "input_digest_scope must be canonical-agent-inputs-v1");
@@ -1375,7 +1398,10 @@ async function main() {
   await validateSkills(registryState);
   await validateGovernanceBoundaries(registryState);
   await validateSourcePolicy(watchlist, registryState);
-  await validateAgentsAndCompiledFallbacks(registryState);
+  await validateAgentsAndCompiledFallbacks(
+    registryState,
+    parsed.get("registries/source-capabilities.registry.json")
+  );
   await validateEnterpriseToolMetadata(registryState);
   await validateSourceUtilizationClassification(watchlist, registryState);
   await validateTokenContextGovernance(registryState);
@@ -1406,8 +1432,10 @@ async function main() {
   }
 }
 
-await main().catch((error) => {
-  console.error("FAIL");
-  console.error(`fatal: ${error.message}`);
-  process.exitCode = 1;
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  await main().catch((error) => {
+    console.error("FAIL");
+    console.error(`fatal: ${error.message}`);
+    process.exitCode = 1;
+  });
+}

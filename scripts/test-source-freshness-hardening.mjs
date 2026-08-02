@@ -155,6 +155,10 @@ async function temporaryCanonicalProjectionRoot() {
   const catalog = JSON.parse(await readFile(path.join(root, "sources", "source-watchlist.json"), "utf8"));
   const source = structuredClone(catalog.sources.find((entry) => entry.id === "openai-skills"));
   const firstSource = structuredClone(catalog.sources.find((entry) => entry.id === "superpowers"));
+  const fixtureReviewedAt = new Date(Date.now() - 1_000).toISOString();
+  const fixtureExpiresAt = new Date(Date.parse(fixtureReviewedAt) + (14 * 24 * 60 * 60 * 1_000)).toISOString();
+  const fixtureApprovedAt = new Date(Date.parse(fixtureReviewedAt) + 1).toISOString();
+  const fixtureCheckedAt = new Date().toISOString();
   const receiptFor = (entry) => {
     const reviewedRevision = { kind: "git-sha", value: entry.lastReviewedCommit };
     const contentDigest = `sha256:${entry.id === source.id ? "b".repeat(64) : "a".repeat(64)}`;
@@ -164,15 +168,15 @@ async function temporaryCanonicalProjectionRoot() {
       sourceId: entry.id,
       reviewedRevision,
       contentDigest,
-      reviewedAt: "2026-07-10T00:00:00.000Z",
-      expiresAt: "2026-07-24T00:00:00.000Z",
+      reviewedAt: fixtureReviewedAt,
+      expiresAt: fixtureExpiresAt,
       licenseReview: { classification: "unknown", evidence: [entry.sourceUrl], notes: "Temporary fixture review." },
       securityReview: { status: "restricted", evidence: ["No source operation was executed."], dangerousOperations: ["None executed."], networkBehavior: ["No source network behavior was followed."], secretAccess: ["No credentials were supplied."] },
       promptInjectionReview: { status: "restricted", evidence: ["Source instructions were untrusted."], rejectedInstructions: ["No source instruction was executed."] },
       adoption: { disposition: "SYNCED_REFERENCE", summary: "Temporary metadata-only reference.", cleanRoomOnly: true, runtimePosture: "metadata-only" },
       affectedArtifacts: entry.affectedArtifacts,
       artifactEvidence: { mode: "reference-only-no-copy", noCopy: true, reason: "No upstream content was copied." },
-      approver: { identity: "repository-owner:abdal", approvedAt: "2026-07-10T00:00:01.000Z" },
+      approver: { identity: "repository-owner:abdal", approvedAt: fixtureApprovedAt },
       rollbackTarget: { previousReceipt: null, previousReceiptDigest: null, artifactRevision: "a".repeat(40) }
     };
   };
@@ -184,7 +188,7 @@ async function temporaryCanonicalProjectionRoot() {
     await writeFile(path.join(root, ...receiptPath.split("/")), receiptText, "utf8");
     entry.scope = scope;
     entry.runtimePosture = "metadata-only";
-    entry.monitor = { state: "CURRENT", checkedAt: "2026-07-10T00:00:00.000Z", observedRevision: receipt.reviewedRevision, contentDigest: receipt.contentDigest, failureReason: null };
+    entry.monitor = { state: "CURRENT", checkedAt: fixtureCheckedAt, observedRevision: receipt.reviewedRevision, contentDigest: receipt.contentDigest, failureReason: null };
     entry.review = { state: "REVIEWED_CURRENT", currentReceipt: receiptPath, previousReceipt: null, receiptDigest: sha256(receiptText), previousReceiptDigest: null, reviewedRevision: receipt.reviewedRevision, reviewedDigest: receipt.contentDigest, reviewedAt: receipt.reviewedAt, expiresAt: receipt.expiresAt, disposition: "SYNCED_REFERENCE" };
     return entry;
   };
