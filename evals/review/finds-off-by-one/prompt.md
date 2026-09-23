@@ -1,8 +1,9 @@
 ---
-description: Review request with a small diff inline. The review route should fire and the reply should flag the off-by-one as a required fix. Adapted from addyosmani/agent-skills evals (MIT).
-expected_outcome: A structured review with a verdict, severity-labelled findings, and the off-by-one in pageOrders treated as a required change.
-max_turns: 15
+description: "Paging diff with an exclusive-slice off-by-one (adapted from addyosmani/agent-skills evals, MIT)."
+max_turns: 20
+timeout_seconds: 600
 allowed_tools: [Read, Glob, Grep, Skill, Agent]
+tags: [trigger]
 ---
 
 I want a code review of this diff across correctness, readability, security and performance before merging. It adds paging to the orders endpoint.
