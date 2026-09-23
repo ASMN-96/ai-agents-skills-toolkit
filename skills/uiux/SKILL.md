@@ -1,6 +1,6 @@
 ---
 name: uiux
-description: Use for UI/UX authority, visual polish, responsive behavior, accessibility, design-system consistency, workflow clarity, and browser-visible quality. Do not use for backend-only, security-only, release-only, package/config, external design activation, or frontend implementation by default.
+description: Use for UI/UX review, accessibility, responsive behavior, design-system consistency, workflow clarity, and browser-visible quality.
 ---
 
 # UIUX

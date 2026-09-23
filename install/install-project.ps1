@@ -5,6 +5,7 @@ param(
     [string[]]$Skills = @(),
     [string]$ConfigPath,
     [switch]$ConfirmWrite,
+    [switch]$ExportPlan,
     [switch]$Help
 )
 
@@ -21,6 +22,7 @@ if ($Agents.Count -gt 0) { $arguments += @('--agents', ($Agents -join ',')) }
 if ($Profiles.Count -gt 0) { $arguments += @('--profiles', ($Profiles -join ',')) }
 if ($Skills.Count -gt 0) { $arguments += @('--skills', ($Skills -join ',')) }
 if ($ConfirmWrite) { $arguments += '--confirm-write' }
+if ($ExportPlan) { $arguments += '--export-plan' }
 
 & node @arguments
 exit $LASTEXITCODE

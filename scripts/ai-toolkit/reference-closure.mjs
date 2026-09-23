@@ -15,7 +15,7 @@ export const FORBIDDEN_ACTIVE_SKILL_ALIASES = [
 
 export const SUPPORT_ASSET_TYPES = [
   { prefix: "methods/", type: "method" },
-  { prefix: "templates/tooling/", type: "template" },
+  { prefix: "templates/", type: "template" },
   { prefix: "docs/", type: "support-doc" }
 ];
 
@@ -58,7 +58,7 @@ const SCANNED_EXTENSIONS = new Set([
   ".txt"
 ]);
 
-const REFERENCE_PATTERN = /(?:^|[^\w./-])((?:\.ai-toolkit\/)?(?:(?:\.agents\/skills)|skills|profiles|compiled-agents|agents|registries|methods|templates\/tooling|docs)\/[A-Za-z0-9._~+@% -]+(?:\/[A-Za-z0-9._~+@% -]+)*\.(?:md|json|toml|ya?ml))(?:#[A-Za-z0-9._-]+)?/g;
+const REFERENCE_PATTERN = /(?:^|[^\w./-])((?:\.ai-toolkit\/)?(?:(?:\.agents\/skills)|skills|profiles|compiled-agents|agents|registries|methods|templates|docs)\/[A-Za-z0-9._~+@% -]+(?:\/[A-Za-z0-9._~+@% -]+)*\.(?:md|json|toml|ya?ml))(?:#[A-Za-z0-9._-]+)?/g;
 const HISTORICAL_MARKER_PATTERN = /\b(?:historical|history|legacy|deprecated|removed|migration|archive|not active|former|old alias)\b/i;
 const PROJECT_LOCAL_MARKER_PATTERN = /\b(?:project-local|target project|target repository|project sync|mock sync|rehearsal|would be copied|must not be created|must not be overwritten)\b/i;
 const PROJECT_LOCAL_REFERENCE_PATTERNS = [

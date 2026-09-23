@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { cp, mkdir, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
-import { createHash } from "node:crypto";
 import path from "node:path";
 import process from "node:process";
 import {
@@ -13,6 +12,7 @@ import {
   TOOLKIT_VERSION
 } from "./embedded-data.mjs";
 import { collectReferencedSupportAssets } from "./reference-closure.mjs";
+import { sha256NormalizedText } from "./validation-contracts.mjs";
 
 const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
@@ -85,8 +85,8 @@ async function copyFileTracked(source, target, mirrors, mode = "byte-identical")
 }
 
 async function sha256(relativePath) {
-  const content = await readFile(rootPath(relativePath), "utf8");
-  return createHash("sha256").update(content.replace(/\r\n/g, "\n")).digest("hex");
+  const content = await readFile(rootPath(relativePath));
+  return sha256NormalizedText(content);
 }
 
 function sourceRecordPath(toolId) {
@@ -722,6 +722,8 @@ Run from the repository root:
 - \`node scripts/check-source-freshness.mjs --fail-on-change\`
 - \`node scripts/ai-toolkit/check-source-freshness.mjs --mock\`
 - \`node scripts/ai-toolkit/run-quality-gate.mjs --mode fast-local --dry-run\`
+
+\`run-toolkit-evals.mjs\` runs static registry/contract and routing-policy tests. It does not execute runtime or model-behavior scenarios; those require separate observed evidence.
 `);
   await writeJson(`${AI_ROOT}/source-of-truth-map.json`, {
     schemaVersion: "1.0.0",
@@ -956,6 +958,7 @@ async function writeManifest(mirrors) {
     "scripts/ai-toolkit/validate-codex-runtime.mjs",
     "scripts/ai-toolkit/validate-version-consistency.mjs",
     "scripts/ai-toolkit/run-toolkit-evals.mjs",
+    "scripts/ai-toolkit/validation-contracts.mjs",
     "scripts/ai-toolkit/check-source-freshness.mjs",
     "scripts/ai-toolkit/run-quality-gate.mjs"
   ];

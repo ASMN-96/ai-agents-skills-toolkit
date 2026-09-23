@@ -32,8 +32,8 @@ Do not create `governance-lite`, `router-lite`, or any similar sixth active skil
 1. Confirm branch/source truth when it matters.
 2. Classify affected surfaces: docs, registries, methods, templates, evals, runtime mirrors, source records, tooling metadata, product repos, package/CI/MCP/global config, auth/security/data, or release.
 3. Select the smallest profile, methods, agents, and support tools needed.
-4. Classify GSD status as `not needed`, `lens only`, `selected`, `invoked`, or `blocked-unavailable`; tiny tasks should avoid GSD artifact churn, while serious work must use GSD or an explicit manual phase/state fallback.
-5. Classify Superpowers status as `not needed`, `selected`, `invoked`, or `blocked-unavailable`.
+4. Select GSD or Superpowers only when requested or when its specific workflow materially helps; otherwise proceed directly.
+5. Preserve existing task authorization; skill selection does not require renewed approval.
 6. Route package-manager command recommendations through `methods/repo/package-manager-workspace-migration.md`; detect or owner-confirm the package manager first and do not assume npm.
 7. Classify tool posture: `active-if-detected` for existing project-owned tools, `owner-approved-install` for absent tools, `ci-advisory` for noisy/new CI use, and `ci-blocking-after-calibration` only after stable evidence and owner approval.
 8. Separate selected tools from executed tools.
@@ -45,13 +45,12 @@ Do not create `governance-lite`, `router-lite`, or any similar sixth active skil
 
 - Source freshness fails before source/utilization or release work.
 - The task would add a sixth skill or change active runtime shape.
-- A package, lockfile, CI, MCP/global config, deployment, product repo, database, auth, security, or secret surface appears without explicit approval.
+- A package, lockfile, CI, MCP/global config, deployment, product repo, database, auth, security, or secret surface appears without existing authorization for the specific action.
 - Package-manager signals are missing or conflicting and the task depends on package-manager commands.
 - A missing tool would be installed/configured or a CI blocker would be added without owner approval and calibration.
 - A generated artifact would be hand-edited instead of regenerated through the documented repo workflow.
 - A dry-run, registry entry, source record, template, metadata file, or selected tool would be reported as executed validation.
 - CodeRabbit or another external review status is unavailable and would be reported as passed.
-- Serious multi-step work would continue without GSD or explicit manual GSD-equivalent phase/state tracking.
 
 ## Completion Evidence
 
@@ -59,7 +58,6 @@ Report:
 
 - branch and HEAD;
 - selected profile/methods/agents/tools;
-- GSD and Superpowers status with one-line reasons;
 - files changed;
 - validation commands and observed output;
 - WARN/skipped/unavailable checks;

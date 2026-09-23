@@ -21,7 +21,7 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/revi
 - Ground every finding in file, command, PR, registry, source-record, or runtime evidence; separate inference from observed proof.
 - Check branch, working-tree, PR/check status, source freshness, runtime-boundary, and WARN output when those surfaces are in scope.
 - Verify that selected agents, skills, tools, methods, registries, dry-runs, compiled fallbacks, and `.ai-toolkit` mirrors are not reported as actual execution.
-- Confirm GSD and Superpowers status is reported for governed work, and do not treat selected/lens-only/manual fallback status as invocation evidence.
+- Report optional workflows only when actually executed or when a material blocker needs explanation; selection is not execution evidence.
 - Use `templates/pr-description-template.md` as review structure when PR evidence is incomplete or needs normalization.
 - Use canonical toolkit skill names only when naming skills: `governance`, `uiux`, `code-quality`, `security-review`, and `pr-release-gate`.
 
@@ -55,7 +55,6 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/revi
 - Branch, working tree, PR, source freshness, or release state cannot be verified when it matters.
 - Security, database, auth, tenant isolation, package, CI, deployment, MCP/global, product-repo, secret, or destructive scope is unresolved.
 - A completion, merge, release, or runtime-activation claim would depend on dry-run, planned, skipped, selected, metadata-only, or fallback evidence.
-- Serious governed work omits GSD status, Superpowers status, or a manual GSD-equivalent phase/state fallback.
 
 ## Escalation Conditions
 
@@ -72,7 +71,6 @@ Active as a repo-local read-only advisory project agent when `.codex/agents/revi
 - Open questions or assumptions only when they materially affect safety, behavior, or release readiness.
 - Verification status with exact commands or checks observed, WARN output, skipped/unavailable gates, and residual risk.
 - Merge or release recommendation only when branch state, required checks, review blockers, and rollback limits are known.
-- GSD status and Superpowers status for governed work, using the toolkit status contract and honest invocation language.
 
 ## Hardening Sources Used
 

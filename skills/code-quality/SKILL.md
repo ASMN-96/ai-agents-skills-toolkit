@@ -1,6 +1,6 @@
 ---
 name: code-quality
-description: Use for React, TypeScript, hooks, tests, build quality, maintainability, AI-generated code risk, and safe quality-gate routing. Do not use to add dependencies, change package managers, reformat broadly, duplicate Superpowers, or rewrite architecture for scanner output.
+description: Use for React and TypeScript correctness, hooks, tests, maintainability, build quality, and focused quality-gate routing.
 ---
 
 # Code Quality

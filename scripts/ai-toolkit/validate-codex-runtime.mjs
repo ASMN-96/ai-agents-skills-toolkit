@@ -119,8 +119,11 @@ async function validateActiveSkills() {
     if (!description) {
       fail(runtimePath, "missing frontmatter description");
     }
-    if (!/do not|unless|without|only/i.test(description)) {
-      fail(runtimePath, "description must include negative boundaries");
+    if (description.length > 220) {
+      fail(runtimePath, "description must stay within 220 characters for reliable skill routing");
+    }
+    if (!/^Use for\b/.test(description)) {
+      fail(runtimePath, "description must start with a clear 'Use for' routing trigger");
     }
     scanUnsafe(runtimePath, runtime);
   }
@@ -168,9 +171,26 @@ async function validateProjectAgents() {
   }
 }
 
+async function validateOrchestrationPolicy() {
+  const policy = await readFile(rootPath("AGENTS.md"), "utf8").catch(() => "");
+  const normalizedPolicy = policy.toLowerCase();
+  for (const required of [
+    "parent owns architecture",
+    "relevant requirement paths",
+    "exclusive ownership",
+    "repeated unchanged polling",
+    "experimental context management must remain opt-in"
+  ]) {
+    if (!normalizedPolicy.includes(required)) {
+      fail("AGENTS.md", `missing orchestration contract: ${required}`);
+    }
+  }
+}
+
 async function main() {
   await validateActiveSkills();
   await validateProjectAgents();
+  await validateOrchestrationPolicy();
 
   if (failures.length === 0) {
     console.log(`PASS validate-codex-runtime`);

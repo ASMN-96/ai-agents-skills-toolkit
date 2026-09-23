@@ -65,7 +65,6 @@ Every evaluation report should include:
 
 - Source identity.
 - Source type.
-- GSD status or manual GSD-equivalent fallback for serious multi-source adoption or refresh programs.
 - License finding.
 - Trust and maintenance assessment.
 - Safety findings.

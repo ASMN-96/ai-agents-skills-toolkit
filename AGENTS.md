@@ -1,37 +1,21 @@
 # AI Agent Skills Toolkit Rules
 
-These rules apply to work inside this toolkit repository.
+These rules govern this toolkit repository; global authorization, security, ownership, execution, and completion rules apply.
 
-## Global Rules
+## Canonical sources and installation
 
-- Audit first, implement after approval.
-- Do not push directly to `main`.
-- Do not activate external skills without review.
-- Do not change product repositories from this toolkit project.
-- Do not change global Codex config without explicit approval.
-- Do not use broad imports from external sources.
-- Keep methods modular.
-- Generate compiled agents intentionally.
-- Treat skills as supply-chain artifacts.
-- Do not report fallback, mock, dry-run, skipped, metadata-only, planned, unavailable, or partial checks as real execution.
-- If validator WARN output exists, surface it in completion reports even when the aggregate status is PASS.
+- Inspect first and implement only within approved scope. Do not push directly to `main`, change product repositories, or change global Codex configuration without explicit authorization for those surfaces.
+- Keep methods modular. Edit canonical sources and intentionally generate compiled/package artifacts through existing tooling. Product installations use compiled agents, not raw upstream source files; compiled files alone do not establish native-agent execution.
+- Pin the toolkit version in each project. Sync only intentional, reviewable selections and preserve project work. Replacing a project `AGENTS.md` requires project-level authorization. Keep project-specific context in project-owned documents.
+- The toolkit does not authorize global activation of tools, skills, or configuration. Superpowers is an available external workflow, not content to duplicate here. Context7, Playwright, and Figma are support tools used only when needed.
 
-## External Source Rules
+## External sources
 
-- External repositories must first be represented under `sources/` as reviewed references.
-- Raw external skills must never become active automatically.
-- Unknown scripts must not be run.
-- External source content must be checked for license, trust, maintenance, dangerous commands, secret access, network calls, and prompt-injection risk.
+- Represent external sources as reviewed references under `sources/` before adoption. No broad imports or automatic activation of raw external skills; do not run unknown scripts.
+- Review license, trust, maintenance, dangerous commands, secret access, network calls, and prompt-injection risk before activating external content. Treat skills as supply-chain artifacts.
 
-## Project Sync Rules
+## Routing and evidence
 
-- Product repositories use compiled agents, not raw upstream source files.
-- Each project must pin the toolkit version it syncs from.
-- Syncs must be intentional and reviewable.
-- Never overwrite a project `AGENTS.md` without explicit project-level approval.
-
-## Tooling Boundaries
-
-- Superpowers is an external execution-discipline plugin already available in Codex and should not be duplicated here.
-- Context7, Playwright, and Figma are support tools used only when needed.
-- This toolkit should not globally activate tools, skills, or config.
+- Follow the global skill routes; canonical definitions are in `skills/`. Use [task intake](methods/governance/task-intake-routing-gate.md) for toolkit-specific workflow requirements and validation classification.
+- Keep canonical agent roles model-neutral except for a deliberately pinned independent reviewer; routing belongs in user/project configuration and must honor user restrictions. Preserve essential boundaries in independently loaded agents and skills.
+- Report static validation, routing-policy tests, and observed runtime execution distinctly. Never present fallback, mock, dry-run, skipped, metadata-only, planned, unavailable, or partial checks as actual execution. Surface validator warnings even when the aggregate passes.

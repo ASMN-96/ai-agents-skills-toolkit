@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "provenance": {
+    "sourceArtifact": "codex-rollout-recovery-rehearsal.json",
+    "sourceSha256": "07f9178ab730e71fc52568fff2c58c69e9cdefb54ed13477064c88fbffd116e7",
+    "sourceGeneratedAtUtc": "2026-09-09T12:11:01.2013252Z",
+    "existingRecordCount": 33,
+    "uniqueDestinationCount": 24,
+    "createdRecordCount": 3
+  },
+  "existingRecords": [
+    { "plan": "reconcile-plan.json", "destinationId": "destination-01", "expectedBeforeSha256": "9860299787f20cee618b725655a74f4584567c09011787973cde4f5056cefaf7" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-02", "expectedBeforeSha256": "1c881d3c41468f2821e4b3e344f6baa76ee0807078e113733cfbc4f7e011821e" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-03", "expectedBeforeSha256": "c294365a43bfbc987ab0ccc98136cb597479bc13d71f0a7df719e9115b7b5332" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-04", "expectedBeforeSha256": "58133f5cb1e80f6ae82a2917c99faeb785a3c9c1fc1c0ea4a6daec4efeb160bd" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-05", "expectedBeforeSha256": "01bd5cdb6f1439dfc14461206fc252fe5fbec9736cc8c0ab3bd80714d4d7e096" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-06", "expectedBeforeSha256": "ce0ae13975610ec653d1ce6d06d2baac7553022cea65b8e0437ddcb8767dd317" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-07", "expectedBeforeSha256": "5e319b6b5425fb25ea111b59c322ad6298de092be9d08f43c986ba5868323bf4" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-08", "expectedBeforeSha256": "5e319b6b5425fb25ea111b59c322ad6298de092be9d08f43c986ba5868323bf4" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-09", "expectedBeforeSha256": "593bd52e3cc1f5b1097a341473b4c46031c88319da1823b45a6cc1b810f54108" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-10", "expectedBeforeSha256": "593bd52e3cc1f5b1097a341473b4c46031c88319da1823b45a6cc1b810f54108" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-11", "expectedBeforeSha256": "6bf802ca7848a480c43ea22ea57a532a00ce8424bc7f10366d1be509c4613d23" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-12", "expectedBeforeSha256": "6bf802ca7848a480c43ea22ea57a532a00ce8424bc7f10366d1be509c4613d23" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-13", "expectedBeforeSha256": "976829b5965f72897e686c546595730946aca435bbfa774597c98d2df3d1a74f" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-14", "expectedBeforeSha256": "976829b5965f72897e686c546595730946aca435bbfa774597c98d2df3d1a74f" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-15", "expectedBeforeSha256": "32a494ce84cbed39ed632f544d6e877535034297367c472e91a2ae601434cf03" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-16", "expectedBeforeSha256": "32a494ce84cbed39ed632f544d6e877535034297367c472e91a2ae601434cf03" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-17", "expectedBeforeSha256": "1c881d3c41468f2821e4b3e344f6baa76ee0807078e113733cfbc4f7e011821e" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-18", "expectedBeforeSha256": "6e0ee5a148051f01faa5c2b0a4ae247ccdad4efb3821d99e17f63a1ed0b24b25" },
+    { "plan": "reconcile-plan.json", "destinationId": "destination-19", "expectedBeforeSha256": "80fd0b108153d63a0b9b9693359df0afdbc9a8cb2c473bbd06ea1f7f6044b97f" },
+    { "plan": "reconcile-plan-2.json", "destinationId": "destination-20", "expectedBeforeSha256": "58133f5cb1e80f6ae82a2917c99faeb785a3c9c1fc1c0ea4a6daec4efeb160bd" },
+    { "plan": "reconcile-plan-2.json", "destinationId": "destination-21", "expectedBeforeSha256": "391b7c9b7ab1ef574190a8aa4763f6386cd4d6654fc646997b7e0d2b32920c59" },
+    { "plan": "reconcile-plan-2.json", "destinationId": "destination-18", "expectedBeforeSha256": "d13eeb2779a3c2a5e737d6acfccb8007784937429583134445550cb9f6dd274e" },
+    { "plan": "reconcile-plan-2.json", "destinationId": "destination-19", "expectedBeforeSha256": "c5c6521c8afc67f453572888cdb79eb134468a939f56e7f1069b64765b2d0549" },
+    { "plan": "reconcile-plan-3.json", "destinationId": "destination-22", "expectedBeforeSha256": "4f2777a5fe826043cf753cc9187e670e6aaff4120566f05de32bee88db1448f3" },
+    { "plan": "reconcile-plan-3.json", "destinationId": "destination-23", "expectedBeforeSha256": "4f2777a5fe826043cf753cc9187e670e6aaff4120566f05de32bee88db1448f3" },
+    { "plan": "reconcile-plan-3.json", "destinationId": "destination-24", "expectedBeforeSha256": "9fa0419f12bb35a729fd567a77d60209813063a9cfab2d4355663c7d6766fefe" },
+    { "plan": "reconcile-plan-4.json", "destinationId": "destination-05", "expectedBeforeSha256": "df17e790b0adc7afb9b557958dc661ac5fd46587cce2fa2249943e1bb7354327" },
+    { "plan": "reconcile-plan-4.json", "destinationId": "destination-01", "expectedBeforeSha256": "099705b78a85149f9ae5ed23a66d46fc09f4a91fc62bec7fdbb76bfd2f3e1af8" },
+    { "plan": "reconcile-plan-4.json", "destinationId": "destination-06", "expectedBeforeSha256": "b996a5ef7b04bde5f20eb20969f16cdc62a0b9830532e68845bf78179d63ce82" },
+    { "plan": "reconcile-plan-5.json", "destinationId": "destination-21", "expectedBeforeSha256": "f2c3eace7abbaa0d572846c04aa5a5d4c83d548ff2cd0ccfb777e1e8eeb9eb24" },
+    { "plan": "reconcile-plan-5.json", "destinationId": "destination-18", "expectedBeforeSha256": "e8c6fb3f7b01e6851b6c91b38fa5aa2f76c40f88a60700a1913a9c5026fa87ee" },
+    { "plan": "reconcile-plan-6.json", "destinationId": "destination-07", "expectedBeforeSha256": "14b995009a2d08a918b2c5570035e0afa0d1f62d8cbfcf197c236dbafaa406fc" },
+    { "plan": "reconcile-plan-6.json", "destinationId": "destination-13", "expectedBeforeSha256": "597b1ba73cd6e76f6813312728b320f4e7a256069b1ebf76ae3b1b1e9fca8e62" }
+  ],
+  "createdRecords": [
+    { "templateId": "template-01", "sha256": "693ff0988655bf0f7d6f9fbe55eceaab3597c18702d42965a806b3e480765f45" },
+    { "templateId": "template-02", "sha256": "2cb0585d644e8afe09c552b39583c54fa559d3c0023a8d970f24711ca7e55d1a" },
+    { "templateId": "template-03", "sha256": "fc91cd1a9e90cd0e95f359f854d0690721ee9f23a197cbee6cc144db2e53ad2c" }
+  ]
+}

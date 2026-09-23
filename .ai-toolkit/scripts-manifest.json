@@ -4,7 +4,7 @@
   "scripts": [
     {
       "path": "scripts/validate-toolkit.mjs",
-      "sha256": "9e713dddb4a95e6cf861421b5192e1506bdea9ae8ccb4f3f7bb4bcd6d2ebf44a"
+      "sha256": "0d562e85cbb7db119068a7b46ceffa91ec7a7da128dd4a74604729980f3f76e0"
     },
     {
       "path": "scripts/scan-public-private-leaks.mjs",
@@ -32,15 +32,15 @@
     },
     {
       "path": "scripts/ai-toolkit/build-embedded-package.mjs",
-      "sha256": "cf90c428e0a11fa13d8c36e61214f052829002c23e18f21ade3e29870e0681d6"
+      "sha256": "13a48f068377c2fd38b4ed9b5d942889613fa07f9e5648cdded5114f1817c80d"
     },
     {
       "path": "scripts/ai-toolkit/reference-closure.mjs",
-      "sha256": "5133b8cdb63631965236213134f48de6af8232faf410aa5cf901be79624c199c"
+      "sha256": "cae9cd35f8b96e6f25d32ab7af9790314a04674c82730550c0afc1eb701eadec"
     },
     {
       "path": "scripts/ai-toolkit/validate-ai-toolkit.mjs",
-      "sha256": "9f62a2c03eecbbd5e98f17529bffe41c1a0285050c9a3d346ff0ccee736af185"
+      "sha256": "abe89bb0c668642b7d4dde63b384c39cb43935c053b1f19252e762800bda69ed"
     },
     {
       "path": "scripts/ai-toolkit/validate-reference-closure.mjs",
@@ -48,7 +48,7 @@
     },
     {
       "path": "scripts/ai-toolkit/validate-codex-runtime.mjs",
-      "sha256": "6aeab52f7a0f54aa26532ac8f208dad2181b5c4eaed30271e2b6f6735646cf0f"
+      "sha256": "b594303949ac91d5cf1f879393838fd0cbb8b8ae696d53a05e8e45a3ed2d5bd7"
     },
     {
       "path": "scripts/ai-toolkit/validate-version-consistency.mjs",
@@ -56,7 +56,11 @@
     },
     {
       "path": "scripts/ai-toolkit/run-toolkit-evals.mjs",
-      "sha256": "39c2093b2135a7f8d88a5f54bdf28bf81842ae6accb5da939f41438754f98816"
+      "sha256": "fa0d81464283e494996640c61c236367323e99bca84a12e713f72940687809a3"
+    },
+    {
+      "path": "scripts/ai-toolkit/validation-contracts.mjs",
+      "sha256": "6445a6397565f74af3a817123d5df8883d7a5c9ddc0ccf73fc2b859c81a81928"
     },
     {
       "path": "scripts/ai-toolkit/check-source-freshness.mjs",

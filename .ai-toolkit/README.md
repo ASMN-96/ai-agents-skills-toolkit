@@ -50,3 +50,5 @@ Run from the repository root:
 - `node scripts/check-source-freshness.mjs --fail-on-change`
 - `node scripts/ai-toolkit/check-source-freshness.mjs --mock`
 - `node scripts/ai-toolkit/run-quality-gate.mjs --mode fast-local --dry-run`
+
+`run-toolkit-evals.mjs` runs static registry/contract and routing-policy tests. It does not execute runtime or model-behavior scenarios; those require separate observed evidence.

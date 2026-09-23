@@ -31,7 +31,7 @@
       ]
     },
     {
-      "id": "tiny-governance-task-gsd-lightweight",
+      "id": "tiny-governance-task-optional-workflow",
       "input": "Use governance, but only fix this typo in one docs paragraph.",
       "scenario": "small-low-risk-typo-doc-change",
       "expectedProfile": "implementation-profile",
@@ -45,8 +45,8 @@
         "internal.simplicity-surgical-change-discipline",
         "internal.documentation-accuracy-guard"
       ],
-      "requiredValidationGateContains": [
-        "GSD and Superpowers status"
+      "requiredEvidenceRequirementIds": [
+        "evidence.workflow-outcome-recorded"
       ],
       "forbiddenSkills": [
         "security-review",
@@ -59,7 +59,7 @@
       ]
     },
     {
-      "id": "medium-governance-task-status-contract",
+      "id": "medium-governance-task-evidence-contract",
       "input": "Use governance to route this implementation safely, but keep it lightweight unless risk appears.",
       "scenario": "task-intake-routing-gate",
       "expectedProfile": "planning-profile",
@@ -74,8 +74,9 @@
       "expectedMethods": [
         "governance.task-intake-routing-gate"
       ],
-      "requiredValidationGateContains": [
-        "GSD and Superpowers status"
+      "requiredEvidenceRequirementIds": [
+        "evidence.observed-validation-output",
+        "evidence.selected-vs-executed-tools"
       ],
       "forbiddenClaims": [
         "validation-passed-without-output",
@@ -84,7 +85,7 @@
       ]
     },
     {
-      "id": "serious-governance-task-requires-gsd-or-fallback",
+      "id": "serious-governance-task-requires-scope-and-evidence",
       "input": "Use governance to plan and implement this cross-surface release safely, with validation and PR readiness.",
       "scenario": "large-governed-implementation",
       "expectedProfile": "fullstack-profile",
@@ -109,22 +110,21 @@
         "reliability.coding-time-production-readiness",
         "release.release-rollback-readiness"
       ],
-      "requiredStopConditionContains": [
-        "GSD",
-        "manual phase/state fallback"
+      "requiredAuthorizationBoundaryIds": [
+        "authorization.scope-acceptance-evidence-required"
       ],
-      "requiredValidationGateContains": [
-        "GSD phase/state",
-        "Superpowers workflow/status"
+      "requiredEvidenceRequirementIds": [
+        "evidence.scope-acceptance-recorded",
+        "evidence.final-validation-before-release"
       ],
       "forbiddenClaims": [
-        "serious-work-continued-without-gsd-or-fallback",
         "validation-passed-without-output",
-        "draft-pr-ready-without-final-validation"
+        "draft-pr-ready-without-final-validation",
+        "missing-scope-or-acceptance-evidence"
       ]
     },
     {
-      "id": "gsd-unavailable-manual-fallback",
+      "id": "gsd-unavailable-authorized-continuation",
       "input": "Use governance for a serious task, but GSD is unavailable in this runtime.",
       "scenario": "large-governed-implementation",
       "expectedProfile": "fullstack-profile",
@@ -138,16 +138,17 @@
         "governance.task-intake-routing-gate",
         "reliability.coding-time-production-readiness"
       ],
-      "requiredStopConditionContains": [
-        "manual phase/state fallback"
+      "requiredAuthorizationBoundaryIds": [
+        "authorization.scope-acceptance-evidence-required"
       ],
-      "requiredValidationGateContains": [
-        "manual fallback recorded"
+      "requiredEvidenceRequirementIds": [
+        "evidence.scope-acceptance-recorded",
+        "evidence.final-validation-before-release"
       ],
       "forbiddenClaims": [
         "gsd-invoked-when-unavailable",
-        "serious-work-continued-without-gsd-or-fallback",
-        "validation-passed-without-output"
+        "validation-passed-without-output",
+        "work-stopped-solely-because-gsd-is-unavailable"
       ]
     },
     {
@@ -274,9 +275,9 @@
         "governance.agent-command-safety",
         "release.release-rollback-readiness"
       ],
-      "requiredStopConditionContains": [
-        "Owner approval",
-        "Package-manager signals"
+      "requiredAuthorizationBoundaryIds": [
+        "authorization.package-manager-owner-approval",
+        "authorization.package-manager-signal-resolution"
       ],
       "forbiddenClaims": [
         "package-lock-or-ci-change-approved-by-routing"
@@ -299,8 +300,8 @@
         "governance.agent-command-safety",
         "governance.task-intake-routing-gate"
       ],
-      "requiredValidationGateContains": [
-        "selected vs executed tools"
+      "requiredEvidenceRequirementIds": [
+        "evidence.selected-vs-executed-tools"
       ],
       "forbiddenClaims": [
         "selected-tools-executed",
@@ -350,10 +351,10 @@
         "internal.source-safety-scoring",
         "internal.documentation-accuracy-guard"
       ],
-      "requiredValidationGateContains": [
-        "No-duplication adoption gate",
-        "No install",
-        "GSD and Superpowers status"
+      "requiredEvidenceRequirementIds": [
+        "evidence.no-duplication-source-adoption",
+        "evidence.external-source-no-activation",
+        "evidence.workflow-outcome-recorded"
       ],
       "forbiddenClaims": [
         "raw-upstream-skill-imported",

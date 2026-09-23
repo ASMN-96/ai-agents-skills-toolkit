@@ -11,6 +11,7 @@ import {
   UNSAFE_COMMAND_PATTERNS
 } from "./embedded-data.mjs";
 import { collectReferenceClosureFailures } from "./reference-closure.mjs";
+import { collectMirrorRecordFailures } from "./validation-contracts.mjs";
 
 const ROOT = process.cwd();
 const AI_ROOT = ".ai-toolkit";
@@ -238,16 +239,15 @@ async function validateManifest() {
       fail(`${AI_ROOT}/manifest.json`, `mirror target missing: ${mirror.target}`);
       continue;
     }
-    const actualHash = await sha256(mirror.target);
-    if (mirror.sha256 !== actualHash) {
-      fail(mirror.target, "manifest target hash drift");
-    }
-    if (mirror.mode === "byte-identical") {
-      const sourceText = await readFile(rootPath(mirror.source), "utf8");
-      const targetText = await readFile(rootPath(mirror.target), "utf8");
-      if (sourceText !== targetText) {
-        fail(mirror.target, `byte-identical mirror drifts from ${mirror.source}`);
-      }
+    const sourceContent = await readFile(rootPath(mirror.source));
+    const targetContent = await readFile(rootPath(mirror.target));
+    for (const message of collectMirrorRecordFailures({
+      mode: mirror.mode,
+      sourceContent,
+      targetContent,
+      manifestSha256: mirror.sha256
+    })) {
+      fail(mirror.target, `${message}; source: ${mirror.source}`);
     }
   }
   const generatedArtifacts = manifest.generatedArtifacts || [];

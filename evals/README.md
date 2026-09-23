@@ -1,6 +1,6 @@
 # Toolkit Eval Contract
 
-Eval files are governance artifacts. They do not execute tools, activate skills, prove runtime visibility, or approve release readiness by themselves.
+Eval files are governance artifacts. `scripts/ai-toolkit/run-toolkit-evals.mjs` runs static registry/contract and routing-policy tests only. It does not execute tools, activate skills, exercise runtime or model behavior, prove runtime visibility, or approve release readiness by itself. Runtime and model-behavior scenarios require separate observed evidence.
 
 ## Required Case Fields
 

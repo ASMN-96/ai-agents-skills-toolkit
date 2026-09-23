@@ -79,6 +79,20 @@ bash install/update-project.sh --target /path/to/project
 
 The updater dry-run lists files as `MissingTarget`, `Update`, or `Unchanged`. It reports unmanaged files but does not delete them in the current v1 workflow.
 
+For machine-readable review or a controlled update of a dirty target, export the resolved plan without writing target files:
+
+```powershell
+pwsh -NoProfile -File install/update-project.ps1 -TargetPath 'C:\path with spaces\project' -ExportPlan > update-plan.json
+```
+
+```bash
+bash install/update-project.sh --target '/path with spaces/project' --export-plan > update-plan.json
+```
+
+The deterministic JSON records each selected and transitively referenced asset's type, name, source path and SHA-256, destination path, and current destination SHA-256 or `absent` state. It also contains generated project-map, config, version, and manifest candidates. Export mode cannot be combined with confirm-write. Normal confirm-write keeps the clean, upstream-aligned feature-branch requirements described above.
+
+Export mode sets `GIT_OPTIONAL_LOCKS=0` within the exporter process so its Git inspection cannot refresh the target index. If project-map safety validation rejects content, the command fails before serializing any candidate and emits only a sanitized issue count.
+
 To write selected updates:
 
 ```powershell

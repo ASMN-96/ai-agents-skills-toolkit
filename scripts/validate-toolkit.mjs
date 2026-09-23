@@ -1255,6 +1255,7 @@ async function validateForbiddenArtifacts() {
 async function runAiToolkitSubvalidators() {
   note("Embedded AI Toolkit validators");
   const validators = [
+    "scripts/test-ai-toolkit-validation-contracts.mjs",
     "scripts/validate-project-tooling-profiles.mjs",
     "scripts/ai-toolkit/validate-ai-toolkit.mjs",
     "scripts/ai-toolkit/validate-reference-closure.mjs",

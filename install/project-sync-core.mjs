@@ -40,14 +40,16 @@ Usage:
   bash install/install-project.sh --target <repo> --agents reviewer-agent --profiles audit-profile --skills governance
   bash install/install-project.sh --target <repo> --config templates/.ai-toolkit.config.example.json
 
-Default behavior is dry-run. Add --confirm-write to copy selected files under the target .ai-toolkit/ directory.`,
+Default behavior is dry-run. Add --confirm-write to copy selected files under the target .ai-toolkit/ directory.
+Add --export-plan to emit the resolved non-writing plan as JSON.`,
     update: `AI Agent Skills Toolkit project updater
 
 Usage:
   bash install/update-project.sh --target <repo>
   bash install/update-project.sh --target <repo> --config <config.json>
 
-Default behavior is dry-run. Add --confirm-write to update selected files under the target .ai-toolkit/ directory.`,
+Default behavior is dry-run. Add --confirm-write to update selected files under the target .ai-toolkit/ directory.
+Add --export-plan to emit the resolved non-writing plan as JSON, including generated manifest candidates.`,
     validate: `AI Agent Skills Toolkit project install validator
 
 Usage:
@@ -80,6 +82,7 @@ function parseArgs(argv) {
     profiles: [],
     skills: [],
     confirmWrite: false,
+    exportPlan: false,
     help: false
   };
 
@@ -93,6 +96,7 @@ function parseArgs(argv) {
 
     if (arg === "--help" || arg === "-h") options.help = true;
     else if (arg === "--confirm-write") options.confirmWrite = true;
+    else if (arg === "--export-plan") options.exportPlan = true;
     else if (arg === "--target" || arg === "--target-path") options.targetPath = readValue(arg);
     else if (arg === "--config" || arg === "--config-path") options.configPath = readValue(arg);
     else if (arg === "--agents") appendValues(options.agents, readValue(arg));
@@ -106,6 +110,10 @@ function parseArgs(argv) {
     else if (arg.startsWith("--profiles=")) appendValues(options.profiles, arg.slice("--profiles=".length));
     else if (arg.startsWith("--skills=")) appendValues(options.skills, arg.slice("--skills=".length));
     else fail(`Unknown option: ${arg}`);
+  }
+
+  if (options.confirmWrite && options.exportPlan) {
+    fail("--export-plan cannot be combined with --confirm-write. Export mode never writes target files.");
   }
 
   return options;
@@ -137,6 +145,14 @@ function normalizeRelative(filePath) {
 
 function sha256(filePath) {
   return createHash("sha256").update(readFileSync(filePath)).digest("hex");
+}
+
+function sha256Text(value) {
+  return createHash("sha256").update(value, "utf8").digest("hex");
+}
+
+function jsonText(value) {
+  return `${JSON.stringify(value, null, 2)}\n`;
 }
 
 function gitOutput(cwd, args) {
@@ -347,6 +363,157 @@ function buildCopyPlan({ targetRoot, selectedAgents, selectedProfiles, selectedS
   return plan;
 }
 
+function destinationPreimage(destinationPath) {
+  if (!existsSync(destinationPath)) {
+    return { destinationState: "absent", destinationBeforeSha256: null };
+  }
+  const stat = statSync(destinationPath);
+  if (!stat.isFile()) fail(`Planned destination is not a regular file: ${destinationPath}`);
+  return { destinationState: "present", destinationBeforeSha256: sha256(destinationPath) };
+}
+
+function buildWrittenConfig({ config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit }) {
+  return {
+    toolkitVersion: TOOLKIT_VERSION,
+    toolkitCommit,
+    selectedAgents: selectedAgents.map(normalizeAgentName),
+    selectedProfiles: selectedProfiles.map(normalizeProfileName),
+    selectedSkills: selectedSkills.map(normalizeSkillName),
+    projectContextPath: String(getJsonProperty(config, "projectContextPath", "docs/ai/PROJECT_CONTEXT.md")),
+    approvalMode: String(getJsonProperty(config, "approvalMode", "manual")),
+    branchPolicy: String(getJsonProperty(config, "branchPolicy", "no-direct-main")),
+    allowOverwriteProjectContext: false
+  };
+}
+
+function buildVersionRecord({ writtenConfig, toolkitCommit, updated, timestamp = null }) {
+  const record = {
+    toolkitVersion: TOOLKIT_VERSION,
+    toolkitCommit
+  };
+  if (timestamp) record[updated ? "updatedAtUtc" : "installedAtUtc"] = timestamp;
+  record.selectedAgents = writtenConfig.selectedAgents;
+  record.selectedProfiles = writtenConfig.selectedProfiles;
+  record.selectedSkills = writtenConfig.selectedSkills;
+  return record;
+}
+
+function generatedCandidate(destinationPath, content) {
+  const serialized = jsonText(content);
+  const preimage = destinationPreimage(destinationPath);
+  return {
+    operation: preimage.destinationState === "present" ? "replace" : "create",
+    sourcePath: null,
+    sourceKind: "generated-json",
+    sourceSha256: sha256Text(serialized),
+    destinationPath: path.resolve(destinationPath),
+    ...preimage,
+    serialization: "json-pretty-2-lf-final-newline",
+    content
+  };
+}
+
+function exportCopyPlan({
+  command,
+  targetRoot,
+  branchPolicy,
+  selectedAgents,
+  selectedProfiles,
+  selectedSkills,
+  toolkitCommit,
+  plan,
+  projectMap,
+  projectMapIssues,
+  config,
+  unmanaged = []
+}) {
+  const aiRoot = path.join(targetRoot, ".ai-toolkit");
+  const exportedAssets = plan
+    .map((item) => {
+      const preimage = destinationPreimage(item.destination);
+      return {
+        operation: preimage.destinationState === "present" ? "replace" : "create",
+        type: item.type,
+        name: item.name,
+        relativePath: normalizeRelative(item.relativePath),
+        action: item.action,
+        sourcePath: path.resolve(item.source),
+        sourceSha256: sha256(item.source),
+        destinationPath: path.resolve(item.destination),
+        ...preimage
+      };
+    })
+    .sort((left, right) => left.relativePath.localeCompare(right.relativePath));
+
+  const deterministicProjectMap = { ...projectMap };
+  delete deterministicProjectMap.generatedAtUtc;
+  const projectMapCandidate = generatedCandidate(projectMapOutputPath(targetRoot), deterministicProjectMap);
+  const writtenConfig = buildWrittenConfig({ config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit });
+  const configCandidate = generatedCandidate(path.join(aiRoot, ".ai-toolkit.config.json"), writtenConfig);
+  const versionRecord = buildVersionRecord({
+    writtenConfig,
+    toolkitCommit,
+    updated: command === "update"
+  });
+  const versionCandidate = generatedCandidate(path.join(aiRoot, ".ai-toolkit-version"), versionRecord);
+  const manifest = {
+    schemaVersion: "1.0.0",
+    toolkitVersion: TOOLKIT_VERSION,
+    toolkitCommit,
+    assets: [
+      ...exportedAssets.map((asset) => ({
+        type: asset.type,
+        name: asset.name,
+        path: asset.relativePath,
+        sha256: asset.sourceSha256
+      })),
+      {
+        type: "context-map",
+        name: PROJECT_MAP_ASSET_NAME,
+        path: PROJECT_MAP_MANIFEST_PATH,
+        sha256: projectMapCandidate.sourceSha256
+      }
+    ].sort((left, right) => left.path.localeCompare(right.path))
+  };
+  const manifestCandidate = generatedCandidate(path.join(aiRoot, ".ai-toolkit-manifest.json"), manifest);
+  const gitSafety = targetGitSafety(targetRoot, branchPolicy, false);
+
+  const output = {
+    schemaVersion: "1.0.0",
+    exportType: "project-sync-copy-plan",
+    command,
+    mode: "export-plan",
+    writesTargetFiles: false,
+    toolkitVersion: TOOLKIT_VERSION,
+    toolkitCommit,
+    targetPath: path.resolve(targetRoot),
+    branchPolicy,
+    gitSafety,
+    selected: {
+      agents: writtenConfig.selectedAgents,
+      profiles: writtenConfig.selectedProfiles,
+      skills: writtenConfig.selectedSkills
+    },
+    assets: exportedAssets,
+    generatedCandidates: {
+      projectMap: projectMapCandidate,
+      config: configCandidate,
+      version: versionCandidate,
+      manifest: manifestCandidate
+    },
+    projectMapIssues: projectMapIssues.slice().sort((left, right) => left.localeCompare(right)),
+    unmanagedPaths: unmanaged.map((item) => path.resolve(item)).sort((left, right) => left.localeCompare(right))
+  };
+
+  process.stdout.write(jsonText(output));
+}
+
+function assertExportProjectMapSafe(projectMapIssues) {
+  if (projectMapIssues.length === 0) return;
+  const count = projectMapIssues.length;
+  fail(`Export refused: project context preflight safety checks failed (${count} ${count === 1 ? "issue" : "issues"}).`);
+}
+
 function printCopyPlan(plan) {
   const sections = [
     ["compiled-agent", "Planned copied agents"],
@@ -423,26 +590,13 @@ function toolkitManifest(plan, toolkitCommit, extraAssets = []) {
 }
 
 function writeInstallRecords({ aiRoot, config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit, updated }) {
-  const writtenConfig = {
-    toolkitVersion: TOOLKIT_VERSION,
+  const writtenConfig = buildWrittenConfig({ config, selectedAgents, selectedProfiles, selectedSkills, toolkitCommit });
+  const versionRecord = buildVersionRecord({
+    writtenConfig,
     toolkitCommit,
-    selectedAgents: selectedAgents.map(normalizeAgentName),
-    selectedProfiles: selectedProfiles.map(normalizeProfileName),
-    selectedSkills: selectedSkills.map(normalizeSkillName),
-    projectContextPath: String(getJsonProperty(config, "projectContextPath", "docs/ai/PROJECT_CONTEXT.md")),
-    approvalMode: String(getJsonProperty(config, "approvalMode", "manual")),
-    branchPolicy: String(getJsonProperty(config, "branchPolicy", "no-direct-main")),
-    allowOverwriteProjectContext: false
-  };
-
-  const versionRecord = {
-    toolkitVersion: TOOLKIT_VERSION,
-    toolkitCommit,
-    [updated ? "updatedAtUtc" : "installedAtUtc"]: new Date().toISOString(),
-    selectedAgents: writtenConfig.selectedAgents,
-    selectedProfiles: writtenConfig.selectedProfiles,
-    selectedSkills: writtenConfig.selectedSkills
-  };
+    updated,
+    timestamp: new Date().toISOString()
+  });
 
   writeJson(path.join(aiRoot, ".ai-toolkit-version"), versionRecord);
   writeJson(path.join(aiRoot, ".ai-toolkit.config.json"), writtenConfig);
@@ -483,6 +637,24 @@ function runInstall(options) {
     toolkitVersion: TOOLKIT_VERSION
   });
   const projectMapIssues = validateProjectMap(projectMap, { targetRoot });
+
+  if (options.exportPlan) {
+    assertExportProjectMapSafe(projectMapIssues);
+    exportCopyPlan({
+      command: "install",
+      targetRoot,
+      branchPolicy,
+      selectedAgents,
+      selectedProfiles,
+      selectedSkills,
+      toolkitCommit,
+      plan,
+      projectMap,
+      projectMapIssues,
+      config
+    });
+    return;
+  }
 
   console.log(`Toolkit version: ${TOOLKIT_VERSION}`);
   console.log(`Toolkit commit:  ${toolkitCommit ?? ""}`);
@@ -583,6 +755,25 @@ function runUpdate(options) {
       const relative = managedRelativePath(aiRoot, filePath);
       if (!managedPaths.has(relative)) unmanaged.push(filePath);
     }
+  }
+
+  if (options.exportPlan) {
+    assertExportProjectMapSafe(projectMapIssues);
+    exportCopyPlan({
+      command: "update",
+      targetRoot,
+      branchPolicy,
+      selectedAgents,
+      selectedProfiles,
+      selectedSkills,
+      toolkitCommit,
+      plan,
+      projectMap,
+      projectMapIssues,
+      config,
+      unmanaged
+    });
+    return;
   }
 
   console.log(`Installed toolkit version: ${getJsonProperty(installedVersion, "toolkitVersion", "unknown")}`);
@@ -827,6 +1018,13 @@ const options = parseArgs(rest);
 if (options.help) {
   console.log(usage(command));
   process.exit(0);
+}
+
+if (command === "validate" && options.exportPlan) {
+  fail("--export-plan is supported only for install and update commands.");
+}
+if (options.exportPlan) {
+  process.env.GIT_OPTIONAL_LOCKS = "0";
 }
 
 if (command === "install") runInstall(options);

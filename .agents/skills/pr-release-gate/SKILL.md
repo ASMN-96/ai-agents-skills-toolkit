@@ -1,6 +1,6 @@
 ---
 name: pr-release-gate
-description: Use for PR readiness, branch hygiene, checks, review feedback, release gates, publish readiness, and post-merge handoff. Do not push to main, merge with pending required checks, or mark release ready without evidence.
+description: Use for PR readiness, branch hygiene, required checks, review feedback, release gates, and post-merge handoff.
 ---
 
 # PR Release Gate
@@ -19,7 +19,7 @@ This skill coordinates evidence and release posture. It does not authorize direc
 - Route PR, release-candidate, merge, rollback, and post-merge decisions through `.ai-toolkit/methods/release/release-rollback-readiness.md`. Canonical toolkit source: `methods/release/release-rollback-readiness.md`.
 - Route package-manager/workspace migrations through `.ai-toolkit/methods/repo/package-manager-workspace-migration.md`. Canonical toolkit source: `methods/repo/package-manager-workspace-migration.md`.
 - Use `.ai-toolkit/templates/tooling/reviewdog-output-policy.md` when deterministic scanner output may be reported through reviewdog. Canonical toolkit source: `templates/tooling/reviewdog-output-policy.md`.
-- Use `templates/pr-description-template.md` for PR evidence and `templates/commit-message-template.md` for release commit wording when those artifacts are requested or incomplete.
+- Use project-installed `.ai-toolkit/templates/pr-description-template.md` for PR evidence and `.ai-toolkit/templates/commit-message-template.md` for release commit wording when those artifacts are requested or incomplete. Canonical toolkit sources: `templates/pr-description-template.md` and `templates/commit-message-template.md`.
 
 ## Completion Evidence
 

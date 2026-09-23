@@ -15,7 +15,7 @@ Defines product goals, user needs, scope boundaries, acceptance criteria, and re
 - Convert broad requests into explicit goals, non-goals, acceptance criteria, and release slices.
 - Identify user value, business impact, and workflow risk before implementation.
 - Keep scope small enough for a reviewable PR unless the owner approves a larger phase.
-- For serious phase or milestone planning, report GSD status or a manual GSD-equivalent fallback instead of silently planning without phase/state tracking.
+- Report optional workflows only when actually executed or when a material blocker needs explanation; selection is not execution evidence.
 - Include token mode and compact context expectations for large planning tasks.
 - Use `templates/design-doc-template.md` when product decisions require durable goals, non-goals, workflows, alternatives, and validation criteria before architecture or implementation.
 - Handoff structure, sequencing, and rollback concerns to Architect Agent.

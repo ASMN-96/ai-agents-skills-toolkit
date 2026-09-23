@@ -90,11 +90,9 @@ External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.m
 
 - GSD Core is treated as first-class governed tool metadata, not a vendored toolkit dependency.
 - Superpowers remains the external core execution-discipline plugin.
-- Every `governance` run must report GSD and Superpowers status with a concise reason, even when one or both are `not needed`.
-- Tiny governed tasks may classify GSD as `not needed` or `lens only` and Superpowers as `not needed` when full workflow invocation would create noise.
-- Serious multi-step work must declare GSD phase/state usage, selected agents/profile, selected support tools, mode, scope, do-not-touch list, and validation plan before execution.
-- If GSD is unavailable for serious multi-phase work, declare `blocked-unavailable` and either use an explicit manual GSD-equivalent phase/state fallback or stop for approval.
-- Do not silently continue without GSD on serious multi-phase work unless manual phase tracking is explicitly declared.
+- GSD and Superpowers are optional. Use a specific workflow when the user requests it or when its method materially improves the task.
+- Report a workflow only when it actually ran or when its unavailability is a material blocker. Do not require framework status reports or equivalent fallback declarations.
+- Multi-step work still requires clear scope, ownership, acceptance criteria, and validation appropriate to its risk; these controls do not depend on a named framework.
 - Do not install GSD globally, install other support tools, change packages/CI/MCP/hooks, or modify Codex global config without explicit approval.
 - Use only the minimum required plugins/tools for the task.
 
@@ -104,9 +102,9 @@ External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.m
 - Custom-agent TOML files live under `~/.codex/agents/`; the toolkit must not create repo-local `.codex/agents/` unless project-local registration is explicitly approved.
 - TOML files must validate before use and must include `name`, `description`, `developer_instructions`, and source provenance to the matching compiled agent.
 - Native custom agents are preferred when available, but runtime status is not considered verified until a Codex restart/new-session smoke test succeeds.
-- If native custom-agent spawn is unavailable or fails, report it. High-risk tasks must stop and ask before using the compiled-agent fallback.
+- If native custom-agent spawn is unavailable or fails, report it and continue safe authorized work inline when possible. Compiled-agent guidance may inform inline work but is not evidence that a native role executed.
 - Compiled agents remain the canonical fallback source and must be regenerated intentionally before updating global custom agents.
-- Do not set custom model, sandbox, MCP server, or tool permissions in Phase 8 v1.
+- Keep agent responsibilities model-neutral where practical. Route models through verified user, global, or project configuration; a deliberately pinned independent reviewer must document that exception.
 
 ## Phase 9 Governance Entrypoint Rules
 
@@ -116,11 +114,11 @@ External-source changes are governed by `docs/EXTERNAL_SOURCE_FRESHNESS_POLICY.m
 - Explicit invocation does not authorize writes, migrations, package or dependency changes, Supabase policy/RLS changes, auth changes, billing changes, deployment or release changes, global Codex config changes, external installs, or broad plugin/tool use.
 - Do not infer `governance` for unrelated projects from vague quality language alone.
 - Repo-local agents may coordinate specialist review when runtime-visible.
-- Always select and report needed agents. Spawn native sub-agents only when runtime rules allow and the user explicitly authorizes delegation, sub-agents, or parallel agent work.
+- Select agents only when delegation improves independent work or review. Spawn native sub-agents only when runtime rules and current authorization allow it.
 - If spawning is not allowed, proceed inline using the selected agent lenses and report that limitation. Never claim a spawned agent ran unless it actually ran.
 - Do not claim full runtime visibility until a new-session skill and router-agent visibility test passes.
 - If current-session hot-load fails, report that restart/new-session verification is required.
-- High-risk fallback from native agents to compiled-agent instructions requires user approval.
+- High-risk work requires an independent boundary review when available; if unavailable, report the limitation and do not claim that review occurred.
 
 ## Phase 10A/10B Governance Spine Rules
 

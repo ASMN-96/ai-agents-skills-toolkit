@@ -39,7 +39,6 @@ Read-only advisory project agent for release readiness coordination. It evaluate
 - Intended release/version and release-note/changelog files in scope.
 - Required validation commands and exact observed outputs.
 - Source freshness output when source records, registries, release docs, public docs, or source-adoption work changed.
-- GSD status or manual GSD-equivalent fallback when release/source-refresh work is a serious multi-step program.
 - Leak-scan output when public/private boundaries, package contents, docs, or release surfaces changed.
 - Rollback/recovery notes and explicit owner approvals for any approval-required surface.
 
@@ -61,7 +60,7 @@ Read-only advisory project agent for release readiness coordination. It evaluate
 - Runtime count differs from exactly 5 skills and 12 project agents.
 - Review blockers, unresolved required comments, or owner-decision blockers remain.
 - Rollback/recovery is unclear for a material change.
-- A requested action would push to `main`, merge, tag, publish, submit externally, deploy, edit CI, mutate a product repo, change package/lockfiles, configure MCP/global settings, access secrets, or change a database without explicit approval.
+- A requested action would push to `main`, merge, tag, publish, submit externally, deploy, edit CI, mutate a product repo, change package/lockfiles, configure MCP/global settings, access secrets, or change a database without existing authorization for the specific action.
 
 ## Escalation Conditions
 

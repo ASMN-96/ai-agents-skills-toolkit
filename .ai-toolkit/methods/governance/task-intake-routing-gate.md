@@ -19,8 +19,6 @@ Use before implementation, PR repair, release preparation, source adoption, secu
 - Requested outcome and non-goals.
 - Affected surfaces: UI, API, database, auth, security, performance, mobile, WebView, CI, release, docs, toolkit metadata, or external source safety.
 - Required agents, skills, methods, profiles, and support tools.
-- GSD status: `not needed`, `lens only`, `selected`, `invoked`, or `blocked-unavailable`, with one-line reason.
-- Superpowers status: `not needed`, `selected`, `invoked`, or `blocked-unavailable`, with one-line reason.
 - Project-owned checks and validation commands to prefer first.
 - Approval-required surfaces, including package files, lockfiles, CI, MCP/global config, deployment config, external services, product repos, secrets, and destructive commands.
 - Stop conditions and escalation triggers.
@@ -30,14 +28,25 @@ Use before implementation, PR repair, release preparation, source adoption, secu
 
 Report the routing decision before coding when the task is non-trivial. If the task is narrow enough to proceed directly, still keep selected tools separate from executed tools and report validation only when actual output exists.
 
-For serious multi-step work, audits, migrations, backend/database/security/SRE work, source adoption, release programs, and cross-repo/toolkit sync, route GSD as `selected` or `invoked`. If GSD is unavailable or not physically invoked, declare the manual GSD-equivalent phase/state fallback before implementation.
 
-For tiny tasks, GSD may be `not needed` or `lens only` when invoking it would create unnecessary planning artifacts or token overhead.
+GSD and Superpowers are optional at every task size. Use a specific workflow when requested or materially useful; do not require framework status reports or equivalent fallback declarations.
+
+## Validation Tier Routing
+
+Apply the first matching rule below. Mixed work uses the highest applicable tier.
+
+1. An explicit request to verify actual release readiness uses the high-risk/release tier, including documented backend checks.
+2. Otherwise, an inspection-only question or audit inspects relevant evidence and uses focused diagnostics when needed. It does not imply application or release verification.
+3. Changes to authentication, authorization, tenant isolation or RLS, migrations, payments, security controls, production deployment, correctness-sensitive concurrency, or security assertions and fixtures use high-risk/release checks and independent boundary review.
+4. Changes to application code, tests, executable configuration, build tooling, generated contracts, or agent-routing behavior use behavior/code checks for the affected system.
+5. Changes limited to prose, links, or non-executable documentation use documentation checks. Documentation that changes an executable or generated contract moves to behavior/code.
+
+An otherwise unclassified executable change defaults to behavior/code. Changes to `AGENTS.md`, skills, or Codex routing receive instruction and runtime checks, but do not automatically trigger an unrelated application suite.
 
 ## Stop Conditions
 
 - The affected surface is unclear and the wrong default could change production behavior, security posture, data integrity, cost, or release state.
-- The request would require owner approval for package, CI, MCP/global, deployment, external service, product repo, secret, or destructive operations.
+- Existing authorization does not cover the required package, CI, MCP/global, deployment, external service, product repo, secret, or destructive operations.
 - A removed/current-scope-excluded resource is requested as an active/default recommendation.
 - Validation would be claimed without current observed output.
-- Serious work would silently skip both GSD and manual phase/state tracking.
+- A specifically selected workflow cannot run and its required state or evidence cannot be preserved safely.

@@ -2,6 +2,7 @@ param(
     [string]$TargetPath,
     [string]$ConfigPath,
     [switch]$ConfirmWrite,
+    [switch]$ExportPlan,
     [switch]$Help
 )
 
@@ -15,6 +16,7 @@ if ($Help) { $arguments += '--help' }
 if (![string]::IsNullOrWhiteSpace($TargetPath)) { $arguments += @('--target', $TargetPath) }
 if (![string]::IsNullOrWhiteSpace($ConfigPath)) { $arguments += @('--config', $ConfigPath) }
 if ($ConfirmWrite) { $arguments += '--confirm-write' }
+if ($ExportPlan) { $arguments += '--export-plan' }
 
 & node @arguments
 exit $LASTEXITCODE

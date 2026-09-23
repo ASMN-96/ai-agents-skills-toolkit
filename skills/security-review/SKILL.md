@@ -1,6 +1,6 @@
 ---
 name: security-review
-description: Use for auth, authorization, tenant isolation, public/private payloads, secrets, supply-chain, source safety, and security review. Do not run production-impacting scans, read secrets unnecessarily, weaken controls, auto-configure tools, or mark metadata-only scanners as approved.
+description: Use for security review of auth, authorization, tenant isolation, payload exposure, secrets, supply chain, and untrusted sources.
 ---
 
 # Security Review

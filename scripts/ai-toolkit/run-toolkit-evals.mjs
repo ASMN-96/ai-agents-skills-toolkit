@@ -5,6 +5,7 @@ import process from "node:process";
 
 const ROOT = process.cwd();
 const failures = [];
+const EVIDENCE_SCOPE_LABEL = "EVIDENCE static registry/contract + routing-policy tests only; runtime/model behavior not exercised";
 
 const UNSAFE_EXPECTED_ACTIONS = new Set([
   "stop",
@@ -57,16 +58,12 @@ function includesNone(actual, forbidden) {
   return forbidden.every((item) => !actual.includes(item));
 }
 
-function containsAllText(actual, expected) {
-  const text = actual.join(" ");
-  return expected.every((item) => text.includes(item));
-}
-
 function hasNonEmptyArray(value) {
   return Array.isArray(value) && value.length > 0;
 }
 
 async function main() {
+  console.log(EVIDENCE_SCOPE_LABEL);
   const skills = await readJson("registries/skills.registry.json");
   const agentsRegistry = await readJson("registries/agents.registry.json");
   const methodsRegistry = await readJson("registries/methods.registry.json");
@@ -226,6 +223,42 @@ async function main() {
     }
   }
 
+  const contractCatalogs = [
+    ["authorizationBoundaryContracts", "authorizationBoundaryIds", "authorization."],
+    ["evidenceRequirementContracts", "evidenceRequirementIds", "evidence."]
+  ];
+  const knownContractIds = new Map();
+  for (const [catalogField, scenarioField, expectedPrefix] of contractCatalogs) {
+    const ids = new Set();
+    knownContractIds.set(scenarioField, ids);
+    for (const contract of matrix[catalogField] || []) {
+      if (
+        typeof contract?.id !== "string"
+        || !contract.id.startsWith(expectedPrefix)
+        || typeof contract.description !== "string"
+        || contract.description.length === 0
+      ) {
+        fail(`routing-contract-${catalogField}`, `contract entries require a ${expectedPrefix} ID and readable description`);
+        continue;
+      }
+      if (ids.has(contract.id)) {
+        fail(`routing-contract-${contract.id}`, "contract ID must be unique within its typed catalog");
+      }
+      ids.add(contract.id);
+    }
+    for (const scenario of matrix.scenarios || []) {
+      if (scenarioField in scenario && !Array.isArray(scenario[scenarioField])) {
+        fail(`routing-contract-${scenario.scenario}`, `${scenarioField} must be an array of typed contract IDs`);
+        continue;
+      }
+      for (const contractId of scenario[scenarioField] || []) {
+        if (!ids.has(contractId)) {
+          fail(`routing-contract-${scenario.scenario}`, `unknown ${scenarioField} contract ID: ${contractId}`);
+        }
+      }
+    }
+  }
+
   for (const evalCase of enterpriseRoutingEvals.cases || []) {
     const scenario = findScenario(matrix, evalCase.scenario);
     if (!scenario) {
@@ -261,11 +294,29 @@ async function main() {
         fail(`enterprise-routing-${evalCase.id}`, `expected method is not registered: ${expectedMethod}`);
       }
     }
-    if (!containsAllText(scenario.stopConditions || [], evalCase.requiredStopConditionContains || [])) {
-      fail(`enterprise-routing-${evalCase.id}`, "scenario stop conditions are missing expected approval or safety wording");
+    if ("requiredStopConditionContains" in evalCase || "requiredValidationGateContains" in evalCase) {
+      fail(`enterprise-routing-${evalCase.id}`, "phrase assertions are retired; use typed authorization/evidence contract IDs");
     }
-    if (!containsAllText(scenario.validationGates || [], evalCase.requiredValidationGateContains || [])) {
-      fail(`enterprise-routing-${evalCase.id}`, "scenario validation gates are missing expected evidence wording");
+    for (const evalField of ["requiredAuthorizationBoundaryIds", "requiredEvidenceRequirementIds"]) {
+      if (evalField in evalCase && !Array.isArray(evalCase[evalField])) {
+        fail(`enterprise-routing-${evalCase.id}`, `${evalField} must be an array of typed contract IDs`);
+      }
+    }
+    if (!includesAll(scenario.authorizationBoundaryIds || [], evalCase.requiredAuthorizationBoundaryIds || [])) {
+      fail(`enterprise-routing-${evalCase.id}`, "scenario is missing required authorization boundary IDs");
+    }
+    if (!includesAll(scenario.evidenceRequirementIds || [], evalCase.requiredEvidenceRequirementIds || [])) {
+      fail(`enterprise-routing-${evalCase.id}`, "scenario is missing required evidence requirement IDs");
+    }
+    for (const contractId of evalCase.requiredAuthorizationBoundaryIds || []) {
+      if (!knownContractIds.get("authorizationBoundaryIds").has(contractId)) {
+        fail(`enterprise-routing-${evalCase.id}`, `eval references unknown authorization boundary ID: ${contractId}`);
+      }
+    }
+    for (const contractId of evalCase.requiredEvidenceRequirementIds || []) {
+      if (!knownContractIds.get("evidenceRequirementIds").has(contractId)) {
+        fail(`enterprise-routing-${evalCase.id}`, `eval references unknown evidence requirement ID: ${contractId}`);
+      }
     }
     if (!Array.isArray(evalCase.forbiddenClaims) || evalCase.forbiddenClaims.length === 0) {
       fail(`enterprise-routing-${evalCase.id}`, "eval must include no-fake-validation forbiddenClaims");
@@ -471,11 +522,11 @@ async function main() {
   }
 
   if (failures.length === 0) {
-    console.log("PASS run-toolkit-evals");
+    console.log("PASS run-toolkit-evals (static registry/contract + routing-policy tests)");
     return;
   }
 
-  console.log("FAIL run-toolkit-evals");
+  console.log("FAIL run-toolkit-evals (static registry/contract + routing-policy tests)");
   for (const failure of failures) {
     console.log(`- ${failure.id}: ${failure.message}`);
   }
@@ -483,7 +534,7 @@ async function main() {
 }
 
 await main().catch((error) => {
-  console.error("FAIL run-toolkit-evals");
+  console.error("FAIL run-toolkit-evals (static registry/contract + routing-policy tests)");
   console.error(`fatal: ${error.message}`);
   process.exitCode = 1;
 });

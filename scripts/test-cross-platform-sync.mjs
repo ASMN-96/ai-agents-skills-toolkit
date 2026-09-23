@@ -103,6 +103,8 @@ test("project sync core remains dry-run-first and validates confirmed installs",
     assert.equal(assetsByPath.get("methods/governance/task-intake-routing-gate.md")?.type, "method");
     assert.equal(existsSync(path.join(repo, ".ai-toolkit", "docs", "PROJECT_TOOLING_OPERATING_MODEL.md")), true);
     assert.equal(assetsByPath.get("docs/PROJECT_TOOLING_OPERATING_MODEL.md")?.type, "support-doc");
+    assert.equal(existsSync(path.join(repo, ".ai-toolkit", "templates", "commit-message-template.md")), true);
+    assert.equal(assetsByPath.get("templates/commit-message-template.md")?.type, "template");
     const installedVersion = JSON.parse(run("node", ["-e", `console.log(require('fs').readFileSync(${JSON.stringify(path.join(repo, ".ai-toolkit", ".ai-toolkit-version"))}, 'utf8'))`]));
     assert.equal(installedVersion.toolkitVersion, canonicalToolkitVersion());
 
