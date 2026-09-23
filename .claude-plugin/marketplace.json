@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ultimate-toolkit",
+  "description": "Curated, eval-tested skill routes for AI coding agents.",
+  "owner": {
+    "name": "ASMN-96",
+    "url": "https://github.com/ASMN-96"
+  },
+  "plugins": [
+    {
+      "name": "ultimate",
+      "description": "Nine task routes built from the best upstream skills, deduplicated and eval-tested.",
+      "source": "./",
+      "category": "development"
+    }
+  ]
+}

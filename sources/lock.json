@@ -1,0 +1,50 @@
+{
+  "sources": {
+    "addyosmani/agent-skills": {
+      "commit": "bcab6a1b8503100e8618c3b4e32cc78de43de769",
+      "license": "MIT"
+    },
+    "DietrichGebert/ponytail": {
+      "commit": "e3ba2aa6f1e6f0bc4d69eb09c9f0d0a93af56156",
+      "license": "MIT"
+    }
+  },
+  "files": [
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "skills/code-review-and-quality/SKILL.md",
+      "to": "skills/review/upstream/code-review-and-quality/UPSTREAM.md",
+      "sha256": "8f3cabca581bbf7cb5f0add3f7454e7a4523f9d4353a6a4a217e6fa515309612"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "LICENSE",
+      "to": "skills/review/upstream/code-review-and-quality/LICENSE",
+      "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "references/security-checklist.md",
+      "to": "skills/review/references/security-checklist.md",
+      "sha256": "37774056502fe8970dcd2fd27dca5fa31f2a55232649fc3056c89c3af7d62755"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "references/performance-checklist.md",
+      "to": "skills/review/references/performance-checklist.md",
+      "sha256": "40f564d1e62341e277c01ba42c42d95264b9ef3b8e5a23249dc6e121a7e70067"
+    },
+    {
+      "source": "DietrichGebert/ponytail",
+      "from": "skills/ponytail-review/SKILL.md",
+      "to": "skills/review/upstream/ponytail-review/UPSTREAM.md",
+      "sha256": "40df33b58fc6ef889b93585733feb9566b76e9586efa7f376785c1e995197ac0"
+    },
+    {
+      "source": "DietrichGebert/ponytail",
+      "from": "LICENSE",
+      "to": "skills/review/upstream/ponytail-review/LICENSE",
+      "sha256": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab"
+    }
+  ]
+}
