@@ -89,6 +89,48 @@
       "from": "LICENSE",
       "to": "skills/ship/upstream/finishing-a-development-branch/LICENSE",
       "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "skills/spec-driven-development/SKILL.md",
+      "to": "skills/plan/upstream/spec-driven-development/UPSTREAM.md",
+      "sha256": "f7129bca8742bad73f60209bd237e8b10dab6f1fae8576dc552fb1923bc1e721"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "LICENSE",
+      "to": "skills/plan/upstream/spec-driven-development/LICENSE",
+      "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "skills/planning-and-task-breakdown/SKILL.md",
+      "to": "skills/plan/upstream/planning-and-task-breakdown/UPSTREAM.md",
+      "sha256": "ed0f90cc5951ddd4bcab7f871f64efec93a49af9279ef93bc470da77ad8da3f7"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "LICENSE",
+      "to": "skills/plan/upstream/planning-and-task-breakdown/LICENSE",
+      "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "skills/api-and-interface-design/SKILL.md",
+      "to": "skills/plan/upstream/api-and-interface-design/UPSTREAM.md",
+      "sha256": "5dafd0c44a3aabf11cae5bcb34f6fcc24dfa5c01ba6e0d3176bce997f4d68bc8"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "LICENSE",
+      "to": "skills/plan/upstream/api-and-interface-design/LICENSE",
+      "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "references/definition-of-done.md",
+      "to": "skills/plan/references/definition-of-done.md",
+      "sha256": "d1c75d2ae65d2c7a9cd01f93fa8de63e00e75f2fe5d08be224d576157054dcee"
     }
   ]
 }

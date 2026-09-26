@@ -12,6 +12,13 @@ Everything else in this repository is MIT (see `LICENSE`).
 - `skills/review/upstream/code-review-and-quality/LICENSE` ← `LICENSE`
 - `skills/review/references/security-checklist.md` ← `references/security-checklist.md`
 - `skills/review/references/performance-checklist.md` ← `references/performance-checklist.md`
+- `skills/plan/upstream/spec-driven-development/UPSTREAM.md` ← `skills/spec-driven-development/SKILL.md`
+- `skills/plan/upstream/spec-driven-development/LICENSE` ← `LICENSE`
+- `skills/plan/upstream/planning-and-task-breakdown/UPSTREAM.md` ← `skills/planning-and-task-breakdown/SKILL.md`
+- `skills/plan/upstream/planning-and-task-breakdown/LICENSE` ← `LICENSE`
+- `skills/plan/upstream/api-and-interface-design/UPSTREAM.md` ← `skills/api-and-interface-design/SKILL.md`
+- `skills/plan/upstream/api-and-interface-design/LICENSE` ← `LICENSE`
+- `skills/plan/references/definition-of-done.md` ← `references/definition-of-done.md`
 
 ## DietrichGebert/ponytail
 
