@@ -20,7 +20,7 @@ const lines = (p) => read(p).split("\n").length;
 function walk(dir, out = []) {
   if (!existsSync(dir)) return out;
   for (const name of readdirSync(dir)) {
-    if (name === ".git" || name === "node_modules" || name === "results") continue;
+    if (name === ".git" || name === "node_modules" || name === "results" || name === "worktrees") continue;
     const p = join(dir, name);
     statSync(p).isDirectory() ? walk(p, out) : out.push(p);
   }

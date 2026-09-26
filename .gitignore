@@ -11,3 +11,5 @@ Thumbs.db
 scratch/
 temp/
 evals/**/results/
+.claude/worktrees/
+.claude/settings.local.json

@@ -19,3 +19,10 @@ Everything else in this repository is MIT (see `LICENSE`).
 - License: MIT
 - `skills/review/upstream/ponytail-review/UPSTREAM.md` ← `skills/ponytail-review/SKILL.md`
 - `skills/review/upstream/ponytail-review/LICENSE` ← `LICENSE`
+
+## JuliusBrussee/caveman
+
+- Source: https://github.com/JuliusBrussee/caveman @ `2fd153c67988e980fb0b2455c90832159a6a5a25`
+- License: MIT (skills/ only; engine, proxy, and binaries are BSL-1.1 and not vendored)
+- `skills/caveman/upstream/caveman/UPSTREAM.md` ← `skills/caveman/SKILL.md`
+- `skills/caveman/upstream/caveman/LICENSE` ← `LICENSE`

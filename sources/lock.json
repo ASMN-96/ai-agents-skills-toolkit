@@ -7,6 +7,10 @@
     "DietrichGebert/ponytail": {
       "commit": "e3ba2aa6f1e6f0bc4d69eb09c9f0d0a93af56156",
       "license": "MIT"
+    },
+    "JuliusBrussee/caveman": {
+      "commit": "2fd153c67988e980fb0b2455c90832159a6a5a25",
+      "license": "MIT (skills/ only; engine, proxy, and binaries are BSL-1.1 and not vendored)"
     }
   },
   "files": [
@@ -45,6 +49,18 @@
       "from": "LICENSE",
       "to": "skills/review/upstream/ponytail-review/LICENSE",
       "sha256": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab"
+    },
+    {
+      "source": "JuliusBrussee/caveman",
+      "from": "skills/caveman/SKILL.md",
+      "to": "skills/caveman/upstream/caveman/UPSTREAM.md",
+      "sha256": "0bf09a0a9a017d004a81d4b693e5a2d830e1a28230a5885df773e1ed9c0571cc"
+    },
+    {
+      "source": "JuliusBrussee/caveman",
+      "from": "LICENSE",
+      "to": "skills/caveman/upstream/caveman/LICENSE",
+      "sha256": "94fe75d355887f84ee7eefca68e06d8d082a23dad47a8e1f58a94d98900edf5b"
     }
   ]
 }
