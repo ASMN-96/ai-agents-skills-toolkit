@@ -1,0 +1,38 @@
+name: upstream
+
+# Monthly: opens one issue only when a vendored upstream file changed or disappeared.
+on:
+  schedule:
+    - cron: "0 6 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+      - name: Check vendored sources
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/upstream-check.mjs --out report.md
+      - name: Open or update the monthly issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -s report.md ] || { echo "No vendored upstream changes."; exit 0; }
+          title="Upstream updates $(date -u +%Y-%m)"
+          existing=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --body-file report.md
+          else
+            gh issue create --title "$title" --body-file report.md
+          fi

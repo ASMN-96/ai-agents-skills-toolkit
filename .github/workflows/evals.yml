@@ -1,0 +1,54 @@
+name: evals
+
+# Manual only: evals call the model and cost usage. Needs one repository secret:
+# CLAUDE_CODE_OAUTH_TOKEN (from `claude setup-token`) or ANTHROPIC_API_KEY.
+on:
+  workflow_dispatch:
+    inputs:
+      case:
+        description: "Case glob, e.g. finds-* (empty = all cases)"
+        required: false
+        default: ""
+      runs:
+        description: "Runs per case per arm"
+        required: false
+        default: "3"
+      max_cost_usd:
+        description: "List-price cost ceiling for the whole run"
+        required: false
+        default: "25"
+
+permissions:
+  contents: read
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+      - name: Install Claude Code
+        run: npm install --global @anthropic-ai/claude-code@2.1.283
+      - name: Run evals
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CASE: ${{ inputs.case }}
+          RUNS: ${{ inputs.runs }}
+          MAX_COST: ${{ inputs.max_cost_usd }}
+        run: |
+          args=(plugin eval . --trust-plugin --model sonnet --runs "$RUNS" --max-cost-usd "$MAX_COST" --no-publish --json results.json)
+          if [ -n "$CASE" ]; then args+=(--case "$CASE"); fi
+          claude "${args[@]}"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: eval-results
+          path: |
+            results.json
+            evals/results/
+          if-no-files-found: ignore
