@@ -26,3 +26,12 @@ Everything else in this repository is MIT (see `LICENSE`).
 - License: MIT (skills/ only; engine, proxy, and binaries are BSL-1.1 and not vendored)
 - `skills/caveman/upstream/caveman/UPSTREAM.md` ← `skills/caveman/SKILL.md`
 - `skills/caveman/upstream/caveman/LICENSE` ← `LICENSE`
+
+## obra/superpowers
+
+- Source: https://github.com/obra/superpowers @ `8ca22dba9a94f28898bbce59f2537ff4d87c747d`
+- License: MIT
+- `skills/ship/upstream/verification-before-completion/UPSTREAM.md` ← `skills/verification-before-completion/SKILL.md`
+- `skills/ship/upstream/verification-before-completion/LICENSE` ← `LICENSE`
+- `skills/ship/upstream/finishing-a-development-branch/UPSTREAM.md` ← `skills/finishing-a-development-branch/SKILL.md`
+- `skills/ship/upstream/finishing-a-development-branch/LICENSE` ← `LICENSE`

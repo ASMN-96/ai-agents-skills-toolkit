@@ -11,6 +11,10 @@
     "JuliusBrussee/caveman": {
       "commit": "2fd153c67988e980fb0b2455c90832159a6a5a25",
       "license": "MIT (skills/ only; engine, proxy, and binaries are BSL-1.1 and not vendored)"
+    },
+    "obra/superpowers": {
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "license": "MIT"
     }
   },
   "files": [
@@ -61,6 +65,30 @@
       "from": "LICENSE",
       "to": "skills/caveman/upstream/caveman/LICENSE",
       "sha256": "94fe75d355887f84ee7eefca68e06d8d082a23dad47a8e1f58a94d98900edf5b"
+    },
+    {
+      "source": "obra/superpowers",
+      "from": "skills/verification-before-completion/SKILL.md",
+      "to": "skills/ship/upstream/verification-before-completion/UPSTREAM.md",
+      "sha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3"
+    },
+    {
+      "source": "obra/superpowers",
+      "from": "LICENSE",
+      "to": "skills/ship/upstream/verification-before-completion/LICENSE",
+      "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400"
+    },
+    {
+      "source": "obra/superpowers",
+      "from": "skills/finishing-a-development-branch/SKILL.md",
+      "to": "skills/ship/upstream/finishing-a-development-branch/UPSTREAM.md",
+      "sha256": "8db5a922b242dd4e1bf824cb91c13b3e8d8e8a86d6ceaf7f0774eb9cce909d65"
+    },
+    {
+      "source": "obra/superpowers",
+      "from": "LICENSE",
+      "to": "skills/ship/upstream/finishing-a-development-branch/LICENSE",
+      "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400"
     }
   ]
 }
