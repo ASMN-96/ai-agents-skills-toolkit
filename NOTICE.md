@@ -6,7 +6,7 @@ Everything else in this repository is MIT (see `LICENSE`).
 
 ## addyosmani/agent-skills
 
-- Source: https://github.com/addyosmani/agent-skills @ `bcab6a1b8503100e8618c3b4e32cc78de43de769`
+- Source: https://github.com/addyosmani/agent-skills @ `2686b620fc1fed2e8f60c704839c766b8594c6b6`
 - License: MIT
 - `skills/review/upstream/code-review-and-quality/UPSTREAM.md` ← `skills/code-review-and-quality/SKILL.md`
 - `skills/review/upstream/code-review-and-quality/LICENSE` ← `LICENSE`

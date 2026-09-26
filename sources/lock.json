@@ -1,7 +1,7 @@
 {
   "sources": {
     "addyosmani/agent-skills": {
-      "commit": "bcab6a1b8503100e8618c3b4e32cc78de43de769",
+      "commit": "2686b620fc1fed2e8f60c704839c766b8594c6b6",
       "license": "MIT"
     },
     "DietrichGebert/ponytail": {
@@ -14,7 +14,7 @@
       "source": "addyosmani/agent-skills",
       "from": "skills/code-review-and-quality/SKILL.md",
       "to": "skills/review/upstream/code-review-and-quality/UPSTREAM.md",
-      "sha256": "8f3cabca581bbf7cb5f0add3f7454e7a4523f9d4353a6a4a217e6fa515309612"
+      "sha256": "d4ec6843e78a8ab2049185d7c2742e2f1e343143c6c915eb5b4f9a3a00a44f94"
     },
     {
       "source": "addyosmani/agent-skills",
