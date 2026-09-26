@@ -120,7 +120,7 @@ if (claude.name !== codex.name || claude.version !== codex.version) fail("R10", 
 for (const dir of skillDirs) if (!existsSync(join(ROOT, "evals", dir))) warn("R11", `skills/${dir} has no evals/${dir}/ cases`);
 
 // R12: toolkit-authored markdown stays small (vendored files and eval prompts excluded).
-const authored = walk(ROOT).filter((p) => p.endsWith(".md") && !lockedPaths.has(rel(p)) && !rel(p).startsWith("evals/"));
+const authored = walk(ROOT).filter((p) => p.endsWith(".md") && !lockedPaths.has(rel(p)) && !rel(p).startsWith("evals/") && rel(p) !== "NOTICE.md");
 const authoredTotal = authored.reduce((n, p) => n + lines(p), 0);
 if (authoredTotal > LIMITS.authoredLines) fail("R12", `${authoredTotal} lines of toolkit-authored markdown (max ${LIMITS.authoredLines})`);
 

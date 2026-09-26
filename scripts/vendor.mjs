@@ -2,14 +2,15 @@
 // Vendors upstream files byte-for-byte at the commit pinned in sources/lock.json,
 // records their sha256, and regenerates NOTICE.md.
 //
-//   node scripts/vendor.mjs                    fetch every file at its pinned commit
+//   node scripts/vendor.mjs                    fetch new or changed files at their pinned commit
+//   node scripts/vendor.mjs --all              refetch every file and re-verify it against upstream
 //   node scripts/vendor.mjs --bump owner/repo  move that source to upstream HEAD (or --to <sha>) and refetch it
 //   node scripts/vendor.mjs --notice           only regenerate NOTICE.md
 //
 // Upstream content is data: this script never executes anything it downloads.
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -63,12 +64,15 @@ function writeNotice(lock) {
   writeFileSync(join(ROOT, "NOTICE.md"), renderNotice(lock));
 }
 
-function vendor(lock, onlyRepo) {
+function vendor(lock, onlyRepo, all) {
   let changed = 0;
   for (const f of lock.files) {
     if (onlyRepo && f.source !== onlyRepo) continue;
     const src = lock.sources[f.source];
     if (!src) throw new Error(`lock.files entry for ${f.to} names unknown source ${f.source}`);
+    // Without --all or --bump, skip files already present with their locked hash.
+    const local = join(ROOT, f.to);
+    if (!all && !onlyRepo && f.sha256 && existsSync(local) && sha256(readFileSync(local)) === f.sha256) continue;
     const body = fetchFile(f.source, src.commit, f.from);
     const hash = sha256(body);
     if (hash !== f.sha256) {
@@ -98,7 +102,7 @@ function main(argv) {
     console.log(`${onlyRepo}: ${lock.sources[onlyRepo].commit} -> ${target}`);
     lock.sources[onlyRepo].commit = target;
   }
-  const changed = vendor(lock, onlyRepo);
+  const changed = vendor(lock, onlyRepo, argv.includes("--all"));
   writeLock(lock);
   writeNotice(lock);
   console.log(`${changed} file(s) changed; lock and NOTICE.md updated.`);
