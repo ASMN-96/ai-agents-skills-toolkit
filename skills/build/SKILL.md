@@ -23,7 +23,7 @@ Before writing anything, find the project's test framework, build command, and l
 2. Climb ponytail's ladder to the smallest implementation that makes it pass (GREEN). Stop at the first rung that holds.
 3. Refactor with tests green.
 4. For a React/TS or Node/TS increment, check it against `references/react-ts-quality.md` (strict types, hook rules, error/loading/empty states, no secrets in client code) before moving on.
-5. Re-run the project's test and lint/build commands after each slice; commit before starting the next one.
+5. Re-run the project's test and lint/build commands after each slice; commit before the next slice only if the user asked for commits, otherwise name the slice boundary.
 
 ## Precedence (overrides upstream text)
 - Ponytail says tests are YAGNI unless asked, and to use it on any coding task. Here, TDD always runs first: write the failing test, then use ponytail's ladder only to pick the implementation. Ponytail never removes input validation, error handling, security checks, or accessibility, even when skipping them would shrink the diff.
@@ -32,6 +32,7 @@ Before writing anything, find the project's test framework, build command, and l
 - Incremental-implementation's upstream text points to a `git-workflow-and-versioning` skill for commit conventions; that skill is not vendored here — use the project's own conventions, or the `ship` route when finishing a branch.
 - Ponytail's `/ponytail lite|full|ultra` slash command, its hooks, and its "pair with Caveman" note are not shipped; this route always applies ponytail's `full` ladder inline — no intensity levels apply.
 - For reviewing a finished diff (correctness, security, over-engineering) use the `review` route instead of this one.
+- definition-of-done's skill mentions are not vendored: review → `review` route, security → `secure`, shipping → `ship`; the rest are reminders only.
 - Never claim a test, build, lint, or browser check passed unless its output is in this session.
 
 ## Output

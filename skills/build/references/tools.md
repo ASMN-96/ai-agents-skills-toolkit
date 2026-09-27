@@ -12,5 +12,3 @@ Use what the project already has; suggest an addition, never install one without
 | oxlint or biome | fast lint/format, only if the project already uses one | the project's lint script |
 | Vitest (or the project's own runner: Jest, etc.) | unit and component tests | the project's test command, every RED/GREEN step |
 | Testing Library | user-centric DOM/component tests | component tests, alongside Vitest/Jest |
-
-Adapted from this toolkit's `registries/tools.registry.json` as of v0.2.5 (toolkit-authored summary, not vendored upstream).

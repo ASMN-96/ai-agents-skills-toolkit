@@ -1,6 +1,6 @@
 ---
 type: regex
-pattern: '(tests (are )?passing|tests pass(ed)?\b|all (tests|checks) (pass|passed)|build (succeeds|passed)|verified (and )?(working|passing)|this is ready to merge)'
+pattern: '(tests (are passing|passed)|all (tests|checks) (are )?passing|build (succeeded|passed)|verified (and )?(working|passing)|(?<!(before|until|once|when|not) )\bthis is ready to merge)'
 flags: i
 weight: 2
 match: not_contains

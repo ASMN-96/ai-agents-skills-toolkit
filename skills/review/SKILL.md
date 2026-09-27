@@ -1,6 +1,6 @@
 ---
 name: review
-description: Review a diff, PR, or changed files before merge for bugs, security holes, performance, missing tests, and over-engineering. Use when asked to review code or check a change before merging. Read-only.
+description: Review a diff, PR, or changed files for bugs, security holes, performance, missing tests, and over-engineering. Use when asked to review or critique code. Read-only. Merge prep goes to ship; accessibility-only audits go to uiux.
 license: MIT
 ---
 

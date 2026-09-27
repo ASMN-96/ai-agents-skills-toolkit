@@ -57,7 +57,7 @@ Paths below are relative to this skill's folder (in Claude Code: `${CLAUDE_SKILL
 
 ## Precedence (overrides upstream text)
 - No upstream skill is vendored into this route: an Expo-official and a Callstack
-  React Native skill source were both evaluated and rejected (see the maintainer report);
+  React Native skill source were both evaluated and rejected (hooks, MCP, or off-scope);
   the files under `references/` are toolkit-authored and are the only checklists.
 - Platform guidelines (`references/platform-guidelines.md`) and a project's existing
   navigation/state libraries win over this route's defaults when they conflict.

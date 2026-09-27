@@ -1,6 +1,6 @@
 ---
 type: regex
-pattern: '(describe\(|it\(|test\()'
+pattern: '\b(describe|it|test)\(\s*[''"`][\s\S]*?(function\s+slugify|const\s+slugify\s*=)'
 flags: i
 weight: 2
 ---

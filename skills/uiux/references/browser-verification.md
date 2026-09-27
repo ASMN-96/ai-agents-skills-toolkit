@@ -17,7 +17,7 @@ For any visual or interactive change, gather all of the following before calling
 - **Smallest mobile width** the design targets (360–390px is a reasonable default absent a project convention) — check for overflow, wrapped/clipped text, and that touch targets stay usable.
 - **One desktop width** (1280px is a reasonable default) — check the layout doesn't regress at the wider breakpoint.
 - **Keyboard pass** — tab through every interactive element added or changed; confirm a visible focus indicator, a logical order, and that nothing traps focus.
-- **Accessibility scan** — run axe (via `@axe-core/playwright` if the project has it, or the axe browser extension/CLI otherwise) against the changed view and note any new violations.
+- **Accessibility scan** — run axe (via `@axe-core/playwright` if the project has it, or the axe browser extension, if the user has it) against the changed view and note any new violations.
 
 ## Reporting evidence
 

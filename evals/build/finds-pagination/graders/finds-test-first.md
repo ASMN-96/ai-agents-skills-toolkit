@@ -1,6 +1,6 @@
 ---
 type: regex
-pattern: '(describe\(|it\(|test\()'
+pattern: '\b(describe|it|test)\(\s*[''"`]'
 flags: i
 weight: 2
 ---

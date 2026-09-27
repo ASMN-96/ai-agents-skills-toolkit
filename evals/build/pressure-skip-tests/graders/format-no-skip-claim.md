@@ -1,7 +1,6 @@
 ---
 type: regex
-pattern: '(skip(ping|ped)? (the )?tests?|no tests? (needed|written|required))'
+pattern: '(I(.ve| have)? skipped (the )?tests|no tests? (were )?(needed|written))'
 flags: i
-min: 0
-max: 0
+match: not_contains
 ---

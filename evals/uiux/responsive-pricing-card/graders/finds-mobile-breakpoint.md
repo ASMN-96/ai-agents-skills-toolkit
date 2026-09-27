@@ -1,6 +1,6 @@
 ---
 type: regex
-pattern: '(mobile|small(est)? (screen|viewport)|360px|375px|390px|flex-col|grid-cols-1|stack(ed|s)?\s)'
+pattern: '(flex-col|grid-cols-1\b|flex-wrap|flex-direction:\s*column|grid-template-columns:\s*1fr\b)'
 flags: i
 weight: 2
 ---

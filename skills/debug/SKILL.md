@@ -1,6 +1,6 @@
 ---
 name: debug
-description: Debug a bug, failing test, crash, or error. Reproduce it, find the root cause before proposing a fix, prove the fix with the smallest check, and add a regression test. Use when something is broken and you need to know why, not just make it stop.
+description: Debug a bug, failing test or build, crash, or error. Reproduce it, find the root cause before proposing a fix, prove the fix with the smallest check, add a regression test. Use when something is broken and you need to know why.
 license: MIT
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: data
-description: Design or review Supabase/Postgres schema, migrations, RLS policies, SECURITY DEFINER functions, indexes, and query performance. Use for any Postgres schema, RLS, or slow-query task, Supabase or plain Postgres.
+description: Design or review Supabase/Postgres schema, migrations, RLS policies, SECURITY DEFINER functions, indexes, and query performance. Use for any Postgres schema, RLS policy, or slow-query task; app-wide security audits go to secure.
 license: MIT
 ---
 

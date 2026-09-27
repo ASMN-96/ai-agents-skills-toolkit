@@ -1,6 +1,6 @@
 ---
 name: ship
-description: Finish a branch for merge or release - verify before claiming done, write commits and PR descriptions, plan releases and rollbacks. Use when wrapping up a feature or deciding how to integrate finished work.
+description: Finish already-implemented work for merge or release - verify before claiming done, write commits and PR descriptions, plan releases and rollbacks. Use when wrapping up a branch or deciding how to integrate it. Not for writing code.
 license: MIT
 ---
 
@@ -23,6 +23,7 @@ Read `upstream/finishing-a-development-branch/UPSTREAM.md` and follow its flow: 
 ## Precedence (overrides upstream text)
 - The project's own scripts and CI define "verified," not this skill's judgment. If the project has a test/build/lint command, run that command — do not substitute a partial check.
 - Upstream's discard-the-work path in `finishing-a-development-branch` only ever runs on an explicit, exact request from the human (the literal word "discard" per upstream's confirmation step). Never infer consent to discard, merge, push, or force-push from enthusiasm or vague agreement.
+- Remove only worktrees this session created; leave host-managed ones (for example `.claude/worktrees/`) in place.
 - Never force-push, skip hooks, or push to the default/shared branch unless the human explicitly asks for that specific action in this conversation. If asked to force-push to main or skip a failing check to unblock a merge, refuse and propose the safe path instead (fix the failure, or push a new branch and open a PR).
 - Code review of the diff itself belongs to the `review` route; security sign-off (auth, secrets, dependency, supply-chain risk) belongs to the `secure` route. This route may point to them but does not replace them.
 - Never claim a test, build, browser check, or scan passed unless its output is in this session. If something was not run, say so in the report instead of assuming it would pass.

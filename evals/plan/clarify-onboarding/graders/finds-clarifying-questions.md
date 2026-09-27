@@ -1,6 +1,6 @@
 ---
 type: regex
-pattern: '(clarify|assumption|who is this for|what does success|what.s the (real )?constraint|\?)'
+pattern: '(clarif|assumption|who is (this|it) for|what does success|open questions?|before I (plan|spec|build))'
 flags: i
 weight: 2
 ---

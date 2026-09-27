@@ -24,7 +24,7 @@ If the plan defines or changes an API, RPC, server action, or a boundary between
 
 ## Precedence (overrides upstream text)
 - Stop at spec-driven-development's Phase 4 (Implement): its links to `incremental-implementation`, `test-driven-development`, and `context-engineering` are not vendored here. Hand off to the **build** route instead of following them.
-- Where planning-and-task-breakdown or definition-of-done mention `code-review-and-quality` or `security-and-hardening`, those checks apply at implementation/review time — point to the **review** or **secure** route, not this one.
+- Where planning-and-task-breakdown or definition-of-done mention `code-review-and-quality`, `code-simplification`, or `security-and-hardening`, those checks apply at implementation/review time — point to the **review** or **secure** route, not this one.
 - api-and-interface-design's mention of a `deprecation-and-migration` skill is not vendored; use `references/api-contract-checks.md`'s compatibility gates instead.
 - definition-of-done's mentions of `shipping-and-launch`, `observability-and-instrumentation`, and `documentation-and-adrs` are informational only (none vendored); treat them as later-stage reminders, not planning blockers.
 - Never claim a test, build, browser check, or scanner passed unless its output is in this session — a plan records what verification a task *will* need, not evidence it already ran.

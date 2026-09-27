@@ -1,6 +1,6 @@
 ---
 name: uiux
-description: Design direction, design systems/tokens, components, accessibility (WCAG 2.2 AA), responsive layout, motion, and Core Web Vitals for UI. Use when designing, building, or polishing UI; verify changes in a browser.
+description: Design direction, design systems/tokens, components, accessibility (WCAG 2.2 AA), responsive layout, motion, and Core Web Vitals for web UI. Use when designing, building, reviewing, or polishing web UI; verify in a browser.
 license: MIT
 ---
 
@@ -36,6 +36,7 @@ Follow `references/browser-verification.md` for how to drive the check (project'
 - Base author for this route is **anthropics/skills** (`frontend-design`): it sets aesthetic direction. `addyosmani/web-quality-skills` (`accessibility`, `core-web-vitals`) and `shadcn-ui/ui` (`shadcn`) are grafts, each in its own `upstream/<pick>/` folder.
 - Where shadcn's default component look (rounded cards, default shadows) conflicts with frontend-design's warning against generic "SaaS-card kit" defaults, follow frontend-design for the visual decision and use shadcn only for the underlying markup/composition and its accessibility wiring.
 - **shadcn is read-only reference here.** It was vendored as `UPSTREAM.md`, so its `!` npx info-fetch directive never runs and its `allowed-tools` grant is inert. Never run `npx shadcn@latest ...` (or the pnpm/bun equivalents) without the user's explicit approval for that specific command.
+- accessibility's `npm install @axe-core/cli -g` and `npx lighthouse` lines are overridden by `references/tools.md`: never install a package (global or local) or npx-run one the project lacks without the user's approval for that command.
 - Known dangling links inside the vendored files themselves — do not follow, they point to skills this toolkit does not vendor or to a pre-rename filename:
   - `upstream/accessibility/UPSTREAM.md` links to a `web-quality-audit` sibling skill (SKILL.md) that this toolkit does not vendor.
   - `upstream/accessibility/references/A11Y-PATTERNS.md` links back to `SKILL.md` by its original filename; that file is vendored here as `upstream/accessibility/UPSTREAM.md`.
