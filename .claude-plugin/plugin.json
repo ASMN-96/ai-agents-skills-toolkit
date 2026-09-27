@@ -1,0 +1,13 @@
+{
+  "name": "ultimate",
+  "version": "1.0.0-rc.1",
+  "description": "Curated skill routes for AI coding agents: plan, build, uiux, debug, review, secure, data, mobile, ship.",
+  "author": {
+    "name": "ASMN-96",
+    "url": "https://github.com/ASMN-96"
+  },
+  "homepage": "https://github.com/ASMN-96/ai-agents-skills-toolkit",
+  "repository": "https://github.com/ASMN-96/ai-agents-skills-toolkit",
+  "license": "MIT",
+  "keywords": ["skills", "code-review", "uiux", "debugging", "supabase", "curated"]
+}

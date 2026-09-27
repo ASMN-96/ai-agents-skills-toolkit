@@ -1,109 +1,84 @@
-# AI Vibe Coding Toolkit
+# Ultimate Toolkit
 
-AI Vibe Coding Toolkit is a documentation-first governance repository for AI coding-agent workflows. It standardizes reviewed methods, source provenance, validated agents, activation boundaries, and controlled sync artifacts so teams can scale high-quality AI-assisted engineering without copying raw external runtime behavior.
+Curated skill routes for AI coding agents. Nine routes cover the main jobs (plan, build, UI/UX, debug, review, secure, data, mobile, ship). Each one is built from the best upstream skills, copied unmodified at pinned commits, deduplicated, and given an eval suite per route.
 
-## Public release status
+It works with Claude Code and Codex, and with other agents that read the [Agent Skills](https://agentskills.io) format (OpenCode, Cursor, Gemini CLI, Copilot, and more).
 
-- Current-tree blockers are 0.
-- Remaining findings are limited to owner-decision blockers, history-only blockers, safe guardrail/scanner evidence, and false positives.
-- Public package validation is **not** whole-repo publication readiness.
-- `v0.2.5` is the current controlled AI Vibe Coding Toolkit release for agent-assisted governance after agent/compiled parity hardening, source-risk evidence cleanup, `.worktrees` project-map protection, and embedded package validation.
-- Public-facing release status is based on observed validation evidence; external submissions and publication channels are separate approval-gated decisions.
-- See `STATUS.md` for the current boundary snapshot and `MIGRATION.md` for version migration notes.
-- This repository intentionally has no root `package.json`; run direct `node scripts/...` commands from the repository root.
+## Why routes, not a big pile of skills
+Agents choose skills by reading every installed skill's description on every turn. Past a few dozen skills, descriptions overlap, the wrong one fires, and some are silently dropped from the list. So this toolkit exposes **one skill per route**: nine descriptions, about 3,000 characters of listing space in total, checked on every change. Each route tells the agent which upstream material to read, in what order, and which rule wins when sources disagree.
 
-## One-paragraph summary
+## Routes
+| Route | Use it for | Runs as | Built from |
+|---|---|---|---|
+| `plan` | Idea → spec, acceptance criteria, small tasks, API design | Your conversation | Addy Osmani: spec-driven-development, planning-and-task-breakdown, api-and-interface-design |
+| `build` | Implementing features: failing test first, small steps, least code | Your conversation | Addy Osmani: test-driven-development, incremental-implementation · Ponytail |
+| `uiux` | Design direction, accessibility (WCAG 2.2 AA), responsive layout, Core Web Vitals, browser checks | Your conversation | Anthropic frontend-design · Addy Osmani web-quality (accessibility, core-web-vitals) · shadcn/ui |
+| `debug` | Bugs, failing tests, crashes: root cause, then a regression test | Your conversation | Superpowers systematic-debugging · Addy Osmani observability, error recovery |
+| `review` | Reviewing a diff or PR before merge | Subagent without edit tools (Opus, high effort) | Addy Osmani code-review-and-quality · Ponytail review |
+| `secure` | Security audit and threat model: auth, RLS, secrets, dependencies, CI, LLM features | Subagent without edit tools (Opus, high effort) | Addy Osmani security-and-hardening · toolkit notes on OWASP, Supabase RLS, CI |
+| `data` | Supabase/Postgres schema, migrations, RLS policies, query performance | Your conversation | Supabase's official agent skills |
+| `mobile` | React Native/Expo/native apps, WebViews, deep links, store readiness | Your conversation | Toolkit-written checklists (no upstream mobile skill passed review) |
+| `ship` | Verify before "done", PR descriptions, release notes, rollback | Your conversation | Superpowers verification-before-completion, finishing-a-development-branch |
 
-The toolkit defines how to discover, evaluate, and operationalize reusable AI coding-agent methods without directly introducing unverified external code. It can support workflows around Codex, Claude Code, local project agents, and similar assistants while keeping runtime changes intentional and repeatable through verified metadata, explicit approvals, and observable validation.
+`caveman` is opt-in only: run `/ultimate:caveman` (Claude Code) or ask for caveman mode. It shortens replies and never compresses code, commands, or errors.
 
-## Who it is for
+## Install
 
-- engineering leads who need predictable agent behavior across projects,
-- platform teams that need provenance and review standards,
-- security and governance owners requiring evidence-linked approvals,
-- startup/product operators preparing for controlled pilots and future releases.
+**Claude Code**
+```bash
+claude plugin marketplace add ASMN-96/ai-agents-skills-toolkit
+claude plugin install ultimate@ultimate-toolkit
+```
+Or inside a session: `/plugin marketplace add ASMN-96/ai-agents-skills-toolkit`, then `/plugin install ultimate@ultimate-toolkit`.
 
-## Problem it solves
+**Codex, OpenCode, Cursor, Gemini CLI, Copilot, and others**
+```bash
+npx skills add ASMN-96/ai-agents-skills-toolkit
+```
+Or copy the folders in `skills/` into your project's `.agents/skills/` (Codex and OpenCode read it).
 
-- unstructured agent onboarding from external repositories,
-- hidden assumptions between prompts, artifacts, and runtime behavior,
-- weak source provenance and stale method risk,
-- inconsistent documentation and validation language across teams.
+Upgrading from v0.2 of this toolkit? Remove its old globally installed skills and agents first (for Codex: `~/.codex/skills/{governance,uiux,code-quality,security-review,pr-release-gate}` and the `*-agent.toml` files in `~/.codex/agents`). The old `uiux` skill has the same name as the new route, and the old ones still get loaded next to the new routes.
 
-## Core concepts
+Keep the rest of your skill list lean. Running a full workflow framework (GSD, the full Superpowers plugin, Everything Claude Code) next to these routes gives the agent two competing processes for the same job.
 
-- **Skills**: reviewed external method artifacts represented as supply-chain inputs, not default runtime activators.
-- **Agents**: scoped bundles of rules, prompts, and workflows built from approved skills.
-- **Profiles**: context templates that adapt validated artifacts to stack, risk level, and operating mode.
-- **Registries**: metadata indexes for methods, tools, routing, and governance assets.
-- **Validators**: command-gated checks for runtime consistency, package surface rules, and public/private safety policy.
-- **Source records**: explicit provenance records (license, freshness, trust review, extraction limits).
+## Use
+Ask for what you want in plain language; the matching route loads. To force one, name it (`/ultimate:uiux`, `/ultimate:review`, …). In Claude Code, `review` and `secure` hand the work to an independent subagent with no file-editing tools (Opus, high effort); the other routes run in your conversation so they can ask you questions.
 
-Current canonical runtime is **5 skills + 12 repo-local agent files**. Agent file presence, compiled fallback presence, registry recommendation, inline fallback use, and actual spawned-agent proof are separate facts.
+## Support status
+| Agent | How it loads | Tested |
+|---|---|---|
+| Claude Code | Plugin: route skills + `review`/`secure` subagents | Plugin schema validated. Eval suite ready; model-in-the-loop results pending (see below). |
+| Codex | Skills (`.agents/skills` or `npx skills`) | Smoke-tested with `codex exec`, one prompt per route. `review`, `build`, `data`, and `mobile` loaded their route and followed it. The test machine also had about 200 other skills installed (old copies with the same names, full Superpowers, and more), and the other prompts went to those skills or were answered directly. A clean measurement needs a Codex profile without other skills. |
+| Others | `npx skills add` | Install listing checked; behavior untested. |
 
-## Quick start
+## Evals
+Each route has `claude plugin eval` cases in `evals/<route>/`: planted problems the route should catch, prompts where it must stay silent, and a pressure case (for example, "just approve it"). Graders are deterministic regex and tool checks. Every case runs with and without the plugin, and the report shows the difference.
+```bash
+claude plugin eval . --model sonnet --max-cost-usd 25
+```
+Eval runs need `CLAUDE_CODE_OAUTH_TOKEN` (from `claude setup-token`) or `ANTHROPIC_API_KEY`. The `evals` GitHub workflow runs the same suite on demand.
 
-1. Read `AGENTS.md` and `README.md`.
-2. Read `docs/ROLLOUT_MATURITY_AND_PUBLIC_RELEASE_READINESS.md` and `docs/NO_FAKE_VALIDATION_POLICY.md`.
-3. Run required validation commands (below).
-4. Edit only in scope and report warnings before PR.
+**Status:** suites for every route are written (59 cases, 207 deterministic grader patterns), but model-in-the-loop results are not published yet because running them needs one of the tokens above. Until they run, the routes are reviewed but unmeasured, which is why the current release is `v1.0.0-rc.1`.
 
-## How to use with AI coding agents
+## Tools
+Routes never install tools. They use what your project already has and suggest the rest: Playwright and axe for UI checks, Vitest/Testing Library for tests, gitleaks/osv-scanner/semgrep for security, and the Supabase CLI for migrations. MCP servers such as Playwright MCP, Context7, or Supabase MCP are optional; add them to your agent yourself if you want them.
 
-Use mode-aligned prompts:
+## What was left out, and why
+| Source | Why |
+|---|---|
+| GSD, the full Superpowers plugin, Everything Claude Code | Whole workflow frameworks (dozens to hundreds of skills) that compete with the routes. Single Superpowers skills are used instead. |
+| Caveman engine, proxy, and binaries | BSL-1.1 license and telemetry. Only the MIT skill is included. |
+| Trail of Bits skills | CC-BY-SA text, sub-agents, and large Python tooling. Their review ideas inform `secure` in our own words. |
+| Vercel agent-skills, Karpathy-inspired skills | No license file. |
+| openai/skills | Deprecated upstream. |
+| Anthropic docx/pdf/pptx/xlsx | Proprietary license. |
+| Matt Pocock to-spec, grill-with-docs, git-guardrails | User-only shims, issue-tracker coupling, or a hook install. |
+| Uncodixfy, UI UX Pro Max | Contradict frontend-design and shadcn; bundled Python database. |
+| Anthropic webapp-testing | Python scripts; `uiux` uses your project's Playwright instead. |
+| Expo skills, Callstack React Native skills | A 21-skill router with hooks, MCP, and a feedback CLI; performance-only scope. |
 
-- planning-only review before implementation,
-- controlled implementation for scoped edits,
-- release review for merge-readiness.
+## Updating
+`sources/lock.json` pins every upstream file by commit and sha256. A monthly workflow opens an issue only when a vendored file changes upstream. Changes are adopted only for bug fixes, new capabilities, or eval gains. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Typical flow:
-
-1. Align scope and do-not-touch constraints.
-2. Implement documentation/workflow-only changes.
-3. Run validation commands.
-4. Open a PR with explicit blockers and remaining risk.
-
-For real projects, treat the toolkit as an AI coding-agent governance and evidence layer. Select or recommend the 5 canonical skills and 12 repo-local project agent lenses explicitly where this runtime is used, report TOML file presence, compiled fallback presence, inline fallback use, and actually spawned agents separately, and use project-owned checks before proposing new tools.
-
-## Validation commands
-
-- `node scripts/validate-public-package.mjs`
-- `node scripts/ai-toolkit/validate-codex-runtime.mjs`
-
-Optional, when release context is requested:
-
-- `node scripts/validate-toolkit.mjs`
-- `node scripts/ai-toolkit/run-toolkit-evals.mjs`
-- `git diff --check`
-- `git status --short`
-
-Only report checks that were actually executed.
-
-There is no dependency install step for the toolkit itself. Do not run `npm install`, create a root package manifest, or activate hooks unless a separate owner-approved task changes that architecture.
-
-## External-facing status
-
-Public-facing status:
-
-- Canonical runtime is **5 skills and 12 agents**.
-- Public package validation can pass while still not proving whole-repo publication readiness.
-- `v0.2.5` is a controlled toolkit release, not a claim of higher maturity, enterprise or production certification, automatic installs, or broad cross-runtime active support.
-- External submissions, marketplace listings, package publication, and broader runtime support remain separate approval-gated actions.
-
-## Limitations
-
-- Not a product runtime.
-- Does not replace project application logic.
-- Does not automatically activate external skills or tools.
-- Public package validation is not full-release proof.
-
-## Contribution path
-
-1. Open an issue with clear scope and expected evidence.
-2. Propose docs and workflow edits in a PR.
-3. Include validation output and unresolved blockers.
-4. Keep changes limited to governance and documentation artifacts.
-
-## License
-
-This repository uses the root `LICENSE`.
+## Credits and license
+Toolkit files are MIT. Vendored files keep their own licenses (MIT or Apache-2.0), with a copy next to each; see [NOTICE.md](NOTICE.md) for every source and commit. Thanks to Addy Osmani, Anthropic, Jesse Vincent (Superpowers), Supabase, shadcn, Dietrich Gebert (Ponytail), and Julius Brussee (Caveman).

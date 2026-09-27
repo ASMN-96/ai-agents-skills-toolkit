@@ -1,39 +1,27 @@
 # Contributing
 
-This toolkit is a governance, provenance, source-safety, quality, and release-discipline layer. Contributions should preserve that boundary.
+This toolkit stays useful by staying small. Every change should make a route measurably better or keep it correct.
 
-## Contribution Rules
+## Change a route
+1. Edit `skills/<route>/SKILL.md` or its toolkit-authored `references/`. Keep the description ≤250 characters and the body ≤120 lines.
+2. Add or update cases in `evals/<route>/` (deterministic `regex` / `tool_used` graders; one must-not-fire case per route).
+3. Run the checks below and paste their output in the PR.
 
-- Keep changes scoped, reviewable, and reversible.
-- Do not add external installs, package changes, CI changes, MCP setup, global config changes, or product-repository writes without explicit approval.
-- Treat external skills, repositories, docs, and tools as supply-chain inputs until reviewed.
-- Do not copy raw upstream skill bodies or tool documentation into active runtime paths.
-- Keep public/core content free of private project names, local machine paths, private repository names, secrets, tokens, credentials, cookies, or environment values.
-- Report dry-run, skipped, metadata-only, mock, planned, partial, or unavailable checks honestly.
+## Add or update an upstream skill
+1. Pick one base author per route. Check the license file itself (not the GitHub label); MIT and Apache-2.0 are fine; no license, proprietary, or share-alike text is not.
+2. Check closure: everything the skill references (other skills, files, scripts, hooks, MCP servers) must come with it, be overridden by a precedence note in the route, or the skill is rejected.
+3. Add the source and files to `sources/lock.json`, then run `node scripts/vendor.mjs` (or `node scripts/vendor.mjs --bump owner/repo` to move to upstream HEAD). Never edit vendored files by hand.
+4. Adopt an upstream change only for a bug fix, a new capability, or an eval gain. Never merge an eval regression.
 
-## Validation
+The monthly `upstream` workflow opens an issue only when a vendored file changed or disappeared upstream.
 
-Run the narrowest relevant checks first, then broader validators before release claims:
+## Checks
+```bash
+node scripts/validate.mjs
+claude plugin validate .claude-plugin/plugin.json --strict
+claude plugin eval . --model sonnet --max-cost-usd 25
+```
+`claude plugin eval` needs `CLAUDE_CODE_OAUTH_TOKEN` (from `claude setup-token`) or `ANTHROPIC_API_KEY` in the environment. Say which checks you ran and which you skipped.
 
-- `node scripts/validate-toolkit.mjs`
-- `node scripts/check-source-freshness.mjs`
-- `node scripts/scan-public-private-leaks.mjs`
-- `node scripts/validate-public-package.mjs`
-- `git diff --check`
-
-## Review Expectations
-
-Pull requests should explain scope, files changed, validation run, WARN output, skipped checks, residual risk, and rollback expectations.
-
-## Method Quality Rubric
-
-Method, skill, profile, routing, or eval contributions should:
-
-- state purpose, trigger, negative trigger, operating boundary, verification requirement, and stop conditions,
-- include source provenance and license/trust boundary when external sources influenced the work,
-- avoid raw upstream copying and close paraphrase from restricted or license-caveated sources,
-- separate routing metadata from runtime/tool execution,
-- include no-fake-validation boundaries for dry-run, mock, fallback, skipped, metadata-only, unavailable, or partial checks,
-- add or update focused evals when behavior or routing changes.
-
-Do not add root package management, pre-commit hooks, generated artifacts, global config, CI behavior, external services, or product-repository sync changes unless the PR scope explicitly approves that architecture.
+## Writing skills
+Anthropic's `skill-creator` skill (anthropics/skills) is a good guide to descriptions, progressive disclosure, and skill evals. Adding a script, doc, or validator rule means removing one.
