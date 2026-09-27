@@ -106,3 +106,39 @@ Everything else in this repository is MIT (see `LICENSE`).
 - `skills/data/upstream/supabase-postgres-best-practices/references/security-privileges.md` ← `skills/supabase-postgres-best-practices/references/security-privileges.md`
 - `skills/data/upstream/supabase-postgres-best-practices/references/security-rls-basics.md` ← `skills/supabase-postgres-best-practices/references/security-rls-basics.md`
 - `skills/data/upstream/supabase-postgres-best-practices/references/security-rls-performance.md` ← `skills/supabase-postgres-best-practices/references/security-rls-performance.md`
+
+## anthropics/skills
+
+- Source: https://github.com/anthropics/skills @ `33375500bcea98d610eb30ce10ac4e59b89c390d`
+- License: Apache-2.0 (per-skill LICENSE.txt)
+- `skills/uiux/upstream/frontend-design/UPSTREAM.md` ← `skills/frontend-design/SKILL.md`
+- `skills/uiux/upstream/frontend-design/LICENSE` ← `skills/frontend-design/LICENSE.txt`
+
+## addyosmani/web-quality-skills
+
+- Source: https://github.com/addyosmani/web-quality-skills @ `afa8da942115f2961fdbfa80807ea0b232ff6c00`
+- License: MIT
+- `skills/uiux/upstream/accessibility/UPSTREAM.md` ← `skills/accessibility/SKILL.md`
+- `skills/uiux/upstream/accessibility/LICENSE` ← `LICENSE`
+- `skills/uiux/upstream/accessibility/references/A11Y-PATTERNS.md` ← `skills/accessibility/references/A11Y-PATTERNS.md`
+- `skills/uiux/upstream/accessibility/references/WCAG.md` ← `skills/accessibility/references/WCAG.md`
+- `skills/uiux/upstream/core-web-vitals/UPSTREAM.md` ← `skills/core-web-vitals/SKILL.md`
+- `skills/uiux/upstream/core-web-vitals/LICENSE` ← `LICENSE`
+- `skills/uiux/upstream/core-web-vitals/references/CLS.md` ← `skills/core-web-vitals/references/CLS.md`
+- `skills/uiux/upstream/core-web-vitals/references/INP.md` ← `skills/core-web-vitals/references/INP.md`
+- `skills/uiux/upstream/core-web-vitals/references/LCP.md` ← `skills/core-web-vitals/references/LCP.md`
+
+## shadcn-ui/ui
+
+- Source: https://github.com/shadcn-ui/ui @ `98a1fe67b439324ddc857f47fbdce056600a4329`
+- License: MIT
+- `skills/uiux/upstream/shadcn/UPSTREAM.md` ← `skills/shadcn/SKILL.md`
+- `skills/uiux/upstream/shadcn/LICENSE` ← `LICENSE.md`
+- `skills/uiux/upstream/shadcn/registry.md` ← `skills/shadcn/registry.md`
+- `skills/uiux/upstream/shadcn/customization.md` ← `skills/shadcn/customization.md`
+- `skills/uiux/upstream/shadcn/rules/base-vs-radix.md` ← `skills/shadcn/rules/base-vs-radix.md`
+- `skills/uiux/upstream/shadcn/rules/chat.md` ← `skills/shadcn/rules/chat.md`
+- `skills/uiux/upstream/shadcn/rules/composition.md` ← `skills/shadcn/rules/composition.md`
+- `skills/uiux/upstream/shadcn/rules/forms.md` ← `skills/shadcn/rules/forms.md`
+- `skills/uiux/upstream/shadcn/rules/icons.md` ← `skills/shadcn/rules/icons.md`
+- `skills/uiux/upstream/shadcn/rules/styling.md` ← `skills/shadcn/rules/styling.md`

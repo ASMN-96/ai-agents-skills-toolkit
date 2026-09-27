@@ -19,6 +19,18 @@
     "supabase/agent-skills": {
       "commit": "551274ed2fe97c8fea1325f7ceb05803a542f8df",
       "license": "MIT"
+    },
+    "anthropics/skills": {
+      "commit": "33375500bcea98d610eb30ce10ac4e59b89c390d",
+      "license": "Apache-2.0 (per-skill LICENSE.txt)"
+    },
+    "addyosmani/web-quality-skills": {
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "license": "MIT"
+    },
+    "shadcn-ui/ui": {
+      "commit": "98a1fe67b439324ddc857f47fbdce056600a4329",
+      "license": "MIT"
     }
   },
   "files": [
@@ -489,6 +501,132 @@
       "from": "references/security-checklist.md",
       "to": "skills/secure/references/security-checklist.md",
       "sha256": "37774056502fe8970dcd2fd27dca5fa31f2a55232649fc3056c89c3af7d62755"
+    },
+    {
+      "source": "anthropics/skills",
+      "from": "skills/frontend-design/SKILL.md",
+      "to": "skills/uiux/upstream/frontend-design/UPSTREAM.md",
+      "sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3"
+    },
+    {
+      "source": "anthropics/skills",
+      "from": "skills/frontend-design/LICENSE.txt",
+      "to": "skills/uiux/upstream/frontend-design/LICENSE",
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "source": "addyosmani/web-quality-skills",
+      "from": "skills/accessibility/SKILL.md",
+      "to": "skills/uiux/upstream/accessibility/UPSTREAM.md",
+      "sha256": "267fb2a0707d6142f2871f22688203a42ba21291a2aa200fb740936e41362b5d"
+    },
+    {
+      "source": "addyosmani/web-quality-skills",
+      "from": "LICENSE",
+      "to": "skills/uiux/upstream/accessibility/LICENSE",
+      "sha256": "c122223ac43e86421958e18623979942c21b642951e2e3736dcb63eff13587c3"
+    },
+    {
+      "source": "addyosmani/web-quality-skills",
+      "from": "skills/accessibility/references/A11Y-PATTERNS.md",
+      "to": "skills/uiux/upstream/accessibility/references/A11Y-PATTERNS.md",
+      "sha256": "f10e238dd4dd3c4f51134c2056bc02d3dd4f8fb6ccc9145c2c1ba7aab4d58140"
+    },
+    {
+      "source": "addyosmani/web-quality-skills",
+      "from": "skills/accessibility/references/WCAG.md",
+      "to": "skills/uiux/upstream/accessibility/references/WCAG.md",
+      "sha256": "16683e025e3833d931c9d880645d98a448827f97e10189b6c8f12c832e7a2361"
+    },
+    {
+      "source": "addyosmani/web-quality-skills",
+      "from": "skills/core-web-vitals/SKILL.md",
+      "to": "skills/uiux/upstream/core-web-vitals/UPSTREAM.md",
+      "sha256": "731aa78c0347e8b3e191b75962175bee058ce73817278e610ac0fe546e685914"
+    },
+    {
+      "source": "addyosmani/web-quality-skills",
+      "from": "LICENSE",
+      "to": "skills/uiux/upstream/core-web-vitals/LICENSE",
+      "sha256": "c122223ac43e86421958e18623979942c21b642951e2e3736dcb63eff13587c3"
+    },
+    {
+      "source": "addyosmani/web-quality-skills",
+      "from": "skills/core-web-vitals/references/CLS.md",
+      "to": "skills/uiux/upstream/core-web-vitals/references/CLS.md",
+      "sha256": "c4fa0cd6311720b413018471a6ac9240e87db52af3b6e306ffb6684491f15898"
+    },
+    {
+      "source": "addyosmani/web-quality-skills",
+      "from": "skills/core-web-vitals/references/INP.md",
+      "to": "skills/uiux/upstream/core-web-vitals/references/INP.md",
+      "sha256": "7d40cf6053e9bb8a8a77e02da7c6b25aa8e6c1c092b48d8f9c8f30e9b25cf3a7"
+    },
+    {
+      "source": "addyosmani/web-quality-skills",
+      "from": "skills/core-web-vitals/references/LCP.md",
+      "to": "skills/uiux/upstream/core-web-vitals/references/LCP.md",
+      "sha256": "522054d44b7a55409cbde511e8d365f7fa52399dd1e72b8d6b44a92ecddca81f"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "from": "skills/shadcn/SKILL.md",
+      "to": "skills/uiux/upstream/shadcn/UPSTREAM.md",
+      "sha256": "deba6c5152d9835892fa7dffeb1fedbb689ddac7e59e14e57ec5eaf9463309e4"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "from": "LICENSE.md",
+      "to": "skills/uiux/upstream/shadcn/LICENSE",
+      "sha256": "1564074e13439397221ffd522e2e504d56561994a23d371aa5e3ad43e4f5423f"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "from": "skills/shadcn/registry.md",
+      "to": "skills/uiux/upstream/shadcn/registry.md",
+      "sha256": "4f239be36bd2b58e17047db1ca80ab7da00e15a8b73242e5e4d50d113c4caa05"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "from": "skills/shadcn/customization.md",
+      "to": "skills/uiux/upstream/shadcn/customization.md",
+      "sha256": "84c1d47168c4b8adb5840e4af30a4e373ae3377c1110478c8974f398dd63f5ba"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "from": "skills/shadcn/rules/base-vs-radix.md",
+      "to": "skills/uiux/upstream/shadcn/rules/base-vs-radix.md",
+      "sha256": "2b2deb47d004285220c1fc6b38bb2edc2d0ccbcdafd031b0b189d5d8ed0d1ba8"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "from": "skills/shadcn/rules/chat.md",
+      "to": "skills/uiux/upstream/shadcn/rules/chat.md",
+      "sha256": "de29c12524a27578a59ecf8c95ea939278c1a3572a3706bfc99f6f92cb770b7b"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "from": "skills/shadcn/rules/composition.md",
+      "to": "skills/uiux/upstream/shadcn/rules/composition.md",
+      "sha256": "f282df828d83a91132a846ddb62eea149a7c7c94822e9ca88cfddf85af01aa41"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "from": "skills/shadcn/rules/forms.md",
+      "to": "skills/uiux/upstream/shadcn/rules/forms.md",
+      "sha256": "29593e14381e34626f8e0e9c15c59f3394b92a0623af6a6ec94585400123853c"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "from": "skills/shadcn/rules/icons.md",
+      "to": "skills/uiux/upstream/shadcn/rules/icons.md",
+      "sha256": "d4a58266648872d9ee07d0c2368843a1cb88b8253b7f528dd7bda9d68b6c2535"
+    },
+    {
+      "source": "shadcn-ui/ui",
+      "from": "skills/shadcn/rules/styling.md",
+      "to": "skills/uiux/upstream/shadcn/rules/styling.md",
+      "sha256": "f88fbd72dff862805b786dc7d7e4c74c83030fc278c5b97c993e4e665001798c"
     }
   ]
 }

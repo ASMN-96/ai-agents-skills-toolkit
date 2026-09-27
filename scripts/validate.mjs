@@ -90,15 +90,21 @@ for (const d of new Set(lock.files.filter((f) => f.to.includes("/upstream/")).ma
   if (!existsSync(join(ROOT, d, "LICENSE"))) fail("R7", `${d} has no LICENSE next to the vendored file`);
 }
 
-// R8: closure. Relative links and backticked file paths in skills must resolve.
+// R8: closure. Relative links and backticked file paths in skills must resolve. A vendored link to its
+// own SKILL.md resolves to the renamed UPSTREAM.md; other dangling links inside vendored files are
+// warnings (the route's precedence notes must cover them); in toolkit-authored files they fail.
 const pathRef = /\]\((\.{1,2}\/[^)#\s]+)|`((?:\.{1,2}\/|upstream\/|references\/)[^`\s]+\.md)`/g;
+const resolves = (from, target) => {
+  const direct = join(dirname(from), target);
+  if (existsSync(direct)) return true;
+  if (target.endsWith("SKILL.md") && existsSync(join(dirname(direct), "UPSTREAM.md"))) return true;
+  return existsSync(join(ROOT, "skills", rel(from).split("/")[1], target));
+};
 for (const p of walk(join(ROOT, "skills")).filter((x) => x.endsWith(".md"))) {
-  for (const m of read(p).matchAll(pathRef)) {
-    const target = m[1] || m[2];
-    if (!existsSync(join(dirname(p), target))) {
-      const base = join(ROOT, "skills", rel(p).split("/")[1]);
-      if (!existsSync(join(base, target))) fail("R8", `${rel(p)} references ${target}, which does not exist`);
-    }
+  for (const target of new Set([...read(p).matchAll(pathRef)].map((m) => m[1] || m[2]))) {
+    if (resolves(p, target)) continue;
+    if (lockedPaths.has(rel(p))) warn("R8", `${rel(p)} (vendored) links to ${target}, which is not vendored`);
+    else fail("R8", `${rel(p)} references ${target}, which does not exist`);
   }
 }
 
