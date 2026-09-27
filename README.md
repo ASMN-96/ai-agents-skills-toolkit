@@ -1,6 +1,6 @@
 # Ultimate Toolkit
 
-Curated skill routes for AI coding agents. Nine routes cover the main jobs (plan, build, UI/UX, debug, review, secure, data, mobile, ship). Each one is built from the best upstream skills, copied unmodified at pinned commits, deduplicated, and checked with real evals.
+Curated skill routes for AI coding agents. Nine routes cover the main jobs (plan, build, UI/UX, debug, review, secure, data, mobile, ship). Each one is built from the best upstream skills, copied unmodified at pinned commits, deduplicated, and given an eval suite per route.
 
 It works with Claude Code and Codex, and with other agents that read the [Agent Skills](https://agentskills.io) format (OpenCode, Cursor, Gemini CLI, Copilot, and more).
 
@@ -14,8 +14,8 @@ Agents choose skills by reading every installed skill's description on every tur
 | `build` | Implementing features: failing test first, small steps, least code | Your conversation | Addy Osmani: test-driven-development, incremental-implementation · Ponytail |
 | `uiux` | Design direction, accessibility (WCAG 2.2 AA), responsive layout, Core Web Vitals, browser checks | Your conversation | Anthropic frontend-design · Addy Osmani web-quality (accessibility, core-web-vitals) · shadcn/ui |
 | `debug` | Bugs, failing tests, crashes: root cause, then a regression test | Your conversation | Superpowers systematic-debugging · Addy Osmani observability, error recovery |
-| `review` | Reviewing a diff or PR before merge | Read-only subagent (Opus, high effort) | Addy Osmani code-review-and-quality · Ponytail review |
-| `secure` | Security audit and threat model: auth, RLS, secrets, dependencies, CI, LLM features | Read-only subagent (Opus, high effort) | Addy Osmani security-and-hardening · toolkit notes on OWASP, Supabase RLS, CI |
+| `review` | Reviewing a diff or PR before merge | Subagent without edit tools (Opus, high effort) | Addy Osmani code-review-and-quality · Ponytail review |
+| `secure` | Security audit and threat model: auth, RLS, secrets, dependencies, CI, LLM features | Subagent without edit tools (Opus, high effort) | Addy Osmani security-and-hardening · toolkit notes on OWASP, Supabase RLS, CI |
 | `data` | Supabase/Postgres schema, migrations, RLS policies, query performance | Your conversation | Supabase's official agent skills |
 | `mobile` | React Native/Expo/native apps, WebViews, deep links, store readiness | Your conversation | Toolkit-written checklists (no upstream mobile skill passed review) |
 | `ship` | Verify before "done", PR descriptions, release notes, rollback | Your conversation | Superpowers verification-before-completion, finishing-a-development-branch |
@@ -37,16 +37,18 @@ npx skills add ASMN-96/ai-agents-skills-toolkit
 ```
 Or copy the folders in `skills/` into your project's `.agents/skills/` (Codex and OpenCode read it).
 
+Upgrading from v0.2 of this toolkit? Remove its old globally installed skills and agents first (for Codex: `~/.codex/skills/{governance,uiux,code-quality,security-review,pr-release-gate}` and the `*-agent.toml` files in `~/.codex/agents`). The old `uiux` skill has the same name as the new route, and the old ones still get loaded next to the new routes.
+
 Keep the rest of your skill list lean. Running a full workflow framework (GSD, the full Superpowers plugin, Everything Claude Code) next to these routes gives the agent two competing processes for the same job.
 
 ## Use
-Ask for what you want in plain language; the matching route loads. To force one, name it (`/ultimate:uiux`, `/ultimate:review`, …). In Claude Code, `review` and `secure` hand the work to an independent read-only subagent (Opus, high effort); the other routes run in your conversation so they can ask you questions.
+Ask for what you want in plain language; the matching route loads. To force one, name it (`/ultimate:uiux`, `/ultimate:review`, …). In Claude Code, `review` and `secure` hand the work to an independent subagent with no file-editing tools (Opus, high effort); the other routes run in your conversation so they can ask you questions.
 
 ## Support status
 | Agent | How it loads | Tested |
 |---|---|---|
 | Claude Code | Plugin: route skills + `review`/`secure` subagents | Plugin schema validated. Eval suite ready; model-in-the-loop results pending (see below). |
-| Codex | Skills (`.agents/skills` or `npx skills`) | Smoke-tested: picked the review route, read its files, followed its output format. |
+| Codex | Skills (`.agents/skills` or `npx skills`) | Smoke-tested with `codex exec`, one prompt per route. `review`, `build`, `data`, and `mobile` loaded their route and followed it. The test machine also had about 200 other skills installed (old copies with the same names, full Superpowers, and more), and the other prompts went to those skills or were answered directly. A clean measurement needs a Codex profile without other skills. |
 | Others | `npx skills add` | Install listing checked; behavior untested. |
 
 ## Evals
@@ -56,7 +58,7 @@ claude plugin eval . --model sonnet --max-cost-usd 25
 ```
 Eval runs need `CLAUDE_CODE_OAUTH_TOKEN` (from `claude setup-token`) or `ANTHROPIC_API_KEY`. The `evals` GitHub workflow runs the same suite on demand.
 
-**Status:** EVAL_STATUS
+**Status:** suites for every route are written (59 cases, 207 deterministic grader patterns), but model-in-the-loop results are not published yet because running them needs one of the tokens above. Until they run, the routes are reviewed but unmeasured, which is why the current release is `v1.0.0-rc.1`.
 
 ## Tools
 Routes never install tools. They use what your project already has and suggest the rest: Playwright and axe for UI checks, Vitest/Testing Library for tests, gitleaks/osv-scanner/semgrep for security, and the Supabase CLI for migrations. MCP servers such as Playwright MCP, Context7, or Supabase MCP are optional; add them to your agent yourself if you want them.
