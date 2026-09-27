@@ -46,7 +46,7 @@ Everything else in this repository is MIT (see `LICENSE`).
 ## JuliusBrussee/caveman
 
 - Source: https://github.com/JuliusBrussee/caveman @ `2fd153c67988e980fb0b2455c90832159a6a5a25`
-- License: MIT (skills/ only; engine, proxy, and binaries are BSL-1.1 and not vendored)
+- License: MIT (skills/ only; engine/, rewriter/, browse/, proxy/, mcp/, shrink/, mem Go core, shared/platform/ are BSL-1.1, not vendored)
 - `skills/caveman/upstream/caveman/UPSTREAM.md` ← `skills/caveman/SKILL.md`
 - `skills/caveman/upstream/caveman/LICENSE` ← `LICENSE`
 

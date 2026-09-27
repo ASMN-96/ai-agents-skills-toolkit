@@ -1,4 +1,4 @@
 ---
 type: regex
-pattern: '(expect\(|it\(|test\()'
+pattern: '\b(it|test)\(\s*[''"`]'
 ---

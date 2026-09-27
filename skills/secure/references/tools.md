@@ -2,8 +2,9 @@
 
 This route is read-only: never install a tool, never run a networked scan, and never
 invoke any of these without asking first. If the project already has one configured
-(a package script, a CI job, a lockfile entry), you may run its existing script and
-read the output. Otherwise, name the gap and suggest the tool — don't set it up.
+(a package script, a CI job, a lockfile entry), you may suggest its existing script;
+run it only after the user confirms (the secure agent cannot ask, so it only suggests).
+Otherwise, name the gap and suggest the tool — don't set it up.
 
 | Tool | Checks | Look for |
 |---|---|---|

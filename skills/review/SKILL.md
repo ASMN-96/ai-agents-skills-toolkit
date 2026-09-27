@@ -27,7 +27,8 @@ Paths below are relative to this skill's folder (in Claude Code: `${CLAUDE_SKILL
 
 ## Precedence (overrides upstream text)
 - Where upstream mentions a `security-and-hardening` skill, use `references/security-checklist.md`; for a full audit (threat model, dependencies, secrets), recommend the `secure` route.
-- The severity labels from code-review-and-quality are the only taxonomy. Ponytail findings go under a separate "Simplify" heading and never outrank a correctness or security finding.
+- The severity labels from code-review-and-quality are the only taxonomy. Ponytail findings go under a separate "Simplify" heading and never outrank a correctness or security finding; its "Lean already. Ship." line belongs in that section, never in the verdict.
+- The performance checklist names a `performance-optimization` skill that is not vendored; the checklist itself is the depth here. Never run `npx`, Lighthouse, bundle analyzers, or installs; list such commands as suggestions.
 - Never say a test, build, or scanner passed unless its output is in this session.
 
 ## Output

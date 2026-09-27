@@ -5,10 +5,20 @@ Curated skill routes for AI coding agents. Nine routes cover the main jobs (plan
 It works with Claude Code and Codex, and with other agents that read the [Agent Skills](https://agentskills.io) format (OpenCode, Cursor, Gemini CLI, Copilot, and more).
 
 ## Why routes, not a big pile of skills
-Agents choose skills by reading every installed skill's description on every turn. Past a few dozen skills, descriptions overlap, the wrong one fires, and some are silently dropped from the list. So this toolkit exposes **one skill per route** (about 330 characters of listing space in total). Each route tells the agent which upstream material to read, in what order, and which rule wins when sources disagree.
+Agents choose skills by reading every installed skill's description on every turn. Past a few dozen skills, descriptions overlap, the wrong one fires, and some are silently dropped from the list. So this toolkit exposes **one skill per route**: nine descriptions, about 3,000 characters of listing space in total, checked on every change. Each route tells the agent which upstream material to read, in what order, and which rule wins when sources disagree.
 
 ## Routes
-ROUTES_TABLE
+| Route | Use it for | Runs as | Built from |
+|---|---|---|---|
+| `plan` | Idea → spec, acceptance criteria, small tasks, API design | Your conversation | Addy Osmani: spec-driven-development, planning-and-task-breakdown, api-and-interface-design |
+| `build` | Implementing features: failing test first, small steps, least code | Your conversation | Addy Osmani: test-driven-development, incremental-implementation · Ponytail |
+| `uiux` | Design direction, accessibility (WCAG 2.2 AA), responsive layout, Core Web Vitals, browser checks | Your conversation | Anthropic frontend-design · Addy Osmani web-quality (accessibility, core-web-vitals) · shadcn/ui |
+| `debug` | Bugs, failing tests, crashes: root cause, then a regression test | Your conversation | Superpowers systematic-debugging · Addy Osmani observability, error recovery |
+| `review` | Reviewing a diff or PR before merge | Read-only subagent (Opus, high effort) | Addy Osmani code-review-and-quality · Ponytail review |
+| `secure` | Security audit and threat model: auth, RLS, secrets, dependencies, CI, LLM features | Read-only subagent (Opus, high effort) | Addy Osmani security-and-hardening · toolkit notes on OWASP, Supabase RLS, CI |
+| `data` | Supabase/Postgres schema, migrations, RLS policies, query performance | Your conversation | Supabase's official agent skills |
+| `mobile` | React Native/Expo/native apps, WebViews, deep links, store readiness | Your conversation | Toolkit-written checklists (no upstream mobile skill passed review) |
+| `ship` | Verify before "done", PR descriptions, release notes, rollback | Your conversation | Superpowers verification-before-completion, finishing-a-development-branch |
 
 `caveman` is opt-in only: run `/ultimate:caveman` (Claude Code) or ask for caveman mode. It shortens replies and never compresses code, commands, or errors.
 
@@ -52,7 +62,18 @@ Eval runs need `CLAUDE_CODE_OAUTH_TOKEN` (from `claude setup-token`) or `ANTHROP
 Routes never install tools. They use what your project already has and suggest the rest: Playwright and axe for UI checks, Vitest/Testing Library for tests, gitleaks/osv-scanner/semgrep for security, and the Supabase CLI for migrations. MCP servers such as Playwright MCP, Context7, or Supabase MCP are optional; add them to your agent yourself if you want them.
 
 ## What was left out, and why
-EXCLUDED_TABLE
+| Source | Why |
+|---|---|
+| GSD, the full Superpowers plugin, Everything Claude Code | Whole workflow frameworks (dozens to hundreds of skills) that compete with the routes. Single Superpowers skills are used instead. |
+| Caveman engine, proxy, and binaries | BSL-1.1 license and telemetry. Only the MIT skill is included. |
+| Trail of Bits skills | CC-BY-SA text, sub-agents, and large Python tooling. Their review ideas inform `secure` in our own words. |
+| Vercel agent-skills, Karpathy-inspired skills | No license file. |
+| openai/skills | Deprecated upstream. |
+| Anthropic docx/pdf/pptx/xlsx | Proprietary license. |
+| Matt Pocock to-spec, grill-with-docs, git-guardrails | User-only shims, issue-tracker coupling, or a hook install. |
+| Uncodixfy, UI UX Pro Max | Contradict frontend-design and shadcn; bundled Python database. |
+| Anthropic webapp-testing | Python scripts; `uiux` uses your project's Playwright instead. |
+| Expo skills, Callstack React Native skills | A 21-skill router with hooks, MCP, and a feedback CLI; performance-only scope. |
 
 ## Updating
 `sources/lock.json` pins every upstream file by commit and sha256. A monthly workflow opens an issue only when a vendored file changes upstream. Changes are adopted only for bug fixes, new capabilities, or eval gains. See [CONTRIBUTING.md](CONTRIBUTING.md).

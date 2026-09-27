@@ -24,4 +24,4 @@ Paths below are relative to this skill's folder (in Claude Code: `${CLAUDE_SKILL
 
 ## Honest limits
 - This is a style instruction. In long sessions it can drift; re-invoke it if replies get long again.
-- Independent testing found about 8.5% fewer output tokens across real agent tasks, with no measurable quality change. Expect small savings, not the 65% headline.
+- JetBrains' paired test across 86 real agent tasks found about 8.5% fewer output tokens and no measurable quality change ([source](https://blog.jetbrains.com/ai/2026/07/speak-to-ai-agents-like-cavemen-tosave-tokens/)). Expect small savings, not the 65% headline.

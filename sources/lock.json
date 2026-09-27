@@ -10,7 +10,7 @@
     },
     "JuliusBrussee/caveman": {
       "commit": "2fd153c67988e980fb0b2455c90832159a6a5a25",
-      "license": "MIT (skills/ only; engine, proxy, and binaries are BSL-1.1 and not vendored)"
+      "license": "MIT (skills/ only; engine/, rewriter/, browse/, proxy/, mcp/, shrink/, mem Go core, shared/platform/ are BSL-1.1, not vendored)"
     },
     "obra/superpowers": {
       "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",

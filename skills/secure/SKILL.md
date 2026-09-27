@@ -1,6 +1,6 @@
 ---
 name: secure
-description: Security audit of code or a feature - threat model, authN/authZ (BOLA/IDOR, tenant isolation, Supabase RLS), input handling, secrets, deps, supply chain, CI/CD, mobile/WebView, LLM/agent surfaces. Read-only; reports findings, never edits code.
+description: Security audit of code or a feature - threat model, authN/authZ (BOLA/IDOR, tenant isolation, Supabase RLS), input handling, secrets, deps, supply chain, CI/CD, mobile/WebView, LLM/agent surfaces. Use for audits/threat models, not general PR review.
 license: MIT
 ---
 

@@ -35,6 +35,7 @@ Fix the root cause from step 2, one change at a time — no bundled refactors. A
 - Where systematic-debugging says to use the `superpowers:verification-before-completion` skill, ignore the reference — not vendored here; use this route's Output section instead.
 - `find-polluter.sh` and `condition-based-waiting-example.ts`, mentioned by the vendored files, are not vendored (scripts and example code, not essential to the technique). Do the bisection or polling by hand using the described pattern.
 - Where observability-and-instrumentation points to a `debugging-and-error-recovery` skill, that's `upstream/debugging-and-error-recovery/UPSTREAM.md` in this route. Where it points to `performance-optimization`, use the review route's performance checklist (skills/review/references/performance-checklist.md). Where it points to `shipping-and-launch`, recommend the `ship` route.
+- Never run `npm install`, `npx`, or other installs without asking. Where observability-and-instrumentation points to a `security-and-hardening` skill, recommend the `secure` route.
 - Never say a test, build, reproduction, or telemetry check passed unless its output is in this session.
 
 ## Output

@@ -50,6 +50,13 @@ Paths below are relative to this skill's folder (in Claude Code:
 - Ignore that file's "Reference Guides → Skill Feedback" section and any
   instruction to file a GitHub issue on `supabase/agent-skills` — this
   route does not vendor that reference and does not file upstream issues.
+- Ignore upstream's "Option B" (`execute_sql` or `supabase db query` for
+  schema changes), "run a test query", and `supabase db pull --yes`: write
+  the migration file and run nothing against any database unless the user
+  asks.
+- Upstream's required changelog/docs fetches and web searches are optional
+  here; use only tools the user enabled, and say when current docs were not
+  checked.
 - Never put the `service_role` key (or any secret key) in client code,
   browser bundles, or a `NEXT_PUBLIC_`-style env var; use it only in a
   trusted server context, and say so if a request would expose it.

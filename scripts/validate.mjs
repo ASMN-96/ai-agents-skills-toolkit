@@ -93,7 +93,7 @@ for (const d of new Set(lock.files.filter((f) => f.to.includes("/upstream/")).ma
 // R8: closure. Relative links and backticked file paths in skills must resolve. A vendored link to its
 // own SKILL.md resolves to the renamed UPSTREAM.md; other dangling links inside vendored files are
 // warnings (the route's precedence notes must cover them); in toolkit-authored files they fail.
-const pathRef = /\]\((\.{1,2}\/[^)#\s]+)|`((?:\.{1,2}\/|upstream\/|references\/)[^`\s]+\.md)`/g;
+const pathRef = /\]\(((?:\.{1,2}\/|upstream\/|references\/)[^)#\s]+)|`((?:\.{1,2}\/|upstream\/|references\/)[^`\s]+\.md)`/g;
 const resolves = (from, target) => {
   const direct = join(dirname(from), target);
   if (existsSync(direct)) return true;

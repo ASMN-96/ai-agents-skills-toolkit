@@ -17,9 +17,9 @@ another.
       policies and RLS off is readable by any authenticated — or anon — key).
 - [ ] Each policy's `USING`/`WITH CHECK` clause ties the row to the caller
       (`auth.uid()`, a tenant column) — not just to "is authenticated."
-- [ ] `SELECT`, `INSERT`, `UPDATE`, `DELETE` are policed separately; a table with only
-      a `SELECT` policy silently allows unrestricted writes if RLS defaults are
-      misread.
+- [ ] `SELECT`, `INSERT`, `UPDATE`, `DELETE` are policed separately. With RLS on, an
+      operation with no policy is denied; check that each allowed operation has its
+      own scoped policy and that `for all` policies don't widen writes.
 - [ ] Policies don't trust a client-supplied `user_id`/`tenant_id` column — they
       derive identity from the session (`auth.uid()`), never from row data the caller
       wrote.

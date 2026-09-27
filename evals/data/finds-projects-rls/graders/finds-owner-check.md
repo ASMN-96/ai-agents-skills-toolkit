@@ -1,6 +1,6 @@
 ---
 type: regex
-pattern: 'auth\.uid\(\)\s*=\s*owner_id|owner_id\s*=\s*auth\.uid\(\)|owner_id\s*=\s*\(select auth\.uid\(\)\)'
+pattern: '\(?\s*(select\s+)?auth\.uid\(\)\s*\)?\s*=\s*owner_id|owner_id\s*=\s*\(?\s*(select\s+)?auth\.uid\(\)'
 flags: i
 weight: 2
 ---
