@@ -25,6 +25,14 @@ Everything else in this repository is MIT (see `LICENSE`).
 - `skills/build/upstream/incremental-implementation/LICENSE` ← `LICENSE`
 - `skills/build/references/testing-patterns.md` ← `references/testing-patterns.md`
 - `skills/build/references/definition-of-done.md` ← `references/definition-of-done.md`
+- `skills/debug/upstream/observability-and-instrumentation/UPSTREAM.md` ← `skills/observability-and-instrumentation/SKILL.md`
+- `skills/debug/upstream/observability-and-instrumentation/LICENSE` ← `LICENSE`
+- `skills/debug/upstream/debugging-and-error-recovery/UPSTREAM.md` ← `skills/debugging-and-error-recovery/SKILL.md`
+- `skills/debug/upstream/debugging-and-error-recovery/LICENSE` ← `LICENSE`
+- `skills/debug/references/observability-checklist.md` ← `references/observability-checklist.md`
+- `skills/secure/upstream/security-and-hardening/UPSTREAM.md` ← `skills/security-and-hardening/SKILL.md`
+- `skills/secure/upstream/security-and-hardening/LICENSE` ← `LICENSE`
+- `skills/secure/references/security-checklist.md` ← `references/security-checklist.md`
 
 ## DietrichGebert/ponytail
 
@@ -50,6 +58,11 @@ Everything else in this repository is MIT (see `LICENSE`).
 - `skills/ship/upstream/verification-before-completion/LICENSE` ← `LICENSE`
 - `skills/ship/upstream/finishing-a-development-branch/UPSTREAM.md` ← `skills/finishing-a-development-branch/SKILL.md`
 - `skills/ship/upstream/finishing-a-development-branch/LICENSE` ← `LICENSE`
+- `skills/debug/upstream/systematic-debugging/UPSTREAM.md` ← `skills/systematic-debugging/SKILL.md`
+- `skills/debug/upstream/systematic-debugging/LICENSE` ← `LICENSE`
+- `skills/debug/upstream/systematic-debugging/root-cause-tracing.md` ← `skills/systematic-debugging/root-cause-tracing.md`
+- `skills/debug/upstream/systematic-debugging/defense-in-depth.md` ← `skills/systematic-debugging/defense-in-depth.md`
+- `skills/debug/upstream/systematic-debugging/condition-based-waiting.md` ← `skills/systematic-debugging/condition-based-waiting.md`
 
 ## supabase/agent-skills
 

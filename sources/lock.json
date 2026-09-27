@@ -411,6 +411,84 @@
       "from": "LICENSE",
       "to": "skills/build/upstream/ponytail/LICENSE",
       "sha256": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab"
+    },
+    {
+      "source": "obra/superpowers",
+      "from": "skills/systematic-debugging/SKILL.md",
+      "to": "skills/debug/upstream/systematic-debugging/UPSTREAM.md",
+      "sha256": "808fc5717aa88ad65efff312b11c186294d3e6ee301afb584e2f86599b137787"
+    },
+    {
+      "source": "obra/superpowers",
+      "from": "LICENSE",
+      "to": "skills/debug/upstream/systematic-debugging/LICENSE",
+      "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400"
+    },
+    {
+      "source": "obra/superpowers",
+      "from": "skills/systematic-debugging/root-cause-tracing.md",
+      "to": "skills/debug/upstream/systematic-debugging/root-cause-tracing.md",
+      "sha256": "75b933b6a8c40bdb2031b10f21654395b56ec6ab6bc7b018c18d3fe57aeb7fb8"
+    },
+    {
+      "source": "obra/superpowers",
+      "from": "skills/systematic-debugging/defense-in-depth.md",
+      "to": "skills/debug/upstream/systematic-debugging/defense-in-depth.md",
+      "sha256": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7"
+    },
+    {
+      "source": "obra/superpowers",
+      "from": "skills/systematic-debugging/condition-based-waiting.md",
+      "to": "skills/debug/upstream/systematic-debugging/condition-based-waiting.md",
+      "sha256": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "skills/observability-and-instrumentation/SKILL.md",
+      "to": "skills/debug/upstream/observability-and-instrumentation/UPSTREAM.md",
+      "sha256": "e7fcb0820306d46268de9594d676ad98e35040858926c412b7000faa52a61f87"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "LICENSE",
+      "to": "skills/debug/upstream/observability-and-instrumentation/LICENSE",
+      "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "skills/debugging-and-error-recovery/SKILL.md",
+      "to": "skills/debug/upstream/debugging-and-error-recovery/UPSTREAM.md",
+      "sha256": "21f3960f5d7ae2cc95c40896545004dbbcbbd752ea65fc2d53962554d4174220"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "LICENSE",
+      "to": "skills/debug/upstream/debugging-and-error-recovery/LICENSE",
+      "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "references/observability-checklist.md",
+      "to": "skills/debug/references/observability-checklist.md",
+      "sha256": "25fcd0e854596a5ab6f11b002050d245bf78f5ae0fcbd1df699b89451ae0e1e8"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "skills/security-and-hardening/SKILL.md",
+      "to": "skills/secure/upstream/security-and-hardening/UPSTREAM.md",
+      "sha256": "2e3fc60eed5aba97fe416f3f3c9317fdb014a682925ec70a733c3ff99e4b9858"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "LICENSE",
+      "to": "skills/secure/upstream/security-and-hardening/LICENSE",
+      "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+    },
+    {
+      "source": "addyosmani/agent-skills",
+      "from": "references/security-checklist.md",
+      "to": "skills/secure/references/security-checklist.md",
+      "sha256": "37774056502fe8970dcd2fd27dca5fa31f2a55232649fc3056c89c3af7d62755"
     }
   ]
 }
